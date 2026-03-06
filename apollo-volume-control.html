@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Volume Control — Headroom</title>
+    <link rel="canonical" href="https://headroomstudio.dev/apollo-volume-control.html">
+    <meta name="description" content="F-key volume control for Universal Audio interfaces. Works via UA Mixer Engine — Console and your signal chain are untouched.">
+    <meta property="og:title" content="Apollo Volume Control">
+    <meta property="og:description" content="F-key volume control for Universal Audio interfaces, right from your keyboard.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand em { font-style: normal; color: var(--accent); }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 56px 0 52px;
+            display: flex;
+            align-items: flex-start;
+            gap: 28px;
+        }
+
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            border-radius: 20px;
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .hero-text {}
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.7rem, 4vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.65;
+            margin-bottom: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ─── Buttons ─── */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border-radius: var(--radius-btn);
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.18s, transform 0.12s;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background: var(--green);
+            color: #061a0e;
+        }
+
+        .btn-primary:hover { opacity: 0.88; }
+
+        .btn-muted {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-3);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--text-2);
+        }
+
+        /* ─── Badges ─── */
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: var(--radius-badge);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-2);
+        }
+
+        .badge-macos {
+            background: rgba(50, 130, 220, 0.12);
+            color: #5aabee;
+        }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ─── Sections ─── */
+
+        .section {
+            padding-bottom: 52px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        /* ─── Features list ─── */
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature-row:first-child { border-top: 1px solid var(--border); }
+
+        .feature-key {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            min-width: 100px;
+            padding-top: 1px;
+        }
+
+        .feature-val {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Requirements ─── */
+
+        .req-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .req-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .req-label {
+            color: var(--text-3);
+            min-width: 80px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .req-val {
+            color: var(--text-2);
+        }
+
+        /* ─── Prose ─── */
+
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.8;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+
+        .prose strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .prose a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+
+        .prose a:hover { color: #a0aaff; }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin-top: 20px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.5;
+        }
+
+        .notice p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .notice a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        /* ─── Responsive ─── */
+
+        @media (max-width: 560px) {
+            .hero { flex-direction: column; gap: 20px; padding: 40px 0 40px; }
+            .hero-icon { width: 64px; height: 64px; min-width: 64px; }
+            .feature-key { min-width: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">Head<em>room</em></a>
+        <a href="/" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            All apps
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <div class="hero-icon">
+            <svg width="44" height="44" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 8.5 26.26 A 13 13 0 1 1 21.5 26.26"
+                      stroke="#7c84f6" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="15" cy="15" r="4.5" fill="#7c84f6"/>
+                <line x1="15" y1="4.6" x2="15" y2="8.2"
+                      stroke="#c8d0ff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">Headroom</p>
+            <h1>Apollo Volume Control</h1>
+            <p class="hero-desc">F-key volume control for Universal Audio interfaces, right from your keyboard.</p>
+            <div class="badges">
+                <span class="badge badge-macos">macOS</span>
+                <span class="badge">UA Apollo</span>
+                <span class="badge">Menu bar</span>
+            </div>
+            <div class="hero-actions">
+                <!-- Replace btn-muted with btn-primary and set href to Paddle checkout when ready -->
+                <a href="#" class="btn btn-muted">Coming soon</a>
+                <span class="price-note">One-time purchase · $14.99</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <section class="section">
+        <p class="section-label">Features</p>
+        <div class="features">
+            <div class="feature-row">
+                <span class="feature-key">F10 / F11 / F12</span>
+                <span class="feature-val">Mute, volume down, volume up — the same keys macOS uses for the built-in speaker, now working with your Apollo interface.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Menu bar</span>
+                <span class="feature-val">Lives quietly in the menu bar. No dock icon, no windows, no UI to get in the way of your work.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Non-invasive</span>
+                <span class="feature-val">Communicates directly with UA Mixer Engine. Console keeps running, your signal chain is untouched, no drivers are replaced or patched.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Interfaces</span>
+                <span class="feature-val">Works with all Apollo USB and Thunderbolt interfaces — Apollo Twin, Apollo x4, x6, x8, x16, and more.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Requirements</p>
+        <div class="req-list">
+            <div class="req-row">
+                <span class="req-label">macOS</span>
+                <span class="req-val">Monterey 12.0 or later</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Hardware</span>
+                <span class="req-val">Any Universal Audio Apollo interface</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Software</span>
+                <span class="req-val">UA Mixer Engine (installed with UA Connect or Console)</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Permission</span>
+                <span class="req-val">Accessibility access (for global keyboard shortcuts)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">How it works</p>
+        <p class="prose">Apollo Volume Control communicates directly with <strong>UA Mixer Engine</strong> — the background process that powers Universal Audio's Console software. It reads and sets the monitor level through UA's local socket interface, running silently alongside whatever you already have open.</p>
+        <p class="prose">There's nothing to configure in Console, no drivers replaced, no UA software to quit. Your signal chain stays exactly as UA built it. This app simply adds the keyboard shortcuts for known, native macOS volume control.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Credits</p>
+        <p class="prose">The UA Mixer Engine communication protocol used in this app was originally reverse-engineered by <a href="https://github.com/raduvarga/UA-Midi-Control" target="_blank" rel="noopener">Radu Varga</a> in his open-source <strong>UA MIDI Control</strong> project. His work laid the groundwork that made this possible.</p>
+        <div class="notice">
+            <span class="notice-icon">⚠</span>
+            <p>Apollo Volume Control is an independent project and is not affiliated with, endorsed by, or supported by Universal Audio. Universal Audio, Apollo, and UA Mixer are trademarks of Universal Audio, Inc.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
