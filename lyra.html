@@ -362,12 +362,42 @@
 
         .footer-links a:hover { color: var(--text-2); }
 
+        /* ─── Screenshots ─── */
+
+        .screenshots {
+            padding-bottom: 52px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .screenshot-full {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
+        .screenshot-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .screenshot-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
         /* ─── Responsive ─── */
 
         @media (max-width: 560px) {
             .hero { flex-direction: column; gap: 20px; padding: 40px 0 40px; }
             .hero-icon { width: 64px; height: 64px; min-width: 64px; }
             .feature-key { min-width: 80px; }
+            .screenshot-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -406,6 +436,16 @@
             </div>
         </div>
     </section>
+</div>
+
+<div class="container">
+    <div class="screenshots">
+        <img src="lyra-screenshot-keys.png" alt="Lyra keyboard controls — F10 mute, F11 volume down, F12 volume up" class="screenshot-full">
+        <div class="screenshot-row">
+            <img src="lyra-screenshot-menu.png" alt="Lyra menu bar popover">
+            <img src="lyra-screenshot-hud.png" alt="macOS volume HUD controlled by Lyra">
+        </div>
+    </div>
 </div>
 
 <div class="container">
