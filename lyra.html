@@ -362,6 +362,30 @@
 
         .footer-links a:hover { color: var(--text-2); }
 
+        /* ─── Lightbox ─── */
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+            object-fit: contain;
+        }
+
         /* ─── Screenshots ─── */
 
         .screenshots {
@@ -376,7 +400,11 @@
             border-radius: 12px;
             display: block;
             border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
         }
+
+        .screenshot-full:hover { opacity: 0.88; }
 
         .screenshot-row {
             display: grid;
@@ -389,7 +417,11 @@
             border-radius: 12px;
             display: block;
             border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
         }
+
+        .screenshot-row img:hover { opacity: 0.88; }
 
         /* ─── Responsive ─── */
 
@@ -519,6 +551,31 @@
         </ul>
     </footer>
 </div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
 
 </body>
 </html>
