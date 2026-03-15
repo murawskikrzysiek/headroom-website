@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — Lyra</title>
+    <link rel="canonical" href="https://headroomstudio.dev/lyra-faq.html">
+    <meta name="description" content="Frequently asked questions about Lyra — F-key volume control for Universal Audio Apollo interfaces.">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.10);
+            --radius-btn:   9px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand em { font-style: normal; color: var(--accent); }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 56px 0 48px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-desc {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.7;
+        }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ─── FAQ groups ─── */
+
+        .faq-group {
+            padding-bottom: 52px;
+        }
+
+        .group-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        /* ─── FAQ items ─── */
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-q {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+
+        .faq-a {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.75;
+        }
+
+        .faq-a + .faq-a {
+            margin-top: 8px;
+        }
+
+        .faq-a strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .faq-a a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+
+        .faq-a a:hover { color: #a0aaff; }
+
+        /* ─── Steps list ─── */
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .step-num {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-dim);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            letter-spacing: 0.02em;
+        }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 3px;
+            opacity: 0.45;
+        }
+
+        .notice p {
+            font-size: 0.8rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 560px) {
+            .hero { padding: 40px 0 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">Head<em>room</em></a>
+        <a href="lyra.html" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            Lyra
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <p class="hero-eyebrow">Lyra</p>
+        <h1>Frequently Asked Questions</h1>
+        <p class="hero-desc">Can't find what you're looking for? <a href="mailto:hello@headroomstudio.dev" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Drop us an email.</a></p>
+    </section>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <!-- ── Setup & Permissions ─────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Setup &amp; Permissions</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Why does Lyra need Accessibility permission?</p>
+                <p class="faq-a">Lyra intercepts the F10, F11, and F12 keys globally — meaning it captures them before macOS passes them on to other apps. This requires <strong>Accessibility access</strong>, which is how macOS controls which apps are allowed to monitor and intercept system-wide input. No other input is read or recorded. Lyra only acts on those three keys, and only when your Apollo is connected.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How do I grant Accessibility permission?</p>
+                <div class="steps">
+                    <div class="step"><span class="step-num">1</span>Open <strong>System Settings → Privacy &amp; Security → Accessibility</strong></div>
+                    <div class="step"><span class="step-num">2</span>Click the <strong>+</strong> button at the bottom of the list</div>
+                    <div class="step"><span class="step-num">3</span>Navigate to your Applications folder and select <strong>Lyra</strong></div>
+                    <div class="step"><span class="step-num">4</span>Make sure the toggle next to Lyra is turned <strong>on</strong></div>
+                    <div class="step"><span class="step-num">5</span><strong>Relaunch Lyra</strong></div>
+                </div>
+                <div class="notice">
+                    <span class="notice-icon">💡</span>
+                    <p>If Lyra doesn't appear in the list right after adding it, quit and reopen System Settings — it sometimes needs a refresh before the new entry shows up.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">macOS showed a notification saying Lyra is monitoring keyboard input. Is that normal?</p>
+                <p class="faq-a">Yes, completely normal. When an app uses a global keyboard tap — which is how Lyra intercepts F10/F11/F12 — macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── UA Mixer Engine ─────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">UA Mixer Engine</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What is UA Mixer Engine?</p>
+                <p class="faq-a">UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac — routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
+                <p class="faq-a">You don't need to do anything special to set it up. If you've ever used UA Console, UA Mixer Engine is already installed.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra work if UA Console is closed?</p>
+                <p class="faq-a">Yes. UA Mixer Engine runs independently in the background — Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Lyra says "UA Mixer not running". What do I do?</p>
+                <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu — this launches the process without needing to open Console. It should connect within a few seconds.</p>
+                <p class="faq-a">If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Compatibility ───────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Compatibility</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Which Apollo interfaces are supported?</p>
+                <p class="faq-a">Lyra works with any Universal Audio Apollo Thunderbolt interface, including the Apollo Twin X, Apollo x4, x6, x8, x8p, x16, and the Arrow. If your interface uses UA Console and UA Mixer Engine, it will work with Lyra.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can Lyra control my headphone volume?</p>
+                <p class="faq-a">No. The headphone output level on Apollo interfaces is controlled by a <strong>hardware knob</strong> that isn't exposed through the UA Mixer Engine protocol — it's a physical analog control built directly into the hardware. Lyra controls the monitor (speaker) output only.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra affect my audio quality or signal chain?</p>
+                <p class="faq-a">Not at all. Lyra only adjusts the monitor output level — the same parameter you'd change in Console's monitor section. It doesn't touch your signal chain, insert any processing, or affect recordings in any way. Console and all your UAD plugins continue running exactly as before.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Licensing & Trial ───────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Trial &amp; Licensing</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">How does the trial work?</p>
+                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase — you won't be able to use Lyra until you do.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How do I activate my license?</p>
+                <div class="steps">
+                    <div class="step"><span class="step-num">1</span>After purchasing, you'll receive a <strong>license key by email</strong></div>
+                    <div class="step"><span class="step-num">2</span>Open the Lyra menu bar menu and click <strong>"Enter License Key…"</strong></div>
+                    <div class="step"><span class="step-num">3</span>Paste your key and click <strong>Activate</strong></div>
+                </div>
+                <p class="faq-a" style="margin-top: 10px;">Activation requires an internet connection. Once activated, Lyra will work normally offline.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I use my license on multiple Macs?</p>
+                <p class="faq-a">Yes — each license can be active on up to <strong>two Macs simultaneously</strong>. If you need to activate on a third machine, deactivate on one of the existing ones first via Lyra menu → <strong>"Manage License…"</strong> → Deactivate, then activate again on the new Mac with the same key.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">I lost my license key. How do I retrieve it?</p>
+                <p class="faq-a">Check your original purchase confirmation email from Lemon Squeezy. If you can't find it, <a href="mailto:hello@headroomstudio.dev">contact us</a> with your purchase email address and we'll help you recover it.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Troubleshooting ─────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Troubleshooting</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">The F-keys aren't working. What should I check?</p>
+                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility — without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra intentionally doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
+                <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Lyra isn't detecting my Apollo.</p>
+                <p class="faq-a">Make sure your Apollo is powered on and connected before launching Lyra. If it's connected but not detected, open the Lyra menu — if you see a device name but a "UA Mixer not running" message, click "Start UA Mixer Engine". If no device appears at all, try relaunching Lyra after confirming the Apollo shows up in UA Console.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="lyra-privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
