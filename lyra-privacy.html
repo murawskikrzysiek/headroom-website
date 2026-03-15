@@ -6,6 +6,7 @@
     <title>Privacy Policy — Lyra</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra-privacy.html">
     <meta name="description" content="Privacy policy for Lyra by Headroom.">
+    <link rel="icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
@@ -220,12 +221,17 @@
 
     <section class="section">
         <p class="section-title">UA Mixer Engine communication</p>
-        <p class="prose">The app communicates with <strong>UA Mixer Engine</strong> through a local Unix socket on your machine. This communication stays entirely on your device — no data leaves your computer.</p>
+        <p class="prose">The app communicates with <strong>UA Mixer Engine</strong> through a local TCP connection on your machine. This communication stays entirely on your device — no data leaves your computer.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">License validation</p>
+        <p class="prose">When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server (e.g. you're offline), it grants the benefit of the doubt and continues to run normally.</p>
     </section>
 
     <section class="section">
         <p class="section-title">Purchases</p>
-        <p class="prose">Payments are processed by <strong>Paddle</strong>, an external payment provider. When you purchase the app, Paddle's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Paddle's privacy policy at <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">paddle.com/legal/privacy</a>.</p>
+        <p class="prose">Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider. When you purchase the app, Lemon Squeezy's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Lemon Squeezy's privacy policy at <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
     </section>
 
     <section class="section">
