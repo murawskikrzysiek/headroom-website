@@ -60,7 +60,7 @@ def make_og_lyra():
 
     # App icon — left-aligned, vertically centred
     icon_size = 200
-    icon_raw  = Image.open(os.path.join(HERE, "lyra-icon.png")).convert("RGBA")
+    icon_raw  = Image.open(os.path.join(HERE, "lyra/icon.png")).convert("RGBA")
     icon_raw  = icon_raw.resize((icon_size, icon_size), Image.LANCZOS)
     icon_x    = 90
     icon_y    = (H - icon_size) // 2
@@ -94,7 +94,7 @@ def make_og_lyra():
     # Bottom rule
     draw.line([(44, H - 56), (W - 44, H - 56)], fill=TEXT3 + (60,), width=1)
 
-    out = os.path.join(HERE, "og-lyra.png")
+    out = os.path.join(HERE, "lyra/og.png")
     img.save(out, "PNG")
     print(f"Saved {out}")
 
