@@ -1,47 +1,130 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides context and guidance for working on the headroom-website repository.
 
 ## Project Overview
 
-Static website for **Headroom**, an indie macOS software label. Currently showcases **Apollo Volume Control** — a menu bar utility for hardware volume control on Universal Audio interfaces.
+Static website for **Headroom**, an indie macOS software label run by Krzysiek. Currently showcases **Lyra** — a menu bar utility for hardware volume control on Universal Audio Apollo interfaces via F10/F11/F12 keyboard shortcuts.
 
-**Stack:** Plain HTML + CSS, no build tools, no dependencies. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare.
+**Stack:** Plain HTML + CSS, no build tools, no dependencies. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS (proxy OFF — DNS only, required for GitHub Pages cert).
 
-## Development
+**GitHub Pages:** Configured with CNAME file pointing to `headroomstudio.dev`. Push to `main` deploys automatically (~1-2 min).
 
-No build step required. Edit HTML/CSS files directly. To preview locally, open any `.html` file in a browser or use a simple local server:
+**Contact:** hello@headroomstudio.dev (Cloudflare Email Routing forwarding)
 
-```sh
-python3 -m http.server 8000
+---
+
+## Repo Structure
+
+```
+headroom-website/
+├── index.html                  # Homepage — app card grid + About section
+├── og-headroom.png             # OG image for homepage (1200×630)
+├── favicon.ico                 # Multi-size (16, 32, 48px)
+├── favicon-32x32.png
+├── apple-touch-icon.png        # 180×180
+├── generate_og_images.py       # Script to regenerate OG images (requires Pillow)
+├── CNAME                       # headroomstudio.dev
+│
+└── lyra/                       # All Lyra app files
+    ├── index.html              # App detail page
+    ├── privacy.html            # Privacy policy
+    ├── faq.html                # FAQ page
+    ├── appcast.xml             # Sparkle auto-update feed
+    ├── icon.png                # App icon (1024×1024, no built-in padding)
+    ├── og.png                  # OG image for Lyra (1200×630)
+    ├── screenshot-keys.png     # Keyboard controls illustration
+    ├── screenshot-menu.png     # Menu bar popover screenshot
+    └── screenshot-hud.png      # macOS volume HUD screenshot
 ```
 
-## Site Structure
+**Pattern for new apps:** create a new folder e.g. `your-app/` mirroring the `lyra/` structure.
 
-- `index.html` — Homepage with app grid
-- `apollo-volume-control.html` — Apollo app detail page
-- `apollo-volume-control-privacy.html` — Privacy policy
-- `CNAME` — GitHub Pages custom domain config (`headroomstudio.dev`)
+---
 
 ## Design System
 
-All CSS is embedded in `<style>` tags within each HTML file. CSS variables:
+All CSS is embedded in `<style>` tags within each HTML file (no external stylesheets).
 
-- Background: `#0b0b0f` / Cards: `#111118`
-- Text: `#eeeef6` / Accent (purple): `#7c84f6` / CTA (green): `#3ecf7c`
-- Font: Inter (Google Fonts) with system fallback
+**CSS variables:**
+```css
+--bg:       #0b0b0f   /* page background */
+--bg-card:  #111118   /* card background */
+--border:   #1c1c28   /* borders */
+--text:     #eeeef6   /* primary text */
+--text-2:   #6e6e90   /* secondary text */
+--text-3:   #3a3a52   /* muted text */
+--accent:   #7c84f6   /* purple — brand accent */
+--green:    #3ecf7c   /* CTA buttons */
+```
 
-Max widths: 960px on homepage, 720px on detail/privacy pages. Responsive via `clamp()` and CSS Grid.
+**Typography:** Inter (Google Fonts CDN) with `-apple-system` fallback. `-webkit-font-smoothing: antialiased` on body.
+
+**Max widths:** 960px on homepage, 720px on detail/privacy/faq pages.
+
+**Responsive:** `clamp()` for type sizes, CSS Grid with `auto-fill` for app card grid, media queries at 560–640px.
+
+---
+
+## App Pages — Lyra
+
+`lyra/index.html` contains:
+- Nav: brand logo + FAQ link + "All apps" back button (→ `../`)
+- Hero: icon (`icon.png`) + title + badges + CTA (currently "Coming soon" / btn-muted)
+- Screenshots section with lightbox (click to enlarge, click/Esc to close)
+- Features table (feature-key / feature-val rows)
+- Requirements section
+- How it works prose
+- Credits section (TCP port 4710 protocol note, Radu Varga attribution)
+- Footer with FAQ + Privacy links
+
+**Icon display:** Icon container is `width: 120px; height: 120px; padding: 10px; box-sizing: border-box`, image fills 100% — this creates visual breathing room without changing the box size. The icon file has no built-in padding.
+
+**Lightbox:** Pure vanilla JS at bottom of `lyra/index.html`. Click any `.screenshot-full` or `.screenshot-row img` to open, click overlay or press Escape to close.
+
+**Appcast:** `lyra/appcast.xml` is the Sparkle update feed hosted at `https://headroomstudio.dev/lyra/appcast.xml`. Update instructions are in comments inside that file.
+
+---
+
+## OG Images
+
+Generated by `generate_og_images.py` (requires `pip install Pillow --break-system-packages`).
+
+Fonts loaded from `../.skills/skills/canvas-design/canvas-fonts/` relative to script location. Run from repo root:
+
+```sh
+python generate_og_images.py
+```
+
+Outputs: `lyra/og.png` and `og-headroom.png`.
+
+---
 
 ## Adding a New App
 
-1. Add an `.app-card` div to the grid in `index.html`
-2. Create `your-app-name.html` (use `apollo-volume-control.html` as template)
-3. Create `your-app-name-privacy.html` (use `apollo-volume-control-privacy.html` as template)
-4. Wire up the "Learn more" button in the card to the new detail page
+1. Create `your-app/` folder
+2. Add files: `index.html`, `privacy.html`, `faq.html` (use `lyra/` as template)
+3. Add `appcast.xml` if using Sparkle for auto-updates
+4. Add app card to grid in `index.html` (see `<!-- Add future apps here -->` comment)
+5. Add OG image generator function to `generate_og_images.py`
+6. Regenerate favicons if app has a different icon
+
+---
 
 ## External Services
 
 - **Google Fonts** — Inter via CDN
 - **Paddle** — Payment processor (referenced in privacy policies)
-- **Cloudflare** — DNS for custom domain
+- **Cloudflare** — DNS for custom domain (proxy must be OFF / DNS only for GitHub Pages to work)
+- **Sparkle** — macOS auto-update framework (appcast.xml per app)
+- **Cloudflare R2** — DMG hosting for Lyra releases (`releases.headroomstudio.dev`)
+
+---
+
+## Key Decisions & Context
+
+- **No build tools** — intentional. Plain HTML/CSS is easy to maintain and fast to ship.
+- **Cloudflare proxy OFF** — GitHub Pages needs to see the A records directly to issue TLS certs. Turning proxy on breaks HTTPS verification.
+- **Per-app folder structure** — moved from flat files (`lyra.html`, `lyra-privacy.html`) to `lyra/index.html` etc. to keep root clean as more apps are added.
+- **Icon padding via CSS** — app icon has no built-in padding, so padding is applied to the container div rather than the image itself, preserving the box size.
+- **Email** — hello@headroomstudio.dev uses Cloudflare Email Routing (free), forwarding only (no send-from).
