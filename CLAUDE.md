@@ -127,4 +127,4 @@ Outputs: `lyra/og.png` and `og-headroom.png`.
 - **Cloudflare proxy OFF** — GitHub Pages needs to see the A records directly to issue TLS certs. Turning proxy on breaks HTTPS verification.
 - **Per-app folder structure** — moved from flat files (`lyra.html`, `lyra-privacy.html`) to `lyra/index.html` etc. to keep root clean as more apps are added.
 - **Icon padding via CSS** — app icon has no built-in padding, so padding is applied to the container div rather than the image itself, preserving the box size.
-- **Email** — hello@headroomstudio.dev uses Cloudflare Email Routing (free), forwarding only (no send-from).
+- **Email** — hello@headroomstudio.dev uses iCloud Mail with custom domain — supports both sending and receiving.
