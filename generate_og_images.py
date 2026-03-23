@@ -143,9 +143,57 @@ def make_og_headroom():
     print(f"Saved {out}")
 
 
+# ── og-auris.png ──────────────────────────────────────────────────────────────
+
+def make_og_auris():
+    img  = make_base()
+    draw = ImageDraw.Draw(img)
+
+    # App icon — left-aligned, vertically centred
+    icon_size = 200
+    icon_raw  = Image.open(os.path.join(HERE, "auris/icon.png")).convert("RGBA")
+    icon_raw  = icon_raw.resize((icon_size, icon_size), Image.LANCZOS)
+    icon_x    = 90
+    icon_y    = (H - icon_size) // 2
+    img.paste(icon_raw, (icon_x, icon_y), icon_raw)
+
+    # Text column
+    tx       = icon_x + icon_size + 58
+    ty_start = H // 2 - 90
+
+    # App name
+    f_title = font("BricolageGrotesque-Bold.ttf", 96)
+    draw.text((tx, ty_start), "Auris", font=f_title, fill=TEXT)
+
+    # Thin separator line
+    div_y = ty_start + 108
+    draw.line([(tx, div_y), (tx + 480, div_y)], fill=TEXT3 + (180,), width=1)
+
+    # Subtitle
+    f_sub = font("InstrumentSans-Regular.ttf", 26)
+    draw.text((tx, div_y + 18),
+              "Real-time hearing dose meter for audio professionals",
+              font=f_sub, fill=TEXT2)
+
+    # Domain — bottom-right, quiet
+    f_domain = font("Jura-Light.ttf", 20)
+    domain   = "headroomstudio.dev"
+    bbox     = draw.textbbox((0, 0), domain, font=f_domain)
+    draw.text((W - (bbox[2] - bbox[0]) - 44, H - 44),
+              domain, font=f_domain, fill=TEXT3)
+
+    # Bottom rule
+    draw.line([(44, H - 56), (W - 44, H - 56)], fill=TEXT3 + (60,), width=1)
+
+    out = os.path.join(HERE, "auris/og.png")
+    img.save(out, "PNG")
+    print(f"Saved {out}")
+
+
 # ── Run ───────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     make_og_lyra()
     make_og_headroom()
+    make_og_auris()
     print("Done.")
