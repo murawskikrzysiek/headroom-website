@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Auris appcast — host this file at:
+  https://headroomstudio.dev/auris/appcast.xml
+
+  How to update for a new release:
+  1. Run: make release  →  produces Auris.dmg
+  2. Upload Auris.dmg to Cloudflare R2 as Auris-X.Y.dmg, copy the public URL
+  3. Get the file size in bytes:  wc -c < Auris.dmg
+  4. Sign the DMG with Sparkle:   .build/artifacts/sparkle/Sparkle/bin/sign_update Auris.dmg
+     (this prints the edSignature value)
+  5. Add a new <item> block at the top (keep old items for reference)
+  6. Push to your GitHub Pages repo — Cloudflare picks it up automatically
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Auris</title>
+        <link>https://headroomstudio.dev/auris</link>
+        <description>Auris — Real-time hearing dose meter for audio professionals</description>
+        <language>en</language>
+
+        <item>
+            <title>Version 1.0</title>
+            <pubDate>REPLACE_WITH_PUBDATE</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Auris-1.0.dmg"
+                sparkle:edSignature="REPLACE_WITH_EDSIGNATURE"
+                length="REPLACE_WITH_BYTES"
+                type="application/octet-stream" />
+        </item>
+
+    </channel>
+</rss>

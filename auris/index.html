@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auris — Headroom</title>
+    <link rel="canonical" href="https://headroomstudio.dev/auris/">
+    <meta name="description" content="Real-time hearing dose meter for audio professionals. Measures SPL and tracks your daily NIOSH exposure so you know when to turn it down.">
+    <meta property="og:title" content="Auris">
+    <meta property="og:description" content="Real-time hearing dose meter for audio professionals. Know your exposure before the damage is done.">
+    <meta property="og:image" content="https://headroomstudio.dev/auris/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Auris">
+    <meta name="twitter:description" content="Real-time hearing dose meter for audio professionals. Know your exposure before the damage is done.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/auris/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand em { font-style: normal; color: var(--accent); }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 56px 0 52px;
+            display: flex;
+            align-items: flex-start;
+            gap: 28px;
+        }
+
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            border-radius: 20px;
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .hero-text {}
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.7rem, 4vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.65;
+            margin-bottom: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ─── Buttons ─── */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border-radius: var(--radius-btn);
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.18s, transform 0.12s;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background: var(--green);
+            color: #061a0e;
+        }
+
+        .btn-primary:hover { opacity: 0.88; }
+
+        .btn-muted {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-3);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--text-2);
+        }
+
+        /* ─── Badges ─── */
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: var(--radius-badge);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-2);
+        }
+
+        .badge-macos {
+            background: rgba(50, 130, 220, 0.12);
+            color: #5aabee;
+        }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ─── Sections ─── */
+
+        .section {
+            padding-bottom: 52px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        /* ─── Features list ─── */
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature-row:first-child { border-top: 1px solid var(--border); }
+
+        .feature-key {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            min-width: 118px;
+            padding-top: 1px;
+        }
+
+        .feature-val {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Requirements ─── */
+
+        .req-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .req-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .req-label {
+            color: var(--text-3);
+            min-width: 80px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .req-val {
+            color: var(--text-2);
+        }
+
+        /* ─── Prose ─── */
+
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.8;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+
+        .prose strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .prose a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+
+        .prose a:hover { color: #a0aaff; }
+
+        /* ─── Section headline ─── */
+
+        .section-headline {
+            font-size: 1.25rem;
+            font-weight: 650;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            line-height: 1.35;
+            margin-bottom: 20px;
+        }
+
+        /* ─── Standards callout ─── */
+
+        .standards {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .standard-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .standard-row:first-child { border-top: 1px solid var(--border); }
+
+        .standard-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 2px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .standard-desc {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Dose table ─── */
+
+        .dose-table {
+            margin-top: 16px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        .dose-table th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 6px 16px 6px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dose-table td {
+            color: var(--text-2);
+            padding: 8px 16px 8px 0;
+            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+            vertical-align: top;
+        }
+
+        .dose-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+
+        /* ─── Weighting chart image ─── */
+
+        .chart-img {
+            display: block;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+            margin-bottom: 4px;
+        }
+
+        .chart-caption {
+            font-size: 0.775rem;
+            color: var(--text-3);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin-top: 20px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.5;
+        }
+
+        .notice p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        /* ─── Screenshots ─── */
+
+        .screenshots {
+            padding-bottom: 52px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .screenshot-full {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .screenshot-full:hover { opacity: 0.88; }
+
+        .screenshot-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .screenshot-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .screenshot-row img:hover { opacity: 0.88; }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        /* ─── Lightbox ─── */
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+            object-fit: contain;
+        }
+
+        /* ─── Responsive ─── */
+
+        @media (max-width: 560px) {
+            .hero { flex-direction: column; gap: 20px; padding: 40px 0 40px; }
+            .hero-icon { width: 64px; height: 64px; min-width: 64px; }
+            .feature-key { min-width: 90px; }
+            .screenshot-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">Head<em>room</em></a>
+        <div style="display: flex; align-items: center; gap: 24px;">
+            <a href="faq.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">FAQ</a>
+            <a href="../" class="nav-back">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 2L4 7l5 5"/>
+                </svg>
+                All apps
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <div class="hero-icon" style="background: none; padding: 10px; margin-top: 24px; width: 120px; height: 120px; min-width: 120px; box-sizing: border-box;">
+            <img src="icon.png" alt="Auris icon" style="border-radius: 20px; display: block; width: 100%; height: 100%;">
+        </div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">Headroom</p>
+            <h1>Auris</h1>
+            <p class="hero-desc">Real-time hearing dose meter for audio professionals. Won't make your studio look cooler — but it might keep you working in it longer. Hearing loss is cumulative. So is Auris.</p>
+            <div class="badges">
+                <span class="badge badge-macos">macOS</span>
+                <span class="badge">Menu bar</span>
+                <span class="badge">NIOSH</span>
+            </div>
+            <div class="hero-actions">
+                <!-- Replace btn-muted with btn-primary and set href to checkout URL when ready -->
+                <!-- Update price-note with final price (e.g. "7-day free trial · $XX.XX one-time") -->
+                <a href="#" class="btn btn-muted">Coming soon</a>
+                <span class="price-note">One-time purchase</span>
+            </div>
+            <a href="faq.html" style="display: inline-block; margin-top: 14px; font-size: 0.8rem; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">Have questions? Read the FAQ →</a>
+        </div>
+    </section>
+</div>
+
+<div class="container">
+    <!-- Screenshots section — add images here once available:
+    <div class="screenshots">
+        <img src="screenshot-main.png" alt="Auris menu bar popover showing SPL and hearing dose" class="screenshot-full">
+        <div class="screenshot-row">
+            <img src="screenshot-history.png" alt="Auris session history with weekly chart">
+            <img src="screenshot-settings.png" alt="Auris settings">
+        </div>
+    </div>
+    -->
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <section class="section">
+        <p class="section-label">The problem</p>
+        <h2 class="section-headline">The most common occupational hazard in audio has no pain signal.</h2>
+        <p class="prose">Studies consistently place noise-induced hearing loss among the top health risks for audio professionals — and not just live engineers or touring musicians. Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish between one very loud hour and eight moderately loud ones. The damage arithmetic is the same.</p>
+        <p class="prose" style="margin-top: 12px;">That's what makes it so easy to ignore. There's no warning before the threshold shifts. By the time something feels off — the top end sounds different, mixing decisions feel harder, a tone that wasn't there before keeps you awake at night — the damage is already permanent. <strong>Most professionals know this abstractly. Almost none have ever actually measured their daily exposure.</strong></p>
+        <p class="prose" style="margin-top: 12px;">Auris doesn't add friction to your workflow. It sits in the menu bar, measures while you work, and gives you one number that matters: how much of today's limit you've used. Over weeks and months, patterns emerge — and that's when it actually changes how you work.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="section">
+        <p class="section-label">Features</p>
+        <div class="features">
+            <div class="feature-row">
+                <span class="feature-key">Hearing dose</span>
+                <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. Four colour-coded states — Safe, Caution, Warning, Danger — update in the menu bar icon in real time. Resets at midnight. Persists across restarts.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Real-time SPL</span>
+                <span class="feature-val">Continuous A-weighted level at 10 Hz, exponentially smoothed for a stable, readable display. Calibratable to your measurement mic for real-world accuracy.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Peak monitoring</span>
+                <span class="feature-val">C-weighted peak impulse tracking per EU Directive 2003/10/EC. Notifies you when levels cross the 135, 137, or 140 dBC action values. Per-session and daily peak counts recorded.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Session tracking</span>
+                <span class="feature-val">Auto-detects when you open a DAW and starts a session. 17 DAWs supported out of the box — Logic, Pro Tools, Ableton, REAPER, and more. Manual start and end also available.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Session history</span>
+                <span class="feature-val">Full 30-day history with per-session dose contribution, average and peak SPL, and peak impulse counts. Seven-day bar chart shows your weekly EU L_EX,w exposure level at a glance.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Non-invasive</span>
+                <span class="feature-val">Lives in the menu bar with no Dock icon. Measures passively via any CoreAudio input device — your monitors, a measurement mic, or any interface channel. Nothing touches your signal chain.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Auto-updates</span>
+                <span class="feature-val">Stays current automatically. You'll be notified in the menu when a new version is available.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Launch at login</span>
+                <span class="feature-val">Optionally start with macOS so dose tracking begins as soon as your session does.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Requirements</p>
+        <div class="req-list">
+            <div class="req-row">
+                <span class="req-label">macOS</span>
+                <span class="req-val">Sonoma 14.0 or later</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Hardware</span>
+                <span class="req-val">Any audio interface or built-in input with a measurement microphone</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Permission</span>
+                <span class="req-val">Microphone access (audio is processed locally, never transmitted)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">How it works</p>
+        <p class="prose">Auris reads audio from a microphone positioned at your listening position and converts it to A-weighted SPL using a proper <strong>IEC 61672-1 filter</strong> — the same standard used in professional sound level meters. It samples 10 times per second and accumulates your hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
+
+        <table class="dose-table">
+            <thead>
+                <tr><th>Level</th><th>Safe duration</th><th></th></tr>
+            </thead>
+            <tbody>
+                <tr><td>85 dBA</td><td>8 hours</td><td style="color: var(--text-3); font-size: 0.8rem;">NIOSH criterion</td></tr>
+                <tr><td>88 dBA</td><td>4 hours</td><td></td></tr>
+                <tr><td>91 dBA</td><td>2 hours</td><td></td></tr>
+                <tr><td>94 dBA</td><td>1 hour</td><td></td></tr>
+                <tr><td>97 dBA</td><td>30 minutes</td><td></td></tr>
+                <tr><td>100 dBA</td><td>15 minutes</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p class="prose" style="margin-top: 20px;">A parallel <strong>C-weighted path</strong> runs simultaneously for peak impulse monitoring. Unlike A-weighting, C-weighting is nearly flat from 31.5 Hz to 8 kHz — it accurately captures the energy of transient events such as drum hits and loud clicks that can cause immediate cochlear damage regardless of cumulative dose. EU Directive 2003/10/EC specifically mandates C-weighted peak measurement for exactly this reason.</p>
+
+        <img src="weighting-curves.png" alt="IEC 61672-1 A-weighting and C-weighting frequency response curves showing how A-weighting attenuates low frequencies while C-weighting remains nearly flat" class="chart-img">
+        <p class="chart-caption">IEC 61672-1 A-weighting vs C-weighting — A-weighting de-emphasises bass, where C-weighting stays flat. The gap between the two readings indicates how much low-frequency energy A-weighting is missing.</p>
+
+        <p class="prose" style="margin-top: 20px;">All data stays on your Mac. No telemetry, no cloud sync, no servers.</p>
+
+        <div class="standards">
+            <div class="standard-row">
+                <span class="standard-tag">NIOSH REL</span>
+                <span class="standard-desc">85 dBA reference, 3 dB exchange rate, 80 dBA accumulation threshold — the most protective mainstream occupational noise standard.</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">IEC 61672-1</span>
+                <span class="standard-desc">International standard for sound level meter frequency weighting — A-weighting (4 biquad IIR sections) and C-weighting (2 biquad IIR sections), both normalised at 1 kHz.</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">EU 2003/10/EC</span>
+                <span class="standard-desc">EU Directive on occupational noise. Defines the 135 / 137 / 140 dBC C-weighted peak action levels and the 115 dBA A-weighted instantaneous ceiling.</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">ISO 9612</span>
+                <span class="standard-desc">Framework for the weekly noise exposure level (L_EX,w) shown in the session history chart, compared against the 85 dBA weekly criterion.</span>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
