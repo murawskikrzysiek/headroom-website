@@ -28,8 +28,8 @@
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
             <enclosure
                 url="https://releases.headroomstudio.dev/Lyra-1.0.dmg"
-                sparkle:edSignature="D0ZamSWdB2pMm+05eba/v3UCZ2YJzVqxtnD+SC8fGdJt8Z9QDXmV5gCeBE1IrjbJAkuDrwrZImY5Ez5a8N0RDw=="
-                length="2387746"
+                sparkle:edSignature="RXgcVtfCi4jxa+DXvXbLzE38oQPzPyLDdPTbxEw2ypASj4afWD4C5iV4zdAXXEzctJmm+c1KanNwXfiJlQ04Cw=="
+                length="2387755"
                 type="application/octet-stream" />
         </item>
 
