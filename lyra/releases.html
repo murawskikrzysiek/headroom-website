@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lyra — Release Notes</title>
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #0b0b0f;
+      color: #eeeef6;
+      padding: 28px 24px 48px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── App header ── */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #1e1e2a;
+    }
+    .app-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: #12121a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .app-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #eeeef6;
+      letter-spacing: -0.3px;
+    }
+    .app-sub {
+      font-size: 12px;
+      color: #6e6e90;
+      margin-top: 2px;
+    }
+
+    /* ── Release blocks ── */
+    .release {
+      margin-bottom: 36px;
+    }
+    .release-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .version {
+      font-size: 15px;
+      font-weight: 600;
+      color: #7c84f6;
+    }
+    .date {
+      font-size: 12px;
+      color: #6e6e90;
+    }
+    .badge-new {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #7c84f6;
+      color: #0b0b0f;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    /* ── Change list ── */
+    .changes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .changes li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #c8c8d8;
+      font-size: 13px;
+    }
+    .tag {
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .tag-new  { background: #1a2a1a; color: #3ecf7c; }
+    .tag-fix  { background: #2a1a1a; color: #f67c7c; }
+    .tag-impr { background: #1a1a2a; color: #7c9af6; }
+
+    /* ── Divider between releases ── */
+    .release + .release {
+      padding-top: 8px;
+      border-top: 1px solid #1a1a24;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #1a1a24;
+      font-size: 11px;
+      color: #4a4a64;
+      text-align: center;
+    }
+    footer a { color: #7c84f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-icon">🎚</div>
+    <div>
+      <div class="app-name">Lyra</div>
+      <div class="app-sub">Apollo keyboard volume control for macOS</div>
+    </div>
+  </header>
+
+  <!-- ── 1.3 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.3</span>
+      <span class="date">April 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>DIM shortcut</strong> — Shift+F10 toggles Apollo's hardware DIM. Attenuation amount is set in UA Console; Lyra just flips the switch.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Mono shortcut</strong> — Opt+F10 toggles L+R sum to mono for quick compatibility checks.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Menu items</strong> — DIM and Mono appear in the menu bar menu with live checkmarks.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Menu bar icon</strong> — horizontal bar through the dot when DIM is active; vertical bar when Mono is active. Both can stack.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Volume HUD</strong> — pill turns amber when DIM is active so the state is obvious at a glance.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Fine-step label</strong> — Shift+F11/F12 volume step is now shown as "½ step" in the HUD.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── 1.2 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.2</span>
+      <span class="date">March 2026</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Volume HUD</strong> — Liquid Glass pill appears below the menu bar icon when volume changes. Adapts to macOS 26+ visual style.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Menu bar icon now reflects mute state (hollow ring vs. filled dot with tick).</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span>Apollo reconnection after sleep could silently fail; connection is now retried with backoff.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── 1.1 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.1</span>
+      <span class="date">March 2026</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Fine-step control</strong> — hold Shift while pressing F11/F12 for a half-size volume step.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Launch at login</strong> — toggle in the menu; uses SMAppService (macOS 13+).</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span>Volume percentage display rounded inconsistently near boundaries.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── 1.0 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.0</span>
+      <span class="date">March 2026</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Initial release. F10 mute, F11 volume down, F12 volume up via UA Mixer Engine TCP.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>7-day trial; $14.99 license via Lemon Squeezy.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Automatic updates via Sparkle.</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="https://headroomstudio.dev/lyra">headroomstudio.dev/lyra</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+  </footer>
+
+</body>
+</html>
