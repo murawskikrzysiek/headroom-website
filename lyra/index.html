@@ -441,6 +441,74 @@
 
         .screenshot-row img:hover { opacity: 0.88; }
 
+        /* ─── Shortcuts table ─── */
+
+        .shortcuts-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .shortcuts-table thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .shortcuts-table th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 0 0 12px;
+        }
+
+        .shortcuts-table th:first-child { width: 220px; }
+
+        .shortcuts-table tbody tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .shortcuts-table tbody tr:first-child td { padding-top: 14px; }
+
+        .shortcuts-table td {
+            padding: 10px 0;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .shortcuts-table td:last-child {
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        .keys {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .key {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            padding: 2px 7px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-hover);
+            color: var(--text);
+            white-space: nowrap;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .key-plus {
+            font-size: 0.75rem;
+            color: var(--text-3);
+        }
+
         /* ─── Responsive ─── */
 
         @media (max-width: 560px) {
@@ -483,7 +551,7 @@
                 <span class="badge">Menu bar</span>
             </div>
             <div class="hero-actions">
-                <a href="https://releases.headroomstudio.dev/Lyra-1.2.dmg" class="btn btn-primary">
+                <a href="https://releases.headroomstudio.dev/Lyra-1.3.dmg" class="btn btn-primary">
                     ↓ Download Free Trial
                 </a>
                 <a href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1"
@@ -513,8 +581,8 @@
         <p class="section-label">Features</p>
         <div class="features">
             <div class="feature-row">
-                <span class="feature-key">F10 / F11 / F12</span>
-                <span class="feature-val">Mute, volume down, volume up — the same keys macOS uses for the built-in speaker, now working with your Apollo interface.</span>
+                <span class="feature-key">Keyboard shortcuts</span>
+                <span class="feature-val">Volume, mute, DIM, and mono — all from the F-row. Shift halves the volume step for precise adjustments; Option+F10 toggles mono for a quick compatibility check.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Menu bar</span>
@@ -541,6 +609,48 @@
                 <span class="feature-val">Works with all Apollo Thunderbolt interfaces — Apollo Twin, Apollo x4, x6, x8, x16, and more.</span>
             </div>
         </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Keyboard shortcuts</p>
+        <table class="shortcuts-table">
+            <thead>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="keys"><span class="key">F12</span></div></td>
+                    <td>Volume up</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">F11</span></div></td>
+                    <td>Volume down</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">F10</span></div></td>
+                    <td>Mute / Unmute</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⇧ Shift</span><span class="key-plus">+</span><span class="key">F12</span></div></td>
+                    <td>Volume up — fine step (½)</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⇧ Shift</span><span class="key-plus">+</span><span class="key">F11</span></div></td>
+                    <td>Volume down — fine step (½)</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⇧ Shift</span><span class="key-plus">+</span><span class="key">F10</span></div></td>
+                    <td>DIM — reduce monitor output (level set in UA Console)</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⌥ Option</span><span class="key-plus">+</span><span class="key">F10</span></div></td>
+                    <td>Mono — sum L+R for mono compatibility check</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <section class="section">
