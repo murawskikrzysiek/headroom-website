@@ -34,8 +34,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Lyra-1.3.dmg"
-                sparkle:edSignature="REPLACE_WITH_SIGNATURE"
-                length="0"
+                sparkle:edSignature="063SfWl2oLsI5IYL6M9GbNgV9QcQF8P6ygK8XbCts0QptWjj4cR52/XBhQ9DZB2W0ny7wuAf26jBszD3qljsAQ=="
+                length="2390042"
                 type="application/octet-stream" />
         </item>
         <item>
