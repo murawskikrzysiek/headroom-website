@@ -474,6 +474,22 @@
 
         .screenshot-row img:hover { opacity: 0.88; }
 
+        .screenshot-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .screenshot-row-3 img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            cursor: pointer;
+            transition: opacity 0.18s;
+        }
+
+        .screenshot-row-3 img:hover { opacity: 0.88; }
+
         /* ─── Footer ─── */
 
         footer {
@@ -529,6 +545,7 @@
             .hero-icon { width: 64px; height: 64px; min-width: 64px; }
             .feature-key { min-width: 90px; }
             .screenshot-row { grid-template-columns: 1fr; }
+            .screenshot-row-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -575,15 +592,14 @@
 </div>
 
 <div class="container">
-    <!-- Screenshots section — add images here once available:
     <div class="screenshots">
-        <img src="screenshot-main.png" alt="Auris menu bar popover showing SPL and hearing dose" class="screenshot-full">
-        <div class="screenshot-row">
-            <img src="screenshot-history.png" alt="Auris session history with weekly chart">
-            <img src="screenshot-settings.png" alt="Auris settings">
+        <img src="history.png" alt="Auris session history window showing past recording sessions with dose and peak levels" class="screenshot-full">
+        <div class="screenshot-row-3">
+            <img src="menu_dose_green.png" alt="Auris menu bar popover — Safe dose level (green)">
+            <img src="menu_dose_yellow.png" alt="Auris menu bar popover — Caution dose level (yellow)">
+            <img src="menu_dose_red.png" alt="Auris menu bar popover — Danger dose level (red)">
         </div>
     </div>
-    -->
 </div>
 
 <div class="container">
@@ -616,7 +632,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Session tracking</span>
-                <span class="feature-val">Auto-detects when you open a DAW and starts a session. 17 DAWs supported out of the box — Logic, Pro Tools, Ableton, REAPER, and more. Manual start and end also available.</span>
+                <span class="feature-val">Auto-detects when you open a DAW and starts a session. 15 DAWs supported out of the box — Logic, Pro Tools, Ableton, REAPER, and more. Manual start and end also available.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Session history</span>
@@ -636,7 +652,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Non-invasive</span>
-                <span class="feature-val">Lives in the menu bar with no Dock icon. Measures passively via any CoreAudio input device — your monitors, a measurement mic, or any interface channel. Nothing touches your signal chain.</span>
+                <span class="feature-val">Lives in the menu bar with no Dock icon. Measures passively via any CoreAudio input device — a built-in mic, a measurement mic, or any interface input channel. Nothing touches your signal chain.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Auto-updates</span>
@@ -731,7 +747,7 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
 
-    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+    document.querySelectorAll('.screenshot-full, .screenshot-row img, .screenshot-row-3 img').forEach(img => {
         img.addEventListener('click', () => {
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
