@@ -439,14 +439,15 @@
 
             <div class="faq-item">
                 <p class="faq-q">Why is there a calibration offset?</p>
-                <p class="faq-a">Auris computes SPL from the digital signal level of your microphone. Different microphones have different sensitivities, so the digital reading alone isn't tied to a real-world SPL value. The calibration offset bridges that gap. The default value of <strong>94 dB</strong> corresponds to the IEC 60942 pistonphone standard — a calibration device that produces a known 94 dB tone at 1 kHz. If your microphone's sensitivity matches this reference, no adjustment is needed. Most mics will need some correction.</p>
+                <p class="faq-a">Auris computes SPL from the digital signal level of your microphone. That digital level depends on two things: the microphone's sensitivity, and the input gain set on your interface or in System Settings → Sound. Both vary between setups, so the raw reading isn't tied to a real-world SPL value without calibration. The offset bridges that gap.</p>
+                <p class="faq-a" style="margin-top: 8px;">The default value of <strong>94 dB</strong> corresponds to the IEC 60942 pistonphone standard — a calibration device that produces a known 94 dB tone at 1 kHz. In practice, virtually every setup will need a different offset, because your input gain almost certainly isn't set to match that reference. Treat the default as a starting point, not a correct value.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">I don't have a pistonphone. How do I calibrate?</p>
                 <p class="faq-a">A practical method using a free reference app:</p>
                 <div class="steps">
-                    <div class="step"><span class="step-num">1</span><span>Install the free <strong>NIOSH Sound Level Meter</strong> app on an iPhone — it has been independently validated to ±2 dB accuracy</span></div>
+                    <div class="step"><span class="step-num">1</span><span>Install the free <a href="https://apps.apple.com/us/app/niosh-sound-level-meter/id1096545820" target="_blank" rel="noopener"><strong>NIOSH Sound Level Meter</strong></a> app on an iPhone (<a href="https://www.cdc.gov/niosh/noise/about/app.html" target="_blank" rel="noopener">CDC page</a>) — NIOSH validate it to ±2 dBA in their acoustics lab, though that figure applies to use with an external calibrated mic; the built-in iPhone mic adds some uncertainty. For the purpose of setting a calibration offset this is more than good enough.</span></div>
                     <div class="step"><span class="step-num">2</span><span>Place the iPhone next to your measurement mic, at the same position</span></div>
                     <div class="step"><span class="step-num">3</span><span>Play pink noise through your monitors at a typical working level</span></div>
                     <div class="step"><span class="step-num">4</span><span>Note the difference between what the iPhone app reads and what Auris reads</span></div>
@@ -597,11 +598,6 @@
                 <p class="faq-a">Sparkle caches its "already checked" state. To force a fresh check:</p>
                 <div class="terminal">defaults delete com.headroom.Auris</div>
                 <p class="faq-a" style="margin-top: 8px;">Relaunch Auris, then use <strong>menu → Check for Updates…</strong></p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">The app won't launch after reinstall.</p>
-                <p class="faq-a">This is typically a codesigning or entitlement issue from mixing build types. Download a fresh copy of the app. Do not mix ad-hoc dev builds with a notarised distribution build on the same machine.</p>
             </div>
 
         </div>
