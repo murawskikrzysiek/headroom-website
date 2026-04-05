@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auris — Release Notes</title>
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #0b0b0f;
+      color: #eeeef6;
+      padding: 28px 24px 48px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── App header ── */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #1e1e2a;
+    }
+    .app-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .app-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #eeeef6;
+      letter-spacing: -0.3px;
+    }
+    .app-sub {
+      font-size: 12px;
+      color: #6e6e90;
+      margin-top: 2px;
+    }
+
+    /* ── Release blocks ── */
+    .release {
+      margin-bottom: 36px;
+    }
+    .release-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .version {
+      font-size: 15px;
+      font-weight: 600;
+      color: #7c84f6;
+    }
+    .date {
+      font-size: 12px;
+      color: #6e6e90;
+    }
+    .badge-new {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #7c84f6;
+      color: #0b0b0f;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    /* ── Change list ── */
+    .changes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .changes li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #c8c8d8;
+      font-size: 13px;
+    }
+    .tag {
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .tag-new  { background: #1a2a1a; color: #3ecf7c; }
+    .tag-fix  { background: #2a1a1a; color: #f67c7c; }
+    .tag-impr { background: #1a1a2a; color: #7c9af6; }
+
+    /* ── Divider between releases ── */
+    .release + .release {
+      padding-top: 8px;
+      border-top: 1px solid #1a1a24;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #1a1a24;
+      font-size: 11px;
+      color: #4a4a64;
+      text-align: center;
+    }
+    footer a { color: #7c84f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-icon"><img src="icon.png" alt="Auris" /></div>
+    <div>
+      <div class="app-name">Auris</div>
+      <div class="app-sub">Real-time hearing dose meter for audio professionals</div>
+    </div>
+  </header>
+
+  <!-- ── 0.9 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 0.9</span>
+      <span class="date">April 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Initial pre-release. Real-time A-weighted SPL measurement via any CoreAudio input.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>NIOSH hearing dose tracking — 85 dBA reference, 3 dB exchange rate, 80 dBA threshold.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>C-weighted peak monitoring per EU Directive 2003/10/EC (135 / 137 / 140 dBC thresholds).</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Auto-detection of 15 DAWs including Luna, Logic Pro, Pro Tools, Ableton Live, REAPER, and more.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Session history with calendar range picker, dose charts, and CSV export.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Notifications for dose thresholds, C-weighted peaks, and microphone disconnection.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>7-day free trial. Automatic updates via Sparkle.</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="https://headroomstudio.dev/auris">headroomstudio.dev/auris</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+  </footer>
+
+</body>
+</html>
