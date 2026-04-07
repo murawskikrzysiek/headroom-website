@@ -438,6 +438,29 @@
         <div class="faq-list">
 
             <div class="faq-item">
+                <p class="faq-q">Why does frequency response calibration matter?</p>
+                <p class="faq-a">A-weighted SPL is computed by applying a standardised filter to the incoming signal. That filter assumes the measurement chain — microphone, preamp, and analogue-to-digital converter — is frequency-neutral. In practice, no microphone is perfectly flat, and the deviation matters most at the extremes of the audible range. A capsule that rolls off at 100 Hz will underreport bass energy; one that has a presence peak at 10 kHz will read high-frequency content as louder than it is.</p>
+                <p class="faq-a">For occupational dose tracking, errors in the A-weighted reading translate directly into errors in the dose calculation. A systematic 3 dB underread means your reported dose could be half of the real value. Frequency response calibration applies a correction curve to the signal <em>before</em> A-weighting is computed, making the virtual measurement chain effectively flat. It should be done before level calibration — a correct level offset on top of a distorted frequency response still produces inaccurate readings.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How do I calibrate the frequency response?</p>
+                <p class="faq-a">The goal is to measure how your microphone deviates from a flat response and tell Auris how to compensate. The process uses pink noise as a reference signal — pink noise has equal energy per octave, which makes spectral deviations easy to spot.</p>
+                <div class="steps">
+                    <div class="step"><span class="step-num">1</span><span>Place your measurement mic at your listening position</span></div>
+                    <div class="step"><span class="step-num">2</span><span>Play pink noise through your monitors at a steady, moderate level</span></div>
+                    <div class="step"><span class="step-num">3</span><span>In Auris, open <strong>Settings → Calibration → Frequency Response</strong> and start a measurement capture — Auris will record the spectral shape of what your mic is hearing</span></div>
+                    <div class="step"><span class="step-num">4</span><span>Auris compares this against a flat pink-noise reference and derives a per-band correction curve that makes the two agree</span></div>
+                    <div class="step"><span class="step-num">5</span><span>Apply the correction and proceed to level calibration</span></div>
+                </div>
+                <div class="notice">
+                    <span class="notice-icon">💡</span>
+                    <p>A dedicated measurement microphone (e.g. Behringer ECM8000, Superlux ECM999) gives the most accurate results because its capsule is designed for flat response. MacBook built-in microphones vary significantly between units and have a noticeable presence boost around 3–5 kHz, but the correction curve will still improve accuracy considerably compared to using no calibration at all.</p>
+                </div>
+                <p class="faq-a" style="margin-top: 10px;">If you have access to a professional sound level meter — or can compare against a verified reference — you can validate the correction by checking that Auris agrees with the reference within 1–2 dB after both calibration steps are complete.</p>
+            </div>
+
+            <div class="faq-item">
                 <p class="faq-q">Why is there a calibration offset?</p>
                 <p class="faq-a">Auris computes SPL from the digital signal level of your microphone. That digital level depends on two things: the microphone's sensitivity, and the input gain set on your interface or in System Settings → Sound. Both vary between setups, so the raw reading isn't tied to a real-world SPL value without calibration. The offset bridges that gap.</p>
                 <p class="faq-a" style="margin-top: 8px;">The default value of <strong>94 dB</strong> corresponds to the IEC 60942 pistonphone standard — a calibration device that produces a known 94 dB tone at 1 kHz. In practice, virtually every setup will need a different offset, because your input gain almost certainly isn't set to match that reference. Treat the default as a starting point, not a correct value.</p>
