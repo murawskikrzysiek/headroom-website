@@ -460,6 +460,25 @@
             </div>
 
             <div class="faq-item">
+                <p class="faq-q">Can I save a calibration and reuse it later?</p>
+                <p class="faq-a">Yes. The <strong>Save Profile</strong> section is always available at the bottom of Settings → Audio. Give it a label — the input device name is pre-filled, but something more descriptive is useful if you use the same mic in different positions or at different gain settings (e.g. <em>Superlux at desk — Apollo gain 40%</em>).</p>
+                <p class="faq-a">Each saved profile stores:</p>
+                <table class="dose-table">
+                    <tbody>
+                        <tr><td>Frequency correction</td><td>The full 128-tap FIR filter — omitted if no measurement has been made</td></tr>
+                        <tr><td>Device name</td><td>The input device that was selected at save time</td></tr>
+                        <tr><td>Level offset</td><td>The calibration offset that was active at save time — restored when you apply the profile</td></tr>
+                        <tr><td>Date saved</td><td>When the profile was saved</td></tr>
+                    </tbody>
+                </table>
+                <p class="faq-a" style="margin-top: 10px;">Saved profiles appear under <strong>Settings → Audio → Saved Profiles</strong>. Pressing <strong>Apply</strong> restores the frequency correction (if the profile has one) and sets the level offset to the value stored in the profile.</p>
+                <div class="notice">
+                    <span class="notice-icon">⚠</span>
+                    <p>The level offset is sensitive to input gain. If your gain has changed since the profile was saved, the restored offset will be incorrect — check the <em>Offset at save</em> value on the profile card and readjust manually if needed.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
                 <p class="faq-q">Why is there a calibration offset?</p>
                 <p class="faq-a">Auris computes SPL from the digital signal level of your microphone. That digital level depends on two things: the microphone's sensitivity, and the input gain set on your interface or in System Settings → Sound. Both vary between setups, so the raw reading isn't tied to a real-world SPL value without calibration. The offset bridges that gap.</p>
                 <p class="faq-a" style="margin-top: 8px;">The default value of <strong>94 dB</strong> corresponds to the IEC 60942 pistonphone standard — a calibration device that produces a known 94 dB tone at 1 kHz. In practice, virtually every setup will need a different offset, because your input gain almost certainly isn't set to match that reference. Treat the default as a starting point, not a correct value.</p>
