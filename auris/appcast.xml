@@ -29,8 +29,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Auris-0.9.1.dmg"
-                sparkle:edSignature="Zs25Jz7NVGKojuoxbOTPjgEDbFNrF7tEYJSwZzW8w4wL+WZveMEaU92IPhmK3iqCcxjipliYKhp9mNIQ17b2Cw=="
-                length="5340420"
+                sparkle:edSignature="KhAPnJu5EGXdHMMd/7gfmLu8cVThOFD0eLlhxWalQk/gWncH7tY82ID8wyuMnnJgUTL/PYLuW92u7h0mVGJPAw=="
+                length="5339232"
                 type="application/octet-stream" />
         </item>
 
