@@ -29,8 +29,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Auris-0.9.2.dmg"
-                sparkle:edSignature="DT3AgBhFZI6iTtgVIuAd9kRc/pRbDzaTBoxXHiXyytjXjzi4d8gmQHb/d84CKAeHqvJiYXwUabT9Nzq8wCVaDw=="
-                length="5339274"
+                sparkle:edSignature="XvgK4nt3CvFDxFUqH/yKBBw+fbA2DXJWk7PXlHyN6Sd42jMFGZk2Ga3AjB6mU170iCr77GiMdxvT/s+eoRqFDg=="
+                length="5339427"
                 type="application/octet-stream" />
         </item>
 
@@ -43,8 +43,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Auris-0.9.1.dmg"
-                sparkle:edSignature="KhAPnJu5EGXdHMMd/7gfmLu8cVThOFD0eLlhxWalQk/gWncH7tY82ID8wyuMnnJgUTL/PYLuW92u7h0mVGJPAw=="
-                length="5339232"
+                sparkle:edSignature="pKX/EnXw8enc8OqH/QIf4gcbrGBD8PkeV2liG+DeK/mDUXx0FzNUY66YOIOTZ/mEmx7zq6LHlbYG3CQcKL3mAA=="
+                length="5339058"
                 type="application/octet-stream" />
         </item>
 
