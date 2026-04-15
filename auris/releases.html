@@ -139,12 +139,38 @@
     </div>
   </header>
 
+  <!-- ── 1.0 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.0</span>
+      <span class="date">April 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Leq statistics — rolling energy-average level over 1-, 10-, and 30-minute windows. Leq is the same formula used to compute your dose, applied to a sliding window instead of the whole day. It shows how loud you have actually been — not just right now.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Ln percentile statistics — L10, L50, and L90 computed live over the last 30 minutes. L10 captures your loudest moments (exceeded 10% of the time), L50 is your typical working level, L90 reveals the background noise floor. All three values are shown in the menu bar panel.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Safety tab in Settings now explains Leq and Ln with the formula, standard references, and a plain-language description of what each number means in practice.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Session average SPL is now computed as a true Leq (energy average), consistent with the rolling Leq statistics and the NIOSH dose formula.</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 0.9.1 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 0.9.1</span>
       <span class="date">April 2026</span>
-      <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>

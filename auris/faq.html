@@ -602,6 +602,40 @@
         </div>
     </section>
 
+    <!-- ── Leq & Ln statistics ───────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Leq &amp; Ln statistics</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What is Leq?</p>
+                <p class="faq-a">Leq (equivalent continuous level) is the energy-average of all sound levels measured over a given time window. It answers the question: what single steady level would carry the same total acoustic energy as the actual fluctuating signal? The formula is Leq = 10 · log₁₀(mean(10^(Lᵢ/10))), where each Lᵢ is an individual A-weighted SPL reading. Unlike an arithmetic average, Leq is dominated by the loud moments — a few loud seconds pull the Leq up significantly more than many quiet ones.</p>
+                <p class="faq-a">Auris shows Leq over three rolling windows: 1 minute, 10 minutes, and 30 minutes. These update live in the menu bar panel.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How does Leq relate to the dose percentage?</p>
+                <p class="faq-a">Your dose is computed using the same energy-averaging formula, but applied across the whole day. The Leq windows give you a shorter-term view of the same thing — Leq(1 min) shows the level of the last minute, Leq(10 min) of the last ten minutes, and so on. If Leq(10 min) is consistently above 85 dBA, your dose is accumulating faster than the NIOSH 8-hour limit.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What are L10, L50, and L90?</p>
+                <p class="faq-a">L10, L50, and L90 are statistical percentile levels computed over the last 30 minutes of A-weighted SPL readings. They describe the distribution of levels in a session, not just the average.</p>
+                <p class="faq-a"><strong>L10</strong> is the level exceeded 10% of the time — it captures your loud peaks. If L10 is high, you're spending meaningful time at elevated levels.<br>
+                <strong>L50</strong> is the median level — exceeded exactly 50% of the time. This is your typical working level.<br>
+                <strong>L90</strong> is the level exceeded 90% of the time — it represents the background noise floor of your room. If L90 is already at 60–65 dBA, that's a significant constant exposure even before you play anything.</p>
+                <p class="faq-a">A healthy session has a clear gap between L10 and L90, indicating dynamic range. When all three values are close together, the environment is consistently loud without much variation.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why do the Leq windows show "—" when I first start?</p>
+                <p class="faq-a">Leq(1 min) needs 1 minute of data, Leq(10 min) needs 10 minutes, and Leq(30 min) / Ln percentiles need 30 minutes. The display shows a dash until the required window is filled. This is intentional — showing an estimate from only a few seconds of data would be misleading.</p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- ── Standards ──────────────────────────────────────────────────── -->
 
     <section class="faq-group">
