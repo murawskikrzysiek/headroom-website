@@ -180,6 +180,16 @@
             pointer-events: none;
         }
 
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .btn-outline:hover {
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.04);
+        }
+
         .price-note {
             font-size: 0.8rem;
             color: var(--text-2);
@@ -581,8 +591,12 @@
                 <span class="badge">NIOSH</span>
             </div>
             <div class="hero-actions">
-                <a href="https://releases.headroomstudio.dev/Auris-0.9.1.dmg" class="btn btn-primary">
+                <a href="https://releases.headroomstudio.dev/Auris-1.0.dmg" class="btn btn-primary">
                     ↓ Download Free Trial
+                </a>
+                <a href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1"
+                   class="btn btn-outline lemonsqueezy-button">
+                    Buy — $9.99
                 </a>
             </div>
             <span class="price-note">7-day free trial · one-time purchase · macOS 14+ · <a href="releases.html" style="color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:0.7;">Release notes</a></span>
@@ -746,6 +760,9 @@
 <div class="lightbox" id="lightbox">
     <img src="" alt="" id="lightbox-img">
 </div>
+
+<!-- Lemon Squeezy checkout overlay — intercepts .lemonsqueezy-button clicks -->
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 
 <script>
     const lightbox = document.getElementById('lightbox');
