@@ -139,12 +139,34 @@
     </div>
   </header>
 
+  <!-- ── 1.1 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.1</span>
+      <span class="date">April 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Input channel selection — pick any individual channel from your audio interface, not just the default stereo pair. Useful for talkback mics, dedicated measurement inputs, or any channel on multi-channel interfaces. Channel names are read directly from the driver (e.g. "TALKBACK 1", "MIC/LINE 2").</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span>Channel names from CoreAudio — the channel picker shows the actual names reported by your audio driver instead of generic "Channel 1", "Channel 2" labels.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span>Audio engine now correctly re-applies channel routing after a hardware configuration change (e.g. sample-rate switch or device reconnect).</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 1.0 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.0</span>
       <span class="date">April 2026</span>
-      <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>
