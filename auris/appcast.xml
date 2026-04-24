@@ -21,6 +21,20 @@
         <language>en</language>
 
         <item>
+            <title>Version 1.1</title>
+            <pubDate>Thu, 24 Apr 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Auris-1.1.dmg"
+                sparkle:edSignature="+ssWXU7YXNoI3pU8TafzoG76hcD3vRlQI6/Mri7TmARGy7x/71BRQwCFEgTXQmTtUUK8JTb6f+ZESw2ixBlyCw=="
+                length="5396482"
+                type="application/octet-stream" />
+        </item>
+
+        <item>
             <title>Version 1.0</title>
             <pubDate>Wed, 15 Apr 2026 12:00:00 +0000</pubDate>
             <sparkle:version>3</sparkle:version>
