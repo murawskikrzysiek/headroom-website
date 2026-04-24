@@ -15,7 +15,9 @@
     <meta name="twitter:description" content="F-key volume control for Universal Audio interfaces, right from your keyboard.">
     <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,13 +69,18 @@
 
         .brand {
             font-size: 1.05rem;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: -0.02em;
             color: var(--text);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .brand em { font-style: normal; color: var(--accent); }
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
 
         .nav-back {
             display: flex;
@@ -523,7 +530,10 @@
 
 <div class="container">
     <nav>
-        <a href="/" class="brand">Head<em>room</em></a>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
         <div style="display: flex; align-items: center; gap: 24px;">
             <a href="faq.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">FAQ</a>
             <a href="../" class="nav-back">
