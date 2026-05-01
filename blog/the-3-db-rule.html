@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 3 dB rule — the single number that explains studio loudness · Headroom</title>
+    <link rel="canonical" href="https://headroomstudio.dev/blog/the-3-db-rule.html">
+    <meta name="description" content="Every 3 dB increase halves your safe listening time. The arithmetic is unforgiving and most engineers have never run it on their own habits.">
+    <meta property="og:title" content="The 3 dB rule — the single number that explains studio loudness">
+    <meta property="og:description" content="Every 3 dB increase halves your safe listening time. The arithmetic is unforgiving and most engineers have never run it on their own habits.">
+    <meta property="og:image" content="https://headroomstudio.dev/blog/screenshots/3db-01-auris-caution.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>
+            All posts
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <header class="article-header">
+        <p class="article-eyebrow">Hearing health</p>
+        <h1>The 3 dB rule — the single number that explains studio loudness</h1>
+        <p class="article-subtitle">Every 3 dB increase halves your safe listening time. The arithmetic is unforgiving and most engineers have never run it on their own habits.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>27 April 2026</span>
+            <span class="dot"></span>
+            <span>7 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="container">
+    <article class="article">
+
+        <p>There is one number that explains nearly everything about safe loudness exposure for audio professionals, and most working engineers have never been told it. The number is <strong>3 dB</strong>. Every 3 dB increase in your monitoring level halves the time you can safely be exposed to it. Every 3 dB decrease doubles it. That's the rule. Everything else is bookkeeping.</p>
+
+        <p>Audio people get along fine without knowing this for years, sometimes decades. The reason it eventually catches up to all of us is that 3 dB is a very small change. It is roughly the difference between "today's mix sounds great" and "today's mix sounds <em>really</em> great". It is well below the threshold at which you'd ever describe a session as loud. And it is the difference between a full safe day at the desk and half a day.</p>
+
+        <h2>Why three</h2>
+
+        <p>The 3 dB exchange rate isn't arbitrary. It is the energy-doubling boundary. Sound pressure is logarithmic, and a 3 dB increase corresponds to <em>twice the acoustic energy</em> reaching the eardrum. Twice the energy in twice the time produces the same total dose. So if 85 dBA for 8 hours is the budget, 88 dBA for 4 hours uses the same budget. So does 91 dBA for 2 hours. So does 94 dBA for 1 hour. The numbers chase each other in a tidy logarithmic ladder.</p>
+
+        <p>This is the model the National Institute for Occupational Safety and Health uses. The relevant paper is from 1998 and the underlying physiology hasn't changed. The cochlea is a mechanical structure. Energy is energy. The 3 dB rule encodes that fact.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Level</th><th>Safe duration (per day)</th><th>What this looks like</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>85 dBA</td><td>8 hours</td><td>Standard mixing reference</td></tr>
+                <tr><td>88 dBA</td><td>4 hours</td><td>Hot tracking session</td></tr>
+                <tr><td>91 dBA</td><td>2 hours</td><td>Loud playback for clients</td></tr>
+                <tr><td>94 dBA</td><td>1 hour</td><td>Most live mix positions</td></tr>
+                <tr><td>97 dBA</td><td>30 minutes</td><td>Drum tracking room</td></tr>
+                <tr><td>100 dBA</td><td>15 minutes</td><td>Stage front-of-house</td></tr>
+                <tr><td>103 dBA</td><td>7.5 minutes</td><td>Quiet club</td></tr>
+                <tr><td>106 dBA</td><td>4 minutes</td><td>Loud club</td></tr>
+            </tbody>
+        </table>
+
+        <p>The table extends in both directions. At 82 dBA the safe time doubles to 16 hours — past the limits of a single working day, which is why 80 dBA is the threshold below which dose simply doesn't accumulate. At 109 dBA you have under two minutes. The pattern is so regular that you can derive the entire table from one row plus the rule.</p>
+
+        <h2>What it actually looks like</h2>
+
+        <p>The reason this matters in practice is that the difference between a "good" and a "bad" day at your studio is rarely 10 dB. It's almost always 2 to 4 dB. A client comes by, the playback gets pushed up. The reference track sounds quiet, the master gets nudged. The bass needs another dB. None of these moves register as <em>loud</em>; each one shaves an hour or two off what you can safely do today.</p>
+
+        <p>What that looks like, after a couple of hours of mixing at a level a few dB above the comfortable reference, is this:</p>
+
+        <figure class="figure">
+            <img src="screenshots/3db-01-auris-caution.png" alt="Auris menu bar popover showing dose in the Caution band after a morning mixing session">
+            <figcaption>Mid-afternoon. The morning's session — a couple of hours above the comfortable reference — has already spent 48% of today's safe budget, putting the menu firmly in Caution. The active afternoon session is back at reference, so dose has paused; the morning's accumulation is what's locked in.</figcaption>
+        </figure>
+
+        <p>The dose meter is not predicting what's about to happen. It's reporting what has already accumulated. By the time it crosses 70%, the day's flexibility is gone — any further loud listening is borrowing from tomorrow.</p>
+
+        <h2>The OSHA detour</h2>
+
+        <p>If you've encountered a different number, it's probably 5 dB. That's the OSHA exchange rate, used in US occupational noise regulations for industrial workers. It was set in 1971, designed for predictable factory noise environments where workers stayed at roughly the same level for an entire shift, and it has been controversial in the audiology community for nearly all of its existence.</p>
+
+        <p>The practical difference matters. Under OSHA's 5 dB rule, going from 90 dBA to 95 dBA halves your allowance. Under NIOSH's 3 dB rule, going from 90 to 93 already does. The NIOSH model is more protective by a meaningful margin, and it's the one current research supports. EU Directive 2003/10/EC also uses 3 dB. So does most of the rest of the developed world's occupational noise framework.</p>
+
+        <p>For audio professionals — who don't sit at a constant level, who push loud for short bursts and then come back to reference, whose work can't tolerate any meaningful hearing degradation — the OSHA model is dangerously permissive. It exists as a regulatory floor for industrial compliance, not as a guideline for protecting hearing.</p>
+
+        <div class="callout"><strong>Why it matters:</strong> if your dose meter or noise app uses 5 dB exchange, it is under-reporting your actual physiological risk. <a href="../auris/">Auris</a> uses NIOSH (3 dB exchange, 85 dBA criterion, 80 dBA threshold) by default and does not offer the OSHA setting on purpose.</div>
+
+        <h2>Two consequences</h2>
+
+        <p>The first consequence of taking the 3 dB rule seriously is that "I'll just turn it up for this one section" is no longer free. A 3 dB push for fifteen minutes during a chorus uses the same dose budget as the reference level used for thirty minutes. Across a full session that math compounds. The chorus push doesn't have to be retired — it has to be accounted for.</p>
+
+        <p>The second is more useful, and it's the one that actually changes how people work once they internalise it. <em>Going down 3 dB doubles the day.</em> If you mix at 82 dBA instead of 85, your safe budget is 16 hours instead of 8. If you mix at 79, it's 32. Most professional mixing decisions can be made just as well at 79 dBA as at 85, and the engineer who works at 79 has, in cumulative career terms, about double the listening capacity of the one who works at 85.</p>
+
+        <p>That isn't a moral argument. It's a math argument. The decisions that matter — relative levels, EQ choices, low-end balance, vocal placement — don't get sharper above 85 dBA, they get harder, because the loudness contours of the ear flatten and everything starts to sound bigger. The mixing tradition of "check it loud, mix it quiet, check it loud again" is exactly right, and it works because it minimises the time spent in the part of the curve where dose accumulates fastest.</p>
+
+        <h2>What to do with this</h2>
+
+        <p>The most useful thing you can do with the 3 dB rule is run it on your own habits for a week. Pick a measurement mic — anything reasonably accurate is fine, the relative numbers matter more than absolute precision — and let an SPL meter run while you work. You don't need to change anything yet. Just look at where the level actually sits during a normal day. Compare it to the table above.</p>
+
+        <p>If you spend most of your mixing day at 82 to 85 dBA, you're operating well within the budget. Many engineers, when they actually measure for the first time, find they're at 87 to 92 — which means the day's safe time is somewhere between 4 hours and 90 minutes. That's not a "you must change immediately" finding. It's a "now you know" finding. What you do with it is a separate question.</p>
+
+        <p>The point of the rule isn't to make studio work feel guilty. It's to take a category of decision that has historically been made by feel — <em>is this too loud?</em> — and put a number underneath it. The number is 3.</p>
+
+        <div class="kicker">
+            <p>For continuous dose tracking on macOS, see <a href="../auris/">Auris</a> — passive A-weighted SPL via any input device, NIOSH dose accumulation, four-state menu bar indicator. Free 7-day trial.</p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="pairing-auris-and-lyra.html"><span>Calibrate once, recall forever — pairing Auris and Lyra</span><span class="arrow">→</span></a></li>
+                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe — the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
+            </ul>
+        </div>
+    </article>
+</div>
+
+<div class="container">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="../lyra/">Lyra</a></li>
+            <li><a href="../auris/">Auris</a></li>
+            <li><a href="index.html">Blog</a></li>
+        </ul>
+    </footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.figure img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
