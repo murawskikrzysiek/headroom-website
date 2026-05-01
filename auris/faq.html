@@ -374,7 +374,7 @@
                         <tr><td>0–40%</td><td>Safe</td><td>Well within limits — keep working</td></tr>
                         <tr><td>40–70%</td><td>Caution</td><td>Consider turning down a few dB</td></tr>
                         <tr><td>70–90%</td><td>Warning</td><td>Take a break or reduce level significantly</td></tr>
-                        <tr><td>90%+</td><td>Danger</td><td>Daily limit approaching — continued exposure risks permanent damage</td></tr>
+                        <tr><td>90%+</td><td>Over-exposed</td><td>Daily limit approaching — continued exposure risks permanent damage</td></tr>
                     </tbody>
                 </table>
                 <p class="faq-a" style="margin-top: 12px;">Think of 100% not as a cliff edge after which damage is guaranteed, but as the point where a person exposed at that level <em>every working day for a career</em> begins accumulating statistically significant risk. The dose resets at midnight.</p>
@@ -574,7 +574,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">How do I read the weekly chart?</p>
-                <p class="faq-a">The seven bars represent the last seven calendar days, oldest on the left, today on the right. Each bar height is normalised to the highest day — the tallest bar fills the available space, and shorter bars scale proportionally. The number above each bar is that day's total dose as a percentage of the daily limit. Bar colours follow the same Safe / Caution / Warning / Danger thresholds used by the menu bar icon.</p>
+                <p class="faq-a">The seven bars represent the last seven calendar days, oldest on the left, today on the right. Each bar height is normalised to the highest day — the tallest bar fills the available space, and shorter bars scale proportionally. The number above each bar is that day's total dose as a percentage of the daily limit. Bar colours follow the same Safe / Caution / Warning / Over-exposed thresholds used by the menu bar icon.</p>
                 <p class="faq-a">The <strong>Daily avg</strong> header is the arithmetic mean of all seven days' dose percentages — on a typical day this week, how much of your daily budget did you use?</p>
                 <p class="faq-a">The <strong>EU weekly</strong> header is the EU L_EX,w — the weekly noise exposure level from ISO 9612 and EU Directive 2003/10/EC, expressed in dBA and directly comparable to the 85 dBA daily criterion. Below 80 dBA is green; 80–85 dBA is orange; ≥ 85 dBA is red, meaning weekly exposure is unsustainable at that pace.</p>
             </div>
@@ -660,6 +660,21 @@
             <div class="faq-item">
                 <p class="faq-q">Is Auris a replacement for a professional sound level meter?</p>
                 <p class="faq-a">No. Auris gives useful, science-based awareness of your exposure levels during everyday work — and that awareness alone can meaningfully reduce long-term risk. A <strong>calibrated, certified sound level meter</strong> (IEC 61672 Class 1 or 2) is required for formal occupational health compliance assessments. Treat Auris as a practical daily monitoring tool, not a regulatory instrument.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Companion apps ─────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Companion apps</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Does Auris work with Lyra?</p>
+                <p class="faq-a">Yes. <a href="../lyra/">Lyra</a> is our keyboard-driven volume control for Universal Audio Apollo interfaces. After running Auris's <strong>target-level calibration</strong> in Settings → Audio, click <strong>"Send to Lyra…"</strong> — Auris hands the position to Lyra by writing the live Apollo monitor level into one of three reference slots, tagged with the name and dB SPL value you picked. Recall the position later with <strong>Ctrl+F10 / F11 / F12</strong> in Lyra. The slot displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu and HUD instead of a generic percentage.</p>
+                <p class="faq-a">The integration uses Lyra's <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://reference/{n}/save</code> URL scheme, so even if Lyra is closed, macOS launches it on demand. Requires <strong>Lyra 1.4 or later</strong>. If Lyra isn't installed, Auris shows a small link to the product page in place of the button — no nags or interruptions.</p>
             </div>
 
         </div>

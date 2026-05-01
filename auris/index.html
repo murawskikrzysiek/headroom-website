@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auris — Headroom</title>
     <link rel="canonical" href="https://headroomstudio.dev/auris/">
-    <meta name="description" content="Real-time hearing dose meter for audio professionals. Measures SPL and tracks your daily NIOSH exposure so you know when to turn it down.">
+    <meta name="description" content="An SPL meter for your menu bar — for monitoring discipline and hearing protection. Calibrate your monitor chain to a reference, hold it across sessions, and track NIOSH hearing dose at the same time.">
     <meta property="og:title" content="Auris">
-    <meta property="og:description" content="Real-time hearing dose meter for audio professionals. Know your exposure before the damage is done.">
+    <meta property="og:description" content="Calibrated monitoring discipline and NIOSH hearing dose tracking, in one menu bar app. Pin your monitor knob to a reference. Know how much hearing today has cost.">
     <meta property="og:image" content="https://headroomstudio.dev/auris/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Auris">
-    <meta name="twitter:description" content="Real-time hearing dose meter for audio professionals. Know your exposure before the damage is done.">
+    <meta name="twitter:description" content="Calibrated monitoring discipline and NIOSH hearing dose tracking, in one menu bar app.">
     <meta name="twitter:image" content="https://headroomstudio.dev/auris/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -594,14 +594,15 @@
         <div class="hero-text">
             <p class="hero-eyebrow">Headroom</p>
             <h1>Auris</h1>
-            <p class="hero-desc">Real-time hearing dose meter for audio professionals. Won't make your studio look cooler — but it might keep you working in it longer. Hearing loss is cumulative. So is Auris.</p>
+            <p class="hero-desc">An SPL meter for your menu bar — built to do two jobs at once. Pin your monitor chain to a calibrated reference and stay there. Track how much hearing the day has cost using NIOSH-aligned dose accumulation. Both run passively while you work.</p>
             <div class="badges">
                 <span class="badge badge-macos">macOS</span>
+                <span class="badge">Target level</span>
                 <span class="badge">Hearing health</span>
                 <span class="badge">NIOSH</span>
             </div>
             <div class="hero-actions">
-                <a href="https://releases.headroomstudio.dev/Auris-1.1.dmg" class="btn btn-primary">
+                <a href="https://releases.headroomstudio.dev/Auris-1.2.dmg" class="btn btn-primary">
                     ↓ Download Free Trial
                 </a>
                 <a href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1"
@@ -619,9 +620,13 @@
     <div class="screenshots">
         <img src="history.png" alt="Auris session history window showing past recording sessions with dose and peak levels" class="screenshot-full">
         <div class="screenshot-row-3">
-            <img src="menu_dose_green.png" alt="Auris menu bar popover — Safe dose level (green)">
-            <img src="menu_dose_yellow.png" alt="Auris menu bar popover — Caution dose level (yellow)">
-            <img src="menu_dose_red.png" alt="Auris menu bar popover — Danger dose level (red)">
+            <img src="menu_dose_green.png" alt="Auris menu bar popover — Safe dose level (green) with monitoring discipline gauge">
+            <img src="menu_dose_yellow.png" alt="Auris menu bar popover — Caution dose level (yellow) with monitoring discipline gauge">
+            <img src="menu_dose_red.png" alt="Auris menu bar popover — Over-exposed dose level (red) with monitoring discipline gauge">
+        </div>
+        <div class="screenshot-row">
+            <img src="calibration-wizard.png" alt="Auris target-level calibration wizard in the captured state — pin the monitor controller to a known dBA reference">
+            <img src="send-to-lyra.png" alt="Auris's Send to Lyra sheet — write a calibration straight into one of Lyra's three reference slots">
         </div>
     </div>
 </div>
@@ -630,11 +635,14 @@
     <hr class="divider">
 
     <section class="section">
-        <p class="section-label">The problem</p>
-        <h2 class="section-headline">The most common occupational hazard in audio has no pain signal.</h2>
-        <p class="prose">Studies consistently place noise-induced hearing loss among the top health risks for audio professionals — and not just live engineers or touring musicians. Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish between one very loud hour and eight moderately loud ones. The damage arithmetic is the same.</p>
-        <p class="prose" style="margin-top: 12px;">That's what makes it so easy to ignore. There's no warning before the threshold shifts. By the time something feels off — the top end sounds different, mixing decisions feel harder, a tone that wasn't there before keeps you awake at night — the damage is already permanent. <strong>Most professionals know this abstractly. Almost none have ever actually measured their daily exposure.</strong></p>
-        <p class="prose" style="margin-top: 12px;">Auris doesn't add friction to your workflow. It sits in the menu bar, measures while you work, and gives you one number that matters: how much of today's limit you've used. Over weeks and months, patterns emerge — and that's when it actually changes how you work.</p>
+        <p class="section-label">Two measurements that matter</p>
+        <h2 class="section-headline">Where the monitor knob is actually set, and how much hearing the day has cost. Two questions almost no studio answers in numbers.</h2>
+
+        <p class="prose" style="margin-top: 24px;"><strong>The monitoring problem.</strong> The monitor knob drifts. A decibel up when the playback feels quiet, half a decibel back when a client walks in, a touch up again because the chorus needs energy. None of those moves register as wrong; together they mean the engineer in the afternoon is making decisions at a different level than the one in the morning. The same EQ move feels gentle in one session and aggressive in the next. Mixes that translated cleanly in the room don't translate to the car. None of this is mysterious — it all comes from making relative decisions against a moving reference.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>The hearing problem.</strong> Studies place noise-induced hearing loss among the top occupational hazards for audio professionals, and not just for live engineers. Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish between one very loud hour and eight moderately loud ones — the damage arithmetic is the same. There's no pain signal before the threshold shifts. By the time something feels off, the damage is permanent. <strong>Most professionals know this abstractly. Almost none have ever actually measured their daily exposure.</strong></p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>One measurement chain, two jobs.</strong> Auris answers both questions from the menu bar. The same A-weighted SPL reading that updates the dose counter feeds the calibration tools, the Leq statistics, the target-level wizard, and the <a href="../lyra/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Lyra</a> integration. No workflow friction. Two numbers that are usually invisible — your current monitoring SPL and today's accumulated dose — kept honest in the corner of your screen.</p>
     </section>
 
     <hr class="divider">
@@ -643,16 +651,28 @@
         <p class="section-label">Features</p>
         <div class="features">
             <div class="feature-row">
-                <span class="feature-key">Hearing dose</span>
-                <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. Four colour-coded states — Safe, Caution, Warning, Danger — update in the menu bar icon in real time. Resets at midnight. Persists across restarts.</span>
+                <span class="feature-key">Real-time SPL</span>
+                <span class="feature-val">Continuous A-weighted level at 10 Hz, exponentially smoothed for a stable, readable display. The same measurement chain feeds the dose counter, the calibration tools, the Leq statistics, and the Lyra integration — one number, multiple jobs.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Real-time SPL</span>
-                <span class="feature-val">Continuous A-weighted level at 10 Hz, exponentially smoothed for a stable, readable display. Calibratable to your measurement mic for real-world accuracy.</span>
+                <span class="feature-key">Target-level calibration</span>
+                <span class="feature-val">A pink-noise wizard pins your monitor controller to a specific dBA target (79 dBA approximates Katz's K-System reference; 81 lands close to cinema reference). Captured calibrations record the knob-position note, target value, and measured SPL, with a stale-calibration hint after 90 days. One record per output device, so monitors and headphones are calibrated independently.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Hearing dose</span>
+                <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. Four colour-coded states — Safe, Caution, Warning, Over-exposed — update in the menu bar icon in real time. Resets at midnight. Persists across restarts.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Leq &amp; Ln stats</span>
-                <span class="feature-val">Rolling energy-average level (Leq) over 1-, 10-, and 30-minute windows shows how loud you have actually been — not just right now. L10, L50, and L90 percentiles reveal the character of a session: L10 captures your loud peaks, L50 your typical working level, L90 the background noise floor. All computed live in the menu bar.</span>
+                <span class="feature-val">Rolling energy-average level (Leq) over 1-, 10-, and 30-minute windows shows how loud you have actually been — not just right now. L10, L50, and L90 percentiles reveal the character of a session: L10 captures your loud peaks, L50 your typical working level, L90 the background noise floor. Useful for both dose context and verifying you're holding a calibrated reference band.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Lyra integration</span>
+                <span class="feature-val">After a target-level calibration, hand the position straight to <a href="../lyra/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Lyra</a> with a single click. Pick a slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away from any app — Ctrl+F10 / F11 / F12 in Lyra. The slot remembers the dB SPL value and shows it as e.g. <em>"Mix — 79 dB SPL"</em> in Lyra's menu and HUD.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Mic frequency correction</span>
+                <span class="feature-val">Compensates for your measurement microphone's frequency response so the SPL reading reflects the room, not the capsule. A pink-noise sweep measures your mic's deviation from flat and applies the inverse correction before A-weighting. Per-mic profiles can be saved and recalled from Settings.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Peak monitoring</span>
@@ -717,7 +737,12 @@
 
     <section class="section">
         <p class="section-label">How it works</p>
-        <p class="prose">Auris reads audio from a microphone positioned at your listening position and converts it to A-weighted SPL using a proper <strong>IEC 61672-1 filter</strong> — the same standard used in professional sound level meters. It samples 10 times per second and accumulates your hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
+
+        <p class="prose">Auris reads audio from a microphone positioned at your listening position and converts it to A-weighted SPL using a proper <strong>IEC 61672-1 filter</strong> — the same standard used in professional sound level meters. It samples 10 times per second. That single measurement chain feeds two sets of tools.</p>
+
+        <p class="prose" style="margin-top: 16px;"><strong>Monitoring side.</strong> The live SPL feeds a target-level calibration wizard that pins your monitor controller to a chosen dBA target. Pink noise plays through your selected output, the wizard waits for the reading to settle inside a configurable tolerance band, you click <em>Capture</em>, and the position is recorded with a knob-position note. After saving, a one-click handoff to <a href="../lyra/">Lyra</a> writes the calibration into one of three reference slots, recallable by Ctrl+F-key. Rolling Leq statistics (over 1, 10, and 30 minutes) plus L10/L50/L90 percentiles tell you whether the room is actually sitting at the target or drifting around it.</p>
+
+        <p class="prose" style="margin-top: 16px;"><strong>Hearing-protection side.</strong> The same SPL stream accumulates hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
 
         <table class="dose-table">
             <thead>
