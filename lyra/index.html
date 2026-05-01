@@ -516,6 +516,70 @@
             color: var(--text-3);
         }
 
+        /* ─── URL scheme list ─── */
+
+        .url-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .url-group {
+            margin-top: 14px;
+        }
+        .url-group:first-child { margin-top: 0; }
+
+        .url-group-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin: 18px 0 8px;
+        }
+        .url-group:first-child .url-group-label { margin-top: 0; }
+
+        .url-row {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .url-row:first-of-type { border-top: 1px solid var(--border); }
+
+        .url-code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.82rem;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.045);
+            padding: 3px 8px;
+            border-radius: 5px;
+            border: 1px solid var(--border-hover);
+            display: inline-block;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .url-desc {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            margin-top: 8px;
+            line-height: 1.55;
+        }
+
+        .url-intro {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .url-intro code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
         /* ─── Responsive ─── */
 
         @media (max-width: 560px) {
@@ -561,7 +625,7 @@
                 <span class="badge">Menu bar</span>
             </div>
             <div class="hero-actions">
-                <a href="https://releases.headroomstudio.dev/Lyra-1.3.dmg" class="btn btn-primary">
+                <a href="https://releases.headroomstudio.dev/Lyra-1.4.dmg" class="btn btn-primary">
                     ↓ Download Free Trial
                 </a>
                 <a href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1"
@@ -594,6 +658,18 @@
             <div class="feature-row">
                 <span class="feature-key">Keyboard shortcuts</span>
                 <span class="feature-val">Volume, mute, DIM, and mono — all from the F-row. Shift halves the volume step for precise adjustments; Option+F10 toggles mono for a quick compatibility check.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Reference levels</span>
+                <span class="feature-val">Three named monitor presets (default <em>Quiet&nbsp;/&nbsp;Mix&nbsp;/&nbsp;Loud</em>) you can rename and recall. Hit Ctrl+F10/F11/F12 to jump straight to a calibrated listening level — for K-System reference, A/B'ing loudness, or quick check-mixes at low volume.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">URL scheme</span>
+                <span class="feature-val">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text);">lyra://</code> URLs — jump to a slot, set absolute volume, toggle mute / DIM / mono.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Auris pairing</span>
+                <span class="feature-val">Anchor each reference slot to a measured dB SPL by pairing with <a href="../auris/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Auris</a>, our SPL meter. After Auris's target-level calibration, hit <em>"Send to Lyra…"</em> and the position lands in the slot of your choice — the menu and HUD then read e.g. <em>"Mix — 85 dB SPL"</em> instead of just a percentage.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Menu bar</span>
@@ -660,8 +736,81 @@
                     <td><div class="keys"><span class="key">⌥ Option</span><span class="key-plus">+</span><span class="key">F10</span></div></td>
                     <td>Mono — sum L+R for mono compatibility check</td>
                 </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⌃ Control</span><span class="key-plus">+</span><span class="key">F10</span></div></td>
+                    <td>Jump to Reference Level slot 1</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⌃ Control</span><span class="key-plus">+</span><span class="key">F11</span></div></td>
+                    <td>Jump to Reference Level slot 2</td>
+                </tr>
+                <tr>
+                    <td><div class="keys"><span class="key">⌃ Control</span><span class="key-plus">+</span><span class="key">F12</span></div></td>
+                    <td>Jump to Reference Level slot 3</td>
+                </tr>
             </tbody>
         </table>
+    </section>
+
+    <section class="section" id="url-scheme">
+        <p class="section-label">URL scheme</p>
+        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>.</p>
+
+        <div class="url-list">
+
+            <div class="url-group">
+                <p class="url-group-label">Reference levels</p>
+                <div class="url-row">
+                    <span class="url-code">lyra://reference/1</span>
+                    <span class="url-code" style="margin-left: 4px;">lyra://reference/2</span>
+                    <span class="url-code" style="margin-left: 4px;">lyra://reference/3</span>
+                    <p class="url-desc">Jump to the named monitor preset stored in slot 1, 2, or 3.</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://reference/cycle</span>
+                    <p class="url-desc">Advance to the next slot in order — handy for a single Stream Deck button that rotates between presets.</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</span>
+                    <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Auris's <em>"Store as Lyra reference"</em> action after a calibration — Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
+                </div>
+            </div>
+
+            <div class="url-group">
+                <p class="url-group-label">Volume</p>
+                <div class="url-row">
+                    <span class="url-code">lyra://volume/set?tapered=0.5</span>
+                    <p class="url-desc">Set the monitor level to an absolute tapered value between <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">0.0</code> and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">1.0</code>. Same scale as <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">CRMonitorLevelTapered</code> in UA Mixer Engine.</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://volume/up</span>
+                    <span class="url-code" style="margin-left: 4px;">lyra://volume/down</span>
+                    <p class="url-desc">Step the volume up or down by one increment. Append <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">?fine=1</code> for a half-size step (the same as holding Shift with F11/F12).</p>
+                </div>
+            </div>
+
+            <div class="url-group">
+                <p class="url-group-label">Toggles</p>
+                <div class="url-row">
+                    <span class="url-code">lyra://mute/toggle</span>
+                    <p class="url-desc">Toggle the monitor mute (same as F10).</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://dim/toggle</span>
+                    <p class="url-desc">Toggle Apollo's hardware DIM (same as Shift+F10). The attenuation amount is set in UA Console.</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://mono/toggle</span>
+                    <p class="url-desc">Toggle L+R sum to mono for a quick compatibility check (same as Option+F10).</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="notice" style="margin-top: 20px;">
+            <span class="notice-icon">💡</span>
+            <p>All URLs require Lyra to be running and your Apollo to be connected (Mixer Engine reachable). Unknown URLs are logged and ignored — they won't crash or interrupt anything.</p>
+        </div>
     </section>
 
     <section class="section">

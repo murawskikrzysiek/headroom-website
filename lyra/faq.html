@@ -380,6 +380,16 @@
                 <p class="faq-a">Not at all. Lyra only adjusts the monitor output level — the same parameter you'd change in Console's monitor section. It doesn't touch your signal chain, insert any processing, or affect recordings in any way. Console and all your UAD plugins continue running exactly as before.</p>
             </div>
 
+            <div class="faq-item">
+                <p class="faq-q">Can I use Lyra with Stream Deck, Keyboard Maestro, or Shortcuts?</p>
+                <p class="faq-a">Yes. Lyra registers a <strong><code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://</code></strong> URL scheme that any of those tools can call. Common targets: <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/2</code> to jump to a stored monitor preset, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=0.4</code> to set an absolute level, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://mute/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dim/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">mono/toggle</code> for the toggles. The <a href="index.html#url-scheme" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full URL list</a> is on the main page.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra work with Auris?</p>
+                <p class="faq-a">Yes. <a href="../auris/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Auris</a> is our SPL meter for macOS — it measures the actual sound pressure level your speakers are producing. After running Auris's calibration, you can hit <strong>"Store as Lyra reference"</strong> and Auris will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
+            </div>
+
         </div>
     </section>
 
