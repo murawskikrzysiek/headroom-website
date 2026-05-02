@@ -359,6 +359,48 @@
         </div>
     </section>
 
+    <!-- ── Reference Levels ───────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Reference Levels</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What are Reference Levels?</p>
+                <p class="faq-a">Three named monitor presets, each storing a specific Apollo monitor level. Hit <strong>Ctrl+F10 / F11 / F12</strong> to jump straight to the level stored in slot 1, 2, or 3 — useful for K-System reference, A/B'ing at a different loudness, or quick check-mixes at low volume without losing your main setting.</p>
+                <p class="faq-a">The defaults are <em>Quiet</em>, <em>Mix</em>, and <em>Loud</em>; rename them to whatever fits your workflow (e.g. <em>K-14</em>, <em>Cinema</em>, <em>Late night</em>) from the menu bar's <strong>Reference Levels</strong> submenu.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How do I save a position into a slot?</p>
+                <p class="faq-a">Adjust your Apollo monitor knob to where you want it, then open the menu bar's <strong>Reference Levels</strong> submenu and pick <em>"Save current as → Slot 1 / 2 / 3"</em>. The slot now stores that exact tapered position; Ctrl+F-key will jump straight back to it.</p>
+                <p class="faq-a">For a calibrated slot tagged with a measured dB SPL value, run Auris's target-level calibration and use <strong>"Send to Lyra…"</strong> instead. See the Auris pairing question below.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why does my slot show "85 dB SPL" instead of a percentage?</p>
+                <p class="faq-a">Because it was calibrated. When a slot is written via Auris's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere — menu, HUD pill — because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
+                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared on purpose: the prior measurement was tied to the old position and no longer applies. Re-run Auris to restore the calibrated label.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What's the difference between jumping to a slot and just hitting volume up/down?</p>
+                <p class="faq-a">Volume up/down (F11/F12) walks the Apollo monitor level by your configured step. Reference Level jump (Ctrl+F-key) sets the level to a specific stored position in one shot. So if you've calibrated slot 2 to 79 dB SPL for mixing, Ctrl+F11 will land you there exactly regardless of where the knob currently is — no incremental key-mashing required.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I have more than three slots?</p>
+                <p class="faq-a">No, three is the design. The slots map onto Ctrl+F10/F11/F12, and three is enough to cover the useful cases (quiet / reference / loud) without turning into a long list nobody remembers. If you need more positions, drive Lyra from a Stream Deck or Shortcuts via the <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=…</code> URL — that supports any number of saved positions in your launcher of choice.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Do Reference Levels work with mute, DIM, and mono?</p>
+                <p class="faq-a">Yes — they're independent. Jumping to a slot only changes the monitor level; mute, DIM, and mono states stay where they are. So you can engage DIM (Shift+F10), then jump to a quiet reference level, and DIM stays on top of that.</p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- ── Compatibility ───────────────────────────────────────────────── -->
 
     <section class="faq-group">
@@ -387,7 +429,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with Auris?</p>
-                <p class="faq-a">Yes. <a href="../auris/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Auris</a> is our SPL meter for macOS — it measures the actual sound pressure level your speakers are producing. After running Auris's calibration, you can hit <strong>"Store as Lyra reference"</strong> and Auris will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
+                <p class="faq-a">Yes. <a href="../auris/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Auris</a> is our SPL meter for macOS — it measures the actual sound pressure level your speakers are producing. After running Auris's target-level calibration, you can hit <strong>"Send to Lyra…"</strong> and Auris will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu and HUD, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
             </div>
 
         </div>

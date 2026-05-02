@@ -661,7 +661,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Reference levels</span>
-                <span class="feature-val">Three named monitor presets (default <em>Quiet&nbsp;/&nbsp;Mix&nbsp;/&nbsp;Loud</em>) you can rename and recall. Hit Ctrl+F10/F11/F12 to jump straight to a calibrated listening level — for K-System reference, A/B'ing loudness, or quick check-mixes at low volume.</span>
+                <span class="feature-val">Three named monitor presets (default <em>Quiet&nbsp;/&nbsp;Mix&nbsp;/&nbsp;Loud</em>) you can rename and recall. Hit Ctrl+F10/F11/F12 to jump straight to a calibrated listening level — for K-System reference, A/B'ing loudness, or quick check-mixes at low volume. The menu bar's <em>Reference Levels</em> submenu also lets you save the current position into a slot or rename a slot without leaving the keyboard.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">URL scheme</span>
@@ -677,7 +677,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Volume HUD</span>
-                <span class="feature-val">A subtle on-screen overlay shows the current level whenever you adjust volume — just like the system does for built-in audio. Dismisses automatically after a moment.</span>
+                <span class="feature-val">A subtle on-screen overlay shows the current level whenever you adjust volume — just like the system does for built-in audio. When you jump to a Reference Level the pill labels itself with the slot name, and if the slot has been calibrated against <a href="../auris/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Auris</a> it shows the measured value too (e.g. <em>"Mix — 85 dB SPL"</em>). Dismisses automatically after a moment.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Non-invasive</span>
@@ -772,7 +772,7 @@
                 </div>
                 <div class="url-row">
                     <span class="url-code">lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</span>
-                    <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Auris's <em>"Store as Lyra reference"</em> action after a calibration — Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
+                    <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Auris's <em>"Send to Lyra…"</em> action after a calibration — Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
                 </div>
             </div>
 
