@@ -17,29 +17,20 @@
     <channel>
         <title>Auris</title>
         <link>https://headroomstudio.dev/auris</link>
-        <description>Auris — Real-time hearing dose meter for audio professionals</description>
+        <description>Auris — SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!--
-          ⚠ Version 1.2 PLACEHOLDER — DO NOT push to GitHub Pages until:
-            1. make release                                                → Auris.dmg (1.2)
-            2. Upload Auris.dmg to R2 as Auris-1.2.dmg
-            3. wc -c < Auris.dmg                                           → fill in length=""
-            4. .build/artifacts/sparkle/Sparkle/bin/sign_update Auris.dmg  → fill in sparkle:edSignature=""
-            5. Set the real pubDate (RFC 822 format)
-          Length="0" + edSignature="TODO" guarantee Sparkle rejects this entry if pushed by accident.
-        -->
         <item>
             <title>Version 1.2</title>
-            <pubDate>TODO REPLACE BEFORE PUSH</pubDate>
+            <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
             <sparkle:version>5</sparkle:version>
             <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Auris-1.2.dmg"
-                sparkle:edSignature="TODO"
-                length="0"
+                sparkle:edSignature="/N1kNkDWL8C8STSzjXz5pMRKKhXswJY8vG+qkes9JujmUYqiBE/eotugfCH5dEsYpd3AhUtbAjh0zDdFAQEDCg=="
+                length="5841501"
                 type="application/octet-stream" />
         </item>
 

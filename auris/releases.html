@@ -135,7 +135,7 @@
     <div class="app-icon"><img src="icon.png" alt="Auris" /></div>
     <div>
       <div class="app-name">Auris</div>
-      <div class="app-sub">Real-time hearing dose meter for audio professionals</div>
+      <div class="app-sub">SPL meter for monitoring discipline and hearing dose tracking</div>
     </div>
   </header>
 
@@ -143,17 +143,41 @@
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.2</span>
-      <span class="date">April 2026</span>
+      <span class="date">May 2026</span>
       <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Pair with Lyra</strong> — after a target-level calibration, click <em>"Send to Lyra…"</em> to write the position straight into one of Lyra's three reference slots. Pick the slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away — Ctrl+F10 / F11 / F12 in <a href="../lyra/">Lyra</a>. Auris ships the live Apollo monitor level along with the measured dB SPL value, so the slot displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu and HUD. Requires Lyra 1.4 or later.</span>
+        <span><strong>Target-level calibration wizard</strong> — pink-noise guided flow that pins your monitor controller to a chosen dBA reference (e.g. 79 for K-14, 83 for K-12, 85 for cinema). Plays through your selected output, waits for the reading to settle inside a configurable tolerance band, then captures the position with a knob-position note. Calibrations are stored per output device, so monitors and headphones each carry their own physical-position record. A stale-calibration hint nudges you to recalibrate after 90 days.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Monitoring Discipline</strong> — tracks how consistently you actually monitor at your chosen reference. New <em>Reference</em> tab in Settings with industry presets (K-20 / K-14 / K-12 / cinema) plus custom target and tolerance band. Live on-target % chip in the menu bar with a green / yellow / orange ladder, three-segment under / on / over bar, and a drift hint. <em>Today's Summary</em> aggregates the same metric across all sessions; per-session figures land in <em>History</em> alongside the dose stats. Useful at any SPL — fills the gap left by NIOSH dose, which stays at 0 % for users who never reach 80 dBA.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Monitoring alerts</strong> — opt-in notifications when your level <em>drifts</em> (rolling 30-min Leq vs session baseline) or sustains a deviation <em>off target</em>. Each category has its own 30-min snooze, so silencing a drift alert doesn't muffle a dose alert.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Pair with Lyra</strong> — after a target-level calibration, click <em>"Send to Lyra…"</em> to write the position straight into one of Lyra's three reference slots. Pick the slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away — Ctrl+F10 / F11 / F12 in <a href="../lyra/">Lyra</a>. Auris ships the live Apollo monitor level along with the measured dB SPL value, so the slot displays as e.g. <em>"Mix — 79 dB SPL"</em> in Lyra's menu and HUD. Requires Lyra 1.4 or later.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Audio tab restructure</strong> — settings now follow a three-step calibration journey, with each step explaining what it does and what it depends on. First-time setup actually has a path through the screen instead of a flat list of controls.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
         <span><strong>Silent capture</strong> — pink noise now stops the moment you press <em>"Capture position"</em>, so you can name the calibration in silence. Pressing <em>"Adjust again"</em> restarts the noise on the same output device.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span><strong>C-weighting filter</strong> — corrected a bug in the C-weighting filter implementation. dBC peak detection, the dBA-vs-dBC gap indicator, and conservative dose mode now report correct values.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span><strong>Channel names</strong> — driver-supplied channel names now show up correctly on a wider range of audio interfaces.</span>
       </li>
     </ul>
   </section>
