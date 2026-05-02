@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ — Auris</title>
     <link rel="canonical" href="https://headroomstudio.dev/auris/faq.html">
-    <meta name="description" content="Frequently asked questions about Auris — real-time hearing dose meter for audio professionals.">
+    <meta name="description" content="Frequently asked questions about Auris — SPL meter for monitoring discipline and hearing dose tracking.">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -359,7 +359,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">What does Auris actually measure?</p>
-                <p class="faq-a">Auris reads audio from a microphone at your listening position and converts the signal to A-weighted sound pressure level (dBA) using a filter that models human hearing sensitivity. It samples 10 times per second and accumulates your hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. At 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
+                <p class="faq-a">Auris reads audio from a microphone at your listening position and converts the signal to A-weighted sound pressure level (dBA) using a filter that models human hearing sensitivity. It samples 10 times per second. That single measurement chain feeds two things: a <strong>Monitoring Discipline</strong> tracker that classifies every reading against a target listening level you've calibrated to, and a <strong>NIOSH hearing dose</strong> counter that accumulates your daily exposure. At 85 dBA you have 8 hours of safe exposure; every 3 dB increase halves that time.</p>
                 <p class="faq-a">A parallel C-weighted measurement runs simultaneously for impulse peak monitoring. C-weighting is nearly flat across the audible spectrum, making it better suited for detecting sudden loud events that can cause immediate damage even if your cumulative dose is low.</p>
             </div>
 
@@ -506,6 +506,60 @@
                     <div class="step"><span class="step-num">6</span><span>Repeat until both agree within 1–2 dB</span></div>
                 </div>
                 <p class="faq-a" style="margin-top: 10px;">Record your calibration value and mic position in the <strong>Mic Location</strong> field so you can reproduce the same setup later.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Monitoring Discipline ──────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Monitoring Discipline</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What is Monitoring Discipline?</p>
+                <p class="faq-a">It's a measure of how consistently you actually monitor at your chosen reference level. Set a target (e.g. 79 dBA for K-14) and a tolerance band (e.g. ±3 dB), and Auris classifies every reading at 10 Hz as <em>under</em>, <em>on-target</em>, or <em>over</em>. The menu bar shows a live <strong>on-target %</strong> chip — green above 80%, yellow 60–80%, orange below — plus a three-segment under/on/over bar so you can see which way the room is leaning. <em>Today's Summary</em> aggregates the same metric across sessions, and per-session figures land in <em>History</em> next to the dose stats.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why does this exist when you already track NIOSH dose?</p>
+                <p class="faq-a">NIOSH dose only starts accumulating above 80 dBA. If you mix at 75 dBA all day, your dose stays at 0% — useful for hearing safety, useless as a discipline metric. Monitoring Discipline works at any SPL, because the question it answers is different: not "have I damaged my ears today?" but "did I make decisions against a stable reference today, or against a moving one?" The two metrics complement each other.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Which target should I pick?</p>
+                <p class="faq-a">There are four industry presets to start from:</p>
+                <table class="dose-table">
+                    <thead>
+                        <tr><th>Target</th><th>Use case</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>73 dBA</td><td>K-20 — quiet mixing reference, small rooms, late-night work</td></tr>
+                        <tr><td>79 dBA</td><td>K-14 — Bob Katz's general-purpose mixing reference</td></tr>
+                        <tr><td>83 dBA</td><td>K-12 — broadcast / loud-music mixing</td></tr>
+                        <tr><td>85 dBA</td><td>Cinema / loud tracking</td></tr>
+                    </tbody>
+                </table>
+                <p class="faq-a" style="margin-top: 12px;">Or set a custom target between 60 and 95 dBA. The default (79 dBA / ±3 dB) is a sensible starting point for most studio mixing.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">My on-target % drops when I take a break. Is that a bug?</p>
+                <p class="faq-a">No — and Auris guards against it. Periods of true silence (below a floor calculated from your target) are excluded from the on-target percentage entirely, so a coffee break doesn't deflate your score. The floor is the larger of <em>target − tolerance − 12 dB</em> or <em>50 dBA</em>, which catches "the room went quiet" without catching "I'm mixing 6 dB under reference" — that still counts as <em>under</em>, because monitoring 6 dB low is a real discipline gap, not silence.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What are the monitoring alerts?</p>
+                <p class="faq-a">Two opt-in macOS notifications, both fire once per session:</p>
+                <p class="faq-a"><strong>Drift</strong> — your rolling 30-minute Leq has crept significantly above your session baseline. Useful for catching the slow upward creep that happens over a long mix without you noticing.</p>
+                <p class="faq-a"><strong>Off target</strong> — you've sustained a deviation from your reference target band. The level is consistently outside ±tolerance, not just briefly poking out for a transient.</p>
+                <p class="faq-a">Each category has its own 30-minute snooze. Silencing a drift alert doesn't muffle a dose alert.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why does my on-target % show "—" early in a session?</p>
+                <p class="faq-a">The metric needs at least 30 seconds of active (non-silent) monitoring before it reports a percentage. Otherwise an early loud burst would peg the reading at 100% or 0% based on a tiny sample. Once you've crossed the 30-second threshold, the chip starts updating live.</p>
             </div>
 
         </div>

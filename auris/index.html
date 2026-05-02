@@ -659,16 +659,24 @@
                 <span class="feature-val">A pink-noise wizard pins your monitor controller to a specific dBA target (79 dBA approximates Katz's K-System reference; 81 lands close to cinema reference). Captured calibrations record the knob-position note, target value, and measured SPL, with a stale-calibration hint after 90 days. One record per output device, so monitors and headphones are calibrated independently.</span>
             </div>
             <div class="feature-row">
+                <span class="feature-key">Monitoring Discipline</span>
+                <span class="feature-val">Tracks how consistently you actually monitor at your chosen reference. Pick an industry preset (73 / 79 / 83 / 85 dBA) or set a custom target with a tolerance band, and the menu bar shows a live on-target % chip with a green / yellow / orange ladder, a three-segment under / on / over bar, and a drift hint. <em>Today's Summary</em> aggregates the same metric across sessions; per-session figures land in <em>History</em> alongside the dose stats. Useful at any SPL — fills the gap left by NIOSH dose, which stays at 0 % below 80 dBA.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Monitoring alerts</span>
+                <span class="feature-val">Opt-in notifications when your level <em>drifts</em> (rolling 30-min Leq vs session baseline) or sustains a deviation <em>off target</em>. Each category has its own 30-min snooze, so silencing a drift alert doesn't muffle a dose alert.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Lyra integration</span>
+                <span class="feature-val">After a target-level calibration, hand the position straight to <a href="../lyra/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Lyra</a> with a single click. Pick a slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away from any app — Ctrl+F10 / F11 / F12 in Lyra. The slot remembers the dB SPL value and shows it as e.g. <em>"Mix — 79 dB SPL"</em> in Lyra's menu and HUD.</span>
+            </div>
+            <div class="feature-row">
                 <span class="feature-key">Hearing dose</span>
                 <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. Four colour-coded states — Safe, Caution, Warning, Over-exposed — update in the menu bar icon in real time. Resets at midnight. Persists across restarts.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Leq &amp; Ln stats</span>
                 <span class="feature-val">Rolling energy-average level (Leq) over 1-, 10-, and 30-minute windows shows how loud you have actually been — not just right now. L10, L50, and L90 percentiles reveal the character of a session: L10 captures your loud peaks, L50 your typical working level, L90 the background noise floor. Useful for both dose context and verifying you're holding a calibrated reference band.</span>
-            </div>
-            <div class="feature-row">
-                <span class="feature-key">Lyra integration</span>
-                <span class="feature-val">After a target-level calibration, hand the position straight to <a href="../lyra/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Lyra</a> with a single click. Pick a slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away from any app — Ctrl+F10 / F11 / F12 in Lyra. The slot remembers the dB SPL value and shows it as e.g. <em>"Mix — 79 dB SPL"</em> in Lyra's menu and HUD.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Mic frequency correction</span>
@@ -740,7 +748,7 @@
 
         <p class="prose">Auris reads audio from a microphone positioned at your listening position and converts it to A-weighted SPL using a proper <strong>IEC 61672-1 filter</strong> — the same standard used in professional sound level meters. It samples 10 times per second. That single measurement chain feeds two sets of tools.</p>
 
-        <p class="prose" style="margin-top: 16px;"><strong>Monitoring side.</strong> The live SPL feeds a target-level calibration wizard that pins your monitor controller to a chosen dBA target. Pink noise plays through your selected output, the wizard waits for the reading to settle inside a configurable tolerance band, you click <em>Capture</em>, and the position is recorded with a knob-position note. After saving, a one-click handoff to <a href="../lyra/">Lyra</a> writes the calibration into one of three reference slots, recallable by Ctrl+F-key. Rolling Leq statistics (over 1, 10, and 30 minutes) plus L10/L50/L90 percentiles tell you whether the room is actually sitting at the target or drifting around it.</p>
+        <p class="prose" style="margin-top: 16px;"><strong>Monitoring side.</strong> The live SPL feeds a target-level calibration wizard that pins your monitor controller to a chosen dBA target. Pink noise plays through your selected output, the wizard waits for the reading to settle inside a configurable tolerance band, you click <em>Capture</em>, and the position is recorded with a knob-position note. After saving, a one-click handoff to <a href="../lyra/">Lyra</a> writes the calibration into one of three reference slots, recallable by Ctrl+F-key. From then on, <strong>Monitoring Discipline</strong> classifies every 10 Hz tick as <em>under / on-target / over</em> against your tolerance band and surfaces a live on-target % chip plus a daily aggregate — so "did I actually monitor at reference today?" becomes a number, not a vibe. Rolling Leq statistics (over 1, 10, and 30 minutes) plus L10/L50/L90 percentiles describe the character of the session at a finer grain.</p>
 
         <p class="prose" style="margin-top: 16px;"><strong>Hearing-protection side.</strong> The same SPL stream accumulates hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
 

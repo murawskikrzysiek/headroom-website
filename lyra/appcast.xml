@@ -19,26 +19,17 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra — UA Apollo keyboard volume control</description>
         <language>en</language>
-        <!--
-          ⚠ Version 1.4 PLACEHOLDER — DO NOT push to GitHub Pages until:
-            1. make release                                              → Lyra.dmg (1.4)
-            2. Upload Lyra.dmg to R2 as Lyra-1.4.dmg
-            3. wc -c < Lyra.dmg                                          → fill in length=""
-            4. .build/artifacts/sparkle/Sparkle/bin/sign_update Lyra.dmg → fill in sparkle:edSignature=""
-            5. Set the real pubDate (RFC 822 format)
-          Length="0" + edSignature="TODO" guarantee Sparkle rejects this entry if pushed by accident.
-        -->
         <item>
             <title>Version 1.4</title>
-            <pubDate>TODO REPLACE BEFORE PUSH</pubDate>
+            <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
             <sparkle:version>5</sparkle:version>
             <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Lyra-1.4.dmg"
-                sparkle:edSignature="TODO"
-                length="0"
+                sparkle:edSignature="LydK62yg41ShumLBm4viOfvr3SO9gjKTxI4OWm7qOmweg0KbD1vPuOz0PiCsUXAbPguyfYVq8SJiVGKuty8UBQ=="
+                length="2440080"
                 type="application/octet-stream" />
         </item>
         <item>
