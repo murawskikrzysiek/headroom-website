@@ -5,3 +5,8 @@
 # ─── IDEs ────────────────────────────────────────────────────────────────────
 .vscode/
 .idea/
+
+# ─── Blog screenshot pipeline ────────────────────────────────────────────────
+# Intermediate retina captures kept out of the repo — only the cropped,
+# page-ready PNGs in blog/screenshots/ ship.
+blog/screenshots/before-crop/
