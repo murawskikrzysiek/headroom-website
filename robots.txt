@@ -1,0 +1,11 @@
+# headroomstudio.dev — robots
+# All crawlers welcome; nothing to hide on this static site.
+
+User-agent: *
+Allow: /
+
+# Sparkle appcasts are not for humans / search — block them politely.
+Disallow: /lyra/appcast.xml
+Disallow: /auris/appcast.xml
+
+Sitemap: https://headroomstudio.dev/sitemap.xml
