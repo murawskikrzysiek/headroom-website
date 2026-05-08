@@ -684,8 +684,8 @@
                 <span class="feature-val">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text);">lyra://</code> URLs — jump to a slot, set absolute volume, toggle mute / DIM / mono.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Auris pairing</span>
-                <span class="feature-val">Anchor each reference slot to a measured dB SPL by pairing with <a href="../auris/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Auris</a>, our SPL meter. After Auris's target-level calibration, hit <em>"Send to Lyra…"</em> and the position lands in the slot of your choice — the menu and HUD then read e.g. <em>"Mix — 85 dB SPL"</em> instead of just a percentage.</span>
+                <span class="feature-key">Audita pairing</span>
+                <span class="feature-val">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Audita</a>, our SPL meter. After Audita's target-level calibration, hit <em>"Send to Lyra…"</em> and the position lands in the slot of your choice — the menu and HUD then read e.g. <em>"Mix — 85 dB SPL"</em> instead of just a percentage.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Menu bar</span>
@@ -693,7 +693,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Volume HUD</span>
-                <span class="feature-val">A subtle on-screen overlay shows the current level whenever you adjust volume — just like the system does for built-in audio. When you jump to a Reference Level the pill labels itself with the slot name, and if the slot has been calibrated against <a href="../auris/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Auris</a> it shows the measured value too (e.g. <em>"Mix — 85 dB SPL"</em>). Dismisses automatically after a moment.</span>
+                <span class="feature-val">A subtle on-screen overlay shows the current level whenever you adjust volume — just like the system does for built-in audio. When you jump to a Reference Level the pill labels itself with the slot name, and if the slot has been calibrated against <a href="../audita/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Audita</a> it shows the measured value too (e.g. <em>"Mix — 85 dB SPL"</em>). Dismisses automatically after a moment.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Non-invasive</span>
@@ -788,7 +788,7 @@
                 </div>
                 <div class="url-row">
                     <span class="url-code">lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</span>
-                    <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Auris's <em>"Send to Lyra…"</em> action after a calibration — Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
+                    <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Audita's <em>"Send to Lyra…"</em> action after a calibration — Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
                 </div>
             </div>
 
