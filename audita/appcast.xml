@@ -26,6 +26,20 @@
         <language>en</language>
 
         <item>
+            <title>Version 1.1 — Live menu bar readout + floating panel</title>
+            <pubDate>Fri, 08 May 2026 22:00:00 +0000</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.1.dmg"
+                sparkle:edSignature="lgivdGjrAUyISEi1ir2INfar1PcsNj7FZEOf+KvZHRr9/487y8Kn44RV777M367W9n4NiwriJzmoDe1yfOkhCg=="
+                length="5620010"
+                type="application/octet-stream" />
+        </item>
+
+        <item>
             <title>Version 1.0 — Audita launch (renamed from Auris)</title>
             <pubDate>Fri, 08 May 2026 12:00:00 +0000</pubDate>
             <sparkle:version>1</sparkle:version>
