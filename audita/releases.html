@@ -152,12 +152,42 @@
     </div>
   </header>
 
+  <!-- ── 1.1 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.1</span>
+      <span class="date">May 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Live SPL readout in the menu bar.</strong> Pick what shows next to the dose icon: <em>Icon only</em> (the historical look), <em>Live dBA</em>, <em>Live dBC</em>, or icon + number side-by-side. Updates ten times per second. Settings → Menu Bar.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Optional one-decimal precision and color-coded thresholds.</strong> Toggle between <code>85</code> and <code>85.2</code>; turn on <em>Color-code reading by level</em> to switch the readout between green / yellow / orange / red as the live SPL crosses three configurable thresholds. Defaults follow the NIOSH risk gradient (70 / 80 / 95 dB) — adjust them in Settings to match your room. The readout colour is independent of the dose icon: the icon reflects today's accumulated dose, the number reflects right-now level.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Pinnable measurement panel.</strong> Click the pin icon in the menu-bar popover to detach the measurement display as a floating window that stays above your DAW. Choose which sections appear in <em>Settings → Panel</em> — hearing dose, current SPL, monitoring discipline, Leq / Ln statistics, active session, today's summary. The window auto-resizes as you toggle sections on and off, and remembers its position across launches. Click the pin again — or double-click the panel — to dismiss.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Liquid Glass on macOS 26+.</strong> The pinned panel uses the new depth-aware glass material on macOS Tahoe or later, with a graceful fallback to the standard regular-material vibrancy on macOS Sonoma and Sequoia.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>The em-dash placeholder (<code>—</code>) shows in the live readout when the audio engine isn't capturing — between sessions, before the first measurement, or while the input device is changing — so the menu bar never falsely reads "0 dB = silent room".</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 1.0 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.0</span>
       <span class="date">May 2026</span>
-      <span class="badge-new">First release</span>
     </div>
     <ul class="changes">
       <li>
