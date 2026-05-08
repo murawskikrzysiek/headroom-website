@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Audita Release Notes — Version History & Changelog</title>
+  <meta name="description" content="Version history for Audita, the macOS SPL meter and NIOSH hearing dose tracker. Features, fixes, and improvements across releases.">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #0b0b0f;
+      color: #eeeef6;
+      padding: 28px 24px 48px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── App header ── */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #1e1e2a;
+    }
+    .app-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .app-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #eeeef6;
+      letter-spacing: -0.3px;
+    }
+    .app-sub {
+      font-size: 12px;
+      color: #6e6e90;
+      margin-top: 2px;
+    }
+
+    /* ── Release blocks ── */
+    .release {
+      margin-bottom: 36px;
+    }
+    .release-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .version {
+      font-size: 15px;
+      font-weight: 600;
+      color: #7c84f6;
+    }
+    .date {
+      font-size: 12px;
+      color: #6e6e90;
+    }
+    .badge-new {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #7c84f6;
+      color: #0b0b0f;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    /* ── Change list ── */
+    .changes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .changes li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #c8c8d8;
+      font-size: 13px;
+    }
+    .tag {
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .tag-new  { background: #1a2a1a; color: #3ecf7c; }
+    .tag-fix  { background: #2a1a1a; color: #f67c7c; }
+    .tag-impr { background: #1a1a2a; color: #7c9af6; }
+
+    /* ── Heritage callout ── */
+    .heritage {
+      margin-top: 36px;
+      padding: 14px 16px;
+      background: #14141e;
+      border: 1px solid #1e1e2a;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #9c9cb8;
+      line-height: 1.55;
+    }
+    .heritage strong { color: #c8c8d8; }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #1a1a24;
+      font-size: 11px;
+      color: #4a4a64;
+      text-align: center;
+    }
+    footer a { color: #7c84f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-icon"><img src="icon.png" alt="Audita" /></div>
+    <div>
+      <div class="app-name">Audita</div>
+      <div class="app-sub">SPL meter for monitoring discipline and hearing dose tracking</div>
+    </div>
+  </header>
+
+  <!-- ── 1.0 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.0</span>
+      <span class="date">May 2026</span>
+      <span class="badge-new">First release</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Audita is the renamed successor to Auris.</strong> Same dose monitoring, same calibration, same NIOSH formulas, same K-System target tracking — under a new name as part of a studio-wide naming alignment.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Welcome modal with one-click import from Auris.</strong> First launch offers to read the JSON export Auris 1.3 produces and restore every session, target-level calibration, monitoring alert setting, custom DAW, and today's running dose. Re-runnable any time from Settings → General → Migration.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Trial countdown and license key carry over automatically.</strong> If you had Auris on this Mac, your trial state and license activation move to Audita with no re-entry required — they live in the system Keychain under an identifier that's deliberately shared between the two apps.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Real-time A-weighted SPL measurement via any CoreAudio input — built-in mics, USB interfaces, or talkback channels on multi-channel devices.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>NIOSH hearing dose tracking — 85 dBA reference, 3 dB exchange rate, 80 dBA accumulation threshold, four-state safe / caution / warning / danger gauge with menu-bar icon, persistence across restarts, and midnight auto-reset.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>C-weighted peak monitoring per EU Directive 2003/10/EC (135 / 137 / 140 dBC thresholds), plus the 115 dBA instantaneous A-weighted ceiling.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Auto-detection of 15 DAWs including Luna, Logic Pro, Pro Tools, Ableton Live, REAPER, Cubase, Studio One, FL Studio, Bitwig Studio, Reason, and more — sessions start and end automatically as you work.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Three-step calibration wizard (mic frequency response → SPL offset → target-level), reference-level coaching with K-System presets, monitoring drift / off-target alerts, and Lyra pairing for one-click "Send to Lyra…" of a calibrated reference position.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Session history with calendar range picker, weekly EU L<sub>EX,w</sub> exposure chart, CSV export, and 30-day automatic pruning. 7-day free trial; automatic updates via Sparkle.</span>
+      </li>
+    </ul>
+  </section>
+
+  <div class="heritage">
+    <strong>Versions before 1.0.</strong> Audita ships as the renamed successor to Auris (0.9 → 1.3, March–May 2026). Existing Auris users are encouraged to update to Auris 1.3, export their data, and import into Audita 1.0 — the in-app migration handles every detail. Audita 1.0 carries the same audio engine and dose math as Auris 1.3 with no behavioral regressions.
+  </div>
+
+  <footer>
+    <a href="https://headroomstudio.dev/audita">headroomstudio.dev/audita</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+  </footer>
+
+</body>
+</html>

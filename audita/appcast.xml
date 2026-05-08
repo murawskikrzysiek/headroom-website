@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Audita appcast — host this file at:
+  https://headroomstudio.dev/audita/appcast.xml
+
+  Audita is the renamed successor to Auris. The Auris appcast at
+  /auris/appcast.xml is intentionally left in place so existing Auris
+  installs continue to receive the final 1.3 update; new development
+  ships exclusively via this feed.
+
+  How to update for a new release:
+  1. Run: make release  →  produces Audita.dmg
+  2. Upload Audita.dmg to Cloudflare R2 as Audita-X.Y.dmg, copy the public URL
+  3. Get the file size in bytes:  wc -c < Audita.dmg
+  4. Sign the DMG with Sparkle:   .build/artifacts/sparkle/Sparkle/bin/sign_update Audita.dmg
+     (this prints the edSignature value)
+  5. Add a new <item> block at the top (keep old items for reference)
+  6. Push to GitHub Pages — Sparkle clients re-fetch on their own schedule
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Audita</title>
+        <link>https://headroomstudio.dev/audita</link>
+        <description>Audita — SPL meter for monitoring discipline and hearing dose tracking</description>
+        <language>en</language>
+
+        <!--
+          1.0 placeholder — fill in pubDate, sparkle:edSignature, and length
+          after running:
+            make release
+            .build/artifacts/sparkle/Sparkle/bin/sign_update Audita-1.0.dmg
+            wc -c < Audita-1.0.dmg
+          Then upload Audita-1.0.dmg to R2 at the URL below before pushing.
+        -->
+        <item>
+            <title>Version 1.0</title>
+            <pubDate>__FILL_AT_RELEASE__</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.0.dmg"
+                sparkle:edSignature="__FILL_AT_RELEASE__"
+                length="__FILL_AT_RELEASE__"
+                type="application/octet-stream" />
+        </item>
+
+    </channel>
+</rss>

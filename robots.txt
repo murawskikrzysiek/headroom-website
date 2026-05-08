@@ -6,6 +6,7 @@ Allow: /
 
 # Sparkle appcasts are not for humans / search — block them politely.
 Disallow: /lyra/appcast.xml
+Disallow: /audita/appcast.xml
 Disallow: /auris/appcast.xml
 
 Sitemap: https://headroomstudio.dev/sitemap.xml
