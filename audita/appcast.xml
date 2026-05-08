@@ -25,25 +25,17 @@
         <description>Audita — SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!--
-          1.0 placeholder — fill in pubDate, sparkle:edSignature, and length
-          after running:
-            make release
-            .build/artifacts/sparkle/Sparkle/bin/sign_update Audita-1.0.dmg
-            wc -c < Audita-1.0.dmg
-          Then upload Audita-1.0.dmg to R2 at the URL below before pushing.
-        -->
         <item>
-            <title>Version 1.0</title>
-            <pubDate>__FILL_AT_RELEASE__</pubDate>
+            <title>Version 1.0 — Audita launch (renamed from Auris)</title>
+            <pubDate>Fri, 08 May 2026 12:00:00 +0000</pubDate>
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.0.dmg"
-                sparkle:edSignature="__FILL_AT_RELEASE__"
-                length="__FILL_AT_RELEASE__"
+                sparkle:edSignature="IFYterVTr1tLtoxub8Fb/KN36ApvLs2gNgclviaVuXUnEAN6jDgTO7FHUu+fyvfVolpFKdz2vESAzmf97J2XCA=="
+                length="5401947"
                 type="application/octet-stream" />
         </item>
 
