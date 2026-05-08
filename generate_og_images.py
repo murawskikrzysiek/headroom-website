@@ -143,15 +143,17 @@ def make_og_headroom():
     print(f"Saved {out}")
 
 
-# ── og-auris.png ──────────────────────────────────────────────────────────────
+# ── og-audita.png ─────────────────────────────────────────────────────────────
+# Renamed from make_og_auris in 2026-05-08; the auris/ folder is preserved
+# unmaintained, so we no longer regenerate auris/og.png.
 
-def make_og_auris():
+def make_og_audita():
     img  = make_base()
     draw = ImageDraw.Draw(img)
 
     # App icon — left-aligned, vertically centred
     icon_size = 200
-    icon_raw  = Image.open(os.path.join(HERE, "auris/icon.png")).convert("RGBA")
+    icon_raw  = Image.open(os.path.join(HERE, "audita/icon.png")).convert("RGBA")
     icon_raw  = icon_raw.resize((icon_size, icon_size), Image.LANCZOS)
     icon_x    = 90
     icon_y    = (H - icon_size) // 2
@@ -163,7 +165,7 @@ def make_og_auris():
 
     # App name
     f_title = font("BricolageGrotesque-Bold.ttf", 96)
-    draw.text((tx, ty_start), "Auris", font=f_title, fill=TEXT)
+    draw.text((tx, ty_start), "Audita", font=f_title, fill=TEXT)
 
     # Thin separator line
     div_y = ty_start + 108
@@ -185,7 +187,7 @@ def make_og_auris():
     # Bottom rule
     draw.line([(44, H - 56), (W - 44, H - 56)], fill=TEXT3 + (60,), width=1)
 
-    out = os.path.join(HERE, "auris/og.png")
+    out = os.path.join(HERE, "audita/og.png")
     img.save(out, "PNG")
     print(f"Saved {out}")
 
@@ -195,5 +197,5 @@ def make_og_auris():
 if __name__ == "__main__":
     make_og_lyra()
     make_og_headroom()
-    make_og_auris()
+    make_og_audita()
     print("Done.")

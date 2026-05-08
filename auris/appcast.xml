@@ -21,6 +21,20 @@
         <language>en</language>
 
         <item>
+            <title>Version 1.3 — Final Auris release (now Audita)</title>
+            <pubDate>Fri, 08 May 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/auris/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Auris-1.3.dmg"
+                sparkle:edSignature="O0/owp/TXaiDR/OYofVmqXZijX4VSr8clFgaJT7lBWtQQ9NYoojkiwzwmeWcLlVtzMeFlS9xj4cjETmHIkx1Cg=="
+                length="5993367"
+                type="application/octet-stream" />
+        </item>
+
+        <item>
             <title>Version 1.2</title>
             <pubDate>Sat, 02 May 2026 00:00:00 +0000</pubDate>
             <sparkle:version>5</sparkle:version>

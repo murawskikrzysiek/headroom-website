@@ -119,13 +119,13 @@
 
         <p>The second is the recall problem. Even with a known calibrated reference, returning the monitor knob to that exact position after a session of A/B'ing at louder levels was a task. Some engineers used tape marks on the monitor controller. Some used dedicated hardware monitor controllers with three-position recall. Most just eyeballed it.</p>
 
-        <p>Both problems have a cleaner shape in 2026 than they did when calibrated monitoring was first proposed. The SPL meter can live in the menu bar (<a href="../auris/">Auris</a> does this for any CoreAudio input — and it tracks hearing dose on the side, which is the correct second job for an SPL meter that's running anyway). And monitor recall can be a keystroke (<a href="../lyra/">Lyra</a> does this for UA Apollo interfaces, with three named slots bound to Ctrl+F10, Ctrl+F11, and Ctrl+F12).</p>
+        <p>Both problems have a cleaner shape in 2026 than they did when calibrated monitoring was first proposed. The SPL meter can live in the menu bar (<a href="../audita/">Audita</a> does this for any CoreAudio input — and it tracks hearing dose on the side, which is the correct second job for an SPL meter that's running anyway). And monitor recall can be a keystroke (<a href="../lyra/">Lyra</a> does this for UA Apollo interfaces, with three named slots bound to Ctrl+F10, Ctrl+F11, and Ctrl+F12).</p>
 
         <h2>A practical setup</h2>
 
         <p>If you want to try calibrated monitoring — and you should, regardless of which framework appeals — the workflow takes about ten minutes to set up and pays back forever.</p>
 
-        <p>Start with calibration. Pink noise into the monitors, measurement mic at the listening position, monitor controller adjusted until the reading lands on your target SPL. Auris reads A-weighted (the right choice for hearing dose tracking, its primary job). Aiming for <strong>~79 dBA pink noise</strong> approximates Katz's 83 dBC reference for music mixing; aim slightly higher (around 81 dBA) if you want to land closer to cinema reference. The exact number is a choice you make once; what matters is that the room sounds the same the next time you sit down.</p>
+        <p>Start with calibration. Pink noise into the monitors, measurement mic at the listening position, monitor controller adjusted until the reading lands on your target SPL. Audita reads A-weighted (the right choice for hearing dose tracking, its primary job). Aiming for <strong>~79 dBA pink noise</strong> approximates Katz's 83 dBC reference for music mixing; aim slightly higher (around 81 dBA) if you want to land closer to cinema reference. The exact number is a choice you make once; what matters is that the room sounds the same the next time you sit down.</p>
 
         <p>In day-to-day practice, most engineers don't only listen at the reference — they bracket it. A typical three-level setup looks something like this: a low check around <strong>70 dBA</strong> (verifies bass behaviour and dialogue intelligibility), the <strong>calibrated reference around 79 dBA</strong> (where the actual mixing decisions get made), and a louder check around <strong>85 dBA</strong> (catches mid-range issues that hide at quieter levels). The reference does most of the work; the other two exist to confirm decisions translate up and down.</p>
 
@@ -133,14 +133,14 @@
 
         <figure class="figure">
             <img src="screenshots/calibration-01-lyra-menu.png" alt="Lyra menu bar menu showing three reference slots: Low check at 70 dBA, Ref at 79 dBA, and Loud check at 85 dBA">
-            <figcaption>Three slots bracketing the calibrated reference. The dB SPL values come from Auris's calibration handoff, so the menu reflects measured truth instead of nominal targets.</figcaption>
+            <figcaption>Three slots bracketing the calibrated reference. The dB SPL values come from Audita's calibration handoff, so the menu reflects measured truth instead of nominal targets.</figcaption>
         </figure>
 
         <p>The HUD that appears when you press Ctrl+F11 confirms what you've recalled — name and dB SPL value, in plain digits, for the second and a half it takes to register.</p>
 
         <figure class="figure">
             <img src="screenshots/calibration-02-lyra-hud.png" alt="Lyra HUD overlay showing 'Ref — 79 dB SPL' on screen after pressing Ctrl+F11">
-            <figcaption>The reference confirmed at 79 dB SPL — the same number Auris read at calibration. The integration carries the value across, so the display reflects measurement rather than memory.</figcaption>
+            <figcaption>The reference confirmed at 79 dB SPL — the same number Audita read at calibration. The integration carries the value across, so the display reflects measurement rather than memory.</figcaption>
         </figure>
 
         <p>The practical loop is then: mix at the reference most of the time. Drop to the low check to verify bass and intelligibility. Push to the loud check to catch anything hiding in the midrange. Three keypresses, no hunting for the knob, no stopping to look at a meter on the desk.</p>
@@ -152,13 +152,13 @@
         <p>That's the version worth using in 2026. Same physics, same calibration math, same monitoring discipline that cinema rooms have used for fifty years and that Katz brought to music two and a half decades ago. Three keypresses and a small dose meter, instead of a desk full of analogue gear and the willpower to actually look at it. The barrier to entry is finally cheap.</p>
 
         <div class="kicker">
-            <p><a href="../auris/">Auris</a> is the SPL meter and dose tracker. <a href="../lyra/">Lyra</a> is the F-key recall layer for UA Apollo interfaces. They pair via a single click after a calibration — see <a href="pairing-auris-and-lyra.html">Calibrate once, recall forever</a> for the workflow. For the underlying frameworks, Bob Katz's <em>Mastering Audio</em> (third edition) and the SMPTE / Dolby cinema mix room specs are the canonical references.</p>
+            <p><a href="../audita/">Audita</a> is the SPL meter and dose tracker. <a href="../lyra/">Lyra</a> is the F-key recall layer for UA Apollo interfaces. They pair via a single click after a calibration — see <a href="pairing-audita-and-lyra.html">Calibrate once, recall forever</a> for the workflow. For the underlying frameworks, Bob Katz's <em>Mastering Audio</em> (third edition) and the SMPTE / Dolby cinema mix room specs are the canonical references.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="pairing-auris-and-lyra.html"><span>Calibrate once, recall forever — pairing Auris and Lyra</span><span class="arrow">→</span></a></li>
+                <li><a href="pairing-audita-and-lyra.html"><span>Calibrate once, recall forever — pairing Audita and Lyra</span><span class="arrow">→</span></a></li>
                 <li><a href="the-3-db-rule.html"><span>The 3 dB rule — the single number that explains studio loudness</span><span class="arrow">→</span></a></li>
             </ul>
         </div>
@@ -171,7 +171,7 @@
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="../lyra/">Lyra</a></li>
-            <li><a href="../auris/">Auris</a></li>
+            <li><a href="../audita/">Audita</a></li>
             <li><a href="index.html">Blog</a></li>
         </ul>
     </footer>
