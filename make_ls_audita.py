@@ -11,7 +11,14 @@ from PIL import Image, ImageDraw, ImageFont
 import math, os
 
 HERE  = os.path.dirname(os.path.abspath(__file__))
-FONTS = "/sessions/intelligent-hopeful-brown/mnt/.claude/skills/canvas-design/canvas-fonts"
+FONTS = os.environ.get("CANVAS_FONTS_DIR")
+if not FONTS:
+    raise SystemExit(
+        "CANVAS_FONTS_DIR not set. Point it at a directory containing the "
+        "Bricolage / Instrument / Jura / Geist TTF files used by this script.\n"
+        "Example:\n"
+        "  CANVAS_FONTS_DIR=/path/to/canvas-fonts python3 make_ls_audita.py"
+    )
 
 W, H = 1600, 1200
 

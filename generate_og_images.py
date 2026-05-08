@@ -22,7 +22,14 @@ import os
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 HERE      = os.path.dirname(os.path.abspath(__file__))
-FONTS_DIR = os.path.join(HERE, "..", ".skills", "skills", "canvas-design", "canvas-fonts")
+FONTS_DIR = os.environ.get("CANVAS_FONTS_DIR")
+if not FONTS_DIR:
+    raise SystemExit(
+        "CANVAS_FONTS_DIR not set. Point it at a directory containing the "
+        "Bricolage / Instrument / Jura / Geist TTF files used by this script.\n"
+        "Example:\n"
+        "  CANVAS_FONTS_DIR=/path/to/canvas-fonts python3 generate_og_images.py"
+    )
 
 # ── Canvas size ───────────────────────────────────────────────────────────────
 W, H = 1200, 630
