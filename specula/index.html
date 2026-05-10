@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specula — Audio Analysis &amp; Mastering Reference for macOS</title>
+    <link rel="canonical" href="https://headroomstudio.dev/specula/">
+    <meta name="description" content="Professional audio analysis for macOS. EBU R128 loudness, FFT, spectrogram, M/S stereo, phase, speech-gated LUFS, A–F compare with auto-align and diff, and a non-destructive edit mode.">
+    <meta property="og:title" content="Specula">
+    <meta property="og:description" content="See what's actually in the file. Load any audio. Read every metric that matters. Compare up to six masters. Ship with confidence.">
+    <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula">
+    <meta name="twitter:description" content="Professional audio analysis for macOS — EBU R128, FFT, spectrogram, stereo, compare, edit.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Nav ─── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+        .hero {
+            padding: 56px 0 52px;
+            display: flex;
+            align-items: flex-start;
+            gap: 28px;
+        }
+
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            border-radius: 20px;
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .hero-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 280px;
+            height: 280px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(124, 132, 246, 0.16) 0%, transparent 65%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.7rem, 4vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.65;
+            margin-bottom: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ─── Buttons ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 22px;
+            border-radius: var(--radius-btn);
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.18s, transform 0.12s;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary { background: var(--green); color: #061a0e; }
+        .btn-primary:hover { opacity: 0.88; }
+
+        .btn-muted {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-3);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .btn-outline:hover {
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--text-2);
+        }
+
+        /* ─── Badges ─── */
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: var(--radius-badge);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-2);
+        }
+
+        .badge-macos {
+            background: rgba(50, 130, 220, 0.12);
+            color: #5aabee;
+        }
+
+        /* ─── Divider ─── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ─── Sections ─── */
+        .section { padding-bottom: 52px; }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        .section-headline {
+            font-size: 1.25rem;
+            font-weight: 650;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            line-height: 1.35;
+            margin-bottom: 20px;
+        }
+
+        /* ─── Features list ─── */
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .feature-row:first-child { border-top: 1px solid var(--border); }
+
+        .feature-key {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            min-width: 130px;
+            padding-top: 1px;
+        }
+
+        .feature-val {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Requirements ─── */
+        .req-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .req-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .req-label {
+            color: var(--text-3);
+            min-width: 80px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .req-val { color: var(--text-2); }
+
+        /* ─── Prose ─── */
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.8;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+
+        .prose strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .prose a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+        .prose a:hover { color: #a0aaff; }
+
+        /* ─── Standards callout ─── */
+        .standards {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .standard-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .standard-row:first-child { border-top: 1px solid var(--border); }
+
+        .standard-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 2px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .standard-desc {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Compliance grid ─── */
+        .compliance-grid {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 16px;
+        }
+
+        .compliance-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+        }
+
+        .compliance-name { color: var(--text); font-weight: 500; }
+        .compliance-range { color: var(--text-2); font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.78rem; }
+
+        /* ─── Capabilities table ─── */
+        .caps {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 24px;
+        }
+
+        .cap {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 0;
+            font-size: 0.875rem;
+            color: var(--text-2);
+            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+            line-height: 1.5;
+        }
+
+        .cap::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.55;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        /* ─── Guide CTA card ─── */
+        .guide-cta {
+            margin-top: 16px;
+            padding: 22px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(124,132,246,0.08) 0%, rgba(124,132,246,0.02) 100%);
+            border: 1px solid rgba(124, 132, 246, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .guide-cta-text { flex: 1 1 280px; }
+        .guide-cta-title { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .guide-cta-sub { font-size: 0.825rem; color: var(--text-2); line-height: 1.5; }
+
+        /* ─── Notice box ─── */
+        .notice {
+            margin-top: 20px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.5;
+        }
+
+        .notice p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .footer-links a:hover { color: var(--text-2); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 560px) {
+            .hero { flex-direction: column; gap: 20px; padding: 40px 0 40px; }
+            .hero-icon { width: 64px; height: 64px; min-width: 64px; }
+            .feature-key { min-width: 100px; }
+            .compliance-grid { grid-template-columns: 1fr; }
+            .caps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 24px;">
+            <a href="guide.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">User guide</a>
+            <a href="../" class="nav-back">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 2L4 7l5 5"/>
+                </svg>
+                All apps
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <div class="hero-icon" style="background: none; padding: 10px; margin-top: 24px; width: 120px; height: 120px; min-width: 120px; box-sizing: border-box;">
+            <img src="icon.png" alt="Specula icon" style="border-radius: 20px; display: block; width: 100%; height: 100%;">
+        </div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">Headroom</p>
+            <h1>Specula</h1>
+            <p class="hero-desc">A pro-grade audio analyser for macOS. Load any file and see what's actually in it — every loudness number broadcasters and streamers care about, every spectral detail, every phase relationship between channels. Compare up to six masters at once with sample-accurate alignment and A−B residuals. Make non-destructive edits and ship.</p>
+            <div class="badges">
+                <span class="badge badge-macos">macOS</span>
+                <span class="badge">EBU R128</span>
+                <span class="badge">ITU-R BS.1770-4</span>
+                <span class="badge">Speech-gated LUFS</span>
+                <span class="badge">A/B compare</span>
+            </div>
+            <div class="hero-actions">
+                <span class="btn btn-muted">Coming soon</span>
+                <a href="guide.html" class="btn btn-outline">Read the user guide</a>
+            </div>
+            <span class="price-note" style="display: block; margin-top: 14px;">macOS 14+ · one-time purchase · $49.99 at launch</span>
+        </div>
+    </section>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <!-- ─── The pitch ─── -->
+    <section class="section">
+        <p class="section-label">Why Specula</p>
+        <h2 class="section-headline">Most engineers ship masters they can't fully see. Specula shows the file end-to-end, in numbers and in pictures, before it leaves your hands.</h2>
+
+        <p class="prose" style="margin-top: 24px;"><strong>The blind-spot problem.</strong> A master can sound right on your monitors and still fail at delivery. Spotify rejects it because integrated LUFS overshoots by half a dB. Apple Music dims it. A streaming dialog mix lands four LU under Netflix's speech-gated target. A "stereo" file is secretly mono on the verses and out-of-phase in the bridge. Most of these failures are visible in numbers the file already contains — you just need a tool that reads them out instead of leaving you to guess.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>The A/B problem.</strong> Was rev 4 actually better than rev 3, or just half a dB louder? When you can't level-match precisely, you can't trust the comparison — and you definitely can't see what changed. Specula loads up to six versions side-by-side, normalises them by integrated LUFS, optionally inverts polarity, and computes a sample-accurate residual. What's <em>different</em> between two takes becomes its own waveform you can solo, scrub, and export.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>The verification problem.</strong> "Looks fine in the DAW" isn't a deliverable. Specula gives you one place to confirm the loudness numbers, the true-peak ceiling, the streaming-platform compliance, the phase relationships, and the spectral content of the master that actually leaves your studio — before it leaves.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Capabilities (compact bullet grid) ─── -->
+    <section class="section">
+        <p class="section-label">What it does</p>
+        <h2 class="section-headline">Every measurement that matters, on every file you load. Live during playback, and offline on any selection.</h2>
+
+        <div class="caps">
+            <div class="cap">Waveform — all channels, pinch-zoom, drag-select, click-to-seek, clip detection, dBFS grid</div>
+            <div class="cap">EBU R128 — Momentary, Short-term, Integrated, LRA, True Peak, all live</div>
+            <div class="cap">Speech-gated LUFS — Silero neural VAD highlights speech blocks for dialog mixes</div>
+            <div class="cap">FFT spectrum — five window types, note-name on hover, frequency-range selection</div>
+            <div class="cap">Spectrogram — four colormaps, log or mel scale, configurable dB range</div>
+            <div class="cap">M/S stereo width — Pearson correlation, zone colour mode, plain-language hover labels</div>
+            <div class="cap">Phase scope — Lissajous L/R correlation</div>
+            <div class="cap">Per-channel RMS — peak hold, colour-coded zones, per-channel mute</div>
+            <div class="cap">Selection analysis — full offline pass with per-channel peak / RMS / crest</div>
+            <div class="cap">Loudness violations — set M/S/TP thresholds, watch the waveform light up</div>
+            <div class="cap">Channel routing — N→M matrix with PRE/POST monitor mode</div>
+            <div class="cap">Variable-rate playback — 0.25× to 4× with optional pitch preservation</div>
+            <div class="cap">Compare mode — up to 6 slots with auto-align, level-match, polarity, A−X diff</div>
+            <div class="cap">Edit mode — trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
+            <div class="cap">JSON & PDF reports — pick what to include, export and archive</div>
+            <div class="cap">Format support — WAV, AIFF, FLAC, CAF, MP3, AAC; mono through 7.1+ layouts</div>
+        </div>
+
+        <div class="guide-cta">
+            <div class="guide-cta-text">
+                <div class="guide-cta-title">Full reference: every feature, every shortcut, every setting</div>
+                <div class="guide-cta-sub">The user guide goes deep on each subsystem — what each FFT window is for, how the speech-gated path works, how compare-mode auto-align actually aligns, and the complete keyboard map.</div>
+            </div>
+            <a href="guide.html" class="btn btn-primary">Open user guide →</a>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Headline features ─── -->
+    <section class="section">
+        <p class="section-label">Headline features</p>
+
+        <div class="features">
+            <div class="feature-row">
+                <span class="feature-key">EBU R128 loudness</span>
+                <span class="feature-val">Full ITU-R BS.1770-4 implementation with K-weighting (cascaded vDSP biquad sections), 100 ms gating blocks, dual gating (−70 LUFS absolute, −10 LU relative), 4×-oversampled true peak. Live Momentary / Short-term / Integrated / LRA / True Peak in the sidebar; offline integrated and LRA on any selection. The included test target validates the implementation against the ITU reference test sequences.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Speech-gated LUFS</span>
+                <span class="feature-val">A neural Silero VAD runs on every loaded file and highlights speech blocks in teal on the waveform. The same speech mask gates a parallel integrated LUFS measurement — Netflix's speech-gated target (−27 LKFS ± 2) becomes a number you can read off the panel. A spectral fallback VAD covers the rare case where Silero is unavailable.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Streaming compliance</span>
+                <span class="feature-val">Live badges for Spotify, Apple Music, YouTube, Broadcast R128, and Netflix (speech-gated). Green when in range, orange when within ±2 LU. No more squinting at numbers and hoping.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">FFT spectrum</span>
+                <span class="feature-val">Real-time logarithmic spectrum with five window functions (Hann / Hamming / Blackman / Blackman-Harris / Flat Top), each tuned for a different job — from general use to closely-spaced harmonics to calibration-grade amplitude reads. Hover the mouse anywhere on the curve to see the frequency, level, and the closest musical note with cents deviation.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Spectrogram</span>
+                <span class="feature-val">Rolling time-frequency display with four perceptually-distinct colormaps (Inferno / Turbo / Plasma / Viridis), logarithmic <em>or</em> mel frequency scale, and a configurable dB-range window. Mel scale gives more resolution where dialogue actually lives.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">M/S stereo &amp; phase</span>
+                <span class="feature-val">A correlation curve (Pearson, −1 to +1) plus a Lissajous phase scope. Optional zone colour mode tints the curve by stereo character — mono, narrow, stereo, wide, out-of-phase — with a plain-English hover label so you can read what the numbers mean.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Compare mode</span>
+                <span class="feature-val">Drop in up to six audio files (slots A through F). Switch between them on bare 1–6 keys. Apply LUFS-based level-matching with one click so the louder version doesn't always win. Polarity-invert any slot. Manually nudge by one sample or one millisecond — or hit auto-align and let cross-correlation lock the slot to slot A. Compute and play back the A−X residual; export it as a WAV.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Edit mode</span>
+                <span class="feature-val">Non-destructive editing without booting up a DAW. Trim to selection, insert silence (before, after, or replace), apply linear gain, invert phase, fade in/out (linear / log / equal-power), normalize to a peak target or to a LUFS target with an automatic 5 ms lookahead brickwall limiter, remove DC offset, swap channels, or split the file into N mono WAVs. Single-level undo. Always saves as a new file.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Channel routing</span>
+                <span class="feature-val">Flexible N → M routing matrix with per-route gain trim. Pick whether the loudness measurement reads <strong>PRE</strong> (the raw file) or <strong>POST</strong> (after routing and gain). Useful for verifying surround channel orders against your monitor system without modifying the file.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">JSON &amp; PDF reports</span>
+                <span class="feature-val">Export the full set of measurements with <strong>⇧⌘E</strong> (JSON) or <strong>⌥⌘E</strong> (PDF). Pick what's included — loudness curves, stereo width, per-channel stats, violation list. The JSON is a stable schema for archival and CI use; the PDF is the same content rendered for human reading.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Format support</span>
+                <span class="feature-val">WAV, AIFF, FLAC, CAF, MP3, AAC, and anything else AVFoundation can decode. Channel layouts from mono and stereo through 3.0, quad, 5.1, 7.1, and arbitrary n-channel. Bit depth and sample rate read directly from the file metadata.</span>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Compliance targets ─── -->
+    <section class="section">
+        <p class="section-label">Streaming &amp; broadcast targets, live</p>
+        <h2 class="section-headline">Five compliance badges update in real time as the file plays.</h2>
+
+        <div class="compliance-grid">
+            <div class="compliance-row">
+                <span class="compliance-name">Spotify</span>
+                <span class="compliance-range">−16 to −14 LUFS</span>
+            </div>
+            <div class="compliance-row">
+                <span class="compliance-name">Apple Music</span>
+                <span class="compliance-range">−17 to −14 LUFS</span>
+            </div>
+            <div class="compliance-row">
+                <span class="compliance-name">YouTube</span>
+                <span class="compliance-range">−15 to −13 LUFS</span>
+            </div>
+            <div class="compliance-row">
+                <span class="compliance-name">Broadcast R128</span>
+                <span class="compliance-range">−24 to −22 LUFS</span>
+            </div>
+            <div class="compliance-row">
+                <span class="compliance-name">Netflix (speech-gated)</span>
+                <span class="compliance-range">−29 to −25 LUFS</span>
+            </div>
+        </div>
+
+        <p class="prose" style="margin-top: 18px;">Targets are intentionally mainstream — the goal is a quick sanity check before delivery, not an absolute pass/fail gate. For broadcast deliveries you'll usually want the offline analysis (<strong>⌘Return</strong>) so you have an integrated value computed over the entire master, not a rolling estimate.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Standards ─── -->
+    <section class="section">
+        <p class="section-label">Standards</p>
+        <h2 class="section-headline">Specula implements the actual specifications, not approximations of them.</h2>
+
+        <div class="standards">
+            <div class="standard-row">
+                <span class="standard-tag">ITU-R BS.1770-4</span>
+                <span class="standard-desc">K-weighting filter (two cascaded biquad IIR sections), 100 ms gating blocks, dual gating (−70 LUFS absolute, −10 LU relative), 4× oversampled inter-sample peak detection. Validated against the ITU reference test sequences.</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">EBU R128</span>
+                <span class="standard-desc">Momentary (400 ms window), Short-term (3 s window), Integrated (gated whole-programme), LRA (10–95 percentile range), True Peak (dBTP).</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">Silero VAD</span>
+                <span class="standard-desc">Neural voice activity detection (MIT). Runs at 16 kHz on every loaded file, classifies speech/non-speech per 100 ms block, and feeds the speech-gated loudness path.</span>
+            </div>
+            <div class="standard-row">
+                <span class="standard-tag">FluidAudio</span>
+                <span class="standard-desc">Apache 2.0 Swift wrapper for Silero on Apple platforms. The model is downloaded once on first launch (~2 MB) and cached locally.</span>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Requirements ─── -->
+    <section class="section">
+        <p class="section-label">Requirements</p>
+        <div class="req-list">
+            <div class="req-row">
+                <span class="req-label">macOS</span>
+                <span class="req-val">Sonoma 14.0 or later</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Network</span>
+                <span class="req-val">One-time Silero VAD model download (~2 MB) on first launch — afterwards, fully offline</span>
+            </div>
+            <div class="req-row">
+                <span class="req-label">Hardware</span>
+                <span class="req-val">Any Mac that runs macOS 14. Apple Silicon recommended for large files; uses Apple's vDSP throughout.</span>
+            </div>
+        </div>
+
+        <div class="notice">
+            <span class="notice-icon">ⓘ</span>
+            <p>All audio is processed locally. Specula never transmits your audio anywhere. The only network call is the one-time Silero model download.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── Final CTA ─── -->
+    <section class="section">
+        <p class="section-label">Ship with confidence</p>
+        <p class="prose">Specula is a tool for the moment between "I think this master is done" and "I'm sending it out." It doesn't replace your DAW, your mastering chain, or your ears. It catches the things ears miss — the hidden phase issue, the half-dB overshoot, the speech-gated number that's three LU off Netflix's target — before they become a re-deliver.</p>
+        <p class="prose" style="margin-top: 14px;">Take the long way through the user guide if you're new to loudness gating, or skim the keyboard reference if you just want to drive it.</p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
+            <a href="guide.html" class="btn btn-primary">Open user guide →</a>
+            <a href="mailto:hello@headroomstudio.dev" class="btn btn-outline">Get launch announcement</a>
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User guide</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
