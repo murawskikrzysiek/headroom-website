@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found — Headroom Studio</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Head back to Headroom Studio or browse the apps.">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://headroomstudio.dev/404.html">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --bg-card-hover:#16161f;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-icon:  13px;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.55rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            color: #c8c6f0;
+        }
+
+        .brand-word {
+            font-weight: 600;
+            color: #c8c6f0;
+        }
+
+        .brand-word span {
+            font-weight: 500;
+            color: #7a78a8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        main {
+            flex: 1;
+        }
+
+        .hero {
+            padding: 72px 0 56px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: -100px;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124,132,246,0.14) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 5.5vw, 3.75rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.12;
+            margin-bottom: 22px;
+            color: var(--text);
+        }
+
+        .hero h1 .h1-soft {
+            color: var(--text-2);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-2);
+            max-width: 480px;
+            line-height: 1.75;
+        }
+
+        .section {
+            padding-bottom: 56px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s, border-color 0.2s;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .app-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+        }
+
+        .app-icon {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .app-name {
+            font-size: 1rem;
+            font-weight: 650;
+            letter-spacing: -0.015em;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .app-desc {
+            font-size: 0.825rem;
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+
+        .app-arrow {
+            color: var(--accent);
+            font-size: 0.875rem;
+            margin-left: auto;
+            opacity: 0.7;
+            transition: opacity 0.18s, transform 0.18s;
+        }
+
+        .app-card:hover .app-arrow {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            background: rgba(124, 132, 246, 0.10);
+            color: var(--accent);
+            border: 1px solid rgba(124, 132, 246, 0.20);
+            transition: background 0.18s, border-color 0.18s;
+            letter-spacing: -0.01em;
+        }
+
+        .home-link:hover {
+            background: rgba(124, 132, 246, 0.16);
+            border-color: rgba(124, 132, 246, 0.35);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: 0.8125rem;
+            color: var(--text-3);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 640px) {
+            .hero { padding: 44px 0 40px; }
+            .hero h1 { font-size: 2.4rem; }
+            nav { padding: 20px 0; }
+            .nav-links { display: none; }
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+                <rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/>
+                <rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/>
+                <rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/>
+                <rect x="9" y="30" width="7" height="22" rx="3.5"/>
+                <rect x="18.5" y="20" width="6" height="32" rx="3"/>
+                <rect x="27" y="12" width="5" height="40" rx="2.5"/>
+                <rect x="34.5" y="8" width="4" height="44" rx="2"/>
+                <rect x="41" y="14" width="3.5" height="38" rx="1.75"/>
+                <rect x="47" y="24" width="3" height="28" rx="1.5"/>
+                <rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/>
+            </svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/#apps">Apps</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+<div class="container">
+    <section class="hero">
+        <p class="eyebrow">Error 404</p>
+        <h1>Page not found.<br><span class="h1-soft">Nothing here.</span></h1>
+        <p>The page you're looking for doesn't exist — it may have moved, or the link was wrong. Try one of the apps below, or head back home.</p>
+    </section>
+</div>
+
+<div class="container">
+    <section class="section">
+        <p class="section-label">Apps</p>
+        <div class="apps-grid">
+
+            <a href="/lyra/" class="app-card">
+                <div class="app-icon">
+                    <img src="/lyra/icon.png" alt="Lyra icon">
+                </div>
+                <div>
+                    <div class="app-name">Lyra</div>
+                    <div class="app-desc">F-key volume control for UA Apollo</div>
+                </div>
+                <span class="app-arrow">→</span>
+            </a>
+
+            <a href="/audita/" class="app-card">
+                <div class="app-icon">
+                    <img src="/audita/icon.png" alt="Audita icon">
+                </div>
+                <div>
+                    <div class="app-name">Audita</div>
+                    <div class="app-desc">Menu-bar SPL meter & NIOSH dose</div>
+                </div>
+                <span class="app-arrow">→</span>
+            </a>
+
+        </div>
+
+        <a href="/" class="home-link">← Back to home</a>
+    </section>
+</div>
+</main>
+
+<div class="container">
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom Studio</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="/lyra/privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
