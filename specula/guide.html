@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula — User Guide</title>
+    <title>Specula - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/guide.html">
-    <meta name="description" content="Complete user reference for Specula — every feature, every keyboard shortcut, every setting. EBU R128 loudness, FFT, spectrogram, stereo, compare, edit.">
+    <meta name="description" content="Complete user reference for Specula - every feature, every keyboard shortcut, every setting. EBU R128 loudness, FFT, spectrogram, stereo, compare, edit.">
     <meta property="og:title" content="Specula User Guide">
-    <meta property="og:description" content="Complete reference for Specula — every feature, every keyboard shortcut, every setting.">
+    <meta property="og:description" content="Complete reference for Specula - every feature, every keyboard shortcut, every setting.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="article">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -481,21 +481,21 @@
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">main-window.png — full app overview</div>
+            <div class="shot-name">main-window.png - full app overview</div>
             <div class="shot-desc">Full window with a stereo file loaded, waveform on top, FFT + spectrogram + stereo width visible, info sidebar showing live LUFS values. The "money shot" for the page.</div>
         </div>
 
         <ol>
-            <li><kbd>⌘O</kbd> — pick an audio file (WAV / AIFF / FLAC / CAF / MP3 / AAC).</li>
+            <li><kbd>⌘O</kbd> - pick an audio file (WAV / AIFF / FLAC / CAF / MP3 / AAC).</li>
             <li><kbd>Space</kbd> plays. <kbd>⌘.</kbd> stops.</li>
             <li>Drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
-            <li><kbd>⌃1</kbd>–<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>–<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
+            <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
             <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Report tabs).</li>
         </ol>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>First launch downloads the Silero VAD model (~2 MB) from HuggingFace to <code>~/Library/Application Support/FluidAudio/Models/</code>. Network is required for that one-time fetch only — afterwards Specula runs fully offline.</p>
+            <p>First launch downloads the Silero VAD model (~2 MB) from HuggingFace to <code>~/Library/Application Support/FluidAudio/Models/</code>. Network is required for that one-time fetch only - afterwards Specula runs fully offline.</p>
         </div>
     </section>
 
@@ -506,7 +506,7 @@
         <h2>2. Loading &amp; playback <a href="#playback" class="anchor">#</a></h2>
 
         <h3>Open a file</h3>
-        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Specula loads the entire file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load — large files (a 90-minute master at 96 kHz / 24-bit, say) take a few seconds; once loaded, every operation is instant.</p>
+        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Specula loads the entire file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load - large files (a 90-minute master at 96 kHz / 24-bit, say) take a few seconds; once loaded, every operation is instant.</p>
 
         <h3>Transport</h3>
         <table>
@@ -528,11 +528,11 @@
         <p class="prose">The Transport bar exposes both the rate slider and the "preserve pitch" toggle.</p>
 
         <h3>Output device</h3>
-        <p class="prose">The Transport bar device picker enumerates every CoreAudio output device on the system. Switching device rebuilds the audio engine. Specula is happy with any device — built-in speakers, USB interfaces, multichannel pro audio interfaces.</p>
+        <p class="prose">The Transport bar device picker enumerates every CoreAudio output device on the system. Switching device rebuilds the audio engine. Specula is happy with any device - built-in speakers, USB interfaces, multichannel pro audio interfaces.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">transport-bar.png — transport bar detail</div>
+            <div class="shot-name">transport-bar.png - transport bar detail</div>
             <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the device picker dropped open with a few CoreAudio devices visible.</div>
         </div>
     </section>
@@ -543,7 +543,7 @@
     <section class="guide-section" id="waveform">
         <h2>3. Waveform display <a href="#waveform" class="anchor">#</a></h2>
 
-        <p class="prose">Renders all channels of the loaded file simultaneously, scaled to fill the section height. Each channel uses its layout colour — mono, stereo, quad, 5.1, 7.1 each have a distinct palette.</p>
+        <p class="prose">Renders all channels of the loaded file simultaneously, scaled to fill the section height. Each channel uses its layout colour - mono, stereo, quad, 5.1, 7.1 each have a distinct palette.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -565,7 +565,7 @@
         <p class="prose">A time ruler runs above the waveform. Click the ruler-mode toggle in the waveform control strip to swap between <strong>Time</strong> (HH:MM:SS.mmm) and <strong>Samples</strong> (frame count). Useful when you need to align two takes by sample.</p>
 
         <h3>Vertical / amplitude zoom</h3>
-        <p class="prose">The control strip below the waveform has an amplitude zoom slider — useful for inspecting low-level detail without it being lost in the noise floor. Default is 1× (full ±0 dBFS range).</p>
+        <p class="prose">The control strip below the waveform has an amplitude zoom slider - useful for inspecting low-level detail without it being lost in the noise floor. Default is 1× (full ±0 dBFS range).</p>
 
         <h3>Clip detection</h3>
         <p class="prose">During load, Specula scans every channel for sample values ≥ ±1.0. Each detected clip region is highlighted in red on the waveform and counted in the Channel Info sidebar.</p>
@@ -574,7 +574,7 @@
         <p class="prose">The waveform draws horizontal grid lines at 0, −3, −6, −9, −12, −18, −24, −30, −36, −48, −60, −72, −84, −96 dBFS. Lines auto-cull when the channel is too short to label them legibly.</p>
 
         <h3>Speech regions overlay (SG toggle)</h3>
-        <p class="prose">After file load, Silero VAD runs in the background and produces a per-100&nbsp;ms speech / non-speech timeline. The waveform's control strip has an <strong>SG</strong> toggle — when enabled, detected speech blocks are shaded in teal. Useful for visually verifying the VAD result before relying on speech-gated loudness numbers.</p>
+        <p class="prose">After file load, Silero VAD runs in the background and produces a per-100&nbsp;ms speech / non-speech timeline. The waveform's control strip has an <strong>SG</strong> toggle - when enabled, detected speech blocks are shaded in teal. Useful for visually verifying the VAD result before relying on speech-gated loudness numbers.</p>
 
         <h3>Channel mute</h3>
         <p class="prose">Click a channel label in the Channels sidebar to mute that channel for playback. Useful for soloing one side of a stereo file or isolating a single channel of a multi-channel master.</p>
@@ -595,29 +595,29 @@
         </table>
 
         <h3>Offline analysis (⌘Return)</h3>
-        <p class="prose">Runs a full, detached analysis of the current selection. This is <em>separate</em> from the live measurements — it processes the whole selection at once with no real-time constraints, so it produces tighter numbers and includes things the live path can't compute cheaply.</p>
+        <p class="prose">Runs a full, detached analysis of the current selection. This is <em>separate</em> from the live measurements - it processes the whole selection at once with no real-time constraints, so it produces tighter numbers and includes things the live path can't compute cheaply.</p>
 
         <p class="prose"><strong>Output:</strong></p>
         <ul>
-            <li><strong>Time range</strong> — selection start and end.</li>
-            <li><strong>Per-channel Peak / RMS / Crest Factor</strong> — in dBFS / dBFS / dB.</li>
+            <li><strong>Time range</strong> - selection start and end.</li>
+            <li><strong>Per-channel Peak / RMS / Crest Factor</strong> - in dBFS / dBFS / dB.</li>
             <li><strong>Integrated LUFS</strong>, <strong>LRA</strong>, <strong>True Peak</strong>.</li>
             <li><strong>Max Momentary LUFS</strong>, <strong>Max Short-term LUFS</strong>.</li>
-            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> — Silero VAD over the selection.</li>
+            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> - Silero VAD over the selection.</li>
             <li><strong>Averaged FFT spectrum</strong> for the FFT view.</li>
-            <li><strong>Loudness curves</strong> — per-100&nbsp;ms momentary and short-term values used by the Loudness Curve view.</li>
+            <li><strong>Loudness curves</strong> - per-100&nbsp;ms momentary and short-term values used by the Loudness Curve view.</li>
         </ul>
 
-        <p class="prose">A spinner in the Selection Analysis sidebar block indicates the analysis is in flight; results land when it completes (typically ~1–3 s for a multi-minute selection).</p>
+        <p class="prose">A spinner in the Selection Analysis sidebar block indicates the analysis is in flight; results land when it completes (typically ~1-3 s for a multi-minute selection).</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">selection-analysis-sidebar.png</div>
-            <div class="shot-desc">Right info panel with selection analysis filled in — time range, per-channel peak/RMS/crest table, integrated LUFS, LRA, true peak.</div>
+            <div class="shot-desc">Right info panel with selection analysis filled in - time range, per-channel peak/RMS/crest table, integrated LUFS, LRA, true peak.</div>
         </div>
 
         <h3>Frequency selection (FFT)</h3>
-        <p class="prose">The FFT spectrum view has its own horizontal selection on the frequency axis — and it's an active playback filter, not a measurement readout. See <a href="#fft">FFT spectrum</a> for details. <kbd>Esc</kbd> clears the FFT selection too.</p>
+        <p class="prose">The FFT spectrum view has its own horizontal selection on the frequency axis - and it's an active playback filter, not a measurement readout. See <a href="#fft">FFT spectrum</a> for details. <kbd>Esc</kbd> clears the FFT selection too.</p>
     </section>
 
     <hr class="divider">
@@ -628,12 +628,12 @@
 
         <p class="prose">Specula's <code>LoudnessProcessor</code> implements full ITU-R BS.1770-4 / EBU R128:</p>
         <ul>
-            <li><strong>K-weighting</strong> — two cascaded biquad IIR sections via <code>vDSP_biquad</code>, coefficients computed once per sample rate.</li>
-            <li><strong>100 ms gating blocks</strong> — each block contributes one mean square value.</li>
+            <li><strong>K-weighting</strong> - two cascaded biquad IIR sections via <code>vDSP_biquad</code>, coefficients computed once per sample rate.</li>
+            <li><strong>100 ms gating blocks</strong> - each block contributes one mean square value.</li>
             <li><strong>400 ms sliding window</strong> for momentary.</li>
             <li><strong>3 second sliding window</strong> for short-term.</li>
-            <li><strong>Dual gating</strong> — absolute threshold at −70 LUFS, relative threshold at −10 LU below the ungated mean.</li>
-            <li><strong>True Peak</strong> — 4× oversampled inter-sample peak detection.</li>
+            <li><strong>Dual gating</strong> - absolute threshold at −70 LUFS, relative threshold at −10 LU below the ungated mean.</li>
+            <li><strong>True Peak</strong> - 4× oversampled inter-sample peak detection.</li>
         </ul>
 
         <h3>What's shown live (sidebar)</h3>
@@ -642,7 +642,7 @@
             <tr><td>Momentary (M)</td><td class="wrap-ok">400 ms window, updates 10×/sec</td></tr>
             <tr><td>Short-term (S)</td><td class="wrap-ok">3 s window</td></tr>
             <tr><td>Integrated (I)</td><td class="wrap-ok">Whole-file integrated LUFS, dual-gated. Resets on file load and on play-from-zero.</td></tr>
-            <tr><td>LRA</td><td class="wrap-ok">The 10–95 percentile range of the gated short-term distribution</td></tr>
+            <tr><td>LRA</td><td class="wrap-ok">The 10-95 percentile range of the gated short-term distribution</td></tr>
             <tr><td>True Peak (dBTP)</td><td class="wrap-ok">Highest 4×-oversampled inter-sample peak. Turns red above −1 dBTP.</td></tr>
             <tr><td>Sample Peak (dBFS)</td><td class="wrap-ok">Highest absolute sample value across the whole file.</td></tr>
         </table>
@@ -650,7 +650,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">loudness-sidebar.png</div>
-            <div class="shot-desc">Info sidebar focused on the loudness section — M/S/I/LRA/TP values, sample peak, plus the compliance badges block underneath (Spotify/Apple/YouTube/Broadcast/Netflix).</div>
+            <div class="shot-desc">Info sidebar focused on the loudness section - M/S/I/LRA/TP values, sample peak, plus the compliance badges block underneath (Spotify/Apple/YouTube/Broadcast/Netflix).</div>
         </div>
 
         <h3>Compliance badges</h3>
@@ -674,28 +674,28 @@
 
         <p class="prose">Specula uses a two-tier voice activity detection pipeline to compute integrated loudness over speech-only blocks. This matters for podcast / dialog / film mixing where you want to ignore room tone, music beds, and silence.</p>
 
-        <h3>Tier 1 — Silero neural VAD</h3>
+        <h3>Tier 1 - Silero neural VAD</h3>
         <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms <code>[Bool]</code> history is injected into <code>LoudnessProcessor</code>. Selection analysis re-runs Silero on just the selection.</p>
 
-        <h3>Tier 2 — Spectral fallback (SpeechVAD)</h3>
+        <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
         <p class="prose">Used when Silero is unavailable (model not yet downloaded or returns an error). Four spectral features:</p>
         <ol>
-            <li><strong>HF gate</strong> — if HF energy &gt; 0.35 × total → non-speech (rejects plosives and cymbals).</li>
-            <li><strong>Band Energy Ratio</strong> (300–3 400 Hz) — threshold 0.45.</li>
-            <li><strong>Spectral Flatness Measure</strong> (dB) — threshold −8 dB.</li>
-            <li><strong>Harmonicity + Spectral Flux</strong> — ACF peak ratio ≥ 0.40 = voiced.</li>
+            <li><strong>HF gate</strong> - if HF energy &gt; 0.35 × total → non-speech (rejects plosives and cymbals).</li>
+            <li><strong>Band Energy Ratio</strong> (300-3 400 Hz) - threshold 0.45.</li>
+            <li><strong>Spectral Flatness Measure</strong> (dB) - threshold −8 dB.</li>
+            <li><strong>Harmonicity + Spectral Flux</strong> - ACF peak ratio ≥ 0.40 = voiced.</li>
         </ol>
 
         <h3>Output</h3>
         <ul>
-            <li><strong>Speech-gated Integrated LUFS (SG-I)</strong> — same dual gating as full integrated, but only accumulates VAD-classified speech blocks. Threshold reference shown in sidebar is −27 LUFS (Netflix dialog target).</li>
-            <li><strong>Speech %</strong> — fraction of the file (or selection) classified as speech. <code>–</code> is shown for content with &lt; 0.5 % speech.</li>
+            <li><strong>Speech-gated Integrated LUFS (SG-I)</strong> - same dual gating as full integrated, but only accumulates VAD-classified speech blocks. Threshold reference shown in sidebar is −27 LUFS (Netflix dialog target).</li>
+            <li><strong>Speech %</strong> - fraction of the file (or selection) classified as speech. <code>-</code> is shown for content with &lt; 0.5 % speech.</li>
         </ul>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">speech-regions.png</div>
-            <div class="shot-desc">Waveform with the SG toggle enabled — speech blocks shaded teal. Ideally a podcast or dialog file where the speech regions and silences are clearly visible.</div>
+            <div class="shot-desc">Waveform with the SG toggle enabled - speech blocks shaded teal. Ideally a podcast or dialog file where the speech regions and silences are clearly visible.</div>
         </div>
     </section>
 
@@ -707,8 +707,8 @@
 
         <p class="prose">A dedicated section that plots per-100&nbsp;ms momentary and short-term LUFS over time, with the time axis aligned to the waveform's. Toggle with <kbd>⌃2</kbd>.</p>
         <ul>
-            <li><strong>Momentary curve</strong> — fast-responding, shows transient loudness peaks.</li>
-            <li><strong>Short-term curve</strong> — slower, shows where the perceived loudness sits.</li>
+            <li><strong>Momentary curve</strong> - fast-responding, shows transient loudness peaks.</li>
+            <li><strong>Short-term curve</strong> - slower, shows where the perceived loudness sits.</li>
         </ul>
         <p class="prose">After offline selection analysis, the Loudness Curve view fills in for the analysed range; live playback adds new samples as they're measured.</p>
 
@@ -727,9 +727,9 @@
 
         <p class="prose">Set programme-loudness thresholds and watch the waveform highlight every block that exceeds them. In the Loudness Curve / control strip:</p>
         <ul>
-            <li><strong>M threshold</strong> — momentary LUFS limit.</li>
-            <li><strong>S threshold</strong> — short-term LUFS limit.</li>
-            <li><strong>TP threshold</strong> — true peak limit.</li>
+            <li><strong>M threshold</strong> - momentary LUFS limit.</li>
+            <li><strong>S threshold</strong> - short-term LUFS limit.</li>
+            <li><strong>TP threshold</strong> - true peak limit.</li>
         </ul>
         <p class="prose">Any 100&nbsp;ms block above its threshold is highlighted on the waveform in real time during playback and after offline selection analysis. Useful for spotting the exact moment a master clips a streaming target.</p>
         <p class="prose">The <strong>Violations</strong> toggle in <strong>Settings → Report</strong> controls whether they're included in JSON / PDF exports.</p>
@@ -741,7 +741,7 @@
     <section class="guide-section" id="fft">
         <h2>9. FFT spectrum <a href="#fft" class="anchor">#</a></h2>
 
-        <p class="prose">Real-time logarithmic-frequency spectrum from 20 Hz – 20 kHz. Toggle with <kbd>⌃4</kbd>.</p>
+        <p class="prose">Real-time logarithmic-frequency spectrum from 20 Hz - 20 kHz. Toggle with <kbd>⌃4</kbd>.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -764,25 +764,25 @@
         <h3>Note names (NOTES toggle)</h3>
         <p class="prose">Hover anywhere on the spectrum and the cursor reads out frequency in Hz, magnitude in dB, <strong>and</strong> the closest musical note + cents deviation. Toggle on/off via the <strong>NOTES</strong> button in the FFT control strip.</p>
 
-        <h3>Frequency selection — live BAND / NOTCH filter</h3>
-        <p class="prose">Drag horizontally on the spectrum to capture a frequency range. The selection is <strong>an active playback filter</strong>, not a measurement readout — playback is routed through it so you can hear what's inside or outside the band.</p>
+        <h3>Frequency selection - live BAND / NOTCH filter</h3>
+        <p class="prose">Drag horizontally on the spectrum to capture a frequency range. The selection is <strong>an active playback filter</strong>, not a measurement readout - playback is routed through it so you can hear what's inside or outside the band.</p>
         <p class="prose">A <strong>BAND / NOTCH</strong> toggle in the FFT control strip switches the filter mode:</p>
         <ul>
-            <li><strong>BAND</strong> (band-pass) — only the selected range passes. Everything outside the band is silenced. Solo a range to hear what's there: <em>"is that 4&nbsp;kHz buzz a sibilance issue or a ground loop?"</em></li>
-            <li><strong>NOTCH</strong> (band-reject) — the selected range is cut from playback. Confirm you've identified the offending frequency before reaching for an EQ.</li>
+            <li><strong>BAND</strong> (band-pass) - only the selected range passes. Everything outside the band is silenced. Solo a range to hear what's there: <em>"is that 4&nbsp;kHz buzz a sibilance issue or a ground loop?"</em></li>
+            <li><strong>NOTCH</strong> (band-reject) - the selected range is cut from playback. Confirm you've identified the offending frequency before reaching for an EQ.</li>
         </ul>
-        <p class="prose">The filter is live — adjust the selection edges and the audio responds in real time. Drag the body of the selection to slide the band across the spectrum while keeping its width.</p>
+        <p class="prose">The filter is live - adjust the selection edges and the audio responds in real time. Drag the body of the selection to slide the band across the spectrum while keeping its width.</p>
         <p class="prose">Implementation: stereo files use <code>AVAudioUnitEQ</code> (highpass + lowpass for BAND, parametric −40 dB cut for NOTCH); multichannel files use raw biquad coefficients applied per-channel in the render callback.</p>
         <p class="prose"><kbd>Esc</kbd> clears the selection and bypasses the filter.</p>
 
         <h3>Smoothing</h3>
-        <p class="prose">The FFT control strip exposes a smoothing slider — exponential averaging across frames. Higher values produce a calmer trace; lower values respond faster.</p>
+        <p class="prose">The FFT control strip exposes a smoothing slider - exponential averaging across frames. Higher values produce a calmer trace; lower values respond faster.</p>
 
         <h3>Channel selection</h3>
         <p class="prose">Pick which channel feeds the FFT (or use a downmix). Useful for inspecting one channel of a multichannel file in isolation.</p>
 
         <h3>Selection-analysis spectrum</h3>
-        <p class="prose">After <kbd>⌘Return</kbd> offline analysis, the FFT view switches to the <strong>averaged spectrum</strong> of the selection — a much smoother, more accurate read than the rolling live spectrum. Clearing the selection (<kbd>Esc</kbd>) returns to live mode.</p>
+        <p class="prose">After <kbd>⌘Return</kbd> offline analysis, the FFT view switches to the <strong>averaged spectrum</strong> of the selection - a much smoother, more accurate read than the rolling live spectrum. Clearing the selection (<kbd>Esc</kbd>) returns to live mode.</p>
     </section>
 
     <hr class="divider">
@@ -801,23 +801,23 @@
 
         <h3>Colormap (4 options)</h3>
         <ul>
-            <li><strong>Inferno</strong> — high contrast, dark background, warm highlights.</li>
-            <li><strong>Turbo</strong> — perceptually uniform, full rainbow.</li>
-            <li><strong>Plasma</strong> — purple → magenta → yellow.</li>
-            <li><strong>Viridis</strong> — perceptually uniform, blue → green → yellow.</li>
+            <li><strong>Inferno</strong> - high contrast, dark background, warm highlights.</li>
+            <li><strong>Turbo</strong> - perceptually uniform, full rainbow.</li>
+            <li><strong>Plasma</strong> - purple → magenta → yellow.</li>
+            <li><strong>Viridis</strong> - perceptually uniform, blue → green → yellow.</li>
         </ul>
 
         <h3>Frequency scale</h3>
         <ul>
-            <li><strong>Log (Logarithmic)</strong> — emphasises low frequencies; matches musical perception.</li>
-            <li><strong>Mel</strong> — compresses high frequencies; gives more resolution in the vocal range (~200 Hz – 4 kHz). Useful for podcast / dialogue / vocal work.</li>
+            <li><strong>Log (Logarithmic)</strong> - emphasises low frequencies; matches musical perception.</li>
+            <li><strong>Mel</strong> - compresses high frequencies; gives more resolution in the vocal range (~200 Hz - 4 kHz). Useful for podcast / dialogue / vocal work.</li>
         </ul>
 
         <h3>dB range</h3>
         <p class="prose">Two sliders set the colour-mapping window:</p>
         <ul>
-            <li><strong>Floor</strong> — −120 to −24 dB (default ~−96 dB).</li>
-            <li><strong>Ceiling</strong> — −18 to 0 dB (default 0 dB).</li>
+            <li><strong>Floor</strong> - −120 to −24 dB (default ~−96 dB).</li>
+            <li><strong>Ceiling</strong> - −18 to 0 dB (default 0 dB).</li>
         </ul>
         <p class="prose">Anything quieter than the floor is mapped to the bottom colour; anything louder than the ceiling clips to the top colour. Tighten the window to highlight subtle detail; widen it to see the full dynamic range.</p>
 
@@ -844,22 +844,22 @@
         <ul>
             <li><strong>Correlation</strong> range −1 to +1
                 <ul>
-                    <li><strong>+1.0</strong> — fully mono (L = R).</li>
-                    <li><strong>0.0</strong> — uncorrelated (independent L/R, e.g. natural stereo image).</li>
-                    <li><strong>−1.0</strong> — out of phase (L = −R) — destructive when summed to mono.</li>
+                    <li><strong>+1.0</strong> - fully mono (L = R).</li>
+                    <li><strong>0.0</strong> - uncorrelated (independent L/R, e.g. natural stereo image).</li>
+                    <li><strong>−1.0</strong> - out of phase (L = −R) - destructive when summed to mono.</li>
                 </ul>
             </li>
-            <li><strong>Width %</strong> range 0–100 %, computed as <code>(1 − corr) / 2 × 100</code>. 0 % = mono, 50 % = decorrelated, 100 % = out of phase.</li>
+            <li><strong>Width %</strong> range 0-100 %, computed as <code>(1 − corr) / 2 × 100</code>. 0 % = mono, 50 % = decorrelated, 100 % = out of phase.</li>
         </ul>
 
         <h3>Zone colour mode</h3>
         <p class="prose">Optional shading of the correlation curve:</p>
         <ul>
-            <li><strong>Mono</strong> (red-tint) — correlation &gt; 0.85.</li>
-            <li><strong>Narrow</strong> (warm) — 0.5 to 0.85.</li>
-            <li><strong>Stereo</strong> (neutral) — 0 to 0.5.</li>
-            <li><strong>Wide</strong> (cool) — −0.5 to 0.</li>
-            <li><strong>Out-of-phase</strong> (red) — &lt; −0.5.</li>
+            <li><strong>Mono</strong> (red-tint) - correlation &gt; 0.85.</li>
+            <li><strong>Narrow</strong> (warm) - 0.5 to 0.85.</li>
+            <li><strong>Stereo</strong> (neutral) - 0 to 0.5.</li>
+            <li><strong>Wide</strong> (cool) - −0.5 to 0.</li>
+            <li><strong>Out-of-phase</strong> (red) - &lt; −0.5.</li>
         </ul>
 
         <h3>Hover interpretation</h3>
@@ -872,7 +872,7 @@
     <section class="guide-section" id="phase">
         <h2>12. Phase scope <a href="#phase" class="anchor">#</a></h2>
 
-        <p class="prose">Lissajous correlation meter — plots L on the X axis and R on the Y axis as a 2D scatter. Useful for catching out-of-phase content at a glance.</p>
+        <p class="prose">Lissajous correlation meter - plots L on the X axis and R on the Y axis as a 2D scatter. Useful for catching out-of-phase content at a glance.</p>
         <ul>
             <li>A diagonal line from bottom-left to top-right → fully mono, in-phase.</li>
             <li>A circle / ellipse → genuinely stereo.</li>
@@ -892,9 +892,9 @@
         <ul>
             <li>Continuous RMS level.</li>
             <li>Peak hold (decays slowly).</li>
-            <li>Colour-coded zones — green / yellow / red as level approaches 0 dBFS.</li>
+            <li>Colour-coded zones - green / yellow / red as level approaches 0 dBFS.</li>
         </ul>
-        <p class="prose">Click a channel label to toggle mute on that channel for playback. The meter still shows the muted-source level — useful for inspecting muted channels.</p>
+        <p class="prose">Click a channel label to toggle mute on that channel for playback. The meter still shows the muted-source level - useful for inspecting muted channels.</p>
     </section>
 
     <hr class="divider">
@@ -917,10 +917,10 @@
         <h3>PRE / POST monitor mode</h3>
         <p class="prose">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement:</p>
         <ul>
-            <li><strong>PRE</strong> — the raw, unrouted file. Loudness reflects what's on disk.</li>
-            <li><strong>POST</strong> — after routing and gain trim. Loudness reflects what's reaching your speakers.</li>
+            <li><strong>PRE</strong> - the raw, unrouted file. Loudness reflects what's on disk.</li>
+            <li><strong>POST</strong> - after routing and gain trim. Loudness reflects what's reaching your speakers.</li>
         </ul>
-        <p class="prose">For most workflows, <strong>PRE</strong> is what you want — the file's actual loudness. <strong>POST</strong> is useful when you've reduced channel count via the matrix (e.g. a 5.1 → stereo downmix) and need the loudness of the resulting stereo pair.</p>
+        <p class="prose">For most workflows, <strong>PRE</strong> is what you want - the file's actual loudness. <strong>POST</strong> is useful when you've reduced channel count via the matrix (e.g. a 5.1 → stereo downmix) and need the loudness of the resulting stereo pair.</p>
     </section>
 
     <hr class="divider">
@@ -934,7 +934,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">compare-mode.png</div>
-            <div class="shot-desc">File dock showing 3–4 slot chips (A, B, C, plus a diff slot). Active slot has gain row visible (ϕ, L toggle, ±0.1, ±1 buttons), and the toolbar's "Diff A−X" + "Compare metrics" buttons visible.</div>
+            <div class="shot-desc">File dock showing 3-4 slot chips (A, B, C, plus a diff slot). Active slot has gain row visible (ϕ, L toggle, ±0.1, ±1 buttons), and the toolbar's "Diff A−X" + "Compare metrics" buttons visible.</div>
         </div>
 
         <h3>Loading slots</h3>
@@ -942,9 +942,9 @@
 
         <h3>Switching slots</h3>
         <table>
-            <tr><td><kbd>1</kbd> – <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A – F (only slots that exist)</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist)</td></tr>
         </table>
-        <p class="prose">Slot switching uses two paths. <strong>Fast path</strong>: when the new slot's audio format matches the current one, the engine performs an atomic buffer swap. Sub-millisecond. <strong>Slow path</strong>: when sample rate or channel count differs, the engine is rebuilt. ~50–100 ms.</p>
+        <p class="prose">Slot switching uses two paths. <strong>Fast path</strong>: when the new slot's audio format matches the current one, the engine performs an atomic buffer swap. Sub-millisecond. <strong>Slow path</strong>: when sample rate or channel count differs, the engine is rebuilt. ~50-100 ms.</p>
 
         <h3>Level match (L)</h3>
         <p class="prose">Each slot's chip has an <strong>L</strong> toggle. When on, Specula applies a gain offset that brings the slot's integrated LUFS to match slot A's. Hear two masters at the same loudness instead of "the louder one always wins".</p>
@@ -962,18 +962,18 @@
         <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
 
         <h3>Diff (A − X)</h3>
-        <p class="prose">The toolbar <strong>Diff A−X</strong> button creates a <strong>diff slot</strong> — a virtual slot that plays back the residual <code>(A − X)</code> audio. With level-match on, this gives you a near-zero diff for two correctly mastered versions of the same source. Anything above silence is what's different. Diff slots:</p>
+        <p class="prose">The toolbar <strong>Diff A−X</strong> button creates a <strong>diff slot</strong> - a virtual slot that plays back the residual <code>(A − X)</code> audio. With level-match on, this gives you a near-zero diff for two correctly mastered versions of the same source. Anything above silence is what's different. Diff slots:</p>
         <ul>
             <li>Recompute automatically (80 ms debounced) when nudge / gain / polarity / level-match changes.</li>
-            <li>Have <strong>no live measurement</strong> — switching to a diff slot clears live loudness/stereo displays (the diff buffer plays pre-computed).</li>
+            <li>Have <strong>no live measurement</strong> - switching to a diff slot clears live loudness/stereo displays (the diff buffer plays pre-computed).</li>
             <li>Can be <strong>exported to WAV</strong> with <kbd>⌃⌘E</kbd> or the diff slot's Export WAV button.</li>
         </ul>
 
         <h3>Waveform A overlay</h3>
-        <p class="prose">The <strong>Waveform A Overlay</strong> toggle (Edit menu → "Waveform A Overlay" or in the Compare panel) draws slot A's waveform as a ghost behind whichever slot is active — direct visual A/B at the sample level.</p>
+        <p class="prose">The <strong>Waveform A Overlay</strong> toggle (Edit menu → "Waveform A Overlay" or in the Compare panel) draws slot A's waveform as a ghost behind whichever slot is active - direct visual A/B at the sample level.</p>
 
         <h3>Compare panel</h3>
-        <p class="prose">The <strong>Compare metrics</strong> button (toolbar) opens a popover with a side-by-side metrics table for every loaded slot — integrated LUFS, true peak, sample peak, LRA, DR, speech stats, etc.</p>
+        <p class="prose">The <strong>Compare metrics</strong> button (toolbar) opens a popover with a side-by-side metrics table for every loaded slot - integrated LUFS, true peak, sample peak, LRA, DR, speech stats, etc.</p>
     </section>
 
     <hr class="divider">
@@ -982,12 +982,12 @@
     <section class="guide-section" id="edit">
         <h2>16. Edit mode <a href="#edit" class="anchor">#</a></h2>
 
-        <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> — never overwrites the original.</p>
+        <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">edit-mode.png</div>
-            <div class="shot-desc">Edit mode active — amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
+            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
         </div>
 
         <h3>Enter / exit</h3>
@@ -1002,7 +1002,7 @@
             <tr><td>Add Silence</td><td class="wrap-ok">Insert before / after / replace selection. Units: seconds or samples.</td></tr>
             <tr><td>Change Level</td><td class="wrap-ok">Linear gain in dB, applied to the selection or the whole file.</td></tr>
             <tr><td>Invert Phase</td><td class="wrap-ok">Multiply by −1.</td></tr>
-            <tr><td>Fade</td><td class="wrap-ok">Linear / Logarithmic / Equal-power × In / Out — 6 fade curves total.</td></tr>
+            <tr><td>Fade</td><td class="wrap-ok">Linear / Logarithmic / Equal-power × In / Out - 6 fade curves total.</td></tr>
             <tr><td>Normalize Peak</td><td class="wrap-ok">Target dBFS.</td></tr>
             <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling. Auto-applies a 5 ms lookahead <strong>brickwall limiter</strong> when normalization increases loudness.</td></tr>
             <tr><td>Remove DC Offset</td><td class="wrap-ok">Subtracts each channel's mean.</td></tr>
@@ -1011,7 +1011,7 @@
         </table>
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit. Single-level only — applying a new edit overwrites the previous undo snapshot.</p>
+        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit. Single-level only - applying a new edit overwrites the previous undo snapshot.</p>
 
         <div class="note">
             <span class="note-icon">⚠</span>
@@ -1022,7 +1022,7 @@
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code>. Format defaults to WAV at the file's native bit depth and sample rate.</p>
 
         <h3>Edit toolbar</h3>
-        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize) open small popovers — set the parameters, click Apply.</p>
+        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize) open small popovers - set the parameters, click Apply.</p>
     </section>
 
     <hr class="divider">
@@ -1033,20 +1033,20 @@
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
-            <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON Report</td><td class="wrap-ok"><code>*.json</code> — all metrics, both live and selection analysis, channel info, file metadata</td></tr>
-            <tr><td><kbd>⌥⌘E</kbd></td><td class="wrap-ok">Export PDF Report</td><td class="wrap-ok"><code>*.pdf</code> — formatted report with charts</td></tr>
-            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> — the active diff slot's residual buffer (compare mode only)</td></tr>
+            <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON Report</td><td class="wrap-ok"><code>*.json</code> - all metrics, both live and selection analysis, channel info, file metadata</td></tr>
+            <tr><td><kbd>⌥⌘E</kbd></td><td class="wrap-ok">Export PDF Report</td><td class="wrap-ok"><code>*.pdf</code> - formatted report with charts</td></tr>
+            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active diff slot's residual buffer (compare mode only)</td></tr>
         </table>
 
-        <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export — the menu item swaps based on context.</p>
+        <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export - the menu item swaps based on context.</p>
 
         <h3>Report contents</h3>
         <p class="prose">The <strong>Settings → Report</strong> tab decides what's included:</p>
         <ul>
-            <li><strong>Loudness curves</strong> — momentary + short-term per-100&nbsp;ms timelines.</li>
-            <li><strong>Stereo width</strong> — correlation curve over time.</li>
-            <li><strong>Per-channel stats</strong> — peak / RMS / crest factor (requires offline selection analysis).</li>
-            <li><strong>Violations</strong> — loudness threshold violations.</li>
+            <li><strong>Loudness curves</strong> - momentary + short-term per-100&nbsp;ms timelines.</li>
+            <li><strong>Stereo width</strong> - correlation curve over time.</li>
+            <li><strong>Per-channel stats</strong> - peak / RMS / crest factor (requires offline selection analysis).</li>
+            <li><strong>Violations</strong> - loudness threshold violations.</li>
         </ul>
 
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading.</p>
@@ -1063,7 +1063,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">settings-spectrogram.png</div>
-            <div class="shot-desc">Settings window on the Spectrogram tab — colormap segmented control showing Inferno/Turbo/Plasma/Viridis, frequency scale (Log/Mel), and the Floor/Ceiling sliders.</div>
+            <div class="shot-desc">Settings window on the Spectrogram tab - colormap segmented control showing Inferno/Turbo/Plasma/Viridis, frequency scale (Log/Mel), and the Floor/Ceiling sliders.</div>
         </div>
 
         <h3>Layout</h3>
@@ -1071,23 +1071,23 @@
         <ul>
             <li>Waveform · Loudness Curve · Spectrogram · FFT / Phase · Stereo Width.</li>
         </ul>
-        <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>–<kbd>⌃5</kbd>.</p>
+        <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
 
         <h3>Spectrogram</h3>
         <ul>
-            <li><strong>Colormap</strong> — Inferno / Turbo / Plasma / Viridis.</li>
-            <li><strong>Frequency Scale</strong> — Log / Mel.</li>
-            <li><strong>dB Range</strong> — Floor (−120 to −24) and Ceiling (−18 to 0).</li>
+            <li><strong>Colormap</strong> - Inferno / Turbo / Plasma / Viridis.</li>
+            <li><strong>Frequency Scale</strong> - Log / Mel.</li>
+            <li><strong>dB Range</strong> - Floor (−120 to −24) and Ceiling (−18 to 0).</li>
         </ul>
 
         <h3>FFT / Analysis</h3>
         <ul>
-            <li><strong>Window Function</strong> — Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
+            <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
         </ul>
 
         <h3>Report</h3>
         <ul>
-            <li>Toggles for what's included in JSON / PDF exports — Loudness curves / Stereo width / Per-channel stats / Violations.</li>
+            <li>Toggles for what's included in JSON / PDF exports - Loudness curves / Stereo width / Per-channel stats / Violations.</li>
         </ul>
     </section>
 
@@ -1129,7 +1129,7 @@
 
         <h3>Compare mode</h3>
         <table>
-            <tr><td><kbd>1</kbd> – <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A – F</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A - F</td></tr>
         </table>
 
         <h3>Edit mode</h3>
@@ -1146,7 +1146,7 @@
             <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export diff audio (WAV)</td></tr>
         </table>
 
-        <h3>View — toggle sections</h3>
+        <h3>View - toggle sections</h3>
         <table>
             <tr><td><kbd>⌃1</kbd></td><td class="wrap-ok">Toggle Waveform</td></tr>
             <tr><td><kbd>⌃2</kbd></td><td class="wrap-ok">Toggle Loudness Curve</td></tr>
@@ -1155,7 +1155,7 @@
             <tr><td><kbd>⌃5</kbd></td><td class="wrap-ok">Toggle Stereo Width</td></tr>
         </table>
 
-        <h3>View — focus one section (hide others / restore)</h3>
+        <h3>View - focus one section (hide others / restore)</h3>
         <table>
             <tr><td><kbd>⌃⌥1</kbd></td><td class="wrap-ok">Focus Waveform</td></tr>
             <tr><td><kbd>⌃⌥2</kbd></td><td class="wrap-ok">Focus Loudness Curve</td></tr>
