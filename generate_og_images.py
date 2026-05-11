@@ -249,14 +249,19 @@ def render_homepage(size):
     img  = make_base(W, H)
     draw = ImageDraw.Draw(img, "RGBA")
 
+    # Studio mark — the Headroom squircle (apple-touch-icon)
+    mark_size = int(H * 0.24)
+    mark_cy   = int(H * 0.20)
+    paste_icon(img, "apple-touch-icon.png", mark_size, W // 2, mark_cy)
+
     # Wordmark "Headroom"
-    name_size = int(H * 0.175)
+    name_size = int(H * 0.135)
     f_logo    = font("InterDisplay-Bold.ttf", name_size)
     head_w    = draw.textbbox((0, 0), "Head", font=f_logo)[2]
     room_w    = draw.textbbox((0, 0), "room", font=f_logo)[2]
     total     = head_w + room_w
     logo_x    = (W - total) // 2
-    logo_y    = int(H * 0.26)
+    logo_y    = mark_cy + mark_size // 2 + int(H * 0.040)
     draw.text((logo_x,            logo_y), "Head", font=f_logo, fill=TEXT)
     draw.text((logo_x + head_w,   logo_y), "room", font=f_logo, fill=ACCENT)
 
