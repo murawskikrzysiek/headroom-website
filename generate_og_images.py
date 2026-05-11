@@ -67,15 +67,9 @@ APPS = {
         "out_og":   "audita/og.png",
         "out_ls":   "audita/ls-thumbnail.png",
     },
-    "specula": {
-        "name":     "Specula",
-        "icon":     "specula/icon.png",
-        "tagline":  "Pro audio analysis — loudness, FFT, compare & edit",
-        "features": ["EBU R128 loudness", "FFT + spectrogram", "Compare up to 6"],
-        "badge":    "macOS 14+",
-        "out_og":   "specula/og.png",
-        "out_ls":   "specula/ls-thumbnail.png",
-    },
+    # Specula lives on the `specula-launch` branch until release — its entry
+    # is added there, not on main, to keep the unreleased product out of the
+    # public site.
 }
 
 
@@ -285,7 +279,7 @@ def render_homepage(size):
     # App row as the "features"
     apps_y = tbb[3] + int(H * 0.060)
     f_apps = font("Inter-SemiBold.ttf", int(H * 0.038))
-    draw_feature_row(draw, apps_y, ["Lyra", "Audita", "Specula"], f_apps, W, TEXT)
+    draw_feature_row(draw, apps_y, ["Lyra", "Audita"], f_apps, W, TEXT)
 
     # Footer
     margin = int(W * 0.04)
@@ -313,6 +307,6 @@ def make_og_homepage():
 
 if __name__ == "__main__":
     make_og_homepage()
-    for key in ("lyra", "audita", "specula"):
+    for key in APPS:
         make_og(key)
     print("Done.")
