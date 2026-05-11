@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Lyra appcast — host this file at:
+  Lyra appcast - host this file at:
   https://headroomstudio.dev/lyra/appcast.xml
 
   How to update for a new release:
@@ -10,14 +10,14 @@
   4. Sign the DMG with Sparkle:   .build/artifacts/sparkle/Sparkle/bin/sign_update Lyra.dmg
      (this prints the edSignature value)
   5. Add a new <item> block at the top (keep old items for reference)
-  6. Push to your GitHub Pages repo — CloudFront picks it up automatically
+  6. Push to your GitHub Pages repo - CloudFront picks it up automatically
 -->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
         <title>Lyra</title>
         <link>https://headroomstudio.dev/lyra</link>
-        <description>Lyra — UA Apollo keyboard volume control</description>
+        <description>Lyra - UA Apollo keyboard volume control</description>
         <language>en</language>
         <item>
             <title>Version 1.4</title>

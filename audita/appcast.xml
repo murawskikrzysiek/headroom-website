@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Audita appcast — host this file at:
+  Audita appcast - host this file at:
   https://headroomstudio.dev/audita/appcast.xml
 
   Audita is the renamed successor to Auris. The Auris appcast at
@@ -15,18 +15,18 @@
   4. Sign the DMG with Sparkle:   .build/artifacts/sparkle/Sparkle/bin/sign_update Audita.dmg
      (this prints the edSignature value)
   5. Add a new <item> block at the top (keep old items for reference)
-  6. Push to GitHub Pages — Sparkle clients re-fetch on their own schedule
+  6. Push to GitHub Pages - Sparkle clients re-fetch on their own schedule
 -->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
         <title>Audita</title>
         <link>https://headroomstudio.dev/audita</link>
-        <description>Audita — SPL meter for monitoring discipline and hearing dose tracking</description>
+        <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
         <item>
-            <title>Version 1.1 — Live menu bar readout + floating panel</title>
+            <title>Version 1.1 - Live menu bar readout + floating panel</title>
             <pubDate>Fri, 08 May 2026 22:00:00 +0000</pubDate>
             <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
@@ -40,7 +40,7 @@
         </item>
 
         <item>
-            <title>Version 1.0 — Audita launch (renamed from Auris)</title>
+            <title>Version 1.0 - Audita launch (renamed from Auris)</title>
             <pubDate>Fri, 08 May 2026 12:00:00 +0000</pubDate>
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
