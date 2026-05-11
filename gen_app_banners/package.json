@@ -1,0 +1,12 @@
+{
+  "name": "headroom-banner-generator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node generate-app-banners.mjs"
+  },
+  "dependencies": {
+    "canvas": "^3"
+  }
+}
