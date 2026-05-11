@@ -306,7 +306,9 @@ def make_og_homepage():
 
 
 if __name__ == "__main__":
-    make_og_homepage()
+    # og-headroom.png is hand-curated (see the bespoke design at 7ccbe7e),
+    # not auto-generated. Call make_og_homepage() explicitly if you want
+    # to regenerate the studio card in the unified style.
     for key in APPS:
         make_og(key)
     print("Done.")
