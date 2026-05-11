@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pairing Audita + Lyra: Calibrate Once, Recall Forever — Headroom</title>
+    <title>Pairing Audita + Lyra: Calibrate Once, Recall Forever - Headroom</title>
     <link rel="canonical" href="https://headroomstudio.dev/blog/pairing-audita-and-lyra.html">
     <meta name="description" content="Calibrate your monitor chain to a target dB SPL with Audita, save it to a Lyra hotkey, and recall a known reference level with one keystroke.">
-    <meta property="og:title" content="Calibrate once, recall forever — pairing Audita and Lyra">
+    <meta property="og:title" content="Calibrate once, recall forever - pairing Audita and Lyra">
     <meta property="og:description" content="A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what 'Mix' actually means in dB SPL.">
     <meta property="og:image" content="https://headroomstudio.dev/blog/screenshots/pairing-04-lyra-hud.png">
     <meta property="og:type" content="article">
@@ -40,7 +40,7 @@
 <div class="container">
     <header class="article-header">
         <p class="article-eyebrow">Workflow</p>
-        <h1>Calibrate once, recall forever — pairing Audita and Lyra</h1>
+        <h1>Calibrate once, recall forever - pairing Audita and Lyra</h1>
         <p class="article-subtitle">A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL.</p>
         <div class="article-meta">
             <span>Krzysiek</span>
@@ -55,28 +55,28 @@
 <div class="container">
     <article class="article">
 
-        <p>The monitor knob is the most consequential control in any studio, and the one most engineers have the loosest grip on. Ask a producer what level they mix at and you'll hear "comfortable", "loud enough", or — if they're feeling specific — "around eleven o'clock". None of those are numbers. None of them are repeatable. None of them survive a power cycle, a coffee break, or a session in another room.</p>
+        <p>The monitor knob is the most consequential control in any studio, and the one most engineers have the loosest grip on. Ask a producer what level they mix at and you'll hear "comfortable", "loud enough", or - if they're feeling specific - "around eleven o'clock". None of those are numbers. None of them are repeatable. None of them survive a power cycle, a coffee break, or a session in another room.</p>
 
         <p>That gap between intention and reality is where a surprising amount of bad mixing happens. The chorus that felt enormous at 6pm sounds thin in the morning, not because the mix changed but because the level did. The bass that "needs another dB" gets it, then another the next day, then another, until the whole low end is mud at any volume below what was set four sessions ago. None of this requires the engineer to be careless. It just requires them not to know what level they're actually working at.</p>
 
         <p>The reason this isn't already solved is that solving it has historically meant buying a calibrated SPL meter, leaving it sitting next to your monitor controller, and re-checking it every time you turn the knob. Which, predictably, no one does. The tool is too separate from the workflow to live inside it.</p>
 
-        <p>The integration shipping in <a href="../audita/">Audita 1.0</a> and <a href="../lyra/">Lyra 1.4</a> is a small attempt to close that gap — an SPL meter that lives in the menu bar talking to a volume controller bound to the F-keys. Once they know about each other, three monitor levels become as accessible as Cmd+S.</p>
+        <p>The integration shipping in <a href="../audita/">Audita 1.0</a> and <a href="../lyra/">Lyra 1.4</a> is a small attempt to close that gap - an SPL meter that lives in the menu bar talking to a volume controller bound to the F-keys. Once they know about each other, three monitor levels become as accessible as Cmd+S.</p>
 
         <h2>The 90-second setup</h2>
 
         <p>The whole pairing flow takes about a minute and a half, end to end, and only needs to happen once per listening position.</p>
 
-        <p>Step one is calibration. In Audita, open <strong>Settings → Audio → Step 3: Target-level calibration</strong> and click <em>Run wizard</em>. Pink noise begins playing through the selected output. The monitor controller is then turned by hand until the live SPL reading lands on the target — 79 dBA for K-14, 83 for K-20, or whatever reference you mix to. When the number sits inside the tolerance band, click <em>Capture position</em>.</p>
+        <p>Step one is calibration. In Audita, open <strong>Settings → Audio → Step 3: Target-level calibration</strong> and click <em>Run wizard</em>. Pink noise begins playing through the selected output. The monitor controller is then turned by hand until the live SPL reading lands on the target - 79 dBA for K-14, 83 for K-20, or whatever reference you mix to. When the number sits inside the tolerance band, click <em>Capture position</em>.</p>
 
         <figure class="figure">
             <img src="screenshots/pairing-01-audita-captured.png" alt="Audita target-level calibration in the captured state, showing 79.4 dBA measured against a 79 dBA target">
             <figcaption>Captured at 79.4 dBA, inside the ±3 dB band around the K-14 target. The wizard now waits for a knob-position note before the calibration is saved.</figcaption>
         </figure>
 
-        <p>Type a description of the knob position so future-you can verify it ("Apollo monitor knob — 11 o'clock dot"), then save.</p>
+        <p>Type a description of the knob position so future-you can verify it ("Apollo monitor knob - 11 o'clock dot"), then save.</p>
 
-        <p>Step two is the handoff. The saved calibration card now shows a <em>Send to Lyra…</em> button. Clicking it opens a sheet with three things to confirm: which slot to write to (1, 2, or 3 — corresponding to Ctrl+F10, Ctrl+F11, Ctrl+F12), what to call the level, and the dB SPL value Audita just measured. The slot picker remembers the last choice, the name pre-fills with something sensible based on the target, and the SPL is read-only.</p>
+        <p>Step two is the handoff. The saved calibration card now shows a <em>Send to Lyra…</em> button. Clicking it opens a sheet with three things to confirm: which slot to write to (1, 2, or 3 - corresponding to Ctrl+F10, Ctrl+F11, Ctrl+F12), what to call the level, and the dB SPL value Audita just measured. The slot picker remembers the last choice, the name pre-fills with something sensible based on the target, and the SPL is read-only.</p>
 
         <figure class="figure">
             <img src="screenshots/pairing-02-send-to-lyra-sheet.png" alt="Send to Lyra sheet with slot 2 selected, name 'Mix', and 79.4 dB SPL">
@@ -87,7 +87,7 @@
 
         <h2>What you get back</h2>
 
-        <p>Open Lyra's menu bar menu and the slots now read with their calibrated values: <em>Quiet — 71 dB SPL</em>, <em>Mix — 79 dB SPL</em>, <em>Loud — 85 dB SPL</em>. The HUD that appears when you press Ctrl+F-keys shows the same — the slot name and the dB SPL value, in plain digits, for the second and a half it takes to read it.</p>
+        <p>Open Lyra's menu bar menu and the slots now read with their calibrated values: <em>Quiet - 71 dB SPL</em>, <em>Mix - 79 dB SPL</em>, <em>Loud - 85 dB SPL</em>. The HUD that appears when you press Ctrl+F-keys shows the same - the slot name and the dB SPL value, in plain digits, for the second and a half it takes to read it.</p>
 
         <figure class="figure">
             <img src="screenshots/pairing-03-lyra-menu.png" alt="Lyra menu bar menu showing the three reference slots labelled Quiet, Mix, and Loud, each with a dB SPL value">
@@ -97,15 +97,15 @@
         <p>This is most of the value of the integration: a familiar listening level, a known number, a key combination. Not a dialog, not a calibration ritual to run again, not a meter sitting on the desk. Just <em>Ctrl+F11 → that's mix level → carry on</em>.</p>
 
         <figure class="figure">
-            <img src="screenshots/pairing-04-lyra-hud.png" alt="Lyra HUD overlay showing 'Mix — 79 dB SPL' on screen after pressing Ctrl+F11">
+            <img src="screenshots/pairing-04-lyra-hud.png" alt="Lyra HUD overlay showing 'Mix - 79 dB SPL' on screen after pressing Ctrl+F11">
             <figcaption>The on-screen pill confirms what the slot was calibrated to. The number gives you something a percentage never could: a direct comparison with what you measured.</figcaption>
         </figure>
 
         <h2>Why the SPL value matters</h2>
 
-        <p>It would have been easier to ship this as a slot-recall system that only stored the tapered position — name plus knob value, no calibration data. Most other tools that solve this problem stop there. The SPL number is the thing that turns the slot from a memory into a measurement.</p>
+        <p>It would have been easier to ship this as a slot-recall system that only stored the tapered position - name plus knob value, no calibration data. Most other tools that solve this problem stop there. The SPL number is the thing that turns the slot from a memory into a measurement.</p>
 
-        <p>Three monitor presets named "low / med / high" are useful. Three monitor presets named "71 / 79 / 85 dB SPL" are accountable. The next time you calibrate the same speakers — whether tomorrow or in three months — you'll know whether the slot still hits its target. If <em>Mix</em> calibrated at 79 last time and reads 81 this time, something has drifted: a knob position, the room treatment, the ambient floor, the converter output. You have a baseline to argue against.</p>
+        <p>Three monitor presets named "low / med / high" are useful. Three monitor presets named "71 / 79 / 85 dB SPL" are accountable. The next time you calibrate the same speakers - whether tomorrow or in three months - you'll know whether the slot still hits its target. If <em>Mix</em> calibrated at 79 last time and reads 81 this time, something has drifted: a knob position, the room treatment, the ambient floor, the converter output. You have a baseline to argue against.</p>
 
         <p>It also exposes a small lie that most engineers tell themselves. If you've never measured what your "mid" listening level actually is, the answer is almost certainly louder than you think. The first time someone calibrates is often the moment they discover they've been mixing at 86 dBA all year.</p>
 
@@ -113,27 +113,27 @@
 
         <p>The integration is intentionally one-way. Audita hands the calibration to Lyra and that's the end of the conversation; Lyra doesn't tell Audita when the slot gets recalled. There's no live "you are currently mixing 4 dB above your reference" overlay. The reason is simple: that data is much more useful as part of Audita's own session statistics, where it joins Leq, dose, and the rest of the picture, than it would be as a notification fired across application boundaries.</p>
 
-        <p>It also doesn't replace a real SPL meter for compliance work. Audita is a measurement-grade tool for studio context, not a Type-1 instrument. If a regulator needs paperwork, hire someone with a calibrated B&amp;K. For everything else — the daily decisions about how loud to listen — the integration is enough.</p>
+        <p>It also doesn't replace a real SPL meter for compliance work. Audita is a measurement-grade tool for studio context, not a Type-1 instrument. If a regulator needs paperwork, hire someone with a calibrated B&amp;K. For everything else - the daily decisions about how loud to listen - the integration is enough.</p>
 
         <p>And it doesn't try to be everything for everybody. The slot count is fixed at three, the URL scheme is documented and stable, and both apps work fine independently. The pairing exists because the two products were already living next to each other in the menu bar, and connecting them was a few lines of URL handling away from being free.</p>
 
         <h2>Where to start</h2>
 
-        <p>If you already have <a href="../audita/">Audita</a> installed and a measurement mic at your listening position, the <em>Send to Lyra</em> button is right there under the saved-calibration card. <a href="../lyra/">Lyra 1.4</a> needs to be installed too — the URL scheme handler ships in that version. If Lyra isn't installed, Audita shows a small link to the product page in place of the button, and otherwise stays out of the way.</p>
+        <p>If you already have <a href="../audita/">Audita</a> installed and a measurement mic at your listening position, the <em>Send to Lyra</em> button is right there under the saved-calibration card. <a href="../lyra/">Lyra 1.4</a> needs to be installed too - the URL scheme handler ships in that version. If Lyra isn't installed, Audita shows a small link to the product page in place of the button, and otherwise stays out of the way.</p>
 
-        <p>The first calibration takes a few minutes if you've never used Audita's wizard before. Every subsequent one — re-pairing after moving rooms, swapping monitors, or adjusting a trim — takes about ninety seconds. The recall after that is one keystroke, indefinitely.</p>
+        <p>The first calibration takes a few minutes if you've never used Audita's wizard before. Every subsequent one - re-pairing after moving rooms, swapping monitors, or adjusting a trim - takes about ninety seconds. The recall after that is one keystroke, indefinitely.</p>
 
         <p>Most studio tools optimise for what happens during the mix. This one optimises for the part nobody talks about: knowing where the knob is.</p>
 
         <div class="kicker">
-            <p><a href="../audita/">Audita</a> is a real-time hearing dose meter for macOS — passive SPL tracking, NIOSH dose accumulation, and now Lyra calibration handoff. <a href="../lyra/">Lyra</a> is a menu-bar volume controller for UA Apollo interfaces — F-key shortcuts, three named reference levels, and a documented URL scheme. Both apps offer 7-day free trials and live in the menu bar.</p>
+            <p><a href="../audita/">Audita</a> is a real-time hearing dose meter for macOS - passive SPL tracking, NIOSH dose accumulation, and now Lyra calibration handoff. <a href="../lyra/">Lyra</a> is a menu-bar volume controller for UA Apollo interfaces - F-key shortcuts, three named reference levels, and a documented URL scheme. Both apps offer 7-day free trials and live in the menu bar.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="the-3-db-rule.html"><span>The 3 dB rule — the single number that explains studio loudness</span><span class="arrow">→</span></a></li>
-                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe — the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
+                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - the single number that explains studio loudness</span><span class="arrow">→</span></a></li>
+                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe - the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
             </ul>
         </div>
     </article>

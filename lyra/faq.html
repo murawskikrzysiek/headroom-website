@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyra FAQ — Apollo Volume Control on Mac, Setup & Permissions</title>
+    <title>Lyra FAQ - Apollo Volume Control on Mac, Setup & Permissions</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/faq.html">
     <meta name="description" content="Common questions about Lyra: Accessibility permissions, supported Apollo models, UA Mixer Engine setup, hotkey customization, trial, and licensing.">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -308,7 +308,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Why does Lyra need Accessibility permission?</p>
-                <p class="faq-a">Lyra intercepts the F10, F11, and F12 keys globally — meaning it captures them before macOS passes them on to other apps. This requires <strong>Accessibility access</strong>, which is how macOS controls which apps are allowed to monitor and intercept system-wide input. No other input is read or recorded. Lyra only acts on those three keys, and only when your Apollo is connected.</p>
+                <p class="faq-a">Lyra intercepts the F10, F11, and F12 keys globally - meaning it captures them before macOS passes them on to other apps. This requires <strong>Accessibility access</strong>, which is how macOS controls which apps are allowed to monitor and intercept system-wide input. No other input is read or recorded. Lyra only acts on those three keys, and only when your Apollo is connected.</p>
             </div>
 
             <div class="faq-item">
@@ -322,13 +322,13 @@
                 </div>
                 <div class="notice">
                     <span class="notice-icon">💡</span>
-                    <p>If Lyra doesn't appear in the list right after adding it, quit and reopen System Settings — it sometimes needs a refresh before the new entry shows up.</p>
+                    <p>If Lyra doesn't appear in the list right after adding it, quit and reopen System Settings - it sometimes needs a refresh before the new entry shows up.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">macOS showed a notification saying Lyra is monitoring keyboard input. Is that normal?</p>
-                <p class="faq-a">Yes, completely normal. When an app uses a global keyboard tap — which is how Lyra intercepts F10/F11/F12 — macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
+                <p class="faq-a">Yes, completely normal. When an app uses a global keyboard tap - which is how Lyra intercepts F10/F11/F12 - macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
             </div>
 
         </div>
@@ -342,18 +342,18 @@
 
             <div class="faq-item">
                 <p class="faq-q">What is UA Mixer Engine?</p>
-                <p class="faq-a">UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac — routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
+                <p class="faq-a">UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac - routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
                 <p class="faq-a">You don't need to do anything special to set it up. If you've ever used UA Console, UA Mixer Engine is already installed.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work if UA Console is closed?</p>
-                <p class="faq-a">Yes. UA Mixer Engine runs independently in the background — Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not.</p>
+                <p class="faq-a">Yes. UA Mixer Engine runs independently in the background - Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Lyra says "UA Mixer not running". What do I do?</p>
-                <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu — this launches the process without needing to open Console. It should connect within a few seconds.</p>
+                <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu - this launches the process without needing to open Console. It should connect within a few seconds.</p>
                 <p class="faq-a">If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
             </div>
 
@@ -368,7 +368,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">What are Reference Levels?</p>
-                <p class="faq-a">Three named monitor presets, each storing a specific Apollo monitor level. Hit <strong>Ctrl+F10 / F11 / F12</strong> to jump straight to the level stored in slot 1, 2, or 3 — useful for K-System reference, A/B'ing at a different loudness, or quick check-mixes at low volume without losing your main setting.</p>
+                <p class="faq-a">Three named monitor presets, each storing a specific Apollo monitor level. Hit <strong>Ctrl+F10 / F11 / F12</strong> to jump straight to the level stored in slot 1, 2, or 3 - useful for K-System reference, A/B'ing at a different loudness, or quick check-mixes at low volume without losing your main setting.</p>
                 <p class="faq-a">The defaults are <em>Quiet</em>, <em>Mix</em>, and <em>Loud</em>; rename them to whatever fits your workflow (e.g. <em>K-14</em>, <em>Cinema</em>, <em>Late night</em>) from the menu bar's <strong>Reference Levels</strong> submenu.</p>
             </div>
 
@@ -380,23 +380,23 @@
 
             <div class="faq-item">
                 <p class="faq-q">Why does my slot show "85 dB SPL" instead of a percentage?</p>
-                <p class="faq-a">Because it was calibrated. When a slot is written via Audita's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere — menu, HUD pill — because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
+                <p class="faq-a">Because it was calibrated. When a slot is written via Audita's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere - menu, HUD pill - because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
                 <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared on purpose: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">What's the difference between jumping to a slot and just hitting volume up/down?</p>
-                <p class="faq-a">Volume up/down (F11/F12) walks the Apollo monitor level by your configured step. Reference Level jump (Ctrl+F-key) sets the level to a specific stored position in one shot. So if you've calibrated slot 2 to 79 dB SPL for mixing, Ctrl+F11 will land you there exactly regardless of where the knob currently is — no incremental key-mashing required.</p>
+                <p class="faq-a">Volume up/down (F11/F12) walks the Apollo monitor level by your configured step. Reference Level jump (Ctrl+F-key) sets the level to a specific stored position in one shot. So if you've calibrated slot 2 to 79 dB SPL for mixing, Ctrl+F11 will land you there exactly regardless of where the knob currently is - no incremental key-mashing required.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Can I have more than three slots?</p>
-                <p class="faq-a">No, three is the design. The slots map onto Ctrl+F10/F11/F12, and three is enough to cover the useful cases (quiet / reference / loud) without turning into a long list nobody remembers. If you need more positions, drive Lyra from a Stream Deck or Shortcuts via the <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=…</code> URL — that supports any number of saved positions in your launcher of choice.</p>
+                <p class="faq-a">No, three is the design. The slots map onto Ctrl+F10/F11/F12, and three is enough to cover the useful cases (quiet / reference / loud) without turning into a long list nobody remembers. If you need more positions, drive Lyra from a Stream Deck or Shortcuts via the <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=…</code> URL - that supports any number of saved positions in your launcher of choice.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Do Reference Levels work with mute, DIM, and mono?</p>
-                <p class="faq-a">Yes — they're independent. Jumping to a slot only changes the monitor level; mute, DIM, and mono states stay where they are. So you can engage DIM (Shift+F10), then jump to a quiet reference level, and DIM stays on top of that.</p>
+                <p class="faq-a">Yes - they're independent. Jumping to a slot only changes the monitor level; mute, DIM, and mono states stay where they are. So you can engage DIM (Shift+F10), then jump to a quiet reference level, and DIM stays on top of that.</p>
             </div>
 
         </div>
@@ -415,12 +415,12 @@
 
             <div class="faq-item">
                 <p class="faq-q">Can Lyra control my headphone volume?</p>
-                <p class="faq-a">No. The headphone output level on Apollo interfaces is controlled by a <strong>hardware knob</strong> that isn't exposed through the UA Mixer Engine protocol — it's a physical analog control built directly into the hardware. Lyra controls the monitor (speaker) output only.</p>
+                <p class="faq-a">No. The headphone output level on Apollo interfaces is controlled by a <strong>hardware knob</strong> that isn't exposed through the UA Mixer Engine protocol - it's a physical analog control built directly into the hardware. Lyra controls the monitor (speaker) output only.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra affect my audio quality or signal chain?</p>
-                <p class="faq-a">Not at all. Lyra only adjusts the monitor output level — the same parameter you'd change in Console's monitor section. It doesn't touch your signal chain, insert any processing, or affect recordings in any way. Console and all your UAD plugins continue running exactly as before.</p>
+                <p class="faq-a">Not at all. Lyra only adjusts the monitor output level - the same parameter you'd change in Console's monitor section. It doesn't touch your signal chain, insert any processing, or affect recordings in any way. Console and all your UAD plugins continue running exactly as before.</p>
             </div>
 
             <div class="faq-item">
@@ -430,7 +430,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with Audita?</p>
-                <p class="faq-a">Yes. <a href="../audita/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Audita</a> (formerly Auris) is our SPL meter for macOS — it measures the actual sound pressure level your speakers are producing. After running Audita's target-level calibration, you can hit <strong>"Send to Lyra…"</strong> and Audita will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix — 85 dB SPL"</em> in Lyra's menu and HUD, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
+                <p class="faq-a">Yes. <a href="../audita/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Audita</a> (formerly Auris) is our SPL meter for macOS - it measures the actual sound pressure level your speakers are producing. After running Audita's target-level calibration, you can hit <strong>"Send to Lyra…"</strong> and Audita will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix - 85 dB SPL"</em> in Lyra's menu and HUD, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
             </div>
 
         </div>
@@ -444,7 +444,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">How does the trial work?</p>
-                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase — you won't be able to use Lyra until you do.</p>
+                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase - you won't be able to use Lyra until you do.</p>
             </div>
 
             <div class="faq-item">
@@ -459,7 +459,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Can I use my license on multiple Macs?</p>
-                <p class="faq-a">Yes — each license can be active on up to <strong>two Macs simultaneously</strong>. If you need to activate on a third machine, deactivate on one of the existing ones first via Lyra menu → <strong>"Manage License…"</strong> → Deactivate, then activate again on the new Mac with the same key.</p>
+                <p class="faq-a">Yes - each license can be active on up to <strong>two Macs simultaneously</strong>. If you need to activate on a third machine, deactivate on one of the existing ones first via Lyra menu → <strong>"Manage License…"</strong> → Deactivate, then activate again on the new Mac with the same key.</p>
             </div>
 
             <div class="faq-item">
@@ -478,13 +478,13 @@
 
             <div class="faq-item">
                 <p class="faq-q">The F-keys aren't working. What should I check?</p>
-                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility — without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra intentionally doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
+                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra intentionally doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
                 <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Lyra isn't detecting my Apollo.</p>
-                <p class="faq-a">Make sure your Apollo is powered on and connected before launching Lyra. If it's connected but not detected, open the Lyra menu — if you see a device name but a "UA Mixer not running" message, click "Start UA Mixer Engine". If no device appears at all, try relaunching Lyra after confirming the Apollo shows up in UA Console.</p>
+                <p class="faq-a">Make sure your Apollo is powered on and connected before launching Lyra. If it's connected but not detected, open the Lyra menu - if you see a device name but a "UA Mixer not running" message, click "Start UA Mixer Engine". If no device appears at all, try relaunching Lyra after confirming the Apollo shows up in UA Console.</p>
             </div>
 
         </div>

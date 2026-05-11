@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula — Audio Analysis &amp; Mastering Reference for macOS</title>
+    <title>Specula - Audio Analysis &amp; Mastering Reference for macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/">
-    <meta name="description" content="Professional audio analysis for macOS. EBU R128 loudness, FFT, spectrogram, M/S stereo, phase, speech-gated LUFS, A–F compare with auto-align and diff, and a non-destructive edit mode.">
+    <meta name="description" content="Professional audio analysis for macOS. EBU R128 loudness, FFT, spectrogram, M/S stereo, phase, speech-gated LUFS, A-F compare with auto-align and diff, and a non-destructive edit mode.">
     <meta property="og:title" content="Specula">
     <meta property="og:description" content="See what's actually in the file. Load any audio. Read every metric that matters. Compare up to six masters. Ship with confidence.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula">
-    <meta name="twitter:description" content="Professional audio analysis for macOS — EBU R128, FFT, spectrogram, stereo, compare, edit.">
+    <meta name="twitter:description" content="Professional audio analysis for macOS - EBU R128, FFT, spectrogram, stereo, compare, edit.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -521,7 +521,7 @@
         <div class="hero-text">
             <p class="hero-eyebrow">Headroom</p>
             <h1>Specula</h1>
-            <p class="hero-desc">A pro-grade audio analyser for macOS. Load any file and see what's actually in it — every loudness number broadcasters and streamers care about, every spectral detail, every phase relationship between channels. Compare up to six masters at once with sample-accurate alignment and A−B residuals. Make non-destructive edits and ship.</p>
+            <p class="hero-desc">A pro-grade audio analyser for macOS. Load any file and see what's actually in it - every loudness number broadcasters and streamers care about, every spectral detail, every phase relationship between channels. Compare up to six masters at once with sample-accurate alignment and A−B residuals. Make non-destructive edits and ship.</p>
             <div class="badges">
                 <span class="badge badge-macos">macOS</span>
                 <span class="badge">EBU R128</span>
@@ -546,11 +546,11 @@
         <p class="section-label">Why Specula</p>
         <h2 class="section-headline">Most engineers ship masters they can't fully see. Specula shows the file end-to-end, in numbers and in pictures, before it leaves your hands.</h2>
 
-        <p class="prose" style="margin-top: 24px;"><strong>The blind-spot problem.</strong> A master can sound right on your monitors and still fail at delivery. Spotify rejects it because integrated LUFS overshoots by half a dB. Apple Music dims it. A streaming dialog mix lands four LU under Netflix's speech-gated target. A "stereo" file is secretly mono on the verses and out-of-phase in the bridge. Most of these failures are visible in numbers the file already contains — you just need a tool that reads them out instead of leaving you to guess.</p>
+        <p class="prose" style="margin-top: 24px;"><strong>The blind-spot problem.</strong> A master can sound right on your monitors and still fail at delivery. Spotify rejects it because integrated LUFS overshoots by half a dB. Apple Music dims it. A streaming dialog mix lands four LU under Netflix's speech-gated target. A "stereo" file is secretly mono on the verses and out-of-phase in the bridge. Most of these failures are visible in numbers the file already contains - you just need a tool that reads them out instead of leaving you to guess.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>The A/B problem.</strong> Was rev 4 actually better than rev 3, or just half a dB louder? When you can't level-match precisely, you can't trust the comparison — and you definitely can't see what changed. Specula loads up to six versions side-by-side, normalises them by integrated LUFS, optionally inverts polarity, and computes a sample-accurate residual. What's <em>different</em> between two takes becomes its own waveform you can solo, scrub, and export.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>The A/B problem.</strong> Was rev 4 actually better than rev 3, or just half a dB louder? When you can't level-match precisely, you can't trust the comparison - and you definitely can't see what changed. Specula loads up to six versions side-by-side, normalises them by integrated LUFS, optionally inverts polarity, and computes a sample-accurate residual. What's <em>different</em> between two takes becomes its own waveform you can solo, scrub, and export.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>The verification problem.</strong> "Looks fine in the DAW" isn't a deliverable. Specula gives you one place to confirm the loudness numbers, the true-peak ceiling, the streaming-platform compliance, the phase relationships, and the spectral content of the master that actually leaves your studio — before it leaves.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>The verification problem.</strong> "Looks fine in the DAW" isn't a deliverable. Specula gives you one place to confirm the loudness numbers, the true-peak ceiling, the streaming-platform compliance, the phase relationships, and the spectral content of the master that actually leaves your studio - before it leaves.</p>
     </section>
 
     <hr class="divider">
@@ -561,28 +561,28 @@
         <h2 class="section-headline">Every measurement that matters, on every file you load. Live during playback, and offline on any selection.</h2>
 
         <div class="caps">
-            <div class="cap">Waveform — all channels, pinch-zoom, drag-select, click-to-seek, clip detection, dBFS grid</div>
-            <div class="cap">EBU R128 — Momentary, Short-term, Integrated, LRA, True Peak, all live</div>
-            <div class="cap">Speech-gated LUFS — Silero neural VAD highlights speech blocks for dialog mixes</div>
-            <div class="cap">FFT spectrum — five window types, note-name on hover, frequency-range selection</div>
-            <div class="cap">Spectrogram — four colormaps, log or mel scale, configurable dB range</div>
-            <div class="cap">M/S stereo width — Pearson correlation, zone colour mode, plain-language hover labels</div>
-            <div class="cap">Phase scope — Lissajous L/R correlation</div>
-            <div class="cap">Per-channel RMS — peak hold, colour-coded zones, per-channel mute</div>
-            <div class="cap">Selection analysis — full offline pass with per-channel peak / RMS / crest</div>
-            <div class="cap">Loudness violations — set M/S/TP thresholds, watch the waveform light up</div>
-            <div class="cap">Channel routing — N→M matrix with PRE/POST monitor mode</div>
-            <div class="cap">Variable-rate playback — 0.25× to 4× with optional pitch preservation</div>
-            <div class="cap">Compare mode — up to 6 slots with auto-align, level-match, polarity, A−X diff</div>
-            <div class="cap">Edit mode — trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
-            <div class="cap">JSON & PDF reports — pick what to include, export and archive</div>
-            <div class="cap">Format support — WAV, AIFF, FLAC, CAF, MP3, AAC; mono through 7.1+ layouts</div>
+            <div class="cap">Waveform - all channels, pinch-zoom, drag-select, click-to-seek, clip detection, dBFS grid</div>
+            <div class="cap">EBU R128 - Momentary, Short-term, Integrated, LRA, True Peak, all live</div>
+            <div class="cap">Speech-gated LUFS - Silero neural VAD highlights speech blocks for dialog mixes</div>
+            <div class="cap">FFT spectrum - five window types, note-name on hover, frequency-range selection</div>
+            <div class="cap">Spectrogram - four colormaps, log or mel scale, configurable dB range</div>
+            <div class="cap">M/S stereo width - Pearson correlation, zone colour mode, plain-language hover labels</div>
+            <div class="cap">Phase scope - Lissajous L/R correlation</div>
+            <div class="cap">Per-channel RMS - peak hold, colour-coded zones, per-channel mute</div>
+            <div class="cap">Selection analysis - full offline pass with per-channel peak / RMS / crest</div>
+            <div class="cap">Loudness violations - set M/S/TP thresholds, watch the waveform light up</div>
+            <div class="cap">Channel routing - N→M matrix with PRE/POST monitor mode</div>
+            <div class="cap">Variable-rate playback - 0.25× to 4× with optional pitch preservation</div>
+            <div class="cap">Compare mode - up to 6 slots with auto-align, level-match, polarity, A−X diff</div>
+            <div class="cap">Edit mode - trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
+            <div class="cap">JSON & PDF reports - pick what to include, export and archive</div>
+            <div class="cap">Format support - WAV, AIFF, FLAC, CAF, MP3, AAC; mono through 7.1+ layouts</div>
         </div>
 
         <div class="guide-cta">
             <div class="guide-cta-text">
                 <div class="guide-cta-title">Full reference: every feature, every shortcut, every setting</div>
-                <div class="guide-cta-sub">The user guide goes deep on each subsystem — what each FFT window is for, how the speech-gated path works, how compare-mode auto-align actually aligns, and the complete keyboard map.</div>
+                <div class="guide-cta-sub">The user guide goes deep on each subsystem - what each FFT window is for, how the speech-gated path works, how compare-mode auto-align actually aligns, and the complete keyboard map.</div>
             </div>
             <a href="guide.html" class="btn btn-primary">Open user guide →</a>
         </div>
@@ -601,7 +601,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Speech-gated LUFS</span>
-                <span class="feature-val">A neural Silero VAD runs on every loaded file and highlights speech blocks in teal on the waveform. The same speech mask gates a parallel integrated LUFS measurement — Netflix's speech-gated target (−27 LKFS ± 2) becomes a number you can read off the panel. A spectral fallback VAD covers the rare case where Silero is unavailable.</span>
+                <span class="feature-val">A neural Silero VAD runs on every loaded file and highlights speech blocks in teal on the waveform. The same speech mask gates a parallel integrated LUFS measurement - Netflix's speech-gated target (−27 LKFS ± 2) becomes a number you can read off the panel. A spectral fallback VAD covers the rare case where Silero is unavailable.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Streaming compliance</span>
@@ -609,7 +609,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">FFT spectrum</span>
-                <span class="feature-val">Real-time logarithmic spectrum with five window functions (Hann / Hamming / Blackman / Blackman-Harris / Flat Top), each tuned for a different job — from general use to closely-spaced harmonics to calibration-grade amplitude reads. Hover the mouse anywhere on the curve to see the frequency, level, and the closest musical note with cents deviation.</span>
+                <span class="feature-val">Real-time logarithmic spectrum with five window functions (Hann / Hamming / Blackman / Blackman-Harris / Flat Top), each tuned for a different job - from general use to closely-spaced harmonics to calibration-grade amplitude reads. Hover the mouse anywhere on the curve to see the frequency, level, and the closest musical note with cents deviation.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Spectrogram</span>
@@ -617,11 +617,11 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">M/S stereo &amp; phase</span>
-                <span class="feature-val">A correlation curve (Pearson, −1 to +1) plus a Lissajous phase scope. Optional zone colour mode tints the curve by stereo character — mono, narrow, stereo, wide, out-of-phase — with a plain-English hover label so you can read what the numbers mean.</span>
+                <span class="feature-val">A correlation curve (Pearson, −1 to +1) plus a Lissajous phase scope. Optional zone colour mode tints the curve by stereo character - mono, narrow, stereo, wide, out-of-phase - with a plain-English hover label so you can read what the numbers mean.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Compare mode</span>
-                <span class="feature-val">Drop in up to six audio files (slots A through F). Switch between them on bare 1–6 keys. Apply LUFS-based level-matching with one click so the louder version doesn't always win. Polarity-invert any slot. Manually nudge by one sample or one millisecond — or hit auto-align and let cross-correlation lock the slot to slot A. Compute and play back the A−X residual; export it as a WAV.</span>
+                <span class="feature-val">Drop in up to six audio files (slots A through F). Switch between them on bare 1-6 keys. Apply LUFS-based level-matching with one click so the louder version doesn't always win. Polarity-invert any slot. Manually nudge by one sample or one millisecond - or hit auto-align and let cross-correlation lock the slot to slot A. Compute and play back the A−X residual; export it as a WAV.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Edit mode</span>
@@ -633,7 +633,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">JSON &amp; PDF reports</span>
-                <span class="feature-val">Export the full set of measurements with <strong>⇧⌘E</strong> (JSON) or <strong>⌥⌘E</strong> (PDF). Pick what's included — loudness curves, stereo width, per-channel stats, violation list. The JSON is a stable schema for archival and CI use; the PDF is the same content rendered for human reading.</span>
+                <span class="feature-val">Export the full set of measurements with <strong>⇧⌘E</strong> (JSON) or <strong>⌥⌘E</strong> (PDF). Pick what's included - loudness curves, stereo width, per-channel stats, violation list. The JSON is a stable schema for archival and CI use; the PDF is the same content rendered for human reading.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Format support</span>
@@ -672,7 +672,7 @@
             </div>
         </div>
 
-        <p class="prose" style="margin-top: 18px;">Targets are intentionally mainstream — the goal is a quick sanity check before delivery, not an absolute pass/fail gate. For broadcast deliveries you'll usually want the offline analysis (<strong>⌘Return</strong>) so you have an integrated value computed over the entire master, not a rolling estimate.</p>
+        <p class="prose" style="margin-top: 18px;">Targets are intentionally mainstream - the goal is a quick sanity check before delivery, not an absolute pass/fail gate. For broadcast deliveries you'll usually want the offline analysis (<strong>⌘Return</strong>) so you have an integrated value computed over the entire master, not a rolling estimate.</p>
     </section>
 
     <hr class="divider">
@@ -689,7 +689,7 @@
             </div>
             <div class="standard-row">
                 <span class="standard-tag">EBU R128</span>
-                <span class="standard-desc">Momentary (400 ms window), Short-term (3 s window), Integrated (gated whole-programme), LRA (10–95 percentile range), True Peak (dBTP).</span>
+                <span class="standard-desc">Momentary (400 ms window), Short-term (3 s window), Integrated (gated whole-programme), LRA (10-95 percentile range), True Peak (dBTP).</span>
             </div>
             <div class="standard-row">
                 <span class="standard-tag">Silero VAD</span>
@@ -714,7 +714,7 @@
             </div>
             <div class="req-row">
                 <span class="req-label">Network</span>
-                <span class="req-val">One-time Silero VAD model download (~2 MB) on first launch — afterwards, fully offline</span>
+                <span class="req-val">One-time Silero VAD model download (~2 MB) on first launch - afterwards, fully offline</span>
             </div>
             <div class="req-row">
                 <span class="req-label">Hardware</span>
@@ -733,7 +733,7 @@
     <!-- ─── Final CTA ─── -->
     <section class="section">
         <p class="section-label">Ship with confidence</p>
-        <p class="prose">Specula is a tool for the moment between "I think this master is done" and "I'm sending it out." It doesn't replace your DAW, your mastering chain, or your ears. It catches the things ears miss — the hidden phase issue, the half-dB overshoot, the speech-gated number that's three LU off Netflix's target — before they become a re-deliver.</p>
+        <p class="prose">Specula is a tool for the moment between "I think this master is done" and "I'm sending it out." It doesn't replace your DAW, your mastering chain, or your ears. It catches the things ears miss - the hidden phase issue, the half-dB overshoot, the speech-gated number that's three LU off Netflix's target - before they become a re-deliver.</p>
         <p class="prose" style="margin-top: 14px;">Take the long way through the user guide if you're new to loudness gating, or skim the keyboard reference if you just want to drive it.</p>
 
         <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
