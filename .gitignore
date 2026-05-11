@@ -10,3 +10,12 @@
 # Intermediate retina captures kept out of the repo — only the cropped,
 # page-ready PNGs in blog/screenshots/ ship.
 blog/screenshots/before-crop/
+
+# ─── Brand asset outputs ─────────────────────────────────────────────────────
+# Regeneratable via `node gen_app_banners/generate-brand-assets.mjs`. Live
+# site assets (the root-level favicon-*.png, apple-touch-icon.png, etc.)
+# are tracked separately; only the script's output directories are ignored.
+app-icon/
+favicon/
+menubar/
+social/
