@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lyra Release Notes — Version History & Changelog</title>
+  <title>Lyra Release Notes - Version History & Changelog</title>
   <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.4.">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -156,27 +156,27 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Reference Levels</strong> — three named monitor presets (default <em>Quiet / Mix / Loud</em>) you can rename and recall. Useful for K-System reference, A/B'ing loudness, or quickly checking a mix at a low level.</span>
+        <span><strong>Reference Levels</strong> - three named monitor presets (default <em>Quiet / Mix / Loud</em>) you can rename and recall. Useful for K-System reference, A/B'ing loudness, or quickly checking a mix at a low level.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Ctrl+F10 / F11 / F12</strong> — jump to Reference Level slot 1, 2, or 3.</span>
+        <span><strong>Ctrl+F10 / F11 / F12</strong> - jump to Reference Level slot 1, 2, or 3.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Reference Levels submenu</strong> — jump to a slot, save the current level into a slot, or rename a slot, all from the menu bar menu.</span>
+        <span><strong>Reference Levels submenu</strong> - jump to a slot, save the current level into a slot, or rename a slot, all from the menu bar menu.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>HUD slot name</strong> — when you jump to a Reference Level the on-screen pill shows the slot name (e.g. <em>Mix</em>) so you know exactly where you landed.</span>
+        <span><strong>HUD slot name</strong> - when you jump to a Reference Level the on-screen pill shows the slot name (e.g. <em>Mix</em>) so you know exactly where you landed.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>URL scheme</strong> — drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app: <code>lyra://reference/{1|2|3|cycle}</code>, <code>lyra://volume/set?tapered=…</code>, <code>lyra://volume/{up|down}</code> (with <code>?fine=1</code>), and <code>lyra://{mute|dim|mono}/toggle</code>.</span>
+        <span><strong>URL scheme</strong> - drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app: <code>lyra://reference/{1|2|3|cycle}</code>, <code>lyra://volume/set?tapered=…</code>, <code>lyra://volume/{up|down}</code> (with <code>?fine=1</code>), and <code>lyra://{mute|dim|mono}/toggle</code>.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Audita pairing</strong> — <a href="../audita/">Audita</a> (our SPL meter, formerly Auris) can now write its calibrations straight into a Lyra slot. After Audita's target-level wizard, click <em>"Send to Lyra…"</em> — Audita ships the calibrated dB SPL to Lyra via the new <code>lyra://reference/{n}/save</code> URL, and the slot starts displaying as e.g. <em>"Mix — 85 dB SPL"</em> in the menu and HUD. Requires Audita 1.0 or later.</span>
+        <span><strong>Audita pairing</strong> - <a href="../audita/">Audita</a> (our SPL meter, formerly Auris) can now write its calibrations straight into a Lyra slot. After Audita's target-level wizard, click <em>"Send to Lyra…"</em> - Audita ships the calibrated dB SPL to Lyra via the new <code>lyra://reference/{n}/save</code> URL, and the slot starts displaying as e.g. <em>"Mix - 85 dB SPL"</em> in the menu and HUD. Requires Audita 1.0 or later.</span>
       </li>
     </ul>
   </section>
@@ -190,27 +190,27 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Fine-step control</strong> — hold Shift while pressing F11/F12 for a half-size volume step.</span>
+        <span><strong>Fine-step control</strong> - hold Shift while pressing F11/F12 for a half-size volume step.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>DIM shortcut</strong> — Shift+F10 toggles Apollo's hardware DIM. Attenuation amount is set in UA Console; Lyra just flips the switch.</span>
+        <span><strong>DIM shortcut</strong> - Shift+F10 toggles Apollo's hardware DIM. Attenuation amount is set in UA Console; Lyra just flips the switch.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Mono shortcut</strong> — Opt+F10 toggles L+R sum to mono for quick compatibility checks.</span>
+        <span><strong>Mono shortcut</strong> - Opt+F10 toggles L+R sum to mono for quick compatibility checks.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Menu items</strong> — DIM and Mono appear in the menu bar menu with live checkmarks.</span>
+        <span><strong>Menu items</strong> - DIM and Mono appear in the menu bar menu with live checkmarks.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span><strong>Menu bar icon</strong> — horizontal bar through the dot when DIM is active; vertical bar when Mono is active. Both can stack.</span>
+        <span><strong>Menu bar icon</strong> - horizontal bar through the dot when DIM is active; vertical bar when Mono is active. Both can stack.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span><strong>Volume HUD</strong> — pill turns amber when DIM is active so the state is obvious at a glance.</span>
+        <span><strong>Volume HUD</strong> - pill turns amber when DIM is active so the state is obvious at a glance.</span>
       </li>
     </ul>
   </section>
@@ -224,7 +224,7 @@
     <ul class="changes">
       <li>
         <span class="tag tag-fix">Fix</span>
-        <span>Version bump — 1.1 was released without updating the bundle version string.</span>
+        <span>Version bump - 1.1 was released without updating the bundle version string.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>

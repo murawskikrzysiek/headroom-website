@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Auris Release Notes — Version History & Changelog</title>
+  <title>Auris Release Notes - Version History & Changelog</title>
   <meta name="description" content="Version history for Auris, the macOS SPL meter and NIOSH hearing dose tracker. Features, fixes, and improvements across releases.">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -25,7 +25,7 @@
       margin: 0 auto;
     }
 
-    /* ── Deprecation banner — shown to direct visitors and inside the
+    /* ── Deprecation banner - shown to direct visitors and inside the
        Sparkle update dialog, so a clear "what to do next" link matters. ── */
     .renamed-banner {
       background: linear-gradient(135deg, #1a1a2a 0%, #1f1a2e 100%);
@@ -160,7 +160,7 @@
 
   <div class="renamed-banner">
     <strong>Auris is now Audita.</strong>
-    1.3 is the final release under the Auris name — your existing license
+    1.3 is the final release under the Auris name - your existing license
     keeps working and you can keep using it indefinitely. New development
     continues as <a href="https://headroomstudio.dev/audita/">Audita</a>:
     same app, same NIOSH dose, same K-System monitoring, fresh start.
@@ -186,11 +186,11 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Auris is now <a href="https://headroomstudio.dev/audita/">Audita</a>.</strong> 1.3 is the last release under the Auris name. Same dose monitoring, same calibration, same NIOSH formulas, same K-System target tracking — under a new name with a fresh start. <a href="https://headroomstudio.dev/audita/">Download Audita 1.0 →</a></span>
+        <span><strong>Auris is now <a href="https://headroomstudio.dev/audita/">Audita</a>.</strong> 1.3 is the last release under the Auris name. Same dose monitoring, same calibration, same NIOSH formulas, same K-System target tracking - under a new name with a fresh start. <a href="https://headroomstudio.dev/audita/">Download Audita 1.0 →</a></span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Export your data for Audita.</strong> A first-launch dialog (and a permanent <em>Auris is now Audita</em> bar in the menu) hands you a single JSON file with every session, calibration record, target-level reference, monitoring alert setting, custom DAW, and today's running dose. Audita's first-launch importer reads the file directly — your trial countdown and license key auto-migrate via the system Keychain, no re-entry needed.</span>
+        <span><strong>Export your data for Audita.</strong> A first-launch dialog (and a permanent <em>Auris is now Audita</em> bar in the menu) hands you a single JSON file with every session, calibration record, target-level reference, monitoring alert setting, custom DAW, and today's running dose. Audita's first-launch importer reads the file directly - your trial countdown and license key auto-migrate via the system Keychain, no re-entry needed.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -198,7 +198,7 @@
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span>Auris will keep working as long as you want it to — there's no remote shut-off and your existing license stays valid. There just won't be further Auris updates after 1.3; new development happens in Audita.</span>
+        <span>Auris will keep working as long as you want it to - there's no remote shut-off and your existing license stays valid. There just won't be further Auris updates after 1.3; new development happens in Audita.</span>
       </li>
     </ul>
   </section>
@@ -212,35 +212,35 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Target-level calibration wizard</strong> — pink-noise guided flow that pins your monitor controller to a chosen dBA reference (e.g. 79 for K-14, 83 for K-12, 85 for cinema). Plays through your selected output, waits for the reading to settle inside a configurable tolerance band, then captures the position with a knob-position note. Calibrations are stored per output device, so monitors and headphones each carry their own physical-position record. A stale-calibration hint nudges you to recalibrate after 90 days.</span>
+        <span><strong>Target-level calibration wizard</strong> - pink-noise guided flow that pins your monitor controller to a chosen dBA reference (e.g. 79 for K-14, 83 for K-12, 85 for cinema). Plays through your selected output, waits for the reading to settle inside a configurable tolerance band, then captures the position with a knob-position note. Calibrations are stored per output device, so monitors and headphones each carry their own physical-position record. A stale-calibration hint nudges you to recalibrate after 90 days.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Monitoring Discipline</strong> — tracks how consistently you actually monitor at your chosen reference. New <em>Reference</em> tab in Settings with industry presets (K-20 / K-14 / K-12 / cinema) plus custom target and tolerance band. Live on-target % chip in the menu bar with a green / yellow / orange ladder, three-segment under / on / over bar, and a drift hint. <em>Today's Summary</em> aggregates the same metric across all sessions; per-session figures land in <em>History</em> alongside the dose stats. Useful at any SPL — fills the gap left by NIOSH dose, which stays at 0 % for users who never reach 80 dBA.</span>
+        <span><strong>Monitoring Discipline</strong> - tracks how consistently you actually monitor at your chosen reference. New <em>Reference</em> tab in Settings with industry presets (K-20 / K-14 / K-12 / cinema) plus custom target and tolerance band. Live on-target % chip in the menu bar with a green / yellow / orange ladder, three-segment under / on / over bar, and a drift hint. <em>Today's Summary</em> aggregates the same metric across all sessions; per-session figures land in <em>History</em> alongside the dose stats. Useful at any SPL - fills the gap left by NIOSH dose, which stays at 0 % for users who never reach 80 dBA.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Monitoring alerts</strong> — opt-in notifications when your level <em>drifts</em> (rolling 30-min Leq vs session baseline) or sustains a deviation <em>off target</em>. Each category has its own 30-min snooze, so silencing a drift alert doesn't muffle a dose alert.</span>
+        <span><strong>Monitoring alerts</strong> - opt-in notifications when your level <em>drifts</em> (rolling 30-min Leq vs session baseline) or sustains a deviation <em>off target</em>. Each category has its own 30-min snooze, so silencing a drift alert doesn't muffle a dose alert.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Pair with Lyra</strong> — after a target-level calibration, click <em>"Send to Lyra…"</em> to write the position straight into one of Lyra's three reference slots. Pick the slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away — Ctrl+F10 / F11 / F12 in <a href="../lyra/">Lyra</a>. Auris ships the live Apollo monitor level along with the measured dB SPL value, so the slot displays as e.g. <em>"Mix — 79 dB SPL"</em> in Lyra's menu and HUD. Requires Lyra 1.4 or later.</span>
+        <span><strong>Pair with Lyra</strong> - after a target-level calibration, click <em>"Send to Lyra…"</em> to write the position straight into one of Lyra's three reference slots. Pick the slot (1, 2, or 3), confirm the name, and your calibrated listening level is one keystroke away - Ctrl+F10 / F11 / F12 in <a href="../lyra/">Lyra</a>. Auris ships the live Apollo monitor level along with the measured dB SPL value, so the slot displays as e.g. <em>"Mix - 79 dB SPL"</em> in Lyra's menu and HUD. Requires Lyra 1.4 or later.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span><strong>Audio tab restructure</strong> — settings now follow a three-step calibration journey, with each step explaining what it does and what it depends on. First-time setup actually has a path through the screen instead of a flat list of controls.</span>
+        <span><strong>Audio tab restructure</strong> - settings now follow a three-step calibration journey, with each step explaining what it does and what it depends on. First-time setup actually has a path through the screen instead of a flat list of controls.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span><strong>Silent capture</strong> — pink noise now stops the moment you press <em>"Capture position"</em>, so you can name the calibration in silence. Pressing <em>"Adjust again"</em> restarts the noise on the same output device.</span>
+        <span><strong>Silent capture</strong> - pink noise now stops the moment you press <em>"Capture position"</em>, so you can name the calibration in silence. Pressing <em>"Adjust again"</em> restarts the noise on the same output device.</span>
       </li>
       <li>
         <span class="tag tag-fix">Fix</span>
-        <span><strong>C-weighting filter</strong> — corrected a bug in the C-weighting filter implementation. dBC peak detection, the dBA-vs-dBC gap indicator, and conservative dose mode now report correct values.</span>
+        <span><strong>C-weighting filter</strong> - corrected a bug in the C-weighting filter implementation. dBC peak detection, the dBA-vs-dBC gap indicator, and conservative dose mode now report correct values.</span>
       </li>
       <li>
         <span class="tag tag-fix">Fix</span>
-        <span><strong>Channel names</strong> — driver-supplied channel names now show up correctly on a wider range of audio interfaces.</span>
+        <span><strong>Channel names</strong> - driver-supplied channel names now show up correctly on a wider range of audio interfaces.</span>
       </li>
     </ul>
   </section>
@@ -254,11 +254,11 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span>Input channel selection — pick any individual channel from your audio interface, not just the default stereo pair. Useful for talkback mics, dedicated measurement inputs, or any channel on multi-channel interfaces. Channel names are read directly from the driver (e.g. "TALKBACK 1", "MIC/LINE 2").</span>
+        <span>Input channel selection - pick any individual channel from your audio interface, not just the default stereo pair. Useful for talkback mics, dedicated measurement inputs, or any channel on multi-channel interfaces. Channel names are read directly from the driver (e.g. "TALKBACK 1", "MIC/LINE 2").</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span>Channel names from CoreAudio — the channel picker shows the actual names reported by your audio driver instead of generic "Channel 1", "Channel 2" labels.</span>
+        <span>Channel names from CoreAudio - the channel picker shows the actual names reported by your audio driver instead of generic "Channel 1", "Channel 2" labels.</span>
       </li>
       <li>
         <span class="tag tag-fix">Fix</span>
@@ -276,11 +276,11 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span>Leq statistics — rolling energy-average level over 1-, 10-, and 30-minute windows. Leq is the same formula used to compute your dose, applied to a sliding window instead of the whole day. It shows how loud you have actually been — not just right now.</span>
+        <span>Leq statistics - rolling energy-average level over 1-, 10-, and 30-minute windows. Leq is the same formula used to compute your dose, applied to a sliding window instead of the whole day. It shows how loud you have actually been - not just right now.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span>Ln percentile statistics — L10, L50, and L90 computed live over the last 30 minutes. L10 captures your loudest moments (exceeded 10% of the time), L50 is your typical working level, L90 reveals the background noise floor. All three values are shown in the menu bar panel.</span>
+        <span>Ln percentile statistics - L10, L50, and L90 computed live over the last 30 minutes. L10 captures your loudest moments (exceeded 10% of the time), L50 is your typical working level, L90 reveals the background noise floor. All three values are shown in the menu bar panel.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -302,7 +302,7 @@
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span>Calibration profiles — save the current frequency correction and level offset as a named profile and recall it any time from Settings → Audio.</span>
+        <span>Calibration profiles - save the current frequency correction and level offset as a named profile and recall it any time from Settings → Audio.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -310,7 +310,7 @@
       </li>
       <li>
         <span class="tag tag-fix">Fix</span>
-        <span>Automatic updates via Sparkle now work correctly. Due to a code signing issue in 0.9, this update must be installed manually — future updates will be delivered automatically.</span>
+        <span>Automatic updates via Sparkle now work correctly. Due to a code signing issue in 0.9, this update must be installed manually - future updates will be delivered automatically.</span>
       </li>
     </ul>
   </section>
@@ -328,7 +328,7 @@
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span>NIOSH hearing dose tracking — 85 dBA reference, 3 dB exchange rate, 80 dBA threshold.</span>
+        <span>NIOSH hearing dose tracking - 85 dBA reference, 3 dB exchange rate, 80 dBA threshold.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
