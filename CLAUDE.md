@@ -108,6 +108,7 @@ Outputs: `lyra/og.png` and `og-headroom.png`.
 4. Add app card to grid in `index.html` (see `<!-- Add future apps here -->` comment)
 5. Add OG image generator function to `generate_og_images.py`
 6. Regenerate favicons if app has a different icon
+7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics section below). Required on every public page — homepage, app pages, FAQ, privacy, releases, blog posts, anything served from `headroomstudio.dev`. Without it, traffic from that page is invisible in the dashboard.
 
 ---
 
@@ -116,8 +117,29 @@ Outputs: `lyra/og.png` and `og-headroom.png`.
 - **Google Fonts** — Inter via CDN
 - **Paddle** — Payment processor (referenced in privacy policies)
 - **Cloudflare** — DNS for custom domain (proxy must be OFF / DNS only for GitHub Pages to work)
+- **Cloudflare Web Analytics** — privacy-first pageview analytics (no cookies, no GDPR banner). JS Snippet mode (required because proxy is off). Site token: `b17689e9a2d3478cb704287beb955f48`. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
 - **Sparkle** — macOS auto-update framework (appcast.xml per app)
 - **Cloudflare R2** — DMG hosting for Lyra releases (`releases.headroomstudio.dev`)
+
+---
+
+## Analytics
+
+Every public-facing HTML page must include the Cloudflare Web Analytics snippet in its `<head>`. Paste this verbatim, just before `</head>`:
+
+```html
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+```
+
+**Why JS Snippet mode** (not the auto-injection option in the Cloudflare dashboard): auto-injection requires Cloudflare proxy to be on so they can rewrite the HTML response server-side. Our proxy is **off** (DNS-only, for GitHub Pages TLS), so traffic never passes through Cloudflare's edge. JS Snippet mode runs client-side and works regardless of proxy state.
+
+**What it captures:** pageviews, unique visitors, top referrers (so HN / Reddit / Gearspace traffic shows broken out), top pages, top devices, top countries. No event tracking, no per-user journey, no goals. Privacy-first — no cookies, no PII, no GDPR cookie banner needed.
+
+**Verifying:** after deploying a new page, visit it once and check the dashboard within ~5 min. If a pageview doesn't show up, the snippet is missing or malformed.
+
+**If we ever turn Cloudflare proxy on** (future state — would require GitHub Pages TLS validation through CF "Full strict" mode), we could switch to the auto-injection option in the dashboard and remove the snippets from individual files. Don't do this without testing in staging first.
+
+**Don't add Google Analytics or other heavy trackers.** They'd require a cookie banner under GDPR, slow the page significantly, and don't fit the privacy-conscious indie brand. If we later need conversion goals (e.g. "buy button clicked"), upgrade to Plausible ($9/mo) or Fathom ($14/mo) — same privacy stance, similar weight.
 
 ---
 
