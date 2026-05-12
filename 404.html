@@ -317,8 +317,17 @@
         @media (max-width: 640px) {
             .hero { padding: 44px 0 40px; }
             .hero h1 { font-size: 2.4rem; }
-            nav { padding: 20px 0; }
-            .nav-links { display: none; }
+            nav { padding: 20px 0; gap: 12px; }
+            .brand { font-size: 1.15rem; gap: 8px; }
+            .brand-mark { width: 36px; height: 36px; }
+            .nav-links { gap: 14px; }
+            .nav-links a { font-size: 0.78rem; }
+        }
+
+        @media (max-width: 380px) {
+            .nav-links { gap: 11px; }
+            .nav-links a { font-size: 0.74rem; }
+            .nav-contact { display: none; }
         }
     </style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -346,7 +355,7 @@
             <li><a href="/#apps">Apps</a></li>
             <li><a href="/blog/">Blog</a></li>
             <li><a href="/#about">About</a></li>
-            <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
+            <li class="nav-contact"><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
         </ul>
     </nav>
 </div>
