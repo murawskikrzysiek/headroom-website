@@ -426,6 +426,7 @@
             <div class="faq-item">
                 <p class="faq-q">Can I use Lyra with Stream Deck, Keyboard Maestro, or Shortcuts?</p>
                 <p class="faq-a">Yes. Lyra registers a <strong><code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://</code></strong> URL scheme that any of those tools can call. Common targets: <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/2</code> to jump to a stored monitor preset, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=0.4</code> to set an absolute level, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://mute/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dim/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">mono/toggle</code> for the toggles. The <a href="index.html#url-scheme" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full URL list</a> is on the main page.</p>
+                <p class="faq-a">As of v1.5, three new read endpoints (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/get</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/current</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://state</code>) return live state via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> callbacks, and every endpoint can chain into a follow-up URL via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-error</code>. The <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">API reference</a> has copy-paste examples for each launcher.</p>
             </div>
 
             <div class="faq-item">
@@ -495,6 +496,7 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
