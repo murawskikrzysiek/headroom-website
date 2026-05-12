@@ -781,7 +781,7 @@
 
     <section class="section" id="url-scheme">
         <p class="section-label">URL scheme</p>
-        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>.</p>
+        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, Raycast, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>. As of v1.5, every endpoint accepts <code>x-success</code> / <code>x-error</code> callbacks so you can chain Lyra into a larger automation and read state back into your launcher - see the <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full API reference</a> for the complete spec.</p>
 
         <div class="url-list">
 
@@ -801,6 +801,10 @@
                     <span class="url-code">lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</span>
                     <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Audita's <em>"Send to Lyra…"</em> action after a calibration - Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
                 </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://reference/current?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> Read the currently-active slot via the supplied callback URL. Returns <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_name</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_tapered</code>, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_dbspl</code> if calibrated. All slot keys are absent when the monitor doesn't match any saved slot.</p>
+                </div>
             </div>
 
             <div class="url-group">
@@ -813,6 +817,10 @@
                     <span class="url-code">lyra://volume/up</span>
                     <span class="url-code" style="margin-left: 4px;">lyra://volume/down</span>
                     <p class="url-desc">Step the volume up or down by one increment. Append <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">?fine=1</code> for a half-size step (the same as holding Shift with F11/F12).</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://volume/get?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> Read the current monitor level via the supplied callback URL. Returns <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">tapered</code> (0-1) and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">db</code> (the Apollo's meter dB).</p>
                 </div>
             </div>
 
@@ -832,11 +840,24 @@
                 </div>
             </div>
 
+            <div class="url-group">
+                <p class="url-group-label">State</p>
+                <div class="url-row">
+                    <span class="url-code">lyra://state?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> One-shot read of the full app state - volume, mute, DIM, mono, mixer / device connection, device name, current step, plus the active slot if one matches. Use this when you want a single round-trip to populate a Shortcut or dashboard. See the <a href="api.html#state" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full returns list</a>.</p>
+                </div>
+            </div>
+
         </div>
 
         <div class="notice" style="margin-top: 20px;">
-            <span class="notice-icon">💡</span>
-            <p>All URLs require Lyra to be running and your Apollo to be connected (Mixer Engine reachable). Unknown URLs are logged and ignored - they won't crash or interrupt anything.</p>
+            <span class="notice-icon">→</span>
+            <p><a href="api.html" style="color: var(--accent); text-decoration: none;">Full API reference</a> - every endpoint with parameters, return values, error codes, and copy-paste examples for Shortcuts, Stream Deck, Keyboard Maestro, AppleScript, and Raycast.</p>
+        </div>
+
+        <div class="notice" style="margin-top: 12px;">
+            <span class="notice-icon">!</span>
+            <p>Action URLs require Lyra to be running and your Apollo to be connected (Mixer Engine reachable). Reads are no-ops without an <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> URL. Unknown endpoints are logged and ignored - they won't crash or interrupt anything.</p>
         </div>
     </section>
 
@@ -892,6 +913,7 @@
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="releases.html">Release notes</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
