@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra - User Guide</title>
+    <link rel="canonical" href="https://headroomstudio.dev/lyra/guide.html">
+    <meta name="description" content="Complete user reference for Lyra - shortcuts, menu UI, reference levels, Audita pairing, URL scheme, troubleshooting, licensing.">
+    <meta property="og:title" content="Lyra User Guide">
+    <meta property="og:description" content="Complete reference for Lyra - shortcuts, menu UI, reference levels, URL scheme, troubleshooting.">
+    <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
+    <meta property="og:type" content="article">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --code-bg:      rgba(255,255,255,0.04);
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Nav ─── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Page header ─── */
+        .page-header { padding: 32px 0 24px; }
+
+        .page-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.7rem, 4vw, 2.1rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .page-lede {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* ─── TOC ─── */
+        .toc {
+            margin: 28px 0 8px;
+            padding: 20px 22px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.015);
+        }
+
+        .toc-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 24px;
+            list-style: none;
+        }
+
+        .toc-list a {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+            display: block;
+            padding: 3px 0;
+        }
+        .toc-list a:hover { color: var(--text); }
+
+        /* ─── Divider ─── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 36px 0;
+        }
+
+        /* ─── Sections ─── */
+        section.guide-section {
+            scroll-margin-top: 24px;
+            padding-bottom: 8px;
+        }
+
+        section.guide-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 14px;
+            padding-top: 4px;
+        }
+
+        section.guide-section h3 {
+            font-size: 1.05rem;
+            font-weight: 650;
+            letter-spacing: -0.015em;
+            color: var(--text);
+            line-height: 1.35;
+            margin-top: 26px;
+            margin-bottom: 10px;
+        }
+
+        /* ─── Prose ─── */
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.78;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+        .prose + ul, .prose + ol, ul + .prose, ol + .prose { margin-top: 12px; }
+        .prose + table, table + .prose { margin-top: 14px; }
+
+        .prose strong, ul strong, li strong, td strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .prose em, li em { color: var(--text); font-style: italic; }
+
+        .prose a, table a, li a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+        .prose a:hover, table a:hover, li a:hover { color: #a0aaff; }
+
+        ul, ol {
+            color: var(--text-2);
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            padding-left: 20px;
+        }
+
+        ul li, ol li { margin-bottom: 4px; }
+
+        /* ─── Inline code & kbd ─── */
+        code {
+            background: var(--code-bg);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em;
+            color: #d6d6f0;
+        }
+
+        kbd {
+            display: inline-block;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-bottom-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+            font-size: 0.78em;
+            color: var(--text);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+            white-space: nowrap;
+        }
+
+        /* ─── Tables ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 4px;
+            font-size: 0.875rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 9px 14px 9px 0;
+            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+            vertical-align: top;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        th {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        td:first-child {
+            color: var(--text);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        td.wrap-ok { white-space: normal; color: var(--text-2); font-weight: 400; }
+
+        /* ─── Callouts / notes ─── */
+        .note {
+            margin: 20px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(124, 132, 246, 0.06);
+            border-left: 3px solid var(--accent);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .note-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.7;
+            color: var(--accent);
+        }
+
+        .note p {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ─── Pre / code block ─── */
+        pre {
+            margin: 14px 0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: #d6d6f0;
+        }
+
+        /* ─── Top-of-section anchor link ─── */
+        .anchor {
+            color: var(--text-3);
+            text-decoration: none;
+            margin-left: 8px;
+            font-weight: 400;
+            transition: color 0.18s;
+            opacity: 0;
+        }
+
+        section.guide-section h2:hover .anchor { opacity: 0.6; }
+        .anchor:hover { color: var(--accent) !important; opacity: 1 !important; }
+
+        /* ─── Footer ─── */
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+        .footer-links { display: flex; gap: 22px; list-style: none; padding: 0; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .footer-links a:hover { color: var(--text-2); }
+
+        /* ─── Back-to-top link ─── */
+        .back-to-top {
+            display: inline-block;
+            margin: 28px 0 0;
+            font-size: 0.825rem;
+            color: var(--text-2);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.2);
+            padding-bottom: 1px;
+        }
+
+        .back-to-top:hover { color: var(--text); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 560px) {
+            .toc-list { grid-template-columns: 1fr; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px 8px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="./" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            Back to Lyra
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <header class="page-header" id="top">
+        <p class="page-eyebrow">Lyra · User guide</p>
+        <h1>Everything Lyra does, and how to drive it.</h1>
+        <p class="page-lede">Lyra maps F10 / F11 / F12 to the monitor volume of a Universal Audio Apollo. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">Contents</p>
+        <ul class="toc-list">
+            <li><a href="#quick-start">1 · Quick start</a></li>
+            <li><a href="#first-launch">2 · First launch &amp; Accessibility</a></li>
+            <li><a href="#menu-bar-icon">3 · The menu bar icon</a></li>
+            <li><a href="#dropdown-menu">4 · The dropdown menu</a></li>
+            <li><a href="#shortcuts">5 · Keyboard shortcuts</a></li>
+            <li><a href="#hud">6 · Volume HUD</a></li>
+            <li><a href="#reference-levels">7 · Reference Levels</a></li>
+            <li><a href="#audita-pairing">8 · Audita pairing</a></li>
+            <li><a href="#url-scheme">9 · URL scheme</a></li>
+            <li><a href="#mixer-engine">10 · UA Mixer Engine</a></li>
+            <li><a href="#licensing">11 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">12 · Updates</a></li>
+            <li><a href="#launch-at-login">13 · Launch at login</a></li>
+            <li><a href="#troubleshooting">14 · Troubleshooting</a></li>
+            <li><a href="#out-of-scope">15 · What Lyra doesn't do</a></li>
+            <li><a href="#feedback">16 · Reporting bugs</a></li>
+        </ul>
+    </nav>
+
+    <hr class="divider">
+
+    <!-- ─────── 1. Quick start ─────── -->
+    <section class="guide-section" id="quick-start">
+        <h2>1. Quick start <a href="#quick-start" class="anchor">#</a></h2>
+        <ol>
+            <li>Connect your Apollo and make sure UA Console (or just UA Mixer Engine) is installed.</li>
+            <li>Launch Lyra. Grant <strong>Accessibility</strong> permission when prompted - Lyra needs it to intercept F10 / F11 / F12 globally.</li>
+            <li>Once the menu shows <strong>"Connected: &lt;your Apollo&gt;"</strong>, press <kbd>F12</kbd> / <kbd>F11</kbd> / <kbd>F10</kbd> to raise / lower / mute monitor volume.</li>
+            <li>Add modifiers for more: <kbd>⇧</kbd> for fine steps, <kbd>⇧F10</kbd> for DIM, <kbd>⌥F10</kbd> for Mono, <kbd>⌃F10</kbd>/<kbd>⌃F11</kbd>/<kbd>⌃F12</kbd> to jump to a saved <a href="#reference-levels">Reference Level</a>.</li>
+        </ol>
+        <p class="prose">That's the whole app. Everything below is detail.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 2. First launch & Accessibility ─────── -->
+    <section class="guide-section" id="first-launch">
+        <h2>2. First launch &amp; Accessibility permission <a href="#first-launch" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra intercepts F10 / F11 / F12 globally using a <code>CGEventTap</code>. This is the same mechanism macOS itself uses to handle media keys, and it requires <strong>Accessibility</strong> permission.</p>
+
+        <p class="prose">On first launch:</p>
+        <ol>
+            <li>Lyra shows the macOS system Accessibility dialog. Click <strong>Open System Settings</strong>.</li>
+            <li>In <strong>System Settings → Privacy &amp; Security → Accessibility</strong>, find <strong>Lyra</strong> in the list and toggle it on.</li>
+            <li>If Lyra isn't in the list yet, click <strong>+</strong> at the bottom and add it from <code>/Applications</code>.</li>
+            <li><strong>Relaunch Lyra</strong> after enabling the toggle.</li>
+        </ol>
+
+        <p class="prose">Lyra polls the permission state in the background, so it will start the key handler the moment you grant access - no second relaunch required after the first.</p>
+
+        <h3>Resetting Accessibility for testing</h3>
+        <p class="prose">If the system gets into a weird state (rare, but possible after reinstalls), clear the TCC entry:</p>
+        <pre><code>tccutil reset Accessibility com.headroom.Lyra</code></pre>
+        <p class="prose">Then relaunch Lyra to re-trigger the prompt.</p>
+
+        <h3>What about all my keystrokes?</h3>
+        <p class="prose">Lyra only reads three keys (<code>NX_KEYTYPE_MUTE</code>, <code>NX_KEYTYPE_SOUND_DOWN</code>, <code>NX_KEYTYPE_SOUND_UP</code>) - the system-defined media-key events. It does not log, store, or forward anything. It also stops intercepting whenever your Apollo isn't reachable, so when the interface is unplugged your F-keys behave like normal volume keys again.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 3. The menu bar icon ─────── -->
+    <section class="guide-section" id="menu-bar-icon">
+        <h2>3. The menu bar icon <a href="#menu-bar-icon" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra draws its own icon - a 300° knob ring with a tick mark whose angle reflects the current monitor level (0% = 7 o'clock, 50% = 12 o'clock, 100% = 5 o'clock). State stacks:</p>
+
+        <table>
+            <tr><th>Glyph</th><th>Meaning</th></tr>
+            <tr><td class="wrap-ok">Filled centre dot + tick at volume angle</td><td class="wrap-ok">Normal - current monitor level</td></tr>
+            <tr><td class="wrap-ok">Hollow centre ring, no tick</td><td class="wrap-ok"><strong>Muted</strong></td></tr>
+            <tr><td class="wrap-ok">Centre dot with horizontal bar through it</td><td class="wrap-ok"><strong>DIM</strong> active</td></tr>
+            <tr><td class="wrap-ok">Centre dot with vertical bar through it</td><td class="wrap-ok"><strong>Mono</strong> active</td></tr>
+            <tr><td class="wrap-ok">Horizontal <strong>and</strong> vertical bar</td><td class="wrap-ok">DIM + Mono together</td></tr>
+        </table>
+
+        <p class="prose">The icon is a template image, so it follows the system's menu bar tint automatically (light, dark, accessibility inverted, etc.).</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 4. The dropdown menu ─────── -->
+    <section class="guide-section" id="dropdown-menu">
+        <h2>4. The dropdown menu <a href="#dropdown-menu" class="anchor">#</a></h2>
+
+        <p class="prose">Click the icon to open the menu. Sections, top to bottom:</p>
+
+        <h3>License status</h3>
+        <p class="prose">"Licensed ✓", "Trial - N days left", or "Trial expired". Hover for a tooltip.</p>
+
+        <h3>Buy Lyra - $4.99</h3>
+        <p class="prose">Visible until you activate a license. Click to open the Lemon Squeezy checkout.</p>
+
+        <h3>Enter License Key… / Manage License…</h3>
+        <p class="prose">Opens the license window in entry or management mode depending on whether you're licensed.</p>
+
+        <h3>Device status</h3>
+        <p class="prose">Three possible states:</p>
+        <ul>
+            <li><strong>"No compatible interface detected"</strong> - no Apollo on the system right now.</li>
+            <li><strong>"&lt;name&gt; - UA Mixer not running"</strong> - Apollo is plugged in via Thunderbolt, but the daemon isn't reachable. A <strong>Start UA Mixer Engine</strong> action appears below - click it to start the daemon (see <a href="#mixer-engine">UA Mixer Engine</a>).</li>
+            <li><strong>"Connected: &lt;name&gt;"</strong> - Apollo present, Mixer Engine reachable. Lyra is fully active.</li>
+        </ul>
+
+        <h3>Volume label &amp; slider</h3>
+        <p class="prose">The slider mirrors the Apollo's tapered 0.0–1.0 monitor level. Drag it for direct control; the percentage updates as you go. Shows <strong>"Volume: Muted"</strong> when mute is engaged, <strong>"Volume: N% - DIM"</strong> when DIM is engaged.</p>
+
+        <h3>Mute / DIM / Mono</h3>
+        <p class="prose">Three toggles with checkmarks. DIM uses the Apollo's hardware DIM (attenuation amount is whatever you've configured in UA Console - typically −20 dB). Mono uses MixToMono - sums L+R for mono-compatibility checks.</p>
+
+        <h3>Reference Levels submenu</h3>
+        <p class="prose">Nine items: three <strong>jump</strong> actions (with their Ctrl+F-key shortcuts shown inline), three <strong>"Save current as…"</strong> actions, three <strong>"Rename…"</strong> actions. See <a href="#reference-levels">Reference Levels</a> for the full workflow.</p>
+
+        <h3>Launch at Login</h3>
+        <p class="prose">Toggle. Registers Lyra via SMAppService (macOS 13+). Reflects the live system state - if you flip it in System Settings, the checkmark in Lyra's menu follows.</p>
+
+        <h3>Check for Updates… / About Lyra / Quit</h3>
+        <p class="prose">Sparkle update check, About window, and quit.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 5. Keyboard shortcuts ─────── -->
+    <section class="guide-section" id="shortcuts">
+        <h2>5. Keyboard shortcuts <a href="#shortcuts" class="anchor">#</a></h2>
+
+        <p class="prose">All shortcuts work globally and are intercepted before any other app sees them - but <strong>only when Mixer Engine is reachable</strong>. When it isn't, the F-keys fall through to whatever the system would otherwise do (usually nothing on a UA-only setup).</p>
+
+        <table>
+            <tr><th>Shortcut</th><th>Action</th></tr>
+            <tr><td><kbd>F12</kbd></td><td class="wrap-ok">Volume up - one step</td></tr>
+            <tr><td><kbd>F11</kbd></td><td class="wrap-ok">Volume down - one step</td></tr>
+            <tr><td><kbd>F10</kbd></td><td class="wrap-ok">Mute / Unmute</td></tr>
+            <tr><td><kbd>⇧F12</kbd></td><td class="wrap-ok">Volume up - fine step (½)</td></tr>
+            <tr><td><kbd>⇧F11</kbd></td><td class="wrap-ok">Volume down - fine step (½)</td></tr>
+            <tr><td><kbd>⇧F10</kbd></td><td class="wrap-ok">DIM - toggle Apollo hardware DIM</td></tr>
+            <tr><td><kbd>⌥F10</kbd></td><td class="wrap-ok">Mono - toggle L+R sum to mono</td></tr>
+            <tr><td><kbd>⌃F10</kbd></td><td class="wrap-ok">Jump to Reference Level slot 1</td></tr>
+            <tr><td><kbd>⌃F11</kbd></td><td class="wrap-ok">Jump to Reference Level slot 2</td></tr>
+            <tr><td><kbd>⌃F12</kbd></td><td class="wrap-ok">Jump to Reference Level slot 3</td></tr>
+        </table>
+
+        <h3>About the step size</h3>
+        <p class="prose">Lyra uses a default step of 1/16 of full range (~6.25%). Shift halves it to ~3.125% for fine adjustments - the same pattern macOS uses for built-in volume keys.</p>
+
+        <h3>About the Fn key</h3>
+        <p class="prose">Depending on your macOS keyboard settings, you may need to hold <kbd>Fn</kbd> to send F10/F11/F12 as F-keys (rather than the secondary brightness/expose actions printed on the keys). Change this in <strong>System Settings → Keyboard → Function Keys</strong>, or use Fn as a permanent modifier.</p>
+
+        <h3>Ctrl wins</h3>
+        <p class="prose">Ctrl+F-keys always do a Reference Level jump, even if Shift or Option are also held. This lets you hold Ctrl from a prior chord and the jump still works.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 6. Volume HUD ─────── -->
+    <section class="guide-section" id="hud">
+        <h2>6. Volume HUD <a href="#hud" class="anchor">#</a></h2>
+
+        <p class="prose">Whenever the monitor level changes - from F-keys, the menu slider, the Apollo's hardware knob, UA Console, or a <code>lyra://</code> URL - Lyra shows a small horizontal pill just below its menu bar icon.</p>
+
+        <p class="prose"><strong>Two modes:</strong></p>
+        <ul>
+            <li><strong>Normal pill.</strong> Speaker icon, a level bar, and the percentage. Fades after a moment. Tinted amber when DIM is active.</li>
+            <li><strong>Labeled pill.</strong> When you jump to a Reference Level, the pill expands to fit the slot name (e.g. "Mix") or the calibrated label (e.g. "Mix - 85 dB SPL") and stays visible longer so you can read it. The label sticks for ~2.5 seconds and clears immediately if you turn the knob to a different position.</li>
+        </ul>
+
+        <p class="prose">On macOS 26+ the pill uses <strong>Liquid Glass</strong> - the system's translucent material - and inherits the colour of whatever is behind the menu bar.</p>
+
+        <h3>Disabling the HUD</h3>
+        <p class="prose">There's no in-app toggle in v1.4. If you want it off, set the <code>showHUD</code> UserDefault:</p>
+        <pre><code>defaults write com.headroom.Lyra showHUD -bool false</code></pre>
+        <p class="prose">Restart Lyra after the change. Set it back to <code>true</code> (or delete the key with <code>defaults delete com.headroom.Lyra showHUD</code>) to re-enable.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 7. Reference Levels ─────── -->
+    <section class="guide-section" id="reference-levels">
+        <h2>7. Reference Levels <a href="#reference-levels" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra has three monitor presets, each stored as a tapered position (0.0–1.0) plus a user-renamable name. Defaults are <strong>Quiet</strong> (25%), <strong>Mix</strong> (50%), <strong>Loud</strong> (75%).</p>
+
+        <h3>Jumping to a slot</h3>
+        <p class="prose">Three ways:</p>
+        <ul>
+            <li><strong>Keyboard:</strong> <kbd>⌃F10</kbd> → slot 1 · <kbd>⌃F11</kbd> → slot 2 · <kbd>⌃F12</kbd> → slot 3.</li>
+            <li><strong>Menu:</strong> Reference Levels submenu → click the slot's name.</li>
+            <li><strong>URL:</strong> <code>open lyra://reference/2</code> (slots are 1-indexed in URLs).</li>
+        </ul>
+
+        <p class="prose">Jumping is a one-shot - Lyra writes the stored tapered value straight to the Apollo's <code>CRMonitorLevelTapered</code>, the same parameter the hardware knob and Console's monitor section read. No ramping, no faders, no smoothing. The HUD pops up with the slot's name (or calibrated label) for ~2.5 seconds.</p>
+
+        <p class="prose">A checkmark appears on the jump item whenever the <strong>current live volume</strong> matches the slot's stored value (within ~0.5%). So if you turn the knob to exactly Mix, the menu shows Mix as checked.</p>
+
+        <h3>Saving the current position to a slot</h3>
+        <p class="prose">Adjust the monitor to where you want it (knob, F-keys, slider - anything works), then <strong>Reference Levels → Save current as "&lt;slot name&gt;"</strong>. The slot now stores that exact tapered position; the next Ctrl+F-key jump will land there.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Calibration data is cleared on overwrite.</strong> If the slot previously had a measured dB SPL value attached (from Audita - see below), manually saving over it clears the SPL value, because the prior measurement was tied to the old level and no longer applies. The menu and HUD revert to showing a percentage until you re-calibrate.</p>
+        </div>
+
+        <h3>Renaming a slot</h3>
+        <p class="prose"><strong>Reference Levels → Rename "&lt;slot name&gt;"…</strong> opens a small modal with a text field. Keep it short - names appear in the menu and the HUD pill. Common names: <code>K-14</code>, <code>K-20</code>, <code>Mix</code>, <code>Quiet</code>, <code>Cinema</code>, <code>Late night</code>, <code>79 dB</code>.</p>
+
+        <h3>Cycling</h3>
+        <p class="prose"><code>lyra://reference/cycle</code> advances to the next slot in order (1 → 2 → 3 → 1). Useful for a single Stream Deck button or a Shortcut that toggles between presets.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 8. Audita pairing ─────── -->
+    <section class="guide-section" id="audita-pairing">
+        <h2>8. Audita pairing - calibrated dB SPL slots <a href="#audita-pairing" class="anchor">#</a></h2>
+
+        <p class="prose"><a href="/audita/">Audita</a> is the Headroom SPL meter for macOS. After running Audita's target-level calibration - speaker at known distance, pink noise at known level, measure with the meter - Audita knows what dB SPL your monitor system produces at any given monitor knob position.</p>
+
+        <p class="prose">Click <strong>"Send to Lyra…"</strong> in Audita to write that calibrated level into one of Lyra's three slots. Audita opens a sheet:</p>
+        <ol>
+            <li><strong>Slot picker</strong> - 1, 2, or 3 (Ctrl+F10 / F11 / F12 respectively).</li>
+            <li><strong>Name</strong> - defaults from Audita's K-System target (e.g. K-14 = 79 dBA → "K-14"). Edit freely.</li>
+            <li><strong>SPL readout</strong> - read-only, the value about to be stored.</li>
+        </ol>
+
+        <p class="prose">When you confirm, Audita fires <code>lyra://reference/{n}/save?name=…&amp;dBSPL=…</code> and Lyra:</p>
+        <ol>
+            <li>Reads the <strong>live</strong> Apollo monitor level (so the slot reflects exactly what Audita just measured against).</li>
+            <li>Stores tapered + name + dBSPL together.</li>
+            <li>Pops the labeled HUD as confirmation - <code>Mix - 85 dB SPL</code>.</li>
+        </ol>
+
+        <p class="prose">From that point on, the slot displays as <code>Mix - 85 dB SPL</code> in:</p>
+        <ul>
+            <li>The menu (<code>Mix - 85 dB SPL   ⌃F11</code>)</li>
+            <li>The HUD pill on every Ctrl+F-key jump</li>
+            <li>Anywhere else the slot's display label is used</li>
+        </ul>
+
+        <p class="prose">The dB SPL value is metadata - Lyra doesn't re-measure or verify it. It's the number you actually think in once your room is calibrated. If you change anything in the signal chain (different speaker, different distance, different room treatment), re-run Audita and re-send the slot.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Don't have Audita?</strong> The slot still works - it just shows a percentage instead of a measured dB SPL value. Audita is the calibration layer; Lyra is the recall layer.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 9. URL scheme ─────── -->
+    <section class="guide-section" id="url-scheme">
+        <h2>9. URL scheme (<code>lyra://</code>) <a href="#url-scheme" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra registers a custom <code>lyra://</code> URL scheme so any tool that can fire a URL can drive it - Stream Deck, Keyboard Maestro, Apple Shortcuts, BetterTouchTool, AppleScript, <code>open</code> from the shell, other apps (Audita).</p>
+
+        <p class="prose"><strong>Try it from Terminal:</strong></p>
+        <pre><code>open "lyra://reference/2"
+open "lyra://volume/set?tapered=0.4"
+open "lyra://mute/toggle"</code></pre>
+
+        <p class="prose">Unknown URLs are logged to the console and silently ignored - they won't crash or interrupt anything.</p>
+
+        <h3>Reference Levels</h3>
+        <table>
+            <tr><th>URL</th><th>What it does</th></tr>
+            <tr><td><code>lyra://reference/1</code></td><td class="wrap-ok">Jump to slot 1</td></tr>
+            <tr><td><code>lyra://reference/2</code></td><td class="wrap-ok">Jump to slot 2</td></tr>
+            <tr><td><code>lyra://reference/3</code></td><td class="wrap-ok">Jump to slot 3</td></tr>
+            <tr><td><code>lyra://reference/cycle</code></td><td class="wrap-ok">Advance to the next slot</td></tr>
+            <tr><td class="wrap-ok"><code>lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</code></td><td class="wrap-ok">Write a slot. Lyra reads the live Apollo level for the tapered value. <code>dBSPL</code> optional.</td></tr>
+            <tr><td class="wrap-ok"><code>lyra://reference/{n}/save?name=Mix&amp;dBSPL=85&amp;tapered=0.5</code></td><td class="wrap-ok">Same, but with an explicit tapered override.</td></tr>
+        </table>
+
+        <p class="prose"><code>save</code> is the URL Audita uses; you can use it from your own scripts too. If you omit <code>name</code>, the slot's existing name is kept. If you omit <code>dBSPL</code>, any existing calibration value on the slot is preserved (only an explicit value will replace it - URLs can't clear calibration).</p>
+
+        <h3>Volume</h3>
+        <table>
+            <tr><th>URL</th><th>What it does</th></tr>
+            <tr><td><code>lyra://volume/set?tapered=0.5</code></td><td class="wrap-ok">Set absolute level. <code>tapered</code> is 0.0–1.0 - same scale as <code>CRMonitorLevelTapered</code>.</td></tr>
+            <tr><td><code>lyra://volume/up</code></td><td class="wrap-ok">Step up one full step (default 1/16).</td></tr>
+            <tr><td><code>lyra://volume/up?fine=1</code></td><td class="wrap-ok">Step up by half - Shift equivalent.</td></tr>
+            <tr><td><code>lyra://volume/down</code></td><td class="wrap-ok">Step down one full step.</td></tr>
+            <tr><td><code>lyra://volume/down?fine=1</code></td><td class="wrap-ok">Step down by half.</td></tr>
+        </table>
+
+        <h3>Toggles</h3>
+        <table>
+            <tr><th>URL</th><th>What it does</th></tr>
+            <tr><td><code>lyra://mute/toggle</code></td><td class="wrap-ok">Toggle mute (same as F10)</td></tr>
+            <tr><td><code>lyra://dim/toggle</code></td><td class="wrap-ok">Toggle DIM (same as Shift+F10)</td></tr>
+            <tr><td><code>lyra://mono/toggle</code></td><td class="wrap-ok">Toggle Mono (same as Option+F10)</td></tr>
+        </table>
+
+        <p class="prose">All action URLs require Lyra to be running and your Apollo to be reachable (Mixer Engine connected). If the Mixer Engine isn't up, volume / toggle URLs are silently dropped - Lyra never queues or replays them. Pass <code>x-error=…</code> (see below) if you want a structured failure callback instead of a silent drop.</p>
+
+        <h3>Reads (v1.5)</h3>
+        <p class="prose">Three endpoints return live state via the <code>x-success</code> callback. They have no effect on their own - they only fire when the caller supplies an <code>x-success</code> URL.</p>
+        <table>
+            <tr><th>URL</th><th>Returns (appended to x-success)</th></tr>
+            <tr><td class="wrap-ok"><code>lyra://volume/get?x-success=…</code></td><td class="wrap-ok"><code>tapered</code>, <code>db</code></td></tr>
+            <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1–3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume.</td></tr>
+            <tr><td class="wrap-ok"><code>lyra://state?x-success=…</code></td><td class="wrap-ok">All of the above, plus <code>muted</code>, <code>dim</code>, <code>mono</code>, <code>mixer_connected</code>, <code>device_connected</code>, <code>device_name</code>, <code>volume_step</code>.</td></tr>
+        </table>
+        <p class="prose"><code>db</code> may be absent for a fraction of a second on first launch - Lyra waits for the first <code>CRMonitorLevel</code> push from the Apollo before it can answer. After that it stays in sync with the hardware knob.</p>
+
+        <h3>x-callback-url (v1.5)</h3>
+        <p class="prose">Any endpoint - read or action - accepts two optional callback URLs so you can chain Lyra into a wider workflow (Shortcuts, Drafts, Stream Deck multi-actions, …):</p>
+        <table>
+            <tr><th>Param</th><th>Fires when</th></tr>
+            <tr><td><code>x-success</code></td><td class="wrap-ok">The endpoint completed. Returned values are appended to this URL as query items. Action endpoints also append <code>result=ok</code> plus a small status object (e.g. <code>muted=true</code>).</td></tr>
+            <tr><td><code>x-error</code></td><td class="wrap-ok">The endpoint failed. Lyra appends <code>error_code</code> and <code>error_message</code>. Common codes: <code>mixer_disconnected</code>, <code>invalid_slot</code>, <code>invalid_argument</code>, <code>device_not_found</code>, <code>unknown_endpoint</code>.</td></tr>
+        </table>
+
+        <p class="prose"><strong>Example - chain "set volume to 0.4 and then run a Raycast script":</strong></p>
+        <pre><code>lyra://volume/set?tapered=0.4&amp;x-success=raycast://script/run?id=announce-mix</code></pre>
+        <p class="prose">After Lyra finishes the set, it opens:</p>
+        <pre><code>raycast://script/run?id=announce-mix&amp;db=-12.34&amp;result=ok&amp;tapered=0.4000</code></pre>
+        <p class="prose">(Lyra appends its return params to whatever was already in your <code>x-success</code> URL.)</p>
+
+        <p class="prose"><strong>Example - read the current state and feed it into a Shortcut:</strong></p>
+        <pre><code>lyra://state?x-success=shortcuts://run-shortcut?name=LogMonitor</code></pre>
+        <p class="prose">The Shortcut receives the full state dictionary as URL query items - use <strong>Get value from URL</strong> for each key.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>The full URL reference - every endpoint, every return field, worked examples for Shortcuts, Stream Deck, Keyboard Maestro and AppleScript - lives on the <a href="api.html">API reference page</a>.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 10. UA Mixer Engine ─────── -->
+    <section class="guide-section" id="mixer-engine">
+        <h2>10. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra talks to <strong>UA Mixer Engine</strong> - the local daemon that backs UA Console. It connects over TCP to <code>localhost:4710</code> and uses UA's NULL-terminated text protocol (<code>get /path\0</code>, <code>set /path value\0</code>, <code>subscribe /path\0</code> → JSON responses).</p>
+
+        <p class="prose">The monitor parameters Lyra reads/writes:</p>
+        <table>
+            <tr><th>Parameter</th><th>Path</th><th>What it controls</th></tr>
+            <tr><td>Volume (tapered)</td><td class="wrap-ok"><code>/devices/0/outputs/4/CRMonitorLevelTapered</code></td><td class="wrap-ok">Float 0.0–1.0 - the Monitor knob</td></tr>
+            <tr><td>Mute</td><td class="wrap-ok"><code>/devices/0/outputs/4/Mute</code></td><td class="wrap-ok">Bool</td></tr>
+            <tr><td>DIM</td><td class="wrap-ok"><code>/devices/0/outputs/4/DimOn</code></td><td class="wrap-ok">Bool - Apollo applies the attenuation set in Console</td></tr>
+            <tr><td>Mix-to-Mono</td><td class="wrap-ok"><code>/devices/0/outputs/4/MixToMono</code></td><td class="wrap-ok">Bool</td></tr>
+        </table>
+
+        <p class="prose"><code>outputs/4</code> is the Monitor output on Apollo Twin X (output type <code>Monitor</code>). Outputs 0–3 are the cue / headphone / line outputs.</p>
+
+        <p class="prose">Lyra <strong>subscribes</strong> to all four properties, so any change made elsewhere - turning the hardware knob, clicking Console's mute, automating Mixer parameters from a script - is reflected in Lyra's icon, menu, and HUD within ~100 ms. This works both ways: Lyra is a peer to Console, not a layer on top of it.</p>
+
+        <h3>Starting the Mixer Engine</h3>
+        <p class="prose">If the menu shows <strong>"&lt;device&gt; - UA Mixer not running"</strong>, click <strong>Start UA Mixer Engine</strong>. Lyra prefers the headless engine:</p>
+        <ol>
+            <li><strong>First, the standalone <code>UA Mixer Engine.app</code></strong> at <code>/Library/Application Support/Universal Audio/Apollo/UA Mixer Engine.app</code> - installed by recent UA drivers, runs the TCP daemon with no GUI window.</li>
+            <li><strong>If that's missing, UA Console</strong> - opens the full Console app, which always starts the daemon as a side-effect. Used on older driver installs.</li>
+        </ol>
+        <p class="prose">Once the daemon is up, Lyra's TCP client auto-connects and the menu flips to <strong>"Connected: &lt;device&gt;"</strong>.</p>
+
+        <h3>Reconnection</h3>
+        <p class="prose">If the daemon drops (Console crashes, you quit it, the machine sleeps) Lyra retries the connection every 5 seconds in the background. You don't need to relaunch - leave Lyra running and it will pick the connection back up when the daemon returns. Same on Apollo unplug/replug: when CoreAudio reports the device gone, Lyra stops trying and waits; when it's back, the connection resumes.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 11. Trial & licensing ─────── -->
+    <section class="guide-section" id="licensing">
+        <h2>11. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra is <strong>$4.99</strong>, one-time purchase, via Lemon Squeezy.</p>
+
+        <h3>Trial</h3>
+        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date is stored in the macOS Keychain (XOR-scrambled, opaque service identifier), so reinstalling the app does not reset the trial. After 7 days Lyra shows a hard-lock window on launch and refuses to run until you activate a license.</p>
+        <p class="prose">The hard lock only fires at launch - if you're already running Lyra when the trial expires, nothing happens until your next restart.</p>
+
+        <h3>Buying</h3>
+        <p class="prose">Click <strong>Buy Lyra - $4.99</strong> in the menu (or the Buy button on <a href="/lyra/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
+
+        <h3>Activating</h3>
+        <p class="prose"><strong>Menu → Enter License Key…</strong> opens the activation window. Paste your key and click <strong>Activate</strong>. Lyra calls the Lemon Squeezy API to validate, then stores the key + instance ID in the Keychain. Subsequent launches read from Keychain - no network call needed.</p>
+        <p class="prose">Activation requires an internet connection. Once activated, Lyra works fully offline.</p>
+
+        <h3>Two-machine limit</h3>
+        <p class="prose">Each license can be active on up to <strong>two Macs</strong>. To free a slot, open Lyra on the machine you want to release, <strong>Menu → Manage License… → Deactivate</strong>, then activate on the new Mac.</p>
+
+        <h3>Lost your key?</h3>
+        <p class="prose">Check the Lemon Squeezy confirmation email. If you can't find it, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the address you used at checkout.</p>
+
+        <h3>Validation</h3>
+        <p class="prose">Lyra silently re-validates the stored license against the Lemon Squeezy server on each launch. If the server says revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 12. Updates ─────── -->
+    <section class="guide-section" id="updates">
+        <h2>12. Updates <a href="#updates" class="anchor">#</a></h2>
+        <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
+        <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
+        <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
+        <p class="prose">Release notes: <a href="releases.html">headroomstudio.dev/lyra/releases.html</a>.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 13. Launch at login ─────── -->
+    <section class="guide-section" id="launch-at-login">
+        <h2>13. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
+        <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 14. Troubleshooting ─────── -->
+    <section class="guide-section" id="troubleshooting">
+        <h2>14. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+
+        <h3>F-keys do nothing</h3>
+        <ol>
+            <li><strong>Accessibility permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Accessibility</strong> and verify Lyra is in the list and toggled <strong>on</strong>. The toggle changing colour isn't enough - make sure the row says "On".</li>
+            <li><strong>Mixer Engine connected.</strong> Open Lyra's menu. If it says <strong>"&lt;device&gt; - UA Mixer not running"</strong>, click <strong>Start UA Mixer Engine</strong>. Lyra intentionally doesn't intercept F-keys while the daemon isn't reachable, so the keys behave normally until it connects.</li>
+            <li><strong>Fn key requirement.</strong> If your keyboard is set to "F1, F2, etc. keys as standard function keys" → <strong>off</strong>, you need to hold <kbd>Fn</kbd> for F10–F12 to act as F-keys at all. Either toggle the setting in <strong>System Settings → Keyboard → Function Keys</strong>, or hold Fn when pressing.</li>
+        </ol>
+
+        <h3>Lyra doesn't appear in the Accessibility list</h3>
+        <p class="prose">Quit and reopen System Settings. This is a known macOS bug - the new entry sometimes doesn't show until the prefpane is reloaded. If Lyra still doesn't appear, use the <strong>+</strong> button at the bottom to add it manually from <code>/Applications/Lyra.app</code>.</p>
+
+        <h3>"No compatible interface detected"</h3>
+        <p class="prose">Lyra looks for any output device whose name contains "Universal Audio", "Apollo", or "UA ". Open <strong>Audio MIDI Setup</strong> and check that your Apollo appears in the device list. If it does but Lyra still doesn't see it, check the device name - older driver versions use slightly different strings. Lyra logs all detected devices to the system console on launch (<code>[Lyra] === AUDIO DEVICES ===</code>) - that's the fastest way to see exactly what names CoreAudio is reporting.</p>
+
+        <h3>"UA Mixer not running"</h3>
+        <p class="prose">Click <strong>Start UA Mixer Engine</strong> in the menu. This launches the headless <code>UA Mixer Engine.app</code> if it's installed, falling back to UA Console. Either should make Lyra connect within a few seconds. If neither path works, opening UA Console manually always starts the daemon as a side-effect.</p>
+
+        <h3>Volume jumps in big steps</h3>
+        <p class="prose">The default step is ~6.25% (1/16 of full range). Hold <kbd>⇧</kbd> with F11/F12 for half steps (~3.125%). There's no in-app preference for the step size in v1.4 - power users can drive the <code>lyra://volume/set?tapered=…</code> URL for any precision they want.</p>
+
+        <h3>HUD doesn't appear</h3>
+        <p class="prose">Make sure you haven't disabled it: <code>defaults read com.headroom.Lyra showHUD</code> should return <code>1</code> (or no value, which defaults to enabled). If you previously set it to <code>false</code>:</p>
+        <pre><code>defaults delete com.headroom.Lyra showHUD</code></pre>
+        <p class="prose">Then relaunch Lyra.</p>
+
+        <h3>Sparkle won't show an update prompt</h3>
+        <p class="prose">Reset Sparkle's "I already checked / I already skipped that version" state:</p>
+        <pre><code>defaults delete com.headroom.Lyra</code></pre>
+        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. (This also clears other UserDefaults - including the HUD setting and <code>targetDeviceName</code> - so you'll go back to factory defaults.)</p>
+
+        <h3>License says invalid even though I just bought it</h3>
+        <p class="prose">Wait 30 seconds and try again - Lemon Squeezy occasionally needs a moment to propagate. If it still fails, double-check that there's no leading/trailing whitespace in the key you pasted (the activation field trims, but it's worth a look). Otherwise email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the key and order number.</p>
+
+        <h3>Trial says expired but I just installed</h3>
+        <p class="prose">Reinstalling doesn't reset the trial - the start date is in the Keychain and survives uninstall. This is intentional. If you genuinely just downloaded Lyra for the first time and it's already expired, your Keychain may have a stale entry from a previous test build. Delete it:</p>
+        <pre><code>security delete-generic-password -s "A7F3C291-4E8D-4B6A-9C1E-2D5F3A8B7C4E" -a "s.ts.v1"</code></pre>
+        <p class="prose">Relaunch - the trial starts fresh.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 15. What Lyra doesn't do ─────── -->
+    <section class="guide-section" id="out-of-scope">
+        <h2>15. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+
+        <p class="prose">A few things are deliberately out of scope. If any of these are dealbreakers, that's good to know up front:</p>
+
+        <ul>
+            <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol - there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
+            <li><strong>Per-app or system volume.</strong> Lyra changes the Apollo's Monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
+            <li><strong>Cue / line / aux outputs.</strong> Only the <code>Monitor</code> output (<code>outputs/4</code>) is exposed. Cue outputs and aux faders have their own paths in the mixer, but they aren't part of Lyra's scope.</li>
+            <li><strong>Non-Apollo interfaces.</strong> Lyra is hard-wired to UA's protocol on <code>localhost:4710</code>. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
+            <li><strong>More than three Reference Levels.</strong> Three slots map onto Ctrl+F10/F11/F12 and that's the design. If you need more positions, drive Lyra from a Stream Deck or Shortcut via <code>lyra://volume/set?tapered=…</code> - your launcher can hold any number of presets.</li>
+            <li><strong>Configurable shortcuts.</strong> F10/F11/F12 (and the modifier variants) are fixed. Use Karabiner-Elements or BetterTouchTool to remap, or fire <code>lyra://</code> URLs from any tool of your choice.</li>
+        </ul>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 16. Feedback ─────── -->
+    <section class="guide-section" id="feedback">
+        <h2>16. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+    </section>
+</div>
+
+<div class="container">
+    <footer>
+        <p class="footer-copy">© 2026 Headroom Studio. Made by Krzysiek.</p>
+        <ul class="footer-links">
+            <li><a href="./">Lyra home</a></li>
+            <li><a href="api.html">URL API</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="releases.html">Releases</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
