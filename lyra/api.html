@@ -731,7 +731,7 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
                     <code>mixer_connected</code>, <code>device_connected</code> - bools.<br>
                     <code>device_name</code> - string, e.g. <code>"Apollo Twin X"</code>.<br>
                     <code>volume_step</code> - float, the default step size (typically <code>0.0625</code>).<br>
-                    <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> - the active slot, if one matches the live volume. Absent otherwise.
+                    <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> - the active slot, if one matches the live volume. When no slot matches, only <code>slot=none</code> is set.
                 </div>
                 <div class="meta-key">x-error</div>
                 <div class="meta-val">Rare - the endpoint succeeds even if the mixer is disconnected (it just returns <code>mixer_connected=false</code>). Only fires on a malformed request URL.</div>
