@@ -705,10 +705,10 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
 
         <div class="endpoint">
             <span class="endpoint-url">lyra://reference/current?x-success=&hellip;</span>
-            <p class="endpoint-desc"><strong>Read endpoint, v1.5+.</strong> Returns the slot whose stored tapered value matches the current monitor level (within ~0.5%). If no slot matches - i.e. the monitor is somewhere between presets - the slot keys are <strong>absent</strong> from the success URL. Plan for that with a default branch in your Shortcut / script.</p>
+            <p class="endpoint-desc"><strong>Read endpoint, v1.5+.</strong> Returns the slot whose stored tapered value matches the current monitor level (within ~0.5%), plus the live volume so you always know where the monitor is. When no slot matches - i.e. the monitor is somewhere between presets - the response sets <code>slot=none</code> so you can branch on it directly without checking for absent keys.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Returns</div>
-                <div class="meta-val"><code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code> (4dp), <code>slot_dbspl</code> (if the slot is calibrated). All four keys are <strong>absent</strong> when no slot matches.</div>
+                <div class="meta-val">Always: <code>tapered</code> (4dp), <code>db</code> (2dp, if known). When a slot matches: <code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code> (4dp), <code>slot_dbspl</code> (if the slot is calibrated). When no slot matches: <code>slot=none</code>.</div>
                 <div class="meta-key">x-error</div>
                 <div class="meta-val"><code>mixer_disconnected</code>.</div>
             </div>
