@@ -790,12 +790,16 @@ open "lyra://mute/toggle"</code></pre>
 
         <p class="prose">The common setup: a "Mixing" Focus configured to jump Lyra to slot 2 ("Mix") and silence non-DAW notifications, and a "Mastering" Focus that switches to slot 3.</p>
 
+        <p class="prose"><strong>On deactivation: do nothing, or restore the prior level.</strong> The Focus Filter has a "Restore previous level when Focus ends" toggle (off by default). When off, deactivating the Focus leaves the monitor wherever the filter put it. When on, Lyra remembers the live tapered position from the moment of activation and rolls back to it when the Focus turns off. Use the toggle when you want a Focus session to be a temporary monitor change (e.g., "Mixing → slot 2 for the session → back to whatever I had before"); leave it off when you want the Focus to permanently set a level you'll keep until you change it manually.</p>
+
+        <p class="prose">The restore target is held in memory only - if you quit Lyra mid-Focus, the deactivation finds no cached level and the monitor stays put. Most users won't notice; the case to know about is "enable Focus, quit Lyra, disable Focus → no restore."</p>
+
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>Enable-only in v1.5.</strong> Turning the Focus <em>off</em> does not restore the prior monitor level - Lyra stays wherever the filter put it. (Auto-restore behaviour is on the backlog; if you'd find it useful, drop a line at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.)</p>
+            <p><strong>Lyra must be running.</strong> Apple's Focus Filter framework explicitly does not launch the host app on Focus events. If Lyra is closed when you enable a Focus, the filter silently does nothing. For reliable Focus-driven monitor switching, enable <strong>Launch at Login</strong> in Lyra's menu - that way Lyra is always present in the menu bar and ready to receive Focus activations.</p>
         </div>
 
-        <p class="prose">If the Mixer Engine isn't reachable when a Focus activates, Lyra logs the skipped jump and the Focus still enables - the filter doesn't block the system Focus state.</p>
+        <p class="prose">If the Mixer Engine isn't reachable when a Focus activates (Apollo unplugged, daemon off), the Focus still enables and Lyra logs the skipped jump - the filter never blocks the system Focus state.</p>
 
         <h3>Notes &amp; gotchas</h3>
         <ul>

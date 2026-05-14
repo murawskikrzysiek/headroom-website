@@ -417,7 +417,12 @@
             <div class="faq-item">
                 <p class="faq-q">Can Lyra integrate with macOS Focus modes?</p>
                 <p class="faq-a">Yes. Open <strong>System Settings → Focus</strong>, pick a mode, then <strong>Add Filter → Lyra → Switch to Reference Level</strong> and pick a slot. Enabling the Focus jumps Lyra's monitor to that slot. A "Mixing" Focus that hops to slot 2 and silences non-DAW notifications, or a "Mastering" Focus that switches to slot 3, are common setups.</p>
-                <p class="faq-a"><strong>Enable-only in v1.5:</strong> turning the Focus <em>off</em> does not restore the prior level - Lyra stays where the filter put it. Auto-restore is on the backlog; if you'd find it useful, drop a line at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>. Requires macOS 13 or later.</p>
+                <p class="faq-a"><strong>On deactivation: do nothing, or restore.</strong> The Focus Filter has a "Restore previous level when Focus ends" toggle (off by default). When off, deactivating the Focus leaves the monitor wherever the filter put it. When on, Lyra captures the live tapered position at activation and rolls back to it when the Focus turns off. The restore target is held in memory only, so quitting Lyra mid-Focus loses the cached level. Requires macOS 13 or later.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why doesn't my Lyra Focus Filter trigger when Lyra is closed?</p>
+                <p class="faq-a">Apple's Focus Filter framework doesn't launch the host app on Focus events - if Lyra isn't already running when a Focus enables, the filter silently does nothing. Enable <strong>Launch at Login</strong> in Lyra's menu so Lyra is always present in the menu bar when Focus events fire.</p>
             </div>
 
             <div class="faq-item">
