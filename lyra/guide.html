@@ -368,11 +368,73 @@
 
         .back-to-top:hover { color: var(--text); }
 
+        /* ─── Screenshots & lightbox ─── */
+        .screenshot-full {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+            margin: 14px 0 4px;
+        }
+
+        .screenshot-full:hover { opacity: 0.88; }
+
+        .screenshot-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0 4px;
+        }
+
+        .screenshot-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .screenshot-row img:hover { opacity: 0.88; }
+
+        .screenshot-caption {
+            font-size: 0.8125rem;
+            color: var(--text-3);
+            line-height: 1.55;
+            margin: 8px 0 16px;
+            font-style: italic;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+            object-fit: contain;
+        }
+
         /* ─── Responsive ─── */
         @media (max-width: 560px) {
             .toc-list { grid-template-columns: 1fr; }
             table { font-size: 0.82rem; }
             th, td { padding: 8px 10px 8px 0; }
+            .screenshot-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -492,6 +554,8 @@
 
         <p class="prose">Click the icon to open the menu. Sections, top to bottom:</p>
 
+        <img src="lyra-menu.png" alt="The Lyra menu bar popover with license status, connected Apollo device, volume slider, Mute/DIM/Mono toggles, and the Reference Levels submenu" class="screenshot-full">
+
         <h3>License status</h3>
         <p class="prose">"Licensed ✓", "Trial - N days left", or "Trial expired". Hover for a tooltip.</p>
 
@@ -571,6 +635,11 @@
             <li><strong>Labeled pill.</strong> When you jump to a Reference Level, the pill expands to fit the slot name (e.g. "Mix") or the calibrated label (e.g. "Mix - 85 dB SPL") and stays visible longer so you can read it. The label sticks for ~2.5 seconds and clears immediately if you turn the knob to a different position.</li>
         </ul>
 
+        <div class="screenshot-row">
+            <img src="lyra-hud.png" alt="The normal Volume HUD pill showing speaker icon, level bar, and percentage">
+            <img src="lyra-hud-ref.png" alt="The labeled Volume HUD pill expanded to show the active Reference Level name and calibrated dB SPL value">
+        </div>
+
         <p class="prose">On macOS 26+ the pill uses <strong>Liquid Glass</strong> - the system's translucent material - and inherits the colour of whatever is behind the menu bar.</p>
 
         <h3>Disabling the HUD</h3>
@@ -586,6 +655,8 @@
         <h2>7. Reference Levels <a href="#reference-levels" class="anchor">#</a></h2>
 
         <p class="prose">Lyra has three monitor presets, each stored as a tapered position (0.0–1.0) plus a user-renamable name. Defaults are <strong>Quiet</strong> (25%), <strong>Mix</strong> (50%), <strong>Loud</strong> (75%).</p>
+
+        <img src="lyra-ref-levels.png" alt="Lyra's Reference Levels submenu with three named slots plus Save and Rename actions" class="screenshot-full">
 
         <h3>Jumping to a slot</h3>
         <p class="prose">Three ways:</p>
@@ -743,6 +814,8 @@ open "lyra://mute/toggle"</code></pre>
 
         <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this whole section is gracefully absent - the Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
 
+        <img src="lyra-shortcuts.png" alt="The Shortcuts app: a built 'Mix Setup' Shortcut chaining several Lyra intents on the left, and the full Lyra action library searched on the right" class="screenshot-full">
+
         <h3>The intents</h3>
         <p class="prose">In Shortcuts, search "Lyra" to see all eleven. They split into three groups:</p>
 
@@ -785,8 +858,15 @@ open "lyra://mute/toggle"</code></pre>
         </ul>
         <p class="prose">The full list is in <strong>Shortcuts → App Shortcuts → Lyra</strong>.</p>
 
+        <div class="screenshot-row">
+            <img src="lyra-spotlight-ref.png" alt="Spotlight running the 'Switch reference level in Lyra' App Shortcut">
+            <img src="lyra-spotlight-mute.png" alt="Spotlight running the 'Toggle mute in Lyra' App Shortcut and showing the returned state">
+        </div>
+
         <h3>Focus Filter</h3>
         <p class="prose">System Settings → <strong>Focus</strong> → pick a mode → <strong>Add Filter → Lyra → Switch to Reference Level</strong> → pick a slot. From that point on, enabling the Focus jumps Lyra's monitor to that slot.</p>
+
+        <img src="lyra-focus.png" alt="System Settings Focus pane: a 'mixing' Focus with the Lyra Focus Filter expanded, set to Reference Slot 3 with the 'Restore previous level when Focus ends' toggle visible" class="screenshot-full">
 
         <p class="prose">The common setup: a "Mixing" Focus configured to jump Lyra to slot 2 ("Mix") and silence non-DAW notifications, and a "Mastering" Focus that switches to slot 3.</p>
 
@@ -976,6 +1056,31 @@ open "lyra://mute/toggle"</code></pre>
         </ul>
     </footer>
 </div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
 
 </body>
 </html>
