@@ -810,7 +810,7 @@ open "lyra://mute/toggle"</code></pre>
     <section class="guide-section" id="app-intents">
         <h2>10. Shortcuts, Siri &amp; Focus Filters (App Intents) <a href="#app-intents" class="anchor">#</a></h2>
 
-        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle - every action you can drive from the URL scheme is also a first-class entry in the macOS Shortcuts app, voice-callable through Siri, and (for reference levels) wireable into a Focus mode. Power-user setups that want structured return values without parsing query strings should reach for App Intents instead of <code>lyra://</code>.</p>
+        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle - every action you can drive from the URL scheme is also a first-class entry in the macOS Shortcuts app, discoverable through Spotlight, wireable into a Focus mode, and reachable from Siri via a named Shortcut (see below). Power-user setups that want structured return values without parsing query strings should reach for App Intents instead of <code>lyra://</code>.</p>
 
         <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this whole section is gracefully absent - the Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
 
@@ -847,8 +847,8 @@ open "lyra://mute/toggle"</code></pre>
 
         <p class="prose">Every intent returns structured values - in Shortcuts, use <strong>Get Property of &lt;Lyra State&gt;</strong> (or <strong>&lt;Reference Slot&gt;</strong>, <strong>&lt;Monitor Level&gt;</strong>) to extract specific fields for subsequent steps. No URL parsing, no JSON decode.</p>
 
-        <h3>App Shortcuts (Spotlight &amp; Siri)</h3>
-        <p class="prose">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong> - they show up in Spotlight without you building anything first, and Siri responds to natural phrases like:</p>
+        <h3>App Shortcuts (Spotlight)</h3>
+        <p class="prose">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong> - they show up in Spotlight without you building anything first. Open Spotlight (⌘Space) and type phrases like:</p>
         <ul>
             <li>"Toggle mute in Lyra"</li>
             <li>"Switch reference level in Lyra"</li>
@@ -856,12 +856,26 @@ open "lyra://mute/toggle"</code></pre>
             <li>"What's the monitor level in Lyra?"</li>
             <li>"Get Lyra state"</li>
         </ul>
-        <p class="prose">The full list is in <strong>Shortcuts → App Shortcuts → Lyra</strong>.</p>
+        <p class="prose">Spotlight surfaces the action directly; press Enter to run it. The full list is in <strong>Shortcuts → App Shortcuts → Lyra</strong>.</p>
 
         <div class="screenshot-row">
             <img src="lyra-spotlight-ref.png" alt="Spotlight running the 'Switch reference level in Lyra' App Shortcut">
             <img src="lyra-spotlight-mute.png" alt="Spotlight running the 'Toggle mute in Lyra' App Shortcut and showing the returned state">
         </div>
+
+        <h3>Siri voice (via Shortcuts.app)</h3>
+        <p class="prose">Saying those phrases directly to Siri <strong>does not work on macOS</strong> as of macOS 26. Apple's natural-language matcher for App Shortcuts (Flexible Matching) is iOS / Catalyst-only - native macOS apps like Lyra fall through with "Sorry, I don't understand." This isn't a Lyra-specific issue; it affects every native macOS App-Intents app on the current platform.</p>
+
+        <p class="prose">The reliable Siri path on macOS: <strong>create a named Shortcut in Shortcuts.app and ask Siri to run it by name</strong>.</p>
+
+        <ol>
+            <li>Open <strong>Shortcuts.app</strong> → <strong>New Shortcut</strong></li>
+            <li>Drop in the Lyra action you want (e.g. <strong>Toggle Mute</strong>) - or a chain of several</li>
+            <li>Name the shortcut something Siri can hear cleanly - "Mute the monitor", "Mix level", "Studio quiet"</li>
+            <li>Save</li>
+        </ol>
+
+        <p class="prose">Then say to Siri: <strong>"Mute the monitor"</strong> (or whatever you named it). Siri matches the shortcut name and dispatches the chain. The same pattern works for multi-step routines - e.g. a "Listening session" shortcut that switches reference level <em>and</em> dims <em>and</em> silences notifications, all from one Siri phrase.</p>
 
         <h3>Focus Filter</h3>
         <p class="prose">System Settings → <strong>Focus</strong> → pick a mode → <strong>Add Filter → Lyra → Switch to Reference Level</strong> → pick a slot. From that point on, enabling the Focus jumps Lyra's monitor to that slot.</p>
