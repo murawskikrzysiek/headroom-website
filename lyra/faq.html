@@ -402,6 +402,33 @@
         </div>
     </section>
 
+    <!-- ── Shortcuts, Siri & Focus ─────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Shortcuts, Siri &amp; Focus</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
+                <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
+                <p class="faq-a">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Siri responds to phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later - on macOS 12, Lyra runs as usual and the Shortcuts surface is gracefully absent.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can Lyra integrate with macOS Focus modes?</p>
+                <p class="faq-a">Yes. Open <strong>System Settings → Focus</strong>, pick a mode, then <strong>Add Filter → Lyra → Switch to Reference Level</strong> and pick a slot. Enabling the Focus jumps Lyra's monitor to that slot. A "Mixing" Focus that hops to slot 2 and silences non-DAW notifications, or a "Mastering" Focus that switches to slot 3, are common setups.</p>
+                <p class="faq-a"><strong>Enable-only in v1.5:</strong> turning the Focus <em>off</em> does not restore the prior level - Lyra stays where the filter put it. Auto-restore is on the backlog; if you'd find it useful, drop a line at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>. Requires macOS 13 or later.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why does the "Set Monitor Level" intent take a percent, not dB?</p>
+                <p class="faq-a">UA Mixer Engine controls the Apollo monitor via a <em>tapered</em> 0.0-1.0 curve, not a linear dB scale - the curve maps the analog feel of the hardware knob, where the bottom half of the travel is finer than the top. A dB-set against that curve would mislead anyone calibrating against an SPL meter (the same dB value in the intent would land at a different actual level depending on system gain). The intent surfaces percent so what you set is what Lyra writes. A dB-scale set will land alongside a planned <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?db=…</code> URL endpoint in a future release.</p>
+                <p class="faq-a">If you need the dB number for a specific reference level, run <a href="../audita/">Audita's</a> target-level calibration and use <em>"Send to Lyra…"</em> - the slot then carries the measured dB SPL alongside the tapered position, and <strong>Switch to Reference Level</strong> jumps you there in one step.</p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- ── Compatibility ───────────────────────────────────────────────── -->
 
     <section class="faq-group">
