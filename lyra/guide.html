@@ -412,13 +412,14 @@
             <li><a href="#reference-levels">7 · Reference Levels</a></li>
             <li><a href="#audita-pairing">8 · Audita pairing</a></li>
             <li><a href="#url-scheme">9 · URL scheme</a></li>
-            <li><a href="#mixer-engine">10 · UA Mixer Engine</a></li>
-            <li><a href="#licensing">11 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">12 · Updates</a></li>
-            <li><a href="#launch-at-login">13 · Launch at login</a></li>
-            <li><a href="#troubleshooting">14 · Troubleshooting</a></li>
-            <li><a href="#out-of-scope">15 · What Lyra doesn't do</a></li>
-            <li><a href="#feedback">16 · Reporting bugs</a></li>
+            <li><a href="#app-intents">10 · Shortcuts, Siri &amp; Focus Filters</a></li>
+            <li><a href="#mixer-engine">11 · UA Mixer Engine</a></li>
+            <li><a href="#licensing">12 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">13 · Updates</a></li>
+            <li><a href="#launch-at-login">14 · Launch at login</a></li>
+            <li><a href="#troubleshooting">15 · Troubleshooting</a></li>
+            <li><a href="#out-of-scope">16 · What Lyra doesn't do</a></li>
+            <li><a href="#feedback">17 · Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -734,9 +735,81 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 10. UA Mixer Engine ─────── -->
+    <!-- ─────── 10. Shortcuts, Siri & Focus Filters (App Intents) ─────── -->
+    <section class="guide-section" id="app-intents">
+        <h2>10. Shortcuts, Siri &amp; Focus Filters (App Intents) <a href="#app-intents" class="anchor">#</a></h2>
+
+        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle - every action you can drive from the URL scheme is also a first-class entry in the macOS Shortcuts app, voice-callable through Siri, and (for reference levels) wireable into a Focus mode. Power-user setups that want structured return values without parsing query strings should reach for App Intents instead of <code>lyra://</code>.</p>
+
+        <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this whole section is gracefully absent - the Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
+
+        <h3>The intents</h3>
+        <p class="prose">In Shortcuts, search "Lyra" to see all eleven. They split into three groups:</p>
+
+        <p class="prose"><strong>State (read):</strong></p>
+        <table>
+            <tr><th>Intent</th><th>Returns</th></tr>
+            <tr><td>Get Lyra State</td><td class="wrap-ok">Tapered, dB, muted, dim, mono, mixer &amp; device connected, device name, active slot + name, volume step</td></tr>
+            <tr><td>Get Current Monitor Level</td><td class="wrap-ok">Tapered (0–1) and dB (or absent on first launch)</td></tr>
+            <tr><td>Get Current Reference Level</td><td class="wrap-ok">The active slot (1–3) + name + tapered + dBSPL, or a "no active slot" sentinel when between presets</td></tr>
+        </table>
+
+        <p class="prose"><strong>Monitor (write):</strong></p>
+        <table>
+            <tr><th>Intent</th><th>Parameters</th></tr>
+            <tr><td>Set Monitor Level</td><td class="wrap-ok">Percent (0–100). Clamped.</td></tr>
+            <tr><td>Adjust Monitor Level</td><td class="wrap-ok">Direction (up/down), Fine (half-step)</td></tr>
+            <tr><td>Toggle Mute</td><td class="wrap-ok">—</td></tr>
+            <tr><td>Toggle DIM</td><td class="wrap-ok">—</td></tr>
+            <tr><td>Toggle Mono</td><td class="wrap-ok">—</td></tr>
+        </table>
+
+        <p class="prose"><strong>Reference Levels (write):</strong></p>
+        <table>
+            <tr><th>Intent</th><th>Parameters</th></tr>
+            <tr><td>Switch to Reference Level</td><td class="wrap-ok">Slot (1–3) <strong>or</strong> Name (case-insensitive - "Mix", "K-14"…)</td></tr>
+            <tr><td>Cycle Reference Level</td><td class="wrap-ok">—</td></tr>
+            <tr><td>Save Current Level to Reference Slot</td><td class="wrap-ok">Slot (1–3)</td></tr>
+        </table>
+
+        <p class="prose">Every intent returns structured values - in Shortcuts, use <strong>Get Property of &lt;Lyra State&gt;</strong> (or <strong>&lt;Reference Slot&gt;</strong>, <strong>&lt;Monitor Level&gt;</strong>) to extract specific fields for subsequent steps. No URL parsing, no JSON decode.</p>
+
+        <h3>App Shortcuts (Spotlight &amp; Siri)</h3>
+        <p class="prose">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong> - they show up in Spotlight without you building anything first, and Siri responds to natural phrases like:</p>
+        <ul>
+            <li>"Toggle mute in Lyra"</li>
+            <li>"Switch reference level in Lyra"</li>
+            <li>"Set monitor level in Lyra"</li>
+            <li>"What's the monitor level in Lyra?"</li>
+            <li>"Get Lyra state"</li>
+        </ul>
+        <p class="prose">The full list is in <strong>Shortcuts → App Shortcuts → Lyra</strong>.</p>
+
+        <h3>Focus Filter</h3>
+        <p class="prose">System Settings → <strong>Focus</strong> → pick a mode → <strong>Add Filter → Lyra → Switch to Reference Level</strong> → pick a slot. From that point on, enabling the Focus jumps Lyra's monitor to that slot.</p>
+
+        <p class="prose">The common setup: a "Mixing" Focus configured to jump Lyra to slot 2 ("Mix") and silence non-DAW notifications, and a "Mastering" Focus that switches to slot 3.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Enable-only in v1.5.</strong> Turning the Focus <em>off</em> does not restore the prior monitor level - Lyra stays wherever the filter put it. (Auto-restore behaviour is on the backlog; if you'd find it useful, drop a line at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.)</p>
+        </div>
+
+        <p class="prose">If the Mixer Engine isn't reachable when a Focus activates, Lyra logs the skipped jump and the Focus still enables - the filter doesn't block the system Focus state.</p>
+
+        <h3>Notes &amp; gotchas</h3>
+        <ul>
+            <li><strong><code>Set Monitor Level</code> accepts percent, not dB.</strong> UA Mixer Engine's tapered curve isn't a linear function of dB; a dB-set would mislead anyone calibrating against an SPL meter. dB-scale set lands alongside a planned <code>lyra://volume/set?db=…</code> URL endpoint in a future release.</li>
+            <li><strong><code>Save Current Level to Reference Slot</code> clears the slot's prior dB SPL calibration.</strong> Same destructive behaviour as the menu's "Save current as…" - the stored SPL was measured against the old tapered value and no longer applies. If you've calibrated a slot via Audita and don't want to lose that, don't aim this intent at it. Re-calibrate via Audita afterwards to restore the dB SPL display.</li>
+            <li><strong>Cold launch.</strong> If you fire an intent while Lyra isn't running, macOS launches Lyra in the background and runs the intent on the freshly-constructed app. There's a sub-second window during launch where intents return "Lyra hasn't finished launching yet" - Shortcuts surfaces this as a soft failure. Build a one-second delay before the intent if you're chaining off a wake event.</li>
+        </ul>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 11. UA Mixer Engine ─────── -->
     <section class="guide-section" id="mixer-engine">
-        <h2>10. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
+        <h2>11. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
 
         <p class="prose">Lyra talks to <strong>UA Mixer Engine</strong> - the local daemon that backs UA Console. It connects over TCP to <code>localhost:4710</code> and uses UA's NULL-terminated text protocol (<code>get /path\0</code>, <code>set /path value\0</code>, <code>subscribe /path\0</code> → JSON responses).</p>
 
@@ -767,9 +840,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 11. Trial & licensing ─────── -->
+    <!-- ─────── 12. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>11. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>12. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Lyra is <strong>$4.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
@@ -796,9 +869,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 12. Updates ─────── -->
+    <!-- ─────── 13. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>12. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>13. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
@@ -807,18 +880,18 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 13. Launch at login ─────── -->
+    <!-- ─────── 14. Launch at login ─────── -->
     <section class="guide-section" id="launch-at-login">
-        <h2>13. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <h2>14. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
         <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
         <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 14. Troubleshooting ─────── -->
+    <!-- ─────── 15. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>14. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>15. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>F-keys do nothing</h3>
         <ol>
@@ -860,9 +933,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 15. What Lyra doesn't do ─────── -->
+    <!-- ─────── 16. What Lyra doesn't do ─────── -->
     <section class="guide-section" id="out-of-scope">
-        <h2>15. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+        <h2>16. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
         <p class="prose">A few things are deliberately out of scope. If any of these are dealbreakers, that's good to know up front:</p>
 
@@ -878,9 +951,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 16. Feedback ─────── -->
+    <!-- ─────── 17. Feedback ─────── -->
     <section class="guide-section" id="feedback">
-        <h2>16. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <h2>17. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>

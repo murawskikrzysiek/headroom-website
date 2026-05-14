@@ -696,6 +696,14 @@
                 <span class="feature-val">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text);">lyra://</code> URLs - jump to a slot, set absolute volume, toggle mute / DIM / mono.</span>
             </div>
             <div class="feature-row">
+                <span class="feature-key">Shortcuts &amp; Siri</span>
+                <span class="feature-val">Eleven first-class App Intents - readable state, monitor controls, and reference-level recall - exposed to the macOS Shortcuts app and to Siri. Say <em>"Toggle mute in Lyra"</em> or <em>"Switch reference level in Lyra"</em> and it just works. Pre-wired App Shortcuts surface in Spotlight without you building anything first. Requires macOS 13+; macOS 12 still runs Lyra normally without the Shortcuts surface.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Focus Filter</span>
+                <span class="feature-val">Wire a reference level into a macOS Focus - <em>"Mixing"</em> Focus jumps Lyra to slot 2 and silences non-DAW notifications; <em>"Mastering"</em> Focus switches to slot 3. Configured in <strong>System Settings → Focus → Focus Filters</strong>. Requires macOS 13+.</span>
+            </div>
+            <div class="feature-row">
                 <span class="feature-key">Audita pairing</span>
                 <span class="feature-val">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Audita</a>, our SPL meter. After Audita's target-level calibration, hit <em>"Send to Lyra…"</em> and the position lands in the slot of your choice - the menu and HUD then read e.g. <em>"Mix - 85 dB SPL"</em> instead of just a percentage.</span>
             </div>
@@ -782,7 +790,7 @@
 
     <section class="section" id="url-scheme">
         <p class="section-label">URL scheme</p>
-        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, Raycast, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>. As of v1.5, every endpoint accepts <code>x-success</code> / <code>x-error</code> callbacks so you can chain Lyra into a larger automation and read state back into your launcher - see the <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full API reference</a> for the complete spec.</p>
+        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, Raycast, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>. As of v1.5, every endpoint accepts <code>x-success</code> / <code>x-error</code> callbacks so you can chain Lyra into a larger automation and read state back into your launcher - see the <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full API reference</a> for the complete spec. On macOS 13+, every action is also a native <strong>App Intent</strong> in Shortcuts and Siri, with a <strong>Focus Filter</strong> for reference-level recall - see the <a href="guide.html#app-intents" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">user guide</a> for the full list.</p>
 
         <div class="url-list">
 
