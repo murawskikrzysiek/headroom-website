@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lyra - Apollo Twin Volume Control for Mac (F-Key Hotkeys)</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/">
-    <meta name="description" content="Apollo monitor volume from F10/F11/F12 on macOS - with native Shortcuts, Siri, Focus Filters, and a lyra:// URL scheme. Menu bar, UA Console untouched. $4.99.">
+    <meta name="description" content="Apollo monitor volume from F10/F11/F12 on macOS - with native Shortcuts, Spotlight, Focus Filters, and a lyra:// URL scheme. Menu bar, UA Console untouched. $4.99.">
     <meta property="og:title" content="Lyra">
     <meta property="og:description" content="F-key volume control for Universal Audio interfaces, right from your keyboard.">
     <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -646,12 +646,12 @@
         <div class="hero-text">
             <p class="hero-eyebrow">Headroom</p>
             <h1>Lyra</h1>
-            <p class="hero-desc">F-key volume control for Universal Audio interfaces - with native Shortcuts, Siri, Focus Filters, and a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme to drive it from anywhere on macOS.</p>
+            <p class="hero-desc">F-key volume control for Universal Audio interfaces - with native Shortcuts, Spotlight, Focus Filters, and a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme to drive it from anywhere on macOS.</p>
             <div class="badges">
                 <span class="badge badge-macos">macOS</span>
                 <span class="badge">UA Apollo</span>
                 <span class="badge">Menu bar</span>
-                <span class="badge">Shortcuts &amp; Siri</span>
+                <span class="badge">Shortcuts &amp; Spotlight</span>
                 <span class="badge">URL scheme</span>
             </div>
             <div class="hero-actions">
@@ -689,7 +689,7 @@
 
     <section class="section">
         <p class="section-label">Native to macOS</p>
-        <p class="prose">Lyra is built for the platform, not bolted onto it. The F-row drives the monitor, the menu bar holds the state, and every action is also a first-class <strong>App Intent</strong> - so the same controls appear in the <strong>Shortcuts</strong> app, respond to <strong>Siri</strong>, surface in <strong>Spotlight</strong> as pre-wired App Shortcuts, and wire into <strong>Focus Filters</strong> for per-mode reference levels. For everything else there's a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">x-callback-url</code> support, so Stream Deck, Keyboard Maestro, Raycast, AppleScript - anything that can fire a URL - can drive Lyra and read state back. No bespoke daemon, no scripting bridge, no UI to babysit.</p>
+        <p class="prose">Lyra is built for the platform, not bolted onto it. The F-row drives the monitor, the menu bar holds the state, and every action is also a first-class <strong>App Intent</strong> - so the same controls appear in the <strong>Shortcuts</strong> app, surface in <strong>Spotlight</strong> as pre-wired App Shortcuts, and wire into <strong>Focus Filters</strong> for per-mode reference levels. Voice control on macOS works the canonical Apple way: build a Shortcut in Shortcuts.app, name it, and ask <strong>Siri</strong> to run it - perfect for multi-step routines like a "Listening session" that switches reference level, dims, and silences notifications in one phrase. For everything else there's a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">x-callback-url</code> support, so Stream Deck, Keyboard Maestro, Raycast, AppleScript - anything that can fire a URL - can drive Lyra and read state back. No bespoke daemon, no scripting bridge, no UI to babysit.</p>
     </section>
 
     <section class="section">
@@ -709,7 +709,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Shortcuts &amp; Siri</span>
-                <span class="feature-val">Eleven first-class <strong>App Intents</strong> - readable state, monitor writes, and reference-level recall - exposed to the macOS Shortcuts app and to Siri. Every intent returns structured values, so you can chain <em>Get Property of &lt;Lyra State&gt;</em> straight into the next step without parsing query strings or decoding JSON. The most-reached-for actions are pre-wired as <strong>App Shortcuts</strong> and surface in Spotlight without you building anything first - say <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em> and Siri responds. Full list in the <a href="guide.html#app-intents" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">user guide</a>. Requires macOS 13+; macOS 12 runs Lyra normally without the Shortcuts surface.</span>
+                <span class="feature-val">Eleven first-class <strong>App Intents</strong> - readable state, monitor writes, and reference-level recall - exposed to the macOS Shortcuts app. Every intent returns structured values, so you can chain <em>Get Property of &lt;Lyra State&gt;</em> straight into the next step without parsing query strings or decoding JSON. The most-reached-for actions are pre-wired as <strong>App Shortcuts</strong> and surface in Spotlight without you building anything first - open Spotlight and type <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. For Siri voice control, build a Shortcut in Shortcuts.app, name it something Siri can hear cleanly (<em>"Mute the monitor"</em>, <em>"Mix level"</em>) and ask Siri to run it by name - the canonical macOS path, and the one that lets a single phrase trigger a multi-step routine. Full list in the <a href="guide.html#app-intents" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">user guide</a>. Requires macOS 13+; macOS 12 runs Lyra normally without the Shortcuts surface.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Focus Filter</span>
@@ -803,7 +803,7 @@
     <section class="section" id="url-scheme">
         <p class="section-label">URL scheme</p>
         <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, Raycast, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>. As of v1.5, every endpoint accepts <code>x-success</code> / <code>x-error</code> callbacks so you can chain Lyra into a larger automation and read state back into your launcher - see the <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full API reference</a> for the complete spec.</p>
-        <p class="url-intro">If you'd rather stay inside Apple's automation surface, every URL action is also a native <strong>App Intent</strong> on macOS 13+ - the Shortcuts app, Siri, Spotlight, and Focus Filters all see the same eleven actions, returning structured values you can chain without parsing query strings. See the <a href="guide.html#app-intents" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">user guide</a> for the full list.</p>
+        <p class="url-intro">If you'd rather stay inside Apple's automation surface, every URL action is also a native <strong>App Intent</strong> on macOS 13+ - the Shortcuts app, Spotlight, and Focus Filters all see the same eleven actions, returning structured values you can chain without parsing query strings. Siri reaches them via a named Shortcut you build in Shortcuts.app. See the <a href="guide.html#app-intents" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">user guide</a> for the full list.</p>
 
         <div class="url-list">
 

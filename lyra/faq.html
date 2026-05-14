@@ -411,7 +411,13 @@
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
                 <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
-                <p class="faq-a">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Siri responds to phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later - on macOS 12, Lyra runs as usual and the Shortcuts surface is gracefully absent.</p>
+                <p class="faq-a">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later - on macOS 12, Lyra runs as usual and the Shortcuts surface is gracefully absent.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I control Lyra with Siri?</p>
+                <p class="faq-a">Yes, but via a named Shortcut you build yourself - not by saying the App Shortcut phrases directly. On macOS as of macOS 26, Apple's natural-language matcher for App Shortcuts (<em>Flexible Matching</em>) is iOS / Catalyst-only. Saying <em>"Toggle mute in Lyra"</em> straight to Siri on a Mac returns "Sorry, I don't understand" - and this affects every native macOS App-Intents app, not just Lyra.</p>
+                <p class="faq-a">The reliable Siri path on macOS: open <strong>Shortcuts.app → New Shortcut</strong>, drop in the Lyra action (or a chain - "Switch to Reference Level 2", then "Toggle DIM", then a Set Focus action), name it something Siri can hear cleanly (<em>"Mute the monitor"</em>, <em>"Mix level"</em>, <em>"Listening session"</em>), and save. Then say <em>"Hey Siri, mute the monitor"</em> and Siri runs the chain. It's actually more powerful than the App Shortcut path - one Siri phrase can trigger several Lyra actions plus a Focus change.</p>
             </div>
 
             <div class="faq-item">
