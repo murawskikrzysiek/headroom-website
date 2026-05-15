@@ -929,9 +929,11 @@
 
         <p class="prose">All endpoints accept the standard <code>x-callback-url</code> parameters (<code>x-success</code>, <code>x-error</code>) so you can chain Audita into a wider workflow. Read endpoints require an <code>x-success</code> URL to deliver their payload; write endpoints treat both callbacks as optional. Responses use flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
 
+        <p class="prose">Audita also ships a bundle of <strong>App Intents</strong> for the Shortcuts app, Siri, and Focus Filters - nine intents covering the same reads and writes plus a cross-app <strong>Send SPL to Lyra</strong> action. If you live inside the Shortcuts ecosystem, the intents are the smoother path; the URL scheme is the lowest-common-denominator surface for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, AppleScript, shell).</p>
+
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>The full URL reference - every endpoint, every return field, error codes, worked examples for Shortcuts, Stream Deck, Keyboard Maestro, and AppleScript - lives on the <a href="api.html">API reference page</a>. <!-- TODO: api.html is a separate v1.2 ticket; this link will 404 until that page ships --></p>
+            <p>The full automation reference - every intent, every URL endpoint, every return field, error vocabulary, and the worked Send-to-Lyra example - lives on the <a href="api.html">API reference page</a>.</p>
         </div>
     </section>
 
