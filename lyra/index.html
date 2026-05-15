@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lyra - Apollo Twin Volume Control for Mac (F-Key Hotkeys)</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/">
-    <meta name="description" content="Control your Apollo Twin monitor volume from F10/F11/F12 on macOS. Tiny menu bar app that talks to UA Mixer Engine - UA Console and signal chain untouched. $4.99.">
+    <meta name="description" content="Apollo monitor volume from F10/F11/F12 on macOS - with native Shortcuts, Spotlight, Focus Filters, and a lyra:// URL scheme. Menu bar, UA Console untouched. $4.99.">
     <meta property="og:title" content="Lyra">
     <meta property="og:description" content="F-key volume control for Universal Audio interfaces, right from your keyboard.">
     <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -464,6 +464,23 @@
 
         .screenshot-row img:hover { opacity: 0.88; }
 
+        .spotlight-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spotlight-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .spotlight-row img:hover { opacity: 0.88; }
+
         /* ─── Shortcuts table ─── */
 
         .shortcuts-table {
@@ -603,6 +620,7 @@
             .hero-icon { width: 64px; height: 64px; min-width: 64px; }
             .feature-key { min-width: 80px; }
             .screenshot-row { grid-template-columns: 1fr; }
+            .spotlight-row { grid-template-columns: 1fr; }
         }
     </style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -626,6 +644,7 @@
             <span class="brand-word">Head<span>room</span></span>
         </a>
         <div style="display: flex; align-items: center; gap: 24px;">
+            <a href="guide.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">Guide</a>
             <a href="faq.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">FAQ</a>
             <a href="../" class="nav-back">
                 <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -645,11 +664,13 @@
         <div class="hero-text">
             <p class="hero-eyebrow">Headroom</p>
             <h1>Lyra</h1>
-            <p class="hero-desc">F-key volume control for Universal Audio interfaces, right from your keyboard.</p>
+            <p class="hero-desc">F-key volume control for Universal Audio interfaces - with native Shortcuts, Spotlight, Focus Filters, and a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme to drive it from anywhere on macOS.</p>
             <div class="badges">
                 <span class="badge badge-macos">macOS</span>
                 <span class="badge">UA Apollo</span>
                 <span class="badge">Menu bar</span>
+                <span class="badge">Shortcuts &amp; Spotlight</span>
+                <span class="badge">URL scheme</span>
             </div>
             <div class="hero-actions">
                 <a href="https://releases.headroomstudio.dev/Lyra-1.4.dmg" class="btn btn-primary">
@@ -669,15 +690,30 @@
 <div class="container">
     <div class="screenshots">
         <img src="lyra-hero.png" alt="Lyra at a glance - F10/F11/F12 shortcuts, three calibrated reference levels, and the lyra:// URL scheme" class="screenshot-full">
+        <img src="lyra-menu.png" alt="Lyra menu bar popover - device status, monitor slider, Reference Levels submenu" class="screenshot-full">
+        <img src="lyra-hud.png" alt="macOS volume HUD after a Set Volume action - the standard monitor-level readout" class="screenshot-full">
+        <img src="lyra-hud-ref.png" alt="Volume HUD labeled with the active Reference Level - slot name and calibrated dB SPL value" class="screenshot-full">
+        <img src="lyra-hud-dim.png" alt="Volume HUD with DIM engaged - amber fill marks the dimmed level" class="screenshot-full">
+        <img src="lyra-hud-mute.png" alt="Volume HUD with the monitor muted - speaker icon shows the mute state" class="screenshot-full">
+        <div class="spotlight-row">
+            <img src="lyra-spotlight-mute.png" alt="Spotlight result for Toggle Mute - Lyra App Shortcut returns the new mute state">
+            <img src="lyra-spotlight-ref.png" alt="Spotlight result for Switch Reference Level - jumps to the chosen Lyra slot">
+            <img src="lyra-spotlight-level.png" alt="Spotlight result for monitor level - Lyra App Shortcut surfaces the current dB reading">
+        </div>
         <div class="screenshot-row">
-            <img src="screenshot-menu.png" alt="Lyra menu bar popover">
-            <img src="screenshot-hud.png" alt="macOS volume HUD controlled by Lyra">
+            <img src="lyra-shortcuts.png" alt="Built Shortcut chaining Lyra App Intents, alongside the Lyra action library in Shortcuts">
+            <img src="lyra-focus.png" alt="System Settings Focus pane with the Lyra Focus Filter switching to Reference Slot 3">
         </div>
     </div>
 </div>
 
 <div class="container">
     <hr class="divider">
+
+    <section class="section">
+        <p class="section-label">Native to macOS</p>
+        <p class="prose">Lyra is built for the platform, not bolted onto it. The F-row drives the monitor, the menu bar holds the state, and every action is also a first-class <strong>App Intent</strong> - so the same controls appear in the <strong>Shortcuts</strong> app, surface in <strong>Spotlight</strong> as pre-wired App Shortcuts, and wire into <strong>Focus Filters</strong> for per-mode reference levels. Voice control on macOS works the canonical Apple way: build a Shortcut in Shortcuts.app, name it, and ask <strong>Siri</strong> to run it - perfect for multi-step routines like a "Listening session" that switches reference level, dims, and silences notifications in one phrase. For everything else there's a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">lyra://</code> URL scheme with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">x-callback-url</code> support, so Stream Deck, Keyboard Maestro, Raycast, AppleScript - anything that can fire a URL - can drive Lyra and read state back. No bespoke daemon, no scripting bridge, no UI to babysit.</p>
+    </section>
 
     <section class="section">
         <p class="section-label">Features</p>
@@ -693,6 +729,14 @@
             <div class="feature-row">
                 <span class="feature-key">URL scheme</span>
                 <span class="feature-val">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text);">lyra://</code> URLs - jump to a slot, set absolute volume, toggle mute / DIM / mono.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Shortcuts &amp; Siri</span>
+                <span class="feature-val">Eleven first-class <strong>App Intents</strong> - readable state, monitor writes, and reference-level recall - exposed to the macOS Shortcuts app. Every intent returns structured values, so you can chain <em>Get Property of &lt;Lyra State&gt;</em> straight into the next step without parsing query strings or decoding JSON. The most-reached-for actions are pre-wired as <strong>App Shortcuts</strong> and surface in Spotlight without you building anything first - open Spotlight and type <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. For Siri voice control, build a Shortcut in Shortcuts.app, name it something Siri can hear cleanly (<em>"Mute the monitor"</em>, <em>"Mix level"</em>) and ask Siri to run it by name - the canonical macOS path, and the one that lets a single phrase trigger a multi-step routine. Full list in the <a href="guide.html#app-intents" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">user guide</a>. Requires macOS 13+; macOS 12 runs Lyra normally without the Shortcuts surface.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Focus Filter</span>
+                <span class="feature-val">Wire a reference level into a macOS <strong>Focus</strong> - the common setup is a <em>"Mixing"</em> Focus that jumps Lyra to slot 2 and silences non-DAW notifications, and a <em>"Mastering"</em> Focus that switches to slot 3. Configured in <strong>System Settings → Focus → Focus Filters → Lyra → Switch to Reference Level</strong>. A "Restore previous level when Focus ends" toggle lets you treat the session as temporary (rolls back to the prior monitor position on deactivation) or permanent (leaves the level where the filter put it). Lyra must be running for filters to fire - Apple's Focus framework doesn't auto-launch the host app, so pair this with <em>Launch at Login</em>. Requires macOS 13+.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Audita pairing</span>
@@ -781,7 +825,8 @@
 
     <section class="section" id="url-scheme">
         <p class="section-label">URL scheme</p>
-        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>.</p>
+        <p class="url-intro">Lyra registers a <code>lyra://</code> URL scheme so you can drive it from Stream Deck, Keyboard Maestro, Apple Shortcuts, AppleScript, Raycast, or any tool that can fire a URL. Try one from Terminal: <code>open "lyra://reference/2"</code>. As of v1.5, every endpoint accepts <code>x-success</code> / <code>x-error</code> callbacks so you can chain Lyra into a larger automation and read state back into your launcher - see the <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full API reference</a> for the complete spec.</p>
+        <p class="url-intro">If you'd rather stay inside Apple's automation surface, every URL action is also a native <strong>App Intent</strong> on macOS 13+ - the Shortcuts app, Spotlight, and Focus Filters all see the same eleven actions, returning structured values you can chain without parsing query strings. Siri reaches them via a named Shortcut you build in Shortcuts.app. See the <a href="guide.html#app-intents" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">user guide</a> for the full list.</p>
 
         <div class="url-list">
 
@@ -801,6 +846,10 @@
                     <span class="url-code">lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</span>
                     <p class="url-desc">Replace a slot with the current Apollo monitor level, the supplied <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">name</code>, and (optionally) a calibrated <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dBSPL</code> reading. Used by Audita's <em>"Send to Lyra…"</em> action after a calibration - Lyra reads the live monitor level itself, so the slot reflects exactly what the user just measured. Power users can pass <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">&amp;tapered=0.5</code> to override the live level.</p>
                 </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://reference/current?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> Read the currently-active slot via the supplied callback URL. Returns <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_name</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_tapered</code>, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">slot_dbspl</code> if calibrated. All slot keys are absent when the monitor doesn't match any saved slot.</p>
+                </div>
             </div>
 
             <div class="url-group">
@@ -813,6 +862,10 @@
                     <span class="url-code">lyra://volume/up</span>
                     <span class="url-code" style="margin-left: 4px;">lyra://volume/down</span>
                     <p class="url-desc">Step the volume up or down by one increment. Append <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">?fine=1</code> for a half-size step (the same as holding Shift with F11/F12).</p>
+                </div>
+                <div class="url-row">
+                    <span class="url-code">lyra://volume/get?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> Read the current monitor level via the supplied callback URL. Returns <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">tapered</code> (0-1) and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">db</code> (the Apollo's meter dB).</p>
                 </div>
             </div>
 
@@ -832,11 +885,24 @@
                 </div>
             </div>
 
+            <div class="url-group">
+                <p class="url-group-label">State</p>
+                <div class="url-row">
+                    <span class="url-code">lyra://state?x-success=&hellip;</span>
+                    <p class="url-desc"><strong style="color: var(--text);">New in v1.5.</strong> One-shot read of the full app state - volume, mute, DIM, mono, mixer / device connection, device name, current step, plus the active slot if one matches. Use this when you want a single round-trip to populate a Shortcut or dashboard. See the <a href="api.html#state" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full returns list</a>.</p>
+                </div>
+            </div>
+
         </div>
 
         <div class="notice" style="margin-top: 20px;">
-            <span class="notice-icon">💡</span>
-            <p>All URLs require Lyra to be running and your Apollo to be connected (Mixer Engine reachable). Unknown URLs are logged and ignored - they won't crash or interrupt anything.</p>
+            <span class="notice-icon">→</span>
+            <p><a href="api.html" style="color: var(--accent); text-decoration: none;">Full API reference</a> - every endpoint with parameters, return values, error codes, and copy-paste examples for Shortcuts, Stream Deck, Keyboard Maestro, AppleScript, and Raycast.</p>
+        </div>
+
+        <div class="notice" style="margin-top: 12px;">
+            <span class="notice-icon">!</span>
+            <p>Action URLs require Lyra to be running and your Apollo to be connected (Mixer Engine reachable). Reads are no-ops without an <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> URL. Unknown endpoints are logged and ignored - they won't crash or interrupt anything.</p>
         </div>
     </section>
 
@@ -891,7 +957,9 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
             <li><a href="releases.html">Release notes</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
@@ -906,7 +974,7 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
 
-    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+    document.querySelectorAll('.screenshot-full, .screenshot-row img, .spotlight-row img').forEach(img => {
         img.addEventListener('click', () => {
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;

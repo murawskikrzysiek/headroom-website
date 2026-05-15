@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lyra Release Notes - Version History & Changelog</title>
-  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.4.">
+  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.5.">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -146,12 +146,62 @@
     </div>
   </header>
 
+  <!-- ── 1.5 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.5</span>
+      <span class="date">May 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>App Intents bundle</strong> - eleven intents exposed to Shortcuts.app, Spotlight, and Siri. Read state (Get Lyra State, Get Current Monitor Level, Get Current Reference Level), toggle the Apollo (Toggle Mute, Toggle DIM, Toggle Mono), adjust or set the monitor level, and drive Reference Levels (Switch / Cycle / Save). Every intent returns structured values for chaining in Shortcuts. Requires macOS 13+; macOS 12 launches identically without the Shortcuts surface.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>App Shortcuts</strong> - the most-reached-for intents (Toggle Mute, Switch Reference Level, Set Monitor Level, Get Lyra State, and friends) surface straight in Spotlight without building a Shortcut first.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Focus Filter</strong> - Lyra appears in <em>System Settings → Focus → Focus Filters</em>. Attach a "Switch to Reference Level" filter to any Focus and Lyra jumps to that slot when the Focus turns on, with an optional "Restore previous level when Focus ends" toggle.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>URL scheme read endpoints</strong> - <code>lyra://volume/get</code>, <code>lyra://reference/current</code>, and <code>lyra://state</code> let Shortcuts, Stream Deck, Raycast, and AppleScript pull Lyra's state back. All three require an <code>x-success</code> callback to deliver the data.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>x-callback-url chaining</strong> - every URL endpoint now accepts optional <code>x-success</code> and <code>x-error</code> parameters. Returned values are appended to the callback as flat query items - no JSON parsing required in Shortcuts.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>URL reference page</strong> at <a href="api.html">lyra/api</a> - every endpoint, every return field, with copy-paste examples for Shortcuts, Stream Deck, Keyboard Maestro, and AppleScript.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>User Guide menu link</strong> - a new <em>User Guide…</em> entry in Lyra's menu opens the <a href="guide.html">user guide</a> in your browser.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span><code>lyra://volume/set</code> used to return the previous dB value alongside the new tapered position; the response now waits for the Apollo's dB echo so the two readings stay in sync.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span><code>lyra://reference/current</code> always returns the live <code>tapered</code> and <code>db</code> so you can see where the monitor is between presets, and adds <code>slot=none</code> when no slot matches.</span>
+      </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span>Error messages and ranges in URL responses are now plain ASCII (<code>Slot must be 1-3</code>, <code>?tapered=0.0-1.0</code>) instead of typographic en-dashes that became <code>%E2%80%93</code> escapes in chained URLs.</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 1.4 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.4</span>
       <span class="date">April 2026</span>
-      <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>
