@@ -492,7 +492,7 @@
                 <li><a href="#reference">Reference Level endpoints</a></li>
                 <li><a href="#state">State endpoint</a></li>
                 <li><a href="#error-codes">Error codes</a></li>
-                <li><a href="#examples">Worked examples</a></li>
+                <li><a href="#examples">Integration examples</a></li>
                 <li><a href="#gotchas">Notes &amp; gotchas</a></li>
             </ul>
         </nav>
@@ -782,10 +782,10 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
         </table>
     </section>
 
-    <!-- ─── Worked examples ─── -->
+    <!-- ─── Integration examples ─── -->
     <section class="section" id="examples">
         <p class="section-label">Examples</p>
-        <h2>Worked examples<a class="anchor" href="#examples">#</a></h2>
+        <h2>Integration examples<a class="anchor" href="#examples">#</a></h2>
 
         <h3>Apple Shortcuts - read state and post to Slack</h3>
         <p class="prose">Lyra is queried for its full state, the Shortcut pulls out the keys it cares about, formats a one-liner, and posts it to a Slack incoming webhook.</p>
@@ -824,19 +824,6 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
     <span class="kw">Open URL</span>  lyra://volume/set?tapered=%t%
     <span class="kw">Pause</span>     0.05 s</pre>
         <p class="prose">Read the starting position dynamically with <code>lyra://volume/get?x-success=&hellip;</code> if you want the fade to start from wherever the knob currently is. Keep the step rate at ~20 Hz - faster and you'll hammer the Mixer Engine TCP socket.</p>
-
-        <h3>AppleScript - one-liner state read</h3>
-        <pre class="code-block"><span class="kw">do shell script</span> "open 'lyra://state?x-success=workflow://done'"</pre>
-        <p class="prose">From a script step in any AppleScript-aware app. Replace the callback URL with whatever your downstream consumer needs.</p>
-
-        <h3>Raycast - quicklinks for the read endpoints</h3>
-        <p class="prose">Raycast quicklinks accept any URL. Set up one per read endpoint and bind each to a hotkey:</p>
-        <pre class="code-block"><span class="cmt">Name: "Lyra: current volume"</span>
-URL:  lyra://volume/get?x-success=raycast://confirm-alert?title=Volume&amp;message={db}+dB
-
-<span class="cmt">Name: "Lyra: current slot"</span>
-URL:  lyra://reference/current?x-success=raycast://confirm-alert?title=Slot&amp;message={slot_name}</pre>
-        <p class="prose">Raycast substitutes <code>{db}</code> / <code>{slot_name}</code> from the inbound query items - so the alert shows the live value Lyra just sent back.</p>
     </section>
 
     <!-- ─── Notes & gotchas ─── -->
