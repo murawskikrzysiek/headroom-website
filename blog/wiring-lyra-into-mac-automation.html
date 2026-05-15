@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiring Lyra into every Mac automation surface - App Intents, Focus Filters, x-callback URLs - Headroom</title>
+    <link rel="canonical" href="https://headroomstudio.dev/blog/wiring-lyra-into-mac-automation.html">
+    <meta name="description" content="Lyra 1.5 is scriptable from every Mac automation surface - Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.">
+    <meta property="og:title" content="Wiring Lyra into every Mac automation surface">
+    <meta property="og:description" content="Lyra 1.5 is scriptable from every Mac automation surface - Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.">
+    <meta property="og:image" content="https://headroomstudio.dev/lyra/lyra-shortcuts.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog.css">
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>
+            All posts
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <header class="article-header">
+        <p class="article-eyebrow">Lyra</p>
+        <h1>Wiring Lyra into every Mac automation surface - App Intents, Focus Filters, x-callback URLs</h1>
+        <p class="article-subtitle">Shortcuts, Spotlight, Focus Filters, and a documented URL scheme - each fits a different shape of automation. Here's which surface to reach for when.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>15 May 2026</span>
+            <span class="dot"></span>
+            <span>10 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="container">
+    <article class="article">
+
+        <p>Lyra 1.5 shipped this week. The headline is short: Lyra is now scriptable from every Mac automation surface I could find. Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast, AppleScript via <code>osascript</code>. One change underneath, several different shapes on top.</p>
+
+        <p>If you've spent any time with Lyra it's because pressing F12 to turn up the monitor is faster than reaching for the knob. That keyboard binding is still the core of the app, and v1.5 doesn't touch it. What v1.5 adds is everything <em>around</em> the keyboard - four other ways to drive Lyra that fit shapes of automation the F-keys can't.</p>
+
+        <h2>The keyboard, unchanged</h2>
+
+        <p>F-keys are first and stay first. F10 mutes, F11 lowers, F12 raises; Shift gets you half-steps and DIM; Option toggles Mono; Ctrl jumps to a reference slot. None of that moved. If you've been running Lyra 1.4 since April and the only thing you've ever done is press F12, v1.5 is invisible. The upgrade adds; it doesn't replace.</p>
+
+        <h2>Shortcuts.app - eleven App Intents</h2>
+
+        <p>Open Shortcuts.app and type "Lyra" into the action library. Eleven actions appear, grouped by what they do:</p>
+
+        <p><strong>Reads</strong> (return structured values, not strings to parse):</p>
+        <ul class="post-list-inline">
+            <li><code>Get Lyra State</code> - tapered position, dB, mute / DIM / mono, mixer connection, device name, active slot, volume step.</li>
+            <li><code>Get Current Monitor Level</code> - tapered + dB.</li>
+            <li><code>Get Current Reference Level</code> - which slot is active, slot name, calibrated dB SPL (if Audita has paired one).</li>
+        </ul>
+
+        <p><strong>Monitor toggles</strong> (return the new state so you can branch on it):</p>
+        <ul class="post-list-inline">
+            <li><code>Toggle Mute</code></li>
+            <li><code>Toggle DIM</code></li>
+            <li><code>Toggle Mono</code></li>
+        </ul>
+
+        <p><strong>Level setters:</strong></p>
+        <ul class="post-list-inline">
+            <li><code>Set Monitor Level</code> - by percent (0-100).</li>
+            <li><code>Adjust Monitor Level</code> - up or down by one Lyra step, with an optional fine flag for the half-step.</li>
+        </ul>
+
+        <p><strong>Reference levels:</strong></p>
+        <ul class="post-list-inline">
+            <li><code>Switch to Reference Level</code> - by slot 1-3, or by name (case-insensitive, so "Mix" or "K-14" works).</li>
+            <li><code>Cycle Reference Level</code> - 1 → 2 → 3 → 1.</li>
+            <li><code>Save Current Level to Reference Slot</code> - by slot 1-3.</li>
+        </ul>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-shortcuts.png" alt="Shortcuts.app showing a built Lyra shortcut on the left (Open LUNA, Switch reference slot, Lyra Focus Filter) alongside the Lyra action library searched for 'lyra' on the right">
+            <figcaption>The action library (right) lists every Lyra intent; the editor (left) shows a multi-step shortcut chaining several of them. Intent names read like the menu items you already know - the actions weren't invented for the API, they're the same operations exposed differently.</figcaption>
+        </figure>
+
+        <p>Two design choices are worth knowing about. First, every intent returns <strong>structured values</strong>. A "Show me the dB" shortcut doesn't have to read a URL and pull a number out; it gets a <code>Lyra State</code> object with a <code>db</code> property, and Shortcuts.app's "Get Property of" action picks the value cleanly. Multi-step workflows - "read the state → branch on muted → post to Slack with the slot name" - chain without text-wrangling.</p>
+
+        <p>Second, <code>Switch to Reference Level</code> accepts the slot by <em>name</em>, not just by number. If you've named slot 2 "Mix" in Lyra, your shortcut can say "Switch to Reference Level → Mix" and it'll find it case-insensitively. The numeric path still works for portability across users who use different names.</p>
+
+        <p>The point of this surface is composition. The keyboard handles one action at a time; Shortcuts handles sequences. A morning routine that opens Logic, switches to slot 2, sets a 70% monitor level, and silences notifications becomes one shortcut named "Start session." A "post current mix to Slack" reads the live state, formats a line, and fires a webhook - in a dozen seconds of building.</p>
+
+        <h2>Spotlight - for free</h2>
+
+        <p>The most-reached-for intents - Toggle Mute, Switch Reference Level, Set Monitor Level, Get Lyra State, and a handful of others - are pre-wired as <strong>App Shortcuts</strong>. That means they show up in Spotlight without you building anything. Press ⌘Space, start typing "Toggle mute in Lyra", and the action lands in the result list. Press Enter and the monitor flips.</p>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-spotlight-mute.png" alt="Spotlight result panel showing Toggle Mute - the Lyra App Shortcut returned False, indicating the monitor just unmuted">
+            <figcaption>Spotlight result for "Toggle mute in Lyra." The action returns the new mute state (<code>False</code> - we just unmuted). No menu to dig through, no shortcut to build first.</figcaption>
+        </figure>
+
+        <p>Same for the read intents. "Get monitor level from Lyra" returns the current dB value as a Spotlight result you can copy or chain. Useful when you want a number without leaving the keyboard - and you don't want to open Shortcuts.app to see it.</p>
+
+        <p>Spotlight is the lowest-friction automation surface macOS has. Just a key combo and a few characters. Lyra now lives in it.</p>
+
+        <h2>Focus Filters - monitor level tied to mode</h2>
+
+        <p>System Settings → Focus → pick a mode (or make a new one) → Focus Filters → <strong>Add Filter → Lyra → Switch to Reference Level</strong>. Pick a slot, save. From now on, when that Focus turns on, Lyra jumps to that reference. Mixing Focus → slot 2 (Mix). Late-night Focus → slot 1 (Quiet). Recording Focus → slot 3 (Loud, for talkback playback).</p>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-focus.png" alt="System Settings Focus pane with the Mixing Focus selected, the Lyra Focus Filter expanded, Reference Slot 3 chosen, and the 'Restore previous level when Focus ends' toggle visible">
+            <figcaption>Lyra's Focus Filter inside the "Mixing" Focus. Reference slot 3 chosen. The toggle below controls what happens on deactivation: off means the Focus permanently sets the level; on means it rolls back to where the knob was at activation.</figcaption>
+        </figure>
+
+        <p>The "Restore previous level when Focus ends" toggle is the small detail that decides what kind of Focus this is. Off (default) means the Focus permanently sets a level - what you want for a "this is the calibrated mixing level" Focus. On means deactivation rolls back to whatever the knob was at the moment the Focus turned on - what you want for a temporary mode like a "quick call" Focus that dims the room and restores when the call ends.</p>
+
+        <p>One caveat worth knowing upfront: <strong>Lyra must be running for the filter to fire</strong>. Apple's Focus Filter framework doesn't launch the host app on Focus events - if Lyra is closed when you enable a Focus, the filter silently does nothing. The fix is just <em>Launch at Login</em> in Lyra's menu. Leave it on and the filter is reliable from then on.</p>
+
+        <h2>The URL scheme - the fallback for everything else</h2>
+
+        <p>Not every automation lives in Shortcuts. Stream Deck pushes URLs. Keyboard Maestro pushes URLs. Raycast scripts push URLs. AppleScript can fire URLs via <code>do shell script "open lyra://..."</code>. The <code>lyra://</code> scheme that's been around since 1.4 handles all of them.</p>
+
+        <p>What's new in 1.5 is the <strong>read endpoints</strong> - <code>lyra://volume/get</code>, <code>lyra://reference/current</code>, <code>lyra://state</code> - and <strong>x-callback-url chaining</strong> on every endpoint. A Shortcuts.app step that needs to know the active slot fires <code>lyra://reference/current?x-success=shortcuts://run-shortcut?name=ContinueChain</code> and the next shortcut receives the slot info as flat query items. No JSON to parse on either side. A Stream Deck button that says "current monitor level" can fire <code>lyra://volume/get?x-success=…</code> and pipe the dB into whatever your launcher displays.</p>
+
+        <p>For the write endpoints - volume, toggles, slot jumps - x-callback-url confirms the action completed. <code>?x-success=…</code> fires after the new state is live, so chained automations don't race ahead before the monitor actually changes. The full endpoint list, return-field schema, and worked examples for Shortcuts, Stream Deck, and Keyboard Maestro live at <a href="../lyra/api.html">headroomstudio.dev/lyra/api</a>.</p>
+
+        <h2>Underneath, a small protocol change</h2>
+
+        <p>v1.4 subscribed to Apollo's tapered monitor parameter (<code>CRMonitorLevelTapered</code>, 0.0-1.0) - the canonical write target. v1.5 also subscribes to <code>CRMonitorLevel</code>, the dB-scale version (-96.0-0.0). Two subscriptions, two cached values, no extra TCP round-trip per intent or URL call. dB readings now track the hardware knob in real time.</p>
+
+        <p>That's the change. Everything above is dispatch into the same handlers - App Intents and URL scheme both speak slot 1-3, percent, tapered position, dB. The redundancy is the point: pick the surface that fits the tool you're already using.</p>
+
+        <h2>Two scope decisions worth surfacing</h2>
+
+        <p>Two things to know if you're wiring automations:</p>
+
+        <p><strong>Set Monitor Level takes percent, not dB.</strong> UA's tapered curve isn't a known linear function of dB. I traced both subscriptions across the full range and the mapping isn't monotonic in the regions you'd actually use it - a dB-set built on top of that would mislead anyone calibrating against an SPL meter. dB-scale set lands alongside a planned <code>lyra://volume/set?db=…</code> URL endpoint when I have a way to do it that doesn't lie to the user.</p>
+
+        <p><strong>Save Current Level to Reference Slot clears the slot's stored dB SPL calibration.</strong> Same destructive behaviour as the menu's "Save current as…" - the stored SPL was tied to the previous tapered value and no longer applies. If you've calibrated a slot via Audita and aim this intent at it, you lose the dB SPL display until you re-run calibration. Worth knowing before you build a Shortcut that auto-saves the current level somewhere.</p>
+
+        <h2>One honest aside: Siri voice</h2>
+
+        <p>If you've been waiting for "Hey Siri, toggle mute in Lyra" to just work, the answer on macOS today is that it doesn't - and that isn't a Lyra bug. Apple's natural-language matcher for App Shortcut phrases (the thing that turns "toggle mute in Lyra" into the Toggle Mute intent) is iOS / Catalyst-only as of macOS 26. Native AppKit apps fall through and Siri says "I don't understand." This affects every native macOS App-Intents app on the current platform, not just Lyra.</p>
+
+        <p>The reliable Siri path on macOS today is via a named Shortcut you build in Shortcuts.app. Drop in one or more Lyra actions, name the shortcut something Siri can hear cleanly ("Mute the monitor"), save. Then ask Siri to run it by name. The same trick works for multi-step routines - one Siri phrase fires a shortcut that switches reference, dims, and silences notifications in sequence. It's a workaround until Apple extends Flexible Matching to AppKit, but it does work, and it works today.</p>
+
+        <h2>The Audita angle</h2>
+
+        <p>Audita is the studio's SPL meter. If you've calibrated a Lyra slot via Audita ("Send to Lyra…" sheet - measure room SPL at a known monitor level, write the calibration into a slot), the App Intents return that calibrated dB SPL value alongside tapered position and dB. A Shortcut that logs your monitor state every time you switch references gets the room-aware number for free.</p>
+
+        <p>The bundle is starting to behave like one product. Lyra recalls levels; Audita teaches Lyra what those levels actually sound like in your room; Shortcuts pulls the room-aware number into wherever you're tracking sessions. None of those layers cared about each other a year ago.</p>
+
+        <h2>Which surface for what</h2>
+
+        <p>Each automation surface fits a different shape of work:</p>
+
+        <ul class="post-list-inline">
+            <li><strong>Shortcuts.app</strong> - visual, multi-step chains. The daily "start session" routine.</li>
+            <li><strong>Spotlight</strong> - one-off keyboard-first triggers. ⌘Space and type.</li>
+            <li><strong>Focus Filters</strong> - mode-based behaviour. macOS itself decides "user is in Mixing mode, do the Mixing thing."</li>
+            <li><strong>URL scheme</strong> - everything outside Apple's first-party hosts. Stream Deck, Keyboard Maestro, Raycast, AppleScript glue.</li>
+        </ul>
+
+        <p>You don't have to use all four. Many Lyra users will keep doing what they've always done - F12, F11, Ctrl+F11 - and never open Shortcuts.app. The keyboard is still the fast path for ad-hoc moves and always will be. But if you want to put a "switch to mastering level" button on a Stream Deck, you can. If you want a Focus that automatically silences notifications and drops the monitor to talkback level when a meeting starts, you can.</p>
+
+        <p>The keyboard is the keyboard. Everything else is now a choice.</p>
+
+        <div class="kicker">
+            <p><a href="../lyra/">Lyra</a> is a menu-bar app for Universal Audio Apollo interfaces - F-key monitor control, three calibrated reference levels, and now a documented automation surface across Shortcuts, Spotlight, Focus Filters, and the <code>lyra://</code> URL scheme. v1.5 is a free update for existing customers via Sparkle (<em>Lyra → Check for Updates…</em>); new buyers get a 7-day full-feature trial, $4.99 one-time after that. The full URL reference is at <a href="../lyra/api.html">headroomstudio.dev/lyra/api</a> and the in-depth user guide at <a href="../lyra/guide.html">headroomstudio.dev/lyra/guide</a>.</p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="pairing-audita-and-lyra.html"><span>Calibrate once, recall forever - pairing Audita and Lyra</span><span class="arrow">→</span></a></li>
+                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe - the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
+            </ul>
+        </div>
+    </article>
+</div>
+
+<div class="container">
+    <footer>
+        <span class="footer-copy">© 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="../lyra/">Lyra</a></li>
+            <li><a href="../audita/">Audita</a></li>
+            <li><a href="index.html">Blog</a></li>
+        </ul>
+    </footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.figure img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
