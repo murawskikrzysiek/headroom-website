@@ -464,6 +464,23 @@
 
         .screenshot-row img:hover { opacity: 0.88; }
 
+        .spotlight-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spotlight-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .spotlight-row img:hover { opacity: 0.88; }
+
         /* ─── Shortcuts table ─── */
 
         .shortcuts-table {
@@ -603,6 +620,7 @@
             .hero-icon { width: 64px; height: 64px; min-width: 64px; }
             .feature-key { min-width: 80px; }
             .screenshot-row { grid-template-columns: 1fr; }
+            .spotlight-row { grid-template-columns: 1fr; }
         }
     </style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -680,6 +698,11 @@
         <div class="screenshot-row">
             <img src="lyra-shortcuts.png" alt="Built Shortcut chaining Lyra App Intents, alongside the Lyra action library in Shortcuts">
             <img src="lyra-focus.png" alt="System Settings Focus pane with the Lyra Focus Filter switching to Reference Slot 3">
+        </div>
+        <div class="spotlight-row">
+            <img src="lyra-spotlight-mute.png" alt="Spotlight result for Toggle Mute - Lyra App Shortcut returns the new mute state">
+            <img src="lyra-spotlight-ref.png" alt="Spotlight result for Switch Reference Level - jumps to the chosen Lyra slot">
+            <img src="lyra-spotlight-level.png" alt="Spotlight result for monitor level - Lyra App Shortcut surfaces the current dB reading">
         </div>
     </div>
 </div>
@@ -951,7 +974,7 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
 
-    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+    document.querySelectorAll('.screenshot-full, .screenshot-row img, .spotlight-row img').forEach(img => {
         img.addEventListener('click', () => {
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
