@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra URL Scheme API - lyra:// reference, x-callback-url, examples</title>
+    <link rel="canonical" href="https://headroomstudio.dev/lyra/api.html">
+    <meta name="description" content="Complete reference for Lyra's lyra:// URL scheme. Endpoints, parameters, x-callback-url returns, error codes, and copy-paste examples for Shortcuts, Stream Deck, Keyboard Maestro, AppleScript, and Raycast.">
+    <meta property="og:title" content="Lyra URL Scheme API">
+    <meta property="og:description" content="Drive Lyra from Shortcuts, Stream Deck, Keyboard Maestro, and AppleScript. Full endpoint reference + x-callback-url chaining.">
+    <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lyra URL Scheme API">
+    <meta name="twitter:description" content="Drive Lyra from Shortcuts, Stream Deck, Keyboard Maestro, and AppleScript. Full endpoint reference + x-callback-url chaining.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --red:          #f67c7c;
+            --radius-btn:   9px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 48px 0 32px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            max-width: 640px;
+        }
+
+        .hero-desc code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .hero-meta {
+            font-size: 0.8125rem;
+            color: var(--text-3);
+            margin-top: 14px;
+        }
+
+        /* ─── TOC ─── */
+
+        .toc {
+            margin: 24px 0 8px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .toc-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 10px;
+        }
+
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 24px;
+        }
+
+        .toc a {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+            display: inline-block;
+            padding: 3px 0;
+        }
+        .toc a:hover { color: var(--text); }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0 40px;
+        }
+
+        /* ─── Sections ─── */
+
+        .section {
+            padding-bottom: 44px;
+            scroll-margin-top: 24px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 32px 0 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3:first-child { margin-top: 0; }
+
+        /* ─── Prose ─── */
+
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.75;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+
+        .prose strong { color: var(--text); font-weight: 600; }
+
+        .prose a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+        .prose a:hover { color: #a0aaff; }
+
+        .prose code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Endpoint block ─── */
+
+        .endpoint {
+            padding: 18px 0 4px;
+            border-top: 1px solid var(--border);
+        }
+        .endpoint:last-of-type { border-bottom: 1px solid var(--border); padding-bottom: 22px; }
+
+        .endpoint-url {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.045);
+            padding: 4px 9px;
+            border-radius: 5px;
+            border: 1px solid var(--border-hover);
+            display: inline-block;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .endpoint-desc {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            margin-top: 10px;
+            line-height: 1.65;
+        }
+
+        .endpoint-desc code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .endpoint-meta {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 6px 18px;
+            font-size: 0.825rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .meta-key {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .meta-val code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Pre / code block ─── */
+
+        pre.code-block {
+            margin: 14px 0;
+            padding: 14px 18px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.825rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        pre.code-block .cmt { color: var(--text-3); }
+        pre.code-block .str { color: #c8c0ff; }
+        pre.code-block .kw  { color: #a0aaff; }
+
+        /* ─── Tables ─── */
+
+        table.spec {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.875rem;
+        }
+
+        table.spec th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 0 12px 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table.spec td {
+            padding: 10px 12px 10px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-2);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        table.spec td:first-child {
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        table.spec code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin: 20px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.5;
+        }
+
+        .notice p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .notice p + p { margin-top: 6px; }
+
+        .notice code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Anchor links ─── */
+
+        .anchor {
+            color: var(--text-3);
+            text-decoration: none;
+            font-size: 0.82em;
+            margin-left: 8px;
+            opacity: 0;
+            transition: opacity 0.18s;
+        }
+
+        h2:hover .anchor, h3:hover .anchor { opacity: 1; }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 640px) {
+            .toc ul { grid-template-columns: 1fr; }
+            .endpoint-meta { grid-template-columns: 1fr; gap: 2px 0; }
+            .meta-key { padding-top: 10px; }
+            .meta-key:first-child { padding-top: 0; }
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            Lyra
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <p class="hero-eyebrow">Lyra</p>
+        <h1>URL Scheme API</h1>
+        <p class="hero-desc">Lyra registers a <code>lyra://</code> URL scheme so any tool that can fire a URL can drive it - Shortcuts, Stream Deck, Keyboard Maestro, Raycast, AppleScript, BetterTouchTool, the shell, or another app. From v1.5 onwards, every endpoint accepts <code>x-success</code> and <code>x-error</code> callback URLs so you can chain Lyra into a larger automation and read its state back into your launcher.</p>
+        <p class="hero-meta">v1.5 - last updated for build 6. Earlier versions support the action endpoints below but not the reads or the callback URLs.</p>
+
+        <nav class="toc" aria-label="On this page">
+            <p class="toc-label">On this page</p>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#callback-url">x-callback-url</a></li>
+                <li><a href="#volume">Volume endpoints</a></li>
+                <li><a href="#toggles">Toggle endpoints</a></li>
+                <li><a href="#reference">Reference Level endpoints</a></li>
+                <li><a href="#state">State endpoint</a></li>
+                <li><a href="#error-codes">Error codes</a></li>
+                <li><a href="#examples">Integration examples</a></li>
+                <li><a href="#gotchas">Notes &amp; gotchas</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <!-- ─── Overview ─── -->
+    <section class="section" id="overview">
+        <p class="section-label">Overview</p>
+        <h2>Two kinds of endpoints<a class="anchor" href="#overview">#</a></h2>
+        <p class="prose"><strong>Action endpoints</strong> change Lyra's state - set the monitor volume, toggle mute, jump to a Reference Level. They are fire-and-forget: macOS opens the URL, Lyra acts on it, and that's it. No in-band response.</p>
+        <p class="prose"><strong>Read endpoints</strong> (new in v1.5) return live state - the current volume, the active Reference Level, the full app state dictionary. They are no-ops without an <code>x-success</code> callback URL, because there's no other channel to return data through.</p>
+        <p class="prose">All endpoints accept the optional <code>x-success</code> and <code>x-error</code> callback parameters described in <a href="#callback-url">x-callback-url</a> below. When you supply them, Lyra will open them when the endpoint finishes, with its return values appended as query items - exactly the <a href="http://x-callback-url.com/" target="_blank" rel="noopener">x-callback-url</a> convention used by Shortcuts, Drafts, Things, and most well-behaved iOS / macOS automation apps.</p>
+
+        <h3>Trying it from the shell</h3>
+        <pre class="code-block"><span class="kw">open</span> <span class="str">"lyra://reference/2"</span>
+<span class="kw">open</span> <span class="str">"lyra://volume/set?tapered=0.4"</span>
+<span class="kw">open</span> <span class="str">"lyra://mute/toggle"</span>
+
+<span class="cmt"># Read with callback - prints whatever Raycast does with the result</span>
+<span class="kw">open</span> <span class="str">"lyra://state?x-success=raycast://run?id=announce"</span></pre>
+        <p class="prose">Unknown URLs are logged to the console and silently ignored - they won't crash or interrupt anything. Action URLs require Lyra to be running and your Apollo to be reachable (Mixer Engine connected); otherwise Lyra fires <code>x-error</code> with <code>mixer_disconnected</code>, or silently drops the URL if no <code>x-error</code> was provided.</p>
+    </section>
+
+    <!-- ─── x-callback-url ─── -->
+    <section class="section" id="callback-url">
+        <p class="section-label">Chaining</p>
+        <h2>x-callback-url<a class="anchor" href="#callback-url">#</a></h2>
+        <p class="prose">Two optional query parameters on every endpoint:</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 140px;">Param</th><th>Fires when</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>x-success</code></td>
+                    <td>The endpoint completed successfully. Lyra appends its return values as query items, plus <code>result=ok</code> for action endpoints, then opens the result URL.</td>
+                </tr>
+                <tr>
+                    <td><code>x-error</code></td>
+                    <td>The endpoint failed (mixer disconnected, invalid slot, malformed argument, etc.). Lyra appends <code>error_code</code> and <code>error_message</code>, then opens the result URL.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Example: action chain</h3>
+        <p class="prose">Set the monitor to <code>tapered=0.4</code>, then trigger a Raycast script. Lyra appends what it knows about the new state to your success URL:</p>
+        <pre class="code-block"><span class="cmt"># What you fire:</span>
+lyra://volume/set?tapered=0.4&amp;x-success=raycast://run?id=announce
+
+<span class="cmt"># What Raycast receives (after the set completes):</span>
+raycast://run?id=announce&amp;db=-12.34&amp;result=ok&amp;tapered=0.4000</pre>
+
+        <h3>Example: read chain</h3>
+        <p class="prose">Read the full state dictionary into a Shortcut. The Shortcut receives every key as a URL query item - use <strong>Get value from URL</strong> for each one you care about.</p>
+        <pre class="code-block">lyra://state?x-success=shortcuts://run-shortcut?name=PostMix</pre>
+
+        <h3>URL-encoding the callback</h3>
+        <p class="prose">Your <code>x-success</code> / <code>x-error</code> URLs are themselves embedded as query values inside the <code>lyra://</code> URL. If your callback contains its own <code>=</code>, <code>&amp;</code>, or spaces, <strong>percent-encode</strong> the whole callback URL before pasting it in - otherwise the outer URL parser will split your callback at the first <code>&amp;</code> and you'll lose everything past it.</p>
+        <pre class="code-block"><span class="cmt"># Wrong - the outer parser sees three top-level params on the lyra:// URL:</span>
+lyra://state?x-success=shortcuts://run-shortcut?name=Post&amp;arg=foo
+
+<span class="cmt"># Right - the callback URL is encoded as a single query value:</span>
+lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo</pre>
+        <p class="prose">Shortcuts, Raycast, and Keyboard Maestro all expose this as "URL-encode" or "Percent encode" - apply it once when building the outer URL.</p>
+    </section>
+
+    <!-- ─── Volume ─── -->
+    <section class="section" id="volume">
+        <p class="section-label">Endpoints</p>
+        <h2>Volume<a class="anchor" href="#volume">#</a></h2>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://volume/set?tapered={0.0..1.0}</span>
+            <p class="endpoint-desc">Set the Apollo monitor level to an absolute tapered value. Same scale as UA Mixer Engine's <code>CRMonitorLevelTapered</code> property - <code>0.0</code> is fully attenuated, <code>1.0</code> is full output.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Params</div>
+                <div class="meta-val"><code>tapered</code> - float, 0.0-1.0, required. Values outside the range are clamped.</div>
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>tapered</code> (4dp), <code>db</code> (2dp), <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>invalid_argument</code>, <code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+                <div class="meta-key">Example</div>
+                <div class="meta-val"><code>open "lyra://volume/set?tapered=0.4"</code></div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://volume/up[?fine=1]</span>
+            <p class="endpoint-desc">Step the monitor level up by one increment (default 1/16 of full range). Append <code>?fine=1</code> for a half-size step - equivalent to holding Shift with F12.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Params</div>
+                <div class="meta-val"><code>fine</code> - <code>1</code> or omitted. When set, halves the step size.</div>
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>tapered</code>, <code>db</code>, <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://volume/down[?fine=1]</span>
+            <p class="endpoint-desc">Step down by one increment, mirror of <code>volume/up</code>. Same <code>fine=1</code> flag for half steps.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>tapered</code>, <code>db</code>, <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://volume/get?x-success=&hellip;</span>
+            <p class="endpoint-desc"><strong>Read endpoint, v1.5+.</strong> Returns the current monitor level via the supplied <code>x-success</code> URL. No effect on its own - if you call it without <code>x-success</code>, Lyra logs the request and does nothing else.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val"><code>tapered</code> (float, 4dp, 0-1); <code>db</code> (float, 2dp, dB on the Apollo's <code>CRMonitorLevel</code> property, typically -96 to 0). <code>db</code> may be absent for a fraction of a second on first launch until UA pushes the first value.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>.</div>
+                <div class="meta-key">Example</div>
+                <div class="meta-val"><code>lyra://volume/get?x-success=raycast://run?id=show-volume</code></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Toggles ─── -->
+    <section class="section" id="toggles">
+        <p class="section-label">Endpoints</p>
+        <h2>Toggles<a class="anchor" href="#toggles">#</a></h2>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://mute/toggle</span>
+            <p class="endpoint-desc">Toggle the Apollo monitor mute. Same effect as pressing F10.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>muted</code> (bool), <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://dim/toggle</span>
+            <p class="endpoint-desc">Toggle the Apollo's hardware DIM (same as Shift+F10). The attenuation amount is set in UA Console, not by Lyra - typically -20 dB.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>dim</code> (bool), <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://mono/toggle</span>
+            <p class="endpoint-desc">Toggle L+R sum to mono for a quick compatibility check (same as Option+F10).</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>mono</code> (bool), <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Reference Levels ─── -->
+    <section class="section" id="reference">
+        <p class="section-label">Endpoints</p>
+        <h2>Reference Levels<a class="anchor" href="#reference">#</a></h2>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://reference/{1|2|3}</span>
+            <p class="endpoint-desc">Jump to the named monitor preset stored in slot 1, 2, or 3. Writes the slot's stored tapered value straight to <code>CRMonitorLevelTapered</code> in one shot.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Path</div>
+                <div class="meta-val">Slot number is <code>1</code>, <code>2</code>, or <code>3</code>. Anything else fires <code>x-error=invalid_slot</code>.</div>
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> (if calibrated), <code>tapered</code>, <code>db</code>, <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>invalid_slot</code>, <code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://reference/cycle</span>
+            <p class="endpoint-desc">Advance to the next slot in order (1 &rarr; 2 &rarr; 3 &rarr; 1). Useful for a single Stream Deck button that rotates between presets.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Same payload as <code>reference/{n}</code> for the newly-active slot.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://reference/{n}/save?name=&hellip;&amp;dBSPL=&hellip;[&amp;tapered=&hellip;]</span>
+            <p class="endpoint-desc">Write a slot. Lyra reads the <strong>live</strong> Apollo monitor level for the tapered value, so the slot always reflects exactly what the user just measured - unless you pass an explicit <code>tapered</code> override. This is the URL Audita fires from its <em>"Send to Lyra&hellip;"</em> action after target-level calibration.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Params</div>
+                <div class="meta-val"><code>name</code> - string, optional. If omitted, the slot's existing name is kept. <br><code>dBSPL</code> - float, optional. The measured SPL for the calibrated label. Omit to preserve any existing calibration on the slot. URLs cannot clear calibration. <br><code>tapered</code> - float 0.0-1.0, optional. Overrides the live Apollo read; power users only.</div>
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> (if set), <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>invalid_slot</code>, <code>invalid_argument</code>, <code>mixer_disconnected</code>, <code>action_failed</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://reference/current?x-success=&hellip;</span>
+            <p class="endpoint-desc"><strong>Read endpoint, v1.5+.</strong> Returns the slot whose stored tapered value matches the current monitor level (within ~0.5%), plus the live volume so you always know where the monitor is. When no slot matches - i.e. the monitor is somewhere between presets - the response sets <code>slot=none</code> so you can branch on it directly without checking for absent keys.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val">Always: <code>tapered</code> (4dp), <code>db</code> (2dp, if known). When a slot matches: <code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code> (4dp), <code>slot_dbspl</code> (if the slot is calibrated). When no slot matches: <code>slot=none</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>mixer_disconnected</code>.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── State ─── -->
+    <section class="section" id="state">
+        <p class="section-label">Endpoints</p>
+        <h2>State<a class="anchor" href="#state">#</a></h2>
+
+        <div class="endpoint">
+            <span class="endpoint-url">lyra://state?x-success=&hellip;</span>
+            <p class="endpoint-desc"><strong>Read endpoint, v1.5+.</strong> Returns the full app state in one shot - everything <code>volume/get</code> and <code>reference/current</code> return, plus the toggles, device info, and the current step size. Use this when you want one round-trip to populate a Shortcut, Stream Deck overlay, or status dashboard.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val">
+                    <code>tapered</code>, <code>db</code> - current monitor level (same as <code>volume/get</code>).<br>
+                    <code>muted</code>, <code>dim</code>, <code>mono</code> - bools, current toggle states.<br>
+                    <code>mixer_connected</code>, <code>device_connected</code> - bools.<br>
+                    <code>device_name</code> - string, e.g. <code>"Apollo Twin X"</code>.<br>
+                    <code>volume_step</code> - float, the default step size (typically <code>0.0625</code>).<br>
+                    <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> - the active slot, if one matches the live volume. When no slot matches, only <code>slot=none</code> is set.
+                </div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val">Rare - the endpoint succeeds even if the mixer is disconnected (it just returns <code>mixer_connected=false</code>). Only fires on a malformed request URL.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Error codes ─── -->
+    <section class="section" id="error-codes">
+        <p class="section-label">Errors</p>
+        <h2>Error codes<a class="anchor" href="#error-codes">#</a></h2>
+        <p class="prose">When an endpoint fails and an <code>x-error</code> URL was supplied, Lyra opens it with <code>error_code</code> and <code>error_message</code> appended. Codes are stable strings - branch on these, not on the human-readable message (which may change between releases).</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 220px;">Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>mixer_disconnected</code></td>
+                    <td>UA Mixer Engine isn't reachable. Either it isn't running, or it's running but Lyra's TCP client hasn't connected yet. Try <em>Start UA Mixer Engine</em> from Lyra's menu.</td>
+                </tr>
+                <tr>
+                    <td><code>device_not_found</code></td>
+                    <td>No compatible Apollo interface is present on the system - CoreAudio reports no UA device. Plug in / power on the Apollo.</td>
+                </tr>
+                <tr>
+                    <td><code>invalid_slot</code></td>
+                    <td>The slot number in the path was not <code>1</code>, <code>2</code>, or <code>3</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>invalid_argument</code></td>
+                    <td>A query parameter was malformed - missing required key, out-of-range value, non-numeric where a float was expected.</td>
+                </tr>
+                <tr>
+                    <td><code>mixer_send_failed</code></td>
+                    <td>The TCP write to UA Mixer Engine failed mid-flight (connection dropped between the connectedness check and the send). Usually transient - retry.</td>
+                </tr>
+                <tr>
+                    <td><code>action_failed</code></td>
+                    <td>Catch-all for an action endpoint that completed without throwing but didn't observably change state (e.g. UA accepted the value but rejected it silently). Rare.</td>
+                </tr>
+                <tr>
+                    <td><code>unknown_endpoint</code></td>
+                    <td>The URL path didn't match any known endpoint. <strong>Note:</strong> this only fires when an <code>x-error</code> URL was supplied; without one, Lyra logs and ignores unknown URLs silently (the old pre-v1.5 behaviour).</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ─── Integration examples ─── -->
+    <section class="section" id="examples">
+        <p class="section-label">Examples</p>
+        <h2>Integration examples<a class="anchor" href="#examples">#</a></h2>
+
+        <h3>Apple Shortcuts - read state and post to Slack</h3>
+        <p class="prose">Lyra is queried for its full state, the Shortcut pulls out the keys it cares about, formats a one-liner, and posts it to a Slack incoming webhook.</p>
+        <pre class="code-block"><span class="cmt">Shortcut: "Post current mix to Slack"</span>
+
+1. <span class="kw">Open URLs</span> &rarr; lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPostMix-Continue
+
+   <span class="cmt"># lyra:// will fire `shortcuts://run-shortcut?name=PostMix-Continue&db=...&tapered=...&...`</span>
+
+<span class="cmt">--- Second shortcut, "PostMix-Continue":</span>
+
+1. <span class="kw">Get value for</span> "db" <span class="kw">in</span> Shortcut Input
+2. <span class="kw">Get value for</span> "slot_name" <span class="kw">in</span> Shortcut Input
+3. <span class="kw">Get value for</span> "muted" <span class="kw">in</span> Shortcut Input
+4. <span class="kw">Text:</span> "Mixing at [db] dB (slot: [slot_name], muted: [muted])"
+5. <span class="kw">Get Contents of URL</span> &rarr; POST https://hooks.slack.com/&hellip; with the text</pre>
+        <p class="prose"><strong>Why two shortcuts?</strong> Shortcuts can't directly receive callback parameters into the same shortcut that fired the URL. The pattern is fire-from-A, receive-in-B. Pass <code>name=B</code> in the callback and run B from the chain.</p>
+
+        <h3>Stream Deck - three K-System buttons</h3>
+        <p class="prose">Three Stream Deck buttons, each calling a different Reference Level slot. Use the built-in <strong>System &raquo; Open</strong> action - no plugin needed.</p>
+        <pre class="code-block"><span class="cmt">Button 1 (K-14):</span> System &raquo; Open &rarr; lyra://reference/1
+<span class="cmt">Button 2 (K-20):</span> System &raquo; Open &rarr; lyra://reference/2
+<span class="cmt">Button 3 (K-Free):</span> System &raquo; Open &rarr; lyra://reference/3</pre>
+        <p class="prose">For more positions than three, use <code>lyra://volume/set?tapered=N</code> on each button - the Stream Deck holds the preset list, Lyra just executes.</p>
+
+        <h3>Keyboard Maestro - fade to a target level over 2 seconds</h3>
+        <p class="prose">Lyra doesn't have a built-in fade endpoint - every action is instantaneous. Synthesize a fade by stepping <code>volume/set</code> in a Keyboard Maestro loop.</p>
+        <pre class="code-block"><span class="cmt">Macro: "Fade to 0.4 over 2 s"</span>
+
+<span class="kw">Set Variable</span> startTapered <span class="kw">to</span> 0.7        <span class="cmt"># read it first if you want dynamic</span>
+<span class="kw">Set Variable</span> targetTapered <span class="kw">to</span> 0.4
+<span class="kw">Set Variable</span> steps <span class="kw">to</span> 40                  <span class="cmt"># 20 Hz update rate</span>
+
+<span class="kw">For each</span> i <span class="kw">in</span> 1..steps:
+    <span class="kw">Calculate</span> t = startTapered + (targetTapered - startTapered) * (i / steps)
+    <span class="kw">Open URL</span>  lyra://volume/set?tapered=%t%
+    <span class="kw">Pause</span>     0.05 s</pre>
+        <p class="prose">Read the starting position dynamically with <code>lyra://volume/get?x-success=&hellip;</code> if you want the fade to start from wherever the knob currently is. Keep the step rate at ~20 Hz - faster and you'll hammer the Mixer Engine TCP socket.</p>
+    </section>
+
+    <!-- ─── Notes & gotchas ─── -->
+    <section class="section" id="gotchas">
+        <p class="section-label">Notes</p>
+        <h2>Notes &amp; gotchas<a class="anchor" href="#gotchas">#</a></h2>
+
+        <h3>Apollo must be reachable</h3>
+        <p class="prose">All action endpoints (and <code>volume/get</code>, <code>reference/current</code>) require UA Mixer Engine to be running and Lyra's TCP client to be connected. If the daemon isn't up, the action is silently dropped - or, if you passed <code>x-error</code>, you'll get <code>mixer_disconnected</code>. The <code>lyra://state</code> endpoint is the exception: it succeeds even when disconnected, and reports <code>mixer_connected=false</code> in its response so you can branch on it.</p>
+
+        <h3>Reads are no-ops without x-success</h3>
+        <p class="prose"><code>lyra://volume/get</code>, <code>lyra://reference/current</code>, and <code>lyra://state</code> have nowhere to send data unless you give them a callback URL. Calling them without one is harmless - they're logged and ignored - but they won't do anything either.</p>
+
+        <h3>The db key is the Apollo's meter, not SPL</h3>
+        <p class="prose">The <code>db</code> field returned by reads reflects UA's <code>CRMonitorLevel</code> property, which is the dB value of the monitor knob position on the Apollo - typically <strong>-96 dB to 0 dB</strong> on Apollo Twin X. It is <strong>not</strong> a sound pressure level. To estimate SPL for a calibrated slot, do <code>SPL &approx; db + slot_dbspl</code> (only meaningful when you've calibrated that slot via Audita's target-level routine).</p>
+
+        <h3>No fade, no smoothing, no queueing</h3>
+        <p class="prose">Every endpoint is fire-and-forget. There's no built-in ramp on <code>volume/set</code>, no command queue, no replay if the mixer disconnects mid-flight. If you need smoothed behaviour, build it in your launcher (see the Keyboard Maestro example above).</p>
+
+        <h3>x-callback-url is opt-in</h3>
+        <p class="prose">If you don't supply <code>x-success</code> / <code>x-error</code>, the endpoint behaves exactly as it did pre-v1.5: silent on success, silent on failure. Existing Stream Deck and Shortcuts setups continue to work unchanged - the callback layer is additive.</p>
+
+        <h3>The slot_dbspl field is metadata, not a measurement</h3>
+        <p class="prose">When a slot was written via Audita's <em>"Send to Lyra&hellip;"</em>, <code>slot_dbspl</code> carries the dB SPL Audita measured at that monitor position. Lyra does not re-measure or verify it - it's a label. If you change your room, speakers, or distance, re-run Audita's calibration to refresh the value.</p>
+
+        <div class="notice">
+            <span class="notice-icon">!</span>
+            <p>The full user-facing reference for Lyra - shortcuts, menu UI, troubleshooting, licensing - is the <a href="guide.html" style="color: var(--accent); text-decoration: none;">User Guide</a>. This page is the canonical reference for the URL scheme only.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">&copy; 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="releases.html">Release notes</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
