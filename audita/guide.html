@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audita - User Guide</title>
+    <link rel="canonical" href="https://headroomstudio.dev/audita/guide.html">
+    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration, monitoring discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
+    <meta property="og:title" content="Audita User Guide">
+    <meta property="og:description" content="Complete reference for Audita - menu bar SPL readout, calibration, monitoring discipline, floating panel, Lyra pairing, troubleshooting.">
+    <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+    <meta property="og:type" content="article">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --code-bg:      rgba(255,255,255,0.04);
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Nav ─── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Page header ─── */
+        .page-header { padding: 32px 0 24px; }
+
+        .page-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.7rem, 4vw, 2.1rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .page-lede {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* ─── TOC ─── */
+        .toc {
+            margin: 28px 0 8px;
+            padding: 20px 22px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.015);
+        }
+
+        .toc-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 24px;
+            list-style: none;
+        }
+
+        .toc-list a {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+            display: block;
+            padding: 3px 0;
+        }
+        .toc-list a:hover { color: var(--text); }
+
+        /* ─── Divider ─── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 36px 0;
+        }
+
+        /* ─── Sections ─── */
+        section.guide-section {
+            scroll-margin-top: 24px;
+            padding-bottom: 8px;
+        }
+
+        section.guide-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 14px;
+            padding-top: 4px;
+        }
+
+        section.guide-section h3 {
+            font-size: 1.05rem;
+            font-weight: 650;
+            letter-spacing: -0.015em;
+            color: var(--text);
+            line-height: 1.35;
+            margin-top: 26px;
+            margin-bottom: 10px;
+        }
+
+        /* ─── Prose ─── */
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.78;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+        .prose + ul, .prose + ol, ul + .prose, ol + .prose { margin-top: 12px; }
+        .prose + table, table + .prose { margin-top: 14px; }
+
+        .prose strong, ul strong, li strong, td strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .prose em, li em { color: var(--text); font-style: italic; }
+
+        .prose a, table a, li a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+        .prose a:hover, table a:hover, li a:hover { color: #a0aaff; }
+
+        ul, ol {
+            color: var(--text-2);
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            padding-left: 20px;
+        }
+
+        ul li, ol li { margin-bottom: 4px; }
+
+        /* ─── Inline code & kbd ─── */
+        code {
+            background: var(--code-bg);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em;
+            color: #d6d6f0;
+        }
+
+        kbd {
+            display: inline-block;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-bottom-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+            font-size: 0.78em;
+            color: var(--text);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+            white-space: nowrap;
+        }
+
+        /* ─── Tables ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 4px;
+            font-size: 0.875rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 9px 14px 9px 0;
+            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+            vertical-align: top;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        th {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        td:first-child {
+            color: var(--text);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        td.wrap-ok { white-space: normal; color: var(--text-2); font-weight: 400; }
+
+        /* ─── Callouts / notes ─── */
+        .note {
+            margin: 20px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(124, 132, 246, 0.06);
+            border-left: 3px solid var(--accent);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .note-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.7;
+            color: var(--accent);
+        }
+
+        .note p {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ─── Pre / code block ─── */
+        pre {
+            margin: 14px 0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: #d6d6f0;
+        }
+
+        /* ─── Top-of-section anchor link ─── */
+        .anchor {
+            color: var(--text-3);
+            text-decoration: none;
+            margin-left: 8px;
+            font-weight: 400;
+            transition: color 0.18s;
+            opacity: 0;
+        }
+
+        section.guide-section h2:hover .anchor { opacity: 0.6; }
+        .anchor:hover { color: var(--accent) !important; opacity: 1 !important; }
+
+        /* ─── Footer ─── */
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+        .footer-links { display: flex; gap: 22px; list-style: none; padding: 0; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+        .footer-links a:hover { color: var(--text-2); }
+
+        /* ─── Back-to-top link ─── */
+        .back-to-top {
+            display: inline-block;
+            margin: 28px 0 0;
+            font-size: 0.825rem;
+            color: var(--text-2);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.2);
+            padding-bottom: 1px;
+        }
+
+        .back-to-top:hover { color: var(--text); }
+
+        /* ─── Screenshots & lightbox ─── */
+        .screenshot-full {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+            margin: 14px 0 4px;
+        }
+
+        .screenshot-full:hover { opacity: 0.88; }
+
+        .screenshot-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0 4px;
+        }
+
+        .screenshot-row img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: opacity 0.18s;
+        }
+
+        .screenshot-row img:hover { opacity: 0.88; }
+
+        .screenshot-caption {
+            font-size: 0.8125rem;
+            color: var(--text-3);
+            line-height: 1.55;
+            margin: 8px 0 16px;
+            font-style: italic;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+            object-fit: contain;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 560px) {
+            .toc-list { grid-template-columns: 1fr; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px 8px 0; }
+            .screenshot-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="./" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            Back to Audita
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <header class="page-header" id="top">
+        <p class="page-eyebrow">Audita · User guide</p>
+        <h1>Everything Audita does, and how to drive it.</h1>
+        <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full <code>audita://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">Contents</p>
+        <ul class="toc-list">
+            <li><a href="#what-audita-does">1 · What Audita does</a></li>
+            <li><a href="#first-launch">2 · First launch</a></li>
+            <li><a href="#menu-bar-display">3 · Menu bar display</a></li>
+            <li><a href="#dropdown-menu">4 · The dropdown menu</a></li>
+            <li><a href="#floating-panel">5 · Floating measurement panel</a></li>
+            <li><a href="#calibration">6 · Calibration</a></li>
+            <li><a href="#monitoring-discipline">7 · Monitoring discipline</a></li>
+            <li><a href="#sessions">8 · Sessions &amp; DAW detection</a></li>
+            <li><a href="#pause-resume">9 · Pause &amp; resume monitoring</a></li>
+            <li><a href="#send-to-lyra">10 · Send to Lyra</a></li>
+            <li><a href="#automation">11 · URL scheme &amp; automation</a></li>
+            <li><a href="#auris-import">12 · Importing from Auris</a></li>
+            <li><a href="#licensing">13 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">14 · Updates</a></li>
+            <li><a href="#troubleshooting">15 · Troubleshooting</a></li>
+            <li><a href="#feedback">16 · Reporting bugs</a></li>
+        </ul>
+    </nav>
+
+    <hr class="divider">
+
+    <!-- ─────── 1. What Audita does ─────── -->
+    <section class="guide-section" id="what-audita-does">
+        <h2>1. What Audita does <a href="#what-audita-does" class="anchor">#</a></h2>
+
+        <p class="prose">Audita is a macOS menu bar app that protects the hearing of audio professionals. It continuously measures the sound pressure level (SPL) reaching a microphone at your listening position and calculates how much of your safe daily hearing budget has been used, using the <strong>NIOSH Recommended Exposure Limit</strong> (85 dBA reference, 3 dB exchange rate, 80 dBA threshold). It runs passively alongside any DAW, with no conscious interaction required.</p>
+
+        <p class="prose">One measurement chain feeds two jobs:</p>
+        <ul>
+            <li><strong>Hearing protection.</strong> A-weighted SPL (IEC 61672-1) accumulates into a cumulative dose percentage. Color-coded thresholds, NIOSH-aligned notifications, EU 2003/10/EC peak monitoring on a parallel C-weighted path.</li>
+            <li><strong>Monitoring discipline.</strong> A separate, optional layer that pins your monitoring level to a calibrated reference (K-14 / K-12 / K-20 / mastering / custom) and warns when your level drifts or sits off-target for too long.</li>
+        </ul>
+
+        <p class="prose">Audita is <strong>$19.99 regular</strong>, one-time purchase, with a 7-day free trial. macOS 14 (Sonoma) or later.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 2. First launch ─────── -->
+    <section class="guide-section" id="first-launch">
+        <h2>2. First launch <a href="#first-launch" class="anchor">#</a></h2>
+
+        <p class="prose">On first launch:</p>
+        <ol>
+            <li>macOS asks for <strong>microphone access</strong>. Click <strong>OK</strong>. Audita needs microphone access to measure SPL; the measurement microphone you pick (see below) is the only audio source it reads.</li>
+            <li>The Audita icon appears in the menu bar. Click it to open the popover.</li>
+            <li>Open <strong>Settings → Audio</strong> and select your <strong>measurement microphone</strong> from the input device picker. Defaults to the system default input. Most users pick a small condenser or omnidirectional measurement mic permanently mounted near the listening position.</li>
+            <li>Run the <a href="#calibration">3-step calibration wizard</a> (Settings → Audio). Without calibration, the SPL numbers Audita displays are not in real-world dB.</li>
+        </ol>
+
+        <p class="prose">Audita is agent-only (<code>LSUIElement = true</code>) - it never appears in the Dock or the ⌘-Tab switcher. All interaction happens through the menu bar.</p>
+
+        <h3>DAW auto-detection</h3>
+        <p class="prose">Audita watches for known DAWs to launch and quit, and automatically starts and ends sessions accordingly. Out of the box, 15 DAWs are tracked by bundle ID: Logic Pro, GarageBand, Pro Tools, LUNA, Ableton Live, REAPER, Cubase, Nuendo, Studio One, FL Studio, Bitwig Studio, Audacity, Adobe Audition, Final Cut Pro, DaVinci Resolve.</p>
+
+        <p class="prose">When the first tracked DAW launches, an Audita session starts. When the last one quits, the session ends and a recap notification fires. Multiple simultaneous DAWs are handled correctly - only the first launch and last quit trigger transitions.</p>
+
+        <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
+
+        <h3>Menu bar icon states</h3>
+        <p class="prose">The icon reflects the current dose level using NIOSH-aligned thresholds and color coding:</p>
+
+        <table>
+            <tr><th>Range</th><th>State</th><th>Glyph</th></tr>
+            <tr><td>0-40 %</td><td class="wrap-ok">Safe</td><td class="wrap-ok">Green ear outline</td></tr>
+            <tr><td>40-70 %</td><td class="wrap-ok">Caution</td><td class="wrap-ok">Yellow filled ear</td></tr>
+            <tr><td>70-90 %</td><td class="wrap-ok">Warning</td><td class="wrap-ok">Orange ear with badge</td></tr>
+            <tr><td>90 %+</td><td class="wrap-ok">Danger</td><td class="wrap-ok">Red warning triangle</td></tr>
+        </table>
+
+        <p class="prose">Today's dose is persisted to <code>UserDefaults</code> after every measurement, so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 3. Menu bar display ─────── -->
+    <section class="guide-section" id="menu-bar-display">
+        <h2>3. Menu bar display <a href="#menu-bar-display" class="anchor">#</a></h2>
+
+        <p class="prose">By default the menu bar shows just the dose-state ear glyph. From <strong>Settings → General → Menu Bar</strong> you can switch to a live SPL readout that updates 10 times a second.</p>
+
+        <h3>Display modes</h3>
+        <table>
+            <tr><th>Mode</th><th>What it shows</th></tr>
+            <tr><td>Icon</td><td class="wrap-ok">Dose-state ear glyph (default)</td></tr>
+            <tr><td>dBA</td><td class="wrap-ok">Live A-weighted SPL number only</td></tr>
+            <tr><td>dBC</td><td class="wrap-ok">Live C-weighted SPL number only</td></tr>
+            <tr><td>Icon + dBA</td><td class="wrap-ok">Dose glyph followed by the live A-weighted number</td></tr>
+            <tr><td>Icon + dBC</td><td class="wrap-ok">Dose glyph followed by the live C-weighted number</td></tr>
+        </table>
+
+        <img src="images/screenshots/menubar-display-modes.png" alt="The five Audita menu bar display modes side by side: icon only, dBA only, dBC only, icon plus dBA, icon plus dBC" class="screenshot-full">
+
+        <h3>One-decimal toggle</h3>
+        <p class="prose"><strong>Settings → General → Menu Bar → Show one decimal</strong> formats the number as <code>85.2</code> instead of <code>85</code>. The menu bar width stays stable either way - Audita pre-renders the readout into a fixed-width <code>NSImage</code> canvas (22 pt integer, 38 pt decimal) so the menu bar item doesn't resize between adjacent values like 14 and 15.</p>
+
+        <h3>Color-coded readout</h3>
+        <p class="prose"><strong>Settings → General → Menu Bar → Color-code reading by level</strong> tints the SPL number according to three configurable thresholds. The defaults follow the NIOSH risk gradient:</p>
+
+        <table>
+            <tr><th>Range</th><th>Color</th></tr>
+            <tr><td>Below 70 dB</td><td class="wrap-ok">Green</td></tr>
+            <tr><td>70-80 dB</td><td class="wrap-ok">Yellow</td></tr>
+            <tr><td>80-95 dB</td><td class="wrap-ok">Orange</td></tr>
+            <tr><td>95 dB and above</td><td class="wrap-ok">Red</td></tr>
+        </table>
+
+        <p class="prose">The three thresholds (yellow / orange / red) are individually configurable. Their steppers cross-clamp to keep the bands monotonic - you can't set red below orange. Colors use <code>NSColor.system{Green,Yellow,Orange,Red}</code> so they adapt for accessibility and color-blind palettes.</p>
+
+        <h3>Em-dash placeholder when stopped</h3>
+        <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows an em-dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 4. The dropdown menu ─────── -->
+    <section class="guide-section" id="dropdown-menu">
+        <h2>4. The dropdown menu <a href="#dropdown-menu" class="anchor">#</a></h2>
+
+        <p class="prose">Click the menu bar icon to open the popover. Two panels: the live measurement panel (default) and the session history panel (accessed via the <strong>History</strong> button).</p>
+
+        <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, monitoring discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
+
+        <h3>License status</h3>
+        <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
+
+        <h3>Active session block</h3>
+        <p class="prose">Visible while a session is running (auto-started by a DAW or manually started). Shows the DAW name, elapsed time, running average dBA and peak dBA / dBC, and the dose accrued during this session only. The peak counters (<code>≥115 dBA</code>, <code>≥135 dBC</code>) appear as red badges when the corresponding EU thresholds have been exceeded.</p>
+
+        <h3>Live dBA and dBC</h3>
+        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display; dose accumulation uses the unsmoothed per-tick value internally. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
+
+        <h3>Monitoring discipline gauge</h3>
+        <p class="prose">When monitoring discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring discipline</a> for the full mechanic.</p>
+
+        <h3>Today's dose</h3>
+        <p class="prose">The cumulative NIOSH dose percentage for the current calendar day, color-coded by zone (green / yellow / orange / red). Below it, peak counters for today's <code>≥135 dBC</code> and <code>≥115 dBA</code> events when non-zero. The dose resets at midnight.</p>
+
+        <h3>Footer: pin and history</h3>
+        <p class="prose">Two buttons at the bottom:</p>
+        <ul>
+            <li><strong>Pin icon</strong> - opens or closes the <a href="#floating-panel">floating measurement panel</a>. The icon swaps between an outline pin (closed) and a filled accent-tinted pin (open).</li>
+            <li><strong>History</strong> - opens the second panel of the popover, showing the 7-day bar chart and chronological session list. Click <strong>History window</strong> at the top to open the standalone resizable history window with calendar navigation and 30-day range stats.</li>
+        </ul>
+
+        <h3>Start Session / End Session</h3>
+        <p class="prose">Manual session control. Useful when you're not in a tracked DAW (e.g. mixing in iZotope RX, listening on Spotify, scoring against a reference track in QuickTime). The session records exactly like an auto-detected one but is labelled <code>Manual</code> until you give it a custom name.</p>
+
+        <h3>Settings…</h3>
+        <p class="prose">Opens the Settings window. Six tabs: <strong>Audio</strong> (device, calibration), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>Reference</strong> (target dBA, alerts), <strong>DAWs</strong> (custom bundle IDs), <strong>Panel</strong> (floating panel sections), <strong>General</strong> (menu bar display, launch at login, notifications, Auris import).</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 5. Floating measurement panel ─────── -->
+    <section class="guide-section" id="floating-panel">
+        <h2>5. Floating measurement panel <a href="#floating-panel" class="anchor">#</a></h2>
+
+        <p class="prose">A detached always-on-top window that keeps the measurement panel visible while you work in another app. Opened via the pin icon in the menu bar footer; dismissed via the same pin or by double-clicking the panel surface.</p>
+
+        <img src="images/screenshots/floating-panel.png" alt="The Audita floating measurement panel translucent over a DAW window showing live SPL, dose, monitoring discipline, and today's summary" class="screenshot-full">
+
+        <h3>What it shows</h3>
+        <p class="prose">All the same data the menu bar popover shows, configurable per section in <strong>Settings → Panel</strong>:</p>
+        <ul>
+            <li>Hearing dose (today's NIOSH dose with color)</li>
+            <li>Current SPL (dBA + dBC)</li>
+            <li>Monitoring discipline (target, distance, on-target %)</li>
+            <li>Leq / Ln statistics</li>
+            <li>Active session details</li>
+            <li>Today's summary (dose, peaks)</li>
+        </ul>
+        <p class="prose">All sections default on. Sections that depend on context (no active session, monitoring disabled, audio not running) auto-hide regardless of the toggle.</p>
+
+        <h3>Behaviour</h3>
+        <ul>
+            <li><strong>Always on top.</strong> Floats above other windows at <code>NSWindow.Level.floating</code>.</li>
+            <li><strong>Follows you across spaces and full-screen apps.</strong> Joins all spaces; visible whether you're in a DAW's full-screen mode, on a different Mission Control space, or on a secondary display.</li>
+            <li><strong>Borderless and translucent.</strong> No title bar, no traffic lights. The SwiftUI material background draws edge-to-edge.</li>
+            <li><strong>Liquid Glass on macOS 26+.</strong> Uses the system's translucent <code>.glassEffect</code> material and inherits the color of whatever is behind it. On macOS 14-25 it falls back to <code>.regularMaterial</code> - still translucent, but flat.</li>
+            <li><strong>Resizable, position-remembered.</strong> Drag any edge to resize. The frame is auto-saved between launches.</li>
+            <li><strong>Auto-resize on section toggle.</strong> Toggling sections in Settings → Panel re-fits the window without leaving a gap; the top edge stays where you put it so the resize feels anchored.</li>
+        </ul>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 6. Calibration ─────── -->
+    <section class="guide-section" id="calibration">
+        <h2>6. Calibration <a href="#calibration" class="anchor">#</a></h2>
+
+        <p class="prose">Audita's measurement chain is only as accurate as its calibration. <strong>Settings → Audio</strong> presents calibration as a numbered 3-step journey because the steps depend on each other: Step 2 only matters if Step 1 has flattened the mic, and Step 3 only matters if Steps 1 and 2 have made the broadband level reliable.</p>
+
+        <img src="images/screenshots/settings-audio-three-steps.png" alt="The Settings Audio tab showing the three-step calibration layout: mic frequency response, level offset, and reference monitor level" class="screenshot-full">
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>TL;DR.</strong> Run Step 1 once per mic. Run Step 2 every time you move the mic or change the gain. Run Step 3 once per output device (per pair of monitors, per pair of headphones).</p>
+        </div>
+
+        <h3>Step 1 - Mic frequency response correction (optional)</h3>
+        <p class="prose">Most desk-mounted measurement mics, talkback channels on audio interfaces, and onboard laptop mics have non-flat frequency responses that bias dBA readings by 1-5 dB depending on programme content. Step 1 measures your mic's actual frequency response with pink noise and an FFT, then derives a corrective FIR filter that flattens the input chain before the A and C weighting filters run.</p>
+
+        <ol>
+            <li>Place the measurement mic at your normal listening position - where your head sits during a session.</li>
+            <li>Turn your monitors to a normal listening level - loud enough to dominate room noise, not so loud the mic clips.</li>
+            <li><strong>Settings → Audio → Step 1 → Measure.</strong></li>
+            <li>Pink noise plays for ~4 seconds. The mic captures the response. The FIR is computed and saved automatically.</li>
+            <li>The status row updates to <strong>Active</strong>.</li>
+        </ol>
+
+        <p class="prose"><strong>Re-run when:</strong> you change the measurement mic, move it to a meaningfully different position, or change room treatment in the listening area.</p>
+
+        <h3>Step 2 - Level offset (the main one)</h3>
+        <p class="prose">This is the single number that maps <code>20·log₁₀(digital RMS)</code> to real-world dB SPL. The default 94 dB matches the IEC 60942 pistonphone standard - a calibrator that produces a 1 kHz tone at exactly 94 dB SPL. If you have a pistonphone, place it on the mic and adjust the offset until the live reading shows 94 dBA. For everyone else, calibrate against an iPhone running the free <strong>NIOSH SLM</strong> app (independently validated to ±2 dB):</p>
+
+        <ol>
+            <li>Install <strong>NIOSH SLM</strong> on iPhone.</li>
+            <li>Place the iPhone <strong>at your listening position</strong> - where your head would be - <em>not</em> next to the measurement mic.</li>
+            <li>Play pink noise (or any continuous broadband content) through your monitors at a typical listening level.</li>
+            <li>Open <strong>Settings → Audio → Step 2.</strong> The live SPL reading is shown next to the offset slider.</li>
+            <li>Note the difference: NIOSH reads <code>X</code> dBA, Audita reads <code>Y</code> dBA.</li>
+            <li>Adjust the offset slider by <code>(X − Y)</code>. So if NIOSH says 78 and Audita says 72, increase the offset by 6.</li>
+            <li>Repeat until both meters agree to within 1-2 dB on pink noise, music, and voice.</li>
+        </ol>
+
+        <p class="prose">Right under the offset slider is a free-text <strong>Mic Location</strong> field. Use it to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"). It's stored alongside the offset so you can reproduce or cross-check the calibration weeks later.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Why the listening position, not next to the mic?</strong> The goal of dose tracking is to estimate the SPL at your ears, not at an arbitrary point in the room. Your measurement mic is a proxy for your ears - if it sits 30-40 cm away from where your head actually is, there will be a small but real difference in level due to distance and room reflections. Calibrating with the iPhone at the listening position folds that spatial offset into the calibration constant. This is not the formally correct method (IEC 61252 specifies the mic on the shoulder, 10-20 cm from the ear), but it's the closest practical approximation for a desk-mounted setup. If you move the mic, recalibrate.</p>
+        </div>
+
+        <h3>Step 3 - Reference monitor level (per output device)</h3>
+        <p class="prose">Steps 1 and 2 establish that what Audita measures matches reality. Step 3 captures which <strong>physical knob position</strong> on your monitor controller produces your target reference level - and stores that record per output device UID, so monitors and headphones each carry their own calibration.</p>
+
+        <img src="calibration-wizard.png" alt="Audita target-level calibration wizard in the captured state, showing live SPL at target with the option to save the controller position" class="screenshot-full">
+
+        <ol>
+            <li><strong>Settings → Audio → Step 3 → Run Calibration Wizard.</strong></li>
+            <li>Pink noise starts playing through the selected output device. The live SPL is shown alongside your target dBA (set in <strong>Settings → Reference</strong>, defaulting to 79 dBA / K-14).</li>
+            <li>Adjust your physical monitor controller until the live SPL matches the target. Take your time - this is the moment that defines what "K-14" means on your rig.</li>
+            <li>Click <strong>Capture</strong>. Pink noise stops; the position is held so you can verify it before saving.</li>
+            <li>Type a short note describing the controller position (e.g. <em>"Apollo knob at 11 o'clock, monitors L+R at 0 dB on the desk panel"</em>).</li>
+            <li>Click <strong>Save</strong>. The record is persisted; the card shows a green checkmark.</li>
+        </ol>
+
+        <p class="prose">Audita stores the captured <code>measuredDBA</code> alongside the target for honesty - if you aimed for 79 but the closest knob detent gave 80.4, that's recorded. The discrepancy is shown in the saved-record card so you can decide whether to live with it or fine-tune.</p>
+
+        <p class="prose"><strong>Re-run when:</strong> different output device (monitors → headphones, or you switched monitor pairs), you moved a knob and forgot to put it back, you changed monitor placement or room treatment, or you added/removed a hardware level pad.</p>
+
+        <h3>Calibration profiles</h3>
+        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with headphones, second room - saving a <strong>named profile</strong> that captures Step 1 (FIR) + Step 2 (offset) lets you switch between them in one click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker. The active profile name is shown in the menu bar popover.</p>
+
+        <p class="prose">Step 3 records are intentionally not part of profiles - they're keyed by output device UID, which already does the right thing across setups. A profile says "this is my mic and offset for this rig"; the current output device determines which Step 3 target applies.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 7. Monitoring discipline ─────── -->
+    <section class="guide-section" id="monitoring-discipline">
+        <h2>7. Monitoring discipline <a href="#monitoring-discipline" class="anchor">#</a></h2>
+
+        <p class="prose">A separate, optional layer on top of dose tracking that helps you mix and master at a stable, calibrated reference level - and warns you when you've drifted off it.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>Hearing protection (the dose calculation) tells you <strong>how dangerous</strong> today's listening was. Monitoring discipline tells you <strong>how disciplined</strong> today's listening was. Different questions, different answers. A 12-hour day at 70 dBA produces zero NIOSH dose but is also zero K-14 mixing time.</p>
+        </div>
+
+        <h3>Reference targets</h3>
+        <p class="prose">Audita ships with four presets in <strong>Settings → Reference</strong>, plus a Custom option:</p>
+
+        <table>
+            <tr><th>Standard</th><th>Target</th><th>Where it's used</th></tr>
+            <tr><td>Mastering</td><td class="wrap-ok">~73 dBA</td><td class="wrap-ok">Critical listening, low-level detail work</td></tr>
+            <tr><td>K-14</td><td class="wrap-ok">79 dBA</td><td class="wrap-ok">Bob Katz mixing reference (default)</td></tr>
+            <tr><td>K-12</td><td class="wrap-ok">83 dBA</td><td class="wrap-ok">Broadcast / loudness-targeted mixing</td></tr>
+            <tr><td>K-20 / Dolby / SMPTE</td><td class="wrap-ok">85 dBA</td><td class="wrap-ok">Film, theatrical, reference-loudness mix stages</td></tr>
+        </table>
+
+        <img src="images/screenshots/settings-reference-tab.png" alt="The Settings Reference tab with the K-14, K-12, K-20 and mastering presets visible, the tolerance slider, and the on-target and off-target alert toggles" class="screenshot-full">
+
+        <h3>On-target percentage</h3>
+        <p class="prose">Every SPL tick (10 Hz) is classified into one of four zones:</p>
+
+        <table>
+            <tr><th>Zone</th><th>Condition</th></tr>
+            <tr><td>Silent</td><td class="wrap-ok">dBA &lt; 50 OR dBA &lt; (target − 30) - nothing meaningful is playing</td></tr>
+            <tr><td>Under</td><td class="wrap-ok">(silent floor) ≤ dBA &lt; (target − tolerance)</td></tr>
+            <tr><td>On-target</td><td class="wrap-ok">(target − tolerance) ≤ dBA ≤ (target + tolerance)</td></tr>
+            <tr><td>Over</td><td class="wrap-ok">dBA &gt; (target + tolerance)</td></tr>
+        </table>
+
+        <p class="prose">The on-target % reported in the menu bar's <em>Monitoring Discipline</em> section is:</p>
+
+        <pre><code>on_target % = on_target_seconds / (under + on_target + over) × 100</code></pre>
+
+        <p class="prose">Silent time is excluded from the denominator - breaks don't penalise your discipline score. A session where you mixed for 90 minutes (80 % on target) and then took a 30-minute break still reports 80 %. The metric is suppressed (shown as "-") until at least 30 seconds of non-silent monitoring time has been recorded.</p>
+
+        <h3>The drift detector</h3>
+        <p class="prose">Drift is the slow, unconscious creep of monitoring level upward over a long session. Your ears adapt, you compensate, you get louder, the cycle continues. Audita catches this in the background.</p>
+
+        <ol>
+            <li>Ten minutes after the session begins, Audita snapshots the current rolling 30-minute Leq as the session <strong>baseline</strong>.</li>
+            <li>From then on, the rolling 30-min Leq is compared against that baseline on every 1 Hz tick.</li>
+            <li>When the rolling Leq exceeds the baseline by <strong>≥3 dB</strong>, a stopwatch starts.</li>
+            <li>If the elevated condition persists for <strong>≥5 continuous minutes</strong>, the alert fires.</li>
+            <li>The alert is <strong>one-shot per session</strong> - once you've been told you're drifting, you won't be told again until the next session starts. The 30-min snooze action defers any future drift warnings.</li>
+        </ol>
+
+        <p class="prose"><strong>Why these values:</strong> 10 min for the baseline lets the rolling Leq settle; 3 dB is perceptually significant (a doubling of acoustic power) and matches the NIOSH exchange rate; 5 minutes filters transient excursions like a single loud passage or a quick A/B at higher volume.</p>
+
+        <h3>The off-target detector</h3>
+        <p class="prose">Drift is about <em>change</em>. Off-target is about <em>intent</em>. You can be totally stable for 30 minutes and still be 5 dB below your stated target the whole time. The off-target detector asks: was that intentional?</p>
+
+        <ol>
+            <li>Every 1 Hz tick, the current dBA is classified against the <strong>alert tolerance band</strong> (separate from, and wider than, the on-target tolerance - default ±5 dB vs ±3 dB).</li>
+            <li>Classifications fill a rolling buffer trimmed to the user-configured <strong>window</strong> (default 15 minutes).</li>
+            <li>The alert fires when the window is full, <strong>and</strong> at least 50 % of it was active monitoring (we don't ping you on a break), <strong>and</strong> at least 90 % of that active time was off-target (the deviation has to be persistent).</li>
+            <li>The notification reports the dominant direction: <strong>below target</strong> or <strong>above target</strong>.</li>
+            <li>One-shot per session, with a 30-min snooze.</li>
+        </ol>
+
+        <h3>Configurable in Settings → Reference → Alerts</h3>
+        <ul>
+            <li><strong>Drift alert</strong> - on/off.</li>
+            <li><strong>Off-target alert</strong> - on/off, plus window (5 / 10 / 15 / 30 / 60 min), tolerance (±3 / ±5 / ±10 dB), and direction (under-only, over-only, both).</li>
+        </ul>
+
+        <h3>Snooze is routed by category</h3>
+        <p class="prose">Snoozing a drift alert silences future drift alerts only - dose alerts still fire. Snoozing an off-target alert silences future off-target alerts only. Snoozing a dose / peak / sustained-SPL alert silences those collectively but leaves drift and off-target alone. A user who's mid-mastering at a level intentionally below K-14 can silence off-target alerts without losing the safety net of dose alerts.</p>
+
+        <h3>When monitoring discipline is meaningful (and when it isn't)</h3>
+        <p class="prose"><strong>Meaningful when:</strong> you've completed all three calibration steps for the current output device, you're working at a roughly stable level (mixing, mastering, music creation), and the mic hasn't moved.</p>
+        <p class="prose"><strong>Not meaningful when:</strong> you're tracking and the SPL is all over the place by design, you're A/B-ing at multiple levels intentionally, or the output device has changed since the last Step 3 calibration. In those cases, just disable monitoring discipline in Settings → Reference (the toggle at the top of the tab). Tracking continues; the menu bar section disappears; alerts don't fire.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 8. Sessions ─────── -->
+    <section class="guide-section" id="sessions">
+        <h2>8. Sessions &amp; DAW detection <a href="#sessions" class="anchor">#</a></h2>
+
+        <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 60 seconds.</p>
+
+        <h3>How sessions start and end</h3>
+        <ul>
+            <li><strong>Auto.</strong> The first tracked DAW launch starts a session. The last tracked DAW quit ends it. Multiple simultaneous DAWs are correctly handled (only the first/last transitions trigger).</li>
+            <li><strong>Manual.</strong> <strong>Menu → Start Session</strong> and <strong>End Session</strong>. Use when you're working outside a tracked DAW.</li>
+            <li><strong>URL.</strong> <code>audita://session/start</code> and <code>audita://session/end</code>. See the <a href="api.html">URL scheme reference</a>.</li>
+        </ul>
+
+        <h3>Session recap notification</h3>
+        <p class="prose">When a session ends, Audita fires a recap notification: <em>"This session used X.X% of your daily dose. Running total: Y.Y% - Z.Z% remaining today."</em> Sessions with &lt; 0.1 % dose (mic wasn't meaningfully active) are skipped. No action buttons - informational only.</p>
+
+        <h3>Session history</h3>
+        <p class="prose">Sessions persist to <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>. Sessions older than <strong>30 days</strong> are pruned automatically on load.</p>
+
+        <p class="prose">Two ways to review history:</p>
+        <ul>
+            <li><strong>History panel in the menu bar popover.</strong> 7-day bar chart at the top (each bar is one day, color-coded by dose) plus a chronological session list grouped by date. The chart header shows the EU <code>L_EX,w</code> weekly exposure level (ISO 9612, in dBA, green/orange/red against the 85 dBA criterion) and a daily average.</li>
+            <li><strong>History window.</strong> Standalone resizable window with a 30-day calendar on the left and six stat tiles on the right (Total dose, Avg per day, EU weekly, Peak dBA, Peak dBC, Impulses ≥135 dBC). Open it from the menu bar popover's <strong>History</strong> button. Each tile has an ⓘ button with a plain-English explanation.</li>
+        </ul>
+
+        <img src="history.png" alt="The Audita session history window with the calendar range selector, the six summary stat tiles, and the chronological session list" class="screenshot-full">
+
+        <h3>Peak monitoring (EU 2003/10/EC)</h3>
+        <p class="prose">Beyond cumulative dose, Audita monitors for dangerous peak impulses on the C-weighted path. Three thresholds per EU Directive 2003/10/EC:</p>
+
+        <table>
+            <tr><th>Threshold</th><th>EU action level</th><th>Meaning</th></tr>
+            <tr><td>135 dBC</td><td class="wrap-ok">Lower action value</td><td class="wrap-ok">Hearing protection must be <em>available</em></td></tr>
+            <tr><td>137 dBC</td><td class="wrap-ok">Upper action value</td><td class="wrap-ok">Hearing protection must be <em>worn</em></td></tr>
+            <tr><td>140 dBC</td><td class="wrap-ok">Absolute ceiling</td><td class="wrap-ok">No exposure permitted - immediate damage risk</td></tr>
+        </table>
+
+        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Peak counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
+
+        <h3>Conservative dose mode</h3>
+        <p class="prose">Standard dose calculation uses A-weighted levels only. For bass-heavy work (sub-bass mixing, kick tracking, live sound with subwoofers), <strong>Settings → Safety → Conservative dose mode</strong> uses <code>max(dBA, dBC)</code> for dose accumulation. Each tick, whichever weighting gives the higher reading is used. For mid-range content (speech, acoustic instruments), dBA ≈ dBC and behaviour is unchanged. There is no formal NIOSH or OSHA standard for this approach - it's a maximum-protection option.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 9. Pause & resume monitoring ─────── -->
+    <section class="guide-section" id="pause-resume">
+        <h2>9. Pause &amp; resume monitoring (v1.2+) <a href="#pause-resume" class="anchor">#</a></h2>
+
+        <p class="prose">There are days when you don't want Audita to count what's playing - you're auditioning loud reference tracks, running a sweep, testing a speaker, or rehearsing in the room and don't want the rehearsal to spend your hearing budget for the working day. Pause halts dose accumulation without ending the active session.</p>
+
+        <p class="prose">Pause can be triggered three ways:</p>
+        <ul>
+            <li><strong>Menu bar popover</strong> - the in-app pause control (when present in your build).</li>
+            <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. See the <a href="api.html">URL scheme reference</a>.</li>
+            <li><strong>Resume</strong> - <code>audita://monitoring/resume</code> or the in-app control.</li>
+        </ul>
+
+        <p class="prose">While paused, the SPL feed still runs (the menu bar readout keeps updating) but the dose calculator skips accumulation on every tick. The pause state is checked at 10 Hz, so dose stops accruing within ~100 ms of the pause being requested. A timed pause auto-resumes at the configured deadline.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>Pause is a deliberate user choice, not a workaround. If you find yourself reaching for it daily, that's a signal that your monitoring habits are spending the dose - consider re-running Step 3 calibration or tightening your monitoring discipline tolerance rather than pausing through the dose.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 10. Send to Lyra ─────── -->
+    <section class="guide-section" id="send-to-lyra">
+        <h2>10. Send to Lyra - write a calibrated level into a Lyra reference slot <a href="#send-to-lyra" class="anchor">#</a></h2>
+
+        <p class="prose"><a href="/lyra/">Lyra</a> is the Headroom menu bar app that controls Apollo Twin X monitor volume via the UA Mixer Engine. Lyra has three Reference Level slots (Ctrl+F10 / F11 / F12). Audita can write the calibrated dB SPL value <em>and</em> the live Apollo monitor position into one of those slots so the slot recalls the exact level you just calibrated.</p>
+
+        <img src="send-to-lyra.png" alt="The Send to Lyra sheet in Audita with the slot picker, name field, and read-only SPL value" class="screenshot-full">
+
+        <h3>How to use it</h3>
+        <p class="prose">After running <a href="#calibration">Step 3 calibration</a> against an Apollo output device, the saved-calibration card in <strong>Settings → Audio → Step 3</strong> grows a <strong>Send to Lyra…</strong> button. Click it to open the sheet:</p>
+
+        <ol>
+            <li><strong>Slot picker</strong> - 1, 2, or 3 (Ctrl+F10 / F11 / F12 respectively).</li>
+            <li><strong>Name</strong> - defaults from your K-System target (79 dBA → "K-14", 83 → "K-12", 85 → "Mix"). Edit freely.</li>
+            <li><strong>SPL readout</strong> - read-only, the calibrated value about to be stored.</li>
+        </ol>
+
+        <p class="prose">When you confirm, Audita fires <code>lyra://reference/{n}/save?name=…&amp;dBSPL=…</code> and Lyra:</p>
+        <ol>
+            <li>Reads the <strong>live</strong> Apollo monitor level (so the slot reflects exactly what Audita just measured against).</li>
+            <li>Stores tapered + name + dBSPL together.</li>
+            <li>Pops the labeled HUD as confirmation - e.g. <code>Mix - 85 dB SPL</code>.</li>
+        </ol>
+
+        <p class="prose">Audita does <strong>not</strong> send the tapered position itself. Lyra reads it directly from the Apollo when receiving the URL, which is exactly the position the user just calibrated against. Audita contributes only <code>name</code> and <code>dBSPL</code> as metadata that Lyra surfaces in its menu and HUD.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Don't have Lyra?</strong> The Send to Lyra button is hidden when Lyra isn't installed; a subtle hint links to the Lyra product page instead. Audita works fully without Lyra - it's a cross-app convenience for users who own both. Requires Lyra 1.4 or later.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 11. Automation ─────── -->
+    <section class="guide-section" id="automation">
+        <h2>11. URL scheme &amp; automation <a href="#automation" class="anchor">#</a></h2>
+
+        <p class="prose">Audita registers a custom <code>audita://</code> URL scheme so any tool that can fire a URL can read its state or drive its sessions and pause - Shortcuts, Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from the shell, other apps.</p>
+
+        <p class="prose">A brief overview:</p>
+
+        <table>
+            <tr><th>URL</th><th>What it does</th></tr>
+            <tr><td class="wrap-ok"><code>audita://spl</code></td><td class="wrap-ok">Read live SPL (dBA, dBC, peak dBA)</td></tr>
+            <tr><td class="wrap-ok"><code>audita://dose</code></td><td class="wrap-ok">Read today's NIOSH dose and peak counters</td></tr>
+            <tr><td class="wrap-ok"><code>audita://session</code></td><td class="wrap-ok">Read the active session payload</td></tr>
+            <tr><td class="wrap-ok"><code>audita://state</code></td><td class="wrap-ok">Aggregated payload (spl + dose + session + pause)</td></tr>
+            <tr><td class="wrap-ok"><code>audita://session/start</code></td><td class="wrap-ok">Start a manual session (optional <code>?daw=…</code>)</td></tr>
+            <tr><td class="wrap-ok"><code>audita://session/end</code></td><td class="wrap-ok">End the current session</td></tr>
+            <tr><td class="wrap-ok"><code>audita://monitoring/pause</code></td><td class="wrap-ok">Pause dose accumulation (optional <code>?duration=&lt;seconds&gt;</code>)</td></tr>
+            <tr><td class="wrap-ok"><code>audita://monitoring/resume</code></td><td class="wrap-ok">Resume monitoring</td></tr>
+        </table>
+
+        <p class="prose">All endpoints accept the standard <code>x-callback-url</code> parameters (<code>x-success</code>, <code>x-error</code>) so you can chain Audita into a wider workflow. Read endpoints require an <code>x-success</code> URL to deliver their payload; write endpoints treat both callbacks as optional. Responses use flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>The full URL reference - every endpoint, every return field, error codes, worked examples for Shortcuts, Stream Deck, Keyboard Maestro, and AppleScript - lives on the <a href="api.html">API reference page</a>. <!-- TODO: api.html is a separate v1.2 ticket; this link will 404 until that page ships --></p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 12. Importing from Auris ─────── -->
+    <section class="guide-section" id="auris-import">
+        <h2>12. Importing from Auris <a href="#auris-import" class="anchor">#</a></h2>
+
+        <p class="prose">Audita is the successor to <strong>Auris</strong>, which was sunset on 2026-05-08. Auris 1.3 shipped with a <strong>Move to Audita</strong> export modal; Audita 1.0 and later include a first-launch import wizard that reads the exported JSON and brings your data over.</p>
+
+        <p class="prose">What's imported:</p>
+        <ul>
+            <li>Session history (up to 30 days).</li>
+            <li>Today's accumulated dose.</li>
+            <li>Calibration profiles (Step 1 FIR + Step 2 offset).</li>
+            <li>Step 3 target calibration records, keyed by output device UID.</li>
+            <li>Custom DAW bundle IDs.</li>
+            <li>Mic frequency response correction filters.</li>
+        </ul>
+
+        <p class="prose">The wizard runs once on first launch. It can be re-run later from <strong>Settings → General → Migration → Import from Auris</strong> if you want to bring data over from a second Mac.</p>
+
+        <p class="prose">Your existing Auris license key and trial state carry across automatically - the Keychain entry is shared by design, so reinstalling Audita on a machine that previously had Auris finds the same trial countdown and license credentials. Existing Auris users do not need to re-pay.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 13. Trial & licensing ─────── -->
+    <section class="guide-section" id="licensing">
+        <h2>13. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+
+        <p class="prose">Audita is <strong>$19.99</strong> regular price, one-time purchase, via Lemon Squeezy. An intro price of <strong>$6.99</strong> runs through end-of-day 2026-05-31 for Better Hearing &amp; Speech Month.</p>
+
+        <h3>Trial</h3>
+        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date is stored in the macOS Keychain (XOR-scrambled, opaque service identifier), so reinstalling the app does not reset the trial. After 7 days Audita shows a hard-lock window on launch and refuses to run until you activate a license.</p>
+        <p class="prose">The hard lock only fires at launch - if you're already running Audita when the trial expires, nothing happens until your next restart.</p>
+
+        <h3>Buying</h3>
+        <p class="prose">Click <strong>Buy Audita</strong> in the menu (or the Buy button on <a href="/audita/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
+
+        <h3>Activating</h3>
+        <p class="prose"><strong>Menu → Activate</strong> (or <strong>Manage</strong> if already licensed) opens the license window. Paste your key and click <strong>Activate</strong>. Audita calls the Lemon Squeezy API to validate, then stores the key and instance ID in the Keychain. Subsequent launches read from Keychain - no network call needed.</p>
+        <p class="prose">Activation requires an internet connection. Once activated, Audita works fully offline.</p>
+
+        <h3>Two-machine limit</h3>
+        <p class="prose">Each license can be active on up to <strong>two Macs</strong>. To free a slot, open Audita on the machine you want to release, <strong>Menu → Manage License → Deactivate</strong>, then activate on the new Mac.</p>
+
+        <h3>Lost your key?</h3>
+        <p class="prose">Check the Lemon Squeezy confirmation email. If you can't find it, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the address you used at checkout.</p>
+
+        <h3>Validation</h3>
+        <p class="prose">Audita silently re-validates the stored license against the Lemon Squeezy server on each launch. If the server says revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 14. Updates ─────── -->
+    <section class="guide-section" id="updates">
+        <h2>14. Updates <a href="#updates" class="anchor">#</a></h2>
+        <p class="prose">Audita ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/audita/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
+        <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
+        <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Audita before installing. If the signature doesn't match the download is rejected.</p>
+        <p class="prose">Release notes: <a href="releases.html">headroomstudio.dev/audita/releases.html</a>.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 15. Troubleshooting ─────── -->
+    <section class="guide-section" id="troubleshooting">
+        <h2>15. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+
+        <h3>No SPL reading - the menu bar shows an em-dash</h3>
+        <ol>
+            <li><strong>Microphone permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Microphone</strong> and verify Audita is in the list and toggled on.</li>
+            <li><strong>Input device selected.</strong> Open <strong>Settings → Audio</strong> and confirm the measurement microphone is selected. If you previously selected a device that has since been unplugged, Audita stops measuring gracefully - re-select an available device or plug the original back in.</li>
+            <li><strong>Audio engine status.</strong> The em-dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
+        </ol>
+
+        <h3>Readings are wildly off (off by 20+ dB)</h3>
+        <p class="prose">Audita measures relative to the digital full-scale level of your microphone. Without Step 2 calibration, the displayed dB is not in real-world SPL - it's a digital level offset by the default 94 dB pistonphone constant. Run <a href="#calibration">Step 2</a> against an iPhone running NIOSH SLM to map the digital scale to real-world dB SPL.</p>
+
+        <h3>dBA and dBC differ by &gt; 10 dB on broadband content</h3>
+        <p class="prose">On broadband pink noise, dBA and dBC should be within ~3 dB. A larger gap means your mic has significant low-frequency response that A-weighting alone underreports. Run <a href="#calibration">Step 1</a> to flatten the mic, then re-verify against pink noise. If the gap persists after Step 1, the mic itself may be the issue (check the cable, preamp, and gain staging).</p>
+
+        <h3>On-target % stays at "-"</h3>
+        <p class="prose">The metric is suppressed until at least 30 seconds of non-silent monitoring time has been recorded. If you've been monitoring for longer and it still says "-", check that the dBA is above the silent floor (50 dBA, or target − 30 dBA, whichever is higher).</p>
+
+        <h3>Drift alert never fires</h3>
+        <p class="prose">The drift detector needs 10 minutes of baseline plus 5 minutes of sustained elevation. A 20-minute session is the earliest it can fire. If you're in a longer session and expected an alert, check that <strong>Settings → Reference → Alerts → Drift alert</strong> is enabled.</p>
+
+        <h3>Auris import skipped or didn't find data</h3>
+        <p class="prose">Re-run from <strong>Settings → General → Migration → Import from Auris</strong>. Make sure the Auris export JSON is on the same machine; the wizard expects the file at the path produced by Auris 1.3's "Move to Audita" modal. If you've moved Macs, copy the export file across first.</p>
+
+        <h3>Trial says expired but I just installed</h3>
+        <p class="prose">Reinstalling doesn't reset the trial - the start date is in the Keychain and survives uninstall. This is intentional, and includes data inherited from any prior Auris install on the same machine (the Keychain UUID is shared by design). If you genuinely just downloaded Audita for the first time and it's already expired, the Keychain may have a stale entry. Delete it:</p>
+        <pre><code>security delete-generic-password -s "B2E1D847-9F3A-4C5B-8E6D-1A7C4F2B9E3D" -a "s.ts.v1"</code></pre>
+        <p class="prose">Relaunch - the trial starts fresh.</p>
+
+        <h3>License says invalid even though I just bought it</h3>
+        <p class="prose">Wait 30 seconds and try again - Lemon Squeezy occasionally needs a moment to propagate. If it still fails, double-check that there's no leading/trailing whitespace in the key you pasted. Otherwise email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the key and order number.</p>
+
+        <h3>Notifications don't appear</h3>
+        <p class="prose">Open <strong>System Settings → Notifications → Audita</strong> and confirm notifications are allowed. For Focus-breaking alerts (warning/danger dose, peak alerts, 115 dBA ceiling, sustained-SPL), enable <strong>Settings → General → Notifications → Time Sensitive notifications</strong> in Audita and confirm Time Sensitive is allowed in the system Notifications pane.</p>
+
+        <h3>Sparkle won't show an update prompt</h3>
+        <p class="prose">Reset Sparkle's "already checked / already skipped" state:</p>
+        <pre><code>defaults delete com.headroom.Audita</code></pre>
+        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. This also clears other UserDefaults - including menu bar display preferences and today's dose - so you'll go back to factory defaults.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 16. Feedback ─────── -->
+    <section class="guide-section" id="feedback">
+        <h2>16. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Audita</code>.</p>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+    </section>
+</div>
+
+<div class="container">
+    <footer>
+        <p class="footer-copy">© 2026 Headroom Studio. Made by Krzysiek.</p>
+        <ul class="footer-links">
+            <li><a href="./">Audita home</a></li>
+            <li><a href="api.html">URL API</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="releases.html">Releases</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
