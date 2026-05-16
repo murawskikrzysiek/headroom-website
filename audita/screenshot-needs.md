@@ -208,9 +208,75 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
+### 11. `images/screenshots/session-report-window.png` - status: pending
+
+**Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
+
+**Target file.** `audita/images/screenshots/session-report-window.png`.
+
+**What to capture.** The Session Report window open over a real session. Frame so the **chart + stats grid are both readable** in the visible portion of the window. The chart must show the monitoring-discipline background shading (silent / under / on-target / over zones) clearly - pick a session that crossed at least two zones so the shading is visible, not flat.
+
+**Resolution.** 2x retina, ~1200 x 800 px logical for the window (the report layout is portrait-shaped; capture the whole window or scroll to a position that includes both the chart and the stats grid).
+
+**Theme.** Dark mode preferred (matches the site).
+
+**Setup.**
+- Seed a credible session first via `Audita-v1.2-app-intents/scripts/seed-sessions.py yellow` so the chart has variation and the dose lands in the caution / yellow tier (the most visually interesting of the four tiers).
+- Open the Session Report window for the seeded session via the menu bar popover's **Share Last Session...** button or via the history-row context menu.
+- Verify the brand strip is showing the v1.2 styling (Audita mark + DAW + date + duration).
+- The footer must show `headroomstudio.dev/audita`.
+
+**Bloom or ear?** The Session Report window does not show the menu bar glyph. Independent of the Bloom vs ear toggle.
+
+---
+
+### 12. `images/screenshots/share-menu-from-history.png` - status: pending
+
+**Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
+
+**Target file.** `audita/images/screenshots/share-menu-from-history.png`.
+
+**What to capture.** The history panel of the menu bar popover with a **right-click context menu** open on one of the session rows. The context menu must show the two entries: **Open Report** and **Share Report...**. Frame so at least 2-3 session rows are visible alongside the context menu for context.
+
+**Resolution.** 2x retina, ~480 x 600 px logical (popover plus context menu width).
+
+**Theme.** Light or dark - your call. Dark matches the site aesthetic best.
+
+**Setup.**
+- Open the menu bar popover and switch to the **History** panel.
+- Make sure several recent sessions are visible (seed with `Audita-v1.2-app-intents/scripts/seed-sessions.py` if the local install is fresh).
+- Right-click on a session row that has a meaningful dose (not the 0 % filtered-out ones) so the context menu reads as useful.
+- Capture before the context menu auto-dismisses.
+
+**Bloom or ear?** The menu bar Bloom may be visible above the popover. If so, follow the v1.2 Bloom rule (Pressure Bloom on, default settings, dose tier driving colour).
+
+---
+
+### 13. `images/screenshots/settings-storage.png` - status: pending
+
+**Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
+
+**Target file.** `audita/images/screenshots/settings-storage.png`.
+
+**What to capture.** Settings -> General with the new **Storage** section visible. Show both retention sliders (detailed retention default 14 days, total retention default 90 days). Optionally trigger the **orange "N sessions older than X days will be deleted on next launch" warning caption** by dragging the total-retention slider low enough to drop existing seeded sessions.
+
+**Resolution.** 2x retina, ~900 x 600 px logical (or whatever the Settings window default size produces).
+
+**Theme.** Dark mode.
+
+**Setup.**
+- Seed enough session history that the warning caption can be triggered (run `Audita-v1.2-app-intents/scripts/seed-sessions.py` a couple of times to backdate sessions if needed).
+- Open Settings -> General -> Storage.
+- For maximum information density: drag the **Keep sessions for [N] days** slider down to e.g. 30 or 60 days so the orange caption appears reading something like *"7 sessions older than 60 days will be deleted on next launch"*. This shows users what to expect when they tune the slider.
+- Both sliders' current values must be readable.
+
+**Bloom or ear?** No menu bar visible. Independent of v1.2 menu bar changes.
+
+---
+
 ## api.html
 
-### 11. `images/screenshots/shortcut-studio-on-ritual.png` - status: pending
+### 14. `images/screenshots/shortcut-studio-on-ritual.png` - status: pending
 
 **Where it appears.** `audita/api.html` cross-app worked example (studio-on ritual). Optional but desirable - the section reads cleanly as text-only reference if the screenshot isn't ready.
 
