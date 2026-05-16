@@ -525,17 +525,22 @@
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
         <h3>Menu bar icon states</h3>
-        <p class="prose">The icon reflects the current dose level using NIOSH-aligned thresholds and color coding:</p>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single 22 pt glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time.</p>
 
         <table>
-            <tr><th>Range</th><th>State</th><th>Glyph</th></tr>
-            <tr><td>0-40 %</td><td class="wrap-ok">Safe</td><td class="wrap-ok">Green ear outline</td></tr>
-            <tr><td>40-70 %</td><td class="wrap-ok">Caution</td><td class="wrap-ok">Yellow filled ear</td></tr>
-            <tr><td>70-90 %</td><td class="wrap-ok">Warning</td><td class="wrap-ok">Orange ear with badge</td></tr>
-            <tr><td>90 %+</td><td class="wrap-ok">Danger</td><td class="wrap-ok">Red warning triangle</td></tr>
+            <tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
+            <tr><td>No session running</td><td class="wrap-ok">Full bloom (3 arcs + dot)</td><td class="wrap-ok">Neutral (system foreground)</td></tr>
+            <tr><td>Session, &lt; 35 dBA</td><td class="wrap-ok">Dot only</td><td class="wrap-ok">Dose tier</td></tr>
+            <tr><td>Session, 35-55 dBA</td><td class="wrap-ok">1 arc + dot</td><td class="wrap-ok">Dose tier</td></tr>
+            <tr><td>Session, 55-80 dBA</td><td class="wrap-ok">2 arcs + dot</td><td class="wrap-ok">Dose tier</td></tr>
+            <tr><td>Session, &ge; 80 dBA</td><td class="wrap-ok">3 arcs + dot (full bloom)</td><td class="wrap-ok">Dose tier</td></tr>
         </table>
 
-        <p class="prose">Today's dose is persisted to <code>UserDefaults</code> after every measurement, so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
+        <p class="prose">The 80 dBA arc-count maximum lines up with the NIOSH dose accrual threshold (<code>Constants.thresholdDBA</code>): the moment your listening starts counting against today's budget is the moment the glyph reaches its full shape. Higher-dB cues come through the dose-tier colour, not extra arcs.</p>
+
+        <p class="prose">The dose-tier colour is unchanged from v1.1: safe 0-40 % is green, caution 40-70 % is yellow, warning 70-90 % is orange, danger 90 %+ is red. Today's dose is persisted to <code>UserDefaults</code> after every measurement, so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
+
+        <p class="prose">When no session is running, the bloom renders as the full three-arc shape in a neutral system-foreground colour. That distinct "Audita is present, just not measuring" state reads differently from the dose-tinted bloom you see during a live session.</p>
     </section>
 
     <hr class="divider">
@@ -544,16 +549,16 @@
     <section class="guide-section" id="menu-bar-display">
         <h2>3. Menu bar display <a href="#menu-bar-display" class="anchor">#</a></h2>
 
-        <p class="prose">By default the menu bar shows just the dose-state ear glyph. From <strong>Settings → General → Menu Bar</strong> you can switch to a live SPL readout that updates 10 times a second.</p>
+        <p class="prose">By default the menu bar shows just the Pressure Bloom glyph (or the legacy SF Symbol ear if you've enabled the fallback in Settings). From <strong>Settings → General → Menu Bar</strong> you can switch to a live SPL readout that updates 10 times a second.</p>
 
         <h3>Display modes</h3>
         <table>
             <tr><th>Mode</th><th>What it shows</th></tr>
-            <tr><td>Icon</td><td class="wrap-ok">Dose-state ear glyph (default)</td></tr>
+            <tr><td>Icon</td><td class="wrap-ok">Pressure Bloom glyph (default)</td></tr>
             <tr><td>dBA</td><td class="wrap-ok">Live A-weighted SPL number only</td></tr>
             <tr><td>dBC</td><td class="wrap-ok">Live C-weighted SPL number only</td></tr>
-            <tr><td>Icon + dBA</td><td class="wrap-ok">Dose glyph followed by the live A-weighted number</td></tr>
-            <tr><td>Icon + dBC</td><td class="wrap-ok">Dose glyph followed by the live C-weighted number</td></tr>
+            <tr><td>Icon + dBA</td><td class="wrap-ok">Bloom glyph followed by the live A-weighted number</td></tr>
+            <tr><td>Icon + dBC</td><td class="wrap-ok">Bloom glyph followed by the live C-weighted number</td></tr>
         </table>
 
         <img src="images/screenshots/menubar-display-modes.png" alt="The five Audita menu bar display modes side by side: icon only, dBA only, dBC only, icon plus dBA, icon plus dBC" class="screenshot-full">
@@ -576,6 +581,9 @@
 
         <h3>Em-dash placeholder when stopped</h3>
         <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows an em-dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
+
+        <h3>Prefer the v1.1 ear icon?</h3>
+        <p class="prose"><strong>Settings → Menu Bar → Use classic ear icon</strong> restores the SF Symbol ear in both the menu bar and the menu window. Off by default; flip it on if you preferred the v1.1 look or if the dose-tier colour reads more clearly to you as the four-icon set than as a single colour-shifting bloom.</p>
     </section>
 
     <hr class="divider">
@@ -587,6 +595,8 @@
         <p class="prose">Click the menu bar icon to open the popover. Two panels: the live measurement panel (default) and the session history panel (accessed via the <strong>History</strong> button).</p>
 
         <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, monitoring discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
+
+        <p class="prose">A larger 44 pt Pressure Bloom sits in the popover header next to the accumulated dose readout. It uses the same geometry as the menu bar glyph, sized up. The popover glyph's arcs map to the current dose <em>bucket</em> (safe / caution / warning / danger), not live SPL: the arcs read as a four-step dose meter alongside the percentage. When no session is running, the popover glyph also shows the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
 
         <h3>License status</h3>
         <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
