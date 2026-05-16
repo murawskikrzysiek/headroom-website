@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita Automation API - App Intents, audita:// URL scheme, x-callback-url</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/api.html">
-    <meta name="description" content="Complete reference for Audita's automation surface. Nine App Intents (Shortcuts, Siri, Focus Filters) plus the audita:// URL scheme with x-callback-url chaining. Endpoint reference, error vocabulary, worked examples for the Send-to-Lyra cross-app flow.">
+    <meta name="description" content="Complete reference for Audita's automation surface. Eight App Intents (Shortcuts, Siri, Focus Filters) plus the audita:// URL scheme with x-callback-url chaining. Endpoint reference, error vocabulary, worked example for the cross-app studio-on ritual.">
     <meta property="og:title" content="Audita Automation API">
-    <meta property="og:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Nine App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta property="og:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Audita Automation API">
-    <meta name="twitter:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Nine App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta name="twitter:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
     <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -519,7 +519,7 @@
                 <li><a href="#url-scheme">URL scheme</a></li>
                 <li><a href="#callback-url">x-callback-url</a></li>
                 <li><a href="#url-errors">URL error codes</a></li>
-                <li><a href="#cross-app">Cross-app: Send to Lyra</a></li>
+                <li><a href="#cross-app">Cross-app: studio-on ritual</a></li>
                 <li><a href="#constraints">Read-and-toggle constraint</a></li>
                 <li><a href="#not-supported">What the API does NOT do</a></li>
             </ul>
@@ -548,9 +548,14 @@
     <!-- ─── App Intents ─── -->
     <section class="section" id="intents">
         <p class="section-label">App Intents</p>
-        <h2>The nine intents<a class="anchor" href="#intents">#</a></h2>
+        <h2>The eight intents<a class="anchor" href="#intents">#</a></h2>
 
-        <p class="prose">All nine intents are gated on macOS 14 (Sonoma). They live under <em>Audita</em> in the Shortcuts app's action library. Every <code>perform()</code> resolves Audita's app state first and throws <code>appNotReady</code> if Audita is still finishing launch - the intent surfaces the error verbatim rather than returning silent zeros.</p>
+        <p class="prose">All eight intents are gated on macOS 14 (Sonoma). They live under <em>Audita</em> in the Shortcuts app's action library. Every <code>perform()</code> resolves Audita's app state first and throws <code>appNotReady</code> if Audita is still finishing launch - the intent surfaces the error verbatim rather than returning silent zeros.</p>
+
+        <div class="notice">
+            <span class="notice-icon">!</span>
+            <p>Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". The intent surface holds no cross-app writes - the studio-on ritual below chains the per-app intents Audita and Lyra each expose.</p>
+        </div>
 
         <h3>Reads</h3>
         <table class="spec">
@@ -607,16 +612,12 @@
             </tbody>
         </table>
 
-        <h3>Cross-app and export</h3>
+        <h3>Export</h3>
         <table class="spec">
             <thead>
                 <tr><th style="width: 200px;">Intent</th><th>Parameters &amp; effect</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Send SPL to Lyra</td>
-                    <td><code>slot</code> (1-3, required), <code>name</code> (optional text). Writes Audita's most recent calibrated reference SPL into a Lyra reference slot via <code>lyra://reference/{n}/save</code>. Default <code>name</code> follows the K-System target (79 dBA &rarr; <code>K-14</code>, 83 &rarr; <code>K-12</code>, 85 &rarr; <code>Mix</code>; 71 / 75 &rarr; <code>K-20</code>; otherwise <code>Mix</code>). Throws "No reference calibration is saved" if you haven't run Step 3 of the calibration wizard, or "Lyra is not installed" if Lyra isn't on the machine.</td>
-                </tr>
                 <tr>
                     <td>Send Today's Report</td>
                     <td>No parameters. Returns a plain-text summary of today's exposure - pipe it into Copy to Clipboard, Save File, or Send Message. Format: header + dose line + sessions line + peaks line (peaks omitted when zero).</td>
@@ -681,10 +682,6 @@
                     <td>Resume Monitoring</td>
                     <td class="wrap-ok">"Resume Audita", "Resume monitoring in Audita"</td>
                 </tr>
-                <tr>
-                    <td>Send SPL to Lyra</td>
-                    <td class="wrap-ok">"Send SPL to Lyra from Audita", "Save calibration to Lyra in Audita"</td>
-                </tr>
             </tbody>
         </table>
     </section>
@@ -715,18 +712,6 @@
                 <tr>
                     <td class="wrap-ok">"No session is running"</td>
                     <td><strong>End Mixing Session</strong> or the report intent called when nothing is active.</td>
-                </tr>
-                <tr>
-                    <td class="wrap-ok">"No reference calibration is saved"</td>
-                    <td><strong>Send SPL to Lyra</strong> called before Step 3 of the calibration wizard has produced a target-level record.</td>
-                </tr>
-                <tr>
-                    <td class="wrap-ok">"Lyra is not installed"</td>
-                    <td><strong>Send SPL to Lyra</strong> called on a machine where Lyra isn't present. Audita detects Lyra via <code>NSWorkspace</code>'s <code>lyra://</code> handler lookup.</td>
-                </tr>
-                <tr>
-                    <td class="wrap-ok">"Slot must be 1, 2, or 3"</td>
-                    <td><strong>Send SPL to Lyra</strong> with an out-of-range slot number.</td>
                 </tr>
                 <tr>
                     <td class="wrap-ok">"Pause duration must be a positive number of minutes"</td>
@@ -927,40 +912,40 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
     <!-- ─── Cross-app ─── -->
     <section class="section" id="cross-app">
         <p class="section-label">Cross-app</p>
-        <h2>Send to Lyra: a worked example<a class="anchor" href="#cross-app">#</a></h2>
-        <p class="prose">The headline cross-app flow: a single Shortcut that starts a session, pushes Audita's calibrated reference SPL into a Lyra reference slot, and then recalls that slot on the Apollo. Run it from a Stream Deck button, a Focus, a hotkey, or "Hey Siri, start mixing in Audita".</p>
+        <h2>Studio-on ritual: a worked example<a class="anchor" href="#cross-app">#</a></h2>
+        <p class="prose">The daily-driver cross-app flow: one Shortcut, three steps, both apps coordinate. Open your DAW, start an Audita session, and switch Lyra to the reference monitor level you calibrated against. Run it from a Stream Deck button, a Focus, a hotkey, or "Hey Siri, start mixing in Audita".</p>
 
-        <h3>The four-step Shortcut</h3>
+        <h3>The three-step Shortcut</h3>
         <pre class="code-block"><span class="cmt">Shortcut: "Dial in the studio"</span>
 
-1. <span class="kw">Start Mixing Session in Audita</span>      <span class="cmt">(Audita intent)</span>
+1. <span class="kw">Open App</span>: Logic Pro                  <span class="cmt">(built-in Shortcuts action)</span>
+
+2. <span class="kw">Start Mixing Session in Audita</span>      <span class="cmt">(Audita intent)</span>
    DAW: Logic Pro
 
-2. <span class="kw">Wait</span> 60 seconds                     <span class="cmt">(give the monitor a moment to settle</span>
-                                          <span class="cmt"> at the calibrated position)</span>
-
-3. <span class="kw">Send SPL to Lyra in Audita</span>          <span class="cmt">(Audita intent - cross-app)</span>
-   Slot: 2
-   Name: K-14
-
-4. <span class="kw">Switch to Reference Level in Lyra</span>   <span class="cmt">(Lyra intent)</span>
+3. <span class="kw">Switch to Reference Level in Lyra</span>   <span class="cmt">(Lyra intent)</span>
    Slot: 2</pre>
 
-        <p class="prose">Step 3 is the cross-app moment. Audita writes its calibrated SPL into Lyra's slot 2 via <code>lyra://reference/2/save?name=K-14&amp;dBSPL=...</code>. Audita does <strong>not</strong> send a tapered position - Lyra reads the live Apollo monitor level when receiving the URL, which is exactly the position the user calibrated against. Audita contributes <code>name</code> and <code>dBSPL</code> only.</p>
+        <p class="prose">One tap and the DAW is open, dose tracking is on, and the Apollo monitor level is at your reference. If you already use Audita's auto-start-on-DAW-launch, step 2 is redundant (auto-detection handles it) and the ritual collapses to two steps.</p>
 
         <h3>The same flow via URL scheme</h3>
         <p class="prose">If you're driving the chain from Stream Deck or Keyboard Maestro instead of Shortcuts, the equivalent URL sequence:</p>
-        <pre class="code-block"><span class="cmt"># 1. Start the session.</span>
+        <pre class="code-block"><span class="cmt"># 1. Open the DAW (any "open this app" mechanism works -</span>
+<span class="cmt">#    Stream Deck's System &raquo; Open, Keyboard Maestro's Activate Specific App,</span>
+<span class="cmt">#    `open -a "Logic Pro"` from a shell).</span>
+
+<span class="cmt"># 2. Start the session.</span>
 <span class="kw">open</span> <span class="str">"audita://session/start?daw=Logic%20Pro"</span>
 
-<span class="cmt"># 2. Push the calibration into Lyra slot 2 (via Audita's UI button</span>
-<span class="cmt">#    or the App Intent; the URL scheme intentionally doesn't expose</span>
-<span class="cmt">#    a calibration writer - see the read-and-toggle constraint below).</span>
-
-<span class="cmt"># 3. Recall the slot on Lyra.</span>
+<span class="cmt"># 3. Recall the reference slot on Lyra.</span>
 <span class="kw">open</span> <span class="str">"lyra://reference/2"</span></pre>
 
-        <p class="prose">Requires Lyra 1.4 or later (slot save endpoint) and Audita 1.2 (the App Intent and the URL scheme). If Lyra isn't installed, the <strong>Send SPL to Lyra</strong> intent throws <em>"Lyra is not installed"</em> and the in-app sheet shows a subtle hint linking to the Lyra product page.</p>
+        <p class="prose">Requires Lyra 1.4 or later (URL scheme handler) and Audita 1.2 (App Intents and URL scheme).</p>
+
+        <h3>Why "Send SPL to Lyra" isn't an intent</h3>
+        <p class="prose">Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". You run it once after calibrating against a monitor controller position; every day after, the studio-on ritual above just recalls the slot you wrote. Wiring that as a Shortcut-chainable intent invited misuse (running it daily would overwrite the slot with whatever level the engine happened to read at that moment), so it lives behind explicit UI confirmation instead.</p>
+
+        <p class="prose">When Lyra isn't installed, the in-app "Send to Lyra..." button is hidden and a subtle hint links to the Lyra product page. Audita works fully without Lyra - it's a cross-app convenience for users who own both.</p>
     </section>
 
     <!-- ─── Read-and-toggle constraint ─── -->
@@ -971,7 +956,7 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
 
         <p class="prose">The reasoning: a calibration writer like <code>audita://calibration/set?offset=120</code> is a silent attack surface. A malicious URL in a Slack message, a misconfigured Shortcut in a shared library, or a stale Stream Deck button could wipe a user's calibration without any visible feedback - and every future measurement would be wrong by the offset delta. Sensitive state stays in the in-app UI behind explicit user confirmation, where it can't be triggered by a URL handler.</p>
 
-        <p class="prose">The same constraint covers the App Intents: <code>SendSPLToLyraIntent</code> reuses the same <code>LyraIntegration</code> service the in-app "Send to Lyra" sheet uses, so the calibration record is read but never written by an intent. Future intents that need to touch a sensitive surface ship with explicit user-facing confirmation, not as silent automations.</p>
+        <p class="prose">The same constraint covers the App Intents: the intent surface holds no cross-app writes either. Pushing a calibrated SPL into a Lyra reference slot is the in-app <strong>Send to Lyra...</strong> sheet in Audita Settings &rarr; Audio &rarr; Step 3, not a Shortcuts-chainable action. Future intents that need to touch a sensitive surface ship with explicit user-facing confirmation, not as silent automations.</p>
     </section>
 
     <!-- ─── Not supported ─── -->
