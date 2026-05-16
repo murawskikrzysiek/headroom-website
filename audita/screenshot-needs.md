@@ -105,7 +105,8 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 **Setup.**
 - Pressure Bloom toggle: default (off / Bloom on).
 - A session is running.
-- Live SPL ~70 dBA so the menu bar Bloom shows **2 arcs** (and the popover header Bloom reads the dose bucket; pick a dose around caution / yellow ~55 % so the popover Bloom shows 1 arc in yellow per the dose-bucket arc map).
+- Live SPL ~70 dBA. **Both surfaces follow live SPL for arc count and dose tier for colour**, so at ~70 dBA the menu bar Bloom (22 pt) and the popover header Bloom (44 pt) **both show 2 arcs in the same dose-tier colour**. Pick a dose around caution / yellow ~55 % so the colour reads as yellow on both glyphs.
+- Frame the capture so both the menu bar Bloom (above the popover, at the menu bar item) and the popover header Bloom are visible. They must agree on arc count and colour.
 - Monitoring discipline ON, with a calibrated target (e.g. `K-14 / 79 dBA +/- 3`), on-target ~75 %.
 - License row: "Licensed" (not trial) for a clean look.
 
