@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita Automation API - App Intents, audita:// URL scheme, x-callback-url</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/api.html">
-    <meta name="description" content="Complete reference for Audita's automation surface. Eight App Intents (Shortcuts, Siri, Focus Filters) plus the audita:// URL scheme with x-callback-url chaining. Endpoint reference, error vocabulary, worked example for the cross-app studio-on ritual.">
+    <meta name="description" content="Complete reference for Audita's automation surface. Seven App Intents (Shortcuts, Siri, Focus Filters) plus the audita:// URL scheme with x-callback-url chaining. Endpoint reference, error vocabulary, worked example for the cross-app studio-on ritual.">
     <meta property="og:title" content="Audita Automation API">
-    <meta property="og:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta property="og:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Seven App Intents plus the audita:// URL scheme with x-callback-url chaining.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Audita Automation API">
-    <meta name="twitter:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta name="twitter:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Seven App Intents plus the audita:// URL scheme with x-callback-url chaining.">
     <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -548,13 +548,18 @@
     <!-- ─── App Intents ─── -->
     <section class="section" id="intents">
         <p class="section-label">App Intents</p>
-        <h2>The eight intents<a class="anchor" href="#intents">#</a></h2>
+        <h2>The seven intents<a class="anchor" href="#intents">#</a></h2>
 
-        <p class="prose">All eight intents are gated on macOS 14 (Sonoma). They live under <em>Audita</em> in the Shortcuts app's action library. Every <code>perform()</code> resolves Audita's app state first and throws <code>appNotReady</code> if Audita is still finishing launch - the intent surfaces the error verbatim rather than returning silent zeros.</p>
+        <p class="prose">All seven intents are gated on macOS 14 (Sonoma). They live under <em>Audita</em> in the Shortcuts app's action library. Every <code>perform()</code> resolves Audita's app state first and throws <code>appNotReady</code> if Audita is still finishing launch - the intent surfaces the error verbatim rather than returning silent zeros.</p>
 
         <div class="notice">
             <span class="notice-icon">!</span>
             <p>Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". The intent surface holds no cross-app writes - the studio-on ritual below chains the per-app intents Audita and Lyra each expose.</p>
+        </div>
+
+        <div class="notice">
+            <span class="notice-icon">!</span>
+            <p>An earlier draft of v1.2 shipped a <code>Send Today's Report</code> text-export intent. It was removed before release in favour of the richer <a href="guide.html#session-reports">Session Report</a> (see the user guide for the full feature). The macOS Share menu covers every export case better.</p>
         </div>
 
         <h3>Reads</h3>
@@ -612,18 +617,6 @@
             </tbody>
         </table>
 
-        <h3>Export</h3>
-        <table class="spec">
-            <thead>
-                <tr><th style="width: 200px;">Intent</th><th>Parameters &amp; effect</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Send Today's Report</td>
-                    <td>No parameters. Returns a plain-text summary of today's exposure - pipe it into Copy to Clipboard, Save File, or Send Message. Format: header + dose line + sessions line + peaks line (peaks omitted when zero).</td>
-                </tr>
-            </tbody>
-        </table>
     </section>
 
     <!-- ─── Focus Filter ─── -->
@@ -711,7 +704,7 @@
                 </tr>
                 <tr>
                     <td class="wrap-ok">"No session is running"</td>
-                    <td><strong>End Mixing Session</strong> or the report intent called when nothing is active.</td>
+                    <td><strong>End Mixing Session</strong> called when nothing is active.</td>
                 </tr>
                 <tr>
                     <td class="wrap-ok">"Pause duration must be a positive number of minutes"</td>

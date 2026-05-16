@@ -473,14 +473,15 @@
             <li><a href="#calibration">6 · Calibration</a></li>
             <li><a href="#monitoring-discipline">7 · Monitoring discipline</a></li>
             <li><a href="#sessions">8 · Sessions &amp; DAW detection</a></li>
-            <li><a href="#pause-resume">9 · Pause &amp; resume monitoring</a></li>
-            <li><a href="#send-to-lyra">10 · Send to Lyra</a></li>
-            <li><a href="#automation">11 · URL scheme &amp; automation</a></li>
-            <li><a href="#auris-import">12 · Importing from Auris</a></li>
-            <li><a href="#licensing">13 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">14 · Updates</a></li>
-            <li><a href="#troubleshooting">15 · Troubleshooting</a></li>
-            <li><a href="#feedback">16 · Reporting bugs</a></li>
+            <li><a href="#session-reports">9 · Session reports &amp; sharing</a></li>
+            <li><a href="#pause-resume">10 · Pause &amp; resume monitoring</a></li>
+            <li><a href="#send-to-lyra">11 · Send to Lyra</a></li>
+            <li><a href="#automation">12 · URL scheme &amp; automation</a></li>
+            <li><a href="#auris-import">13 · Importing from Auris</a></li>
+            <li><a href="#licensing">14 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">15 · Updates</a></li>
+            <li><a href="#troubleshooting">16 · Troubleshooting</a></li>
+            <li><a href="#feedback">17 · Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -832,7 +833,7 @@
         <p class="prose">When a session ends, Audita fires a recap notification: <em>"This session used X.X% of your daily dose. Running total: Y.Y% - Z.Z% remaining today."</em> Sessions with &lt; 0.1 % dose (mic wasn't meaningfully active) are skipped. No action buttons - informational only.</p>
 
         <h3>Session history</h3>
-        <p class="prose">Sessions persist to <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>. Sessions older than <strong>30 days</strong> are pruned automatically on load.</p>
+        <p class="prose">Sessions persist to <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>. Retention is configurable in <strong>Settings &rarr; General &rarr; Storage</strong> - default is <strong>90 days</strong> for full session records and <strong>14 days</strong> for the detailed time-series within each session. See <a href="#session-reports">Session reports &amp; sharing</a> for the full retention model.</p>
 
         <p class="prose">Two ways to review history:</p>
         <ul>
@@ -860,9 +861,62 @@
 
     <hr class="divider">
 
-    <!-- ─────── 9. Pause & resume monitoring ─────── -->
+    <!-- ─────── 9. Session reports & sharing ─────── -->
+    <section class="guide-section" id="session-reports">
+        <h2>9. Session reports &amp; sharing (v1.2+) <a href="#session-reports" class="anchor">#</a></h2>
+
+        <p class="prose">Every session Audita records can be opened as a one-page <strong>Session Report</strong> and shared as a PDF through the standard macOS Share menu - AirDrop to a phone, attach to a Mail draft for a producer, drop into a Messages thread, or save to disk for an archive. The Session Report is also a self-contained brief for anyone who hasn't seen Audita before: chart, stats, and a footer link to the product.</p>
+
+        <img src="images/screenshots/session-report-window.png" alt="The Audita Session Report window showing the brand strip, the SPL chart with monitoring-discipline shading, the stats grid, and the headroomstudio.dev/audita footer link" class="screenshot-full">
+
+        <h3>What the report contains</h3>
+        <p class="prose">A single-page layout, top to bottom:</p>
+        <ul>
+            <li><strong>Brand strip</strong> - Audita mark and the session's DAW + date + duration.</li>
+            <li><strong>SPL chart</strong> - dBA (and dBC) plotted across the session's duration. The chart's background is shaded by <strong>monitoring-discipline zone</strong>: silent, under, on-target, over. The shaded bands make it easy to see at a glance how much of the session was spent at reference and how much drifted off.</li>
+            <li><strong>Stats grid</strong> - average SPL, peak SPL, session dose %, EU peak-impulse counters (135 / 137 / 140 dBC and 115 dBA when non-zero), elapsed time, on-target % for the session.</li>
+            <li><strong>Footer</strong> - a short link to <code>headroomstudio.dev/audita</code> so a recipient who's never seen Audita can find it.</li>
+        </ul>
+
+        <p class="prose">Behind the scenes the time-series sample rate was bumped from one reading per minute (in v1.1) to one reading every 10 seconds in v1.2, so the chart has enough density to read. Older v1.1 sessions still render - they just plot at the lower density they were captured at.</p>
+
+        <h3>Three ways to open it</h3>
+        <ul>
+            <li><strong>History panel context menu.</strong> Open the menu bar popover, switch to the <strong>History</strong> panel, right-click any session row. The context menu has <strong>Open Report</strong> and <strong>Share Report&hellip;</strong> entries.</li>
+            <li><strong>Menu bar popover button.</strong> <strong>Share Last Session&hellip;</strong> sits in the popover next to the manual session controls - one click on the most recent finished session.</li>
+            <li><strong>Session-recap notification action.</strong> When a session ends, the recap notification carries a <strong>Share Report&hellip;</strong> action button. Use it right after a session if you want to send the report to someone without opening Audita.</li>
+        </ul>
+
+        <img src="images/screenshots/share-menu-from-history.png" alt="The Audita history panel with a right-click context menu open on a session row showing Open Report and Share Report entries" class="screenshot-full">
+
+        <h3>PDF format and the Share menu</h3>
+        <p class="prose">Hit <strong>Share</strong> in the report window (or the <strong>Share Report&hellip;</strong> entry on any of the three entry points above) and Audita renders the report to a temporary PDF, then opens the standard <strong>macOS Share menu</strong>. From there: AirDrop to another device, Mail to attach to a draft, Messages to a thread, Save As to drop the file anywhere on disk, or any third-party share extension you've installed (Slack, Things, Drafts, Reminders, your password manager - whatever you have).</p>
+
+        <p class="prose">The generated PDF lives temporarily at <code>~/Library/Caches/Audita Reports/</code>. Caches are macOS-managed - the system handles cleanup on its own schedule, and you can safely empty the folder by hand any time.</p>
+
+        <h3>Retention settings</h3>
+        <p class="prose">Old sessions take up disk space, mainly through the per-session SPL time-series. <strong>Settings &rarr; General &rarr; Storage</strong> exposes two sliders that let you tune the trade-off between archive depth and disk footprint:</p>
+
+        <img src="images/screenshots/settings-storage.png" alt="The Audita Settings General tab showing the Storage section with two retention sliders, a live preview caption noting how many sessions will be deleted on next launch" class="screenshot-full">
+
+        <ul>
+            <li><strong>Keep detailed time-series for [N] days</strong> (default <strong>14</strong>). After the threshold passes, that session's chart downsamples to one sample per 100 seconds - still legible in the report chart, roughly 10x smaller on disk. The report still opens, the chart still draws, you just lose the fine grain.</li>
+            <li><strong>Keep sessions for [N] days</strong> (default <strong>90</strong>). Sessions older than this are deleted entirely. Replaces the v1.1 hard-coded 30-day prune, so by default you keep three times as much history as before.</li>
+        </ul>
+
+        <p class="prose">A live preview caption under the sliders shows how the current settings will affect existing data. If a slider drag would drop existing sessions, the caption turns orange and reads, for example, <em>"7 sessions older than 60 days will be deleted on next launch"</em> - so you can see what you're about to commit to.</p>
+
+        <div class="note">
+            <span class="note-icon">&#9432;</span>
+            <p><strong>Slider drag is non-destructive.</strong> Retention deletion runs at <strong>next launch only</strong>, never on slider drag. If you change a slider and then change your mind, just quit Audita without restarting - or move the slider back. The deletion pipeline never runs mid-session, so a session in progress is never affected by retention changes.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 10. Pause & resume monitoring ─────── -->
     <section class="guide-section" id="pause-resume">
-        <h2>9. Pause &amp; resume monitoring (v1.2+) <a href="#pause-resume" class="anchor">#</a></h2>
+        <h2>10. Pause &amp; resume monitoring (v1.2+) <a href="#pause-resume" class="anchor">#</a></h2>
 
         <p class="prose">There are days when you don't want Audita to count what's playing - you're auditioning loud reference tracks, running a sweep, testing a speaker, or rehearsing in the room and don't want the rehearsal to spend your hearing budget for the working day. Pause halts dose accumulation without ending the active session.</p>
 
@@ -883,9 +937,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 10. Send to Lyra ─────── -->
+    <!-- ─────── 11. Send to Lyra ─────── -->
     <section class="guide-section" id="send-to-lyra">
-        <h2>10. Send to Lyra - write a calibrated level into a Lyra reference slot <a href="#send-to-lyra" class="anchor">#</a></h2>
+        <h2>11. Send to Lyra - write a calibrated level into a Lyra reference slot <a href="#send-to-lyra" class="anchor">#</a></h2>
 
         <p class="prose"><a href="/lyra/">Lyra</a> is the Headroom menu bar app that controls Apollo Twin X monitor volume via the UA Mixer Engine. Lyra has three Reference Level slots (Ctrl+F10 / F11 / F12). Audita can write the calibrated dB SPL value <em>and</em> the live Apollo monitor position into one of those slots so the slot recalls the exact level you just calibrated.</p>
 
@@ -917,9 +971,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 11. Automation ─────── -->
+    <!-- ─────── 12. Automation ─────── -->
     <section class="guide-section" id="automation">
-        <h2>11. URL scheme &amp; automation <a href="#automation" class="anchor">#</a></h2>
+        <h2>12. URL scheme &amp; automation <a href="#automation" class="anchor">#</a></h2>
 
         <p class="prose">Audita registers a custom <code>audita://</code> URL scheme so any tool that can fire a URL can read its state or drive its sessions and pause - Shortcuts, Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from the shell, other apps.</p>
 
@@ -939,7 +993,7 @@
 
         <p class="prose">All endpoints accept the standard <code>x-callback-url</code> parameters (<code>x-success</code>, <code>x-error</code>) so you can chain Audita into a wider workflow. Read endpoints require an <code>x-success</code> URL to deliver their payload; write endpoints treat both callbacks as optional. Responses use flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
 
-        <p class="prose">Audita also ships a bundle of <strong>App Intents</strong> for the Shortcuts app, Siri, and Focus Filters - eight intents covering the same reads, sessions, and pause/resume that the URL scheme exposes, plus a <strong>Send Today's Report</strong> export. If you live inside the Shortcuts ecosystem, the intents are the smoother path; the URL scheme is the lowest-common-denominator surface for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, AppleScript, shell).</p>
+        <p class="prose">Audita also ships a bundle of <strong>App Intents</strong> for the Shortcuts app, Siri, and Focus Filters - seven intents covering the same reads, sessions, and pause/resume that the URL scheme exposes. If you live inside the Shortcuts ecosystem, the intents are the smoother path; the URL scheme is the lowest-common-denominator surface for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, AppleScript, shell). For sharing a report of a finished session, the <a href="#session-reports">Session Report window</a> below covers every export case better than a Shortcut step.</p>
 
         <p class="prose">The cross-app <strong>studio-on ritual</strong> is a three-step Shortcut that chains both apps: open your DAW, start an Audita session, switch Lyra to a reference monitor level. Pushing a calibrated SPL into a Lyra reference slot stays in the in-app <a href="#send-to-lyra">Send to Lyra...</a> sheet - it's a one-off setup-time action, not a Shortcut-chainable daily one.</p>
 
@@ -951,9 +1005,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 12. Importing from Auris ─────── -->
+    <!-- ─────── 13. Importing from Auris ─────── -->
     <section class="guide-section" id="auris-import">
-        <h2>12. Importing from Auris <a href="#auris-import" class="anchor">#</a></h2>
+        <h2>13. Importing from Auris <a href="#auris-import" class="anchor">#</a></h2>
 
         <p class="prose">Audita is the successor to <strong>Auris</strong>, which was sunset on 2026-05-08. Auris 1.3 shipped with a <strong>Move to Audita</strong> export modal; Audita 1.0 and later include a first-launch import wizard that reads the exported JSON and brings your data over.</p>
 
@@ -974,9 +1028,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 13. Trial & licensing ─────── -->
+    <!-- ─────── 14. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>13. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>14. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Audita is <strong>$19.99</strong> regular price, one-time purchase, via Lemon Squeezy. An intro price of <strong>$6.99</strong> runs through end-of-day 2026-05-31 for Better Hearing &amp; Speech Month.</p>
 
@@ -1003,9 +1057,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 14. Updates ─────── -->
+    <!-- ─────── 15. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>14. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Audita ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/audita/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Audita before installing. If the signature doesn't match the download is rejected.</p>
@@ -1014,9 +1068,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 15. Troubleshooting ─────── -->
+    <!-- ─────── 16. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>15. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>No SPL reading - the menu bar shows an em-dash</h3>
         <ol>
@@ -1059,9 +1113,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 16. Feedback ─────── -->
+    <!-- ─────── 17. Feedback ─────── -->
     <section class="guide-section" id="feedback">
-        <h2>16. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <h2>17. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Audita</code>.</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
