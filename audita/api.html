@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audita Automation API - App Intents, audita:// URL scheme, x-callback-url</title>
+    <link rel="canonical" href="https://headroomstudio.dev/audita/api.html">
+    <meta name="description" content="Complete reference for Audita's automation surface. Eight App Intents (Shortcuts, Siri, Focus Filters) plus the audita:// URL scheme with x-callback-url chaining. Endpoint reference, error vocabulary, worked example for the cross-app studio-on ritual.">
+    <meta property="og:title" content="Audita Automation API">
+    <meta property="og:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Audita Automation API">
+    <meta name="twitter:description" content="Drive Audita from Shortcuts, Siri, Focus Filters, Stream Deck, and Keyboard Maestro. Eight App Intents plus the audita:// URL scheme with x-callback-url chaining.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0b0b0f;
+            --bg-card:      #111118;
+            --border:       #1c1c28;
+            --border-hover: #28283a;
+            --text:         #eeeef6;
+            --text-2:       #6e6e90;
+            --text-3:       #3a3a52;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --red:          #f67c7c;
+            --radius-btn:   9px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 48px 0 32px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            max-width: 640px;
+        }
+
+        .hero-desc code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .hero-meta {
+            font-size: 0.8125rem;
+            color: var(--text-3);
+            margin-top: 14px;
+        }
+
+        /* ─── TOC ─── */
+
+        .toc {
+            margin: 24px 0 8px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .toc-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 10px;
+        }
+
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 24px;
+        }
+
+        .toc a {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+            display: inline-block;
+            padding: 3px 0;
+        }
+        .toc a:hover { color: var(--text); }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0 40px;
+        }
+
+        /* ─── Sections ─── */
+
+        .section {
+            padding-bottom: 44px;
+            scroll-margin-top: 24px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 32px 0 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3:first-child { margin-top: 0; }
+
+        /* ─── Prose ─── */
+
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.75;
+        }
+
+        .prose + .prose { margin-top: 12px; }
+
+        .prose strong { color: var(--text); font-weight: 600; }
+
+        .prose a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+        .prose a:hover { color: #a0aaff; }
+
+        .prose code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Endpoint block ─── */
+
+        .endpoint {
+            padding: 18px 0 4px;
+            border-top: 1px solid var(--border);
+        }
+        .endpoint:last-of-type { border-bottom: 1px solid var(--border); padding-bottom: 22px; }
+
+        .endpoint-url {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.045);
+            padding: 4px 9px;
+            border-radius: 5px;
+            border: 1px solid var(--border-hover);
+            display: inline-block;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .endpoint-desc {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            margin-top: 10px;
+            line-height: 1.65;
+        }
+
+        .endpoint-desc code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .endpoint-meta {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 6px 18px;
+            font-size: 0.825rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .meta-key {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding-top: 3px;
+        }
+
+        .meta-val code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Pre / code block ─── */
+
+        pre.code-block {
+            margin: 14px 0;
+            padding: 14px 18px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.825rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        pre.code-block .cmt { color: var(--text-3); }
+        pre.code-block .str { color: #c8c0ff; }
+        pre.code-block .kw  { color: #a0aaff; }
+
+        /* ─── Tables ─── */
+
+        table.spec {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.875rem;
+        }
+
+        table.spec th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 0 12px 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table.spec td {
+            padding: 10px 12px 10px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-2);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        table.spec td:first-child {
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        table.spec td.wrap-ok {
+            white-space: normal;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-2);
+            font-size: 0.875rem;
+        }
+
+        table.spec code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin: 20px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.5;
+        }
+
+        .notice p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .notice p + p { margin-top: 6px; }
+
+        .notice code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.88em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Anchor links ─── */
+
+        .anchor {
+            color: var(--text-3);
+            text-decoration: none;
+            font-size: 0.82em;
+            margin-left: 8px;
+            opacity: 0;
+            transition: opacity 0.18s;
+        }
+
+        h2:hover .anchor, h3:hover .anchor { opacity: 1; }
+
+        /* ─── Lists in prose ─── */
+
+        .prose-list {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.75;
+            margin: 8px 0 0 22px;
+        }
+
+        .prose-list li { margin-bottom: 4px; }
+        .prose-list code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 640px) {
+            .toc ul { grid-template-columns: 1fr; }
+            .endpoint-meta { grid-template-columns: 1fr; gap: 2px 0; }
+            .meta-key { padding-top: 10px; }
+            .meta-key:first-child { padding-top: 0; }
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"/>
+            </svg>
+            Audita
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <p class="hero-eyebrow">Audita</p>
+        <h1>Automation API</h1>
+        <p class="hero-desc">Audita exposes two scriptable surfaces: a bundle of <strong>App Intents</strong> for Shortcuts, Siri, and Focus Filters, and a <code>audita://</code> <strong>URL scheme</strong> for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from a shell). Both surfaces map onto the same underlying state, share an error vocabulary, and observe the same read-and-toggle constraint. Pick whichever fits the launcher you're using.</p>
+        <p class="hero-meta">v1.2 - last updated for the v1.2 release. The intents require macOS 14 (Sonoma) or later; the URL scheme works on every supported macOS.</p>
+
+        <nav class="toc" aria-label="On this page">
+            <p class="toc-label">On this page</p>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#intents">App Intents</a></li>
+                <li><a href="#focus-filter">Focus Filter</a></li>
+                <li><a href="#phrases">Spotlight &amp; Siri phrases</a></li>
+                <li><a href="#intent-errors">Intent error vocabulary</a></li>
+                <li><a href="#url-scheme">URL scheme</a></li>
+                <li><a href="#callback-url">x-callback-url</a></li>
+                <li><a href="#url-errors">URL error codes</a></li>
+                <li><a href="#cross-app">Cross-app: studio-on ritual</a></li>
+                <li><a href="#constraints">Read-and-toggle constraint</a></li>
+                <li><a href="#not-supported">What the API does NOT do</a></li>
+            </ul>
+        </nav>
+    </section>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <!-- ─── Overview ─── -->
+    <section class="section" id="overview">
+        <p class="section-label">Overview</p>
+        <h2>Two surfaces, same state<a class="anchor" href="#overview">#</a></h2>
+        <p class="prose"><strong>App Intents</strong> are the native macOS Shortcuts surface. Drag them into a Shortcut, speak them at Siri, or wire them into a Focus Filter. They get typed parameters, structured return values, and proper error dialogs when something goes wrong. They're the smoothest path for anyone living inside the Shortcuts ecosystem.</p>
+        <p class="prose">The <code>audita://</code> <strong>URL scheme</strong> is the lowest-common-denominator surface for everything else. Anything that can fire a URL can drive it: Stream Deck's built-in <strong>System &raquo; Open</strong> action, Keyboard Maestro's <strong>Open URL</strong>, Hammerspoon's <code>hs.urlevent.openURL</code>, AppleScript's <code>open location</code>, <code>open "audita://..."</code> from the shell. Responses flow back through <code>x-callback-url</code> as flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
+        <p class="prose">Audita's <strong>state</strong> is single-sourced: the intents and URLs read and write through the same <code>AppState</code>. Starting a session via Siri, the menu bar, or the URL scheme is the same operation; the URL endpoints don't see a parallel reality.</p>
+
+        <h3>Trying it from the shell</h3>
+        <pre class="code-block"><span class="kw">open</span> <span class="str">"audita://spl?x-success=https://httpbin.org/get"</span>
+<span class="kw">open</span> <span class="str">"audita://session/start?daw=Logic%20Pro"</span>
+<span class="kw">open</span> <span class="str">"audita://monitoring/pause?duration=1800"</span></pre>
+        <p class="prose">Unknown URLs return <code>unknown_endpoint</code> via <code>x-error</code> when an error URL is supplied, and are otherwise logged and ignored. The audio engine must be running for SPL and dose reads to populate; when it isn't, the relevant keys are simply absent from the payload (the request still succeeds).</p>
+    </section>
+
+    <!-- ─── App Intents ─── -->
+    <section class="section" id="intents">
+        <p class="section-label">App Intents</p>
+        <h2>The eight intents<a class="anchor" href="#intents">#</a></h2>
+
+        <p class="prose">All eight intents are gated on macOS 14 (Sonoma). They live under <em>Audita</em> in the Shortcuts app's action library. Every <code>perform()</code> resolves Audita's app state first and throws <code>appNotReady</code> if Audita is still finishing launch - the intent surfaces the error verbatim rather than returning silent zeros.</p>
+
+        <div class="notice">
+            <span class="notice-icon">!</span>
+            <p>Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". The intent surface holds no cross-app writes - the studio-on ritual below chains the per-app intents Audita and Lyra each expose.</p>
+        </div>
+
+        <h3>Reads</h3>
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 200px;">Intent</th><th>Returns</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get Current SPL</td>
+                    <td><code>dba</code>, <code>dbc</code>, <code>peak_dba</code> (one decimal each). Throws "Audita's audio engine isn't running" when no device is selected or mic permission is denied.</td>
+                </tr>
+                <tr>
+                    <td>Get Today's Dose</td>
+                    <td><code>dose_percent</code>, <code>remaining_percent</code> (clamped at 0), <code>dose_level</code> (one of <code>safe</code>, <code>caution</code>, <code>warning</code>, <code>danger</code>), plus the four peak counters (135 / 137 / 140 dBC, 115 dBA).</td>
+                </tr>
+                <tr>
+                    <td>Get Monitoring Stats</td>
+                    <td>Streak of consecutive days under 50% dose (counted back from yesterday, today excluded because it's still in progress), today's dose, last seven days' average, session count, warning-day count.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Writes - sessions</h3>
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 200px;">Intent</th><th>Parameters &amp; effect</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Start Mixing Session</td>
+                    <td><code>daw</code> (optional text). Starts a manual session. Empty or whitespace <code>daw</code> becomes <code>"Manual"</code>. Throws "A session is already running" if one is.</td>
+                </tr>
+                <tr>
+                    <td>End Mixing Session</td>
+                    <td>No parameters. Ends the current session and returns its final dose, DAW, duration, and peak SPL. Throws "No session is running" when nothing is active.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Writes - monitoring</h3>
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 200px;">Intent</th><th>Parameters &amp; effect</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pause Monitoring</td>
+                    <td><code>durationMinutes</code> (optional positive integer). Pauses dose accumulation, peak counters, and session updates. Omit <code>durationMinutes</code> for an indefinite pause; supply it for a timed pause that auto-resumes within ~100 ms of expiry.</td>
+                </tr>
+                <tr>
+                    <td>Resume Monitoring</td>
+                    <td>No parameters. Safe no-op if monitoring isn't paused.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Export</h3>
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 200px;">Intent</th><th>Parameters &amp; effect</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Send Today's Report</td>
+                    <td>No parameters. Returns a plain-text summary of today's exposure - pipe it into Copy to Clipboard, Save File, or Send Message. Format: header + dose line + sessions line + peaks line (peaks omitted when zero).</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ─── Focus Filter ─── -->
+    <section class="section" id="focus-filter">
+        <p class="section-label">Focus Filter</p>
+        <h2>Start a Mixing Session<a class="anchor" href="#focus-filter">#</a></h2>
+        <p class="prose">Audita registers a Focus Filter called <strong>Start a Mixing Session</strong>. Wire it once and a Focus turning on starts a session automatically; the Focus turning off ends it.</p>
+
+        <ol class="prose-list">
+            <li>Open <strong>System Settings &rarr; Focus &rarr; (pick a Focus) &rarr; Add Filter &rarr; Audita &rarr; Start a Mixing Session</strong>.</li>
+            <li>Optional: set a DAW label. It's recorded in the session as <code>daw</code>.</li>
+            <li>Turn the Focus on. Audita starts a session.</li>
+            <li>Turn the Focus off. Audita ends the session.</li>
+        </ol>
+
+        <h3>Carry-over rule</h3>
+        <p class="prose">If a session was already running when the Focus activated, Audita leaves it alone - the filter only ends what it started. If you manually ended the session before the Focus turned off, the disable does nothing (no double-end). The carry-over state is in-memory only, so quitting Audita while the Focus is on loses it. Documented constraint.</p>
+    </section>
+
+    <!-- ─── Spotlight & Siri ─── -->
+    <section class="section" id="phrases">
+        <p class="section-label">Spotlight &amp; Siri</p>
+        <h2>Pinned phrases<a class="anchor" href="#phrases">#</a></h2>
+        <p class="prose">These phrases are baked into Audita's <code>AppShortcutsProvider</code>. They show up in Spotlight as you type and are recognised by Siri verbatim. ASCII only - if a phrase silently changes, it disappears from Spotlight.</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 200px;">Intent</th><th>Phrases</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get Current SPL</td>
+                    <td class="wrap-ok">"What's the SPL in Audita", "Get the SPL from Audita"</td>
+                </tr>
+                <tr>
+                    <td>Get Today's Dose</td>
+                    <td class="wrap-ok">"What's my dose in Audita", "Get today's dose from Audita"</td>
+                </tr>
+                <tr>
+                    <td>Get Monitoring Stats</td>
+                    <td class="wrap-ok">"Get my monitoring stats in Audita", "Show my streak in Audita"</td>
+                </tr>
+                <tr>
+                    <td>Start Mixing Session</td>
+                    <td class="wrap-ok">"Start a mixing session in Audita", "Start session in Audita"</td>
+                </tr>
+                <tr>
+                    <td>End Mixing Session</td>
+                    <td class="wrap-ok">"End my mixing session in Audita", "End session in Audita"</td>
+                </tr>
+                <tr>
+                    <td>Pause Monitoring</td>
+                    <td class="wrap-ok">"Pause Audita", "Pause monitoring in Audita"</td>
+                </tr>
+                <tr>
+                    <td>Resume Monitoring</td>
+                    <td class="wrap-ok">"Resume Audita", "Resume monitoring in Audita"</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ─── Intent error vocabulary ─── -->
+    <section class="section" id="intent-errors">
+        <p class="section-label">Errors</p>
+        <h2>Intent error vocabulary<a class="anchor" href="#intent-errors">#</a></h2>
+        <p class="prose">Intent errors surface in Shortcuts as plain-English dialogs and in Siri as spoken responses. They're pinned strings - the wording is stable across releases so a Shortcut that branches on the message text doesn't break. They share the snake_case <code>error_code</code> map the URL scheme uses, so an automation that mixes intents and URL calls sees one consistent vocabulary.</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 260px;">Message</th><th>When it fires</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="wrap-ok">"Audita hasn't finished launching yet"</td>
+                    <td>Intent ran before <code>AppState</code> was fully wired. Cold-launch race; rare in practice because the bridge is registered at the end of init.</td>
+                </tr>
+                <tr>
+                    <td class="wrap-ok">"Audita's audio engine isn't running"</td>
+                    <td>No input device is selected, the device is unavailable, or microphone permission was denied. Reads of SPL fail; dose reads still work because dose is persisted.</td>
+                </tr>
+                <tr>
+                    <td class="wrap-ok">"A session is already running"</td>
+                    <td><strong>Start Mixing Session</strong> called when one is active.</td>
+                </tr>
+                <tr>
+                    <td class="wrap-ok">"No session is running"</td>
+                    <td><strong>End Mixing Session</strong> or the report intent called when nothing is active.</td>
+                </tr>
+                <tr>
+                    <td class="wrap-ok">"Pause duration must be a positive number of minutes"</td>
+                    <td><strong>Pause Monitoring</strong> with a zero or negative <code>durationMinutes</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ─── URL scheme ─── -->
+    <section class="section" id="url-scheme">
+        <p class="section-label">URL scheme</p>
+        <h2><code>audita://</code> endpoints<a class="anchor" href="#url-scheme">#</a></h2>
+        <p class="prose">Four read endpoints, four write endpoints. Reads need an <code>x-success</code> callback to deliver their payload - without one, the request is silently dropped because there's no other return channel. Writes treat both callbacks as optional. Responses use flat snake_case query parameters in plain ASCII so they survive a round-trip through Shortcuts' "Get URL" step without percent-escape noise.</p>
+
+        <h3>Read endpoints</h3>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://spl?x-success=&hellip;</span>
+            <p class="endpoint-desc">Live SPL snapshot. Updates at 10 Hz behind the scenes; this returns whatever the audio engine published most recently.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val"><code>dba</code> (float, 1dp), <code>dbc</code> (float, 1dp), <code>peak_dba</code> (float, 1dp), <code>smoothing_alpha</code> (float, 2dp). Keys are omitted when the audio engine is not running.</div>
+                <div class="meta-key">Requires</div>
+                <div class="meta-val"><code>x-success</code>. Without it, the request is silently dropped.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>monitoring_unavailable</code> (on malformed request only - the engine being down is signalled by absent keys, not an error).</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://dose?x-success=&hellip;</span>
+            <p class="endpoint-desc">Today's NIOSH dose plus the four peak counters. Dose is persisted to disk on every measurement; this read works even if the audio engine is currently stopped.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val"><code>dose_percent</code> (float, 1dp), <code>remaining_percent</code> (float, 1dp, clamped at 0), <code>dose_level</code> (one of <code>safe</code>, <code>caution</code>, <code>warning</code>, <code>danger</code>), <code>peak_count_135dbc</code>, <code>peak_count_137dbc</code>, <code>peak_count_140dbc</code>, <code>peak_count_115dba</code>.</div>
+                <div class="meta-key">Requires</div>
+                <div class="meta-val"><code>x-success</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://session?x-success=&hellip;</span>
+            <p class="endpoint-desc">The currently-running session, if any. The "no session" case returns the same shape with an empty value rather than absent keys, so callers branch on <code>active</code> instead of checking key presence.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val">Always: <code>active</code> (<code>true</code> / <code>false</code>). When <code>active=true</code>: <code>start_iso8601</code> (RFC 3339 with timezone offset), <code>elapsed_seconds</code> (integer, truncated), <code>daw</code> (omitted if blank), <code>dba_mean</code>, <code>dba_peak</code>, <code>dbc_peak</code>, <code>session_dose_percent</code>. When <code>active=false</code>: sub-keys omitted.</div>
+                <div class="meta-key">Requires</div>
+                <div class="meta-val"><code>x-success</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://state?x-success=&hellip;</span>
+            <p class="endpoint-desc">Aggregated read - every key from the three reads above, plus the monitoring pause state. Use this when you want one round-trip to populate a Shortcut, Stream Deck overlay, or status dashboard.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Returns</div>
+                <div class="meta-val">Everything from <code>spl</code>, <code>dose</code>, and <code>session</code>, plus pause keys: <code>paused</code> (<code>true</code> / <code>false</code>); when paused with a finite timer, <code>pause_until</code> (ISO 8601) and <code>pause_resume_in_seconds</code> (integer). Indefinite pauses omit both timer keys.</div>
+                <div class="meta-key">Requires</div>
+                <div class="meta-val"><code>x-success</code>.</div>
+            </div>
+        </div>
+
+        <h3>Write endpoints</h3>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://session/start[?daw=Logic%20Pro]</span>
+            <p class="endpoint-desc">Start a manual session. The <code>daw</code> parameter records a label; empty or whitespace becomes <code>"Manual"</code>. Returns the new session payload (same shape as <code>audita://session</code>).</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends the session payload plus <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>session_already_active</code>, <code>monitoring_unavailable</code>.</div>
+                <div class="meta-key">Example</div>
+                <div class="meta-val"><code>open "audita://session/start?daw=Logic%20Pro"</code></div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://session/end</span>
+            <p class="endpoint-desc">End the current session. Returns the ended session payload so you can pipe the final dose, duration, and peaks somewhere.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends the ended session payload plus <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>session_not_active</code>, <code>monitoring_unavailable</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://monitoring/pause[?duration=900]</span>
+            <p class="endpoint-desc">Pause dose accumulation, peak counters, and session updates. <code>duration</code> is in <strong>seconds</strong> (the App Intent uses minutes; the URL uses seconds). Omit it for an indefinite pause. The SPL feed checks the pause state every tick at 10 Hz, so dose stops accumulating within ~100 ms.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">Params</div>
+                <div class="meta-val"><code>duration</code> - positive integer seconds, optional. Non-numeric or non-positive values fire <code>invalid_argument</code>.</div>
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends the pause payload: <code>paused=true</code>, and when timed, <code>pause_until</code> + <code>pause_resume_in_seconds</code>, plus <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>invalid_argument</code>, <code>monitoring_unavailable</code>.</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="endpoint-url">audita://monitoring/resume</span>
+            <p class="endpoint-desc">Resume monitoring. Safe no-op if monitoring isn't paused.</p>
+            <div class="endpoint-meta">
+                <div class="meta-key">x-success</div>
+                <div class="meta-val">Appends <code>paused=false</code> plus <code>result=ok</code>.</div>
+                <div class="meta-key">x-error</div>
+                <div class="meta-val"><code>monitoring_unavailable</code>.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── x-callback-url ─── -->
+    <section class="section" id="callback-url">
+        <p class="section-label">Chaining</p>
+        <h2>x-callback-url<a class="anchor" href="#callback-url">#</a></h2>
+        <p class="prose">Two optional query parameters on every endpoint:</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 140px;">Param</th><th>Fires when</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>x-success</code></td>
+                    <td>The endpoint completed successfully. Audita appends its return values as query items, plus <code>result=ok</code> (unless the caller already set <code>result</code> on the URL), then opens the result URL.</td>
+                </tr>
+                <tr>
+                    <td><code>x-error</code></td>
+                    <td>The endpoint failed. Audita appends <code>error_code</code> (snake_case ASCII) and <code>error_message</code> (plain ASCII), then opens the result URL. Branch on <code>error_code</code> - the message text may be reworded between releases.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="prose">Query items on the callback URL are <strong>appended in alphabetical order</strong> for deterministic logs and tests. Existing query items on your callback URL are preserved unchanged.</p>
+
+        <h3>Example: write chain</h3>
+        <p class="prose">Start a Logic Pro session and trigger a Stream Deck profile. Audita appends the new session payload to your success URL:</p>
+        <pre class="code-block"><span class="cmt"># What you fire:</span>
+audita://session/start?daw=Logic%20Pro&amp;x-success=streamdeck://profile/mixing
+
+<span class="cmt"># What Stream Deck receives (after the start completes):</span>
+streamdeck://profile/mixing?active=true&amp;daw=Logic%20Pro&amp;result=ok&amp;start_iso8601=2026-05-16T14%3A02%3A11%2B02%3A00</pre>
+
+        <h3>Example: read chain</h3>
+        <p class="prose">Read the full state dictionary into a Shortcut. The Shortcut receives every key as a URL query item - use <strong>Get value from URL</strong> for each one you care about.</p>
+        <pre class="code-block">audita://state?x-success=shortcuts://run-shortcut?name=PostExposure</pre>
+
+        <h3>URL-encoding the callback</h3>
+        <p class="prose">Your <code>x-success</code> / <code>x-error</code> URLs are themselves embedded as query values inside the <code>audita://</code> URL. If your callback contains its own <code>=</code>, <code>&amp;</code>, or spaces, <strong>percent-encode</strong> the whole callback URL before pasting it in - otherwise the outer URL parser will split your callback at the first <code>&amp;</code> and you'll lose everything past it.</p>
+        <pre class="code-block"><span class="cmt"># Wrong - the outer parser sees three top-level params on the audita:// URL:</span>
+audita://state?x-success=shortcuts://run-shortcut?name=Post&amp;arg=foo
+
+<span class="cmt"># Right - the callback URL is encoded as a single query value:</span>
+audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo</pre>
+        <p class="prose">Shortcuts, Raycast, and Keyboard Maestro all expose this as "URL-encode" or "Percent encode" - apply it once when building the outer URL.</p>
+    </section>
+
+    <!-- ─── URL error codes ─── -->
+    <section class="section" id="url-errors">
+        <p class="section-label">Errors</p>
+        <h2>URL error codes<a class="anchor" href="#url-errors">#</a></h2>
+        <p class="prose">When an endpoint fails and an <code>x-error</code> URL was supplied, Audita opens it with <code>error_code</code> and <code>error_message</code> appended. Codes are stable snake_case strings; branch on these, not on the message text.</p>
+
+        <table class="spec">
+            <thead>
+                <tr><th style="width: 230px;">Code</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>invalid_argument</code></td>
+                    <td>A query parameter is missing or malformed - <code>duration</code> not a positive number, for example. The error message names the offending parameter.</td>
+                </tr>
+                <tr>
+                    <td><code>monitoring_unavailable</code></td>
+                    <td>The audio engine isn't running, or Audita is shutting down. Reads return absent keys rather than this error; writes that depend on the engine surface it.</td>
+                </tr>
+                <tr>
+                    <td><code>session_not_active</code></td>
+                    <td><code>session/end</code> called when no session is running.</td>
+                </tr>
+                <tr>
+                    <td><code>session_already_active</code></td>
+                    <td><code>session/start</code> called when a session is already running.</td>
+                </tr>
+                <tr>
+                    <td><code>unknown_endpoint</code></td>
+                    <td>The URL host or subcommand isn't recognised. Without an <code>x-error</code> URL, unknown endpoints are logged and ignored silently.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="prose"><strong>Plain ASCII only.</strong> No en-dashes, em-dashes, or ellipses - so the message survives a round-trip through Shortcuts' "Get URL" step without <code>%E2%80%93</code> escapes.</p>
+    </section>
+
+    <!-- ─── Cross-app ─── -->
+    <section class="section" id="cross-app">
+        <p class="section-label">Cross-app</p>
+        <h2>Studio-on ritual: a worked example<a class="anchor" href="#cross-app">#</a></h2>
+        <p class="prose">The daily-driver cross-app flow: one Shortcut, three steps, both apps coordinate. Open your DAW, start an Audita session, and switch Lyra to the reference monitor level you calibrated against. Run it from a Stream Deck button, a Focus, a hotkey, or "Hey Siri, start mixing in Audita".</p>
+
+        <h3>The three-step Shortcut</h3>
+        <pre class="code-block"><span class="cmt">Shortcut: "Dial in the studio"</span>
+
+1. <span class="kw">Open App</span>: Logic Pro                  <span class="cmt">(built-in Shortcuts action)</span>
+
+2. <span class="kw">Start Mixing Session in Audita</span>      <span class="cmt">(Audita intent)</span>
+   DAW: Logic Pro
+
+3. <span class="kw">Switch to Reference Level in Lyra</span>   <span class="cmt">(Lyra intent)</span>
+   Slot: 2</pre>
+
+        <p class="prose">One tap and the DAW is open, dose tracking is on, and the Apollo monitor level is at your reference. If you already use Audita's auto-start-on-DAW-launch, step 2 is redundant (auto-detection handles it) and the ritual collapses to two steps.</p>
+
+        <h3>The same flow via URL scheme</h3>
+        <p class="prose">If you're driving the chain from Stream Deck or Keyboard Maestro instead of Shortcuts, the equivalent URL sequence:</p>
+        <pre class="code-block"><span class="cmt"># 1. Open the DAW (any "open this app" mechanism works -</span>
+<span class="cmt">#    Stream Deck's System &raquo; Open, Keyboard Maestro's Activate Specific App,</span>
+<span class="cmt">#    `open -a "Logic Pro"` from a shell).</span>
+
+<span class="cmt"># 2. Start the session.</span>
+<span class="kw">open</span> <span class="str">"audita://session/start?daw=Logic%20Pro"</span>
+
+<span class="cmt"># 3. Recall the reference slot on Lyra.</span>
+<span class="kw">open</span> <span class="str">"lyra://reference/2"</span></pre>
+
+        <p class="prose">Requires Lyra 1.4 or later (URL scheme handler) and Audita 1.2 (App Intents and URL scheme).</p>
+
+        <h3>Why "Send SPL to Lyra" isn't an intent</h3>
+        <p class="prose">Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". You run it once after calibrating against a monitor controller position; every day after, the studio-on ritual above just recalls the slot you wrote. Wiring that as a Shortcut-chainable intent invited misuse (running it daily would overwrite the slot with whatever level the engine happened to read at that moment), so it lives behind explicit UI confirmation instead.</p>
+
+        <p class="prose">When Lyra isn't installed, the in-app "Send to Lyra..." button is hidden and a subtle hint links to the Lyra product page. Audita works fully without Lyra - it's a cross-app convenience for users who own both.</p>
+    </section>
+
+    <!-- ─── Read-and-toggle constraint ─── -->
+    <section class="section" id="constraints">
+        <p class="section-label">Constraint</p>
+        <h2>Read-and-toggle only<a class="anchor" href="#constraints">#</a></h2>
+        <p class="prose">Neither surface exposes a writer for <strong>calibration</strong>, <strong>license operations</strong>, the <strong>Keychain UUID</strong>, the <strong>Lemon Squeezy variant URL</strong>, or the <strong>A/C weighting coefficients</strong>. This is a deliberate design constraint, pinned in the test suite and re-checked on every PR that touches the handler.</p>
+
+        <p class="prose">The reasoning: a calibration writer like <code>audita://calibration/set?offset=120</code> is a silent attack surface. A malicious URL in a Slack message, a misconfigured Shortcut in a shared library, or a stale Stream Deck button could wipe a user's calibration without any visible feedback - and every future measurement would be wrong by the offset delta. Sensitive state stays in the in-app UI behind explicit user confirmation, where it can't be triggered by a URL handler.</p>
+
+        <p class="prose">The same constraint covers the App Intents: the intent surface holds no cross-app writes either. Pushing a calibrated SPL into a Lyra reference slot is the in-app <strong>Send to Lyra...</strong> sheet in Audita Settings &rarr; Audio &rarr; Step 3, not a Shortcuts-chainable action. Future intents that need to touch a sensitive surface ship with explicit user-facing confirmation, not as silent automations.</p>
+    </section>
+
+    <!-- ─── Not supported ─── -->
+    <section class="section" id="not-supported">
+        <p class="section-label">Not supported</p>
+        <h2>What the API does NOT do<a class="anchor" href="#not-supported">#</a></h2>
+
+        <h3>No calibration writes</h3>
+        <p class="prose">There is no <code>audita://calibration/set</code> URL and no <strong>Set Calibration Offset</strong> intent. See the read-and-toggle constraint above.</p>
+
+        <h3>No license operations</h3>
+        <p class="prose">No <code>audita://license/clear</code>, no <code>audita://trial/extend</code>, no <strong>Activate License</strong> intent. Trial state, activation, and deactivation stay in the in-app UI behind explicit user confirmation.</p>
+
+        <h3>No historical-session reads</h3>
+        <p class="prose"><code>audita://session</code> returns the <em>current</em> session only; <strong>Get Monitoring Stats</strong> returns rollups (streak, today, last seven days, session count, warning-day count). For individual past sessions, use Audita's in-app History panel. Returning arbitrary historical session arrays through a URL handler is not on the roadmap - the data shape doesn't fit the flat snake_case contract, and the same data is one click away in the UI.</p>
+
+        <h3>No event push or webhooks</h3>
+        <p class="prose">The API is pull-only. There's no way to register a callback URL that fires whenever the dose crosses 70%, or whenever a peak is detected. Notifications cover the user-facing case; if you need programmatic events, poll <code>audita://state</code> on a timer.</p>
+
+        <h3>No bulk operations</h3>
+        <p class="prose">Each endpoint operates on a single piece of state. There is no <code>audita://session/import</code> for bulk session injection. Auris migration is the only bulk import path and it runs once through the in-app wizard.</p>
+
+        <div class="notice">
+            <span class="notice-icon">!</span>
+            <p>The full user-facing reference for Audita - menu bar UI, calibration wizard, monitoring discipline, dose math, troubleshooting, licensing - is the <a href="guide.html" style="color: var(--accent); text-decoration: none;">User Guide</a>. This page is the canonical reference for the automation surfaces only.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+    <footer>
+        <span class="footer-copy">&copy; 2026 Headroom</span>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="releases.html">Release notes</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>
