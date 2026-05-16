@@ -205,3 +205,27 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 **Theme.** Dark mode.
 
 **Bloom or ear?** No menu bar visible. Unaffected by v1.2.
+
+---
+
+## api.html
+
+### 11. `images/screenshots/shortcut-studio-on-ritual.png` - status: pending
+
+**Where it appears.** `audita/api.html` cross-app worked example (studio-on ritual). Optional but desirable - the section reads cleanly as text-only reference if the screenshot isn't ready.
+
+**Target file.** `audita/images/screenshots/shortcut-studio-on-ritual.png`. (Renamed from the earlier `shortcut-send-to-lyra-chain.png` slug - the Shortcut is no longer a Send-to-Lyra chain.)
+
+**What to capture.** The Shortcuts.app editor showing the three-step "Dial in the studio" Shortcut, with all three action cards expanded so the parameters are readable:
+
+1. **Open App**: Logic Pro (built-in Shortcuts action - not an Audita intent)
+2. **Start Mixing Session in Audita** with DAW set to "Logic Pro"
+3. **Switch to Reference Level in Lyra** with Slot set to 2
+
+**Resolution.** 2x retina, target 1280 x 800 px logical final (Shortcuts editor at default window size).
+
+**Theme.** Dark mode. macOS 26 Liquid Glass aesthetic if shooting on macOS 26+.
+
+**Bloom or ear?** No menu bar visible. Independent of v1.2 menu bar changes.
+
+**Note.** Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings -> Audio -> "Send to Lyra...". This Shortcut is the *daily* ritual; the slot it recalls was populated earlier from inside Audita.
