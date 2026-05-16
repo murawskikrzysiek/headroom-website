@@ -524,8 +524,8 @@
 
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
-        <h3>Menu bar icon states</h3>
-        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single 22 pt glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time.</p>
+        <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar and popover header)</h3>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single 22 pt glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger 44 pt Bloom in the popover header (see <a href="#dropdown-menu">The dropdown menu</a>), so both surfaces always show the same arc count and colour at any given moment.</p>
 
         <table>
             <tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
@@ -596,7 +596,7 @@
 
         <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, monitoring discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
 
-        <p class="prose">A larger 44 pt Pressure Bloom sits in the popover header next to the accumulated dose readout. It uses the same geometry as the menu bar glyph, sized up. The popover glyph's arcs map to the current dose <em>bucket</em> (safe / caution / warning / danger), not live SPL: the arcs read as a four-step dose meter alongside the percentage. When no session is running, the popover glyph also shows the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
+        <p class="prose">A larger 44 pt Pressure Bloom sits in the popover header next to the accumulated dose readout. It shares its data driver with the menu bar glyph: <strong>arcs follow live SPL</strong>, <strong>colour follows today's NIOSH dose tier</strong>. Same state machine as the menu bar icon (see <a href="#menu-bar-icon-states">Menu bar icon states</a>), just rendered larger in the popover header. When no session is running, the popover glyph falls back to the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
 
         <h3>License status</h3>
         <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
