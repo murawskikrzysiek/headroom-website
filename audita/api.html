@@ -382,6 +382,16 @@
             border-radius: 4px;
         }
 
+        /* ─── Full-width screenshots ─── */
+
+        .screenshot-full {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid var(--border);
+            margin: 20px 0 4px;
+        }
+
         /* ─── Notice box ─── */
 
         .notice {
@@ -492,7 +502,7 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
-        <a href="index.html" class="nav-back">
+        <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"/>
             </svg>
@@ -505,7 +515,7 @@
     <section class="hero">
         <p class="hero-eyebrow">Audita</p>
         <h1>Automation API</h1>
-        <p class="hero-desc">Audita exposes two scriptable surfaces: a bundle of <strong>App Intents</strong> for Shortcuts, Siri, and Focus Filters, and a <code>audita://</code> <strong>URL scheme</strong> for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from a shell). Both surfaces map onto the same underlying state, share an error vocabulary, and observe the same read-and-toggle constraint. Pick whichever fits the launcher you're using.</p>
+        <p class="hero-desc">Audita exposes two scriptable surfaces: a bundle of <strong>App Intents</strong> for Shortcuts, Siri, and Focus Filters, and an <code>audita://</code> <strong>URL scheme</strong> for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from a shell). Both surfaces map onto the same underlying state and share an error vocabulary.</p>
         <p class="hero-meta">v1.2 - last updated for the v1.2 release. The intents require macOS 14 (Sonoma) or later; the URL scheme works on every supported macOS.</p>
 
         <nav class="toc" aria-label="On this page">
@@ -520,8 +530,6 @@
                 <li><a href="#callback-url">x-callback-url</a></li>
                 <li><a href="#url-errors">URL error codes</a></li>
                 <li><a href="#cross-app">Cross-app: studio-on ritual</a></li>
-                <li><a href="#constraints">Read-and-toggle constraint</a></li>
-                <li><a href="#not-supported">What the API does NOT do</a></li>
             </ul>
         </nav>
     </section>
@@ -554,12 +562,7 @@
 
         <div class="notice">
             <span class="notice-icon">!</span>
-            <p>Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". The intent surface holds no cross-app writes - the studio-on ritual below chains the per-app intents Audita and Lyra each expose.</p>
-        </div>
-
-        <div class="notice">
-            <span class="notice-icon">!</span>
-            <p>An earlier draft of v1.2 shipped a <code>Send Today's Report</code> text-export intent. It was removed before release in favour of the richer <a href="guide.html#session-reports">Session Report</a> (see the user guide for the full feature). The macOS Share menu covers every export case better.</p>
+            <p>Pushing a calibrated SPL into a Lyra reference slot lives in Audita Settings &rarr; Audio &rarr; "Send to Lyra...", not in the intent surface. Sharing a session report is handled by the <a href="guide.html#session-reports">Session Report</a> window's macOS Share menu, not an intent.</p>
         </div>
 
         <h3>Reads</h3>
@@ -906,10 +909,12 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
     <section class="section" id="cross-app">
         <p class="section-label">Cross-app</p>
         <h2>Studio-on ritual: a worked example<a class="anchor" href="#cross-app">#</a></h2>
-        <p class="prose">The daily-driver cross-app flow: one Shortcut, three steps, both apps coordinate. Open your DAW, start an Audita session, and switch Lyra to the reference monitor level you calibrated against. Run it from a Stream Deck button, a Focus, a hotkey, or "Hey Siri, start mixing in Audita".</p>
+        <p class="prose">The daily-driver cross-app flow: one Shortcut, a handful of steps, both apps coordinate. Open your DAW, start an Audita session, switch Lyra to your reference monitor level, optionally engage a Focus mode so notifications quiet down. Run it from a Stream Deck button, a hotkey, or "Hey Siri, start mixing".</p>
 
-        <h3>The three-step Shortcut</h3>
-        <pre class="code-block"><span class="cmt">Shortcut: "Dial in the studio"</span>
+        <img src="images/screenshots/shortcut-studio-on-ritual.png" alt="A Shortcut named 'Mix Setup' in the Shortcuts app: Open Logic Pro, Start an Audita session for Logic Pro, Switch to reference slot 1 in Lyra, Turn Mixing Focus on until turned off. The Audita intent library is visible on the right side of the window." class="screenshot-full">
+
+        <h3>The Shortcut, step by step</h3>
+        <pre class="code-block"><span class="cmt">Shortcut: "Mix Setup"</span>
 
 1. <span class="kw">Open App</span>: Logic Pro                  <span class="cmt">(built-in Shortcuts action)</span>
 
@@ -917,9 +922,12 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
    DAW: Logic Pro
 
 3. <span class="kw">Switch to Reference Level in Lyra</span>   <span class="cmt">(Lyra intent)</span>
-   Slot: 2</pre>
+   Slot: 1
 
-        <p class="prose">One tap and the DAW is open, dose tracking is on, and the Apollo monitor level is at your reference. If you already use Audita's auto-start-on-DAW-launch, step 2 is redundant (auto-detection handles it) and the ritual collapses to two steps.</p>
+4. <span class="kw">Turn Focus On</span>: Mixing               <span class="cmt">(built-in Shortcuts action)</span>
+   Until: Turned Off</pre>
+
+        <p class="prose">One tap and the DAW is open, dose tracking is on, the Apollo monitor level is at your reference, and Mixing Focus is engaged. If you already use Audita's auto-start-on-DAW-launch, step 2 is redundant (auto-detection handles it) and the ritual collapses to three steps. The Focus step in (4) is optional; drop it if you don't use Focus modes.</p>
 
         <h3>The same flow via URL scheme</h3>
         <p class="prose">If you're driving the chain from Stream Deck or Keyboard Maestro instead of Shortcuts, the equivalent URL sequence:</p>
@@ -935,48 +943,13 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
 
         <p class="prose">Requires Lyra 1.4 or later (URL scheme handler) and Audita 1.2 (App Intents and URL scheme).</p>
 
-        <h3>Why "Send SPL to Lyra" isn't an intent</h3>
-        <p class="prose">Pushing a calibrated SPL into a Lyra reference slot is a one-off setup-time action and stays in Audita Settings &rarr; Audio &rarr; "Send to Lyra...". You run it once after calibrating against a monitor controller position; every day after, the studio-on ritual above just recalls the slot you wrote. Wiring that as a Shortcut-chainable intent invited misuse (running it daily would overwrite the slot with whatever level the engine happened to read at that moment), so it lives behind explicit UI confirmation instead.</p>
-
-        <p class="prose">When Lyra isn't installed, the in-app "Send to Lyra..." button is hidden and a subtle hint links to the Lyra product page. Audita works fully without Lyra - it's a cross-app convenience for users who own both.</p>
+        <p class="prose">When Lyra isn't installed, the in-app "Send to Lyra..." button is hidden and a subtle hint links to the Lyra product page. Audita works fully without Lyra.</p>
     </section>
 
-    <!-- ─── Read-and-toggle constraint ─── -->
-    <section class="section" id="constraints">
-        <p class="section-label">Constraint</p>
-        <h2>Read-and-toggle only<a class="anchor" href="#constraints">#</a></h2>
-        <p class="prose">Neither surface exposes a writer for <strong>calibration</strong>, <strong>license operations</strong>, the <strong>Keychain UUID</strong>, the <strong>Lemon Squeezy variant URL</strong>, or the <strong>A/C weighting coefficients</strong>. This is a deliberate design constraint, pinned in the test suite and re-checked on every PR that touches the handler.</p>
-
-        <p class="prose">The reasoning: a calibration writer like <code>audita://calibration/set?offset=120</code> is a silent attack surface. A malicious URL in a Slack message, a misconfigured Shortcut in a shared library, or a stale Stream Deck button could wipe a user's calibration without any visible feedback - and every future measurement would be wrong by the offset delta. Sensitive state stays in the in-app UI behind explicit user confirmation, where it can't be triggered by a URL handler.</p>
-
-        <p class="prose">The same constraint covers the App Intents: the intent surface holds no cross-app writes either. Pushing a calibrated SPL into a Lyra reference slot is the in-app <strong>Send to Lyra...</strong> sheet in Audita Settings &rarr; Audio &rarr; Step 3, not a Shortcuts-chainable action. Future intents that need to touch a sensitive surface ship with explicit user-facing confirmation, not as silent automations.</p>
-    </section>
-
-    <!-- ─── Not supported ─── -->
-    <section class="section" id="not-supported">
-        <p class="section-label">Not supported</p>
-        <h2>What the API does NOT do<a class="anchor" href="#not-supported">#</a></h2>
-
-        <h3>No calibration writes</h3>
-        <p class="prose">There is no <code>audita://calibration/set</code> URL and no <strong>Set Calibration Offset</strong> intent. See the read-and-toggle constraint above.</p>
-
-        <h3>No license operations</h3>
-        <p class="prose">No <code>audita://license/clear</code>, no <code>audita://trial/extend</code>, no <strong>Activate License</strong> intent. Trial state, activation, and deactivation stay in the in-app UI behind explicit user confirmation.</p>
-
-        <h3>No historical-session reads</h3>
-        <p class="prose"><code>audita://session</code> returns the <em>current</em> session only; <strong>Get Monitoring Stats</strong> returns rollups (streak, today, last seven days, session count, warning-day count). For individual past sessions, use Audita's in-app History panel. Returning arbitrary historical session arrays through a URL handler is not on the roadmap - the data shape doesn't fit the flat snake_case contract, and the same data is one click away in the UI.</p>
-
-        <h3>No event push or webhooks</h3>
-        <p class="prose">The API is pull-only. There's no way to register a callback URL that fires whenever the dose crosses 70%, or whenever a peak is detected. Notifications cover the user-facing case; if you need programmatic events, poll <code>audita://state</code> on a timer.</p>
-
-        <h3>No bulk operations</h3>
-        <p class="prose">Each endpoint operates on a single piece of state. There is no <code>audita://session/import</code> for bulk session injection. Auris migration is the only bulk import path and it runs once through the in-app wizard.</p>
-
-        <div class="notice">
-            <span class="notice-icon">!</span>
-            <p>The full user-facing reference for Audita - menu bar UI, calibration wizard, monitoring discipline, dose math, troubleshooting, licensing - is the <a href="guide.html" style="color: var(--accent); text-decoration: none;">User Guide</a>. This page is the canonical reference for the automation surfaces only.</p>
-        </div>
-    </section>
+    <div class="notice">
+        <span class="notice-icon">!</span>
+        <p>The full user-facing reference for Audita - menu bar UI, calibration wizard, Monitoring Discipline, dose math, troubleshooting, licensing - is the <a href="guide.html" style="color: var(--accent); text-decoration: none;">User Guide</a>. This page is the canonical reference for the automation surfaces only.</p>
+    </div>
 
     <hr class="divider">
     <footer>

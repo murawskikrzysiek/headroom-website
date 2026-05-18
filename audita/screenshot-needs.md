@@ -42,7 +42,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 2. `menu_bloom_green.png` / `menu_bloom_yellow.png` / `menu_bloom_red.png` - status: pending
+### 2. `menu_bloom_green.png` / `menu_bloom_yellow.png` / `menu_bloom_red.png` - status: current
+
+> **Captured 2026-05-18.** Sourced from the new `audita-popover-{green,yellow,red}.png` set. Each capture shows the full v1.2 popover (44 pt Pressure Bloom in the header, dose-tier colour, Monitoring Discipline strip with proportional bar, Leq / Ln statistics block, Active Session block).
 
 **Where they appear.** `audita/index.html`, the three-column row right under the hero. Replaces the v1.1 `menu_dose_green.png` / `menu_dose_yellow.png` / `menu_dose_red.png` (which can be deleted once the Bloom variants land).
 
@@ -70,27 +72,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ## guide.html
 
-### 3. `images/screenshots/menubar-display-modes.png` - status: pending
+### 4. `images/screenshots/menubar-popover-main.png` - status: current
 
-**Where it appears.** `audita/guide.html` section 3 (Menu bar display).
-
-**Target file.** `audita/images/screenshots/menubar-display-modes.png`.
-
-**What to capture.** All five `MenuBarDisplayMode` variants side by side, each showing the **Pressure Bloom** (not the SF Symbol ear): icon only / dBA only / dBC only / icon+dBA / icon+dBC. Build the composite by capturing five separate menu bar items or by using a mockup strip that puts them in a row.
-
-**Resolution.** 2x retina, ~1200 x 80 px logical for a horizontal strip.
-
-**Theme.** Menu bar background neutral (no specific desktop wallpaper showing).
-
-**Setup.**
-- Pressure Bloom toggle: default (off / Bloom on).
-- Mid-range tier so the colour cue reads: dose in the **caution band** (yellow) **and** live SPL in the **55-80 dBA** band (so the Bloom shows 2 arcs in yellow). That captures "Audita is monitoring, the level is normal, today's budget is partly used".
-- One-decimal toggle: off (cleaner 2-digit numbers).
-- Show the Bloom flanked by enough menu bar space that the 22 pt size reads.
-
----
-
-### 4. `images/screenshots/menubar-popover-main.png` - status: pending
+> **Captured 2026-05-18.** Same shot as `menu_bloom_green.png` for now (full popover with 44 pt Bloom in header). If a yellow / orange tier shot reads better in this guide section, swap the source from `audita-popover-green.png` to `audita-popover-yellow.png` later.
 
 **Where it appears.** `audita/guide.html` section 4 (The dropdown menu).
 
@@ -112,7 +96,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 5. `images/screenshots/floating-panel.png` - status: pending (verify if exists)
+### 5. `images/screenshots/floating-panel.png` - status: current
+
+> **Captured 2026-05-18** from `audita-pin-window-daw.png`. Panel pinned above a Pro Tools-style session, all panel sections visible. The alternate `audita-pin-window-clean.png` (panel over a clean desktop) is also in `audita/` if a non-DAW context reads better elsewhere.
 
 **Where it appears.** `audita/guide.html` section 5 (Floating measurement panel).
 
@@ -134,7 +120,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 6. `calibration-wizard.png` - status: verify
+### 6. `calibration-wizard.png` - status: current
+
+> **Captured 2026-05-18** from `audita-calibration-step-3.png` (the captured / saved-profile state). The two earlier wizard steps are also in `audita/` as `audita-calibration-step-1.png` (mic response correction) and `audita-calibration-step-2.png` (level calibration), available if guide.html section 6 wants a 3-up walkthrough later.
 
 **Where it appears.** `audita/guide.html` section 6 (Calibration, Step 3) and `audita/index.html` (calibration row).
 
@@ -164,7 +152,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 8. `history.png` - status: verify
+### 8. `history.png` - status: current
+
+> **Captured 2026-05-18** from `audita-history.png`. New v1.2 History window: calendar range selector, summary stat tiles, weekly bar chart colour-coded by daily dose tier, session list with sparklines and discipline strips.
 
 **Where it appears.** `audita/index.html` (history row, full width).
 
@@ -178,23 +168,19 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 9. `images/screenshots/settings-audio-three-steps.png` - status: pending
+### 9. `images/screenshots/settings-audio-three-steps.png` - status: current
+
+> **Built 2026-05-18** as a horizontal composite of the three individual step shots (`audita-calibration-step-{1,2,3}.png`). Each tab is a separate Settings window screenshot stitched side-by-side; the source PNGs remain in `audita/` if a single-window scrolled capture replaces this later.
 
 **Where it appears.** `audita/guide.html` section 6 (Calibration).
 
 **Target file.** `audita/images/screenshots/settings-audio-three-steps.png`.
 
-**What to capture.** Settings -> Audio with Step 1, Step 2, and Step 3 cards all visible. Step 1 = Active (FIR engaged), Step 2 = offset around 94 with descriptive Mic Location text, Step 3 = a saved record with a captured controller-position note.
-
-**Resolution.** 2x retina at the default Settings window size (~720 x 540 px logical).
-
-**Theme.** Dark mode.
-
-**Bloom or ear?** No menu bar visible. Unaffected by v1.2.
-
 ---
 
-### 10. `images/screenshots/settings-reference-tab.png` - status: pending
+### 10. `images/screenshots/settings-reference-tab.png` - status: current
+
+> **Captured 2026-05-18** from `audita-target-level-setting.png`. K-System preset dropdown, target dBA, tolerance band, and calibration status for the active output all visible.
 
 **Where it appears.** `audita/guide.html` section 7 (Monitoring discipline).
 
@@ -208,7 +194,9 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 11. `images/screenshots/session-report-window.png` - status: pending
+### 11. `images/screenshots/session-report-window.png` - status: current
+
+> **Captured 2026-05-18** from `audita-share.png`. Session report window with SPL chart (full zone shading visible), monitoring discipline block, full stats grid, headroomstudio.dev/audita footer link, and Save / Share toolbar buttons.
 
 **Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
 
@@ -230,53 +218,11 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 12. `images/screenshots/share-menu-from-history.png` - status: pending
-
-**Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
-
-**Target file.** `audita/images/screenshots/share-menu-from-history.png`.
-
-**What to capture.** The history panel of the menu bar popover with a **right-click context menu** open on one of the session rows. The context menu must show the two entries: **Open Report** and **Share Report...**. Frame so at least 2-3 session rows are visible alongside the context menu for context.
-
-**Resolution.** 2x retina, ~480 x 600 px logical (popover plus context menu width).
-
-**Theme.** Light or dark - your call. Dark matches the site aesthetic best.
-
-**Setup.**
-- Open the menu bar popover and switch to the **History** panel.
-- Make sure several recent sessions are visible (seed with `Audita-v1.2-app-intents/scripts/seed-sessions.py` if the local install is fresh).
-- Right-click on a session row that has a meaningful dose (not the 0 % filtered-out ones) so the context menu reads as useful.
-- Capture before the context menu auto-dismisses.
-
-**Bloom or ear?** The menu bar Bloom may be visible above the popover. If so, follow the v1.2 Bloom rule (Pressure Bloom on, default settings, dose tier driving colour).
-
----
-
-### 13. `images/screenshots/settings-storage.png` - status: pending
-
-**Where it appears.** `audita/guide.html` section 9 (Session reports & sharing).
-
-**Target file.** `audita/images/screenshots/settings-storage.png`.
-
-**What to capture.** Settings -> General with the new **Storage** section visible. Show both retention sliders (detailed retention default 14 days, total retention default 90 days). Optionally trigger the **orange "N sessions older than X days will be deleted on next launch" warning caption** by dragging the total-retention slider low enough to drop existing seeded sessions.
-
-**Resolution.** 2x retina, ~900 x 600 px logical (or whatever the Settings window default size produces).
-
-**Theme.** Dark mode.
-
-**Setup.**
-- Seed enough session history that the warning caption can be triggered (run `Audita-v1.2-app-intents/scripts/seed-sessions.py` a couple of times to backdate sessions if needed).
-- Open Settings -> General -> Storage.
-- For maximum information density: drag the **Keep sessions for [N] days** slider down to e.g. 30 or 60 days so the orange caption appears reading something like *"7 sessions older than 60 days will be deleted on next launch"*. This shows users what to expect when they tune the slider.
-- Both sliders' current values must be readable.
-
-**Bloom or ear?** No menu bar visible. Independent of v1.2 menu bar changes.
-
----
-
 ## api.html
 
-### 14. `images/screenshots/shortcut-studio-on-ritual.png` - status: pending
+### 14. `images/screenshots/shortcut-studio-on-ritual.png` - status: current
+
+> **Captured 2026-05-18** from `audita-shortcuts-example.png`. "Mix Setup" Shortcut shows the four-step ritual (Open Logic Pro, Start an Audita session, Switch reference slot in Lyra, Turn Mixing Focus on); right pane shows Audita's intent library searched for "audita".
 
 **Where it appears.** `audita/api.html` cross-app worked example (studio-on ritual). Optional but desirable - the section reads cleanly as text-only reference if the screenshot isn't ready.
 

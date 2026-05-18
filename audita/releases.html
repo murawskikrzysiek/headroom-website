@@ -4,7 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Audita Release Notes - Version History & Changelog</title>
+  <link rel="canonical" href="https://headroomstudio.dev/audita/releases.html">
   <meta name="description" content="Version history for Audita, the macOS SPL meter and NIOSH hearing dose tracker. Features, fixes, and improvements across releases.">
+  <meta property="og:title" content="Audita Release Notes">
+  <meta property="og:description" content="Version history for Audita, the macOS SPL meter and NIOSH hearing dose tracker.">
+  <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audita Release Notes">
+  <meta name="twitter:description" content="Version history for Audita, the macOS SPL meter and NIOSH hearing dose tracker.">
+  <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -145,25 +154,81 @@
 </head>
 <body>
 
+  <p style="margin-bottom: 16px; font-size: 12px;"><a href="./" style="color: #7c84f6; text-decoration: none;">← Back to Audita</a></p>
+
   <header class="app-header">
     <div class="app-icon"><img src="icon.png" alt="Audita" /></div>
     <div>
       <div class="app-name">Audita</div>
-      <div class="app-sub">SPL meter for monitoring discipline and hearing dose tracking</div>
+      <div class="app-sub">SPL meter for Monitoring Discipline and hearing dose tracking</div>
     </div>
   </header>
 
-  <!-- ── 1.1 ── -->
+  <!-- ── 1.2 ── -->
   <section class="release">
     <div class="release-header">
-      <span class="version">Version 1.1</span>
+      <span class="version">Version 1.2</span>
       <span class="date">May 2026</span>
       <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Live SPL readout in the menu bar.</strong> Pick what shows next to the dose icon: <em>Icon only</em> (the historical look), <em>Live dBA</em>, <em>Live dBC</em>, or icon + number side-by-side. Updates ten times per second. Settings → Menu Bar.</span>
+        <span><strong>Session Reports with PDF sharing.</strong> Every session can be opened as a one-page report: brand strip, dBA chart with Monitoring Discipline shading (silent / under / on-target / over zones), stats grid (avg, peak, dose %, Leq, L10 / L50 / L90, on-target %, EU peak counters), and a clickable footer link. Render to PDF and send through the standard macOS Share menu (AirDrop, Mail, Messages, Notes), or use the separate Save button to drop the file anywhere on disk. Open the report from a History row, the menu bar popover's <em>Share Last Session…</em> button, or the session-recap notification's <em>Share Report…</em> action.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>App Intents for Shortcuts, Siri, and Focus.</strong> Seven intents plus a Focus filter: read current SPL, today's dose, this week's monitoring stats; start a session; end a session; pause monitoring; resume monitoring; auto-start a session when a chosen Focus engages. Each intent carries Spotlight and Siri phrase variants and accepts typed parameters.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong><code>audita://</code> URL scheme with x-callback-url.</strong> Four reads (<code>spl</code>, <code>dose</code>, <code>session</code>, <code>state</code>) and four writes (<code>session/start</code>, <code>session/end</code>, <code>monitoring/pause</code>, <code>monitoring/resume</code>). Chainable across apps via <code>x-success</code> and <code>x-error</code>. Same flat snake_case response shape as Lyra's URL surface, so automations can pivot between the two without reshaping the payload. See the <a href="api.html">API reference</a>.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Pause and resume monitoring.</strong> Indefinite or timed (<code>?duration=N</code> seconds). Halts dose accumulation, peak counting, and session updates without ending the active session. The SPL readout in the menu bar keeps updating. Timed pauses auto-resume within ~100 ms of the deadline. Available through the URL scheme and the App Intents.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Redesigned History window.</strong> Calendar range selector on the left; six summary stat tiles (total dose, average per day, EU weekly L_EX,w, peak dBA, peak dBC, impulse count); week chart colour-coded green / yellow / orange / red against the NIOSH ladder; session list with per-session sparkline shaded by zone, real DAW icons resolved via Launch Services, and a visible per-row menu button exposing Open Report / Save Report / Share Report / Delete.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Pressure Bloom glyph.</strong> Menu bar and popover header drop the v1.1 SF Symbol ear in favour of the icon's source-dot-plus-three-arcs composition. Arcs follow live SPL (silent &lt; 35 dBA, one arc through 55, two through 80, three at and above 80); colour follows the dose tier. When no session is active, both surfaces render the full three-arc shape in neutral foreground. A <em>Use classic ear icon</em> toggle in Settings → General → Menu Bar restores the v1.1 look.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Session time-series resolution increased.</strong> Sample interval moved from one reading per minute to one every 10 seconds, so the Session Report chart has enough density to read drift and steadiness. Older v1.1 sessions still render at the lower density they were captured at.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>History CSV export expanded.</strong> The History window's Export CSV button now ships Leq, L10 / L50 / L90, the Monitoring Discipline buckets (target, tolerance, time under/on/over/silent, on-target %), an ISO-8601 timestamp column, and a per-day summary block. Leq is the metric ISO 9612 / EU 2003/10/EC cite for compliance logs.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Configurable session retention.</strong> Settings → General → Storage exposes two thresholds: keep detailed time-series for N days (default 14, then downsample to one sample per 100 seconds), and keep sessions for N days (default 90, then delete). Replaces the v1.1 hard-coded 30-day prune. A live preview caption shows how the current settings would affect existing data. Slider drags are non-destructive; deletion runs at next launch only.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Settings window is height-resizable.</strong> Width stays fixed; the bottom edge drags freely. The zoom traffic-light button zoom-fits to content height.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>App icon ships through macOS 26 Icon Composer.</strong> Removes the legacy bezel macOS Tahoe wraps around older <code>.icns</code> icons in Shortcuts, Spotlight, and Notification Center. Legacy <code>.icns</code> fallback synthesised for older macOS versions.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── 1.1 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.1</span>
+      <span class="date">May 2026</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Live SPL readout in the menu bar.</strong> Pick what shows next to the dose icon: <em>Icon only</em> (the historical look), <em>Live dBA</em>, <em>Live dBC</em>, or icon + number side-by-side. Updates ten times per second. Settings → General → Menu Bar.</span>
       </li>
       <li>
         <span class="tag tag-new">New</span>
@@ -171,7 +236,7 @@
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Pinnable measurement panel.</strong> Click the pin icon in the menu-bar popover to detach the measurement display as a floating window that stays above your DAW. Choose which sections appear in <em>Settings → Panel</em> - hearing dose, current SPL, monitoring discipline, Leq / Ln statistics, active session, today's summary. The window auto-resizes as you toggle sections on and off, and remembers its position across launches. Click the pin again - or double-click the panel - to dismiss.</span>
+        <span><strong>Pinnable measurement panel.</strong> Click the pin icon in the menu-bar popover to detach the measurement display as a floating window that stays above your DAW. Choose which sections appear in <em>Settings → Panel</em> - hearing dose, current SPL, Monitoring Discipline, Leq / Ln statistics, active session, today's summary. The window auto-resizes as you toggle sections on and off, and remembers its position across launches. Click the pin again - or double-click the panel - to dismiss.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -201,7 +266,7 @@
       </li>
       <li>
         <span class="tag tag-new">New</span>
-        <span><strong>Trial countdown and license key carry over automatically.</strong> If you had Auris on this Mac, your trial state and license activation move to Audita with no re-entry required - they live in the system Keychain under an identifier that's deliberately shared between the two apps.</span>
+        <span><strong>Trial countdown and license key carry over automatically.</strong> If you had Auris on this Mac, your trial state and license activation move to Audita with no re-entry required.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -217,7 +282,7 @@
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
-        <span>Auto-detection of 15 DAWs including Luna, Logic Pro, Pro Tools, Ableton Live, REAPER, Cubase, Studio One, FL Studio, Bitwig Studio, Reason, and more - sessions start and end automatically as you work.</span>
+        <span>Auto-detection of 15 DAWs including Luna, Logic Pro, Pro Tools, Ableton Live, REAPER, Cubase, Studio One, FL Studio, Bitwig Studio, and more - sessions start and end automatically as you work.</span>
       </li>
       <li>
         <span class="tag tag-impr">Impr</span>
@@ -235,7 +300,15 @@
   </div>
 
   <footer>
-    <a href="https://headroomstudio.dev/audita">headroomstudio.dev/audita</a>
+    <a href="./">Audita</a>
+    &nbsp;·&nbsp;
+    <a href="guide.html">User Guide</a>
+    &nbsp;·&nbsp;
+    <a href="api.html">API</a>
+    &nbsp;·&nbsp;
+    <a href="faq.html">FAQ</a>
+    &nbsp;·&nbsp;
+    <a href="privacy.html">Privacy</a>
     &nbsp;·&nbsp;
     <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
   </footer>
