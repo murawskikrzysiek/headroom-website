@@ -935,13 +935,21 @@
 
         <p class="prose">There are days when you don't want Audita to count what's playing - you're auditioning loud reference tracks, running a sweep, testing a speaker, or rehearsing in the room and don't want the rehearsal to spend your hearing budget for the working day. Pause halts dose accumulation without ending the active session.</p>
 
-        <p class="prose">Pause has no menu bar button - it's an automation-only surface, reached through:</p>
+        <p class="prose">Three ways to pause and resume:</p>
         <ul>
+            <li><strong>Menu bar popover.</strong> The <em>Pause Monitoring</em> button sits next to <em>Start Session</em> / <em>End Session</em> and toggles to <em>Resume Monitoring</em> while paused. Indefinite pause only from this surface; for timed pauses use the URL scheme or a Shortcut.</li>
             <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for an indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. <code>audita://monitoring/resume</code> ends it. See the <a href="api.html">URL scheme reference</a>.</li>
             <li><strong>App Intents (Shortcuts / Siri)</strong> - the <em>Pause Monitoring</em> and <em>Resume Monitoring</em> intents accept the same optional duration parameter. Drop them into a Shortcut or call them from Siri. See the <a href="api.html#intents">App Intents reference</a>.</li>
         </ul>
 
         <p class="prose">While paused, the SPL feed still runs (the menu bar readout keeps updating) but the dose calculator skips accumulation on every tick. The pause state is checked at 10 Hz, so dose stops accruing within ~100 ms of the pause being requested. A timed pause auto-resumes at the configured deadline.</p>
+
+        <p class="prose"><strong>Visual indicators.</strong> Three surfaces reflect pause state so the gated pipeline is never silent:</p>
+        <ul>
+            <li>The <strong>menu bar Pressure Bloom</strong> and live SPL number desaturate to neutral grey while paused; they spring back to colour the moment monitoring resumes.</li>
+            <li>The <strong>menu bar popover</strong> shows an orange "Monitoring paused" banner at the top, with the resume time appended for timed pauses (e.g. "Resumes 14:32.").</li>
+            <li>The <strong>floating measurement panel</strong> shows the same banner above its sections.</li>
+        </ul>
     </section>
 
     <hr class="divider">
