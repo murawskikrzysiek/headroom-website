@@ -939,7 +939,7 @@
         <ul>
             <li><strong>Menu bar popover.</strong> The <em>Pause Monitoring</em> button sits next to <em>Start Session</em> / <em>End Session</em> and toggles to <em>Resume Monitoring</em> while paused. Indefinite pause only from this surface; for timed pauses use the URL scheme or a Shortcut.</li>
             <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for an indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. <code>audita://monitoring/resume</code> ends it. See the <a href="api.html">URL scheme reference</a>.</li>
-            <li><strong>App Intents (Shortcuts / Siri)</strong> - the <em>Pause Monitoring</em> and <em>Resume Monitoring</em> intents accept the same optional duration parameter. Drop them into a Shortcut or call them from Siri. See the <a href="api.html#intents">App Intents reference</a>.</li>
+            <li><strong>App Intents (Shortcuts / Siri / Spotlight)</strong> - the <em>Pause Monitoring</em> intent takes a required <code>durationMinutes</code> value. Enter <code>0</code> for an indefinite pause; any positive number gives you a timed pause that auto-resumes. Spotlight prompts for the value when you run the action without one. The <em>Resume Monitoring</em> intent takes no parameters. See the <a href="api.html#intents">App Intents reference</a>.</li>
         </ul>
 
         <p class="prose">While paused, the SPL feed still runs (the menu bar readout keeps updating) but the dose calculator skips accumulation on every tick. The pause state is checked at 10 Hz, so dose stops accruing within ~100 ms of the pause being requested. A timed pause auto-resumes at the configured deadline.</p>

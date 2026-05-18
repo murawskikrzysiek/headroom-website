@@ -611,7 +611,7 @@
             <tbody>
                 <tr>
                     <td>Pause Monitoring</td>
-                    <td><code>durationMinutes</code> (optional positive integer). Pauses dose accumulation, peak counters, and session updates. Omit <code>durationMinutes</code> for an indefinite pause; supply it for a timed pause that auto-resumes within ~100 ms of expiry.</td>
+                    <td><code>durationMinutes</code> (required integer). Pauses dose accumulation, peak counters, and session updates. Pass <code>0</code> for an indefinite pause; pass any positive value for a timed pause that auto-resumes within ~100 ms of expiry. Spotlight prompts for the value when the action is run without one.</td>
                 </tr>
                 <tr>
                     <td>Resume Monitoring</td>
@@ -708,10 +708,6 @@
                 <tr>
                     <td class="wrap-ok">"No session is running"</td>
                     <td><strong>End Mixing Session</strong> called when nothing is active.</td>
-                </tr>
-                <tr>
-                    <td class="wrap-ok">"Pause duration must be a positive number of minutes"</td>
-                    <td><strong>Pause Monitoring</strong> with a zero or negative <code>durationMinutes</code>.</td>
                 </tr>
             </tbody>
         </table>
