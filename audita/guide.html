@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/guide.html">
-    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration, monitoring discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
+    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration, Monitoring Discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
     <meta property="og:title" content="Audita User Guide">
-    <meta property="og:description" content="Complete reference for Audita - menu bar SPL readout, calibration, monitoring discipline, floating panel, Lyra pairing, troubleshooting.">
+    <meta property="og:description" content="Complete reference for Audita - menu bar SPL readout, calibration, Monitoring Discipline, floating panel, Lyra pairing, troubleshooting.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
     <meta property="og:type" content="article">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -457,7 +457,7 @@
 
 <div class="container">
     <header class="page-header" id="top">
-        <p class="page-eyebrow">Audita · User guide</p>
+        <p class="page-eyebrow">Audita · User Guide</p>
         <h1>Everything Audita does, and how to drive it.</h1>
         <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full <code>audita://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
     </header>
@@ -471,7 +471,7 @@
             <li><a href="#dropdown-menu">4 · The dropdown menu</a></li>
             <li><a href="#floating-panel">5 · Floating measurement panel</a></li>
             <li><a href="#calibration">6 · Calibration</a></li>
-            <li><a href="#monitoring-discipline">7 · Monitoring discipline</a></li>
+            <li><a href="#monitoring-discipline">7 · Monitoring Discipline</a></li>
             <li><a href="#sessions">8 · Sessions &amp; DAW detection</a></li>
             <li><a href="#session-reports">9 · Session reports &amp; sharing</a></li>
             <li><a href="#pause-resume">10 · Pause &amp; resume monitoring</a></li>
@@ -496,8 +496,28 @@
         <p class="prose">One measurement chain feeds two jobs:</p>
         <ul>
             <li><strong>Hearing protection.</strong> A-weighted SPL (IEC 61672-1) accumulates into a cumulative dose percentage. Color-coded thresholds, NIOSH-aligned notifications, EU 2003/10/EC peak monitoring on a parallel C-weighted path.</li>
-            <li><strong>Monitoring discipline.</strong> A separate, optional layer that pins your monitoring level to a calibrated reference (K-14 / K-12 / K-20 / mastering / custom) and warns when your level drifts or sits off-target for too long.</li>
+            <li><strong>Monitoring Discipline.</strong> A separate, optional layer that pins your monitoring level to a calibrated reference (K-14 / K-12 / K-20 / mastering / custom) and warns when your level drifts or sits off-target for too long.</li>
         </ul>
+
+        <h3 id="safe-duration">Safe duration at different levels</h3>
+        <p class="prose">The NIOSH formula gives you a budget that halves every 3 dB. Below 80 dBA no dose accumulates at all. This table is the canonical reference cited from <a href="index.html#how-it-works">the landing page</a> and <a href="faq.html">FAQ</a>.</p>
+
+        <table class="dose-table">
+            <thead>
+                <tr><th>Level</th><th>Safe duration</th><th></th></tr>
+            </thead>
+            <tbody>
+                <tr><td>80 dBA</td><td>Threshold</td><td style="color: var(--text-3); font-size: 0.85rem;">No dose accumulates below this</td></tr>
+                <tr><td>85 dBA</td><td>8 hours</td><td style="color: var(--text-3); font-size: 0.85rem;">NIOSH criterion</td></tr>
+                <tr><td>88 dBA</td><td>4 hours</td><td></td></tr>
+                <tr><td>91 dBA</td><td>2 hours</td><td></td></tr>
+                <tr><td>94 dBA</td><td>1 hour</td><td></td></tr>
+                <tr><td>97 dBA</td><td>30 minutes</td><td></td></tr>
+                <tr><td>100 dBA</td><td>15 minutes</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <p class="prose" style="margin-top: 12px;">The dose resets at midnight.</p>
 
         <p class="prose">Audita is <strong>$19.99 regular</strong>, one-time purchase, with a 7-day free trial. macOS 14 (Sonoma) or later.</p>
     </section>
@@ -512,11 +532,11 @@
         <ol>
             <li>macOS asks for <strong>microphone access</strong>. Click <strong>OK</strong>. Audita needs microphone access to measure SPL; the measurement microphone you pick (see below) is the only audio source it reads.</li>
             <li>The Audita icon appears in the menu bar. Click it to open the popover.</li>
-            <li>Open <strong>Settings → Audio</strong> and select your <strong>measurement microphone</strong> from the input device picker. Defaults to the system default input. Most users pick a small condenser or omnidirectional measurement mic permanently mounted near the listening position.</li>
+            <li>Open <strong>Settings → Audio</strong> and select your <strong>measurement microphone</strong> from the input device picker. Defaults to the system default input. Any mic works (built-in, talkback, anything CoreAudio sees); for the most accurate readings we recommend a small condenser or omnidirectional measurement mic permanently mounted near the listening position.</li>
             <li>Run the <a href="#calibration">3-step calibration wizard</a> (Settings → Audio). Without calibration, the SPL numbers Audita displays are not in real-world dB.</li>
         </ol>
 
-        <p class="prose">Audita is agent-only (<code>LSUIElement = true</code>) - it never appears in the Dock or the ⌘-Tab switcher. All interaction happens through the menu bar.</p>
+        <p class="prose">Audita is agent-only. It never appears in the Dock or the ⌘-Tab switcher. All interaction happens through the menu bar.</p>
 
         <h3>DAW auto-detection</h3>
         <p class="prose">Audita watches for known DAWs to launch and quit, and automatically starts and ends sessions accordingly. Out of the box, 15 DAWs are tracked by bundle ID: Logic Pro, GarageBand, Pro Tools, LUNA, Ableton Live, REAPER, Cubase, Nuendo, Studio One, FL Studio, Bitwig Studio, Audacity, Adobe Audition, Final Cut Pro, DaVinci Resolve.</p>
@@ -526,7 +546,7 @@
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
         <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar and popover header)</h3>
-        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single 22 pt glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger 44 pt Bloom in the popover header (see <a href="#dropdown-menu">The dropdown menu</a>), so both surfaces always show the same arc count and colour at any given moment.</p>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header (see <a href="#dropdown-menu">The dropdown menu</a>), so both surfaces always show the same arc count and colour at any given moment.</p>
 
         <table>
             <tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
@@ -539,7 +559,7 @@
 
         <p class="prose">The 80 dBA arc-count maximum lines up with the NIOSH dose accrual threshold (<code>Constants.thresholdDBA</code>): the moment your listening starts counting against today's budget is the moment the glyph reaches its full shape. Higher-dB cues come through the dose-tier colour, not extra arcs.</p>
 
-        <p class="prose">The dose-tier colour is unchanged from v1.1: safe 0-40 % is green, caution 40-70 % is yellow, warning 70-90 % is orange, danger 90 %+ is red. Today's dose is persisted to <code>UserDefaults</code> after every measurement, so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
+        <p class="prose">The dose-tier colour is unchanged from v1.1: safe 0-40 % is green, caution 40-70 % is yellow, warning 70-90 % is orange, danger 90 %+ is red. Today's dose is saved continuously so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
 
         <p class="prose">When no session is running, the bloom renders as the full three-arc shape in a neutral system-foreground colour. That distinct "Audita is present, just not measuring" state reads differently from the dose-tinted bloom you see during a live session.</p>
     </section>
@@ -562,10 +582,8 @@
             <tr><td>Icon + dBC</td><td class="wrap-ok">Bloom glyph followed by the live C-weighted number</td></tr>
         </table>
 
-        <img src="images/screenshots/menubar-display-modes.png" alt="The five Audita menu bar display modes side by side: icon only, dBA only, dBC only, icon plus dBA, icon plus dBC" class="screenshot-full">
-
         <h3>One-decimal toggle</h3>
-        <p class="prose"><strong>Settings → General → Menu Bar → Show one decimal</strong> formats the number as <code>85.2</code> instead of <code>85</code>. The menu bar width stays stable either way - Audita pre-renders the readout into a fixed-width <code>NSImage</code> canvas (22 pt integer, 38 pt decimal) so the menu bar item doesn't resize between adjacent values like 14 and 15.</p>
+        <p class="prose"><strong>Settings → General → Menu Bar → Show one decimal</strong> formats the number as <code>85.2</code> instead of <code>85</code>.</p>
 
         <h3>Color-coded readout</h3>
         <p class="prose"><strong>Settings → General → Menu Bar → Color-code reading by level</strong> tints the SPL number according to three configurable thresholds. The defaults follow the NIOSH risk gradient:</p>
@@ -584,7 +602,7 @@
         <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows an em-dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
 
         <h3>Prefer the v1.1 ear icon?</h3>
-        <p class="prose"><strong>Settings → Menu Bar → Use classic ear icon</strong> restores the SF Symbol ear in both the menu bar and the menu window. Off by default; flip it on if you preferred the v1.1 look or if the dose-tier colour reads more clearly to you as the four-icon set than as a single colour-shifting bloom.</p>
+        <p class="prose"><strong>Settings → General → Menu Bar → Use classic ear icon</strong> restores the SF Symbol ear in both the menu bar and the menu window. Off by default; flip it on if you preferred the v1.1 look or if the dose-tier colour reads more clearly to you as the four-icon set than as a single colour-shifting bloom.</p>
     </section>
 
     <hr class="divider">
@@ -595,9 +613,9 @@
 
         <p class="prose">Click the menu bar icon to open the popover. Two panels: the live measurement panel (default) and the session history panel (accessed via the <strong>History</strong> button).</p>
 
-        <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, monitoring discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
+        <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, Monitoring Discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
 
-        <p class="prose">A larger 44 pt Pressure Bloom sits in the popover header next to the accumulated dose readout. It shares its data driver with the menu bar glyph: <strong>arcs follow live SPL</strong>, <strong>colour follows today's NIOSH dose tier</strong>. Same state machine as the menu bar icon (see <a href="#menu-bar-icon-states">Menu bar icon states</a>), just rendered larger in the popover header. When no session is running, the popover glyph falls back to the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
+        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It shares its data driver with the menu bar glyph: <strong>arcs follow live SPL</strong>, <strong>colour follows today's NIOSH dose tier</strong>. Same state machine as the menu bar icon (see <a href="#menu-bar-icon-states">Menu bar icon states</a>), just rendered larger in the popover header. When no session is running, the popover glyph falls back to the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
 
         <h3>License status</h3>
         <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
@@ -608,8 +626,8 @@
         <h3>Live dBA and dBC</h3>
         <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display; dose accumulation uses the unsmoothed per-tick value internally. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
 
-        <h3>Monitoring discipline gauge</h3>
-        <p class="prose">When monitoring discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring discipline</a> for the full mechanic.</p>
+        <h3>Monitoring Discipline gauge</h3>
+        <p class="prose">When Monitoring Discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring Discipline</a> for the full mechanic.</p>
 
         <h3>Today's dose</h3>
         <p class="prose">The cumulative NIOSH dose percentage for the current calendar day, color-coded by zone (green / yellow / orange / red). Below it, peak counters for today's <code>≥135 dBC</code> and <code>≥115 dBA</code> events when non-zero. The dose resets at midnight.</p>
@@ -636,14 +654,14 @@
 
         <p class="prose">A detached always-on-top window that keeps the measurement panel visible while you work in another app. Opened via the pin icon in the menu bar footer; dismissed via the same pin or by double-clicking the panel surface.</p>
 
-        <img src="images/screenshots/floating-panel.png" alt="The Audita floating measurement panel translucent over a DAW window showing live SPL, dose, monitoring discipline, and today's summary" class="screenshot-full">
+        <img src="images/screenshots/floating-panel.png" alt="The Audita floating measurement panel translucent over a DAW window showing live SPL, dose, Monitoring Discipline, and today's summary" class="screenshot-full">
 
         <h3>What it shows</h3>
         <p class="prose">All the same data the menu bar popover shows, configurable per section in <strong>Settings → Panel</strong>:</p>
         <ul>
             <li>Hearing dose (today's NIOSH dose with color)</li>
             <li>Current SPL (dBA + dBC)</li>
-            <li>Monitoring discipline (target, distance, on-target %)</li>
+            <li>Monitoring Discipline (target, distance, on-target %)</li>
             <li>Leq / Ln statistics</li>
             <li>Active session details</li>
             <li>Today's summary (dose, peaks)</li>
@@ -673,7 +691,7 @@
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>TL;DR.</strong> Run Step 1 once per mic. Run Step 2 every time you move the mic or change the gain. Run Step 3 once per output device (per pair of monitors, per pair of headphones).</p>
+            <p><strong>TL;DR.</strong> Run Step 1 once per mic. Run Step 2 every time you move the mic or change the gain. Run Step 3 once per pair of monitors.</p>
         </div>
 
         <h3>Step 1 - Mic frequency response correction (optional)</h3>
@@ -695,11 +713,10 @@
         <ol>
             <li>Install <strong>NIOSH SLM</strong> on iPhone.</li>
             <li>Place the iPhone <strong>at your listening position</strong> - where your head would be - <em>not</em> next to the measurement mic.</li>
-            <li>Play pink noise (or any continuous broadband content) through your monitors at a typical listening level.</li>
-            <li>Open <strong>Settings → Audio → Step 2.</strong> The live SPL reading is shown next to the offset slider.</li>
+            <li>Open <strong>Settings → Audio → Step 2</strong>. Click <strong>Play Pink Noise</strong> under the offset slider and let your monitors settle at a typical listening level. The live SPL reading is shown next to the slider.</li>
             <li>Note the difference: NIOSH reads <code>X</code> dBA, Audita reads <code>Y</code> dBA.</li>
             <li>Adjust the offset slider by <code>(X − Y)</code>. So if NIOSH says 78 and Audita says 72, increase the offset by 6.</li>
-            <li>Repeat until both meters agree to within 1-2 dB on pink noise, music, and voice.</li>
+            <li>Repeat until both meters agree to within 1-2 dB. Click <strong>Stop Pink Noise</strong> when you're done.</li>
         </ol>
 
         <p class="prose">Right under the offset slider is a free-text <strong>Mic Location</strong> field. Use it to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"). It's stored alongside the offset so you can reproduce or cross-check the calibration weeks later.</p>
@@ -710,7 +727,7 @@
         </div>
 
         <h3>Step 3 - Reference monitor level (per output device)</h3>
-        <p class="prose">Steps 1 and 2 establish that what Audita measures matches reality. Step 3 captures which <strong>physical knob position</strong> on your monitor controller produces your target reference level - and stores that record per output device UID, so monitors and headphones each carry their own calibration.</p>
+        <p class="prose">Steps 1 and 2 establish that what Audita measures matches reality. Step 3 captures which <strong>physical knob position</strong> on your monitor controller produces your target reference level - and stores that record per output device UID, so each monitor pair carries its own calibration.</p>
 
         <img src="calibration-wizard.png" alt="Audita target-level calibration wizard in the captured state, showing live SPL at target with the option to save the controller position" class="screenshot-full">
 
@@ -725,25 +742,25 @@
 
         <p class="prose">Audita stores the captured <code>measuredDBA</code> alongside the target for honesty - if you aimed for 79 but the closest knob detent gave 80.4, that's recorded. The discrepancy is shown in the saved-record card so you can decide whether to live with it or fine-tune.</p>
 
-        <p class="prose"><strong>Re-run when:</strong> different output device (monitors → headphones, or you switched monitor pairs), you moved a knob and forgot to put it back, you changed monitor placement or room treatment, or you added/removed a hardware level pad.</p>
+        <p class="prose"><strong>Re-run when:</strong> you switched monitor pairs or selected a different output device, you moved a knob and forgot to put it back, you changed monitor placement or room treatment, or you added/removed a hardware level pad.</p>
 
         <h3>Calibration profiles</h3>
-        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with headphones, second room - saving a <strong>named profile</strong> that captures Step 1 (FIR) + Step 2 (offset) lets you switch between them in one click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker. The active profile name is shown in the menu bar popover.</p>
+        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with its own measurement mic, second room - saving a <strong>named profile</strong> that captures Step 1 (FIR) + Step 2 (offset) lets you switch between them in one click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker. The active profile name is shown in the menu bar popover.</p>
 
-        <p class="prose">Step 3 records are intentionally not part of profiles - they're keyed by output device UID, which already does the right thing across setups. A profile says "this is my mic and offset for this rig"; the current output device determines which Step 3 target applies.</p>
+        <p class="prose">Step 3 records aren't part of profiles - they're keyed by output device UID, so the current output determines which Step 3 target applies. A profile only carries the mic (Step 1) and the level offset (Step 2).</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 7. Monitoring discipline ─────── -->
+    <!-- ─────── 7. Monitoring Discipline ─────── -->
     <section class="guide-section" id="monitoring-discipline">
-        <h2>7. Monitoring discipline <a href="#monitoring-discipline" class="anchor">#</a></h2>
+        <h2>7. Monitoring Discipline <a href="#monitoring-discipline" class="anchor">#</a></h2>
 
         <p class="prose">A separate, optional layer on top of dose tracking that helps you mix and master at a stable, calibrated reference level - and warns you when you've drifted off it.</p>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>Hearing protection (the dose calculation) tells you <strong>how dangerous</strong> today's listening was. Monitoring discipline tells you <strong>how disciplined</strong> today's listening was. Different questions, different answers. A 12-hour day at 70 dBA produces zero NIOSH dose but is also zero K-14 mixing time.</p>
+            <p>Hearing protection (the dose calculation) tells you <strong>how dangerous</strong> today's listening was. Monitoring Discipline tells you <strong>how disciplined</strong> today's listening was. Different questions, different answers. A 12-hour day at 70 dBA produces zero NIOSH dose but is also zero K-14 mixing time.</p>
         </div>
 
         <h3>Reference targets</h3>
@@ -787,8 +804,6 @@
             <li>The alert is <strong>one-shot per session</strong> - once you've been told you're drifting, you won't be told again until the next session starts. The 30-min snooze action defers any future drift warnings.</li>
         </ol>
 
-        <p class="prose"><strong>Why these values:</strong> 10 min for the baseline lets the rolling Leq settle; 3 dB is perceptually significant (a doubling of acoustic power) and matches the NIOSH exchange rate; 5 minutes filters transient excursions like a single loud passage or a quick A/B at higher volume.</p>
-
         <h3>The off-target detector</h3>
         <p class="prose">Drift is about <em>change</em>. Off-target is about <em>intent</em>. You can be totally stable for 30 minutes and still be 5 dB below your stated target the whole time. The off-target detector asks: was that intentional?</p>
 
@@ -809,9 +824,8 @@
         <h3>Snooze is routed by category</h3>
         <p class="prose">Snoozing a drift alert silences future drift alerts only - dose alerts still fire. Snoozing an off-target alert silences future off-target alerts only. Snoozing a dose / peak / sustained-SPL alert silences those collectively but leaves drift and off-target alone. A user who's mid-mastering at a level intentionally below K-14 can silence off-target alerts without losing the safety net of dose alerts.</p>
 
-        <h3>When monitoring discipline is meaningful (and when it isn't)</h3>
-        <p class="prose"><strong>Meaningful when:</strong> you've completed all three calibration steps for the current output device, you're working at a roughly stable level (mixing, mastering, music creation), and the mic hasn't moved.</p>
-        <p class="prose"><strong>Not meaningful when:</strong> you're tracking and the SPL is all over the place by design, you're A/B-ing at multiple levels intentionally, or the output device has changed since the last Step 3 calibration. In those cases, just disable monitoring discipline in Settings → Reference (the toggle at the top of the tab). Tracking continues; the menu bar section disappears; alerts don't fire.</p>
+        <h3>When Monitoring Discipline is meaningful</h3>
+        <p class="prose">When you're working at a roughly stable level (mixing, mastering, music creation) on a calibrated output. If you're tracking, A/B-ing across levels, or the output device has changed since the last Step 3 calibration, disable Monitoring Discipline in <strong>Settings → Reference</strong>.</p>
     </section>
 
     <hr class="divider">
@@ -875,7 +889,6 @@
             <li><strong>Brand strip</strong> - Audita mark and the session's DAW + date + duration.</li>
             <li><strong>SPL chart</strong> - dBA (and dBC) plotted across the session's duration. The chart's background is shaded by <strong>monitoring-discipline zone</strong>: silent, under, on-target, over. The shaded bands make it easy to see at a glance how much of the session was spent at reference and how much drifted off.</li>
             <li><strong>Stats grid</strong> - average SPL, peak SPL, session dose %, EU peak-impulse counters (135 / 137 / 140 dBC and 115 dBA when non-zero), elapsed time, on-target % for the session.</li>
-            <li><strong>Footer</strong> - a short link to <code>headroomstudio.dev/audita</code> so a recipient who's never seen Audita can find it.</li>
         </ul>
 
         <p class="prose">Behind the scenes the time-series sample rate was bumped from one reading per minute (in v1.1) to one reading every 10 seconds in v1.2, so the chart has enough density to read. Older v1.1 sessions still render - they just plot at the lower density they were captured at.</p>
@@ -887,17 +900,19 @@
             <li><strong>Session-recap notification action.</strong> When a session ends, the recap notification carries a <strong>Share Report&hellip;</strong> action button. Use it right after a session if you want to send the report to someone without opening Audita.</li>
         </ul>
 
-        <img src="images/screenshots/share-menu-from-history.png" alt="The Audita history panel with a right-click context menu open on a session row showing Open Report and Share Report entries" class="screenshot-full">
-
         <h3>PDF format and the Share menu</h3>
         <p class="prose">Hit <strong>Share</strong> in the report window (or the <strong>Share Report&hellip;</strong> entry on any of the three entry points above) and Audita renders the report to a temporary PDF, then opens the standard <strong>macOS Share menu</strong>. From there: AirDrop to another device, Mail to attach to a draft, Messages to a thread, Save As to drop the file anywhere on disk, or any third-party share extension you've installed (Slack, Things, Drafts, Reminders, your password manager - whatever you have).</p>
 
         <p class="prose">The generated PDF lives temporarily at <code>~/Library/Caches/Audita Reports/</code>. Caches are macOS-managed - the system handles cleanup on its own schedule, and you can safely empty the folder by hand any time.</p>
 
+        <h3>CSV export (the analyst's companion)</h3>
+        <p class="prose">The PDF is the per-session narrative. For broader-time analysis, the History window's <strong>Export CSV</strong> button drops the selected date range into a spreadsheet-friendly file. Two blocks per file: one row per session, then a per-day summary block.</p>
+        <p class="prose">Per-session columns: <code>Date</code>, <code>DAW</code>, <code>Start</code>, <code>End</code>, <code>Start ISO</code> (sortable), <code>Duration (min)</code>, <code>Avg dBA</code>, <code>Peak dBA</code>, <code>Peak dBC</code>, <code>Leq dBA</code>, <code>L10 dBA</code>, <code>L50 dBA</code>, <code>L90 dBA</code>, <code>Target dBA</code>, <code>Tolerance dBA</code>, <code>Time under (s)</code>, <code>Time on target (s)</code>, <code>Time over (s)</code>, <code>Time silent (s)</code>, <code>On-target %</code>, <code>Impulses ≥135 dBC</code>, <code>Impulses ≥140 dBC</code>, <code>Peaks ≥115 dBA</code>, <code>Dose %</code>.</p>
+        <p class="prose">Daily summary columns: <code>Date</code>, <code>Sessions</code>, <code>Total dose %</code>, <code>Peak dBA</code>, <code>Peak dBC</code>, <code>Impulses ≥135 dBC</code>, <code>Impulses ≥140 dBC</code>, <code>Peaks ≥115 dBA</code>.</p>
+        <p class="prose">Leq is the legally-cited metric in ISO 9612 and EU Directive 2003/10/EC; the CSV is the place to extract it for compliance logs. Sessions that pre-date a feature (e.g. v1.1 sessions, which had no Monitoring Discipline buckets) leave those cells empty.</p>
+
         <h3>Retention settings</h3>
         <p class="prose">Old sessions take up disk space, mainly through the per-session SPL time-series. <strong>Settings &rarr; General &rarr; Storage</strong> exposes two sliders that let you tune the trade-off between archive depth and disk footprint:</p>
-
-        <img src="images/screenshots/settings-storage.png" alt="The Audita Settings General tab showing the Storage section with two retention sliders, a live preview caption noting how many sessions will be deleted on next launch" class="screenshot-full">
 
         <ul>
             <li><strong>Keep detailed time-series for [N] days</strong> (default <strong>14</strong>). After the threshold passes, that session's chart downsamples to one sample per 100 seconds - still legible in the report chart, roughly 10x smaller on disk. The report still opens, the chart still draws, you just lose the fine grain.</li>
@@ -920,19 +935,13 @@
 
         <p class="prose">There are days when you don't want Audita to count what's playing - you're auditioning loud reference tracks, running a sweep, testing a speaker, or rehearsing in the room and don't want the rehearsal to spend your hearing budget for the working day. Pause halts dose accumulation without ending the active session.</p>
 
-        <p class="prose">Pause can be triggered three ways:</p>
+        <p class="prose">Pause has no menu bar button - it's an automation-only surface, reached through:</p>
         <ul>
-            <li><strong>Menu bar popover</strong> - the in-app pause control (when present in your build).</li>
-            <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. See the <a href="api.html">URL scheme reference</a>.</li>
-            <li><strong>Resume</strong> - <code>audita://monitoring/resume</code> or the in-app control.</li>
+            <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for an indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. <code>audita://monitoring/resume</code> ends it. See the <a href="api.html">URL scheme reference</a>.</li>
+            <li><strong>App Intents (Shortcuts / Siri)</strong> - the <em>Pause Monitoring</em> and <em>Resume Monitoring</em> intents accept the same optional duration parameter. Drop them into a Shortcut or call them from Siri. See the <a href="api.html#intents">App Intents reference</a>.</li>
         </ul>
 
         <p class="prose">While paused, the SPL feed still runs (the menu bar readout keeps updating) but the dose calculator skips accumulation on every tick. The pause state is checked at 10 Hz, so dose stops accruing within ~100 ms of the pause being requested. A timed pause auto-resumes at the configured deadline.</p>
-
-        <div class="note">
-            <span class="note-icon">ⓘ</span>
-            <p>Pause is a deliberate user choice, not a workaround. If you find yourself reaching for it daily, that's a signal that your monitoring habits are spending the dose - consider re-running Step 3 calibration or tightening your monitoring discipline tolerance rather than pausing through the dose.</p>
-        </div>
     </section>
 
     <hr class="divider">
@@ -950,7 +959,7 @@
 
         <ol>
             <li><strong>Slot picker</strong> - 1, 2, or 3 (Ctrl+F10 / F11 / F12 respectively).</li>
-            <li><strong>Name</strong> - defaults from your K-System target (79 dBA → "K-14", 83 → "K-12", 85 → "Mix"). Edit freely.</li>
+            <li><strong>Name</strong> - defaults from your K-System target (73 dBA → "Mastering", 79 → "K-14", 83 → "K-12", 85 → "K-20"). Edit freely.</li>
             <li><strong>SPL readout</strong> - read-only, the calibrated value about to be stored.</li>
         </ol>
 
@@ -995,7 +1004,7 @@
 
         <p class="prose">Audita also ships a bundle of <strong>App Intents</strong> for the Shortcuts app, Siri, and Focus Filters - seven intents covering the same reads, sessions, and pause/resume that the URL scheme exposes. If you live inside the Shortcuts ecosystem, the intents are the smoother path; the URL scheme is the lowest-common-denominator surface for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, AppleScript, shell). For sharing a report of a finished session, the <a href="#session-reports">Session Report window</a> below covers every export case better than a Shortcut step.</p>
 
-        <p class="prose">The cross-app <strong>studio-on ritual</strong> is a three-step Shortcut that chains both apps: open your DAW, start an Audita session, switch Lyra to a reference monitor level. Pushing a calibrated SPL into a Lyra reference slot stays in the in-app <a href="#send-to-lyra">Send to Lyra...</a> sheet - it's a one-off setup-time action, not a Shortcut-chainable daily one.</p>
+        <p class="prose">The cross-app <strong>studio-on ritual</strong> is a three-step Shortcut that chains both apps: open your DAW, start an Audita session, switch Lyra to a reference monitor level.</p>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
@@ -1023,7 +1032,7 @@
 
         <p class="prose">The wizard runs once on first launch. It can be re-run later from <strong>Settings → General → Migration → Import from Auris</strong> if you want to bring data over from a second Mac.</p>
 
-        <p class="prose">Your existing Auris license key and trial state carry across automatically - the Keychain entry is shared by design, so reinstalling Audita on a machine that previously had Auris finds the same trial countdown and license credentials. Existing Auris users do not need to re-pay.</p>
+        <p class="prose">Your existing Auris license key and trial state carry across automatically. Reinstalling Audita on a machine that previously had Auris finds the same trial countdown and license credentials. Existing Auris users do not need to re-pay.</p>
     </section>
 
     <hr class="divider">
@@ -1035,15 +1044,13 @@
         <p class="prose">Audita is <strong>$19.99</strong> regular price, one-time purchase, via Lemon Squeezy. An intro price of <strong>$6.99</strong> runs through end-of-day 2026-05-31 for Better Hearing &amp; Speech Month.</p>
 
         <h3>Trial</h3>
-        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date is stored in the macOS Keychain (XOR-scrambled, opaque service identifier), so reinstalling the app does not reset the trial. After 7 days Audita shows a hard-lock window on launch and refuses to run until you activate a license.</p>
-        <p class="prose">The hard lock only fires at launch - if you're already running Audita when the trial expires, nothing happens until your next restart.</p>
+        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Audita shows a hard-lock window on launch and refuses to run until you activate a license.</p>
 
         <h3>Buying</h3>
         <p class="prose">Click <strong>Buy Audita</strong> in the menu (or the Buy button on <a href="/audita/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
 
         <h3>Activating</h3>
-        <p class="prose"><strong>Menu → Activate</strong> (or <strong>Manage</strong> if already licensed) opens the license window. Paste your key and click <strong>Activate</strong>. Audita calls the Lemon Squeezy API to validate, then stores the key and instance ID in the Keychain. Subsequent launches read from Keychain - no network call needed.</p>
-        <p class="prose">Activation requires an internet connection. Once activated, Audita works fully offline.</p>
+        <p class="prose"><strong>Menu → Activate</strong> (or <strong>Manage</strong> if already licensed) opens the license window. Paste your key and click <strong>Activate</strong>. Activation requires an internet connection. Once activated, Audita works fully offline.</p>
 
         <h3>Two-machine limit</h3>
         <p class="prose">Each license can be active on up to <strong>two Macs</strong>. To free a slot, open Audita on the machine you want to release, <strong>Menu → Manage License → Deactivate</strong>, then activate on the new Mac.</p>
@@ -1052,7 +1059,7 @@
         <p class="prose">Check the Lemon Squeezy confirmation email. If you can't find it, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the address you used at checkout.</p>
 
         <h3>Validation</h3>
-        <p class="prose">Audita silently re-validates the stored license against the Lemon Squeezy server on each launch. If the server says revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
+        <p class="prose">Audita silently re-validates your license on each launch. If activation has been revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
     </section>
 
     <hr class="divider">
@@ -1060,9 +1067,7 @@
     <!-- ─────── 15. Updates ─────── -->
     <section class="guide-section" id="updates">
         <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
-        <p class="prose">Audita ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/audita/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
-        <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
-        <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Audita before installing. If the signature doesn't match the download is rejected.</p>
+        <p class="prose">Audita checks for new versions automatically. When one's available you'll see an update prompt at the next launch. To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Release notes: <a href="releases.html">headroomstudio.dev/audita/releases.html</a>.</p>
     </section>
 
@@ -1095,9 +1100,7 @@
         <p class="prose">Re-run from <strong>Settings → General → Migration → Import from Auris</strong>. Make sure the Auris export JSON is on the same machine; the wizard expects the file at the path produced by Auris 1.3's "Move to Audita" modal. If you've moved Macs, copy the export file across first.</p>
 
         <h3>Trial says expired but I just installed</h3>
-        <p class="prose">Reinstalling doesn't reset the trial - the start date is in the Keychain and survives uninstall. This is intentional, and includes data inherited from any prior Auris install on the same machine (the Keychain UUID is shared by design). If you genuinely just downloaded Audita for the first time and it's already expired, the Keychain may have a stale entry. Delete it:</p>
-        <pre><code>security delete-generic-password -s "B2E1D847-9F3A-4C5B-8E6D-1A7C4F2B9E3D" -a "s.ts.v1"</code></pre>
-        <p class="prose">Relaunch - the trial starts fresh.</p>
+        <p class="prose">The trial start date persists across reinstalls and across a prior Auris install on the same Mac, so a reinstall won't reset it. If you genuinely just installed Audita for the first time and it's reading as expired, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
 
         <h3>License says invalid even though I just bought it</h3>
         <p class="prose">Wait 30 seconds and try again - Lemon Squeezy occasionally needs a moment to propagate. If it still fails, double-check that there's no leading/trailing whitespace in the key you pasted. Otherwise email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the key and order number.</p>
@@ -1108,7 +1111,7 @@
         <h3>Sparkle won't show an update prompt</h3>
         <p class="prose">Reset Sparkle's "already checked / already skipped" state:</p>
         <pre><code>defaults delete com.headroom.Audita</code></pre>
-        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. This also clears other UserDefaults - including menu bar display preferences and today's dose - so you'll go back to factory defaults.</p>
+        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. This also resets other preferences (menu bar display, today's dose, etc.) to factory defaults.</p>
     </section>
 
     <hr class="divider">
@@ -1126,10 +1129,11 @@
     <footer>
         <p class="footer-copy">© 2026 Headroom Studio. Made by Krzysiek.</p>
         <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="./">Audita home</a></li>
-            <li><a href="api.html">URL API</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="releases.html">Releases</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
