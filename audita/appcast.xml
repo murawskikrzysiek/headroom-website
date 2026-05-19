@@ -26,6 +26,20 @@
         <language>en</language>
 
         <item>
+            <title>Version 1.2 - Session reports + automation API</title>
+            <pubDate>Tue, 19 May 2026 14:00:00 +0000</pubDate>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.2.dmg"
+                sparkle:edSignature="8I/S7tGHrA4K+0Dwid8uNxp7RVpr93kSHL5Q0uaD/JxxpcWx7sLSurwXrpJdTAcOBBxgpuaqgdZohAOV3uO9Dw=="
+                length="6981182"
+                type="application/octet-stream" />
+        </item>
+
+        <item>
             <title>Version 1.1 - Live menu bar readout + floating panel</title>
             <pubDate>Fri, 08 May 2026 22:00:00 +0000</pubDate>
             <sparkle:version>2</sparkle:version>
