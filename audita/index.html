@@ -7,12 +7,12 @@
     <link rel="canonical" href="https://headroomstudio.dev/audita/">
     <meta name="description" content="Calibrated SPL meter for your Mac menu bar. Pin your monitor chain to a target dBA reference and track NIOSH hearing dose across sessions. $19.99 - $6.99 through May 31, 2026 for Better Hearing & Speech Month.">
     <meta property="og:title" content="Audita">
-    <meta property="og:description" content="Calibrated monitoring discipline and NIOSH hearing dose tracking, in one menu bar app. Pin your monitor knob to a reference. Know how much hearing today has cost.">
+    <meta property="og:description" content="Calibrated Monitoring Discipline and NIOSH hearing dose tracking, in one menu bar app. Pin your monitor knob to a reference. Know how much hearing today has cost.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Audita">
-    <meta name="twitter:description" content="Calibrated monitoring discipline and NIOSH hearing dose tracking, in one menu bar app.">
+    <meta name="twitter:description" content="Calibrated Monitoring Discipline and NIOSH hearing dose tracking, in one menu bar app.">
     <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -602,6 +602,8 @@
             <span class="brand-word">Head<span>room</span></span>
         </a>
         <div style="display: flex; align-items: center; gap: 24px;">
+            <a href="guide.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">User Guide</a>
+            <a href="api.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">API</a>
             <a href="faq.html" style="font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-2)'">FAQ</a>
             <a href="../" class="nav-back">
                 <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -629,7 +631,7 @@
                 <span class="badge">NIOSH</span>
             </div>
             <div class="hero-actions">
-                <a href="https://releases.headroomstudio.dev/Audita-1.1.dmg" class="btn btn-primary">
+                <a href="https://releases.headroomstudio.dev/Audita-1.2.dmg" class="btn btn-primary">
                     ↓ Download Free Trial
                 </a>
                 <a href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1"
@@ -645,12 +647,12 @@
 
 <div class="container">
     <div class="screenshots">
-        <img src="audita-hero.png" alt="Audita at a glance - monitoring discipline gauge, live A-weighted SPL, NIOSH dose tracker, calibrated reference targets, and Send-to-Lyra workflow" class="screenshot-full">
+        <img src="audita-hero.png" alt="Audita at a glance - Monitoring Discipline gauge, live A-weighted SPL, NIOSH dose tracker, calibrated reference targets, and Send-to-Lyra workflow" class="screenshot-full">
         <img src="history.png" alt="Audita session history window showing past recording sessions with dose and peak levels" class="screenshot-full">
         <div class="screenshot-row-3">
-            <img src="menu_dose_green.png" alt="Audita menu bar popover - Safe dose level (green) with monitoring discipline gauge">
-            <img src="menu_dose_yellow.png" alt="Audita menu bar popover - Caution dose level (yellow) with monitoring discipline gauge">
-            <img src="menu_dose_red.png" alt="Audita menu bar popover - Over-exposed dose level (red) with monitoring discipline gauge">
+            <img src="menu_bloom_green.png" alt="Audita menu bar popover - Safe dose tier (green) with the Pressure Bloom glyph and Monitoring Discipline gauge">
+            <img src="menu_bloom_yellow.png" alt="Audita menu bar popover - Caution dose tier (yellow) with the Pressure Bloom glyph and Monitoring Discipline gauge">
+            <img src="menu_bloom_red.png" alt="Audita menu bar popover - Danger dose tier (red) with the Pressure Bloom glyph and Monitoring Discipline gauge">
         </div>
         <div class="screenshot-row">
             <img src="calibration-wizard.png" alt="Audita target-level calibration wizard in the captured state - pin the monitor controller to a known dBA reference">
@@ -684,15 +686,15 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Live menu bar readout</span>
-                <span class="feature-val">Show a live SPL number right in the menu bar - dBA, dBC, or alongside the dose icon - for an at-a-glance reading without opening the popover. Optional one-decimal precision and color-coded thresholds (green / yellow / orange / red, defaults from the NIOSH risk gradient at 70 / 80 / 95 dB, fully configurable). Pick the variant that suits how you work in <em>Settings → Menu Bar</em>.</span>
+                <span class="feature-val">Show a live SPL number right in the menu bar - dBA, dBC, or alongside the dose icon - for an at-a-glance reading without opening the popover. Optional one-decimal precision and color-coded thresholds (green / yellow / orange / red, defaults from the NIOSH risk gradient at 70 / 80 / 95 dB, fully configurable). Pick the variant that suits how you work in <em>Settings → General → Menu Bar</em>.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Pinnable measurement panel</span>
-                <span class="feature-val">Detach the measurement display as a floating window that stays above your DAW. Pick which sections to keep - hearing dose, current SPL, monitoring discipline, Leq / Ln, active session, today's summary - in <em>Settings → Panel</em>. The window auto-resizes as you toggle sections, remembers its position, and uses the new Liquid Glass material on macOS Tahoe (26+). Click the menu bar pin again - or double-click the panel - to dismiss.</span>
+                <span class="feature-val">Detach the measurement display as a floating window that stays above your DAW. Pick which sections to keep - hearing dose, current SPL, Monitoring Discipline, Leq / Ln, active session, today's summary - in <em>Settings → Panel</em>. The window auto-resizes as you toggle sections, remembers its position, and uses the new Liquid Glass material on macOS Tahoe (26+). Click the menu bar pin again - or double-click the panel - to dismiss.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Target-level calibration</span>
-                <span class="feature-val">A pink-noise wizard pins your monitor controller to a specific dBA target (79 dBA approximates Katz's K-System reference; 81 lands close to cinema reference). Captured calibrations record the knob-position note, target value, and measured SPL, with a stale-calibration hint after 90 days. One record per output device, so each monitor setup is calibrated independently.</span>
+                <span class="feature-val">A pink-noise wizard pins your monitor controller to a specific dBA target (79 dBA is Katz's K-14 reference; 85 dBA is the K-20 / Dolby cinema reference). Captured calibrations record the knob-position note, target value, and measured SPL, with a stale-calibration hint after 90 days. One record per output device, so each monitor setup is calibrated independently.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Monitoring Discipline</span>
@@ -708,7 +710,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Hearing dose</span>
-                <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. Four colour-coded states - Safe, Caution, Warning, Over-exposed - update in the menu bar icon in real time. Resets at midnight. Persists across restarts.</span>
+                <span class="feature-val">Accumulates your daily exposure using the NIOSH formula. The Pressure Bloom in your menu bar reflects both <strong>live SPL</strong> (arc count, 0 to 3) and <strong>today's dose tier</strong> (colour) at a glance - safe (green) through danger (red). Resets at midnight. Persists across restarts.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Leq &amp; Ln stats</span>
@@ -728,7 +730,11 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Session history</span>
-                <span class="feature-val">Full 30-day history with per-session dose contribution, average and peak SPL, and peak impulse counts. Seven-day bar chart shows your weekly EU L_EX,w exposure level at a glance.</span>
+                <span class="feature-val">Per-session dose contribution, average and peak SPL, and peak impulse counts. Retention is configurable (default 90 days for sessions, 14 days for the detailed time-series within each session). Seven-day bar chart shows your weekly EU L_EX,w exposure level at a glance.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Shareable session reports</span>
+                <span class="feature-val">Every session generates a one-page PDF report - SPL chart with monitoring-discipline shading, stats grid, headroomstudio.dev/audita footer - opened from the history context menu, the menu bar popover, or the session-recap notification. The Share button hands it off to the macOS Share menu: AirDrop, Mail, Messages, Save As, or any installed share extension.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">History window</span>
@@ -748,15 +754,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Non-invasive</span>
-                <span class="feature-val">Lives in the menu bar with no Dock icon. Measures passively via any CoreAudio input device - a built-in mic, a measurement mic, or any interface input channel. Nothing touches your signal chain.</span>
-            </div>
-            <div class="feature-row">
-                <span class="feature-key">Auto-updates</span>
-                <span class="feature-val">Stays current automatically. You'll be notified in the menu when a new version is available.</span>
-            </div>
-            <div class="feature-row">
-                <span class="feature-key">Launch at login</span>
-                <span class="feature-val">Optionally start with macOS so dose tracking begins as soon as your session does.</span>
+                <span class="feature-val">Lives in the menu bar. Measures passively via any CoreAudio input device - a built-in mic, a measurement mic, or any interface input channel. Nothing touches your signal chain.</span>
             </div>
         </div>
     </section>
@@ -779,33 +777,16 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="how-it-works">
         <p class="section-label">How it works</p>
 
         <p class="prose">Audita reads audio from a microphone positioned at your listening position and converts it to A-weighted SPL using a proper <strong>IEC 61672-1 filter</strong> - the same standard used in professional sound level meters. It samples 10 times per second. That single measurement chain feeds two sets of tools.</p>
 
-        <p class="prose" style="margin-top: 16px;"><strong>Monitoring side.</strong> The live SPL feeds a target-level calibration wizard that pins your monitor controller to a chosen dBA target. Pink noise plays through your selected output, the wizard waits for the reading to settle inside a configurable tolerance band, you click <em>Capture</em>, and the position is recorded with a knob-position note. After saving, a one-click handoff to <a href="../lyra/">Lyra</a> writes the calibration into one of three reference slots, recallable by Ctrl+F-key. From then on, <strong>Monitoring Discipline</strong> classifies every 10 Hz tick as <em>under / on-target / over</em> against your tolerance band and surfaces a live on-target % chip plus a daily aggregate - so "did I actually monitor at reference today?" becomes a number, not a vibe. Rolling Leq statistics (over 1, 10, and 30 minutes) plus L10/L50/L90 percentiles describe the character of the session at a finer grain.</p>
+        <p class="prose" style="margin-top: 16px;"><strong>Monitoring side.</strong> The live SPL feeds a target-level calibration wizard that pins your monitor controller to a chosen dBA target. Pink noise plays through your selected output, the wizard waits for the reading to settle inside a configurable tolerance band, you click <em>Capture</em>, and the position is recorded with a knob-position note. After saving, a one-click handoff to <a href="../lyra/">Lyra</a> writes the calibration into one of three reference slots, recallable by Ctrl+F-key. From then on, <strong>Monitoring Discipline</strong> classifies every 10 Hz tick as <em>under / on-target / over</em> against your tolerance band and surfaces a live on-target % chip plus a daily aggregate - so "did I actually monitor at reference today?" becomes a number. Rolling Leq statistics (over 1, 10, and 30 minutes) plus L10/L50/L90 percentiles describe the character of the session at a finer grain.</p>
 
-        <p class="prose" style="margin-top: 16px;"><strong>Hearing-protection side.</strong> The same SPL stream accumulates hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time.</p>
-
-        <table class="dose-table">
-            <thead>
-                <tr><th>Level</th><th>Safe duration</th><th></th></tr>
-            </thead>
-            <tbody>
-                <tr><td>85 dBA</td><td>8 hours</td><td style="color: var(--text-3); font-size: 0.8rem;">NIOSH criterion</td></tr>
-                <tr><td>88 dBA</td><td>4 hours</td><td></td></tr>
-                <tr><td>91 dBA</td><td>2 hours</td><td></td></tr>
-                <tr><td>94 dBA</td><td>1 hour</td><td></td></tr>
-                <tr><td>97 dBA</td><td>30 minutes</td><td></td></tr>
-                <tr><td>100 dBA</td><td>15 minutes</td><td></td></tr>
-            </tbody>
-        </table>
+        <p class="prose" style="margin-top: 16px;"><strong>Hearing-protection side.</strong> The same SPL stream accumulates hearing dose according to the <strong>NIOSH Recommended Exposure Limit</strong> formula. The key relationship: at 85 dBA you have 8 hours; every 3 dB increase halves that time. <a href="guide.html#what-audita-does" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.35);padding-bottom:1px;">Full safe-duration table in the guide →</a></p>
 
         <p class="prose" style="margin-top: 20px;">A parallel <strong>C-weighted path</strong> runs simultaneously for peak impulse monitoring. Unlike A-weighting, C-weighting is nearly flat from 31.5 Hz to 8 kHz - it accurately captures the energy of transient events such as drum hits and loud clicks that can cause immediate cochlear damage regardless of cumulative dose. EU Directive 2003/10/EC specifically mandates C-weighted peak measurement for exactly this reason.</p>
-
-        <img src="weighting-curves.png" alt="IEC 61672-1 A-weighting and C-weighting frequency response curves showing how A-weighting attenuates low frequencies while C-weighting remains nearly flat" class="chart-img">
-        <p class="chart-caption">IEC 61672-1 A-weighting vs C-weighting - A-weighting de-emphasises bass, where C-weighting stays flat. The gap between the two readings indicates how much low-frequency energy A-weighting is missing.</p>
 
         <p class="prose" style="margin-top: 20px;">All data stays on your Mac. No telemetry, no cloud sync, no servers. <a href="faq.html" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.35);padding-bottom:1px;">More answers in the FAQ →</a></p>
 
@@ -843,7 +824,10 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="faq.html">FAQ</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
