@@ -280,7 +280,7 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
-        <a href="index.html" class="nav-back">
+        <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"/>
             </svg>
@@ -381,7 +381,7 @@
             <div class="faq-item">
                 <p class="faq-q">Why does my slot show "85 dB SPL" instead of a percentage?</p>
                 <p class="faq-a">Because it was calibrated. When a slot is written via Audita's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere - menu, HUD pill - because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
-                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared on purpose: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
+                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
             </div>
 
             <div class="faq-item">
@@ -411,7 +411,7 @@
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
                 <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
-                <p class="faq-a">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later - on macOS 12, Lyra runs as usual and the Shortcuts surface is gracefully absent.</p>
+                <p class="faq-a">The most-used intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later. On macOS 12, Lyra runs as usual and the Shortcuts surface is hidden.</p>
             </div>
 
             <div class="faq-item">
@@ -517,7 +517,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">The F-keys aren't working. What should I check?</p>
-                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra intentionally doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
+                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
                 <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
             </div>
 
@@ -536,6 +536,7 @@
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="guide.html">User Guide</a></li>
             <li><a href="api.html">API</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>

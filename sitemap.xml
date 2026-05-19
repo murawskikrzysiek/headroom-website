@@ -38,19 +38,31 @@
   <!-- Audita (renamed from Auris on 2026-05-08) -->
   <url>
     <loc>https://headroomstudio.dev/audita/</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://headroomstudio.dev/audita/guide.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://headroomstudio.dev/audita/api.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://headroomstudio.dev/audita/faq.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://headroomstudio.dev/audita/releases.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

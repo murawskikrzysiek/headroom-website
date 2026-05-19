@@ -6,6 +6,14 @@
     <title>Audita FAQ - SPL Calibration, NIOSH Dose & macOS Setup</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/faq.html">
     <meta name="description" content="Common questions about Audita: calibrating your monitor chain to dB SPL, NIOSH hearing dose explained, supported interfaces, talkback channels, sessions.">
+    <meta property="og:title" content="Audita FAQ">
+    <meta property="og:description" content="Common questions about Audita: calibration, NIOSH hearing dose, supported interfaces, sessions.">
+    <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Audita FAQ">
+    <meta name="twitter:description" content="Common questions about Audita: calibration, NIOSH hearing dose, supported interfaces, sessions.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -293,6 +301,24 @@
             line-height: 1.6;
         }
 
+        /* ─── Weighting chart image ─── */
+
+        .chart-img {
+            display: block;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .chart-caption {
+            font-size: 0.775rem;
+            color: var(--text-3);
+            text-align: center;
+            margin-top: 8px;
+        }
+
         /* ─── Footer ─── */
 
         footer {
@@ -332,7 +358,7 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
-        <a href="index.html" class="nav-back">
+        <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"/>
             </svg>
@@ -361,7 +387,12 @@
             <div class="faq-item">
                 <p class="faq-q">What does Audita actually measure?</p>
                 <p class="faq-a">Audita reads audio from a microphone at your listening position and converts the signal to A-weighted sound pressure level (dBA) using a filter that models human hearing sensitivity. It samples 10 times per second. That single measurement chain feeds two things: a <strong>Monitoring Discipline</strong> tracker that classifies every reading against a target listening level you've calibrated to, and a <strong>NIOSH hearing dose</strong> counter that accumulates your daily exposure. At 85 dBA you have 8 hours of safe exposure; every 3 dB increase halves that time.</p>
-                <p class="faq-a">A parallel C-weighted measurement runs simultaneously for impulse peak monitoring. C-weighting is nearly flat across the audible spectrum, making it better suited for detecting sudden loud events that can cause immediate damage even if your cumulative dose is low.</p>
+                <p class="faq-a">Audita also tracks C-weighted SPL in parallel for impulse peak monitoring. See <a href="#a-c-weighting">A-weighting &amp; C-weighting</a> below for why.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Audita work with headphones?</p>
+                <p class="faq-a">No. Audita is a monitor-room tool. It measures the SPL arriving at a microphone placed at your listening position, which works for speakers but not for headphones.</p>
             </div>
 
             <div class="faq-item">
@@ -378,7 +409,7 @@
                         <tr><td>90%+</td><td>Over-exposed</td><td>Daily limit approaching - continued exposure risks permanent damage</td></tr>
                     </tbody>
                 </table>
-                <p class="faq-a" style="margin-top: 12px;">Think of 100% not as a cliff edge after which damage is guaranteed, but as the point where a person exposed at that level <em>every working day for a career</em> begins accumulating statistically significant risk. The dose resets at midnight.</p>
+                <p class="faq-a" style="margin-top: 12px;">The dose resets at midnight.</p>
             </div>
 
             <div class="faq-item">
@@ -388,22 +419,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">How long can I safely work at different levels?</p>
-                <p class="faq-a">The NIOSH formula gives a clear answer. With an 85 dBA criterion and 3 dB exchange rate:</p>
-                <table class="dose-table">
-                    <thead>
-                        <tr><th>Level</th><th>Safe duration</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>80 dBA</td><td>Threshold - no dose accumulates below this</td></tr>
-                        <tr><td>85 dBA</td><td>8 hours</td></tr>
-                        <tr><td>88 dBA</td><td>4 hours</td></tr>
-                        <tr><td>91 dBA</td><td>2 hours</td></tr>
-                        <tr><td>94 dBA</td><td>1 hour</td></tr>
-                        <tr><td>97 dBA</td><td>30 minutes</td></tr>
-                        <tr><td>100 dBA</td><td>15 minutes</td></tr>
-                    </tbody>
-                </table>
-                <p class="faq-a" style="margin-top: 12px;">Every 3 dB increase halves your safe time. Most studio monitoring sits between 75-90 dBA - seemingly moderate, but over a 10-hour session the dose accumulates faster than you'd expect.</p>
+                <p class="faq-a">Every 3 dB increase halves your safe time. At 85 dBA you have 8 hours; below 80 dBA no dose accumulates at all. Most studio monitoring sits between 75 and 90 dBA - seemingly moderate, but over a 10-hour session the dose can accumulate faster than you'd expect. <a href="guide.html#safe-duration">Full safe-duration table in the guide →</a></p>
             </div>
 
         </div>
@@ -456,37 +472,13 @@
 
             <div class="faq-item">
                 <p class="faq-q">How do I calibrate the frequency response?</p>
-                <p class="faq-a">The goal is to measure how your microphone deviates from a flat response and tell Audita how to compensate. The process uses pink noise as a reference signal - pink noise has equal energy per octave, which makes spectral deviations easy to spot.</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span><span>Place your measurement mic at your listening position</span></div>
-                    <div class="step"><span class="step-num">2</span><span>In Audita, open <strong>Settings → Calibration → Frequency Response</strong> and start a measurement - Audita will play pink noise through your monitors and record the spectral shape of what your mic is hearing</span></div>
-                    <div class="step"><span class="step-num">3</span><span>Audita compares this against a flat pink-noise reference and derives a per-band correction curve that makes the two agree</span></div>
-                    <div class="step"><span class="step-num">4</span><span>Apply the correction and proceed to level calibration</span></div>
-                </div>
-                <div class="notice">
-                    <span class="notice-icon">💡</span>
-                    <p>A dedicated measurement microphone (e.g. Behringer ECM8000, Superlux ECM999) gives the most accurate results because its capsule is designed for flat response. MacBook built-in microphones vary significantly between units and have a noticeable presence boost around 3-5 kHz, but the correction curve will still improve accuracy considerably compared to using no calibration at all.</p>
-                </div>
-                <p class="faq-a" style="margin-top: 10px;">If you have access to a professional sound level meter - or can compare against a verified reference - you can validate the correction by checking that Audita agrees with the reference within 1-2 dB after both calibration steps are complete.</p>
+                <p class="faq-a">Place the measurement mic at your listening position, then run <strong>Settings → Audio → Step 1 → Measure</strong>. Audita plays pink noise for ~4 seconds, captures the spectral shape, and derives a corrective FIR filter automatically. <a href="guide.html#calibration">Full walkthrough in the guide →</a></p>
+                <p class="faq-a">A dedicated measurement mic (Behringer ECM8000, Superlux ECM999) gives the most accurate results. The built-in MacBook mic still benefits from correction but varies a lot between units.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Can I save a calibration and reuse it later?</p>
-                <p class="faq-a">Yes. The <strong>Save Profile</strong> section is always available at the bottom of Settings → Audio. Give it a label - the input device name is pre-filled, but something more descriptive is useful if you use the same mic in different positions or at different gain settings (e.g. <em>Superlux at desk - Apollo gain 40%</em>).</p>
-                <p class="faq-a">Each saved profile stores:</p>
-                <table class="dose-table">
-                    <tbody>
-                        <tr><td>Frequency correction</td><td>The full 128-tap FIR filter - omitted if no measurement has been made</td></tr>
-                        <tr><td>Device name</td><td>The input device that was selected at save time</td></tr>
-                        <tr><td>Level offset</td><td>The calibration offset that was active at save time - restored when you apply the profile</td></tr>
-                        <tr><td>Date saved</td><td>When the profile was saved</td></tr>
-                    </tbody>
-                </table>
-                <p class="faq-a" style="margin-top: 10px;">Saved profiles appear under <strong>Settings → Audio → Saved Profiles</strong>. Pressing <strong>Apply</strong> restores the frequency correction (if the profile has one) and sets the level offset to the value stored in the profile.</p>
-                <div class="notice">
-                    <span class="notice-icon">⚠</span>
-                    <p>The level offset is sensitive to input gain. If your gain has changed since the profile was saved, the restored offset will be incorrect - check the <em>Offset at save</em> value on the profile card and readjust manually if needed.</p>
-                </div>
+                <p class="faq-a">Yes - <strong>Settings → Audio → Calibration Profiles</strong> saves the FIR correction + level offset as a named profile you can switch between in one click. Useful when you alternate between rigs (studio desk / mobile rig / second room). The Step 3 reference monitor record is keyed separately by output-device UID and isn't part of profiles. <a href="guide.html#calibration">Detailed coverage in the guide →</a></p>
             </div>
 
             <div class="faq-item">
@@ -497,16 +489,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">I don't have a pistonphone. How do I calibrate?</p>
-                <p class="faq-a">A practical method using a free reference app:</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span><span>Install the free <a href="https://apps.apple.com/us/app/niosh-sound-level-meter/id1096545820" target="_blank" rel="noopener"><strong>NIOSH Sound Level Meter</strong></a> app on an iPhone (<a href="https://www.cdc.gov/niosh/noise/about/app.html" target="_blank" rel="noopener">CDC page</a>) - NIOSH validate it to ±2 dBA in their acoustics lab, though that figure applies to use with an external calibrated mic; the built-in iPhone mic adds some uncertainty. For the purpose of setting a calibration offset this is more than good enough.</span></div>
-                    <div class="step"><span class="step-num">2</span><span>Place the iPhone next to your measurement mic, at the same position</span></div>
-                    <div class="step"><span class="step-num">3</span><span>Play pink noise through your monitors at a typical working level</span></div>
-                    <div class="step"><span class="step-num">4</span><span>Note the difference between what the iPhone app reads and what Audita reads</span></div>
-                    <div class="step"><span class="step-num">5</span><span>Adjust the <strong>Calibration Offset</strong> in Settings → Audio by that difference (e.g. if the iPhone reads 78 dB and Audita shows 72 dB, increase the offset by 6)</span></div>
-                    <div class="step"><span class="step-num">6</span><span>Repeat until both agree within 1-2 dB</span></div>
-                </div>
-                <p class="faq-a" style="margin-top: 10px;">Record your calibration value and mic position in the <strong>Mic Location</strong> field so you can reproduce the same setup later.</p>
+                <p class="faq-a">Use the free <a href="https://apps.apple.com/us/app/niosh-sound-level-meter/id1096545820" target="_blank" rel="noopener"><strong>NIOSH Sound Level Meter</strong></a> on an iPhone as the reference. Place the iPhone at your listening position, play pink noise, and adjust Audita's calibration offset until the two readings agree to within 1-2 dB. NIOSH validate the app to ±2 dBA, which is plenty for setting a working offset. <a href="guide.html#calibration">Step-by-step procedure in the guide →</a></p>
             </div>
 
         </div>
@@ -536,10 +519,10 @@
                         <tr><th>Target</th><th>Use case</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>73 dBA</td><td>K-20 - quiet mixing reference, small rooms, late-night work</td></tr>
+                        <tr><td>73 dBA</td><td>Mastering - quiet critical listening, small rooms, late-night work</td></tr>
                         <tr><td>79 dBA</td><td>K-14 - Bob Katz's general-purpose mixing reference</td></tr>
                         <tr><td>83 dBA</td><td>K-12 - broadcast / loud-music mixing</td></tr>
-                        <tr><td>85 dBA</td><td>Cinema / loud tracking</td></tr>
+                        <tr><td>85 dBA</td><td>K-20 / Dolby / SMPTE - film, cinema, reference-loudness mix stages</td></tr>
                     </tbody>
                 </table>
                 <p class="faq-a" style="margin-top: 12px;">Or set a custom target between 60 and 95 dBA. The default (79 dBA / ±3 dB) is a sensible starting point for most studio mixing.</p>
@@ -568,7 +551,7 @@
 
     <!-- ── A-weighting & C-weighting ──────────────────────────────────── -->
 
-    <section class="faq-group">
+    <section class="faq-group" id="a-c-weighting">
         <p class="group-label">A-weighting &amp; C-weighting</p>
         <div class="faq-list">
 
@@ -577,6 +560,8 @@
                 <p class="faq-a">Human hearing is not equally sensitive at all frequencies. International standards define <strong>weighting curves</strong> that adjust measurements to reflect this. The two matter for different reasons:</p>
                 <p class="faq-a"><strong>A-weighting (dBA)</strong> models hearing sensitivity at moderate levels. It attenuates frequencies below 200 Hz (a 100 Hz tone measures about 19 dB lower than its physical level) and slightly boosts the 2-4 kHz range where hearing is most sensitive. This is the correct weighting for dose calculation because hearing damage from continuous exposure correlates with perceived loudness, not raw physical energy. NIOSH, OSHA, and EU Directive 2003/10/EC all mandate dBA for occupational dose.</p>
                 <p class="faq-a"><strong>C-weighting (dBC)</strong> is nearly flat from 31.5 Hz to 8 kHz - it only rolls off at the extremes. This makes it correct for measuring <strong>peak impulse levels</strong>. Impulsive sounds can cause mechanical damage to cochlear hair cells regardless of how loud they seem. A-weighting would underreport this risk because it de-emphasises the low-frequency content of many impulses. EU Directive 2003/10/EC specifically mandates C-weighted peak measurement (LCpeak) for exactly this reason.</p>
+                <img src="weighting-curves.png" alt="IEC 61672-1 A-weighting and C-weighting frequency response curves showing how A-weighting attenuates low frequencies while C-weighting remains nearly flat" class="chart-img">
+                <p class="chart-caption">IEC 61672-1 A-weighting vs C-weighting. A-weighting de-emphasises bass; C-weighting stays flat. The gap between the two readings indicates how much low-frequency energy A-weighting is missing.</p>
             </div>
 
             <div class="faq-item">
@@ -604,13 +589,12 @@
 
             <div class="faq-item">
                 <p class="faq-q">How does auto-session detection work?</p>
-                <p class="faq-a">Audita watches for DAW processes launching and quitting using system notifications. When a tracked DAW opens, a session starts automatically. When the last tracked DAW quits, the session ends. If you open multiple DAWs simultaneously, the session continues until all of them have closed.</p>
-                <p class="faq-a">You can disable this and use manual Start / End Session instead - toggle it in <strong>Settings → DAWs</strong>.</p>
+                <p class="faq-a">A session starts when the first tracked DAW launches and ends when the last one quits - opening multiple DAWs at once keeps a single session running. Disable it (or switch to manual Start / End Session) in <strong>Settings → DAWs</strong>. <a href="guide.html#sessions">More on the session lifecycle in the guide →</a></p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">My DAW isn't being detected. What do I do?</p>
-                <p class="faq-a">First confirm that auto-session detection is enabled in <strong>Settings → DAWs</strong>. If your DAW isn't in the built-in list of 17, you can add its bundle ID manually. To find a DAW's bundle ID:</p>
+                <p class="faq-a">First confirm that auto-session detection is enabled in <strong>Settings → DAWs</strong>. If your DAW isn't in the built-in list of 15, you can add its bundle ID manually. To find a DAW's bundle ID:</p>
                 <div class="steps">
                     <div class="step"><span class="step-num">1</span><span>Right-click the app in Finder and choose <strong>Get Info</strong></span></div>
                     <div class="step"><span class="step-num">2</span><span>Or run this in Terminal to look it up directly:</span></div>
@@ -763,6 +747,9 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>

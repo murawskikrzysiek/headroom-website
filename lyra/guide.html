@@ -457,7 +457,7 @@
 
 <div class="container">
     <header class="page-header" id="top">
-        <p class="page-eyebrow">Lyra · User guide</p>
+        <p class="page-eyebrow">Lyra · User Guide</p>
         <h1>Everything Lyra does, and how to drive it.</h1>
         <p class="page-lede">Lyra maps F10 / F11 / F12 to the monitor volume of a Universal Audio Apollo. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
     </header>
@@ -574,7 +574,7 @@
         </ul>
 
         <h3>Volume label &amp; slider</h3>
-        <p class="prose">The slider mirrors the Apollo's tapered 0.0–1.0 monitor level. Drag it for direct control; the percentage updates as you go. Shows <strong>"Volume: Muted"</strong> when mute is engaged, <strong>"Volume: N% - DIM"</strong> when DIM is engaged.</p>
+        <p class="prose">The slider mirrors the Apollo's tapered 0.0-1.0 monitor level. Drag it for direct control; the percentage updates as you go. Shows <strong>"Volume: Muted"</strong> when mute is engaged, <strong>"Volume: N% - DIM"</strong> when DIM is engaged.</p>
 
         <h3>Mute / DIM / Mono</h3>
         <p class="prose">Three toggles with checkmarks. DIM uses the Apollo's hardware DIM (attenuation amount is whatever you've configured in UA Console - typically −20 dB). Mono uses MixToMono - sums L+R for mono-compatibility checks.</p>
@@ -654,7 +654,7 @@
     <section class="guide-section" id="reference-levels">
         <h2>7. Reference Levels <a href="#reference-levels" class="anchor">#</a></h2>
 
-        <p class="prose">Lyra has three monitor presets, each stored as a tapered position (0.0–1.0) plus a user-renamable name. Defaults are <strong>Quiet</strong> (25%), <strong>Mix</strong> (50%), <strong>Loud</strong> (75%).</p>
+        <p class="prose">Lyra has three monitor presets, each stored as a tapered position (0.0-1.0) plus a user-renamable name. Defaults are <strong>Quiet</strong> (25%), <strong>Mix</strong> (50%), <strong>Loud</strong> (75%).</p>
 
         <img src="lyra-ref-levels.png" alt="Lyra's Reference Levels submenu with three named slots plus Save and Rename actions" class="screenshot-full">
 
@@ -753,7 +753,7 @@ open "lyra://mute/toggle"</code></pre>
         <h3>Volume</h3>
         <table>
             <tr><th>URL</th><th>What it does</th></tr>
-            <tr><td><code>lyra://volume/set?tapered=0.5</code></td><td class="wrap-ok">Set absolute level. <code>tapered</code> is 0.0–1.0 - same scale as <code>CRMonitorLevelTapered</code>.</td></tr>
+            <tr><td><code>lyra://volume/set?tapered=0.5</code></td><td class="wrap-ok">Set absolute level. <code>tapered</code> is 0.0-1.0 - same scale as <code>CRMonitorLevelTapered</code>.</td></tr>
             <tr><td><code>lyra://volume/up</code></td><td class="wrap-ok">Step up one full step (default 1/16).</td></tr>
             <tr><td><code>lyra://volume/up?fine=1</code></td><td class="wrap-ok">Step up by half - Shift equivalent.</td></tr>
             <tr><td><code>lyra://volume/down</code></td><td class="wrap-ok">Step down one full step.</td></tr>
@@ -775,7 +775,7 @@ open "lyra://mute/toggle"</code></pre>
         <table>
             <tr><th>URL</th><th>Returns (appended to x-success)</th></tr>
             <tr><td class="wrap-ok"><code>lyra://volume/get?x-success=…</code></td><td class="wrap-ok"><code>tapered</code>, <code>db</code></td></tr>
-            <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1–3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume.</td></tr>
+            <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume.</td></tr>
             <tr><td class="wrap-ok"><code>lyra://state?x-success=…</code></td><td class="wrap-ok">All of the above, plus <code>muted</code>, <code>dim</code>, <code>mono</code>, <code>mixer_connected</code>, <code>device_connected</code>, <code>device_name</code>, <code>volume_step</code>.</td></tr>
         </table>
         <p class="prose"><code>db</code> may be absent for a fraction of a second on first launch - Lyra waits for the first <code>CRMonitorLevel</code> push from the Apollo before it can answer. After that it stays in sync with the hardware knob.</p>
@@ -810,97 +810,16 @@ open "lyra://mute/toggle"</code></pre>
     <section class="guide-section" id="app-intents">
         <h2>10. Shortcuts, Siri &amp; Focus Filters (App Intents) <a href="#app-intents" class="anchor">#</a></h2>
 
-        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle - every action you can drive from the URL scheme is also a first-class entry in the macOS Shortcuts app, discoverable through Spotlight, wireable into a Focus mode, and reachable from Siri via a named Shortcut (see below). Power-user setups that want structured return values without parsing query strings should reach for App Intents instead of <code>lyra://</code>.</p>
+        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle: eleven intents covering every action you can drive from the URL scheme, plus structured reads. They show up in the macOS Shortcuts app, in Spotlight (pre-wired App Shortcuts for the most-used ones), in Siri (via a named Shortcut), and in Focus Filters (e.g. switch to reference slot 2 when Mixing Focus engages).</p>
 
-        <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this whole section is gracefully absent - the Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
+        <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this section is hidden. The Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
 
         <img src="lyra-shortcuts.png" alt="The Shortcuts app: a built 'Mix Setup' Shortcut chaining several Lyra intents on the left, and the full Lyra action library searched on the right" class="screenshot-full">
 
-        <h3>The intents</h3>
-        <p class="prose">In Shortcuts, search "Lyra" to see all eleven. They split into three groups:</p>
-
-        <p class="prose"><strong>State (read):</strong></p>
-        <table>
-            <tr><th>Intent</th><th>Returns</th></tr>
-            <tr><td>Get Lyra State</td><td class="wrap-ok">Tapered, dB, muted, dim, mono, mixer &amp; device connected, device name, active slot + name, volume step</td></tr>
-            <tr><td>Get Current Monitor Level</td><td class="wrap-ok">Tapered (0–1) and dB (or absent on first launch)</td></tr>
-            <tr><td>Get Current Reference Level</td><td class="wrap-ok">The active slot (1–3) + name + tapered + dBSPL, or a "no active slot" sentinel when between presets</td></tr>
-        </table>
-
-        <p class="prose"><strong>Monitor (write):</strong></p>
-        <table>
-            <tr><th>Intent</th><th>Parameters</th></tr>
-            <tr><td>Set Monitor Level</td><td class="wrap-ok">Percent (0–100). Clamped.</td></tr>
-            <tr><td>Adjust Monitor Level</td><td class="wrap-ok">Direction (up/down), Fine (half-step)</td></tr>
-            <tr><td>Toggle Mute</td><td class="wrap-ok">—</td></tr>
-            <tr><td>Toggle DIM</td><td class="wrap-ok">—</td></tr>
-            <tr><td>Toggle Mono</td><td class="wrap-ok">—</td></tr>
-        </table>
-
-        <p class="prose"><strong>Reference Levels (write):</strong></p>
-        <table>
-            <tr><th>Intent</th><th>Parameters</th></tr>
-            <tr><td>Switch to Reference Level</td><td class="wrap-ok">Slot (1–3) <strong>or</strong> Name (case-insensitive - "Mix", "K-14"…)</td></tr>
-            <tr><td>Cycle Reference Level</td><td class="wrap-ok">—</td></tr>
-            <tr><td>Save Current Level to Reference Slot</td><td class="wrap-ok">Slot (1–3)</td></tr>
-        </table>
-
-        <p class="prose">Every intent returns structured values - in Shortcuts, use <strong>Get Property of &lt;Lyra State&gt;</strong> (or <strong>&lt;Reference Slot&gt;</strong>, <strong>&lt;Monitor Level&gt;</strong>) to extract specific fields for subsequent steps. No URL parsing, no JSON decode.</p>
-
-        <h3>App Shortcuts (Spotlight)</h3>
-        <p class="prose">The most-reached-for intents are pre-wired as <strong>App Shortcuts</strong> - they show up in Spotlight without you building anything first. Open Spotlight (⌘Space) and type phrases like:</p>
-        <ul>
-            <li>"Toggle mute in Lyra"</li>
-            <li>"Switch reference level in Lyra"</li>
-            <li>"Set monitor level in Lyra"</li>
-            <li>"What's the monitor level in Lyra?"</li>
-            <li>"Get Lyra state"</li>
-        </ul>
-        <p class="prose">Spotlight surfaces the action directly; press Enter to run it. The full list is in <strong>Shortcuts → App Shortcuts → Lyra</strong>.</p>
-
-        <div class="screenshot-row">
-            <img src="lyra-spotlight-ref.png" alt="Spotlight running the 'Switch reference level in Lyra' App Shortcut">
-            <img src="lyra-spotlight-mute.png" alt="Spotlight running the 'Toggle mute in Lyra' App Shortcut and showing the returned state">
-        </div>
-
-        <h3>Siri voice (via Shortcuts.app)</h3>
-        <p class="prose">Saying those phrases directly to Siri <strong>does not work on macOS</strong> as of macOS 26. Apple's natural-language matcher for App Shortcuts (Flexible Matching) is iOS / Catalyst-only - native macOS apps like Lyra fall through with "Sorry, I don't understand." This isn't a Lyra-specific issue; it affects every native macOS App-Intents app on the current platform.</p>
-
-        <p class="prose">The reliable Siri path on macOS: <strong>create a named Shortcut in Shortcuts.app and ask Siri to run it by name</strong>.</p>
-
-        <ol>
-            <li>Open <strong>Shortcuts.app</strong> → <strong>New Shortcut</strong></li>
-            <li>Drop in the Lyra action you want (e.g. <strong>Toggle Mute</strong>) - or a chain of several</li>
-            <li>Name the shortcut something Siri can hear cleanly - "Mute the monitor", "Mix level", "Studio quiet"</li>
-            <li>Save</li>
-        </ol>
-
-        <p class="prose">Then say to Siri: <strong>"Mute the monitor"</strong> (or whatever you named it). Siri matches the shortcut name and dispatches the chain. The same pattern works for multi-step routines - e.g. a "Listening session" shortcut that switches reference level <em>and</em> dims <em>and</em> silences notifications, all from one Siri phrase.</p>
-
-        <h3>Focus Filter</h3>
-        <p class="prose">System Settings → <strong>Focus</strong> → pick a mode → <strong>Add Filter → Lyra → Switch to Reference Level</strong> → pick a slot. From that point on, enabling the Focus jumps Lyra's monitor to that slot.</p>
-
-        <img src="lyra-focus.png" alt="System Settings Focus pane: a 'mixing' Focus with the Lyra Focus Filter expanded, set to Reference Slot 3 with the 'Restore previous level when Focus ends' toggle visible" class="screenshot-full">
-
-        <p class="prose">The common setup: a "Mixing" Focus configured to jump Lyra to slot 2 ("Mix") and silence non-DAW notifications, and a "Mastering" Focus that switches to slot 3.</p>
-
-        <p class="prose"><strong>On deactivation: do nothing, or restore the prior level.</strong> The Focus Filter has a "Restore previous level when Focus ends" toggle (off by default). When off, deactivating the Focus leaves the monitor wherever the filter put it. When on, Lyra remembers the live tapered position from the moment of activation and rolls back to it when the Focus turns off. Use the toggle when you want a Focus session to be a temporary monitor change (e.g., "Mixing → slot 2 for the session → back to whatever I had before"); leave it off when you want the Focus to permanently set a level you'll keep until you change it manually.</p>
-
-        <p class="prose">The restore target is held in memory only - if you quit Lyra mid-Focus, the deactivation finds no cached level and the monitor stays put. Most users won't notice; the case to know about is "enable Focus, quit Lyra, disable Focus → no restore."</p>
-
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>Lyra must be running.</strong> Apple's Focus Filter framework explicitly does not launch the host app on Focus events. If Lyra is closed when you enable a Focus, the filter silently does nothing. For reliable Focus-driven monitor switching, enable <strong>Launch at Login</strong> in Lyra's menu - that way Lyra is always present in the menu bar and ready to receive Focus activations.</p>
+            <p>The full reference - all eleven intents with parameters and return values, the App Shortcuts list, the Siri-via-named-Shortcut workflow, and the Focus Filter setup - lives in the <a href="api.html#intents">Automation API reference</a>.</p>
         </div>
-
-        <p class="prose">If the Mixer Engine isn't reachable when a Focus activates (Apollo unplugged, daemon off), the Focus still enables and Lyra logs the skipped jump - the filter never blocks the system Focus state.</p>
-
-        <h3>Notes &amp; gotchas</h3>
-        <ul>
-            <li><strong><code>Set Monitor Level</code> accepts percent, not dB.</strong> UA Mixer Engine's tapered curve isn't a linear function of dB; a dB-set would mislead anyone calibrating against an SPL meter. dB-scale set lands alongside a planned <code>lyra://volume/set?db=…</code> URL endpoint in a future release.</li>
-            <li><strong><code>Save Current Level to Reference Slot</code> clears the slot's prior dB SPL calibration.</strong> Same destructive behaviour as the menu's "Save current as…" - the stored SPL was measured against the old tapered value and no longer applies. If you've calibrated a slot via Audita and don't want to lose that, don't aim this intent at it. Re-calibrate via Audita afterwards to restore the dB SPL display.</li>
-            <li><strong>Cold launch.</strong> If you fire an intent while Lyra isn't running, macOS launches Lyra in the background and runs the intent on the freshly-constructed app. There's a sub-second window during launch where intents return "Lyra hasn't finished launching yet" - Shortcuts surfaces this as a soft failure. Build a one-second delay before the intent if you're chaining off a wake event.</li>
-        </ul>
     </section>
 
     <hr class="divider">
@@ -914,13 +833,13 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">The monitor parameters Lyra reads/writes:</p>
         <table>
             <tr><th>Parameter</th><th>Path</th><th>What it controls</th></tr>
-            <tr><td>Volume (tapered)</td><td class="wrap-ok"><code>/devices/0/outputs/4/CRMonitorLevelTapered</code></td><td class="wrap-ok">Float 0.0–1.0 - the Monitor knob</td></tr>
+            <tr><td>Volume (tapered)</td><td class="wrap-ok"><code>/devices/0/outputs/4/CRMonitorLevelTapered</code></td><td class="wrap-ok">Float 0.0-1.0 - the Monitor knob</td></tr>
             <tr><td>Mute</td><td class="wrap-ok"><code>/devices/0/outputs/4/Mute</code></td><td class="wrap-ok">Bool</td></tr>
             <tr><td>DIM</td><td class="wrap-ok"><code>/devices/0/outputs/4/DimOn</code></td><td class="wrap-ok">Bool - Apollo applies the attenuation set in Console</td></tr>
             <tr><td>Mix-to-Mono</td><td class="wrap-ok"><code>/devices/0/outputs/4/MixToMono</code></td><td class="wrap-ok">Bool</td></tr>
         </table>
 
-        <p class="prose"><code>outputs/4</code> is the Monitor output on Apollo Twin X (output type <code>Monitor</code>). Outputs 0–3 are the cue / headphone / line outputs.</p>
+        <p class="prose"><code>outputs/4</code> is the Monitor output on Apollo Twin X (output type <code>Monitor</code>). Outputs 0-3 are the cue / headphone / line outputs.</p>
 
         <p class="prose">Lyra <strong>subscribes</strong> to all four properties, so any change made elsewhere - turning the hardware knob, clicking Console's mute, automating Mixer parameters from a script - is reflected in Lyra's icon, menu, and HUD within ~100 ms. This works both ways: Lyra is a peer to Console, not a layer on top of it.</p>
 
@@ -945,15 +864,14 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">Lyra is <strong>$4.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
         <h3>Trial</h3>
-        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date is stored in the macOS Keychain (XOR-scrambled, opaque service identifier), so reinstalling the app does not reset the trial. After 7 days Lyra shows a hard-lock window on launch and refuses to run until you activate a license.</p>
+        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Lyra shows a hard-lock window on launch and refuses to run until you activate a license.</p>
         <p class="prose">The hard lock only fires at launch - if you're already running Lyra when the trial expires, nothing happens until your next restart.</p>
 
         <h3>Buying</h3>
         <p class="prose">Click <strong>Buy Lyra - $4.99</strong> in the menu (or the Buy button on <a href="/lyra/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
 
         <h3>Activating</h3>
-        <p class="prose"><strong>Menu → Enter License Key…</strong> opens the activation window. Paste your key and click <strong>Activate</strong>. Lyra calls the Lemon Squeezy API to validate, then stores the key + instance ID in the Keychain. Subsequent launches read from Keychain - no network call needed.</p>
-        <p class="prose">Activation requires an internet connection. Once activated, Lyra works fully offline.</p>
+        <p class="prose"><strong>Menu → Enter License Key…</strong> opens the activation window. Paste your key and click <strong>Activate</strong>. Activation requires an internet connection. Once activated, Lyra works fully offline.</p>
 
         <h3>Two-machine limit</h3>
         <p class="prose">Each license can be active on up to <strong>two Macs</strong>. To free a slot, open Lyra on the machine you want to release, <strong>Menu → Manage License… → Deactivate</strong>, then activate on the new Mac.</p>
@@ -962,7 +880,7 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">Check the Lemon Squeezy confirmation email. If you can't find it, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the address you used at checkout.</p>
 
         <h3>Validation</h3>
-        <p class="prose">Lyra silently re-validates the stored license against the Lemon Squeezy server on each launch. If the server says revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
+        <p class="prose">Lyra silently re-validates your license on each launch. If activation has been revoked (refund, deactivation, abuse), the local credentials are cleared and the app drops to trial / expired state. Network failures are silently ignored - the offline case is benefit-of-the-doubt.</p>
     </section>
 
     <hr class="divider">
@@ -994,8 +912,8 @@ open "lyra://mute/toggle"</code></pre>
         <h3>F-keys do nothing</h3>
         <ol>
             <li><strong>Accessibility permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Accessibility</strong> and verify Lyra is in the list and toggled <strong>on</strong>. The toggle changing colour isn't enough - make sure the row says "On".</li>
-            <li><strong>Mixer Engine connected.</strong> Open Lyra's menu. If it says <strong>"&lt;device&gt; - UA Mixer not running"</strong>, click <strong>Start UA Mixer Engine</strong>. Lyra intentionally doesn't intercept F-keys while the daemon isn't reachable, so the keys behave normally until it connects.</li>
-            <li><strong>Fn key requirement.</strong> If your keyboard is set to "F1, F2, etc. keys as standard function keys" → <strong>off</strong>, you need to hold <kbd>Fn</kbd> for F10–F12 to act as F-keys at all. Either toggle the setting in <strong>System Settings → Keyboard → Function Keys</strong>, or hold Fn when pressing.</li>
+            <li><strong>Mixer Engine connected.</strong> Open Lyra's menu. If it says <strong>"&lt;device&gt; - UA Mixer not running"</strong>, click <strong>Start UA Mixer Engine</strong>. Lyra doesn't intercept F-keys while the daemon isn't reachable, so the keys behave normally until it connects.</li>
+            <li><strong>Fn key requirement.</strong> If your keyboard is set to "F1, F2, etc. keys as standard function keys" → <strong>off</strong>, you need to hold <kbd>Fn</kbd> for F10-F12 to act as F-keys at all. Either toggle the setting in <strong>System Settings → Keyboard → Function Keys</strong>, or hold Fn when pressing.</li>
         </ol>
 
         <h3>Lyra doesn't appear in the Accessibility list</h3>
@@ -1018,15 +936,13 @@ open "lyra://mute/toggle"</code></pre>
         <h3>Sparkle won't show an update prompt</h3>
         <p class="prose">Reset Sparkle's "I already checked / I already skipped that version" state:</p>
         <pre><code>defaults delete com.headroom.Lyra</code></pre>
-        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. (This also clears other UserDefaults - including the HUD setting and <code>targetDeviceName</code> - so you'll go back to factory defaults.)</p>
+        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. This also resets other preferences (HUD setting, saved target device, etc.) to factory defaults.</p>
 
         <h3>License says invalid even though I just bought it</h3>
         <p class="prose">Wait 30 seconds and try again - Lemon Squeezy occasionally needs a moment to propagate. If it still fails, double-check that there's no leading/trailing whitespace in the key you pasted (the activation field trims, but it's worth a look). Otherwise email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the key and order number.</p>
 
         <h3>Trial says expired but I just installed</h3>
-        <p class="prose">Reinstalling doesn't reset the trial - the start date is in the Keychain and survives uninstall. This is intentional. If you genuinely just downloaded Lyra for the first time and it's already expired, your Keychain may have a stale entry from a previous test build. Delete it:</p>
-        <pre><code>security delete-generic-password -s "A7F3C291-4E8D-4B6A-9C1E-2D5F3A8B7C4E" -a "s.ts.v1"</code></pre>
-        <p class="prose">Relaunch - the trial starts fresh.</p>
+        <p class="prose">The trial start date persists across reinstalls, so reinstalling won't reset it. If you genuinely just installed Lyra for the first time and it's reading as expired, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
     </section>
 
     <hr class="divider">
@@ -1035,13 +951,13 @@ open "lyra://mute/toggle"</code></pre>
     <section class="guide-section" id="out-of-scope">
         <h2>16. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
-        <p class="prose">A few things are deliberately out of scope. If any of these are dealbreakers, that's good to know up front:</p>
+        <p class="prose">Out of scope, in case any of these are dealbreakers:</p>
 
         <ul>
-            <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol - there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
+            <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol; there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
             <li><strong>Per-app or system volume.</strong> Lyra changes the Apollo's Monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
-            <li><strong>Cue / line / aux outputs.</strong> Only the <code>Monitor</code> output (<code>outputs/4</code>) is exposed. Cue outputs and aux faders have their own paths in the mixer, but they aren't part of Lyra's scope.</li>
-            <li><strong>Non-Apollo interfaces.</strong> Lyra is hard-wired to UA's protocol on <code>localhost:4710</code>. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
+            <li><strong>Cue / line / aux outputs.</strong> Only the <code>Monitor</code> output (<code>outputs/4</code>) is exposed. Cue outputs and aux faders have their own paths in the mixer.</li>
+            <li><strong>Non-Apollo interfaces.</strong> Lyra speaks UA's protocol on <code>localhost:4710</code> only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
             <li><strong>More than three Reference Levels.</strong> Three slots map onto Ctrl+F10/F11/F12 and that's the design. If you need more positions, drive Lyra from a Stream Deck or Shortcut via <code>lyra://volume/set?tapered=…</code> - your launcher can hold any number of presets.</li>
             <li><strong>Configurable shortcuts.</strong> F10/F11/F12 (and the modifier variants) are fixed. Use Karabiner-Elements or BetterTouchTool to remap, or fire <code>lyra://</code> URLs from any tool of your choice.</li>
         </ul>
@@ -1062,10 +978,11 @@ open "lyra://mute/toggle"</code></pre>
     <footer>
         <p class="footer-copy">© 2026 Headroom Studio. Made by Krzysiek.</p>
         <ul class="footer-links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="./">Lyra home</a></li>
-            <li><a href="api.html">URL API</a></li>
+            <li><a href="api.html">API</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="releases.html">Releases</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
