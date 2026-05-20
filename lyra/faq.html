@@ -280,7 +280,7 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
-        <a href="index.html" class="nav-back">
+        <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"/>
             </svg>
@@ -381,7 +381,7 @@
             <div class="faq-item">
                 <p class="faq-q">Why does my slot show "85 dB SPL" instead of a percentage?</p>
                 <p class="faq-a">Because it was calibrated. When a slot is written via Audita's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere - menu, HUD pill - because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
-                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared on purpose: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
+                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
             </div>
 
             <div class="faq-item">
@@ -397,6 +397,44 @@
             <div class="faq-item">
                 <p class="faq-q">Do Reference Levels work with mute, DIM, and mono?</p>
                 <p class="faq-a">Yes - they're independent. Jumping to a slot only changes the monitor level; mute, DIM, and mono states stay where they are. So you can engage DIM (Shift+F10), then jump to a quiet reference level, and DIM stays on top of that.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Shortcuts, Siri & Focus ─────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Shortcuts, Siri &amp; Focus</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
+                <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
+                <p class="faq-a">The most-used intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later. On macOS 12, Lyra runs as usual and the Shortcuts surface is hidden.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I control Lyra with Siri?</p>
+                <p class="faq-a">Yes, but via a named Shortcut you build yourself - not by saying the App Shortcut phrases directly. On macOS as of macOS 26, Apple's natural-language matcher for App Shortcuts (<em>Flexible Matching</em>) is iOS / Catalyst-only. Saying <em>"Toggle mute in Lyra"</em> straight to Siri on a Mac returns "Sorry, I don't understand" - and this affects every native macOS App-Intents app, not just Lyra.</p>
+                <p class="faq-a">The reliable Siri path on macOS: open <strong>Shortcuts.app → New Shortcut</strong>, drop in the Lyra action (or a chain - "Switch to Reference Level 2", then "Toggle DIM", then a Set Focus action), name it something Siri can hear cleanly (<em>"Mute the monitor"</em>, <em>"Mix level"</em>, <em>"Listening session"</em>), and save. Then say <em>"Hey Siri, mute the monitor"</em> and Siri runs the chain. It's actually more powerful than the App Shortcut path - one Siri phrase can trigger several Lyra actions plus a Focus change.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can Lyra integrate with macOS Focus modes?</p>
+                <p class="faq-a">Yes. Open <strong>System Settings → Focus</strong>, pick a mode, then <strong>Add Filter → Lyra → Switch to Reference Level</strong> and pick a slot. Enabling the Focus jumps Lyra's monitor to that slot. A "Mixing" Focus that hops to slot 2 and silences non-DAW notifications, or a "Mastering" Focus that switches to slot 3, are common setups.</p>
+                <p class="faq-a"><strong>On deactivation: do nothing, or restore.</strong> The Focus Filter has a "Restore previous level when Focus ends" toggle (off by default). When off, deactivating the Focus leaves the monitor wherever the filter put it. When on, Lyra captures the live tapered position at activation and rolls back to it when the Focus turns off. The restore target is held in memory only, so quitting Lyra mid-Focus loses the cached level. Requires macOS 13 or later.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why doesn't my Lyra Focus Filter trigger when Lyra is closed?</p>
+                <p class="faq-a">Apple's Focus Filter framework doesn't launch the host app on Focus events - if Lyra isn't already running when a Focus enables, the filter silently does nothing. Enable <strong>Launch at Login</strong> in Lyra's menu so Lyra is always present in the menu bar when Focus events fire.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why does the "Set Monitor Level" intent take a percent, not dB?</p>
+                <p class="faq-a">UA Mixer Engine controls the Apollo monitor via a <em>tapered</em> 0.0-1.0 curve, not a linear dB scale - the curve maps the analog feel of the hardware knob, where the bottom half of the travel is finer than the top. A dB-set against that curve would mislead anyone calibrating against an SPL meter (the same dB value in the intent would land at a different actual level depending on system gain). The intent surfaces percent so what you set is what Lyra writes. A dB-scale set will land alongside a planned <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?db=…</code> URL endpoint in a future release.</p>
+                <p class="faq-a">If you need the dB number for a specific reference level, run <a href="../audita/">Audita's</a> target-level calibration and use <em>"Send to Lyra…"</em> - the slot then carries the measured dB SPL alongside the tapered position, and <strong>Switch to Reference Level</strong> jumps you there in one step.</p>
             </div>
 
         </div>
@@ -426,6 +464,7 @@
             <div class="faq-item">
                 <p class="faq-q">Can I use Lyra with Stream Deck, Keyboard Maestro, or Shortcuts?</p>
                 <p class="faq-a">Yes. Lyra registers a <strong><code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://</code></strong> URL scheme that any of those tools can call. Common targets: <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/2</code> to jump to a stored monitor preset, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=0.4</code> to set an absolute level, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://mute/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dim/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">mono/toggle</code> for the toggles. The <a href="index.html#url-scheme" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full URL list</a> is on the main page.</p>
+                <p class="faq-a">As of v1.5, three new read endpoints (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/get</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/current</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://state</code>) return live state via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> callbacks, and every endpoint can chain into a follow-up URL via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-error</code>. The <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">API reference</a> has copy-paste examples for each launcher.</p>
             </div>
 
             <div class="faq-item">
@@ -478,7 +517,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">The F-keys aren't working. What should I check?</p>
-                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra intentionally doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
+                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
                 <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
             </div>
 
@@ -495,6 +534,9 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
