@@ -6,6 +6,14 @@
     <title>Lyra Privacy Policy - No Tracking, No Telemetry</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/privacy.html">
     <meta name="description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac. Read the full Headroom Studio privacy policy.">
+    <meta property="og:title" content="Lyra Privacy Policy">
+    <meta property="og:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
+    <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lyra Privacy Policy">
+    <meta name="twitter:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -197,7 +205,7 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
-        <a href="index.html" class="nav-back">
+        <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"/>
             </svg>
@@ -210,7 +218,7 @@
     <section class="hero">
         <p class="hero-eyebrow">Lyra</p>
         <h1>Privacy Policy</h1>
-        <p class="hero-meta">Last updated: March 2026</p>
+        <p class="hero-meta">Last updated: May 2026</p>
     </section>
 </div>
 
@@ -219,7 +227,7 @@
 
     <section class="section">
         <p class="section-title">Overview</p>
-        <p class="prose">Lyra is a local macOS utility. It does not collect, transmit, or store any personal data. There are no analytics, no crash reporting, and no network connections made by the app.</p>
+        <p class="prose">Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics, no crash reporting, and no telemetry. The app does reach the network for license validation, auto-update checks, and the URL handoff to Audita; each is described below.</p>
     </section>
 
     <section class="section">
@@ -248,6 +256,42 @@
     </section>
 
     <section class="section">
+        <p class="section-title">Audita pairing</p>
+        <p class="prose">When you use Audita's <em>"Send to Lyra…"</em> feature, Audita opens a <code>lyra://</code> URL on the same Mac to hand a slot number, a name (e.g. "K-14"), and a dB SPL value to Lyra. The handoff happens entirely between two local apps via macOS's URL handler. Nothing leaves your device.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">Website analytics</p>
+        <p class="prose">The <strong>headroomstudio.dev</strong> website uses <strong>Cloudflare Web Analytics</strong>, a cookieless, privacy-first analytics service. It records aggregate pageviews, top referrers, and country (no individual user tracking, no cookies, no GDPR cookie banner required). This applies to the website only; the Lyra app does not load these scripts.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">Newsletter signup</p>
+        <p class="prose">If you sign up for the Headroom newsletter via the form on the website, your email address is sent to <strong>MailerLite</strong>, our newsletter provider. MailerLite's privacy policy applies. We use it only to send occasional release announcements; you can unsubscribe from any email. The MailerLite script loads on the homepage only and does not run inside the app.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">Auto-update checks</p>
+        <p class="prose">Lyra uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code style="font-size: 0.875rem; color: var(--text-3);">https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility; no personal data is transmitted.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">Your data rights</p>
+        <p class="prose">If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you've subscribed, what MailerLite holds (email address). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
+    </section>
+
+    <section class="section">
+        <p class="section-title">Uninstalling Lyra</p>
+        <p class="prose">To remove Lyra and its local data:</p>
+        <ol class="prose" style="margin-top: 8px; padding-left: 22px;">
+            <li>Quit Lyra from the menu bar.</li>
+            <li>Drag Lyra from <code style="font-size: 0.875rem; color: var(--text-3);">/Applications</code> to the Trash.</li>
+            <li>To also clear settings (saved reference levels, HUD preference, target device): <code style="font-size: 0.875rem; color: var(--text-3);">defaults delete com.headroom.Lyra</code> in Terminal.</li>
+        </ol>
+        <p class="prose" style="margin-top: 8px;">Your license key survives this and reactivates on a fresh install. To clear the license too, deactivate it first via <strong>Menu → Manage License → Deactivate</strong> before uninstalling.</p>
+    </section>
+
+    <section class="section">
         <p class="section-title">Contact</p>
         <p class="prose">If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
     </section>
@@ -257,6 +301,10 @@
         <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="releases.html">Release notes</a></li>
         </ul>
     </footer>
 </div>
