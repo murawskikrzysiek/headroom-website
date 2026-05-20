@@ -563,6 +563,7 @@
         <div class="caps">
             <div class="cap">Waveform - all channels, pinch-zoom, drag-select, click-to-seek, clip detection, dBFS grid</div>
             <div class="cap">EBU R128 - Momentary, Short-term, Integrated, LRA, True Peak, all live</div>
+            <div class="cap">Loudness targets - per-platform gain penalties for streaming, hard pass/fail for VOD and broadcast</div>
             <div class="cap">Speech-gated LUFS - Silero neural VAD highlights speech blocks for dialog mixes</div>
             <div class="cap">FFT spectrum - five window types, note-name on hover, frequency-range selection</div>
             <div class="cap">Spectrogram - four colormaps, log or mel scale, configurable dB range</div>
@@ -604,8 +605,8 @@
                 <span class="feature-val">A neural Silero VAD runs on every loaded file and highlights speech blocks in teal on the waveform. The same speech mask gates a parallel integrated LUFS measurement - Netflix's speech-gated target (−27 LKFS ± 2) becomes a number you can read off the panel. A spectral fallback VAD covers the rare case where Silero is unavailable.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Streaming compliance</span>
-                <span class="feature-val">Live badges for Spotify, Apple Music, YouTube, Broadcast R128, and Netflix (speech-gated). Green when in range, orange when within ±2 LU. No more squinting at numbers and hoping.</span>
+                <span class="feature-key">Loudness targets</span>
+                <span class="feature-val">Four delivery modes and a 20-target catalog. <strong>Music</strong> reports the gain each platform will apply to your master (e.g. Spotify −4 dB on a hot mix, +3 dB on a quiet one). <strong>Podcast / Spoken Word</strong> mixes streaming penalties with the ACX audiobook spec. <strong>VOD</strong> verifies against the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band. <strong>Broadcast</strong> verifies EBU R128, ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59 against their integrated band and true-peak ceiling. Dialog-gated targets read off the speech-gated path, so they ignore room tone and music beds.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">FFT spectrum</span>
@@ -644,35 +645,37 @@
 
     <hr class="divider">
 
-    <!-- ─── Compliance targets ─── -->
+    <!-- ─── Loudness targets ─── -->
     <section class="section">
-        <p class="section-label">Streaming &amp; broadcast targets, live</p>
-        <h2 class="section-headline">Five compliance badges update in real time as the file plays.</h2>
+        <p class="section-label">Loudness targets</p>
+        <h2 class="section-headline">Four delivery modes. Twenty platforms and standards. The gain each one will apply to your master, or a pass/fail against the spec.</h2>
+
+        <p class="prose" style="margin-top: 24px;"><strong>Music mode</strong> shows the streaming penalty rather than a verdict. A master at −10 LUFS reads "Spotify −4 dB" - that's the exact gain Spotify will apply at playback to hit its −14 LUFS reference. Apple Music shows −6 dB, YouTube shows −4 dB. A quiet mix at −18 LUFS reads "+4 dB". The dot is green within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle lights when the true peak breaches the platform's ceiling.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>VOD and Broadcast modes</strong> are hard pass/fail. <strong>COMPLIANT</strong> means loudness sits inside the tolerance band AND true peak is at or below the ceiling. <strong>FAIL L</strong> calls out a loudness band miss; <strong>FAIL TP</strong> calls out a true-peak overshoot when loudness is fine. Loudness fails take precedence so you always see the primary reason.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>Dialog-gated targets</strong> (Netflix, Prime Video, Apple TV+, Disney+, Max; Apple Podcasts, Spotify Podcasts) evaluate against the speech-gated LUFS path. Files with no detected speech show "no speech" instead of a misleading verdict. <strong>Pick up to four targets per mode</strong> in Settings → Targets.</p>
 
         <div class="compliance-grid">
             <div class="compliance-row">
-                <span class="compliance-name">Spotify</span>
-                <span class="compliance-range">−16 to −14 LUFS</span>
+                <span class="compliance-name">Music</span>
+                <span class="compliance-range">Spotify · Apple Music · YouTube · Tidal · Amazon · Deezer · SoundCloud</span>
             </div>
             <div class="compliance-row">
-                <span class="compliance-name">Apple Music</span>
-                <span class="compliance-range">−17 to −14 LUFS</span>
+                <span class="compliance-name">Podcast / Spoken Word</span>
+                <span class="compliance-range">Apple Podcasts · Spotify Podcasts · ACX</span>
             </div>
             <div class="compliance-row">
-                <span class="compliance-name">YouTube</span>
-                <span class="compliance-range">−15 to −13 LUFS</span>
+                <span class="compliance-name">VOD</span>
+                <span class="compliance-range">Netflix · Prime · Apple TV+ · Disney+ · Max · all −27 LKFS dialog-gated</span>
             </div>
             <div class="compliance-row">
-                <span class="compliance-name">Broadcast R128</span>
-                <span class="compliance-range">−24 to −22 LUFS</span>
-            </div>
-            <div class="compliance-row">
-                <span class="compliance-name">Netflix (speech-gated)</span>
-                <span class="compliance-range">−29 to −25 LUFS</span>
+                <span class="compliance-name">Broadcast</span>
+                <span class="compliance-range">EBU R128 · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span>
             </div>
         </div>
 
-        <p class="prose" style="margin-top: 18px;">Targets are intentionally mainstream - the goal is a quick sanity check before delivery, not an absolute pass/fail gate. For broadcast deliveries you'll usually want the offline analysis (<strong>⌘Return</strong>) so you have an integrated value computed over the entire master, not a rolling estimate.</p>
+        <p class="prose" style="margin-top: 18px;">The live panel updates as the file plays. For a broadcast delivery you'll usually want the offline analysis (<strong>⌘Return</strong>) so the verdict is computed over the entire master, not a rolling estimate. The full catalog with references, tolerances, and true-peak ceilings is in the <a href="guide.html#loudness">user guide</a>.</p>
     </section>
 
     <hr class="divider">
