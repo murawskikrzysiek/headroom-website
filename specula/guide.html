@@ -650,19 +650,59 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">loudness-sidebar.png</div>
-            <div class="shot-desc">Info sidebar focused on the loudness section - M/S/I/LRA/TP values, sample peak, plus the compliance badges block underneath (Spotify/Apple/YouTube/Broadcast/Netflix).</div>
+            <div class="shot-desc">Info sidebar focused on the loudness section - M/S/I/LRA/TP values, sample peak, plus the Loudness Targets panel underneath populated with a Music-mode mix (Spotify / Apple Music / YouTube / Tidal rows visible).</div>
         </div>
 
-        <h3>Compliance badges</h3>
-        <p class="prose">When integrated LUFS is finite, Specula shows live compliance badges for major streaming targets. Each badge is <strong>green</strong> when within range, <strong>orange</strong> when within ±2 LU of the centre, and dim/grey otherwise.</p>
+        <h3>Loudness targets</h3>
+        <p class="prose">When integrated LUFS is finite, Specula shows the <strong>Loudness Targets</strong> panel: one row per selected target with the verdict for the active mode. Pick the mode and up to four targets per mode in <strong>Settings → Targets</strong>.</p>
 
         <table>
-            <tr><th>Target</th><th>Range</th><th>Notes</th></tr>
-            <tr><td>Spotify</td><td>−16 to −14 LUFS</td><td class="wrap-ok"></td></tr>
-            <tr><td>Apple Music</td><td>−17 to −14 LUFS</td><td class="wrap-ok"></td></tr>
-            <tr><td>YouTube</td><td>−15 to −13 LUFS</td><td class="wrap-ok"></td></tr>
-            <tr><td>Broadcast R128</td><td>−24 to −22 LUFS</td><td class="wrap-ok"></td></tr>
-            <tr><td>Netflix</td><td>−29 to −25 LUFS</td><td class="wrap-ok">Uses <strong>speech-gated</strong> integrated, not full integrated</td></tr>
+            <tr><th>Mode</th><th>Treatment</th><th>Source</th></tr>
+            <tr><td>Music / Streaming</td><td class="wrap-ok">Penalty: shows the gain the platform will apply (e.g. Spotify −4 dB)</td><td class="wrap-ok">Integrated LUFS</td></tr>
+            <tr><td>Podcast / Spoken Word</td><td class="wrap-ok">Penalty for streaming podcast targets; compliance for ACX</td><td class="wrap-ok">Dialog-gated (streaming) / Integrated (ACX)</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Compliance: <strong>COMPLIANT</strong> / <strong>FAIL L</strong> / <strong>FAIL TP</strong> against the dialog-gated band</td><td class="wrap-ok">Dialog-gated LUFS</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">Compliance against the integrated band and the true-peak ceiling</td><td class="wrap-ok">Integrated LUFS</td></tr>
+        </table>
+
+        <p class="prose"><strong>Music targets</strong> report the gain the platform will apply rather than a hard verdict. A mix at −10 LUFS reads "Spotify −4 dB" (the platform will turn it down 4 dB to hit its −14 LUFS reference). A quiet mix at −18 LUFS reads "+4 dB". The dot is green when the gain is within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle warns when the true peak breaches the platform's ceiling.</p>
+
+        <p class="prose"><strong>VOD and broadcast targets</strong> are hard pass/fail. The dot is green when the loudness sits within the tolerance band AND the true peak is at or below the ceiling. <strong>FAIL L</strong> means the loudness is outside the band; <strong>FAIL TP</strong> means the loudness is in band but the true peak is over the ceiling. Loudness fails take precedence; the loudness reason is reported even when both are off.</p>
+
+        <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict.</p>
+
+        <p class="prose"><strong>ACX</strong> ships with a noise-floor criterion declared (−60 dB RMS over non-speech blocks); the measurement itself lands in a follow-up release, so the verdict skips that check silently until then rather than failing on missing data.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-settings.png</div>
+            <div class="shot-desc">Settings → Targets tab. Mode picker at the top (Music selected), the catalog list underneath with four checkmarks on the defaults (Spotify, Apple Music, YouTube, Tidal) and the remaining Music entries unchecked.</div>
+        </div>
+
+        <h4>Shipping catalog</h4>
+        <p class="prose">Defaults are marked ✓.</p>
+
+        <table>
+            <tr><th>Mode</th><th>Target</th><th>Reference</th><th>Tolerance</th><th>True-peak ceiling</th></tr>
+            <tr><td>Music</td><td class="wrap-ok">Spotify ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Apple Music ✓</td><td class="wrap-ok">−16 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">YouTube ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Tidal ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Amazon Music</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Deezer</td><td class="wrap-ok">−15 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">SoundCloud</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Podcast</td><td class="wrap-ok">Apple Podcasts ✓</td><td class="wrap-ok">−16 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Podcast</td><td class="wrap-ok">Spotify (Podcast) ✓</td><td class="wrap-ok">−14 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 LUFS</td><td class="wrap-ok">±2.5 LU</td><td class="wrap-ok">−3 dBTP (plus noise floor)</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Netflix ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Prime Video ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Apple TV+ ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Disney+</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Max ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">EBU R128 (EU) ✓</td><td class="wrap-ok">−23 LUFS</td><td class="wrap-ok">±0.5 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">EBU R128 (EU, live)</td><td class="wrap-ok">−23 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">ATSC A/85 (CALM Act) ✓</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">ARIB TR-B32 (Japan)</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">OP-59 (Australia)</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
         </table>
     </section>
 
