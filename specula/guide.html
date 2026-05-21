@@ -660,22 +660,28 @@
             <tr><th>Mode</th><th>Treatment</th><th>Source</th></tr>
             <tr><td>Music / Streaming</td><td class="wrap-ok">Penalty: shows the gain the platform will apply (e.g. Spotify −4 dB)</td><td class="wrap-ok">Integrated LUFS</td></tr>
             <tr><td>Podcast / Spoken Word</td><td class="wrap-ok">Penalty for streaming podcast targets; compliance for ACX</td><td class="wrap-ok">Dialog-gated (streaming) / Integrated (ACX)</td></tr>
-            <tr><td>VOD</td><td class="wrap-ok">Compliance: <strong>COMPLIANT</strong> / <strong>FAIL L</strong> / <strong>FAIL TP</strong> against the dialog-gated band</td><td class="wrap-ok">Dialog-gated LUFS</td></tr>
+            <tr><td>VOD</td><td class="wrap-ok">Compliance: green dot or <strong>FAIL L</strong> / <strong>FAIL TP</strong> against the dialog-gated band</td><td class="wrap-ok">Dialog-gated LUFS</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">Compliance against the integrated band and the true-peak ceiling</td><td class="wrap-ok">Integrated LUFS</td></tr>
         </table>
 
-        <p class="prose"><strong>Music targets</strong> report the gain the platform will apply rather than a hard verdict. A mix at −10 LUFS reads "Spotify −4 dB" (the platform will turn it down 4 dB to hit its −14 LUFS reference). A quiet mix at −18 LUFS reads "+4 dB". The dot is green when the gain is within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle warns when the true peak breaches the platform's ceiling.</p>
+        <p class="prose"><strong>Music targets</strong> report the gain the platform will apply rather than a hard verdict. A mix at −10 LUFS reads "Spotify −4 dB" (the platform will turn it down 4 dB to hit its −14 LUFS reference). A quiet mix at −18 LUFS reads "+4 dB" on symmetric platforms, "as-is" on asymmetric ones (see below). The dot is green when the gain is within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle warns when the true peak breaches the platform's ceiling.</p>
 
-        <p class="prose"><strong>VOD and broadcast targets</strong> are hard pass/fail. The dot is green when the loudness sits within the tolerance band AND the true peak is at or below the ceiling. <strong>FAIL L</strong> means the loudness is outside the band; <strong>FAIL TP</strong> means the loudness is in band but the true peak is over the ceiling. Loudness fails take precedence; the loudness reason is reported even when both are off.</p>
+        <p class="prose"><strong>VOD and broadcast targets</strong> are hard pass/fail. The dot is green when the loudness sits within the tolerance band AND the true peak is at or below the ceiling. <strong>FAIL L</strong> means the loudness is outside the band; <strong>FAIL TP</strong> means the loudness is in band but the true peak is over the ceiling; <strong>FAIL S↑</strong> means the maximum short-term loudness exceeded the spec's short-term ceiling (used by EBU R128 S1); <strong>FAIL NF</strong> means the noise floor exceeded the spec's RMS ceiling (used by ACX). Loudness fails take precedence; the loudness reason is reported first even when several criteria are off.</p>
 
-        <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict.</p>
+        <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts, ATSC A/85) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict. Target reference lines lead with <code>dialog ·</code> whenever a target reads from the speech-gated path, so you can scan the measurement source without parsing LUFS-vs-LKFS unit suffixes.</p>
 
-        <p class="prose"><strong>ACX noise floor.</strong> Specula measures the dB RMS across all VAD-classified non-speech samples and shows it in the Speech-Gated section of the Info panel. ACX rejects audiobooks above −60 dB RMS, so the reading turns red when it exceeds that. The ACX preset in the loudness-targets panel automatically picks up the measurement and shows <strong>Not compliant · NF</strong> when the noise floor breaches the ceiling. Files with no non-speech samples show <code>−∞</code>. The noise floor is undefined in that case and the criterion passes trivially.</p>
+        <p class="prose"><strong>ACX noise floor.</strong> Specula measures the dB RMS across all VAD-classified non-speech samples and shows it in the Speech-Gated section of the Info panel. ACX rejects audiobooks above −60 dB RMS, so the reading turns red when it exceeds that. The ACX preset in the loudness-targets panel automatically picks up the measurement and shows <strong>FAIL NF</strong> when the noise floor breaches the ceiling. Files with no non-speech samples show <code>−∞</code>. The noise floor is undefined in that case and the criterion passes trivially.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-dialog-prefix.png</div>
+            <div class="shot-desc">Close-up of the Loudness Targets panel in VOD mode, focused on the Netflix row so the <code>dialog · &minus;27 LKFS</code> reference line is clearly readable. Demonstrates the new prefix that flags dialog-gated targets.</div>
+        </div>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">loudness-targets-acx-noisefloor.png</div>
-            <div class="shot-desc">Info panel with Speech-Gated section visible. Noise Floor row reads in red (e.g. &minus;55 dB) against the ACX &minus;60 dB ceiling. Loudness Targets panel below shows the ACX row lit with <strong>Not compliant &middot; NF</strong>.</div>
+            <div class="shot-desc">Info panel with Speech-Gated section visible. Noise Floor row reads in red (e.g. &minus;55 dB) against the ACX &minus;60 dB ceiling. Loudness Targets panel below shows the ACX row lit with <strong>FAIL NF</strong>.</div>
         </div>
 
         <div class="shot-placeholder">
@@ -684,18 +690,61 @@
             <div class="shot-desc">Settings → Targets tab. Mode picker at the top (Music selected), the catalog list underneath with four checkmarks on the defaults (Spotify, Apple Music, YouTube, Tidal) and the remaining Music entries unchecked.</div>
         </div>
 
+        <h3>Dialog-gated vs integrated measurement</h3>
+        <p class="prose">Different specs measure loudness differently and Specula computes both in parallel so the right one feeds each target.</p>
+        <ul>
+            <li><strong>Integrated LUFS</strong> is the full-program measurement (ITU-R BS.1770 with K-weighting and two-stage gating). Used by music streaming, EBU R128, ARIB TR-B32, OP-59, ACX, and anything labelled simply "LUFS".</li>
+            <li><strong>Dialog-gated LKFS</strong> is the same BS.1770 algorithm applied only to the portions of the file containing speech, classified by the Silero neural VAD on file load. Used by Netflix and every other major VOD platform (Prime Video, Apple TV+, Disney+, Max), by streaming podcast targets, and by ATSC A/85 / the CALM Act (which the spec calls "anchor-element" measurement but is functionally dialog-gated for typical TV programming).</li>
+        </ul>
+        <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "—" and dialog-gated target verdicts as "no speech".</p>
+
+        <h3>Asymmetric platform normalization</h3>
+        <p class="prose">Not every streaming platform applies the gain it computes. <strong>Apple Music's Sound Check, YouTube, and Tidal only turn loud tracks down</strong>; they leave quieter-than-reference tracks at their original level. So if your master sits at −18 LUFS against Apple Music's −16 reference, the platform plays it at −18, not boosted to −16. Specula reflects this:</p>
+        <ul>
+            <li>For <strong>asymmetric platforms</strong> (Apple Music, YouTube, Tidal) when the file is quieter than the target, the row shows <strong>"as-is"</strong> in green instead of "+X.X dB · platform gain". Same on the report PDF.</li>
+            <li>For <strong>symmetric platforms</strong> (Spotify in its default mode, Amazon Music, Deezer, SoundCloud), the platform boosts quiet tracks peak-limited, so the gain reading is always meaningful and Specula shows the +X dB number unchanged.</li>
+        </ul>
+        <p class="prose">Settings → Targets surfaces the behaviour in each target's subtitle ("penalty, turns down only" vs "penalty"). The match-button tooltip on each row also states which measurement source the match will use.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-asymmetric.png</div>
+            <div class="shot-desc">Side-by-side pair of the Loudness Targets panel in Music mode. Left: a quiet master (~&minus;18 LUFS) showing Apple Music / YouTube / Tidal as <strong>"as-is"</strong> in green and Spotify with a small <strong>+X dB</strong> readout (symmetric, still boosts). Right: a hot master (~&minus;10 LUFS) showing Apple Music <strong>&minus;6 dB</strong>, YouTube <strong>&minus;4 dB</strong>, Tidal <strong>&minus;4 dB</strong>, Spotify <strong>&minus;4 dB</strong> - all asymmetric platforms turn it down. Demonstrates the two-mode behaviour in one frame.</div>
+        </div>
+
+        <h3>Match to target (non-destructive)</h3>
+        <p class="prose">Each target row has a small waveform-circle toggle on the right. Press it and Specula matches playback to that target:</p>
+        <ul>
+            <li><strong>Gain</strong> = <code>target reference − source LUFS</code>, where source is integrated LUFS for integrated targets (most music + broadcast) or dialog-gated LUFS for dialog-gated targets (Netflix and peers, ATSC A/85, streaming podcasts).</li>
+            <li><strong>Limiter</strong> = real-time 5 ms lookahead brickwall at the target's true-peak ceiling. The limiter only acts when the gain would push peaks above the ceiling; below it the limiter is transparent.</li>
+        </ul>
+        <p class="prose">Hit play and you'll hear the file the way the platform plays it. Press the toggle again (or pick another target) to release. Nothing in the loaded buffer is modified - match is purely a playback gain stage with a limiter after it.</p>
+        <p class="prose">The match follows the loudness display mode: switching <strong>Live → Offline</strong> (or back) while a match is active recomputes the gain against the new source. If a matched target is no longer in the active mode's selected targets (you switched mode, or unticked it in Settings), the match <strong>auto-disables</strong> so you can never apply gain you can no longer see the verdict for.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>5 ms playback latency while match is active. Dialog-gated targets can be matched too - the gain is computed against the speech-gated reading. Targets disable with a tooltip explaining which reading is missing (typically "no detected speech" for dialog-gated targets on speech-free files).</p>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-match-dialog-gated.png</div>
+            <div class="shot-desc">Loudness Targets panel in VOD mode with the Netflix row's waveform-circle match button engaged (filled state) and a subtle tinted row background showing the match is active. Demonstrates that dialog-gated targets are now matchable.</div>
+        </div>
+
         <h4>Shipping catalog</h4>
         <p class="prose">Defaults are marked ✓.</p>
 
         <table>
             <tr><th>Mode</th><th>Target</th><th>Reference</th><th>Tolerance</th><th>True-peak ceiling</th></tr>
-            <tr><td>Music</td><td class="wrap-ok">Spotify ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">Apple Music ✓</td><td class="wrap-ok">−16 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">YouTube ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">Tidal ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">Amazon Music</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−2 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">Deezer</td><td class="wrap-ok">−15 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Music</td><td class="wrap-ok">SoundCloud</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Spotify ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty (symmetric)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Apple Music ✓</td><td class="wrap-ok">−16 LUFS</td><td class="wrap-ok">penalty (turns down only)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">YouTube ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty (turns down only)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Tidal ✓</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty (turns down only)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Amazon Music</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty (symmetric)</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">Deezer</td><td class="wrap-ok">−15 LUFS</td><td class="wrap-ok">penalty (symmetric)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">SoundCloud</td><td class="wrap-ok">−14 LUFS</td><td class="wrap-ok">penalty (symmetric)</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Music</td><td class="wrap-ok">AES TD1008 (streaming)</td><td class="wrap-ok">−18 LUFS</td><td class="wrap-ok">penalty (symmetric, vendor-neutral)</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Apple Podcasts ✓</td><td class="wrap-ok">−16 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Spotify (Podcast) ✓</td><td class="wrap-ok">−14 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 LUFS</td><td class="wrap-ok">±2.5 LU</td><td class="wrap-ok">−3 dBTP (plus noise floor)</td></tr>
@@ -706,10 +755,23 @@
             <tr><td>VOD</td><td class="wrap-ok">Max ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">EBU R128 (EU) ✓</td><td class="wrap-ok">−23 LUFS</td><td class="wrap-ok">±0.5 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">EBU R128 (EU, live)</td><td class="wrap-ok">−23 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Broadcast</td><td class="wrap-ok">ATSC A/85 (CALM Act) ✓</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">EBU R128 S1 (EU, short-form)</td><td class="wrap-ok">−23 LUFS</td><td class="wrap-ok">±0.2 LU + Max Short-term ≤ −18 LUFS</td><td class="wrap-ok">−1 dBTP</td></tr>
+            <tr><td>Broadcast</td><td class="wrap-ok">ATSC A/85 (CALM Act) ✓</td><td class="wrap-ok">−24 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">ARIB TR-B32 (Japan)</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">OP-59 (Australia)</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
         </table>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-r128-s1-fail-shortterm.png</div>
+            <div class="shot-desc">Loudness Targets panel in Broadcast mode with the EBU R128 S1 row visible. File is a commercial / promo that meets the &minus;23 LUFS band but has a hot Max Short-term spike, so the row reads <strong>FAIL S↑</strong> in red. Demonstrates the multi-criteria evaluator.</div>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-settings-aes-td1008.png</div>
+            <div class="shot-desc">Settings → Targets tab with the Music mode catalog expanded. The new <strong>AES TD1008 (streaming)</strong> entry is visible alongside the existing Music targets, with its "penalty, turns down only" / "penalty" subtitle annotations readable beneath each platform.</div>
+        </div>
     </section>
 
     <hr class="divider">

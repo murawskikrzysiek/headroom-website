@@ -606,7 +606,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Loudness targets</span>
-                <span class="feature-val">Four delivery modes and a 20-target catalog. <strong>Music</strong> reports the gain each platform will apply to your master (e.g. Spotify −4 dB on a hot mix, +3 dB on a quiet one). <strong>Podcast / Spoken Word</strong> mixes streaming penalties with the ACX audiobook spec, including the live <strong>−60 dB RMS noise-floor check</strong> that's the #1 reason ACX rejects audiobooks. <strong>VOD</strong> verifies against the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band. <strong>Broadcast</strong> verifies EBU R128, ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59 against their integrated band and true-peak ceiling. Dialog-gated targets read off the speech-gated path, so they ignore room tone and music beds.</span>
+                <span class="feature-val">Four delivery modes and a 22-target catalog. <strong>Music</strong> reports the gain each platform will apply to your master - and tells the truth about asymmetric platforms (Apple Music, YouTube, Tidal turn loud tracks down but never boost quiet ones, so a quiet master reads "as-is" on those rows, not the misleading "+X dB · platform gain" you see elsewhere). <strong>Podcast / Spoken Word</strong> mixes streaming penalties with the ACX audiobook spec, including the live <strong>−60 dB RMS noise-floor check</strong> that's the #1 reason ACX rejects audiobooks. <strong>VOD</strong> verifies against the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band. <strong>Broadcast</strong> verifies EBU R128, R128 S1 short-form (with Max Short-term ceiling), ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59. Dialog-gated targets read off the speech-gated path so they ignore room tone and music beds. Press a row's match toggle to hear playback at the target's level with a true-peak limiter at the spec ceiling - works for dialog-gated targets too.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">FFT spectrum</span>
@@ -648,20 +648,24 @@
     <!-- ─── Loudness targets ─── -->
     <section class="section">
         <p class="section-label">Loudness targets</p>
-        <h2 class="section-headline">Four delivery modes. Twenty platforms and standards. The gain each one will apply to your master, or a pass/fail against the spec.</h2>
+        <h2 class="section-headline">Four delivery modes. Twenty-two platforms and standards. The gain each one will apply to your master, or a pass/fail against the spec.</h2>
 
-        <p class="prose" style="margin-top: 24px;"><strong>Music mode</strong> shows the streaming penalty rather than a verdict. A master at −10 LUFS reads "Spotify −4 dB" - that's the exact gain Spotify will apply at playback to hit its −14 LUFS reference. Apple Music shows −6 dB, YouTube shows −4 dB. A quiet mix at −18 LUFS reads "+4 dB". The dot is green within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle lights when the true peak breaches the platform's ceiling.</p>
+        <p class="prose" style="margin-top: 24px;"><strong>Music mode</strong> shows the streaming penalty rather than a verdict. A master at −10 LUFS reads "Spotify −4 dB" - that's the exact gain Spotify will apply at playback to hit its −14 LUFS reference. Apple Music shows −6 dB, YouTube shows −4 dB. The dot is green within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle lights when the true peak breaches the platform's ceiling.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>VOD and Broadcast modes</strong> are hard pass/fail. <strong>COMPLIANT</strong> means loudness sits inside the tolerance band AND true peak is at or below the ceiling. <strong>FAIL L</strong> calls out a loudness band miss; <strong>FAIL TP</strong> calls out a true-peak overshoot when loudness is fine. Loudness fails take precedence so you always see the primary reason.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>The truth about quiet masters.</strong> Not every platform boosts. Apple Music's Sound Check, YouTube, and Tidal <strong>only turn loud tracks down</strong>; they leave quieter-than-reference tracks alone. So a master at −18 LUFS doesn't get pushed up to Apple Music's −16 - it plays at −18. Specula reflects this: on those three platforms a quiet master reads <strong>"as-is"</strong> in green, not the misleading "+2 dB · platform gain" that other meters tend to show. Spotify (default mode), Amazon Music, Deezer, and SoundCloud do boost quiet tracks peak-limited, and there the +X dB number is real - Specula shows it unchanged. It's the difference between guessing what Apple Music will do and knowing.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>Dialog-gated targets</strong> (Netflix, Prime Video, Apple TV+, Disney+, Max; Apple Podcasts, Spotify Podcasts) evaluate against the speech-gated LUFS path. Files with no detected speech show "no speech" instead of a misleading verdict. <strong>Pick up to four targets per mode</strong> in Settings → Targets.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>VOD and Broadcast modes</strong> are hard pass/fail. A green dot means loudness sits inside the tolerance band AND true peak is at or below the ceiling. <strong>FAIL L</strong> calls out a loudness band miss; <strong>FAIL TP</strong> calls out a true-peak overshoot when loudness is fine; <strong>FAIL S↑</strong> calls out a max-short-term overshoot (used by EBU R128 S1's tighter short-form spec); <strong>FAIL NF</strong> calls out an ACX noise-floor breach. Loudness fails take precedence so you always see the primary reason.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>Audiobook authors:</strong> the #1 reason ACX rejects an audiobook is the room-tone noise floor sitting above the −60 dB RMS ceiling. Specula measures it directly. The Speech-Gated section shows a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample), and the ACX preset evaluates it as part of the verdict. Above −60 dB the row reads red and the ACX target lights <strong>Not compliant · NF</strong>. You see the rejection condition before submitting the file, not three days later in an email.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>Dialog-gated targets</strong> (Netflix, Prime Video, Apple TV+, Disney+, Max; Apple Podcasts, Spotify Podcasts; ATSC A/85) evaluate against the speech-gated LUFS path. Their reference lines lead with <code>dialog ·</code> in the panel so you can see at a glance which measurement source is in play. Files with no detected speech show "no speech" instead of a misleading verdict. <strong>Pick up to four targets per mode</strong> in Settings → Targets.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>Match to target</strong> (non-destructive). Every target row has a small waveform-circle toggle. Press it and Specula matches playback to that target: gain offset = target − source LUFS, with a 5 ms lookahead brickwall limiter at the target's true-peak ceiling. Works for integrated and dialog-gated targets alike - press it on Netflix and hear the file the way Netflix will play it. The loaded buffer is never modified; releasing the toggle restores unity gain.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>Audiobook authors:</strong> the #1 reason ACX rejects an audiobook is the room-tone noise floor sitting above the −60 dB RMS ceiling. Specula measures it directly. The Speech-Gated section shows a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample), and the ACX preset evaluates it as part of the verdict. Above −60 dB the row reads red and the ACX target lights <strong>FAIL NF</strong>. You see the rejection condition before submitting the file, not three days later in an email.</p>
 
         <div class="compliance-grid">
             <div class="compliance-row">
                 <span class="compliance-name">Music</span>
-                <span class="compliance-range">Spotify · Apple Music · YouTube · Tidal · Amazon · Deezer · SoundCloud</span>
+                <span class="compliance-range">Spotify · Apple Music · YouTube · Tidal · Amazon · Deezer · SoundCloud · AES TD1008</span>
             </div>
             <div class="compliance-row">
                 <span class="compliance-name">Podcast / Spoken Word</span>
@@ -673,7 +677,7 @@
             </div>
             <div class="compliance-row">
                 <span class="compliance-name">Broadcast</span>
-                <span class="compliance-range">EBU R128 · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span>
+                <span class="compliance-range">EBU R128 · R128 S1 short-form · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span>
             </div>
         </div>
 
