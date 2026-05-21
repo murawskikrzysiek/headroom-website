@@ -670,7 +670,13 @@
 
         <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict.</p>
 
-        <p class="prose"><strong>ACX</strong> ships with a noise-floor criterion declared (−60 dB RMS over non-speech blocks); the measurement itself lands in a follow-up release, so the verdict skips that check silently until then rather than failing on missing data.</p>
+        <p class="prose"><strong>ACX noise floor.</strong> Specula measures the dB RMS across all VAD-classified non-speech samples and shows it in the Speech-Gated section of the Info panel. ACX rejects audiobooks above −60 dB RMS, so the reading turns red when it exceeds that. The ACX preset in the loudness-targets panel automatically picks up the measurement and shows <strong>Not compliant · NF</strong> when the noise floor breaches the ceiling. Files with no non-speech samples show <code>−∞</code>. The noise floor is undefined in that case and the criterion passes trivially.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-acx-noisefloor.png</div>
+            <div class="shot-desc">Info panel with Speech-Gated section visible. Noise Floor row reads in red (e.g. &minus;55 dB) against the ACX &minus;60 dB ceiling. Loudness Targets panel below shows the ACX row lit with <strong>Not compliant &middot; NF</strong>.</div>
+        </div>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -730,6 +736,7 @@
         <ul>
             <li><strong>Speech-gated Integrated LUFS (SG-I)</strong> - same dual gating as full integrated, but only accumulates VAD-classified speech blocks. Threshold reference shown in sidebar is −27 LUFS (Netflix dialog target).</li>
             <li><strong>Speech %</strong> - fraction of the file (or selection) classified as speech. <code>-</code> is shown for content with &lt; 0.5 % speech.</li>
+            <li><strong>Noise Floor</strong> - dB RMS over every VAD-classified non-speech sample. Live during playback; offline value populates after analysis. Turns red above the ACX ceiling of −60 dB RMS, the single most common audiobook rejection reason. Files with no non-speech blocks read <code>−∞</code>.</li>
         </ul>
 
         <div class="shot-placeholder">
