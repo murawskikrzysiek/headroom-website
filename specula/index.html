@@ -606,7 +606,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Loudness targets</span>
-                <span class="feature-val">Four delivery modes and a 20-target catalog. <strong>Music</strong> reports the gain each platform will apply to your master (e.g. Spotify −4 dB on a hot mix, +3 dB on a quiet one). <strong>Podcast / Spoken Word</strong> mixes streaming penalties with the ACX audiobook spec. <strong>VOD</strong> verifies against the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band. <strong>Broadcast</strong> verifies EBU R128, ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59 against their integrated band and true-peak ceiling. Dialog-gated targets read off the speech-gated path, so they ignore room tone and music beds.</span>
+                <span class="feature-val">Four delivery modes and a 20-target catalog. <strong>Music</strong> reports the gain each platform will apply to your master (e.g. Spotify −4 dB on a hot mix, +3 dB on a quiet one). <strong>Podcast / Spoken Word</strong> mixes streaming penalties with the ACX audiobook spec, including the live <strong>−60 dB RMS noise-floor check</strong> that's the #1 reason ACX rejects audiobooks. <strong>VOD</strong> verifies against the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band. <strong>Broadcast</strong> verifies EBU R128, ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59 against their integrated band and true-peak ceiling. Dialog-gated targets read off the speech-gated path, so they ignore room tone and music beds.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">FFT spectrum</span>
@@ -655,6 +655,8 @@
         <p class="prose" style="margin-top: 14px;"><strong>VOD and Broadcast modes</strong> are hard pass/fail. <strong>COMPLIANT</strong> means loudness sits inside the tolerance band AND true peak is at or below the ceiling. <strong>FAIL L</strong> calls out a loudness band miss; <strong>FAIL TP</strong> calls out a true-peak overshoot when loudness is fine. Loudness fails take precedence so you always see the primary reason.</p>
 
         <p class="prose" style="margin-top: 14px;"><strong>Dialog-gated targets</strong> (Netflix, Prime Video, Apple TV+, Disney+, Max; Apple Podcasts, Spotify Podcasts) evaluate against the speech-gated LUFS path. Files with no detected speech show "no speech" instead of a misleading verdict. <strong>Pick up to four targets per mode</strong> in Settings → Targets.</p>
+
+        <p class="prose" style="margin-top: 14px;"><strong>Audiobook authors:</strong> the #1 reason ACX rejects an audiobook is the room-tone noise floor sitting above the −60 dB RMS ceiling. Specula measures it directly. The Speech-Gated section shows a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample), and the ACX preset evaluates it as part of the verdict. Above −60 dB the row reads red and the ACX target lights <strong>Not compliant · NF</strong>. You see the rejection condition before submitting the file, not three days later in an email.</p>
 
         <div class="compliance-grid">
             <div class="compliance-row">
