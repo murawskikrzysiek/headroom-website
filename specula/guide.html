@@ -748,7 +748,7 @@
             <tr><td>Music</td><td class="wrap-ok">AES TD1008 (streaming)</td><td class="wrap-ok">−18 LUFS</td><td class="wrap-ok">penalty (symmetric, vendor-neutral)</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Apple Podcasts ✓</td><td class="wrap-ok">−16 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Spotify (Podcast) ✓</td><td class="wrap-ok">−14 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 LUFS</td><td class="wrap-ok">±2.5 LU</td><td class="wrap-ok">−3 dBTP (plus noise floor)</td></tr>
+            <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 LUFS · NF ≤ −60 dB</td><td class="wrap-ok">±2.5 LU</td><td class="wrap-ok">−3 dBTP</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Netflix ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Prime Video ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Apple TV+ ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
@@ -1141,33 +1141,93 @@
     <section class="guide-section" id="chapter">
         <h2>17. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
 
-        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores per-chapter loudness, and lets you eyeball outliers before delivery. Mutually exclusive with Edit and Compare so the workspace stays focused.</p>
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and the chapter's deviation from the book's own median. Mutually exclusive with Edit and Compare so the workspace stays focused.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">chapter-mode-ribbon.png</div>
-            <div class="shot-desc">Chapter mode active on an audiobook file. Waveform up top with vertical teal boundary markers and "#N" badges; chapter ribbon at the bottom showing per-chapter integrated LUFS and deviation from median; one outlier chapter tinted red; headline banner above the ribbon naming the worst outlier ("Chapter 07 is 2.3 LU above median").</div>
+            <div class="shot-desc">Chapter mode active on an audiobook file. Waveform up top with vertical teal boundary markers and "#N" badges; four-line chapter ribbon at the bottom showing integrated LUFS, TP / NF gate row, and LRA / Dialog / Speech row per chapter. One chapter flagged red on a failed ACX gate; the playing chapter shows an accent-tinted fill while a different selected chapter shows the 2 pt accent border. Headline banner above the ribbon naming the worst outlier ("Chapter 07 is 2.3 LU above median").</div>
         </div>
 
-        <h3>Enter / exit</h3>
-        <p class="prose"><kbd>⌘⌃C</kbd> toggles chapter mode. The chapter toolbar appears below the transport and the chapter ribbon (sixth analysis section) appears at the bottom. Click <strong>Done</strong> in the toolbar to exit.</p>
+        <h3>Chapter button in the transport</h3>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit and Compare. Click it to enter or exit chapter mode; <kbd>⌘⌃C</kbd> does the same from the keyboard. While the mode is active the button takes the accent tint and the chapter toolbar slots in below the transport. Compare is disabled while chapter mode is active; Edit is mutually exclusive too.</p>
 
         <h3>Detect</h3>
-        <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −60 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Lead and tail silence are trimmed. Chapters whose total non-silent content runs under 1 s are absorbed into a neighbour so a stray cough doesn't fragment the result.</p>
+        <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
 
-        <h3>Edit boundaries</h3>
-        <p class="prose">Chapter boundaries draw as vertical teal lines on the waveform with a "#N" badge at the top. Drag a line left or right to nudge the boundary. <strong>Add</strong> drops a new boundary at the playhead; <strong>Remove</strong> deletes the selected chapter (merging it into the previous one).</p>
+        <h3>Lead and tail silence</h3>
+        <p class="prose">The detector absorbs leading and trailing silence into the first and last chapters. Chapter 1 always starts at 0 s, the last chapter always ends at file duration, and the ribbon covers the full file timeline with no gaps at the edges.</p>
+
+        <h3>Boundaries follow zoom and scroll</h3>
+        <p class="prose">Boundary markers draw inside every time-axis section that has one open: waveform, loudness curve, spectrogram, and stereo width. Each section uses its own time-to-x mapping, so the boundaries stay aligned across stacked views at any zoom level. The chapter ribbon mirrors the waveform's zoom and horizontal scroll; ribbon slots are positioned absolutely (rather than packed in an HStack) so narrow chapters keep their width when neighbours dominate the visible range.</p>
+
+        <h3>Editing boundaries</h3>
+        <p class="prose">Each chapter boundary draws as a vertical teal line with a "#N" badge labelling the chapter that starts at it. Drag a boundary on the waveform to move it. Hit zone is 6 px; the cursor switches to the macOS resize cursor when it lands on a boundary. Drag clamps so neither neighbouring chapter shrinks below 1 s of content. A time + dBFS hover readout tracks the boundary's new position while the drag is in progress.</p>
+        <p class="prose"><strong>Add</strong> drops a new boundary at the playhead. The chapter ribbon and the per-chapter measurements update as you drag.</p>
+
+        <h3>Selecting a chapter</h3>
+        <p class="prose">Click a slot in the ribbon to select it. The selected slot takes a 2 pt accent border; unselected slots keep a 1 pt white border. Selection and playback are independent: the currently playing chapter is shown by an accent-tinted fill (28 %), regardless of which chapter is selected. Double-click a slot to seek the playhead to its start.</p>
+
+        <h3>Selecting a boundary for removal</h3>
+        <p class="prose">Click a boundary line in the waveform (not a slot in the ribbon) to flag it. The flagged boundary draws thicker in amber with a "✕" marker next to its number, and the chapter that starts at that boundary becomes the selected chapter in the ribbon. The next press of <strong>Remove</strong> in the chapter toolbar deletes that boundary, merging its two chapters into one. This is the precise way to pick which split to undo; clicking a slot in the ribbon still selects the same chapter without changing which boundary is highlighted.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">chapter-mode-boundary-doomed.png</div>
+            <div class="shot-desc">Zoomed waveform with three chapter boundaries visible. The middle boundary is flagged for removal: drawn as a thicker amber line with a "✕" marker next to its "#N" badge. The chapter that starts at that boundary is the selected one in the ribbon below (2 pt accent border).</div>
+        </div>
 
         <h3>Name and reorder</h3>
         <p class="prose">Double-click a chapter name in the ribbon to rename. Default names ("Chapter 01", "Chapter 02"…) follow the index after edits; custom names ("Foreword", "Walk through the woods") stay put.</p>
 
-        <h3>Per-chapter LUFS</h3>
-        <p class="prose"><strong>Analyse Loudness</strong> in the toolbar runs an offline BS.1770 pass per chapter and populates the ribbon. Each slot shows the chapter name, integrated LUFS, and deviation from the median LU. Chapters shorter than 10 s are skipped (BS.1770 gating needs that minimum) and labeled "too short".</p>
+        <h3>Per-chapter measurements</h3>
+        <p class="prose"><strong>Analyse Loudness</strong> in the toolbar runs an offline BS.1770 pass per chapter and populates the full measurement set. For each chapter:</p>
+        <ul>
+            <li><strong>Integrated LUFS</strong> (I). Gated EBU R128 integrated over the chapter's audio. The headline number an ACX submission lives or dies on.</li>
+            <li><strong>True peak</strong> (TP, dBTP). 4× oversampled per ITU-R BS.1770-4. ACX rejects above −3 dBTP.</li>
+            <li><strong>Sample peak</strong> (SP, dBFS). Cheaper than true peak; useful for very short chapters where inter-sample peak isn't meaningful. Populated even when the chapter is too short for an integrated reading so clipping still surfaces.</li>
+            <li><strong>Loudness range</strong> (LRA, LU). Consistency indicator inside one chapter. Large LRA usually means a section the narrator should re-record.</li>
+            <li><strong>Max momentary</strong> (Max M, LUFS). Peak of the 400 ms window. Surfaces a single shouted line.</li>
+            <li><strong>Max short-term</strong> (Max S, LUFS). Peak of the 3 s window. EBU R128 S1 short-form criterion; useful for podcast deliveries too.</li>
+            <li><strong>Speech-gated LUFS</strong> (Dlg). Integrated over the speech blocks only, using the same Silero VAD result the file analysis already computed, sliced to the chapter's block range. The dialog-only level audiobook engineers track.</li>
+            <li><strong>Median noise floor</strong> (NF, dB RMS). Median RMS across non-speech blocks. ACX rejects above −60 dB. Median rather than mean so a voice block the VAD occasionally misclassifies doesn't bias the reading upward.</li>
+            <li><strong>Speech percentage</strong> (Sp). Fraction of the chapter the VAD classified as speech.</li>
+        </ul>
+        <p class="prose">Chapters shorter than 10 s skip the loudness measurements entirely (BS.1770 absolute-gate and relative-gate machinery isn't reliable below that). Sample peak still populates so clipping doesn't slip through.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">chapter-mode-toolbar.png</div>
             <div class="shot-desc">Chapter toolbar below the transport: Detect, Add, Remove, Analyse Loudness, Reset to detected, Export…, Import…, Recall (when available), and Done. All buttons visible with a file loaded and chapters detected.</div>
+        </div>
+
+        <h3>Ribbon slot layout</h3>
+        <p class="prose">Each slot is four lines tall:</p>
+        <pre><code>#NN · Chapter Name                                 m:ss
+-20.6 LUFS    +0.0 LU
+TP -2.1 dBTP    NF -62 dB
+LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
+        <ul>
+            <li><strong>Line 1</strong>. Index, name, and chapter length (h:mm:ss for chapters over an hour).</li>
+            <li><strong>Line 2</strong>. Integrated LUFS and the deviation from the book median (e.g. <code>+1.4 LU</code>).</li>
+            <li><strong>Line 3</strong>. The two ACX gates the integrated alone doesn't catch: true peak and noise floor.</li>
+            <li><strong>Line 4</strong>. Secondary metrics: LRA, speech-gated (Dlg), and speech percentage.</li>
+        </ul>
+        <p class="prose">Missing metrics render as muted <code>—</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
+
+        <h3>ACX gates</h3>
+        <p class="prose">Each chapter is independently checked against three ACX delivery limits. Failures render the metric in red on the ribbon slot and on the report's chapter table:</p>
+        <ul>
+            <li><strong>Integrated outside [-23, -18] LUFS</strong>. The integrated LUFS cell turns red.</li>
+            <li><strong>True peak &gt; -3 dBTP</strong>. The TP cell turns red.</li>
+            <li><strong>Median noise floor &gt; -60 dB RMS</strong>. The NF cell turns red.</li>
+        </ul>
+        <p class="prose">These three gates are independent of the deviation-from-median flag, so each chapter answers two separate questions: <em>will ACX accept this chapter on its own?</em> (the three red/no-red signals) and <em>is this chapter consistent with the rest of the book?</em> (the deviation badge, controlled by the ±2 LU threshold in Settings → Targets → Chapter detection).</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">chapter-mode-acx-fail.png</div>
+            <div class="shot-desc">Chapter ribbon with one slot flagging two ACX failures: the TP cell on line 3 is red ("-2.1 dBTP"), the NF cell on line 3 is red ("-58 dB"). Integrated LUFS on line 2 sits inside the ACX range so it stays white. Other slots in the row are clean.</div>
         </div>
 
         <h3>Outlier flag</h3>
@@ -1189,10 +1249,16 @@
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
 
         <h3>Chapter ribbon (⌃6)</h3>
-        <p class="prose">The sixth section at the bottom of the window. Time-aligned: each chapter slot's width is proportional to its duration. The currently-playing chapter highlights in the accent color; the selected chapter takes the accent border. Double-click a slot to seek the playhead to its start.</p>
+        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start.</p>
 
         <h3>Report</h3>
-        <p class="prose">When chapters exist on the file, the PDF/JSON report includes a Chapters section with the per-chapter LUFS table, median, deviation, and the flag threshold.</p>
+        <p class="prose">When chapters exist on the file, the PDF/JSON report includes a Chapters section. The table now carries every per-chapter metric the ribbon shows: integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (I outside [−23, −18], TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">chapter-mode-report-table.png</div>
+            <div class="shot-desc">PDF report's Chapters section: caption documenting all three ACX gates and the configured deviation threshold, followed by the per-chapter table with columns #, Name, Time range, Duration, I (LUFS), vs med (LU), TP (dBTP), SP (dBFS), LRA (LU), Max M, Max S, Dlg I, NF, Speech. Two rows show red ACX-failure cells (one TP fail, one NF fail).</div>
+        </div>
     </section>
 
     <hr class="divider">
