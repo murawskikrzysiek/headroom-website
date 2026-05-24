@@ -476,12 +476,13 @@
             <li><a href="#url-scheme">9 · URL scheme</a></li>
             <li><a href="#app-intents">10 · Shortcuts, Siri &amp; Focus Filters</a></li>
             <li><a href="#mixer-engine">11 · UA Mixer Engine</a></li>
-            <li><a href="#licensing">12 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">13 · Updates</a></li>
-            <li><a href="#launch-at-login">14 · Launch at login</a></li>
-            <li><a href="#troubleshooting">15 · Troubleshooting</a></li>
-            <li><a href="#out-of-scope">16 · What Lyra doesn't do</a></li>
-            <li><a href="#feedback">17 · Reporting bugs</a></li>
+            <li><a href="#settings">12 · Settings</a></li>
+            <li><a href="#licensing">13 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">14 · Updates</a></li>
+            <li><a href="#launch-at-login">15 · Launch at login</a></li>
+            <li><a href="#troubleshooting">16 · Troubleshooting</a></li>
+            <li><a href="#out-of-scope">17 · What Lyra doesn't do</a></li>
+            <li><a href="#feedback">18 · Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -585,6 +586,9 @@
         <h3>Launch at Login</h3>
         <p class="prose">Toggle. Registers Lyra via SMAppService (macOS 13+). Reflects the live system state - if you flip it in System Settings, the checkmark in Lyra's menu follows.</p>
 
+        <h3>Settings…</h3>
+        <p class="prose">Opens Lyra's <a href="#settings">Settings window</a> (also available via <kbd>Cmd+,</kbd>). Holds the v1.6 Automation toggles plus General prefs (HUD, volume step).</p>
+
         <h3>Check for Updates… / About Lyra / Quit</h3>
         <p class="prose">Sparkle update check, About window, and quit.</p>
     </section>
@@ -643,9 +647,10 @@
         <p class="prose">On macOS 26+ the pill uses <strong>Liquid Glass</strong> - the system's translucent material - and inherits the colour of whatever is behind the menu bar.</p>
 
         <h3>Disabling the HUD</h3>
-        <p class="prose">There's no in-app toggle (yet). If you want it off, set the <code>showHUD</code> UserDefault:</p>
+        <p class="prose">As of v1.6, the HUD has an in-app toggle in <strong><a href="#settings">Settings</a> → General → Show volume HUD overlay</strong>. Flip it off and the pill stops appearing immediately - no relaunch needed.</p>
+        <p class="prose">On v1.5 and earlier, set the <code>showHUD</code> UserDefault and restart Lyra:</p>
         <pre><code>defaults write com.headroom.Lyra showHUD -bool false</code></pre>
-        <p class="prose">Restart Lyra after the change. Set it back to <code>true</code> (or delete the key with <code>defaults delete com.headroom.Lyra showHUD</code>) to re-enable.</p>
+        <p class="prose">Set it back to <code>true</code> (or delete the key with <code>defaults delete com.headroom.Lyra showHUD</code>) to re-enable.</p>
     </section>
 
     <hr class="divider">
@@ -853,13 +858,55 @@ open "lyra://mute/toggle"</code></pre>
 
         <h3>Reconnection</h3>
         <p class="prose">If the daemon drops (Console crashes, you quit it, the machine sleeps) Lyra retries the connection every 5 seconds in the background. You don't need to relaunch - leave Lyra running and it will pick the connection back up when the daemon returns. Same on Apollo unplug/replug: when CoreAudio reports the device gone, Lyra stops trying and waits; when it's back, the connection resumes.</p>
+
+        <h3>Lifecycle automation (opt-in, v1.6+)</h3>
+        <p class="prose">Two opt-in toggles in <a href="#settings">Settings</a> tie Lyra to the Apollo's presence:</p>
+        <ul>
+            <li><strong>Auto-start UA Mixer Engine when Apollo is detected.</strong> Off by default. With this on, Lyra opens the Mixer Engine for you the moment Apollo comes online - same launch path as the manual <em>Start UA Mixer Engine</em> menu item (standalone Mixer Engine app first, UA Console fallback for older driver installs).</li>
+            <li><strong>Auto-quit UA apps when Apollo disconnects.</strong> Off by default. After about seven seconds without Apollo, Lyra quits <strong>UA Mixer Helper</strong>, <strong>UA Mixer Engine</strong>, <strong>UAD Console</strong>, and <strong>UAD Meter &amp; Control Panel</strong> so they stop drawing power. If Apollo returns inside that grace window, nothing is killed - brief sleep/wake or USB renegotiation is safe.</li>
+        </ul>
+        <p class="prose">Each automation has a paired <strong>Show a notification when this happens</strong> sub-toggle (on by default). The banner explains what Lyra just did. Once you trust the automation you can turn the notification off and let it run silently. macOS asks for notification permission the first time Lyra tries to post.</p>
+        <p class="prose">Both parent toggles default to off. Lyra has no opinion about your UA workflow until you ask for one.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 12. Trial & licensing ─────── -->
+    <!-- ─────── 12. Settings ─────── -->
+    <section class="guide-section" id="settings">
+        <h2>12. Settings <a href="#settings" class="anchor">#</a></h2>
+
+        <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. New in v1.6. Two sections.</p>
+
+        <img src="settings-window.png" alt="Lyra's Settings window in its default appearance: an Automation section with auto-start and auto-quit toggles (both off) plus their paired notification sub-toggles, and a General section with the volume HUD toggle and volume step slider" class="screenshot-full">
+
+        <h3>Automation</h3>
+        <ul>
+            <li><strong>Auto-start UA Mixer Engine when Apollo is detected.</strong> Opens UA's headless Mixer Engine the moment Apollo wakes up. Off by default. Same launch path as the manual <em>Start UA Mixer Engine</em> menu item.
+                <ul>
+                    <li><em>Show a notification when this happens.</em> On by default. Banner posts as soon as Lyra starts the Engine. Only active when the parent toggle is on.</li>
+                </ul>
+            </li>
+            <li><strong>Auto-quit UA apps when Apollo disconnects.</strong> Quits UA Mixer Helper, UA Mixer Engine, UAD Console, and UAD Meter &amp; Control Panel about seven seconds after Apollo goes away. Off by default. Cancelled if Apollo comes back inside the grace window.
+                <ul>
+                    <li><em>Show a notification when this happens.</em> On by default. Banner posts only if at least one UA app was actually closed; no noise when none of those apps were running.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>General</h3>
+        <ul>
+            <li><strong>Show volume HUD overlay.</strong> The on-screen pill that appears next to the menu bar icon when the level changes. On by default. See <a href="#hud">Volume HUD</a>.</li>
+            <li><strong>Volume step.</strong> How much each F11/F12 press moves the monitor level. Default is about 3.1%; Shift halves it (the "fine" step). Range: ~1.6% to 12.5%.</li>
+        </ul>
+
+        <p class="prose">Settings persist across launches in the standard macOS preferences. Changing the volume step takes effect immediately - no relaunch needed.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 13. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>12. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>13. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Lyra is <strong>$4.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
@@ -887,7 +934,7 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 13. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>13. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>14. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
@@ -898,7 +945,7 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 14. Launch at login ─────── -->
     <section class="guide-section" id="launch-at-login">
-        <h2>14. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <h2>15. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
         <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
         <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
     </section>
@@ -907,7 +954,7 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 15. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>15. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>F-keys do nothing</h3>
         <ol>
@@ -926,7 +973,7 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">Click <strong>Start UA Mixer Engine</strong> in the menu. This launches the headless <code>UA Mixer Engine.app</code> if it's installed, falling back to UA Console. Either should make Lyra connect within a few seconds. If neither path works, opening UA Console manually always starts the daemon as a side-effect.</p>
 
         <h3>Volume jumps in big steps</h3>
-        <p class="prose">The default step is ~6.25% (1/16 of full range). Hold <kbd>⇧</kbd> with F11/F12 for half steps (~3.125%). There's no in-app preference for the step size in v1.4 - power users can drive the <code>lyra://volume/set?tapered=…</code> URL for any precision they want.</p>
+        <p class="prose">The default step is 1/16 of full range (~6.25%). Hold <kbd>⇧</kbd> with F11/F12 for half steps. As of v1.6 the step size is configurable in <a href="#settings">Settings</a> → General → <em>Volume step</em> (range ~1.6% to 12.5%) - drag the slider to a step that suits your gain staging. Power users can still drive <code>lyra://volume/set?tapered=…</code> for any precision they want.</p>
 
         <h3>HUD doesn't appear</h3>
         <p class="prose">Make sure you haven't disabled it: <code>defaults read com.headroom.Lyra showHUD</code> should return <code>1</code> (or no value, which defaults to enabled). If you previously set it to <code>false</code>:</p>
@@ -949,7 +996,7 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 16. What Lyra doesn't do ─────── -->
     <section class="guide-section" id="out-of-scope">
-        <h2>16. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+        <h2>17. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
         <p class="prose">Out of scope, in case any of these are dealbreakers:</p>
 
@@ -967,7 +1014,7 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 17. Feedback ─────── -->
     <section class="guide-section" id="feedback">
-        <h2>17. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <h2>18. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>

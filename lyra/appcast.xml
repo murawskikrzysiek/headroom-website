@@ -19,6 +19,23 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - UA Apollo keyboard volume control</description>
         <language>en</language>
+        <!--
+          v1.6 placeholder - uncomment and fill in at release-cut.
+          TODO: set pubDate, sparkle:edSignature, and length once Lyra-1.6.dmg is signed.
+        <item>
+            <title>Version 1.6</title>
+            <pubDate>TODO Day, DD Mon 2026 00:00:00 +0000</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.6</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Lyra-1.6.dmg"
+                sparkle:edSignature="TODO_EDDSA_SIGNATURE"
+                length="0"
+                type="application/octet-stream" />
+        </item>
+        -->
         <item>
             <title>Version 1.5</title>
             <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>

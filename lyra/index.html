@@ -689,6 +689,13 @@
 </div>
 
 <div class="container">
+    <div class="notice" style="margin-bottom: 32px;">
+        <span class="notice-icon" style="color: var(--accent); opacity: 0.9;">★</span>
+        <p><strong style="color: var(--text);">New in v1.6:</strong> a proper <strong>Settings window</strong> (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; color: var(--text); background: rgba(255,255,255,0.04); padding: 1px 5px; border-radius: 4px;">Cmd+,</code>) with two opt-in <strong>lifecycle automations</strong> - auto-start UA Mixer Engine when Apollo wakes up, auto-quit the UA apps about seven seconds after Apollo disconnects so they stop drawing power. Both default off; both come with optional notification banners. <a href="releases.html" style="color: var(--accent); text-decoration: none;">Full release notes →</a></p>
+    </div>
+</div>
+
+<div class="container">
     <div class="screenshots">
         <img src="lyra-hero.png" alt="Lyra at a glance - F10/F11/F12 shortcuts, three calibrated reference levels, and the lyra:// URL scheme" class="screenshot-full">
         <img src="lyra-menu.png" alt="Lyra menu bar popover - device status, monitor slider, Reference Levels submenu" class="screenshot-full">
@@ -742,6 +749,10 @@
             <div class="feature-row">
                 <span class="feature-key">Audita pairing</span>
                 <span class="feature-val">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,132,246,0.3);">Audita</a>, our SPL meter. After Audita's target-level calibration, hit <em>"Send to Lyra…"</em> and the position lands in the slot of your choice - the menu and HUD then read e.g. <em>"Mix - 85 dB SPL"</em> instead of just a percentage.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Lifecycle automation</span>
+                <span class="feature-val">Two opt-in toggles in <strong>Settings</strong> tie Lyra to the Apollo's presence: <em>auto-start UA Mixer Engine when Apollo is detected</em>, and <em>auto-quit UA apps when Apollo disconnects</em> (UA Mixer Helper, UA Mixer Engine, UAD Console, UAD Meter &amp; Control Panel - so they stop drawing power when the interface is gone). The disconnect path waits about seven seconds before quitting anything, so a brief sleep/wake or USB renegotiation is safe. Both default off and post optional notification banners when they fire.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Menu bar</span>

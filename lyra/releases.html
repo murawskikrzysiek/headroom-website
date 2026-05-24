@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lyra Release Notes - Version History & Changelog</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/releases.html">
-  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.5.">
+  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.6.">
   <meta property="og:title" content="Lyra Release Notes">
   <meta property="og:description" content="Version history for Lyra, the Apollo Twin volume control app for macOS.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -157,12 +157,38 @@
     </div>
   </header>
 
+  <!-- ── 1.6 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.6</span>
+      <span class="date">Coming soon</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Settings window</strong> (<kbd style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; font-size: 12px;">Cmd+,</kbd>) - Lyra's first proper preferences window. Houses two new Automation toggles and surfaces the existing <em>Show volume HUD overlay</em> and <em>Volume step</em> prefs that previously had no UI.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Auto-start UA Mixer Engine when Apollo is detected</strong> (opt-in, off by default). With this on, Lyra opens UA's headless Mixer Engine the moment Apollo wakes up. Same launch path as the manual <em>Start UA Mixer Engine</em> menu item.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Auto-quit UA apps when Apollo disconnects</strong> (opt-in, off by default). After about seven seconds without Apollo, Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. Cancelled if Apollo comes back inside the grace window, so brief sleep/wake or USB renegotiation won't kill anything. Mirrors the popular <a href="https://uadforum.com/community/index.php?threads/uad-mixer-engine-energy-draw.79450/#post-614588" target="_blank" rel="noopener">UAD-forum auto-close script</a> so you don't need to maintain a launchd job for it.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Notification sub-toggles</strong> - each automation has a paired <em>Show a notification when this happens</em> sub-toggle (on by default) that posts a banner when the automation fires. The auto-close banner only shows if at least one UA app was actually closed.</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 1.5 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.5</span>
       <span class="date">May 2026</span>
-      <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>
