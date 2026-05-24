@@ -1425,6 +1425,12 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         </ul>
         <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
 
+        <p class="prose"><strong>Liquid Glass chrome</strong> (macOS 26+ only). On macOS 26 the transport bar, file dock, info panel, seek bar, and section-toggle strip use the system Liquid Glass material so they feel native alongside Finder, Safari, and other macOS 26 apps. Default on. Turn off in <strong>Settings → Layout → Appearance</strong> for the previous solid dark chrome, useful when recording screenshots or screencasts where the depth-aware refraction would change with whatever's underneath the window, or simply if you prefer the flat look. The toggle is hidden on macOS 14-25 (Liquid Glass isn't available there; chrome stays solid regardless).</p>
+
+        <p class="prose">With the toggle on, each chrome strip renders as a <strong>rounded floating pill</strong> (radius 6, with a small dark gutter between strips and the window edges), the macOS 26 native pattern Music, Photos, and Calendar use. The Liquid Glass material's edge highlights become the rim of each pill rather than horizontal lines crossing the window. The SeekBar's accent fill also picks up the glass material when the toggle is on (otherwise solid). With the toggle off, chrome reverts to edge-to-edge square strips, the rounding belongs to the Liquid Glass look.</p>
+
+        <p class="prose">The SeekBar's track and fill are 8 px tall regardless of the toggle (was 3 px before), a generally more substantial slider lane that reads better whether it's filled with glass or solid colour.</p>
+
         <h3>Spectrogram</h3>
         <ul>
             <li><strong>Colormap</strong> - Inferno / Turbo / Plasma / Viridis.</li>
