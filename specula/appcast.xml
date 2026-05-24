@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sparkle appcast feed for Specula.
+  Hosted at https://headroomstudio.dev/specula/appcast.xml
+
+  Update this file when shipping a new release. Each <item> needs:
+    - <title>            Short release name (e.g. "Version 1.0")
+    - <pubDate>          RFC 822 date
+    - <sparkle:version>  Build number (CFBundleVersion)
+    - <sparkle:shortVersionString>  User-facing version (CFBundleShortVersionString)
+    - <sparkle:minimumSystemVersion>  Minimum macOS version
+    - <enclosure>        URL to .dmg, length in bytes, type, sparkle:edSignature
+
+  Sign each release DMG with the EdDSA private key (paired with the
+  SUPublicEDKey in Info.plist) using Sparkle's `sign_update` tool:
+
+      sign_update Specula-1.0.dmg
+
+  Paste the resulting `sparkle:edSignature` value into the enclosure attribute.
+
+  See lyra/appcast.xml or audita/appcast.xml for working examples once Specula
+  has shipped its first release.
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Specula</title>
+        <link>https://headroomstudio.dev/specula/appcast.xml</link>
+        <description>Specula update feed</description>
+        <language>en</language>
+
+        <!-- No releases yet. Add <item> entries below in reverse-chronological order. -->
+
+    </channel>
+</rss>

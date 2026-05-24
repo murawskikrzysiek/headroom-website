@@ -59,9 +59,13 @@ const APPS = [
     subtitle: 'F-key volume control for Universal Audio Apollo',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
-  // Specula's entry lives on the `specula-launch` branch — added back when
-  // that branch merges in for release. specula/icon.png doesn't exist on
-  // main, so the script would error here.
+  {
+    slug: 'specula',
+    name: 'Specula',
+    icon: join(ICONS_DIR, 'specula/icon.png'),
+    subtitle: 'Pro audio analysis — loudness, FFT, compare & edit',
+    tagline: 'Headroom Studio · Precision audio tools for macOS',
+  },
 ];
 
 // Inter Tight is required — node-canvas does NOT resolve system fonts via
