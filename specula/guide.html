@@ -422,6 +422,7 @@
             th, td { padding: 8px 10px 8px 0; }
         }
     </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
@@ -467,9 +468,10 @@
             <li><a href="#compare">15 · Compare mode</a></li>
             <li><a href="#edit">16 · Edit mode</a></li>
             <li><a href="#export">17 · Export</a></li>
-            <li><a href="#settings">18 · Settings</a></li>
-            <li><a href="#shortcuts">19 · Keyboard reference</a></li>
-            <li><a href="#standards">20 · Standards</a></li>
+            <li><a href="#cli">18 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">19 · Settings</a></li>
+            <li><a href="#shortcuts">20 · Keyboard reference</a></li>
+            <li><a href="#standards">21 · Standards</a></li>
         </ul>
     </nav>
 
@@ -820,6 +822,7 @@
             <li><strong>Short-term curve</strong> - slower, shows where the perceived loudness sits.</li>
         </ul>
         <p class="prose">After offline selection analysis, the Loudness Curve view fills in for the analysed range; live playback adds new samples as they're measured.</p>
+        <p class="prose">The exported JSON and PDF reports plot <strong>three</strong> traces: Momentary (yellow), Short-term (blue), and a running Integrated trace (green) that converges to the file's final integrated reading at the tail. The third trace is the easiest way to see how a master "settled" against its target during the run.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1152,20 +1155,143 @@
         <h3>Report contents</h3>
         <p class="prose">The <strong>Settings → Report</strong> tab decides what's included:</p>
         <ul>
-            <li><strong>Loudness curves</strong> - momentary + short-term per-100&nbsp;ms timelines.</li>
+            <li><strong>Loudness curves</strong> - momentary, short-term, AND integrated per-100&nbsp;ms timelines (the integrated trace converges to the final integrated reading at the tail).</li>
             <li><strong>Stereo width</strong> - correlation curve over time.</li>
-            <li><strong>Per-channel stats</strong> - peak / RMS / crest factor (requires offline selection analysis).</li>
+            <li><strong>Per-channel stats</strong> - peak / RMS / crest factor / DC offset / clipping flag (populated for the full file at load time; selection analysis updates them for the selected range).</li>
             <li><strong>Violations</strong> - loudness threshold violations.</li>
         </ul>
 
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading.</p>
+
+        <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the GUI's InfoPanel renders. No more "run <kbd>⌘Return</kbd> to measure true peak" placeholder for the whole-file case.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 18. Settings ─────── -->
+    <!-- ─────── 18. Command-line tool ─────── -->
+    <section class="guide-section" id="cli">
+        <h2>18. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+
+        <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
+
+        <h3>Install</h3>
+        <pre><code>cd Specula
+make cli-install      # builds Release + copies binary to ~/bin/specula</code></pre>
+        <p class="prose"><code>~/bin</code> must be on <code>$PATH</code>. Verify with <code>specula --version</code>.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">cli-analyze-json.png</div>
+            <div class="shot-desc">Terminal window (dark theme) running <code>specula analyze sample.wav</code> and showing the pretty-printed JSON output - integrated LUFS, true peak, sample peak, LRA, speech-gated LUFS, stereo correlation. Wide enough to show one full row per key.</div>
+        </div>
+
+        <h3><code>specula analyze &lt;FILE&gt;</code></h3>
+        <p class="prose">Headline numbers (integrated LUFS, true peak, sample peak, loudness range, speech-gated LUFS, stereo correlation) as JSON.</p>
+        <pre><code>specula analyze mix-v2.wav
+specula analyze mix-v2.wav --no-vad        # skip Silero (faster, works offline)
+specula analyze mix-v2.wav --no-stereo     # skip the per-block correlation pass</code></pre>
+
+        <h3><code>specula compare &lt;A&gt; &lt;B&gt;</code></h3>
+        <p class="prose">Two files side-by-side with <code>B − A</code> deltas for every metric.</p>
+        <pre><code>specula compare master-v1.wav master-v2.wav
+specula compare master-v1.wav master-v2.wav --match-loudness</code></pre>
+        <p class="prose"><code>--match-loudness</code> subtracts the integrated-LUFS delta from B's peak / speech-gated readings so the deltas surface spectral or shape differences instead of being dominated by level mismatch. Useful when you've rebalanced a mix but want to know whether the tonality really changed.</p>
+        <p class="prose"><code>--out-diff &lt;PATH&gt;</code> additionally writes the <strong>A − gainB·B residual</strong> to that path as a Float32 WAV (paired with <code>--match-loudness</code> to net out pure level differences before subtracting). The compare JSON gains a <code>residual</code> block carrying the residual's peak / RMS / applied gain so a script can branch on the residual energy without re-loading the file. Sample rate + channel count must match between A and B - the diff refuses structural mismatches rather than silently resampling.</p>
+
+        <h3><code>specula edit &lt;FILE&gt; --out &lt;OUT&gt; …</code></h3>
+        <p class="prose">Applies edit operations and writes the result to <code>--out</code>. <code>--out</code> is required and <strong>must not resolve to the same path as the input</strong> - Specula never writes in place, the same contract the GUI's Save As enforces.</p>
+        <pre><code>specula edit mix.wav --out mix-norm.wav --normalize-lufs=-14 --lufs-ceiling=-1
+specula edit mix.wav --out mix-trimmed.wav --trim 5.0:30.5
+specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Negative values need the <code>--option=value</code> form</strong> (e.g. <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>). Swift's argument parser reads a bare leading <code>-</code> as a short-option name and refuses the value otherwise.</p>
+        </div>
+
+        <p class="prose">Supported operations (applied in this order if multiple are passed):</p>
+        <ol>
+            <li><code>--trim START:END</code> - keep only the range, in seconds (e.g. <code>5.0:30.5</code>).</li>
+            <li><code>--dc-remove</code> - subtract per-channel mean.</li>
+            <li><code>--invert-phase</code> - flip polarity on every channel.</li>
+            <li><code>--gain DB</code> - uniform gain.</li>
+            <li><code>--normalize-peak DBFS</code> <em>or</em> <code>--normalize-lufs LUFS [--lufs-ceiling DBTP]</code> - mutually exclusive.</li>
+        </ol>
+        <p class="prose">LUFS normalization applies the same 5 ms brickwall limiter as the GUI when the gain would push samples over the ceiling.</p>
+
+        <h3><code>specula report &lt;FILE&gt;</code></h3>
+        <p class="prose">Full Specula report through the headless pipeline, in your choice of format.</p>
+        <pre><code>specula report mix.wav --mode music                                   # JSON to stdout
+specula report mix.wav --mode podcast --out report.json               # JSON to file
+specula report mix.wav --mode music --format html --out report.html   # the same dark-themed HTML the GUI preview window renders
+specula report mix.wav --mode music --format pdf  --out report.pdf    # rasterised PDF (off-screen WKWebView)
+specula report mix.wav --mode broadcast --no-curve                    # drop the loudness curve for smaller batch output</code></pre>
+        <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, or <code>pdf</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers.</p>
+
+        <h3>Output format</h3>
+        <p class="prose">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic. Non-finite floats (silence → <code>-∞</code>) render as <code>"-inf"</code> strings rather than blowing up the encoder.</p>
+
+        <h3>Shortcuts (App Intents)</h3>
+        <p class="prose">Specula surfaces <strong>eight App Intents</strong> that the system Shortcuts app and Siri can call directly. Same engine as the CLI; same numbers. No file-handling shell glue required, output is chainable. The four core actions ship in two variants each (file-input and text-path) so they fit whichever Shortcuts workflow shape you have.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">shortcuts-get-measurements.png</div>
+            <div class="shot-desc">macOS Shortcuts editor with a small workflow built around the <strong>Get Measurements</strong> action - file parameter bound to a Shortcut Input, downstream <code>If</code> step that branches on the <em>Integrated LUFS</em> magic variable. Demonstrates AppEntity chainability without parsing JSON.</div>
+        </div>
+
+        <table>
+            <tr><th>Action</th><th>File-input</th><th>Path-input</th><th>Returns</th></tr>
+            <tr><td class="wrap-ok">Measurements</td><td class="wrap-ok"><strong>Get Measurements</strong></td><td class="wrap-ok"><strong>Get Measurements (from Path)</strong></td><td class="wrap-ok"><code>SpeculaMeasurements</code> (I, M, S, LRA, TP, SP, DR, Speech-Gated, Speech %)</td></tr>
+            <tr><td class="wrap-ok">Numeric compare</td><td class="wrap-ok"><strong>Compare Files</strong></td><td class="wrap-ok"><strong>Compare Files (from Paths)</strong></td><td class="wrap-ok"><code>SpeculaComparison</code> (both sides + B − A deltas)</td></tr>
+            <tr><td class="wrap-ok">Audio compare</td><td class="wrap-ok"><strong>Get Compare Diff</strong></td><td class="wrap-ok"><strong>Get Compare Diff (from Paths)</strong></td><td class="wrap-ok">residual WAV file (A − gainB·B)</td></tr>
+            <tr><td class="wrap-ok">Report</td><td class="wrap-ok"><strong>Get Report</strong></td><td class="wrap-ok"><strong>Get Report (from Path)</strong></td><td class="wrap-ok">report file (JSON / HTML / PDF)</td></tr>
+        </table>
+
+        <p class="prose">Each action's behaviour:</p>
+        <ul>
+            <li><strong>Get Measurements</strong> - every numeric field is exposed as a Shortcuts variable a downstream step can compare against ("if Integrated LUFS &gt; -12 then …").</li>
+            <li><strong>Compare Files</strong> - the <em>Match Loudness</em> toggle subtracts the integrated-LUFS delta from B's peak / speech-gated numbers so the deltas surface spectral / shape differences instead of pure level drift.</li>
+            <li><strong>Get Compare Diff</strong> - returns the residual audio you can listen to or further analyse. With <em>Match Loudness</em> on, B is scaled to A's integrated LUFS before subtracting so the residual reflects spectral / shape differences. Sample rate + channel count must match between A and B; the intent throws a typed error otherwise (no resampling).</li>
+            <li><strong>Get Report</strong> - <em>Format</em> selects JSON / HTML / PDF; PDF is the dark-themed report identical to the GUI preview window. Pipe the result straight into AirDrop, Save File, Mail, or any Shortcut file step.</li>
+        </ul>
+
+        <h4>Binding the file input</h4>
+        <p class="prose">Each intent's file parameter shows a <strong>Choose</strong> button followed by a small <code>…</code> menu. The <strong>Choose</strong> button opens a static file picker (one-off use). The <code>…</code> menu is where the magic-variable picker lives - pick <strong>Shortcut Input</strong> to bind the file that came in from a Finder Quick Action / Share Sheet / prior action's output. Don't pick "Clear" - that wipes the binding.</p>
+
+        <h4>Path-input variants</h4>
+        <p class="prose">For text-path workflows (clipboard text, Ask for Text, paths pasted from a shell), each intent has a sibling <strong>(from Path)</strong> variant that takes the audio file as a <strong>text string</strong> instead of a File. The text variants accept:</p>
+        <ul>
+            <li>Bare paths: <code>/Users/me/foo.wav</code></li>
+            <li>Paths with spaces: <code>/Users/me/My Mix.wav</code> (no quoting needed)</li>
+            <li>Tilde paths: <code>~/Music/foo.wav</code></li>
+            <li>Single-quoted shell paths: <code>'/Users/me/My Mix.wav'</code> (terminal <code>realpath</code> output)</li>
+            <li>Double-quoted paths: <code>"/Users/me/My Mix.wav"</code></li>
+            <li>Curly-quoted paths from Notes / Mail: <code>'/Users/me/My Mix.wav'</code></li>
+            <li>file:// URLs: <code>file:///Users/me/My%20Mix.wav</code> (percent-encoded)</li>
+        </ul>
+        <p class="prose">Quotes are stripped automatically; tilde gets expanded against your home directory. So a typical clipboard-driven shortcut is just <strong>Get Clipboard → Get Report (from Path)</strong> with the clipboard variable bound to <em>Audio File Path</em>.</p>
+
+        <h4>Spotlight phrases</h4>
+        <ul>
+            <li>"Measure with Specula" / "Measure path in Specula"</li>
+            <li>"Compare files in Specula" / "Compare paths in Specula"</li>
+            <li>"Get diff with Specula" / "Get diff from paths with Specula"</li>
+            <li>"Build a report with Specula" / "Build a report from path with Specula"</li>
+        </ul>
+        <p class="prose">Type one into Spotlight (<kbd>⌘Space</kbd>). Intents with required file parameters will prompt for the file via a picker; for variable-driven workflows the Shortcuts app is the better surface.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; first run downloads the Silero model from HuggingFace and may take a moment.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 19. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>18. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>19. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Four tabs.</p>
 
@@ -1202,9 +1328,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 19. Keyboard reference ─────── -->
+    <!-- ─────── 20. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>19. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>20. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -1276,9 +1402,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 20. Standards ─────── -->
+    <!-- ─────── 21. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>20. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>21. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>

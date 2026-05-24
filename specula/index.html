@@ -331,6 +331,15 @@
         }
         .prose a:hover { color: #a0aaff; }
 
+        code {
+            background: rgba(255,255,255,0.04);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em;
+            color: #d6d6f0;
+        }
+
         /* ─── Standards callout ─── */
         .standards {
             margin-top: 24px;
@@ -492,6 +501,7 @@
             .caps { grid-template-columns: 1fr; }
         }
     </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
@@ -578,6 +588,8 @@
             <div class="cap">Edit mode - trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
             <div class="cap">JSON & PDF reports - pick what to include, export and archive</div>
             <div class="cap">Format support - WAV, AIFF, FLAC, CAF, MP3, AAC; mono through 7.1+ layouts</div>
+            <div class="cap"><code>specula</code> CLI - analyze, compare, edit, report; JSON / HTML / PDF output; drives batch QC</div>
+            <div class="cap">Shortcuts + Siri - eight App Intents with chainable measurement and comparison entities</div>
         </div>
 
         <div class="guide-cta">
@@ -634,7 +646,15 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">JSON &amp; PDF reports</span>
-                <span class="feature-val">Export the full set of measurements with <strong>⇧⌘E</strong> (JSON) or <strong>⌥⌘E</strong> (PDF). Pick what's included - loudness curves, stereo width, per-channel stats, violation list. The JSON is a stable schema for archival and CI use; the PDF is the same content rendered for human reading.</span>
+                <span class="feature-val">Export the full set of measurements with <strong>⇧⌘E</strong> (JSON) or <strong>⌥⌘E</strong> (PDF). A freshly-loaded file now renders the complete metric grid in the PDF without requiring an explicit selection analysis pass - integrated LUFS, 4× oversampled true peak, sample peak, LRA, Max Momentary, Max Short-term, DR, speech-gated LUFS, and per-channel peak / RMS / crest / DC / clipping all populate from the live engine. Pick what's included - loudness curves, stereo width, per-channel stats, violation list. The JSON is a stable schema for archival and CI use; the PDF is the same content rendered for human reading.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key"><code>specula</code> CLI</span>
+                <span class="feature-val">Four subcommands - <code>analyze</code>, <code>compare</code>, <code>edit</code>, <code>report</code> - built on the same BS.1770 + speech-gated LUFS + stereo-correlation engine the app uses, so batch QC scripts get the exact same numbers. Pretty-printed JSON with sorted keys so diffs across runs stay deterministic. <code>specula report --format json|html|pdf</code> writes the same dark-themed report the GUI preview window renders, without opening the app. <code>specula compare A B --out-diff residual.wav --match-loudness</code> writes the level-matched A − B residual to a WAV so a script can branch on residual energy without re-loading the file. <code>make cli-install</code> drops the binary to <code>~/bin/specula</code>.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Shortcuts + Siri</span>
+                <span class="feature-val">Eight App Intents - <strong>Get Measurements</strong>, <strong>Compare Files</strong>, <strong>Get Compare Diff</strong>, <strong>Get Report</strong>, each in a file-input and a path-input variant - return chainable AppEntity output so a downstream Shortcut step can compare against <em>Integrated LUFS</em>, <em>True Peak</em>, <em>Loudness Range</em> without parsing JSON. Walk a folder, flag every master above a target threshold, AirDrop the failures - no shell glue. Spotlight phrases ("Measure with Specula", "Build a report with Specula") register all eight intents. Path variants accept quotes, spaces, tildes, and <code>file://</code> URLs so clipboard-driven workflows just work.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Format support</span>
@@ -734,6 +754,36 @@
         <div class="notice">
             <span class="notice-icon">ⓘ</span>
             <p>All audio is processed locally. Specula never transmits your audio anywhere. The only network call is the one-time Silero model download.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─── FAQ ─── -->
+    <section class="section">
+        <p class="section-label">FAQ</p>
+
+        <div class="features">
+            <div class="feature-row">
+                <span class="feature-key">Can I script Specula from the terminal?</span>
+                <span class="feature-val">Yes. The <code>specula</code> CLI exposes four subcommands - <code>analyze</code>, <code>compare</code>, <code>edit</code>, <code>report</code> - built on the same measurement engine the app uses. Run <code>make cli-install</code> after building to drop the binary into <code>~/bin/specula</code>; verify with <code>specula --version</code>. JSON output is pretty-printed with sorted keys so diffs across runs stay deterministic. See the <a href="guide.html#cli">CLI section of the user guide</a> for the full command reference.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Does Specula work with Shortcuts?</span>
+                <span class="feature-val">Yes - eight App Intents are registered the moment Specula is installed: <strong>Get Measurements</strong>, <strong>Compare Files</strong>, <strong>Get Compare Diff</strong>, and <strong>Get Report</strong>, each in a file-input and a path-input variant. Return values are chainable AppEntity output, so a downstream Shortcut step can read <em>Integrated LUFS</em>, <em>True Peak</em>, etc. without parsing JSON. Spotlight phrases ("Measure with Specula", "Build a report with Specula") work too. Path variants accept shell-style quotes, tildes, and <code>file://</code> URLs - paste a clipboard path straight in.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Can I get a PDF report without opening the app?</span>
+                <span class="feature-val">Yes. From the terminal: <code>specula report mix.wav --mode music --format pdf --out report.pdf</code>. From Shortcuts: use the <strong>Get Report</strong> action with <strong>Format</strong> set to PDF. Both produce pixel-identical output to the GUI's PDF preview (off-screen WKWebView under the hood). HTML and JSON formats are available too via the same <code>--format</code> flag or the same Shortcut step.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Do I have to run an offline selection analysis for every file?</span>
+                <span class="feature-val">No. The full-file report now populates every metric the GUI's InfoPanel renders - integrated LUFS, 4× oversampled true peak, sample peak, LRA, Max Momentary, Max Short-term, DR, speech-gated LUFS, and per-channel stats - the moment the file finishes loading. <strong>⌘Return</strong> selection analysis is still there when you want the numbers for a specific region; you no longer need it just to see true peak on the whole file.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Negative numbers like <code>--gain -3</code> get rejected by the CLI - why?</span>
+                <span class="feature-val">Swift's argument parser reads a bare leading <code>-</code> as a short-option name. Use the <code>--option=value</code> form for any negative numeric: <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>, <code>--lufs-ceiling=-1</code>. Positive numbers work in either form.</span>
+            </div>
         </div>
     </section>
 
