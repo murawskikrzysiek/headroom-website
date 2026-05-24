@@ -475,14 +475,15 @@
             <li><a href="#audita-pairing">8 · Audita pairing</a></li>
             <li><a href="#url-scheme">9 · URL scheme</a></li>
             <li><a href="#app-intents">10 · Shortcuts, Siri &amp; Focus Filters</a></li>
-            <li><a href="#mixer-engine">11 · UA Mixer Engine</a></li>
-            <li><a href="#settings">12 · Settings</a></li>
-            <li><a href="#licensing">13 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">14 · Updates</a></li>
-            <li><a href="#launch-at-login">15 · Launch at login</a></li>
-            <li><a href="#troubleshooting">16 · Troubleshooting</a></li>
-            <li><a href="#out-of-scope">17 · What Lyra doesn't do</a></li>
-            <li><a href="#feedback">18 · Reporting bugs</a></li>
+            <li><a href="#widgets">11 · Widgets</a></li>
+            <li><a href="#mixer-engine">12 · UA Mixer Engine</a></li>
+            <li><a href="#settings">13 · Settings</a></li>
+            <li><a href="#licensing">14 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">15 · Updates</a></li>
+            <li><a href="#launch-at-login">16 · Launch at login</a></li>
+            <li><a href="#troubleshooting">17 · Troubleshooting</a></li>
+            <li><a href="#out-of-scope">18 · What Lyra doesn't do</a></li>
+            <li><a href="#feedback">19 · Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -829,9 +830,50 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 11. UA Mixer Engine ─────── -->
+    <!-- ─────── 11. Widgets ─────── -->
+    <section class="guide-section" id="widgets">
+        <h2>11. Widgets <a href="#widgets" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra ships four interactive widgets in the macOS widget gallery (v1.6+). Open <strong>Notification Centre</strong> (click the date/time, or swipe right with two fingers from the right edge of the trackpad), scroll to the bottom, click <strong>Edit Widgets</strong>, and search for <strong>Lyra</strong>.</p>
+
+        <img src="lyra-widget-control-panel.png" alt="Lyra's Control Panel widget on the desktop - volume readout, Mute/DIM/Mono toggles, and the three reference slots in one large tile, under a Lyra header with a green connection dot" class="screenshot-full">
+        <p class="screenshot-caption">The Control Panel widget puts every monitor control in a single large tile.</p>
+
+        <table>
+            <tr><th>Widget</th><th>Buttons</th><th>Sizes</th></tr>
+            <tr><td>Lyra - Control Panel</td><td class="wrap-ok">Volume, Mute / DIM / Mono, Slots 1-3 (all in one)</td><td>Large</td></tr>
+            <tr><td>Lyra - Monitor Toggles</td><td class="wrap-ok">Mute, DIM, Mono</td><td>Medium</td></tr>
+            <tr><td>Lyra - Volume</td><td class="wrap-ok">Volume down, Volume up</td><td>Small or Medium</td></tr>
+            <tr><td>Lyra - Reference Levels</td><td class="wrap-ok">Slot 1, Slot 2, Slot 3</td><td>Medium</td></tr>
+        </table>
+
+        <img src="lyra-widgets-small.png" alt="The three smaller Lyra widgets together - Monitor Toggles, Volume step up/down, and Reference Levels - each with a Lyra header and live state highlights" class="screenshot-full">
+        <p class="screenshot-caption">Monitor Toggles, Volume, and Reference Levels - the three smaller widgets.</p>
+
+        <p class="prose">Every widget carries a small Lyra header - the menu-bar knob mark, the "Lyra" wordmark, and a live connection dot (green when the Mixer Engine is reachable, red when it isn't). The small Volume widget shows the dot alone to save space; the larger widgets add a "Connected" / "Offline" label.</p>
+
+        <p class="prose">Each tap fires the matching <code>lyra://</code> URL, so the actual action runs in Lyra's main process. Lyra has to be running - it's a menu bar app, so just having it launched is enough, no window needed.</p>
+
+        <p class="prose">The widgets <strong>reflect live state</strong>: the Mute and Mono buttons fill with the accent colour when active, the Reference Levels widget highlights the slot you're currently on, and every button dims when Lyra isn't connected to the Mixer Engine. State updates a moment after each tap, once the Apollo echoes the change back to Lyra.</p>
+
+        <p class="prose">Volume buttons step by Lyra's <strong>Volume step</strong> preference (set in <a href="#settings">Settings</a>), the same as F11 / F12. Reference slot buttons honour your stored slot names and dB SPL calibrations exactly like the menu's Reference Levels submenu.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>macOS 14+ required.</strong> The widgets use interactive buttons that aren't available on earlier macOS. On macOS 12 and 13, Lyra runs identically - the widget gallery entries are simply absent.</p>
+        </div>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>macOS desktop widgets can't refract the live wallpaper behind them, so the Lyra widgets render on their own near-black background rather than picking up the system's translucent material. That's a platform limitation, not a Lyra setting - see the <a href="faq.html">FAQ</a>.</p>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 12. UA Mixer Engine ─────── -->
     <section class="guide-section" id="mixer-engine">
-        <h2>11. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
+        <h2>12. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
 
         <p class="prose">Lyra talks to <strong>UA Mixer Engine</strong> - the local daemon that backs UA Console. It connects over TCP to <code>localhost:4710</code> and uses UA's NULL-terminated text protocol (<code>get /path\0</code>, <code>set /path value\0</code>, <code>subscribe /path\0</code> → JSON responses).</p>
 
@@ -871,9 +913,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 12. Settings ─────── -->
+    <!-- ─────── 13. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>12. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>13. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. New in v1.6. Two sections.</p>
 
@@ -904,9 +946,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 13. Trial & licensing ─────── -->
+    <!-- ─────── 14. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>13. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>14. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Lyra is <strong>$9.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
@@ -932,9 +974,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 13. Updates ─────── -->
+    <!-- ─────── 15. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>14. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
@@ -943,18 +985,18 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 14. Launch at login ─────── -->
+    <!-- ─────── 16. Launch at login ─────── -->
     <section class="guide-section" id="launch-at-login">
-        <h2>15. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <h2>16. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
         <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
         <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 15. Troubleshooting ─────── -->
+    <!-- ─────── 17. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>17. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>F-keys do nothing</h3>
         <ol>
@@ -994,9 +1036,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 16. What Lyra doesn't do ─────── -->
+    <!-- ─────── 18. What Lyra doesn't do ─────── -->
     <section class="guide-section" id="out-of-scope">
-        <h2>17. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+        <h2>18. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
         <p class="prose">Out of scope, in case any of these are dealbreakers:</p>
 
@@ -1012,9 +1054,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 17. Feedback ─────── -->
+    <!-- ─────── 19. Feedback ─────── -->
     <section class="guide-section" id="feedback">
-        <h2>18. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <h2>19. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
