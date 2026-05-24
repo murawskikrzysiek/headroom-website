@@ -467,11 +467,12 @@
             <li><a href="#routing">14 · Channel routing &amp; monitor mode</a></li>
             <li><a href="#compare">15 · Compare mode</a></li>
             <li><a href="#edit">16 · Edit mode</a></li>
-            <li><a href="#export">17 · Export</a></li>
-            <li><a href="#cli">18 · Command-line tool (<code>specula</code>)</a></li>
-            <li><a href="#settings">19 · Settings</a></li>
-            <li><a href="#shortcuts">20 · Keyboard reference</a></li>
-            <li><a href="#standards">21 · Standards</a></li>
+            <li><a href="#chapter">17 · Chapter mode</a></li>
+            <li><a href="#export">18 · Export</a></li>
+            <li><a href="#cli">19 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">20 · Settings</a></li>
+            <li><a href="#shortcuts">21 · Keyboard reference</a></li>
+            <li><a href="#standards">22 · Standards</a></li>
         </ul>
     </nav>
 
@@ -654,6 +655,22 @@
             <div class="shot-name">loudness-sidebar.png</div>
             <div class="shot-desc">Info sidebar focused on the loudness section - M/S/I/LRA/TP values, sample peak, plus the Loudness Targets panel underneath populated with a Music-mode mix (Spotify / Apple Music / YouTube / Tidal rows visible).</div>
         </div>
+
+        <h3>Live vs Offline loudness display</h3>
+        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback; <strong>Offline</strong> shows the whole-selection results from the last analysis run (<kbd>⌘A</kbd> to select all, <kbd>⌘Return</kbd> to analyse). The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
+
+        <h3>Mode (Music / Podcast / VOD / Broadcast)</h3>
+        <p class="prose">The InfoPanel has a top-level <strong>Mode</strong> picker right under the File section. Mode is the per-file analysis context - switch it to reframe the same file as a different deliverable. It drives both the Loudness Targets panel and which metric rows appear in the sidebar:</p>
+
+        <table>
+            <tr><th>Metric</th><th>Music</th><th>Podcast</th><th>VOD</th><th>Broadcast</th></tr>
+            <tr><td class="wrap-ok">Integrated, LRA, M/S, True/Sample Peak, Targets, Per-channel</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Speech-Gated I, Speech %</td><td>—</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Noise Floor (ACX)</td><td>—</td><td>✓</td><td>—</td><td>—</td></tr>
+            <tr><td class="wrap-ok">Dynamic Range, Headroom</td><td>✓</td><td>—</td><td>—</td><td>✓</td></tr>
+        </table>
+
+        <p class="prose"><strong>Settings → Targets</strong> is a per-mode catalog editor - four sections, one per mode, each with its target toggles. Use it to decide which targets show up next to a loaded file when that mode is active.</p>
 
         <h3>Loudness targets</h3>
         <p class="prose">When integrated LUFS is finite, Specula shows the <strong>Loudness Targets</strong> panel: one row per selected target with the verdict for the active mode. Pick the mode and up to four targets per mode in <strong>Settings → Targets</strong>.</p>
@@ -1139,9 +1156,103 @@
 
     <hr class="divider">
 
-    <!-- ─────── 17. Export ─────── -->
+    <!-- ─────── 17. Chapter mode ─────── -->
+    <section class="guide-section" id="chapter">
+        <h2>17. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
+
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with Edit and Compare so the workspace stays focused.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">chapter-mode-ribbon.png</div>
+            <div class="shot-desc">Specula window with a multi-chapter audiobook loaded. Chapter ribbon (⌃6) visible at the bottom, slots showing per-chapter LUFS / TP / NF readouts, deviation badge, with at least one chapter ACX-red flagged (e.g. NF above &minus;60 dB or integrated outside the [&minus;23, &minus;18] LUFS band). Waveform above with the teal boundary lines and #N badges visible. The "money shot" for the audiobook workflow.</div>
+        </div>
+
+        <h3>Entering the mode</h3>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit and Compare. Click it to enter or exit chapter mode; <kbd>⌘⌃C</kbd> does the same from the keyboard. While the mode is active the button takes the accent tint and the chapter toolbar slots in below the transport. Compare is disabled while chapter mode is active; Edit is mutually exclusive too.</p>
+
+        <h3>Detect</h3>
+        <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
+        <p class="prose">The detector absorbs leading and trailing silence into the first and last chapters. Chapter 1 always starts at 0 s, the last chapter always ends at file duration, and the ribbon covers the full file timeline with no gaps at the edges.</p>
+
+        <h3>Boundaries follow zoom and scroll</h3>
+        <p class="prose">Boundary markers are drawn inside every time-axis section that has one open: waveform, loudness curve, spectrogram, and stereo width. Each section uses its own time-to-x mapping, so the boundaries stay aligned across stacked views at any zoom level. The chapter ribbon mirrors the waveform's zoom and horizontal scroll; ribbon slots are positioned absolutely (rather than packed in an HStack) so narrow chapters keep their width when neighbours dominate the visible range.</p>
+
+        <h3>Editing boundaries</h3>
+        <p class="prose">Each chapter boundary draws as a vertical teal line with a "#N" badge labelling the chapter that starts at that boundary. <strong>Drag</strong> a boundary on the waveform to move it. Hit zone is 6 px; the cursor switches to the macOS resize cursor when it lands on a boundary. Drag clamps so neither neighbouring chapter shrinks below 1 s of content. A time + dBFS hover readout tracks the boundary's new position while the drag is in progress.</p>
+        <p class="prose"><strong>Add</strong> drops a new boundary at the playhead. The chapter ribbon and the per-chapter measurements update as you drag.</p>
+
+        <h3>Selecting a chapter</h3>
+        <p class="prose">Click a slot in the ribbon to select it. The selected slot takes a 2 pt accent border; unselected slots keep a 1 pt white border. Selection and playback are independent: the currently playing chapter is shown by an accent-tinted fill (28 %), regardless of which chapter is selected. Double-click a slot to seek the playhead to its start.</p>
+
+        <h3>Selecting a boundary for removal</h3>
+        <p class="prose">Click a boundary line in the waveform (not a slot in the ribbon) to flag it. The flagged boundary draws thicker in amber with a "✕" marker next to its number, and the chapter that starts at that boundary becomes the selected chapter in the ribbon. The next press of <strong>Remove</strong> in the chapter toolbar deletes that boundary, merging its two chapters into one. This is the precise way to pick which split to undo; clicking a slot in the ribbon still selects the same chapter without changing which boundary is highlighted.</p>
+
+        <h3>Name and reorder</h3>
+        <p class="prose">Double-click a chapter name in the ribbon to rename. Default names ("Chapter 01", "Chapter 02"…) follow the index after edits; custom names ("Foreword", "Walk through the woods") stay put.</p>
+
+        <h3>Per-chapter measurements</h3>
+        <p class="prose"><strong>Analyse Loudness</strong> in the toolbar runs an offline BS.1770 pass per chapter and populates the full measurement set. For each chapter:</p>
+        <ul>
+            <li><strong>Integrated LUFS (I)</strong> - gated EBU R128 integrated over the chapter's audio. The headline number an ACX submission lives or dies on.</li>
+            <li><strong>True peak (TP, dBTP)</strong> - 4× oversampled per ITU-R BS.1770-4. ACX rejects above −3 dBTP.</li>
+            <li><strong>Sample peak (SP, dBFS)</strong> - cheaper than true peak; useful for very short chapters where inter-sample peak isn't meaningful. Populated even when the chapter is too short for an integrated reading so clipping still surfaces.</li>
+            <li><strong>Loudness range (LRA, LU)</strong> - consistency indicator inside one chapter. Large LRA usually means a section the narrator should re-record.</li>
+            <li><strong>Max momentary (Max M, LUFS)</strong> - peak of the 400 ms window. Surfaces a single shouted line.</li>
+            <li><strong>Max short-term (Max S, LUFS)</strong> - peak of the 3 s window. EBU R128 S1 short-form criterion; useful for podcast deliveries too.</li>
+            <li><strong>Speech-gated LUFS (Dlg)</strong> - integrated over the speech blocks only, using the same Silero VAD result the file analysis already computed, sliced to the chapter's block range. The dialog-only level audiobook engineers track.</li>
+            <li><strong>Median noise floor (NF, dB RMS)</strong> - median RMS across non-speech blocks. ACX rejects above −60 dB. Median rather than mean so a voice block the VAD occasionally misclassifies doesn't bias the reading upward.</li>
+            <li><strong>Speech percentage (Sp)</strong> - fraction of the chapter the VAD classified as speech.</li>
+        </ul>
+        <p class="prose">Chapters shorter than 10 s skip the loudness measurements entirely (BS.1770 absolute-gate and relative-gate machinery isn't reliable below that). Sample peak still populates so clipping doesn't slip through.</p>
+
+        <h3>Ribbon slot layout</h3>
+        <p class="prose">Each slot is four lines tall:</p>
+        <pre><code>#NN · Chapter Name                                 m:ss
+-20.6 LUFS    +0.0 LU
+TP -2.1 dBTP    NF -62 dB
+LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
+        <ul>
+            <li><strong>Line 1.</strong> Index, name, and chapter length (h:mm:ss for chapters over an hour).</li>
+            <li><strong>Line 2.</strong> Integrated LUFS and the deviation from the book median (e.g. <code>+1.4 LU</code>).</li>
+            <li><strong>Line 3.</strong> The two ACX gates the integrated alone doesn't catch: true peak and noise floor.</li>
+            <li><strong>Line 4.</strong> Secondary metrics: LRA, speech-gated (Dlg), and speech percentage.</li>
+        </ul>
+        <p class="prose">Missing metrics render as muted <code>—</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
+
+        <h3>ACX gates</h3>
+        <p class="prose">Each chapter is independently checked against three ACX delivery limits. Failures render the metric in red on the ribbon slot and on the report's chapter table:</p>
+        <ul>
+            <li><strong>Integrated outside [−23, −18] LUFS.</strong> The integrated LUFS cell turns red.</li>
+            <li><strong>True peak &gt; −3 dBTP.</strong> The TP cell turns red.</li>
+            <li><strong>Median noise floor &gt; −60 dB RMS.</strong> The NF cell turns red.</li>
+        </ul>
+        <p class="prose">These three gates are independent of the deviation-from-median flag, so each chapter answers two separate questions: <em>will ACX accept this chapter on its own?</em> (the three red/no-red signals) and <em>is this chapter consistent with the rest of the book?</em> (the deviation badge, controlled by the ±2 LU threshold in Settings → Targets → Chapter detection).</p>
+
+        <h3>Outlier flag</h3>
+        <p class="prose">The deviation threshold (default ±2.0 LU) drives the red-tint flag on outlier slots and the headline banner at the top of the ribbon ("Chapter 07 is 2.3 LU above median"). Adjust the threshold in Settings → Targets → Chapter detection.</p>
+
+        <h3>Reset to detected</h3>
+        <p class="prose">Restores Specula's silence-detection result, dropping all manual boundary edits, adds, and removes. Renames are kept.</p>
+
+        <h3>Export / Import</h3>
+        <p class="prose"><strong>Export…</strong> writes the current chapters (name + start + end) to a JSON sidecar. <strong>Import…</strong> loads one back, replacing the current chapter list. The exported JSON is plain Specula JSON; the importer also accepts a slimmer format with just <code>start</code> and <code>end</code> per entry, so you can hand-craft one.</p>
+
+        <h3>Recall</h3>
+        <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
+
+        <h3>Chapter ribbon (⌃6)</h3>
+        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle with <kbd>⌃6</kbd>.</p>
+
+        <h3>In the report</h3>
+        <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (I outside [−23, −18], TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 18. Export ─────── -->
     <section class="guide-section" id="export">
-        <h2>17. Export <a href="#export" class="anchor">#</a></h2>
+        <h2>18. Export <a href="#export" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
@@ -1168,9 +1279,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 18. Command-line tool ─────── -->
+    <!-- ─────── 19. Command-line tool ─────── -->
     <section class="guide-section" id="cli">
-        <h2>18. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+        <h2>19. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
 
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
@@ -1289,9 +1400,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 19. Settings ─────── -->
+    <!-- ─────── 20. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>19. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>20. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Four tabs.</p>
 
@@ -1328,9 +1439,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 20. Keyboard reference ─────── -->
+    <!-- ─────── 21. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>20. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>21. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -1374,6 +1485,12 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio (new file)</td></tr>
         </table>
 
+        <h3>Chapter mode</h3>
+        <table>
+            <tr><td><kbd>⌘⌃C</kbd></td><td class="wrap-ok">Enter / exit chapter mode</td></tr>
+            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle chapter ribbon</td></tr>
+        </table>
+
         <h3>Export</h3>
         <table>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON report</td></tr>
@@ -1388,6 +1505,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌃3</kbd></td><td class="wrap-ok">Toggle Spectrogram</td></tr>
             <tr><td><kbd>⌃4</kbd></td><td class="wrap-ok">Toggle FFT</td></tr>
             <tr><td><kbd>⌃5</kbd></td><td class="wrap-ok">Toggle Stereo Width</td></tr>
+            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle Chapter Ribbon</td></tr>
         </table>
 
         <h3>View - focus one section (hide others / restore)</h3>
@@ -1402,9 +1520,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 21. Standards ─────── -->
+    <!-- ─────── 22. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>21. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>22. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>
