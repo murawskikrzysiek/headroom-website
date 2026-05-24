@@ -521,6 +521,11 @@
             <tr><td><kbd>L</kbd></td><td class="wrap-ok">Toggle loop. Loops the current selection if one exists, otherwise the whole file.</td></tr>
         </table>
 
+        <h4>Hold play-start</h4>
+        <p class="prose">Next to Loop in the transport bar is a small <strong>↺ Hold play-start</strong> toggle. Default: off. Pause stops playback at the current position (classic transport behaviour). Turn it on (the icon fills, accent-tinted) and <strong>Pause</strong> (<kbd>Space</kbd> or the play / pause toggle) returns the playhead to where Play was last started, or where you last manually placed the cursor with a waveform click. Tap <kbd>Space</kbd> again and you re-play the same passage from the same starting point. Useful when you're A/B'ing a passage by ear without wanting to re-position the cursor each time.</p>
+        <p class="prose">In compare mode the toggle also makes nudge buttons (±1 sample / ±1 ms) re-seek to that anchor, so the comparison point doesn't drift forward while you click alignment buttons.</p>
+        <p class="prose">Stop is unchanged either way: it always rewinds to the beginning of the file.</p>
+
         <h3>Playback rate</h3>
         <p class="prose">Variable rate from 0.25× to 4×, with optional pitch preservation (timestretch) via <code>AVAudioUnitTimePitch</code>.</p>
         <table>
@@ -1086,6 +1091,7 @@
 
         <h3>Manual nudge (sample-accurate)</h3>
         <p class="prose">The <strong>±1 sample</strong> and <strong>±1 ms</strong> buttons time-shift the slot. Useful when two takes are close but not aligned. The current offset (in samples) is shown next to the buttons.</p>
+        <p class="prose">The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with the toggle on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
 
         <h3>Auto-align</h3>
         <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
