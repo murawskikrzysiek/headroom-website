@@ -578,7 +578,7 @@
             <div class="cap">Loudness targets - per-platform gain penalties for streaming, hard pass/fail for VOD and broadcast</div>
             <div class="cap">Speech-gated LUFS - Silero neural VAD highlights speech blocks for dialog mixes</div>
             <div class="cap">FFT spectrum - five window types, note-name on hover, frequency-range selection</div>
-            <div class="cap">Spectrogram - four colormaps, log or mel scale, configurable dB range</div>
+            <div class="cap">Spectrogram - four colormaps, log or mel scale, configurable dB range and time resolution, separate Live and Offline stores</div>
             <div class="cap">M/S stereo width - Pearson correlation, zone colour mode, plain-language hover labels</div>
             <div class="cap">Phase scope - Lissajous L/R correlation</div>
             <div class="cap">Per-channel RMS - peak hold, colour-coded zones, per-channel mute</div>
@@ -628,7 +628,7 @@
             </div>
             <div class="feature-row">
                 <span class="feature-key">Spectrogram</span>
-                <span class="feature-val">Rolling time-frequency display with four perceptually-distinct colormaps (Inferno / Turbo / Plasma / Viridis), logarithmic <em>or</em> mel frequency scale, and a configurable dB-range window. Mel scale gives more resolution where dialogue actually lives.</span>
+                <span class="feature-val">Rolling time-frequency display with four perceptually-distinct colormaps (Inferno / Turbo / Plasma / Viridis), logarithmic <em>or</em> mel frequency scale, and a configurable dB-range window. Mel scale gives more resolution where dialogue actually lives. Time resolution is configurable too: five FFT overlap settings from 75% (~47 columns/sec at 48 kHz) up to 98.4375% (~750 columns/sec) for ultra-smooth gradients at high zoom. The view follows the same Live / Offline split the loudness section uses, with independent stores so live playback never overwrites your Analyse result. While playback is paused, clicking on the waveform or spectrogram (or pressing arrow keys) recomputes the FFT for that position so the spectrum view matches the column under the playhead.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">M/S stereo &amp; phase</span>
