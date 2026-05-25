@@ -750,7 +750,7 @@
         <p class="prose">Each target row has a small waveform-circle toggle on the right. Press it and Specula matches playback to that target:</p>
         <ul>
             <li><strong>Gain</strong> = <code>target reference − source LUFS</code>, where source is integrated LUFS for integrated targets (most music + broadcast) or dialog-gated LUFS for dialog-gated targets (Netflix and peers, ATSC A/85, streaming podcasts).</li>
-            <li><strong>Limiter</strong> = real-time 5 ms lookahead brickwall at the target's true-peak ceiling. The limiter only acts when the gain would push peaks above the ceiling; below it the limiter is transparent.</li>
+            <li><strong>Limiter</strong> = real-time 5 ms lookahead true-peak limiter at the target's <code>dBTP</code> ceiling. Reads the 4× oversampled inter-sample peak (ITU-R BS.1770 polyphase FIR), so the ceiling is enforced against the analog-reconstructed signal rather than just the raw sample magnitude. The limiter only acts when the gain would push peaks above the ceiling; below it the limiter is transparent.</li>
         </ul>
         <p class="prose">Hit play and you'll hear the file the way the platform plays it. Press the toggle again (or pick another target) to release. Nothing in the loaded buffer is modified - match is purely a playback gain stage with a limiter after it.</p>
         <p class="prose">The match follows the loudness display mode: switching <strong>Live → Offline</strong> (or back) while a match is active recomputes the gain against the new source. If a matched target is no longer in the active mode's selected targets (you switched mode, or unticked it in Settings), the match <strong>auto-disables</strong> so you can never apply gain you can no longer see the verdict for.</p>
@@ -1163,7 +1163,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">edit-mode.png</div>
-            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
+            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, Limit TP, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
         </div>
 
         <h3>Enter / exit</h3>
@@ -1180,7 +1180,8 @@
             <tr><td>Invert Phase</td><td class="wrap-ok">Multiply by −1.</td></tr>
             <tr><td>Fade</td><td class="wrap-ok">Linear / Logarithmic / Equal-power × In / Out - 6 fade curves total.</td></tr>
             <tr><td>Normalize Peak</td><td class="wrap-ok">Target dBFS.</td></tr>
-            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling. Auto-applies a 5 ms lookahead <strong>brickwall limiter</strong> when normalization increases loudness.</td></tr>
+            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling (interpreted as <code>dBTP</code>). Auto-applies a 5 ms lookahead <strong>true-peak limiter</strong> when normalization increases loudness so inter-sample peaks stay under the ceiling, not just sample peaks. Two-pass offline: pass 1 builds the gain envelope from the input's oversampled peaks; pass 2 catches any residual peaks the release stage might leave fractionally over the ceiling.</td></tr>
+            <tr><td>Limit TP</td><td class="wrap-ok">True-peak limiter only, ceiling in <code>dBTP</code>. Loudness otherwise unchanged. Use when integrated LUFS is already where you want it but inter-sample peaks need to be capped under a platform ceiling. Same DSP as the limiter Normalize LUFS uses; just skips the loudness measurement and gain stage.</td></tr>
             <tr><td>Remove DC Offset</td><td class="wrap-ok">Subtracts each channel's mean.</td></tr>
             <tr><td>Swap Channels</td><td class="wrap-ok">Stereo L↔R swap.</td></tr>
             <tr><td>Split to Mono</td><td class="wrap-ok">Writes N mono WAV files (one per channel) to a directory you pick. Channel labels in the filename.</td></tr>
@@ -1198,7 +1199,7 @@
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code>. Format defaults to WAV at the file's native bit depth and sample rate.</p>
 
         <h3>Edit toolbar</h3>
-        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize) open small popovers - set the parameters, click Apply.</p>
+        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize, Limit TP) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1.</p>
     </section>
 
     <hr class="divider">
@@ -1374,8 +1375,9 @@ specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
             <li><code>--invert-phase</code> - flip polarity on every channel.</li>
             <li><code>--gain DB</code> - uniform gain.</li>
             <li><code>--normalize-peak DBFS</code> <em>or</em> <code>--normalize-lufs LUFS [--lufs-ceiling DBTP]</code> - mutually exclusive.</li>
+            <li><code>--limit-tp DBTP</code> - apply the true-peak limiter at this ceiling without changing loudness; runs last so it can catch any residual peaks left by an upstream normalize.</li>
         </ol>
-        <p class="prose">LUFS normalization applies the same 5 ms brickwall limiter as the GUI when the gain would push samples over the ceiling.</p>
+        <p class="prose">LUFS normalization and <code>--limit-tp</code> use the same 5 ms two-pass true-peak limiter (BS.1770 4× polyphase oversampled detection).</p>
 
         <h3><code>specula report &lt;FILE&gt;</code></h3>
         <p class="prose">Full Specula report through the headless pipeline, in your choice of format.</p>
