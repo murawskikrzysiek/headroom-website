@@ -546,12 +546,14 @@
         <p class="prose">The Transport bar exposes both the rate slider and the "preserve pitch" toggle.</p>
 
         <h3>Output device</h3>
-        <p class="prose">The Transport bar device picker enumerates every CoreAudio output device on the system. Switching device rebuilds the audio engine. Specula is happy with any device - built-in speakers, USB interfaces, multichannel pro audio interfaces.</p>
+        <p class="prose">The Transport bar shows the current output as a compact <strong>Output: &lt;Device Name&gt;</strong> pill on the right side. Click it (or press <kbd>⌥⌘O</kbd>, or pick <strong>Window → Output Panel</strong>) to open the <strong>Output</strong> window. The window holds a device dropdown (with channel count next to each name; the <strong>Refresh Devices</strong> item lives at the bottom of the menu) above the per-channel routing matrix. Switching device rebuilds the audio engine. Specula is happy with any device, from built-in speakers to multichannel pro audio interfaces.</p>
+
+        <p class="prose">The Output window is hidden by default and remembers its size and position across launches. On macOS 26 the window itself uses Liquid Glass, so it reads as a floating utility panel over the main app (the same Liquid Glass opt-out toggle covers it). Routing details are in <a href="#routing">Channel routing &amp; monitor mode</a>.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">transport-bar.png - transport bar detail</div>
-            <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the device picker dropped open with a few CoreAudio devices visible.</div>
+            <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the new compact <code>Output: &lt;Device Name&gt;</code> pill on the right end.</div>
         </div>
     </section>
 
@@ -1075,16 +1077,57 @@
     <section class="guide-section" id="routing">
         <h2>14. Channel routing &amp; monitor mode <a href="#routing" class="anchor">#</a></h2>
 
-        <p class="prose">The <strong>Routing</strong> panel (bottom of the Info sidebar) is an N → M matrix that maps each input/source channel to one or more output channels with per-route gain trim.</p>
+        <p class="prose">The <strong>Routing</strong> panel lives in the dedicated <strong>Output</strong> window (<strong>Window → Output Panel</strong>, <kbd>⌥⌘O</kbd>, or click the Output pill in the Transport bar). It is an N → M matrix that maps each input/source channel to one or more output channels with per-route gain trim. The Output window also holds the device selector, so the channel count the matrix targets and the device driving it are always co-located.</p>
+
+        <p class="prose">The window is hidden by default. Open it when you need to reroute, then close it again. Routing settings persist for the loaded file.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">channel-router.png</div>
-            <div class="shot-desc">Routing matrix for a 5.1 file routed down to a stereo pair. Should show source channels labelled L/R/C/LFE/Ls/Rs and the resulting routing dots in the matrix grid, with PRE/POST toggle visible above.</div>
+            <div class="shot-name">output-window-matrix.png</div>
+            <div class="shot-desc">The Output window opened over the main app on macOS 26. Device dropdown at the top showing the current interface with its channel count, the Saved presets row underneath, the built-in mixdown preset bar (5.1 to Lo/Ro, Lt/Rt, Mono) below that, and the routing matrix in Matrix view for a 5.1 file: rows are device outputs, columns are L/R/C/LFE/Ls/Rs, routed cells show the on/off dot, the ϕ glyph (orange on the Lt/Rt-encoded surround cells), and the dB value. Liquid Glass panel framing visible.</div>
         </div>
 
+        <h3>List view vs Matrix view</h3>
+        <p class="prose">The routing section has a <strong>List / Matrix</strong> toggle. Same data, two presentations.</p>
+        <ul>
+            <li><strong>List view</strong>: one row per output channel, with a source picker and a typeable dB gain field per route. Best for precise gain entry.</li>
+            <li><strong>Matrix view (default)</strong>: patch-bay grid. Rows are device outputs, columns are source channels. Background colour shows the topology at a glance (filled accent = routed, dim gray = unrouted). Each routed cell splits into three click zones from left to right: the <strong>on/off dot</strong> disables the route in one click; the <strong>ϕ glyph</strong> flips polarity (used by Lt/Rt encoding or quick phase checks; turns orange when active); the <strong>value</strong> is the typeable gain in dB. Press <kbd>Enter</kbd> to commit, <kbd>Esc</kbd> to cancel an edit. Drag vertically over a routed value to adjust (±0.25 dB per pixel). Click an unrouted cell to enable the route at unity (0 dB). Right-click any cell for the menu equivalents. A silent row or unused source column jumps out at first glance. Cell backgrounds use Liquid Glass on macOS 26 (the same opt-out toggle the rest of the chrome respects).</li>
+        </ul>
+        <p class="prose">Your preference persists across launches.</p>
+
+        <h3>Mixdown preset library</h3>
+        <p class="prose">A horizontally scrolling preset bar (visible in both views) applies a complete mapping in one click. Presets are filtered to the ones that apply to the current file and device channel counts.</p>
+        <ul>
+            <li><strong>Default</strong> (any file/device): restores the 1:1 identity routing (source channel N to output channel N) for as many channels as both have. Use this to get back to a clean state after experimenting.</li>
+            <li><strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R.</li>
+            <li><strong>5.1 downmix</strong> (file is 6 ch): Lo/Ro (ITU-R BS.775 / Dolby stereo downmix), Lt/Rt (Pro Logic II matrix encoding: same-side surround positive at &minus;1.2 dB, opposite-side surround inverted at &minus;6.2 dB), 5.1 to Mono.</li>
+            <li><strong>7.1 downmix</strong> (file is 8 ch): 7.1 to Lo/Ro, 7.1 to Lt/Rt (PLII, same polarity rule applied to both side and back surround pairs), 7.1 to 5.1.</li>
+            <li><strong>Test</strong> (file is 6 ch): Ls/Rs solo, C/LFE solo, for inspecting surround content in isolation.</li>
+        </ul>
+        <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted so the preset acts as a complete replacement rather than a partial overlay.</p>
+        <p class="prose">Coefficients follow ITU-R BS.775-3. The &minus;3 dB factor on summed channels is 1/sqrt(2), the equal-power gain for correlated channel summation. The Pro Logic II coefficients (&minus;1.2 dB and &minus;6.2 dB on surrounds, with phase inversion on the left total) match the Dolby specification.</p>
+
+        <h3>Saved (user) presets</h3>
+        <p class="prose">Above the built-in row is a <strong>Saved</strong> row for your own routings.</p>
+        <ul>
+            <li><strong>Save</strong> captures whatever's currently in the routing (every output's sources, gains and polarity flags) under a name you choose. Saved presets only show when a file and device with the same channel counts are loaded.</li>
+            <li><strong>Import</strong> reads a Specula Routing Presets JSON file and appends any presets not already in your library (deduplicated by ID). Use this to receive setups from a collaborator.</li>
+            <li><strong>Export</strong> writes all your saved presets to a JSON file, ready to share.</li>
+            <li><strong>Right-click a saved preset</strong> for Rename, Export (just that one), or Delete.</li>
+            <li>Saved presets are persisted in UserDefaults under a versioned key, so a future schema bump can migrate old entries instead of dropping them.</li>
+        </ul>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">output-window-saved-presets.png</div>
+            <div class="shot-desc">Close-up of the Output window with the Saved presets row populated (e.g. "Studio monitors", "Headphones direct", "Surround check") above the built-in mixdown preset bar. One Saved preset right-click open showing the Rename / Export / Delete menu. Import and Export buttons visible at the row end.</div>
+        </div>
+
+        <h3>Polarity inversion</h3>
+        <p class="prose">Polarity inversion is a per-source-slot flag, separate from gain. List view has a small <strong>ϕ</strong> button next to each source's gain knob; Matrix view has the dedicated <strong>ϕ</strong> click zone in every routed cell (orange glyph when active). Needed for Pro Logic II Lt/Rt encoding and useful for quick A/B phase checks across any single route.</p>
+
         <h3>Why it matters</h3>
-        <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system.</p>
+        <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system. The preset library covers the common stereo and surround downmix workflows in one click; the matrix view makes any custom mapping obvious at a glance.</p>
 
         <h3>PRE / POST monitor mode</h3>
         <p class="prose">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement:</p>
