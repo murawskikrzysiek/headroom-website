@@ -927,6 +927,9 @@
 
         <h3>Selection-analysis spectrum</h3>
         <p class="prose">After <kbd>⌘Return</kbd> offline analysis, the FFT view switches to the <strong>averaged spectrum</strong> of the selection - a much smoother, more accurate read than the rolling live spectrum. Clearing the selection (<kbd>Esc</kbd>) returns to live mode.</p>
+
+        <h3>Spectrum under the playhead (paused)</h3>
+        <p class="prose">While playback is stopped, <strong>clicking anywhere on the waveform or spectrogram</strong> recomputes the FFT for that position and updates the spectrum view to match. The FFT window ends at the cursor, so the spectrum you see lines up with the spectrogram column under the playhead. Useful for inspecting a specific moment without scrubbing: click, read, click again, read. Works for keyboard skips too (<kbd>←</kbd>, <kbd>→</kbd>, <kbd>⇧←</kbd>, <kbd>⇧→</kbd>).</p>
     </section>
 
     <hr class="divider">
@@ -965,8 +968,33 @@
         </ul>
         <p class="prose">Anything quieter than the floor is mapped to the bottom colour; anything louder than the ceiling clips to the top colour. Tighten the window to highlight subtle detail; widen it to see the full dynamic range.</p>
 
+        <h3>Time resolution (FFT overlap)</h3>
+        <p class="prose">Each spectrogram column is one FFT. <strong>Overlap</strong> controls how often that FFT is recomputed per second, which sets the time-axis density. Higher overlap means columns are closer together: less blocky at high zoom, smoother gradients in time.</p>
+
+        <table>
+            <tr><th>Overlap</th><th>Hop (fftSize=4096, 48 kHz)</th><th>Columns/sec</th></tr>
+            <tr><td>75% (default)</td><td class="wrap-ok">21.3 ms</td><td class="wrap-ok">~47</td></tr>
+            <tr><td>87.5%</td><td class="wrap-ok">10.7 ms</td><td class="wrap-ok">~94</td></tr>
+            <tr><td>93.75%</td><td class="wrap-ok">5.3 ms</td><td class="wrap-ok">~188</td></tr>
+            <tr><td>96.875%</td><td class="wrap-ok">2.7 ms</td><td class="wrap-ok">~375</td></tr>
+            <tr><td>98.4375%</td><td class="wrap-ok">1.3 ms</td><td class="wrap-ok">~750</td></tr>
+        </table>
+
+        <p class="prose">96.875% and 98.4375% can substantially lengthen the offline Analyse pass at large FFT sizes (16k or 32k), since the column count scales with the overlap factor. Use them when you need maximum smoothness; 75% is the standard pro-audio default.</p>
+
+        <h3>Live vs Offline</h3>
+        <p class="prose">The spectrogram follows the same <code>[Live] [Offline]</code> toggle the loudness section uses.</p>
+        <ul>
+            <li><strong>Live</strong> shows the rolling spectrogram built incrementally from the audio tap as the file plays. Limited to the in-memory column ring (~1800 columns).</li>
+            <li><strong>Offline</strong> shows the whole-file (or whole-selection) spectrogram produced by Analyse (<kbd>⌘Return</kbd>). Persists across playback and seeks.</li>
+        </ul>
+        <p class="prose">The two stores are independent: live playback never overwrites the offline analysis, and Analyse never disturbs the live history.</p>
+
         <h3>Channel selection</h3>
-        <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history.</p>
+        <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history (both live and offline).</p>
+
+        <h3>Settings persistence</h3>
+        <p class="prose">Colormap, frequency scale, dB Floor, dB Ceiling, and FFT overlap all persist across launches via UserDefaults. Tune the view once and Specula remembers.</p>
     </section>
 
     <hr class="divider">
@@ -1449,7 +1477,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <li><strong>Colormap</strong> - Inferno / Turbo / Plasma / Viridis.</li>
             <li><strong>Frequency Scale</strong> - Log / Mel.</li>
             <li><strong>dB Range</strong> - Floor (−120 to −24) and Ceiling (−18 to 0).</li>
+            <li><strong>Time resolution (FFT overlap)</strong> - 75% (default), 87.5%, 93.75%, 96.875%, 98.4375%. Higher overlap = denser columns per second. The two highest settings can lengthen offline Analyse at large FFT sizes; the Settings footer flags them as deliberate-use options.</li>
         </ul>
+        <p class="prose">All five values (colormap, frequency scale, Floor, Ceiling, FFT overlap) persist across launches.</p>
 
         <h3>FFT / Analysis</h3>
         <ul>
