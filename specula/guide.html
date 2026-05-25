@@ -509,7 +509,17 @@
         <h2>2. Loading &amp; playback <a href="#playback" class="anchor">#</a></h2>
 
         <h3>Open a file</h3>
-        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Specula loads the entire file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load - large files (a 90-minute master at 96 kHz / 24-bit, say) take a few seconds; once loaded, every operation is instant.</p>
+        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Multiple-selection is allowed: the first file becomes the primary and the rest open as compare slots. Specula loads each file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load.</p>
+
+        <p class="prose">Other ways to open files:</p>
+        <ul>
+            <li><strong>Drag &amp; drop</strong> one or more audio files onto the main window, or onto the Dock icon (works whether Specula is running or not).</li>
+            <li><strong>Open With</strong> from Finder (right-click an audio file). Specula registers as an audio handler but not the default, so it stays out of your way unless you pick it.</li>
+            <li><strong>File → Open Recent</strong> lists the last files you opened from any source above. The list is managed by macOS, so it survives quitting and relaunching.</li>
+            <li><code>open path/to/file.wav</code> from Terminal works for the same reason: it routes through Launch Services.</li>
+        </ul>
+
+        <p class="prose"><strong>Opening files always starts a clean comparison.</strong> If two files were already in compare, opening a single new file replaces the whole set; opening three new files replaces the whole set with those three. To <strong>append</strong> to the current comparison without starting fresh, use <strong>File → Add Files to Compare…</strong> (<kbd>⇧⌘O</kbd>) or the Compare button in the file dock.</p>
 
         <h3>Transport</h3>
         <table>
@@ -1079,6 +1089,9 @@
             <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist)</td></tr>
         </table>
         <p class="prose">Slot switching uses two paths. <strong>Fast path</strong>: when the new slot's audio format matches the current one, the engine performs an atomic buffer swap. Sub-millisecond. <strong>Slow path</strong>: when sample rate or channel count differs, the engine is rebuilt. ~50-100 ms.</p>
+
+        <h3>Reorder slots</h3>
+        <p class="prose">Drag any slot chip in the file dock to a different position to reorder. The slot you drop on becomes the new home of the dragged slot, and the chip you targeted (plus everything between) shifts to make room. Dragging a slot to position A (the leftmost) promotes it to the reference file; existing diff slots are dropped at that point because they were computed against the previous A. Use this when your file came in from a Dock drop or Finder drag and Specula didn't pick the file you wanted as the primary. Finder serialises drag selections in display order, not click order, so the file you wanted as the reference may not be the one Specula picked. Diff slots can be reordered too, but not into position A.</p>
 
         <h3>Level match (L)</h3>
         <p class="prose">Each slot's chip has an <strong>L</strong> toggle. When on, Specula applies a gain offset that brings the slot's integrated LUFS to match slot A's. Hear two masters at the same loudness instead of "the louder one always wins".</p>
