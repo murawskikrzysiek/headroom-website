@@ -614,21 +614,36 @@
             <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Run offline selection analysis</td></tr>
         </table>
 
-        <h3>Offline analysis (⌘Return)</h3>
-        <p class="prose">Runs a full, detached analysis of the current selection. This is <em>separate</em> from the live measurements - it processes the whole selection at once with no real-time constraints, so it produces tighter numbers and includes things the live path can't compute cheaply.</p>
+        <h3>Load-time analysis (automatic)</h3>
+        <p class="prose">Most of the offline numbers populate the moment a file finishes loading, with no key press. A detached background pass over the whole file produces:</p>
+        <ul>
+            <li><strong>Integrated LUFS</strong>, <strong>LRA</strong>, <strong>True Peak</strong> (4× oversampled dBTP), <strong>Sample Peak</strong>.</li>
+            <li><strong>Max Momentary LUFS</strong>, <strong>Max Short-term LUFS</strong>.</li>
+            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> via Silero VAD over the entire file.</li>
+            <li><strong>Dynamic Range</strong>, <strong>Headroom</strong>, <strong>Speech-gated Noise Floor</strong>.</li>
+            <li><strong>Per-channel Peak / RMS / Crest Factor / DC</strong>.</li>
+            <li><strong>Stereo width</strong> curve, <strong>loudness curves</strong> (momentary / short-term / integrated per-100&nbsp;ms).</li>
+            <li><strong>Spectrogram columns</strong> for the whole file, <em>if</em> the new "Auto-compute spectrogram on load" toggle is enabled in Settings → Spectrogram → Performance. Off by default; see <a href="#spectrogram">Spectrogram</a>.</li>
+        </ul>
+        <p class="prose">These numbers feed the InfoPanel's Offline tab and both the PDF and JSON reports immediately after open. A typical music track finishes the pass in a few hundred milliseconds. Long-form audio takes proportionally longer.</p>
 
-        <p class="prose"><strong>Output:</strong></p>
+        <h3>Selection analysis (⌘Return)</h3>
+        <p class="prose">⌘Return reruns the full analysis pipeline on the current selection rather than the whole file. Use it when you want metrics scoped to a specific region (a chorus, a problem section, a candidate edit point), or when you want the <strong>averaged FFT spectrum</strong> view.</p>
+
+        <p class="prose"><strong>Selection-scoped output:</strong></p>
         <ul>
             <li><strong>Time range</strong> - selection start and end.</li>
-            <li><strong>Per-channel Peak / RMS / Crest Factor</strong> - in dBFS / dBFS / dB.</li>
-            <li><strong>Integrated LUFS</strong>, <strong>LRA</strong>, <strong>True Peak</strong>.</li>
-            <li><strong>Max Momentary LUFS</strong>, <strong>Max Short-term LUFS</strong>.</li>
-            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> - Silero VAD over the selection.</li>
-            <li><strong>Averaged FFT spectrum</strong> for the FFT view.</li>
-            <li><strong>Loudness curves</strong> - per-100&nbsp;ms momentary and short-term values used by the Loudness Curve view.</li>
+            <li>Every metric from the load-time pass, recomputed against the selected range only.</li>
+            <li><strong>Averaged FFT spectrum</strong> for the FFT view - a much smoother, more accurate read than the rolling live spectrum.</li>
+            <li><strong>Spectrogram columns</strong> for the selection (independent of the auto-compute toggle, which only applies to whole-file load-time spectrograms).</li>
         </ul>
 
-        <p class="prose">A spinner in the Selection Analysis sidebar block indicates the analysis is in flight; results land when it completes (typically ~1-3 s for a multi-minute selection).</p>
+        <p class="prose">A spinner in the Loudness sidebar indicates the analysis is in flight; results land when it completes (typically ~1-3 s for a multi-minute selection). Live measurement keeps running in the background regardless.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>You no longer need ⌘Return just to populate true peak or per-channel stats on a freshly loaded file. Those land in the Offline tab and the report automatically. Reach for ⌘Return when the question is about a region of the file, or when you want the averaged spectrum on the FFT view.</p>
+        </div>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -674,7 +689,8 @@
         </div>
 
         <h3>Live vs Offline loudness display</h3>
-        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback; <strong>Offline</strong> shows the whole-selection results from the last analysis run (<kbd>⌘A</kbd> to select all, <kbd>⌘Return</kbd> to analyse). The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
+        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback. <strong>Offline</strong> shows the whole-file results from the load-time analysis pass, populated immediately after the file finishes loading; running <kbd>⌘Return</kbd> on a selection narrows the same metrics to that selection.</p>
+        <p class="prose">The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-file or whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, Noise Floor (Podcast mode), and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
 
         <h3>Mode (Music / Podcast / VOD / Broadcast)</h3>
         <p class="prose">The InfoPanel has a top-level <strong>Mode</strong> picker right under the File section. Mode is the per-file analysis context - switch it to reframe the same file as a different deliverable. It drives both the Loudness Targets panel and which metric rows appear in the sidebar:</p>
@@ -707,6 +723,21 @@
         <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts, ATSC A/85) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict. Target reference lines lead with <code>dialog ·</code> whenever a target reads from the speech-gated path, so you can scan the measurement source without parsing LUFS-vs-LKFS unit suffixes.</p>
 
         <p class="prose"><strong>ACX noise floor.</strong> Specula measures the dB RMS across all VAD-classified non-speech samples and shows it in the Speech-Gated section of the Info panel. ACX rejects audiobooks above −60 dB RMS, so the reading turns red when it exceeds that. The ACX preset in the loudness-targets panel automatically picks up the measurement and shows <strong>FAIL NF</strong> when the noise floor breaches the ceiling. Files with no non-speech samples show <code>−∞</code>. The noise floor is undefined in that case and the criterion passes trivially.</p>
+
+        <h4>Verdict in JSON / PDF / HTML exports</h4>
+        <p class="prose">Each row in the Loudness Targets panel maps to a <code>verdict</code> object on the corresponding target in the JSON export, so downstream scripts can branch on pass / fail without recomputing against the target spec. The PDF and HTML reports render the same verdict as the status badge above each target card.</p>
+        <table>
+            <tr><th>Field</th><th>Type</th><th>When populated</th></tr>
+            <tr><td><code>status</code></td><td class="wrap-ok"><code>compliant</code> · <code>penalty</code> · <code>notCompliant</code> · <code>unavailable</code></td><td class="wrap-ok">Always.</td></tr>
+            <tr><td><code>actualLUFS</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The integrated or dialog-gated reading the verdict was computed against.</td></tr>
+            <tr><td><code>penaltyGainDB</code></td><td class="wrap-ok">number</td><td class="wrap-ok">Streaming-platform targets (Music + streaming Podcast).</td></tr>
+            <tr><td><code>penaltyApplies</code></td><td class="wrap-ok">boolean</td><td class="wrap-ok">Streaming-platform targets. False for "as-is" on asymmetric platforms.</td></tr>
+            <tr><td><code>truePeakClean</code></td><td class="wrap-ok">boolean</td><td class="wrap-ok">Streaming-platform targets. False when the master's true peak breaches the platform's ceiling.</td></tr>
+            <tr><td><code>nonComplianceReason</code></td><td class="wrap-ok"><code>loudness</code> · <code>truePeak</code> · <code>shortTerm</code> · <code>noiseFloor</code></td><td class="wrap-ok">Hard-spec targets (VOD / Broadcast / ACX) when <code>status</code> is <code>notCompliant</code>.</td></tr>
+            <tr><td><code>nonComplianceActual</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The actual reading on the failing criterion.</td></tr>
+            <tr><td><code>nonComplianceLimit</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The ceiling or band edge the failing criterion exceeded.</td></tr>
+        </table>
+        <p class="prose">The addition is backwards-compatible: existing JSON consumers that ignore the field continue to work. Useful for batch QC scripts, CI gates on render farms, and Shortcuts workflows that branch on whether a master will pass a given platform without re-running the math.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -988,9 +1019,13 @@
         <p class="prose">The spectrogram follows the same <code>[Live] [Offline]</code> toggle the loudness section uses.</p>
         <ul>
             <li><strong>Live</strong> shows the rolling spectrogram built incrementally from the audio tap as the file plays. Limited to the in-memory column ring (~1800 columns).</li>
-            <li><strong>Offline</strong> shows the whole-file (or whole-selection) spectrogram produced by Analyse (<kbd>⌘Return</kbd>). Persists across playback and seeks.</li>
+            <li><strong>Offline</strong> shows the whole-file or whole-selection spectrogram. With <strong>Auto-compute spectrogram on load</strong> enabled in Settings → Spectrogram → Performance, the whole-file pass runs automatically during the load-time analysis pass; otherwise, run <kbd>⌘Return</kbd> on a selection to populate it. Persists across playback and seeks.</li>
         </ul>
         <p class="prose">The two stores are independent: live playback never overwrites the offline analysis, and Analyse never disturbs the live history.</p>
+
+        <h3>Auto-compute on load (opt-in)</h3>
+        <p class="prose"><strong>Settings → Spectrogram → Performance → Auto-compute spectrogram on load.</strong> Off by default. When on, the whole-file spectrogram is built during the load-time background pass instead of waiting for ⌘Return on a selection. Sub-second for typical music tracks; the cost scales with file length, so long-form audio takes proportionally longer.</p>
+        <p class="prose">The setting is independent of the FFT spectrum view, which still requires a selection because its averaging is selection-scoped. Turn it on for sessions that mainly work with shorter material (stereo mixes, single tracks) and want the spectrogram immediately on load; leave it off for long-form audio when you'd rather pick a region with ⌘Return.</p>
 
         <h3>Channel selection</h3>
         <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history (both live and offline).</p>
@@ -1366,6 +1401,8 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading.</p>
 
         <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the GUI's InfoPanel renders. No more "run <kbd>⌘Return</kbd> to measure true peak" placeholder for the whole-file case.</p>
+
+        <p class="prose">Each entry in <code>loudnessTargets.targets[]</code> in the JSON envelope carries an inline <code>verdict</code> object so a Shortcut, CLI pipeline, or batch QC script can branch on pass / fail without recomputing it against the target spec. Fields: <code>status</code> (<code>compliant</code> / <code>penalty</code> / <code>notCompliant</code> / <code>unavailable</code>), <code>actualLUFS</code>, plus <code>penaltyGainDB</code> / <code>penaltyApplies</code> / <code>truePeakClean</code> for streaming targets and <code>nonComplianceReason</code> / <code>nonComplianceActual</code> / <code>nonComplianceLimit</code> for hard-spec fails. The PDF and HTML reports render the same verdict as a status badge. Full field reference in <a href="#loudness">Loudness targets</a>.</p>
     </section>
 
     <hr class="divider">
@@ -1523,8 +1560,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <li><strong>Frequency Scale</strong> - Log / Mel.</li>
             <li><strong>dB Range</strong> - Floor (−120 to −24) and Ceiling (−18 to 0).</li>
             <li><strong>Time resolution (FFT overlap)</strong> - 75% (default), 87.5%, 93.75%, 96.875%, 98.4375%. Higher overlap = denser columns per second. The two highest settings can lengthen offline Analyse at large FFT sizes; the Settings footer flags them as deliberate-use options.</li>
+            <li><strong>Performance → Auto-compute spectrogram on load</strong> - off by default. When on, the whole-file offline spectrogram is built during the load-time analysis pass instead of waiting for <kbd>⌘Return</kbd> on a selection. Sub-second for typical music tracks; long-form audio takes proportionally longer.</li>
         </ul>
-        <p class="prose">All five values (colormap, frequency scale, Floor, Ceiling, FFT overlap) persist across launches.</p>
+        <p class="prose">All six values (colormap, frequency scale, Floor, Ceiling, FFT overlap, auto-compute on load) persist across launches.</p>
 
         <h3>FFT / Analysis</h3>
         <ul>
