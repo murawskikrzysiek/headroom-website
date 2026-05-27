@@ -456,7 +456,7 @@
             <li><a href="#waveform">3 · Waveform display</a></li>
             <li><a href="#selection">4 · Selection &amp; analysis</a></li>
             <li><a href="#loudness">5 · EBU R128 loudness</a></li>
-            <li><a href="#speech-gated">6 · Speech-gated loudness</a></li>
+            <li><a href="#speech-gated">6 · Speech-gated loudness + Dialogue mode</a></li>
             <li><a href="#loudness-curve">7 · Loudness curve</a></li>
             <li><a href="#violations">8 · Loudness violations</a></li>
             <li><a href="#fft">9 · FFT spectrum</a></li>
@@ -493,7 +493,8 @@
             <li><kbd>Space</kbd> plays. <kbd>⌘.</kbd> stops.</li>
             <li>Drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
-            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Report tabs).</li>
+            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
+            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Speech · Report tabs).</li>
         </ol>
 
         <div class="note">
@@ -843,7 +844,7 @@
 
     <hr class="divider">
 
-    <!-- ─────── 6. Speech-gated loudness ─────── -->
+    <!-- ─────── 6. Speech-gated loudness + Dialogue mode ─────── -->
     <section class="guide-section" id="speech-gated">
         <h2>6. Speech-gated loudness <a href="#speech-gated" class="anchor">#</a></h2>
 
@@ -872,6 +873,64 @@
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">speech-regions.png</div>
             <div class="shot-desc">Waveform with the SG toggle enabled - speech blocks shaded teal. Ideally a podcast or dialog file where the speech regions and silences are clearly visible.</div>
+        </div>
+
+        <h3>Tuning the VAD (Settings → Speech)</h3>
+        <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
+        <ol>
+            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
+            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
+        </ol>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">settings-speech-vad.png</div>
+            <div class="shot-desc">Settings window on the new <strong>Speech</strong> tab. Three sliders visible (Threshold, Minimum region duration, Merge gap) with their current values readable. A small caption underneath each slider explains the trade-off. Dark mode.</div>
+        </div>
+
+        <h3>Dialogue mode (manual region authoring)</h3>
+        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the four modal authoring modes (Edit, Compare, Chapter, Dialogue) the app exposes, mutually exclusive with the other three. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
+
+        <p class="prose">Region painting on the waveform:</p>
+        <ul>
+            <li><strong>Drag a region's body</strong> to move it.</li>
+            <li><strong>Drag a region's left or right edge</strong> to resize it. The cursor turns into a resize / move icon when you're over a draggable area.</li>
+            <li><strong>Click a region</strong> to select it without moving it.</li>
+        </ul>
+
+        <p class="prose">Toolbar:</p>
+        <ul>
+            <li><strong>Add region</strong> - promotes the current waveform selection, or drops a 1 s region at the playhead when there is no selection.</li>
+            <li><strong>In / Out</strong> (<kbd>I</kbd> / <kbd>O</kbd>) - two workflows. With no region selected, <kbd>I</kbd> anchors an in-point at the playhead (the toolbar shows "In @ X.XXs" and a dashed amber line appears on the waveform), then <kbd>O</kbd> finalises the region from the anchor to the new playhead. With a region selected, <kbd>I</kbd> sets its start and <kbd>O</kbd> sets its end.</li>
+            <li><strong>Delete</strong> (<kbd>Delete</kbd>) - removes the selected region.</li>
+            <li><strong>Split</strong> (<kbd>S</kbd>) - cuts the selected region at the playhead, producing two adjacent regions you can fine-tune independently.</li>
+            <li><strong>Undo / Redo</strong> (<kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd>) - a 50-step in-memory history of region edits. Drag operations count as one undo entry each.</li>
+            <li><strong>Reset to VAD</strong> - discards your edits, deletes the on-disk sidecar, re-runs Silero with the current tuning.</li>
+            <li><strong>Export… / Import…</strong> - save the current regions to a JSON sidecar, or load one from anywhere.</li>
+        </ul>
+
+        <p class="prose">Settings → Speech slider edits always re-run detection. If you have manual edits when you move a slider, they're pushed onto the undo stack first so you can <kbd>⌘Z</kbd> back to them.</p>
+
+        <p class="prose">While Dialogue mode is active, each region's waveform tint tells you where it came from:</p>
+        <ul>
+            <li><strong>Green</strong> - pristine Silero output, no edits.</li>
+            <li><strong>Amber</strong> - a VAD region you've moved or resized. A subtle ghost of the original VAD bounds draws behind it so you can see how far the edit drifted.</li>
+            <li><strong>Blue</strong> - a hand-painted region (added from selection, from the playhead, or via the In / Out workflow).</li>
+        </ul>
+
+        <p class="prose">Edited regions are auto-saved to <code>&lt;audio&gt;.dlg.json</code> next to the audio file (debounced 500 ms after the last edit). Sidecar files round-trip cleanly: re-opening the same audio re-applies your edits, and the schema is versioned (currently v1) so future format changes won't silently corrupt old work.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">dialogue-mode-waveform.png</div>
+            <div class="shot-desc">Specula in Dialogue mode (⌘4) over a dialogue / podcast file. Waveform shows a mix of region tints: a couple of green (pristine VAD) regions, one amber edited region with a faint ghost of the original VAD bounds visible behind it, and one blue hand-painted region. Dialogue toolbar pinned below the transport showing Add region / I / O / Delete / Split / Undo / Redo / Reset to VAD / Export… / Import… The toolbar carries the rose accent colour reserved for Dialogue mode. Selected region drawn with a brighter outline.</div>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">dialogue-mode-toolbar-detail.png</div>
+            <div class="shot-desc">Close-up of the Dialogue mode toolbar with the In / Out pending-anchor state visible: "In @ 12.34s" pill on the left, dashed amber anchor line on the waveform behind the toolbar. Demonstrates the In / Out workflow's intermediate state. Dark mode.</div>
         </div>
     </section>
 
@@ -1181,23 +1240,34 @@
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
+        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the <code>CompareToolbarView</code> sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
+
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">compare-mode.png</div>
-            <div class="shot-desc">File dock showing 3-4 slot chips (A, B, C, plus a diff slot). Active slot has gain row visible (ϕ, L toggle, ±0.1, ±1 buttons), and the toolbar's "Diff A−X" + "Compare metrics" buttons visible.</div>
+            <div class="shot-desc">Specula in Compare mode (⌘2) with three slots loaded (A, B, C). Compare toolbar pinned below the transport in sky-blue accent, showing the per-slot offset / gain controls, the auto-align button, the polarity ϕ toggle, the level-match L toggle, and the prominent <strong>Listen to Diff</strong> toggle on the active non-A slot. File dock above shows the three slot chips. Transport bar's Compare button is filled with the sky-blue accent.</div>
         </div>
 
+        <h3>Entering the mode</h3>
+        <p class="prose">Three ways in:</p>
+        <ul>
+            <li><strong>Click</strong> the Compare button in the transport bar (or press <kbd>⌘2</kbd>).</li>
+            <li><strong>Drag a file</strong> onto the Compare toggle in the transport. The file loads as a new slot and Compare mode activates in one gesture.</li>
+            <li><strong>Drop multiple files</strong> into an empty window. The first becomes slot A, the rest land in slots B - F, and Compare mode auto-activates.</li>
+        </ul>
+        <p class="prose">Compare is mutually exclusive with Edit, Chapter, and Dialogue. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
+
         <h3>Loading slots</h3>
-        <p class="prose">After the first file is open, drag additional files onto the window or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
+        <p class="prose">After the first file is open, drag additional files onto the window, drop them on the Compare toggle, or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
 
         <h3>Switching slots</h3>
         <table>
-            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist)</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist). Bare digits, no modifier.</td></tr>
         </table>
         <p class="prose">Slot switching uses two paths. <strong>Fast path</strong>: when the new slot's audio format matches the current one, the engine performs an atomic buffer swap. Sub-millisecond. <strong>Slow path</strong>: when sample rate or channel count differs, the engine is rebuilt. ~50-100 ms.</p>
 
         <h3>Reorder slots</h3>
-        <p class="prose">Drag any slot chip in the file dock to a different position to reorder. The slot you drop on becomes the new home of the dragged slot, and the chip you targeted (plus everything between) shifts to make room. Dragging a slot to position A (the leftmost) promotes it to the reference file; existing diff slots are dropped at that point because they were computed against the previous A. Use this when your file came in from a Dock drop or Finder drag and Specula didn't pick the file you wanted as the primary. Finder serialises drag selections in display order, not click order, so the file you wanted as the reference may not be the one Specula picked. Diff slots can be reordered too, but not into position A.</p>
+        <p class="prose">Drag any slot chip in the file dock to a different position to reorder. The slot you drop on becomes the new home of the dragged slot, and the chip you targeted (plus everything between) shifts to make room. Dragging a slot to position A (the leftmost) promotes it to the reference file; existing residuals are invalidated at that point because they were computed against the previous A. Use this when your file came in from a Dock drop or Finder drag and Specula didn't pick the file you wanted as the primary. Finder serialises drag selections in display order, not click order, so the file you wanted as the reference may not be the one Specula picked.</p>
 
         <h3>Level match (L)</h3>
         <p class="prose">Each slot's chip has an <strong>L</strong> toggle. When on, Specula applies a gain offset that brings the slot's integrated LUFS to match slot A's. Hear two masters at the same loudness instead of "the louder one always wins".</p>
@@ -1205,23 +1275,36 @@
         <h3>Polarity invert (ϕ)</h3>
         <p class="prose">Each slot has a <strong>ϕ</strong> toggle that flips polarity. Useful for catching wiring errors and for diff workflows where flipping one signal makes the residual sit closer to zero.</p>
 
-        <h3>Manual gain trim</h3>
-        <p class="prose">The <strong>±0.1 dB</strong> and <strong>±1 dB</strong> buttons on each chip let you nudge slot gain by ±24 dB total. Combined with level-match into a single atomic gain read by the audio render callback.</p>
+        <h3>Editable offset and gain</h3>
+        <p class="prose">The compare toolbar's offset (samples + ms) and gain (dB) readouts are <strong>editable TextFields</strong>, not just display labels. Click into one, type the value you want, press <kbd>Return</kbd> to commit (or <kbd>Esc</kbd> to cancel). Each field has a small <strong>↺</strong> reset button that appears when the value is non-zero - one click returns it to zero. Right-click either field for the same Reset entry.</p>
+        <p class="prose">The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit next to the fields for fine adjustments by ear. Combined with level-match into a single atomic gain read by the audio render callback. The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with it on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
 
-        <h3>Manual nudge (sample-accurate)</h3>
-        <p class="prose">The <strong>±1 sample</strong> and <strong>±1 ms</strong> buttons time-shift the slot. Useful when two takes are close but not aligned. The current offset (in samples) is shown next to the buttons.</p>
-        <p class="prose">The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with the toggle on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">compare-toolbar-editable-fields.png</div>
+            <div class="shot-desc">Close-up of the Compare toolbar's per-slot controls with one of the offset TextFields focused (insertion cursor visible) and the ↺ reset glyph showing next to it because the value is non-zero. Adjacent gain field shows a typed value like "-1.4 dB". The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit alongside. Demonstrates the new editable fields.</div>
+        </div>
 
         <h3>Auto-align</h3>
         <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
 
-        <h3>Diff (A − X)</h3>
-        <p class="prose">The toolbar <strong>Diff A−X</strong> button creates a <strong>diff slot</strong> - a virtual slot that plays back the residual <code>(A − X)</code> audio. With level-match on, this gives you a near-zero diff for two correctly mastered versions of the same source. Anything above silence is what's different. Diff slots:</p>
+        <h3>Listen to Diff (per-slot)</h3>
+        <p class="prose">Diff is a <strong>per-slot listening mode</strong>, not a separate slot. The active non-A slot's toolbar carries a prominent <strong>Listen to Diff</strong> toggle: press it and playback switches to the cached <code>A − slot</code> residual through the same waveform, spectrogram, and export paths the source uses. Press the toggle again (or pick another slot) to return to the source instantly.</p>
+        <p class="prose">Bare <kbd>D</kbd> (no modifier) toggles diff view on the active compare slot - a one-key A/B between source and residual that fits the muscle memory of bare-digit slot switching.</p>
+
+        <p class="prose">The residual:</p>
         <ul>
-            <li>Recompute automatically (80 ms debounced) when nudge / gain / polarity / level-match changes.</li>
-            <li>Have <strong>no live measurement</strong> - switching to a diff slot clears live loudness/stereo displays (the diff buffer plays pre-computed).</li>
-            <li>Can be <strong>exported to WAV</strong> with <kbd>⌃⌘E</kbd> or the diff slot's Export WAV button.</li>
+            <li>Recomputes automatically (80 ms debounced) when nudge / gain / polarity / level-match changes.</li>
+            <li>Plays through the same render path the source slots use, so seek, loop, and rate controls work transparently.</li>
+            <li>Has <strong>no live measurement</strong> - the loudness sidebar clears while you're listening to the residual; switch back to the source to read its numbers.</li>
+            <li>Can be <strong>exported to WAV</strong> via the <strong>Export Diff</strong> button next to the toggle (enabled when a residual is cached), or with <kbd>⌃⌘E</kbd>.</li>
         </ul>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">compare-listen-to-diff.png</div>
+            <div class="shot-desc">Compare toolbar with the <strong>Listen to Diff</strong> toggle engaged on the active slot (filled state, sky-blue accent). The waveform above now shows the residual - mostly quiet with a few low-level transients. Export Diff button visible next to the toggle. Bare-D keyboard hint pill in the corner. Demonstrates the new per-slot diff listening mode rather than a separate diff slot.</div>
+        </div>
 
         <h3>Waveform A overlay</h3>
         <p class="prose">The <strong>Waveform A Overlay</strong> toggle (Edit menu → "Waveform A Overlay" or in the Compare panel) draws slot A's waveform as a ghost behind whichever slot is active - direct visual A/B at the sample level.</p>
@@ -1245,7 +1328,7 @@
         </div>
 
         <h3>Enter / exit</h3>
-        <p class="prose"><kbd>⌘E</kbd> toggles edit mode. While in edit mode, the <strong>Compare</strong> controls are disabled (and vice versa: edit is disabled when more than one compare slot is loaded). The waveform shows an <strong>EDIT</strong> badge in amber.</p>
+        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
         <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures a single-level undo snapshot, runs the DSP, swaps the buffer, and resumes.</p>
@@ -1286,7 +1369,7 @@
     <section class="guide-section" id="chapter">
         <h2>17. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
 
-        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with Edit and Compare so the workspace stays focused.</p>
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other three modes (Edit, Compare, Dialogue) so the workspace stays focused.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1295,7 +1378,7 @@
         </div>
 
         <h3>Entering the mode</h3>
-        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit and Compare. Click it to enter or exit chapter mode; <kbd>⌘⌃C</kbd> does the same from the keyboard. While the mode is active the button takes the accent tint and the chapter toolbar slots in below the transport. Compare is disabled while chapter mode is active; Edit is mutually exclusive too.</p>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, and Dialogue. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, and Dialogue.</p>
 
         <h3>Detect</h3>
         <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
@@ -1368,7 +1451,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
 
         <h3>Chapter ribbon (⌃6)</h3>
-        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle with <kbd>⌃6</kbd>.</p>
+        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle the section's visibility with <kbd>⌃6</kbd> (independent of whether chapter mode is active).</p>
 
         <h3>In the report</h3>
         <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (I outside [−23, −18], TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
@@ -1384,7 +1467,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON Report</td><td class="wrap-ok"><code>*.json</code> - all metrics, both live and selection analysis, channel info, file metadata</td></tr>
             <tr><td><kbd>⌥⌘E</kbd></td><td class="wrap-ok">Export PDF Report</td><td class="wrap-ok"><code>*.pdf</code> - formatted report with charts</td></tr>
-            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active diff slot's residual buffer (compare mode only)</td></tr>
+            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active slot's cached A − slot residual buffer (compare mode only). Same output as the Export Diff button next to the Listen to Diff toggle.</td></tr>
         </table>
 
         <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export - the menu item swaps based on context.</p>
@@ -1533,7 +1616,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
     <section class="guide-section" id="settings">
         <h2>20. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>⌘,</kbd>. Four tabs.</p>
+        <p class="prose">Open with <kbd>⌘,</kbd>. Five tabs: Layout · Spectrogram · FFT / Analysis · Speech · Report.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1568,6 +1651,14 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         <ul>
             <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
         </ul>
+
+        <h3>Speech</h3>
+        <ul>
+            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped.</li>
+            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
+        </ul>
+        <p class="prose">Edits re-run detection in about half a second and the new history feeds back into the live loudness path. If you have manual edits in Dialogue mode when you move a slider, they're pushed onto the Dialogue mode undo stack first so you can <kbd>⌘Z</kbd> back to them. See <a href="#speech-gated">Speech-gated loudness + Dialogue mode</a> for the full workflow.</p>
 
         <h3>Report</h3>
         <ul>
@@ -1611,22 +1702,38 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Analyse selection (offline)</td></tr>
         </table>
 
+        <h3>Modes (mutually exclusive)</h3>
+        <table>
+            <tr><td><kbd>⌘1</kbd></td><td class="wrap-ok">Enter / exit Edit mode (accent: amber)</td></tr>
+            <tr><td><kbd>⌘2</kbd></td><td class="wrap-ok">Enter / exit Compare mode (accent: sky-blue)</td></tr>
+            <tr><td><kbd>⌘3</kbd></td><td class="wrap-ok">Enter / exit Chapter mode (accent: green)</td></tr>
+            <tr><td><kbd>⌘4</kbd></td><td class="wrap-ok">Enter / exit Dialogue mode (accent: rose)</td></tr>
+        </table>
+
         <h3>Compare mode</h3>
         <table>
-            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A - F</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A - F (bare digits, Compare mode only)</td></tr>
+            <tr><td><kbd>D</kbd></td><td class="wrap-ok">Toggle <strong>Listen to Diff</strong> on the active slot (bare D, Compare mode only)</td></tr>
         </table>
 
         <h3>Edit mode</h3>
         <table>
-            <tr><td><kbd>⌘E</kbd></td><td class="wrap-ok">Enter / exit edit mode</td></tr>
             <tr><td><kbd>⌘Z</kbd></td><td class="wrap-ok">Undo last edit</td></tr>
             <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio (new file)</td></tr>
         </table>
 
         <h3>Chapter mode</h3>
         <table>
-            <tr><td><kbd>⌘⌃C</kbd></td><td class="wrap-ok">Enter / exit chapter mode</td></tr>
-            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle chapter ribbon</td></tr>
+            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle chapter ribbon section visibility</td></tr>
+        </table>
+
+        <h3>Dialogue mode</h3>
+        <table>
+            <tr><td><kbd>I</kbd></td><td class="wrap-ok">Mark In (anchor at playhead, or set start of selected region)</td></tr>
+            <tr><td><kbd>O</kbd></td><td class="wrap-ok">Mark Out (close pending region, or set end of selected region)</td></tr>
+            <tr><td><kbd>S</kbd></td><td class="wrap-ok">Split selected region at playhead</td></tr>
+            <tr><td><kbd>Delete</kbd></td><td class="wrap-ok">Delete selected region</td></tr>
+            <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo region edit (50-step history)</td></tr>
         </table>
 
         <h3>Export</h3>
