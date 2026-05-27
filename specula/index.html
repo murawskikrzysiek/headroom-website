@@ -539,6 +539,7 @@
                 <span class="badge">EBU R128</span>
                 <span class="badge">ITU-R BS.1770-4</span>
                 <span class="badge">Speech-gated LUFS</span>
+                <span class="badge">Dialogue regions</span>
                 <span class="badge">A/B compare</span>
             </div>
             <div class="hero-actions">
@@ -586,8 +587,10 @@
             <div class="cap">Loudness violations - set M/S/TP thresholds, watch the waveform light up</div>
             <div class="cap">Channel routing - dedicated Output window with N→M matrix, mixdown preset library, saved user presets, PRE/POST monitor mode</div>
             <div class="cap">Variable-rate playback - 0.25× to 4× with optional pitch preservation</div>
-            <div class="cap">Compare mode - up to 6 slots with auto-align, level-match, polarity, A−X diff</div>
-            <div class="cap">Edit mode - trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
+            <div class="cap">Compare mode (⌘2) - up to 6 slots with auto-align, level-match, polarity, editable offset / gain fields, per-slot Listen-to-Diff toggle</div>
+            <div class="cap">Edit mode (⌘1) - trim, silence, gain, fade, normalize, DC remove, swap, split-to-mono</div>
+            <div class="cap">Chapter mode (⌘3) - silence-driven splits, per-chapter ACX gates, deviation-from-median flag</div>
+            <div class="cap">Dialogue mode (⌘4) - hand-correct Silero's speech regions with drag / In / Out / Split, sidecar auto-save</div>
             <div class="cap">JSON & PDF reports - pick what to include, export and archive</div>
             <div class="cap">Format support - WAV, AIFF, FLAC, CAF, MP3, AAC; mono through 7.1+ layouts</div>
             <div class="cap"><code>specula</code> CLI - analyze, compare, edit, report; JSON / HTML / PDF output; drives batch QC</div>
@@ -635,16 +638,20 @@
                 <span class="feature-val">A correlation curve (Pearson, −1 to +1) plus a Lissajous phase scope. Optional zone colour mode tints the curve by stereo character - mono, narrow, stereo, wide, out-of-phase - with a plain-English hover label so you can read what the numbers mean.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Compare mode</span>
-                <span class="feature-val">Drop in up to six audio files (slots A through F). Switch between them on bare 1-6 keys. Apply LUFS-based level-matching with one click so the louder version doesn't always win. Polarity-invert any slot. Manually nudge by one sample or one millisecond - or hit auto-align and let cross-correlation lock the slot to slot A. Compute and play back the A−X residual; export it as a WAV.</span>
+                <span class="feature-key">Compare mode (⌘2)</span>
+                <span class="feature-val">A toggled mode with its own sky-blue toolbar. Drop in up to six audio files (slots A through F), switch between them on bare 1-6 keys, or drag a file onto the Compare toggle to add it in one gesture. Apply LUFS-based level-matching with one click so the louder version doesn't always win. Polarity-invert any slot. Offset (samples + ms) and gain (dB) readouts are <strong>editable TextFields</strong> with ↺ reset buttons and right-click reset; type the value you want, hit <kbd>Return</kbd>. Hit <strong>auto-align</strong> and let decimated cross-correlation lock the slot to slot A. <strong>Listen to Diff</strong> is a per-slot toggle (or bare <kbd>D</kbd>) that swaps the active slot's playback for the cached A−X residual through the same waveform / spectrogram / export paths - one-key A/B between source and residual. Export the residual to WAV with <kbd>⌃⌘E</kbd>.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Edit mode</span>
+                <span class="feature-key">Edit mode (⌘1)</span>
                 <span class="feature-val">Non-destructive editing without booting up a DAW. Trim to selection, insert silence (before, after, or replace), apply linear gain, invert phase, fade in/out (linear / log / equal-power), normalize to a peak target or to a LUFS target with an automatic 5 ms lookahead <strong>true-peak limiter</strong> (the ceiling is enforced against the 4× oversampled inter-sample peak, not just the sample magnitude), cap inter-sample peaks at a <code>dBTP</code> ceiling with the standalone <strong>Limit TP</strong> operation, remove DC offset, swap channels, or split the file into N mono WAVs. Single-level undo. Always saves as a new file.</span>
             </div>
             <div class="feature-row">
-                <span class="feature-key">Chapter mode</span>
-                <span class="feature-val">Built for audiobooks and long-form podcasts. <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon, then <strong>Analyse Loudness</strong> runs a full BS.1770 pass per chapter - integrated LUFS, true peak, sample peak, LRA, max momentary, max short-term, speech-gated LUFS, median noise floor, speech %. Every chapter is independently flagged against the three ACX delivery gates (integrated outside [−23, −18] LUFS, TP &gt; −3 dBTP, NF &gt; −60 dB RMS) <em>and</em> against the book's own median (default ±2 LU). Drag boundaries on the waveform, click one and hit <strong>Remove</strong> to merge two chapters, rename slots, export the layout as a JSON sidecar, or import a hand-crafted one. The chapter table lands in the PDF / JSON report with the same red-cell signalling so a producer reads the rejection conditions without opening the app. <kbd>⌘⌃C</kbd> in, <kbd>⌃6</kbd> for the ribbon.</span>
+                <span class="feature-key">Chapter mode (⌘3)</span>
+                <span class="feature-val">Built for audiobooks and long-form podcasts. <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon, then <strong>Analyse Loudness</strong> runs a full BS.1770 pass per chapter - integrated LUFS, true peak, sample peak, LRA, max momentary, max short-term, speech-gated LUFS, median noise floor, speech %. Every chapter is independently flagged against the three ACX delivery gates (integrated outside [−23, −18] LUFS, TP &gt; −3 dBTP, NF &gt; −60 dB RMS) <em>and</em> against the book's own median (default ±2 LU). Drag boundaries on the waveform, click one and hit <strong>Remove</strong> to merge two chapters, rename slots, export the layout as a JSON sidecar, or import a hand-crafted one. The chapter table lands in the PDF / JSON report with the same red-cell signalling so a producer reads the rejection conditions without opening the app.</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-key">Dialogue mode (⌘4)</span>
+                <span class="feature-val">Hand-correct what the Silero VAD got wrong. <strong>Drag</strong> regions on the waveform - body to move, edges to resize. Add from selection, mark <kbd>I</kbd> / <kbd>O</kbd> the DAW way, <kbd>S</kbd> to split at the playhead, <kbd>Delete</kbd> to remove. 50-step undo / redo including drag operations. Per-region tinting tells you provenance at a glance: <strong>green</strong> for pristine Silero output, <strong>amber</strong> for VAD regions you've edited (with a ghost of the original VAD bounds drawn behind), <strong>blue</strong> for hand-painted regions. Edits auto-save to a versioned <code>.dlg.json</code> sidecar next to the audio file, debounced 500 ms, so re-opening the same file re-applies your edits. <strong>Reset to VAD</strong> nukes the sidecar and re-runs Silero with the current Settings → Speech tuning (Threshold, Minimum region duration, Merge gap). The corrected regions feed straight into the speech-gated loudness path so dialog-gated LUFS, ACX noise-floor, Netflix / Apple Podcasts compliance, and Chapter mode's per-chapter speech metrics all benefit from the cleanup.</span>
             </div>
             <div class="feature-row">
                 <span class="feature-key">Channel routing</span>
@@ -686,7 +693,7 @@
 
         <p class="prose" style="margin-top: 14px;"><strong>Match to target</strong> (non-destructive). Every target row has a small waveform-circle toggle. Press it and Specula matches playback to that target: gain offset = target − source LUFS, with a 5 ms lookahead <strong>true-peak limiter</strong> at the target's <code>dBTP</code> ceiling (the 4× oversampled inter-sample peak is what's enforced, not just the sample magnitude). Works for integrated and dialog-gated targets alike - press it on Netflix and hear the file the way Netflix will play it. The loaded buffer is never modified; releasing the toggle restores unity gain.</p>
 
-        <p class="prose" style="margin-top: 14px;"><strong>Audiobook authors:</strong> the #1 reason ACX rejects an audiobook is the room-tone noise floor sitting above the −60 dB RMS ceiling. Specula measures it directly. The Speech-Gated section shows a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample), and the ACX preset evaluates it as part of the verdict. Above −60 dB the row reads red and the ACX target lights <strong>FAIL NF</strong>. You see the rejection condition before submitting the file, not three days later in an email. <strong>Chapter mode</strong> (<kbd>⌘⌃C</kbd>) takes it one further: Specula segments the file at long silences, runs the full ACX measurement set per chapter (I, TP, NF, LRA, Max M/S, Dlg LUFS, Sp %), flags every chapter individually against the three ACX gates and against the book's own median, and puts the table in the PDF report. One audiobook, one pass, every chapter scored - read the <a href="guide.html#chapter">Chapter mode guide</a>.</p>
+        <p class="prose" style="margin-top: 14px;"><strong>Audiobook authors:</strong> the #1 reason ACX rejects an audiobook is the room-tone noise floor sitting above the −60 dB RMS ceiling. Specula measures it directly. The Speech-Gated section shows a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample), and the ACX preset evaluates it as part of the verdict. Above −60 dB the row reads red and the ACX target lights <strong>FAIL NF</strong>. You see the rejection condition before submitting the file, not three days later in an email. <strong>Chapter mode</strong> (<kbd>⌘3</kbd>) takes it one further: Specula segments the file at long silences, runs the full ACX measurement set per chapter (I, TP, NF, LRA, Max M/S, Dlg LUFS, Sp %), flags every chapter individually against the three ACX gates and against the book's own median, and puts the table in the PDF report. One audiobook, one pass, every chapter scored - read the <a href="guide.html#chapter">Chapter mode guide</a>.</p>
 
         <div class="compliance-grid">
             <div class="compliance-row">
