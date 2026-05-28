@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lyra Release Notes - Version History & Changelog</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/releases.html">
-  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.5.">
+  <meta name="description" content="Version history for Lyra, the Apollo Twin volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.6.">
   <meta property="og:title" content="Lyra Release Notes">
   <meta property="og:description" content="Version history for Lyra, the Apollo Twin volume control app for macOS.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -157,12 +157,58 @@
     </div>
   </header>
 
+  <!-- ── 1.6 ── -->
+  <section class="release">
+    <div class="release-header">
+      <span class="version">Version 1.6</span>
+      <span class="date">May 2026</span>
+      <span class="badge-new">Latest</span>
+    </div>
+    <ul class="changes">
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Interactive widgets</strong> - four widgets in the macOS widget gallery. <em>Control Panel</em> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <em>Monitor Toggles</em> (medium) carries Mute / DIM / Mono; <em>Volume</em> (small or medium) steps the level; <em>Reference Levels</em> (medium) jumps to slot 1, 2, or 3. Every widget shows live state - Mute and Mono tiles highlight when active, the current reference slot highlights, buttons dim when Lyra isn't connected - and reacts the instant you tap. Each tap fires a <code>lyra://</code> URL so the action runs in the menu bar app. Requires macOS 14+; on macOS 12 and 13 Lyra runs identically without the widget gallery entries.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Settings window</strong> (<kbd style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; font-size: 12px;">Cmd+,</kbd>) - Lyra's first proper preferences window. Houses two new Automation toggles and surfaces the existing <em>Show volume HUD overlay</em> and <em>Volume step</em> prefs that previously had no UI.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Auto-start UA Mixer Engine when Apollo is detected</strong> (opt-in, off by default). With this on, Lyra opens UA's headless Mixer Engine the moment Apollo wakes up. Same launch path as the manual <em>Start UA Mixer Engine</em> menu item.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Auto-quit UA apps when Apollo disconnects</strong> (opt-in, off by default). After about seven seconds without Apollo, Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. Cancelled if Apollo comes back inside the grace window, so brief sleep/wake or Thunderbolt renegotiation won't kill anything. Mirrors the <a href="https://uadforum.com/community/index.php?threads/uad-mixer-engine-energy-draw.79450/#post-614588" target="_blank" rel="noopener">UAD-forum auto-close script</a> so you don't need to maintain a launchd job for it.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Notification sub-toggles</strong> - each automation has a paired <em>Show a notification when this happens</em> sub-toggle (on by default) that posts a banner when the automation fires. The auto-close banner only shows if at least one UA app was actually closed.</span>
+      </li>
+      <li>
+        <span class="tag tag-new">New</span>
+        <span><strong>Test sessions after the trial</strong> - if the trial expires before you're ready to buy, the activation window now offers a <em>"Test for 5 minutes"</em> button that unlocks the controls for five minutes at a time. Two sessions per day, resetting at local midnight, so you can verify a fix or check a setting against your gear without committing to a license first.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Monitor output discovered at connect</strong> - Lyra now finds the Apollo's Monitor output dynamically when the interface connects rather than relying on a fixed output path. More resilient on Apollo variants beyond the Twin X that Lyra was originally tested against.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span><strong>Runs on Intel Macs</strong> - v1.6 ships as a universal binary, so Lyra now runs natively on Intel Macs (macOS 12 or later) alongside Apple Silicon.</span>
+      </li>
+      <li>
+        <span class="tag tag-impr">Impr</span>
+        <span>Price is now <strong>$9.99</strong>.</span>
+      </li>
+    </ul>
+  </section>
+
   <!-- ── 1.5 ── -->
   <section class="release">
     <div class="release-header">
       <span class="version">Version 1.5</span>
       <span class="date">May 2026</span>
-      <span class="badge-new">Latest</span>
     </div>
     <ul class="changes">
       <li>

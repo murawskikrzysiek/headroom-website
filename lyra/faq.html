@@ -331,6 +331,12 @@
                 <p class="faq-a">Yes, completely normal. When an app uses a global keyboard tap - which is how Lyra intercepts F10/F11/F12 - macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
             </div>
 
+            <div class="faq-item">
+                <p class="faq-q">Where do I find Lyra's settings?</p>
+                <p class="faq-a">As of v1.6, press <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code> with Lyra focused, or pick <strong>Settings…</strong> from the menu bar menu. The window has two sections - <strong>Automation</strong> (the v1.6 auto-start / auto-quit toggles, plus their notification sub-toggles) and <strong>General</strong> (HUD overlay on/off, volume step size). Both sections persist across launches and changes take effect immediately.</p>
+                <p class="faq-a">On v1.5 and earlier there's no in-app settings UI - those builds use sensible defaults and a couple of <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">defaults write</code> escape hatches. Update to v1.6 to flip toggles instead.</p>
+            </div>
+
         </div>
     </section>
 
@@ -355,6 +361,20 @@
                 <p class="faq-q">Lyra says "UA Mixer not running". What do I do?</p>
                 <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu - this launches the process without needing to open Console. It should connect within a few seconds.</p>
                 <p class="faq-a">If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
+                <p class="faq-a">As of v1.6 you can also have Lyra do this for you automatically - see <em>"Does Lyra start UA Mixer Engine automatically?"</em> below.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra start UA Mixer Engine automatically?</p>
+                <p class="faq-a">Only if you opt in. As of v1.6, Lyra's <strong>Settings window</strong> (open with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) has an <em>"Auto-start UA Mixer Engine when Apollo is detected"</em> toggle. It's <strong>off by default</strong> - Lyra doesn't take any opinion on your UA workflow until you ask for one. With it on, Lyra opens the headless UA Mixer Engine the moment Apollo wakes up, using the same launch path as the manual <em>"Start UA Mixer Engine"</em> menu button (standalone Mixer Engine app first, UA Console fallback for older driver installs).</p>
+                <p class="faq-a">A paired <em>"Show a notification when this happens"</em> sub-toggle (on by default) posts a banner each time Lyra starts the Engine, so you can watch the automation a few times before trusting it silently. Once you're comfortable, turn the sub-toggle off and let it run in the background.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Will Lyra close my UA Console when I unplug for a minute?</p>
+                <p class="faq-a">Only if you opt in, only after a seven-second grace window, and only if Apollo doesn't come back inside that window. The relevant setting is <em>"Auto-quit UA apps when Apollo disconnects"</em> in Lyra's <strong>Settings window</strong> (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) and it's <strong>off by default</strong>. With it on, after Apollo has been gone for about seven seconds Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. If Apollo returns inside the grace window - brief sleep/wake, Thunderbolt renegotiation, briefly switching ports - nothing gets killed.</p>
+                <p class="faq-a">This mirrors the <a href="https://uadforum.com/community/index.php?threads/uad-mixer-engine-energy-draw.79450/#post-614588" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">popular auto-close script</a> from uadforum.com, just without the launchd job to maintain. A paired notification sub-toggle (on by default) tells you which apps got closed - and the banner only shows if at least one of them was actually running, so no noise when there's nothing to do.</p>
+                <p class="faq-a">If you'd rather have UA Console stay open across short disconnects, leave the toggle off. Lyra's default behaviour is the same as v1.5: do nothing on disconnect, reconnect when Apollo returns.</p>
             </div>
 
         </div>
@@ -440,6 +460,21 @@
         </div>
     </section>
 
+    <!-- ── Widgets ─────────────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Widgets</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra have widgets?</p>
+                <p class="faq-a">Yes - as of v1.6, Lyra ships four interactive desktop widgets. <strong>Control Panel</strong> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <strong>Monitor Toggles</strong> (medium) carries Mute / DIM / Mono; <strong>Volume</strong> (small or medium) steps the level up and down; <strong>Reference Levels</strong> (medium) jumps to slot 1, 2, or 3. Add them from <strong>Notification Centre → Edit Widgets</strong>, then search "Lyra".</p>
+                <p class="faq-a">They show <strong>live state</strong> - Mute and Mono tiles fill with the accent colour when active, the current reference slot highlights, and the buttons dim when Lyra isn't connected - and react the instant you tap. Each tap fires a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://</code> URL so the action runs in the menu bar app, which means Lyra needs to be running for the buttons to do anything. The widgets require <strong>macOS 14 (Sonoma) or later</strong>; on macOS 12 and 13 Lyra runs normally and the widget gallery entries are simply absent.</p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- ── Compatibility ───────────────────────────────────────────────── -->
 
     <section class="faq-group">
@@ -483,7 +518,8 @@
 
             <div class="faq-item">
                 <p class="faq-q">How does the trial work?</p>
-                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase - you won't be able to use Lyra until you do.</p>
+                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase.</p>
+                <p class="faq-a">As of v1.6, if you need to test a specific fix or feature against your gear before committing, the activation window offers a <strong>"Test for 5 minutes"</strong> button - <strong>two five-minute sessions per day</strong>, counter resets at local midnight. Useful for verifying a build does what you need before paying; not a workaround for the trial.</p>
             </div>
 
             <div class="faq-item">
