@@ -878,7 +878,7 @@ open "lyra://mute/toggle"</code></pre>
             <tr><td>Mix-to-Mono</td><td class="wrap-ok"><code>/devices/0/outputs/4/MixToMono</code></td><td class="wrap-ok">Bool</td></tr>
         </table>
 
-        <p class="prose"><code>outputs/4</code> is the Monitor output on Apollo Twin X (output type <code>Monitor</code>). Outputs 0-3 are the cue / headphone / line outputs.</p>
+        <p class="prose">The paths above show <code>outputs/4</code> because that's the Monitor output on Apollo Twin X. As of v1.6, the output index is <strong>discovered at connect</strong>, not pinned - Lyra asks the Mixer Engine which output is the Monitor and uses whichever index your hardware reports. Twin X reports <code>4</code>; other Apollo models report different indices. If discovery doesn't return a usable answer, Lyra falls back to <code>4</code> so existing Twin X setups are unaffected.</p>
 
         <p class="prose">Lyra <strong>subscribes</strong> to all four properties, so any change made elsewhere - turning the hardware knob, clicking Console's mute, automating Mixer parameters from a script - is reflected in Lyra's icon, menu, and HUD within ~100 ms. This works both ways: Lyra is a peer to Console, not a layer on top of it.</p>
 
@@ -947,6 +947,9 @@ open "lyra://mute/toggle"</code></pre>
         <h3>Trial</h3>
         <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Lyra shows a hard-lock window on launch and refuses to run until you activate a license.</p>
         <p class="prose">The hard lock only fires at launch - if you're already running Lyra when the trial expires, nothing happens until your next restart.</p>
+
+        <h3>After your trial: short test sessions</h3>
+        <p class="prose">As of v1.6, if your trial has ended and you're testing a build before committing to buy (a fix you reported, a feature against your gear), the hard-lock window offers a <strong>Test for 5 minutes</strong> button. Click it and Lyra runs normally for five minutes, then locks again. You get <strong>two sessions per day</strong> - the counter resets at local midnight. The limit is intentionally narrow: it's a verification tool, not a workaround.</p>
 
         <h3>Buying</h3>
         <p class="prose">Click <strong>Buy Lyra - $9.99</strong> in the menu (or the Buy button on <a href="/lyra/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
