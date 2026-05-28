@@ -456,7 +456,7 @@
             <li><a href="#waveform">3 · Waveform display</a></li>
             <li><a href="#selection">4 · Selection &amp; analysis</a></li>
             <li><a href="#loudness">5 · EBU R128 loudness</a></li>
-            <li><a href="#speech-gated">6 · Speech-gated loudness</a></li>
+            <li><a href="#speech-gated">6 · Speech-gated loudness + Dialogue mode</a></li>
             <li><a href="#loudness-curve">7 · Loudness curve</a></li>
             <li><a href="#violations">8 · Loudness violations</a></li>
             <li><a href="#fft">9 · FFT spectrum</a></li>
@@ -493,7 +493,8 @@
             <li><kbd>Space</kbd> plays. <kbd>⌘.</kbd> stops.</li>
             <li>Drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
-            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Report tabs).</li>
+            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
+            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Speech · Report tabs).</li>
         </ol>
 
         <div class="note">
@@ -509,7 +510,17 @@
         <h2>2. Loading &amp; playback <a href="#playback" class="anchor">#</a></h2>
 
         <h3>Open a file</h3>
-        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Specula loads the entire file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load - large files (a 90-minute master at 96 kHz / 24-bit, say) take a few seconds; once loaded, every operation is instant.</p>
+        <p class="prose"><kbd>⌘O</kbd> opens the standard file picker. Multiple-selection is allowed: the first file becomes the primary and the rest open as compare slots. Specula loads each file into RAM as a Float32 non-interleaved buffer. Pre-computed waveform peaks and clip regions are calculated during load.</p>
+
+        <p class="prose">Other ways to open files:</p>
+        <ul>
+            <li><strong>Drag &amp; drop</strong> one or more audio files onto the main window, or onto the Dock icon (works whether Specula is running or not).</li>
+            <li><strong>Open With</strong> from Finder (right-click an audio file). Specula registers as an audio handler but not the default, so it stays out of your way unless you pick it.</li>
+            <li><strong>File → Open Recent</strong> lists the last files you opened from any source above. The list is managed by macOS, so it survives quitting and relaunching.</li>
+            <li><code>open path/to/file.wav</code> from Terminal works for the same reason: it routes through Launch Services.</li>
+        </ul>
+
+        <p class="prose"><strong>Opening files always starts a clean comparison.</strong> If two files were already in compare, opening a single new file replaces the whole set; opening three new files replaces the whole set with those three. To <strong>append</strong> to the current comparison without starting fresh, use <strong>File → Add Files to Compare…</strong> (<kbd>⇧⌘O</kbd>) or the Compare button in the file dock.</p>
 
         <h3>Transport</h3>
         <table>
@@ -536,12 +547,14 @@
         <p class="prose">The Transport bar exposes both the rate slider and the "preserve pitch" toggle.</p>
 
         <h3>Output device</h3>
-        <p class="prose">The Transport bar device picker enumerates every CoreAudio output device on the system. Switching device rebuilds the audio engine. Specula is happy with any device - built-in speakers, USB interfaces, multichannel pro audio interfaces.</p>
+        <p class="prose">The Transport bar shows the current output as a compact <strong>Output: &lt;Device Name&gt;</strong> pill on the right side. Click it (or press <kbd>⌥⌘O</kbd>, or pick <strong>Window → Output Panel</strong>) to open the <strong>Output</strong> window. The window holds a device dropdown (with channel count next to each name; the <strong>Refresh Devices</strong> item lives at the bottom of the menu) above the per-channel routing matrix. Switching device rebuilds the audio engine. Specula is happy with any device, from built-in speakers to multichannel pro audio interfaces.</p>
+
+        <p class="prose">The Output window is hidden by default and remembers its size and position across launches. On macOS 26 the window itself uses Liquid Glass, so it reads as a floating utility panel over the main app (the same Liquid Glass opt-out toggle covers it). Routing details are in <a href="#routing">Channel routing &amp; monitor mode</a>.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">transport-bar.png - transport bar detail</div>
-            <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the device picker dropped open with a few CoreAudio devices visible.</div>
+            <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the new compact <code>Output: &lt;Device Name&gt;</code> pill on the right end.</div>
         </div>
     </section>
 
@@ -602,21 +615,36 @@
             <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Run offline selection analysis</td></tr>
         </table>
 
-        <h3>Offline analysis (⌘Return)</h3>
-        <p class="prose">Runs a full, detached analysis of the current selection. This is <em>separate</em> from the live measurements - it processes the whole selection at once with no real-time constraints, so it produces tighter numbers and includes things the live path can't compute cheaply.</p>
+        <h3>Load-time analysis (automatic)</h3>
+        <p class="prose">Most of the offline numbers populate the moment a file finishes loading, with no key press. A detached background pass over the whole file produces:</p>
+        <ul>
+            <li><strong>Integrated LUFS</strong>, <strong>LRA</strong>, <strong>True Peak</strong> (4× oversampled dBTP), <strong>Sample Peak</strong>.</li>
+            <li><strong>Max Momentary LUFS</strong>, <strong>Max Short-term LUFS</strong>.</li>
+            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> via Silero VAD over the entire file.</li>
+            <li><strong>Dynamic Range</strong>, <strong>Headroom</strong>, <strong>Speech-gated Noise Floor</strong>.</li>
+            <li><strong>Per-channel Peak / RMS / Crest Factor / DC</strong>.</li>
+            <li><strong>Stereo width</strong> curve, <strong>loudness curves</strong> (momentary / short-term / integrated per-100&nbsp;ms).</li>
+            <li><strong>Spectrogram columns</strong> for the whole file, <em>if</em> the new "Auto-compute spectrogram on load" toggle is enabled in Settings → Spectrogram → Performance. Off by default; see <a href="#spectrogram">Spectrogram</a>.</li>
+        </ul>
+        <p class="prose">These numbers feed the InfoPanel's Offline tab and both the PDF and JSON reports immediately after open. A typical music track finishes the pass in a few hundred milliseconds. Long-form audio takes proportionally longer.</p>
 
-        <p class="prose"><strong>Output:</strong></p>
+        <h3>Selection analysis (⌘Return)</h3>
+        <p class="prose">⌘Return reruns the full analysis pipeline on the current selection rather than the whole file. Use it when you want metrics scoped to a specific region (a chorus, a problem section, a candidate edit point), or when you want the <strong>averaged FFT spectrum</strong> view.</p>
+
+        <p class="prose"><strong>Selection-scoped output:</strong></p>
         <ul>
             <li><strong>Time range</strong> - selection start and end.</li>
-            <li><strong>Per-channel Peak / RMS / Crest Factor</strong> - in dBFS / dBFS / dB.</li>
-            <li><strong>Integrated LUFS</strong>, <strong>LRA</strong>, <strong>True Peak</strong>.</li>
-            <li><strong>Max Momentary LUFS</strong>, <strong>Max Short-term LUFS</strong>.</li>
-            <li><strong>Speech-gated Integrated LUFS</strong>, <strong>Speech %</strong> - Silero VAD over the selection.</li>
-            <li><strong>Averaged FFT spectrum</strong> for the FFT view.</li>
-            <li><strong>Loudness curves</strong> - per-100&nbsp;ms momentary and short-term values used by the Loudness Curve view.</li>
+            <li>Every metric from the load-time pass, recomputed against the selected range only.</li>
+            <li><strong>Averaged FFT spectrum</strong> for the FFT view - a much smoother, more accurate read than the rolling live spectrum.</li>
+            <li><strong>Spectrogram columns</strong> for the selection (independent of the auto-compute toggle, which only applies to whole-file load-time spectrograms).</li>
         </ul>
 
-        <p class="prose">A spinner in the Selection Analysis sidebar block indicates the analysis is in flight; results land when it completes (typically ~1-3 s for a multi-minute selection).</p>
+        <p class="prose">A spinner in the Loudness sidebar indicates the analysis is in flight; results land when it completes (typically ~1-3 s for a multi-minute selection). Live measurement keeps running in the background regardless.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>You no longer need ⌘Return just to populate true peak or per-channel stats on a freshly loaded file. Those land in the Offline tab and the report automatically. Reach for ⌘Return when the question is about a region of the file, or when you want the averaged spectrum on the FFT view.</p>
+        </div>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -662,7 +690,8 @@
         </div>
 
         <h3>Live vs Offline loudness display</h3>
-        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback; <strong>Offline</strong> shows the whole-selection results from the last analysis run (<kbd>⌘A</kbd> to select all, <kbd>⌘Return</kbd> to analyse). The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
+        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback. <strong>Offline</strong> shows the whole-file results from the load-time analysis pass, populated immediately after the file finishes loading; running <kbd>⌘Return</kbd> on a selection narrows the same metrics to that selection.</p>
+        <p class="prose">The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-file or whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, Noise Floor (Podcast mode), and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
 
         <h3>Mode (Music / Podcast / VOD / Broadcast)</h3>
         <p class="prose">The InfoPanel has a top-level <strong>Mode</strong> picker right under the File section. Mode is the per-file analysis context - switch it to reframe the same file as a different deliverable. It drives both the Loudness Targets panel and which metric rows appear in the sidebar:</p>
@@ -695,6 +724,21 @@
         <p class="prose"><strong>Dialog-gated targets</strong> (Netflix and peers, streaming podcasts, ATSC A/85) evaluate against speech-gated LUFS. Files with no detected speech show "no speech" rather than a misleading verdict. Target reference lines lead with <code>dialog ·</code> whenever a target reads from the speech-gated path, so you can scan the measurement source without parsing LUFS-vs-LKFS unit suffixes.</p>
 
         <p class="prose"><strong>ACX noise floor.</strong> Specula measures the dB RMS across all VAD-classified non-speech samples and shows it in the Speech-Gated section of the Info panel. ACX rejects audiobooks above −60 dB RMS, so the reading turns red when it exceeds that. The ACX preset in the loudness-targets panel automatically picks up the measurement and shows <strong>FAIL NF</strong> when the noise floor breaches the ceiling. Files with no non-speech samples show <code>−∞</code>. The noise floor is undefined in that case and the criterion passes trivially.</p>
+
+        <h4>Verdict in JSON / PDF / HTML exports</h4>
+        <p class="prose">Each row in the Loudness Targets panel maps to a <code>verdict</code> object on the corresponding target in the JSON export, so downstream scripts can branch on pass / fail without recomputing against the target spec. The PDF and HTML reports render the same verdict as the status badge above each target card.</p>
+        <table>
+            <tr><th>Field</th><th>Type</th><th>When populated</th></tr>
+            <tr><td><code>status</code></td><td class="wrap-ok"><code>compliant</code> · <code>penalty</code> · <code>notCompliant</code> · <code>unavailable</code></td><td class="wrap-ok">Always.</td></tr>
+            <tr><td><code>actualLUFS</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The integrated or dialog-gated reading the verdict was computed against.</td></tr>
+            <tr><td><code>penaltyGainDB</code></td><td class="wrap-ok">number</td><td class="wrap-ok">Streaming-platform targets (Music + streaming Podcast).</td></tr>
+            <tr><td><code>penaltyApplies</code></td><td class="wrap-ok">boolean</td><td class="wrap-ok">Streaming-platform targets. False for "as-is" on asymmetric platforms.</td></tr>
+            <tr><td><code>truePeakClean</code></td><td class="wrap-ok">boolean</td><td class="wrap-ok">Streaming-platform targets. False when the master's true peak breaches the platform's ceiling.</td></tr>
+            <tr><td><code>nonComplianceReason</code></td><td class="wrap-ok"><code>loudness</code> · <code>truePeak</code> · <code>shortTerm</code> · <code>noiseFloor</code></td><td class="wrap-ok">Hard-spec targets (VOD / Broadcast / ACX) when <code>status</code> is <code>notCompliant</code>.</td></tr>
+            <tr><td><code>nonComplianceActual</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The actual reading on the failing criterion.</td></tr>
+            <tr><td><code>nonComplianceLimit</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The ceiling or band edge the failing criterion exceeded.</td></tr>
+        </table>
+        <p class="prose">The addition is backwards-compatible: existing JSON consumers that ignore the field continue to work. Useful for batch QC scripts, CI gates on render farms, and Shortcuts workflows that branch on whether a master will pass a given platform without re-running the math.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -740,7 +784,7 @@
         <p class="prose">Each target row has a small waveform-circle toggle on the right. Press it and Specula matches playback to that target:</p>
         <ul>
             <li><strong>Gain</strong> = <code>target reference − source LUFS</code>, where source is integrated LUFS for integrated targets (most music + broadcast) or dialog-gated LUFS for dialog-gated targets (Netflix and peers, ATSC A/85, streaming podcasts).</li>
-            <li><strong>Limiter</strong> = real-time 5 ms lookahead brickwall at the target's true-peak ceiling. The limiter only acts when the gain would push peaks above the ceiling; below it the limiter is transparent.</li>
+            <li><strong>Limiter</strong> = real-time 5 ms lookahead true-peak limiter at the target's <code>dBTP</code> ceiling. Reads the 4× oversampled inter-sample peak (ITU-R BS.1770 polyphase FIR), so the ceiling is enforced against the analog-reconstructed signal rather than just the raw sample magnitude. The limiter only acts when the gain would push peaks above the ceiling; below it the limiter is transparent.</li>
         </ul>
         <p class="prose">Hit play and you'll hear the file the way the platform plays it. Press the toggle again (or pick another target) to release. Nothing in the loaded buffer is modified - match is purely a playback gain stage with a limiter after it.</p>
         <p class="prose">The match follows the loudness display mode: switching <strong>Live → Offline</strong> (or back) while a match is active recomputes the gain against the new source. If a matched target is no longer in the active mode's selected targets (you switched mode, or unticked it in Settings), the match <strong>auto-disables</strong> so you can never apply gain you can no longer see the verdict for.</p>
@@ -800,7 +844,7 @@
 
     <hr class="divider">
 
-    <!-- ─────── 6. Speech-gated loudness ─────── -->
+    <!-- ─────── 6. Speech-gated loudness + Dialogue mode ─────── -->
     <section class="guide-section" id="speech-gated">
         <h2>6. Speech-gated loudness <a href="#speech-gated" class="anchor">#</a></h2>
 
@@ -829,6 +873,64 @@
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">speech-regions.png</div>
             <div class="shot-desc">Waveform with the SG toggle enabled - speech blocks shaded teal. Ideally a podcast or dialog file where the speech regions and silences are clearly visible.</div>
+        </div>
+
+        <h3>Tuning the VAD (Settings → Speech)</h3>
+        <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
+        <ol>
+            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
+            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
+        </ol>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">settings-speech-vad.png</div>
+            <div class="shot-desc">Settings window on the new <strong>Speech</strong> tab. Three sliders visible (Threshold, Minimum region duration, Merge gap) with their current values readable. A small caption underneath each slider explains the trade-off. Dark mode.</div>
+        </div>
+
+        <h3>Dialogue mode (manual region authoring)</h3>
+        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the four modal authoring modes (Edit, Compare, Chapter, Dialogue) the app exposes, mutually exclusive with the other three. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
+
+        <p class="prose">Region painting on the waveform:</p>
+        <ul>
+            <li><strong>Drag a region's body</strong> to move it.</li>
+            <li><strong>Drag a region's left or right edge</strong> to resize it. The cursor turns into a resize / move icon when you're over a draggable area.</li>
+            <li><strong>Click a region</strong> to select it without moving it.</li>
+        </ul>
+
+        <p class="prose">Toolbar:</p>
+        <ul>
+            <li><strong>Add region</strong> - promotes the current waveform selection, or drops a 1 s region at the playhead when there is no selection.</li>
+            <li><strong>In / Out</strong> (<kbd>I</kbd> / <kbd>O</kbd>) - two workflows. With no region selected, <kbd>I</kbd> anchors an in-point at the playhead (the toolbar shows "In @ X.XXs" and a dashed amber line appears on the waveform), then <kbd>O</kbd> finalises the region from the anchor to the new playhead. With a region selected, <kbd>I</kbd> sets its start and <kbd>O</kbd> sets its end.</li>
+            <li><strong>Delete</strong> (<kbd>Delete</kbd>) - removes the selected region.</li>
+            <li><strong>Split</strong> (<kbd>S</kbd>) - cuts the selected region at the playhead, producing two adjacent regions you can fine-tune independently.</li>
+            <li><strong>Undo / Redo</strong> (<kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd>) - a 50-step in-memory history of region edits. Drag operations count as one undo entry each.</li>
+            <li><strong>Reset to VAD</strong> - discards your edits, deletes the on-disk sidecar, re-runs Silero with the current tuning.</li>
+            <li><strong>Export… / Import…</strong> - save the current regions to a JSON sidecar, or load one from anywhere.</li>
+        </ul>
+
+        <p class="prose">Settings → Speech slider edits always re-run detection. If you have manual edits when you move a slider, they're pushed onto the undo stack first so you can <kbd>⌘Z</kbd> back to them.</p>
+
+        <p class="prose">While Dialogue mode is active, each region's waveform tint tells you where it came from:</p>
+        <ul>
+            <li><strong>Green</strong> - pristine Silero output, no edits.</li>
+            <li><strong>Amber</strong> - a VAD region you've moved or resized. A subtle ghost of the original VAD bounds draws behind it so you can see how far the edit drifted.</li>
+            <li><strong>Blue</strong> - a hand-painted region (added from selection, from the playhead, or via the In / Out workflow).</li>
+        </ul>
+
+        <p class="prose">Edited regions are auto-saved to <code>&lt;audio&gt;.dlg.json</code> next to the audio file (debounced 500 ms after the last edit). Sidecar files round-trip cleanly: re-opening the same audio re-applies your edits, and the schema is versioned (currently v1) so future format changes won't silently corrupt old work.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">dialogue-mode-waveform.png</div>
+            <div class="shot-desc">Specula in Dialogue mode (⌘4) over a dialogue / podcast file. Waveform shows a mix of region tints: a couple of green (pristine VAD) regions, one amber edited region with a faint ghost of the original VAD bounds visible behind it, and one blue hand-painted region. Dialogue toolbar pinned below the transport showing Add region / I / O / Delete / Split / Undo / Redo / Reset to VAD / Export… / Import… The toolbar carries the rose accent colour reserved for Dialogue mode. Selected region drawn with a brighter outline.</div>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">dialogue-mode-toolbar-detail.png</div>
+            <div class="shot-desc">Close-up of the Dialogue mode toolbar with the In / Out pending-anchor state visible: "In @ 12.34s" pill on the left, dashed amber anchor line on the waveform behind the toolbar. Demonstrates the In / Out workflow's intermediate state. Dark mode.</div>
         </div>
     </section>
 
@@ -917,6 +1019,9 @@
 
         <h3>Selection-analysis spectrum</h3>
         <p class="prose">After <kbd>⌘Return</kbd> offline analysis, the FFT view switches to the <strong>averaged spectrum</strong> of the selection - a much smoother, more accurate read than the rolling live spectrum. Clearing the selection (<kbd>Esc</kbd>) returns to live mode.</p>
+
+        <h3>Spectrum under the playhead (paused)</h3>
+        <p class="prose">While playback is stopped, <strong>clicking anywhere on the waveform or spectrogram</strong> recomputes the FFT for that position and updates the spectrum view to match. The FFT window ends at the cursor, so the spectrum you see lines up with the spectrogram column under the playhead. Useful for inspecting a specific moment without scrubbing: click, read, click again, read. Works for keyboard skips too (<kbd>←</kbd>, <kbd>→</kbd>, <kbd>⇧←</kbd>, <kbd>⇧→</kbd>).</p>
     </section>
 
     <hr class="divider">
@@ -955,8 +1060,37 @@
         </ul>
         <p class="prose">Anything quieter than the floor is mapped to the bottom colour; anything louder than the ceiling clips to the top colour. Tighten the window to highlight subtle detail; widen it to see the full dynamic range.</p>
 
+        <h3>Time resolution (FFT overlap)</h3>
+        <p class="prose">Each spectrogram column is one FFT. <strong>Overlap</strong> controls how often that FFT is recomputed per second, which sets the time-axis density. Higher overlap means columns are closer together: less blocky at high zoom, smoother gradients in time.</p>
+
+        <table>
+            <tr><th>Overlap</th><th>Hop (fftSize=4096, 48 kHz)</th><th>Columns/sec</th></tr>
+            <tr><td>75% (default)</td><td class="wrap-ok">21.3 ms</td><td class="wrap-ok">~47</td></tr>
+            <tr><td>87.5%</td><td class="wrap-ok">10.7 ms</td><td class="wrap-ok">~94</td></tr>
+            <tr><td>93.75%</td><td class="wrap-ok">5.3 ms</td><td class="wrap-ok">~188</td></tr>
+            <tr><td>96.875%</td><td class="wrap-ok">2.7 ms</td><td class="wrap-ok">~375</td></tr>
+            <tr><td>98.4375%</td><td class="wrap-ok">1.3 ms</td><td class="wrap-ok">~750</td></tr>
+        </table>
+
+        <p class="prose">96.875% and 98.4375% can substantially lengthen the offline Analyse pass at large FFT sizes (16k or 32k), since the column count scales with the overlap factor. Use them when you need maximum smoothness; 75% is the standard pro-audio default.</p>
+
+        <h3>Live vs Offline</h3>
+        <p class="prose">The spectrogram follows the same <code>[Live] [Offline]</code> toggle the loudness section uses.</p>
+        <ul>
+            <li><strong>Live</strong> shows the rolling spectrogram built incrementally from the audio tap as the file plays. Limited to the in-memory column ring (~1800 columns).</li>
+            <li><strong>Offline</strong> shows the whole-file or whole-selection spectrogram. With <strong>Auto-compute spectrogram on load</strong> enabled in Settings → Spectrogram → Performance, the whole-file pass runs automatically during the load-time analysis pass; otherwise, run <kbd>⌘Return</kbd> on a selection to populate it. Persists across playback and seeks.</li>
+        </ul>
+        <p class="prose">The two stores are independent: live playback never overwrites the offline analysis, and Analyse never disturbs the live history.</p>
+
+        <h3>Auto-compute on load (opt-in)</h3>
+        <p class="prose"><strong>Settings → Spectrogram → Performance → Auto-compute spectrogram on load.</strong> Off by default. When on, the whole-file spectrogram is built during the load-time background pass instead of waiting for ⌘Return on a selection. Sub-second for typical music tracks; the cost scales with file length, so long-form audio takes proportionally longer.</p>
+        <p class="prose">The setting is independent of the FFT spectrum view, which still requires a selection because its averaging is selection-scoped. Turn it on for sessions that mainly work with shorter material (stereo mixes, single tracks) and want the spectrogram immediately on load; leave it off for long-form audio when you'd rather pick a region with ⌘Return.</p>
+
         <h3>Channel selection</h3>
-        <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history.</p>
+        <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history (both live and offline).</p>
+
+        <h3>Settings persistence</h3>
+        <p class="prose">Colormap, frequency scale, dB Floor, dB Ceiling, and FFT overlap all persist across launches via UserDefaults. Tune the view once and Specula remembers.</p>
     </section>
 
     <hr class="divider">
@@ -1037,16 +1171,57 @@
     <section class="guide-section" id="routing">
         <h2>14. Channel routing &amp; monitor mode <a href="#routing" class="anchor">#</a></h2>
 
-        <p class="prose">The <strong>Routing</strong> panel (bottom of the Info sidebar) is an N → M matrix that maps each input/source channel to one or more output channels with per-route gain trim.</p>
+        <p class="prose">The <strong>Routing</strong> panel lives in the dedicated <strong>Output</strong> window (<strong>Window → Output Panel</strong>, <kbd>⌥⌘O</kbd>, or click the Output pill in the Transport bar). It is an N → M matrix that maps each input/source channel to one or more output channels with per-route gain trim. The Output window also holds the device selector, so the channel count the matrix targets and the device driving it are always co-located.</p>
+
+        <p class="prose">The window is hidden by default. Open it when you need to reroute, then close it again. Routing settings persist for the loaded file.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">channel-router.png</div>
-            <div class="shot-desc">Routing matrix for a 5.1 file routed down to a stereo pair. Should show source channels labelled L/R/C/LFE/Ls/Rs and the resulting routing dots in the matrix grid, with PRE/POST toggle visible above.</div>
+            <div class="shot-name">output-window-matrix.png</div>
+            <div class="shot-desc">The Output window opened over the main app on macOS 26. Device dropdown at the top showing the current interface with its channel count, the Saved presets row underneath, the built-in mixdown preset bar (5.1 to Lo/Ro, Lt/Rt, Mono) below that, and the routing matrix in Matrix view for a 5.1 file: rows are device outputs, columns are L/R/C/LFE/Ls/Rs, routed cells show the on/off dot, the ϕ glyph (orange on the Lt/Rt-encoded surround cells), and the dB value. Liquid Glass panel framing visible.</div>
         </div>
 
+        <h3>List view vs Matrix view</h3>
+        <p class="prose">The routing section has a <strong>List / Matrix</strong> toggle. Same data, two presentations.</p>
+        <ul>
+            <li><strong>List view</strong>: one row per output channel, with a source picker and a typeable dB gain field per route. Best for precise gain entry.</li>
+            <li><strong>Matrix view (default)</strong>: patch-bay grid. Rows are device outputs, columns are source channels. Background colour shows the topology at a glance (filled accent = routed, dim gray = unrouted). Each routed cell splits into three click zones from left to right: the <strong>on/off dot</strong> disables the route in one click; the <strong>ϕ glyph</strong> flips polarity (used by Lt/Rt encoding or quick phase checks; turns orange when active); the <strong>value</strong> is the typeable gain in dB. Press <kbd>Enter</kbd> to commit, <kbd>Esc</kbd> to cancel an edit. Drag vertically over a routed value to adjust (±0.25 dB per pixel). Click an unrouted cell to enable the route at unity (0 dB). Right-click any cell for the menu equivalents. A silent row or unused source column jumps out at first glance. Cell backgrounds use Liquid Glass on macOS 26 (the same opt-out toggle the rest of the chrome respects).</li>
+        </ul>
+        <p class="prose">Your preference persists across launches.</p>
+
+        <h3>Mixdown preset library</h3>
+        <p class="prose">A horizontally scrolling preset bar (visible in both views) applies a complete mapping in one click. Presets are filtered to the ones that apply to the current file and device channel counts.</p>
+        <ul>
+            <li><strong>Default</strong> (any file/device): restores the 1:1 identity routing (source channel N to output channel N) for as many channels as both have. Use this to get back to a clean state after experimenting.</li>
+            <li><strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R.</li>
+            <li><strong>5.1 downmix</strong> (file is 6 ch): Lo/Ro (ITU-R BS.775 / Dolby stereo downmix), Lt/Rt (Pro Logic II matrix encoding: same-side surround positive at &minus;1.2 dB, opposite-side surround inverted at &minus;6.2 dB), 5.1 to Mono.</li>
+            <li><strong>7.1 downmix</strong> (file is 8 ch): 7.1 to Lo/Ro, 7.1 to Lt/Rt (PLII, same polarity rule applied to both side and back surround pairs), 7.1 to 5.1.</li>
+            <li><strong>Test</strong> (file is 6 ch): Ls/Rs solo, C/LFE solo, for inspecting surround content in isolation.</li>
+        </ul>
+        <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted so the preset acts as a complete replacement rather than a partial overlay.</p>
+        <p class="prose">Coefficients follow ITU-R BS.775-3. The &minus;3 dB factor on summed channels is 1/sqrt(2), the equal-power gain for correlated channel summation. The Pro Logic II coefficients (&minus;1.2 dB and &minus;6.2 dB on surrounds, with phase inversion on the left total) match the Dolby specification.</p>
+
+        <h3>Saved (user) presets</h3>
+        <p class="prose">Above the built-in row is a <strong>Saved</strong> row for your own routings.</p>
+        <ul>
+            <li><strong>Save</strong> captures whatever's currently in the routing (every output's sources, gains and polarity flags) under a name you choose. Saved presets only show when a file and device with the same channel counts are loaded.</li>
+            <li><strong>Import</strong> reads a Specula Routing Presets JSON file and appends any presets not already in your library (deduplicated by ID). Use this to receive setups from a collaborator.</li>
+            <li><strong>Export</strong> writes all your saved presets to a JSON file, ready to share.</li>
+            <li><strong>Right-click a saved preset</strong> for Rename, Export (just that one), or Delete.</li>
+            <li>Saved presets are persisted in UserDefaults under a versioned key, so a future schema bump can migrate old entries instead of dropping them.</li>
+        </ul>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">output-window-saved-presets.png</div>
+            <div class="shot-desc">Close-up of the Output window with the Saved presets row populated (e.g. "Studio monitors", "Headphones direct", "Surround check") above the built-in mixdown preset bar. One Saved preset right-click open showing the Rename / Export / Delete menu. Import and Export buttons visible at the row end.</div>
+        </div>
+
+        <h3>Polarity inversion</h3>
+        <p class="prose">Polarity inversion is a per-source-slot flag, separate from gain. List view has a small <strong>ϕ</strong> button next to each source's gain knob; Matrix view has the dedicated <strong>ϕ</strong> click zone in every routed cell (orange glyph when active). Needed for Pro Logic II Lt/Rt encoding and useful for quick A/B phase checks across any single route.</p>
+
         <h3>Why it matters</h3>
-        <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system.</p>
+        <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system. The preset library covers the common stereo and surround downmix workflows in one click; the matrix view makes any custom mapping obvious at a glance.</p>
 
         <h3>PRE / POST monitor mode</h3>
         <p class="prose">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement:</p>
@@ -1065,20 +1240,34 @@
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
+        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the <code>CompareToolbarView</code> sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
+
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">compare-mode.png</div>
-            <div class="shot-desc">File dock showing 3-4 slot chips (A, B, C, plus a diff slot). Active slot has gain row visible (ϕ, L toggle, ±0.1, ±1 buttons), and the toolbar's "Diff A−X" + "Compare metrics" buttons visible.</div>
+            <div class="shot-desc">Specula in Compare mode (⌘2) with three slots loaded (A, B, C). Compare toolbar pinned below the transport in sky-blue accent, showing the per-slot offset / gain controls, the auto-align button, the polarity ϕ toggle, the level-match L toggle, and the prominent <strong>Listen to Diff</strong> toggle on the active non-A slot. File dock above shows the three slot chips. Transport bar's Compare button is filled with the sky-blue accent.</div>
         </div>
 
+        <h3>Entering the mode</h3>
+        <p class="prose">Three ways in:</p>
+        <ul>
+            <li><strong>Click</strong> the Compare button in the transport bar (or press <kbd>⌘2</kbd>).</li>
+            <li><strong>Drag a file</strong> onto the Compare toggle in the transport. The file loads as a new slot and Compare mode activates in one gesture.</li>
+            <li><strong>Drop multiple files</strong> into an empty window. The first becomes slot A, the rest land in slots B - F, and Compare mode auto-activates.</li>
+        </ul>
+        <p class="prose">Compare is mutually exclusive with Edit, Chapter, and Dialogue. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
+
         <h3>Loading slots</h3>
-        <p class="prose">After the first file is open, drag additional files onto the window or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
+        <p class="prose">After the first file is open, drag additional files onto the window, drop them on the Compare toggle, or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
 
         <h3>Switching slots</h3>
         <table>
-            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist)</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to slot A - F (only slots that exist). Bare digits, no modifier.</td></tr>
         </table>
         <p class="prose">Slot switching uses two paths. <strong>Fast path</strong>: when the new slot's audio format matches the current one, the engine performs an atomic buffer swap. Sub-millisecond. <strong>Slow path</strong>: when sample rate or channel count differs, the engine is rebuilt. ~50-100 ms.</p>
+
+        <h3>Reorder slots</h3>
+        <p class="prose">Drag any slot chip in the file dock to a different position to reorder. The slot you drop on becomes the new home of the dragged slot, and the chip you targeted (plus everything between) shifts to make room. Dragging a slot to position A (the leftmost) promotes it to the reference file; existing residuals are invalidated at that point because they were computed against the previous A. Use this when your file came in from a Dock drop or Finder drag and Specula didn't pick the file you wanted as the primary. Finder serialises drag selections in display order, not click order, so the file you wanted as the reference may not be the one Specula picked.</p>
 
         <h3>Level match (L)</h3>
         <p class="prose">Each slot's chip has an <strong>L</strong> toggle. When on, Specula applies a gain offset that brings the slot's integrated LUFS to match slot A's. Hear two masters at the same loudness instead of "the louder one always wins".</p>
@@ -1086,23 +1275,36 @@
         <h3>Polarity invert (ϕ)</h3>
         <p class="prose">Each slot has a <strong>ϕ</strong> toggle that flips polarity. Useful for catching wiring errors and for diff workflows where flipping one signal makes the residual sit closer to zero.</p>
 
-        <h3>Manual gain trim</h3>
-        <p class="prose">The <strong>±0.1 dB</strong> and <strong>±1 dB</strong> buttons on each chip let you nudge slot gain by ±24 dB total. Combined with level-match into a single atomic gain read by the audio render callback.</p>
+        <h3>Editable offset and gain</h3>
+        <p class="prose">The compare toolbar's offset (samples + ms) and gain (dB) readouts are <strong>editable TextFields</strong>, not just display labels. Click into one, type the value you want, press <kbd>Return</kbd> to commit (or <kbd>Esc</kbd> to cancel). Each field has a small <strong>↺</strong> reset button that appears when the value is non-zero - one click returns it to zero. Right-click either field for the same Reset entry.</p>
+        <p class="prose">The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit next to the fields for fine adjustments by ear. Combined with level-match into a single atomic gain read by the audio render callback. The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with it on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
 
-        <h3>Manual nudge (sample-accurate)</h3>
-        <p class="prose">The <strong>±1 sample</strong> and <strong>±1 ms</strong> buttons time-shift the slot. Useful when two takes are close but not aligned. The current offset (in samples) is shown next to the buttons.</p>
-        <p class="prose">The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with the toggle on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">compare-toolbar-editable-fields.png</div>
+            <div class="shot-desc">Close-up of the Compare toolbar's per-slot controls with one of the offset TextFields focused (insertion cursor visible) and the ↺ reset glyph showing next to it because the value is non-zero. Adjacent gain field shows a typed value like "-1.4 dB". The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit alongside. Demonstrates the new editable fields.</div>
+        </div>
 
         <h3>Auto-align</h3>
         <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
 
-        <h3>Diff (A − X)</h3>
-        <p class="prose">The toolbar <strong>Diff A−X</strong> button creates a <strong>diff slot</strong> - a virtual slot that plays back the residual <code>(A − X)</code> audio. With level-match on, this gives you a near-zero diff for two correctly mastered versions of the same source. Anything above silence is what's different. Diff slots:</p>
+        <h3>Listen to Diff (per-slot)</h3>
+        <p class="prose">Diff is a <strong>per-slot listening mode</strong>, not a separate slot. The active non-A slot's toolbar carries a prominent <strong>Listen to Diff</strong> toggle: press it and playback switches to the cached <code>A − slot</code> residual through the same waveform, spectrogram, and export paths the source uses. Press the toggle again (or pick another slot) to return to the source instantly.</p>
+        <p class="prose">Bare <kbd>D</kbd> (no modifier) toggles diff view on the active compare slot - a one-key A/B between source and residual that fits the muscle memory of bare-digit slot switching.</p>
+
+        <p class="prose">The residual:</p>
         <ul>
-            <li>Recompute automatically (80 ms debounced) when nudge / gain / polarity / level-match changes.</li>
-            <li>Have <strong>no live measurement</strong> - switching to a diff slot clears live loudness/stereo displays (the diff buffer plays pre-computed).</li>
-            <li>Can be <strong>exported to WAV</strong> with <kbd>⌃⌘E</kbd> or the diff slot's Export WAV button.</li>
+            <li>Recomputes automatically (80 ms debounced) when nudge / gain / polarity / level-match changes.</li>
+            <li>Plays through the same render path the source slots use, so seek, loop, and rate controls work transparently.</li>
+            <li>Has <strong>no live measurement</strong> - the loudness sidebar clears while you're listening to the residual; switch back to the source to read its numbers.</li>
+            <li>Can be <strong>exported to WAV</strong> via the <strong>Export Diff</strong> button next to the toggle (enabled when a residual is cached), or with <kbd>⌃⌘E</kbd>.</li>
         </ul>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">compare-listen-to-diff.png</div>
+            <div class="shot-desc">Compare toolbar with the <strong>Listen to Diff</strong> toggle engaged on the active slot (filled state, sky-blue accent). The waveform above now shows the residual - mostly quiet with a few low-level transients. Export Diff button visible next to the toggle. Bare-D keyboard hint pill in the corner. Demonstrates the new per-slot diff listening mode rather than a separate diff slot.</div>
+        </div>
 
         <h3>Waveform A overlay</h3>
         <p class="prose">The <strong>Waveform A Overlay</strong> toggle (Edit menu → "Waveform A Overlay" or in the Compare panel) draws slot A's waveform as a ghost behind whichever slot is active - direct visual A/B at the sample level.</p>
@@ -1122,11 +1324,11 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">edit-mode.png</div>
-            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
+            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, Limit TP, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
         </div>
 
         <h3>Enter / exit</h3>
-        <p class="prose"><kbd>⌘E</kbd> toggles edit mode. While in edit mode, the <strong>Compare</strong> controls are disabled (and vice versa: edit is disabled when more than one compare slot is loaded). The waveform shows an <strong>EDIT</strong> badge in amber.</p>
+        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
         <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures a single-level undo snapshot, runs the DSP, swaps the buffer, and resumes.</p>
@@ -1139,7 +1341,8 @@
             <tr><td>Invert Phase</td><td class="wrap-ok">Multiply by −1.</td></tr>
             <tr><td>Fade</td><td class="wrap-ok">Linear / Logarithmic / Equal-power × In / Out - 6 fade curves total.</td></tr>
             <tr><td>Normalize Peak</td><td class="wrap-ok">Target dBFS.</td></tr>
-            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling. Auto-applies a 5 ms lookahead <strong>brickwall limiter</strong> when normalization increases loudness.</td></tr>
+            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling (interpreted as <code>dBTP</code>). Auto-applies a 5 ms lookahead <strong>true-peak limiter</strong> when normalization increases loudness so inter-sample peaks stay under the ceiling, not just sample peaks. Two-pass offline: pass 1 builds the gain envelope from the input's oversampled peaks; pass 2 catches any residual peaks the release stage might leave fractionally over the ceiling.</td></tr>
+            <tr><td>Limit TP</td><td class="wrap-ok">True-peak limiter only, ceiling in <code>dBTP</code>. Loudness otherwise unchanged. Use when integrated LUFS is already where you want it but inter-sample peaks need to be capped under a platform ceiling. Same DSP as the limiter Normalize LUFS uses; just skips the loudness measurement and gain stage.</td></tr>
             <tr><td>Remove DC Offset</td><td class="wrap-ok">Subtracts each channel's mean.</td></tr>
             <tr><td>Swap Channels</td><td class="wrap-ok">Stereo L↔R swap.</td></tr>
             <tr><td>Split to Mono</td><td class="wrap-ok">Writes N mono WAV files (one per channel) to a directory you pick. Channel labels in the filename.</td></tr>
@@ -1157,7 +1360,7 @@
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code>. Format defaults to WAV at the file's native bit depth and sample rate.</p>
 
         <h3>Edit toolbar</h3>
-        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize) open small popovers - set the parameters, click Apply.</p>
+        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize, Limit TP) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1.</p>
     </section>
 
     <hr class="divider">
@@ -1166,7 +1369,7 @@
     <section class="guide-section" id="chapter">
         <h2>17. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
 
-        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with Edit and Compare so the workspace stays focused.</p>
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other three modes (Edit, Compare, Dialogue) so the workspace stays focused.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1175,7 +1378,7 @@
         </div>
 
         <h3>Entering the mode</h3>
-        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit and Compare. Click it to enter or exit chapter mode; <kbd>⌘⌃C</kbd> does the same from the keyboard. While the mode is active the button takes the accent tint and the chapter toolbar slots in below the transport. Compare is disabled while chapter mode is active; Edit is mutually exclusive too.</p>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, and Dialogue. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, and Dialogue.</p>
 
         <h3>Detect</h3>
         <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
@@ -1248,7 +1451,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
 
         <h3>Chapter ribbon (⌃6)</h3>
-        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle with <kbd>⌃6</kbd>.</p>
+        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle the section's visibility with <kbd>⌃6</kbd> (independent of whether chapter mode is active).</p>
 
         <h3>In the report</h3>
         <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (I outside [−23, −18], TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
@@ -1264,7 +1467,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON Report</td><td class="wrap-ok"><code>*.json</code> - all metrics, both live and selection analysis, channel info, file metadata</td></tr>
             <tr><td><kbd>⌥⌘E</kbd></td><td class="wrap-ok">Export PDF Report</td><td class="wrap-ok"><code>*.pdf</code> - formatted report with charts</td></tr>
-            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active diff slot's residual buffer (compare mode only)</td></tr>
+            <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active slot's cached A − slot residual buffer (compare mode only). Same output as the Export Diff button next to the Listen to Diff toggle.</td></tr>
         </table>
 
         <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export - the menu item swaps based on context.</p>
@@ -1281,6 +1484,8 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading.</p>
 
         <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the GUI's InfoPanel renders. No more "run <kbd>⌘Return</kbd> to measure true peak" placeholder for the whole-file case.</p>
+
+        <p class="prose">Each entry in <code>loudnessTargets.targets[]</code> in the JSON envelope carries an inline <code>verdict</code> object so a Shortcut, CLI pipeline, or batch QC script can branch on pass / fail without recomputing it against the target spec. Fields: <code>status</code> (<code>compliant</code> / <code>penalty</code> / <code>notCompliant</code> / <code>unavailable</code>), <code>actualLUFS</code>, plus <code>penaltyGainDB</code> / <code>penaltyApplies</code> / <code>truePeakClean</code> for streaming targets and <code>nonComplianceReason</code> / <code>nonComplianceActual</code> / <code>nonComplianceLimit</code> for hard-spec fails. The PDF and HTML reports render the same verdict as a status badge. Full field reference in <a href="#loudness">Loudness targets</a>.</p>
     </section>
 
     <hr class="divider">
@@ -1333,8 +1538,9 @@ specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
             <li><code>--invert-phase</code> - flip polarity on every channel.</li>
             <li><code>--gain DB</code> - uniform gain.</li>
             <li><code>--normalize-peak DBFS</code> <em>or</em> <code>--normalize-lufs LUFS [--lufs-ceiling DBTP]</code> - mutually exclusive.</li>
+            <li><code>--limit-tp DBTP</code> - apply the true-peak limiter at this ceiling without changing loudness; runs last so it can catch any residual peaks left by an upstream normalize.</li>
         </ol>
-        <p class="prose">LUFS normalization applies the same 5 ms brickwall limiter as the GUI when the gain would push samples over the ceiling.</p>
+        <p class="prose">LUFS normalization and <code>--limit-tp</code> use the same 5 ms two-pass true-peak limiter (BS.1770 4× polyphase oversampled detection).</p>
 
         <h3><code>specula report &lt;FILE&gt;</code></h3>
         <p class="prose">Full Specula report through the headless pipeline, in your choice of format.</p>
@@ -1410,7 +1616,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
     <section class="guide-section" id="settings">
         <h2>20. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>⌘,</kbd>. Four tabs.</p>
+        <p class="prose">Open with <kbd>⌘,</kbd>. Five tabs: Layout · Spectrogram · FFT / Analysis · Speech · Report.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1425,17 +1631,34 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         </ul>
         <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
 
+        <p class="prose"><strong>Liquid Glass chrome</strong> (macOS 26+ only). On macOS 26 the transport bar, file dock, info panel, seek bar, and section-toggle strip use the system Liquid Glass material so they feel native alongside Finder, Safari, and other macOS 26 apps. Default on. Turn off in <strong>Settings → Layout → Appearance</strong> for the previous solid dark chrome, useful when recording screenshots or screencasts where the depth-aware refraction would change with whatever's underneath the window, or simply if you prefer the flat look. The toggle is hidden on macOS 14-25 (Liquid Glass isn't available there; chrome stays solid regardless).</p>
+
+        <p class="prose">With the toggle on, each chrome strip renders as a <strong>rounded floating pill</strong> (radius 6, with a small dark gutter between strips and the window edges), the macOS 26 native pattern Music, Photos, and Calendar use. The Liquid Glass material's edge highlights become the rim of each pill rather than horizontal lines crossing the window. The SeekBar's accent fill also picks up the glass material when the toggle is on (otherwise solid). With the toggle off, chrome reverts to edge-to-edge square strips, the rounding belongs to the Liquid Glass look.</p>
+
+        <p class="prose">The SeekBar's track and fill are 8 px tall regardless of the toggle (was 3 px before), a generally more substantial slider lane that reads better whether it's filled with glass or solid colour.</p>
+
         <h3>Spectrogram</h3>
         <ul>
             <li><strong>Colormap</strong> - Inferno / Turbo / Plasma / Viridis.</li>
             <li><strong>Frequency Scale</strong> - Log / Mel.</li>
             <li><strong>dB Range</strong> - Floor (−120 to −24) and Ceiling (−18 to 0).</li>
+            <li><strong>Time resolution (FFT overlap)</strong> - 75% (default), 87.5%, 93.75%, 96.875%, 98.4375%. Higher overlap = denser columns per second. The two highest settings can lengthen offline Analyse at large FFT sizes; the Settings footer flags them as deliberate-use options.</li>
+            <li><strong>Performance → Auto-compute spectrogram on load</strong> - off by default. When on, the whole-file offline spectrogram is built during the load-time analysis pass instead of waiting for <kbd>⌘Return</kbd> on a selection. Sub-second for typical music tracks; long-form audio takes proportionally longer.</li>
         </ul>
+        <p class="prose">All six values (colormap, frequency scale, Floor, Ceiling, FFT overlap, auto-compute on load) persist across launches.</p>
 
         <h3>FFT / Analysis</h3>
         <ul>
             <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
         </ul>
+
+        <h3>Speech</h3>
+        <ul>
+            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped.</li>
+            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
+        </ul>
+        <p class="prose">Edits re-run detection in about half a second and the new history feeds back into the live loudness path. If you have manual edits in Dialogue mode when you move a slider, they're pushed onto the Dialogue mode undo stack first so you can <kbd>⌘Z</kbd> back to them. See <a href="#speech-gated">Speech-gated loudness + Dialogue mode</a> for the full workflow.</p>
 
         <h3>Report</h3>
         <ul>
@@ -1479,22 +1702,38 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Analyse selection (offline)</td></tr>
         </table>
 
+        <h3>Modes (mutually exclusive)</h3>
+        <table>
+            <tr><td><kbd>⌘1</kbd></td><td class="wrap-ok">Enter / exit Edit mode (accent: amber)</td></tr>
+            <tr><td><kbd>⌘2</kbd></td><td class="wrap-ok">Enter / exit Compare mode (accent: sky-blue)</td></tr>
+            <tr><td><kbd>⌘3</kbd></td><td class="wrap-ok">Enter / exit Chapter mode (accent: green)</td></tr>
+            <tr><td><kbd>⌘4</kbd></td><td class="wrap-ok">Enter / exit Dialogue mode (accent: rose)</td></tr>
+        </table>
+
         <h3>Compare mode</h3>
         <table>
-            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A - F</td></tr>
+            <tr><td><kbd>1</kbd> - <kbd>6</kbd></td><td class="wrap-ok">Switch to compare slot A - F (bare digits, Compare mode only)</td></tr>
+            <tr><td><kbd>D</kbd></td><td class="wrap-ok">Toggle <strong>Listen to Diff</strong> on the active slot (bare D, Compare mode only)</td></tr>
         </table>
 
         <h3>Edit mode</h3>
         <table>
-            <tr><td><kbd>⌘E</kbd></td><td class="wrap-ok">Enter / exit edit mode</td></tr>
             <tr><td><kbd>⌘Z</kbd></td><td class="wrap-ok">Undo last edit</td></tr>
             <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio (new file)</td></tr>
         </table>
 
         <h3>Chapter mode</h3>
         <table>
-            <tr><td><kbd>⌘⌃C</kbd></td><td class="wrap-ok">Enter / exit chapter mode</td></tr>
-            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle chapter ribbon</td></tr>
+            <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle chapter ribbon section visibility</td></tr>
+        </table>
+
+        <h3>Dialogue mode</h3>
+        <table>
+            <tr><td><kbd>I</kbd></td><td class="wrap-ok">Mark In (anchor at playhead, or set start of selected region)</td></tr>
+            <tr><td><kbd>O</kbd></td><td class="wrap-ok">Mark Out (close pending region, or set end of selected region)</td></tr>
+            <tr><td><kbd>S</kbd></td><td class="wrap-ok">Split selected region at playhead</td></tr>
+            <tr><td><kbd>Delete</kbd></td><td class="wrap-ok">Delete selected region</td></tr>
+            <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo region edit (50-step history)</td></tr>
         </table>
 
         <h3>Export</h3>
