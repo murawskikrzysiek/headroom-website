@@ -1,130 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Headroom Studio Blog - Monitoring, Hearing Health, Mac Audio Tools</title>
-    <link rel="canonical" href="https://headroomstudio.dev/blog/">
-    <meta name="description" content="Notes from Headroom Studio on monitoring discipline, hearing health, and the small tools that make studio work easier.">
-    <meta property="og:title" content="Headroom - Blog">
-    <meta property="og:description" content="Notes on monitoring discipline, hearing health, and the small tools that make studio work easier.">
-    <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="blog.css">
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes from the studio — the Headroom blog</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/">
+  <meta name="description" content="Notes from Headroom Studio — monitoring discipline, hearing health, and the small macOS tools that make studio work easier.">
+  <meta property="og:title" content="Notes from the studio — the Headroom blog">
+  <meta property="og:description" content="Monitoring discipline, hearing health, and the small tools that make studio work easier.">
+  <meta property="og:image" content="https://headroomstudio.dev/og-headroom.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Notes from the studio">
+  <meta name="twitter:image" content="https://headroomstudio.dev/og-headroom.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio — Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Notes from the studio",
+    "url": "https://headroomstudio.dev/blog/",
+    "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
+  }
+  </script>
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="container">
-    <nav>
-        <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
-            <span class="brand-word">Head<span>room</span></span>
-        </a>
-        <a href="/" class="nav-back">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>
-            Home
-        </a>
-    </nav>
-</div>
+<div class="glow glow--tl"></div>
 
 <div class="container">
-    <section class="blog-hero">
-        <h1>Notes from the studio.</h1>
-        <p>Monitoring discipline, hearing health, and the small tools that quietly make studio work easier. New posts irregularly, when there's something worth saying.</p>
-    </section>
-</div>
-
-<div class="container">
-    <ul class="post-list">
-
-        <li class="post-card">
-            <a href="wiring-lyra-into-mac-automation.html">
-                <p class="post-tag">Lyra</p>
-                <h2>Wiring Lyra into every Mac automation surface - App Intents, Focus Filters, x-callback URLs</h2>
-                <p>Lyra 1.5 is scriptable from every Mac automation surface I could find. Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.</p>
-                <div class="meta">
-                    <span>15 May 2026</span>
-                    <span class="dot"></span>
-                    <span>10 min read</span>
-                </div>
-            </a>
-        </li>
-
-        <li class="post-card">
-            <a href="musicians-tinnitus-meta-analysis.html">
-                <p class="post-tag">Hearing health</p>
-                <h2>The musician tinnitus number is 43%</h2>
-                <p>A 2026 meta-analysis of 28,000+ musicians pooled across 67 studies puts hard numbers on what the audiology community has been quietly saying for decades. None of the old excuses survive - including the genre one.</p>
-                <div class="meta">
-                    <span>2 May 2026</span>
-                    <span class="dot"></span>
-                    <span>6 min read</span>
-                </div>
-            </a>
-        </li>
-
-        <li class="post-card">
-            <a href="pairing-audita-and-lyra.html">
-                <p class="post-tag">Workflow</p>
-                <h2>Calibrate once, recall forever - pairing Audita and Lyra</h2>
-                <p>A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL. The integration in Audita and Lyra 1.4 closes the gap between SPL meter and monitor controller.</p>
-                <div class="meta">
-                    <span>27 April 2026</span>
-                    <span class="dot"></span>
-                    <span>9 min read</span>
-                </div>
-            </a>
-        </li>
-
-        <li class="post-card">
-            <a href="the-3-db-rule.html">
-                <p class="post-tag">Hearing health</p>
-                <h2>The 3 dB rule - the single number that explains studio loudness</h2>
-                <p>Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it. The arithmetic is unforgiving and most engineers have never run it on their own habits.</p>
-                <div class="meta">
-                    <span>27 April 2026</span>
-                    <span class="dot"></span>
-                    <span>7 min read</span>
-                </div>
-            </a>
-        </li>
-
-        <li class="post-card">
-            <a href="calibrated-monitoring.html">
-                <p class="post-tag">Practice</p>
-                <h2>Monitor at a number, not a vibe - the case for calibrated studio listening</h2>
-                <p>Translation, consistency, lower hearing dose, less fatigue. The case for calibrated monitoring has been made for fifty years; the tooling finally caught up.</p>
-                <div class="meta">
-                    <span>27 April 2026</span>
-                    <span class="dot"></span>
-                    <span>10 min read</span>
-                </div>
-            </a>
-        </li>
-
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#apps">Apps</a></li>
+      <li><a href="/blog/" class="is-active">Blog</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
     </ul>
+  </nav>
+
+  <header class="doc-header">
+    <p class="eyebrow">Blog</p>
+    <h1 class="display" style="font-size: 3.6rem;">Notes from the studio.</h1>
+    <p class="doc-header__lead">Monitoring discipline, hearing health, and the small tools that quietly make studio work easier. New posts irregularly, when there's something worth saying. <a href="/blog/feed.xml" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">RSS →</a></p>
+    <div class="chips" style="margin-top: 24px;">
+      <a class="chip is-active" href="#">All</a>
+      <a class="chip" href="#">Lyra</a>
+      <a class="chip" href="#">Audita</a>
+      <a class="chip" href="#">Hearing health</a>
+      <a class="chip" href="#">Workflow</a>
+      <a class="chip" href="#">Practice</a>
+    </div>
+  </header>
 </div>
 
-<div class="container">
-    <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
-        <ul class="footer-links">
-            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
-            <li><a href="../lyra/">Lyra</a></li>
-            <li><a href="../audita/">Audita</a></li>
-        </ul>
-    </footer>
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container" style="padding-top: 32px;">
+  <!-- Featured -->
+  <section style="padding-bottom: 24px;">
+    <p class="label" style="margin-bottom: 22px;">Latest</p>
+    <a href="wiring-lyra-into-mac-automation.html" class="feat"
+       data-post data-title="Wiring Lyra into every Mac automation surface"
+       data-date="2026-05-15" data-tag="Lyra" data-read="10 min"
+       data-summary="App Intents, Focus Filters, x-callback URLs. One change underneath, several different shapes on top.">
+      <div class="feat__body">
+        <div>
+          <p class="feat__kicker">Lyra · 10 min read</p>
+          <h2 class="feat__title">Wiring Lyra into every Mac automation surface — App Intents, Focus Filters, x-callback URLs</h2>
+          <p class="feat__excerpt">Lyra 1.5 is scriptable from every Mac automation surface I could find. Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.</p>
+        </div>
+        <div class="feat__meta"><span>15 May 2026</span><span class="dot"></span><span>K. Murawski</span></div>
+      </div>
+      <div class="feat__art">
+        <div class="feat__terminal">
+          <div class="g"><span class="a">$</span> open "lyra://reference/2"</div>
+          <div class="mut">↳ slot: 2 · name: Mix · 85 dB SPL</div>
+          <div class="g" style="margin-top:16px;"><span class="a">$</span> open "lyra://state?x-success=…"</div>
+          <div class="ok">↳ { "muted": false, "tapered": 0.58 }</div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- Older posts -->
+  <section style="padding: 36px 0 64px;">
+    <div class="posts">
+      <div class="post-item">
+        <a href="musicians-tinnitus-meta-analysis.html"
+           data-post data-title="The musician tinnitus number is 43%"
+           data-date="2026-05-02" data-tag="Hearing health" data-read="6 min"
+           data-summary="A 2026 meta-analysis of 28,000+ musicians puts hard numbers on what audiology has been quietly saying for decades.">
+          <div><p class="post-item__tag" style="color:#e0a55a;">Hearing health</p><p class="post-item__date">2 May 2026</p></div>
+          <div>
+            <h3 class="post-item__title">The musician tinnitus number is 43%</h3>
+            <p class="post-item__excerpt">A 2026 meta-analysis of 28,000+ musicians pooled across 67 studies puts hard numbers on what the audiology community has been quietly saying for decades. None of the old excuses survive — including the genre one.</p>
+          </div>
+          <span class="post-item__read">6 min</span>
+        </a>
+      </div>
+      <div class="post-item">
+        <a href="pairing-audita-and-lyra.html"
+           data-post data-title="Calibrate once, recall forever — pairing Audita and Lyra"
+           data-date="2026-04-27" data-tag="Workflow" data-read="9 min"
+           data-summary="A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what 'Mix' means in dB SPL.">
+          <div><p class="post-item__tag" style="color:#7c84f6;">Workflow</p><p class="post-item__date">27 Apr 2026</p></div>
+          <div>
+            <h3 class="post-item__title">Calibrate once, recall forever — pairing Audita and Lyra</h3>
+            <p class="post-item__excerpt">A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL. The integration closes the gap between SPL meter and monitor controller.</p>
+          </div>
+          <span class="post-item__read">9 min</span>
+        </a>
+      </div>
+      <div class="post-item">
+        <a href="the-3-db-rule.html"
+           data-post data-title="The 3 dB rule — the single number that explains studio loudness"
+           data-date="2026-04-27" data-tag="Hearing health" data-read="7 min"
+           data-summary="Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it.">
+          <div><p class="post-item__tag" style="color:#e0a55a;">Hearing health</p><p class="post-item__date">27 Apr 2026</p></div>
+          <div>
+            <h3 class="post-item__title">The 3 dB rule — the single number that explains studio loudness</h3>
+            <p class="post-item__excerpt">Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it. The arithmetic is unforgiving and most engineers have never run it on their own habits.</p>
+          </div>
+          <span class="post-item__read">7 min</span>
+        </a>
+      </div>
+      <div class="post-item">
+        <a href="monitor-at-a-number.html"
+           data-post data-title="Monitor at a number, not a vibe"
+           data-date="2026-04-20" data-tag="Practice" data-read="10 min"
+           data-summary="Translation, consistency, lower hearing dose, less fatigue — the case for calibrated studio listening.">
+          <div><p class="post-item__tag" style="color:#3ecf7c;">Practice</p><p class="post-item__date">20 Apr 2026</p></div>
+          <div>
+            <h3 class="post-item__title">Monitor at a number, not a vibe — the case for calibrated studio listening</h3>
+            <p class="post-item__excerpt">Translation, consistency, lower hearing dose, less fatigue. The case for calibrated monitoring has been made for fifty years; the tooling finally caught up.</p>
+          </div>
+          <span class="post-item__read">10 min</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get new posts in your inbox.</h3>
+        <p>One short note per post. Unsubscribe in one click.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target"
+            action="https://assets.mailerlite.com/jsonp/2338219/forms/O0SoES/subscribe"
+            data-ml-account="2338219" data-ml-form="O0SoES">
+        <input type="email" name="fields[email]" placeholder="you@studio.com" required>
+        <input type="hidden" name="ml-submit" value="1">
+        <input type="hidden" name="anticsrf" value="true">
+        <button type="submit">Subscribe →</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/audita/">Audita</a></li>
+      <li><a href="/blog/feed.xml">RSS</a></li>
+    </ul>
+  </footer>
 </div>
 
+<script src="../waveform.js"></script>
+<script src="../newsletter.js"></script>
 </body>
 </html>

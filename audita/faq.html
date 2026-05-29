@@ -1,759 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audita FAQ - SPL Calibration, NIOSH Dose & macOS Setup</title>
-    <link rel="canonical" href="https://headroomstudio.dev/audita/faq.html">
-    <meta name="description" content="Common questions about Audita: calibrating your monitor chain to dB SPL, NIOSH hearing dose explained, supported interfaces, talkback channels, sessions.">
-    <meta property="og:title" content="Audita FAQ">
-    <meta property="og:description" content="Common questions about Audita: calibration, NIOSH hearing dose, supported interfaces, sessions.">
-    <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Audita FAQ">
-    <meta name="twitter:description" content="Common questions about Audita: calibration, NIOSH hearing dose, supported interfaces, sessions.">
-    <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audita FAQ — Calibration, Hearing Dose, Mic Input &amp; Licensing</title>
+  <link rel="canonical" href="https://headroomstudio.dev/audita/faq.html">
+  <meta name="description" content="Answers to common Audita questions — microphone input, calibration, NIOSH hearing dose, Monitoring Discipline, Lyra pairing, and licensing.">
+  <meta property="og:title" content="Audita FAQ">
+  <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
 
-        :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
-            --accent:       #7c84f6;
-            --accent-dim:   rgba(124, 132, 246, 0.10);
-            --radius-btn:   9px;
-        }
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Do I need a measurement microphone?", "acceptedAnswer": { "@type": "Answer", "text": "For meaningful absolute SPL you want a calibrated measurement mic, but Audita works with any CoreAudio input. A mic-correction profile compensates for the capsule's response. Without calibration the figures are relative, still useful for tracking consistency and trends." } },
+      { "@type": "Question", "name": "What standard does the hearing dose use?", "acceptedAnswer": { "@type": "Answer", "text": "Audita accumulates dose using the NIOSH REL: an 85 dBA reference, a 3 dB exchange rate, and an 80 dBA accumulation threshold — the most protective mainstream occupational standard." } },
+      { "@type": "Question", "name": "Does Audita record audio?", "acceptedAnswer": { "@type": "Answer", "text": "No. Audio is analysed in real time to derive a level number and is never recorded, saved, or transmitted. Nothing leaves your Mac." } }
+    ]
+  }
+  </script>
 
-        html { font-size: 16px; scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ─── Nav ─── */
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
-
-        .brand {
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
-        .brand-word { font-weight: 600; color: #c8c6f0; }
-        .brand-word span { font-weight: 500; color: #7a78a8; }
-
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-2);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .nav-back:hover { color: var(--text); }
-        .nav-back svg { width: 14px; height: 14px; }
-
-        /* ─── Hero ─── */
-
-        .hero {
-            padding: 56px 0 48px;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-size: clamp(1.6rem, 4vw, 2rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 12px;
-        }
-
-        .hero-desc {
-            font-size: 0.9375rem;
-            color: var(--text-2);
-            line-height: 1.7;
-        }
-
-        /* ─── Divider ─── */
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0 0 48px;
-        }
-
-        /* ─── FAQ groups ─── */
-
-        .faq-group {
-            padding-bottom: 52px;
-        }
-
-        .group-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            margin-bottom: 20px;
-        }
-
-        /* ─── FAQ items ─── */
-
-        .faq-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .faq-item {
-            border-top: 1px solid var(--border);
-            padding: 20px 0;
-        }
-
-        .faq-item:last-child {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .faq-q {
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.45;
-            letter-spacing: -0.01em;
-            margin-bottom: 10px;
-        }
-
-        .faq-a {
-            font-size: 0.9rem;
-            color: var(--text-2);
-            line-height: 1.75;
-        }
-
-        .faq-a + .faq-a { margin-top: 8px; }
-
-        .faq-a strong { color: var(--text); font-weight: 600; }
-
-        .faq-a a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
-            transition: color 0.18s;
-        }
-
-        .faq-a a:hover { color: #a0aaff; }
-
-        /* ─── Inline mono chip ─── */
-
-        .chip {
-            display: inline;
-            font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
-            font-size: 0.8em;
-            color: var(--text-3);
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            padding: 1px 6px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        /* ─── Terminal block - full-width command display ─── */
-
-        .terminal {
-            margin-top: 10px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
-            font-size: 0.8rem;
-            color: var(--text-3);
-            overflow-x: auto;
-            white-space: pre;
-        }
-
-        /* ─── Dose table ─── */
-
-        .dose-table {
-            margin-top: 10px;
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-        }
-
-        .dose-table th {
-            text-align: left;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            padding: 6px 12px 6px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .dose-table td {
-            color: var(--text-2);
-            padding: 8px 12px 8px 0;
-            border-bottom: 1px solid rgba(28, 28, 40, 0.6);
-            vertical-align: top;
-        }
-
-        .dose-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
-
-        /* ─── Steps list ─── */
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .step {
-            display: flex;
-            gap: 12px;
-            align-items: baseline;
-            font-size: 0.9rem;
-            color: var(--text-2);
-            line-height: 1.6;
-        }
-
-        .step-num {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--accent);
-            background: var(--accent-dim);
-            border-radius: 4px;
-            padding: 2px 6px;
-            flex-shrink: 0;
-            letter-spacing: 0.02em;
-        }
-
-        /* ─── Notice box ─── */
-
-        .notice {
-            margin-top: 12px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .notice-icon {
-            font-size: 0.8rem;
-            flex-shrink: 0;
-            margin-top: 3px;
-            opacity: 0.45;
-        }
-
-        .notice p {
-            font-size: 0.8rem;
-            color: var(--text-2);
-            line-height: 1.6;
-        }
-
-        /* ─── Weighting chart image ─── */
-
-        .chart-img {
-            display: block;
-            width: 100%;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin-top: 16px;
-            margin-bottom: 4px;
-        }
-
-        .chart-caption {
-            font-size: 0.775rem;
-            color: var(--text-3);
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        /* ─── Footer ─── */
-
-        footer {
-            padding: 28px 0 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
-
-        .footer-links { display: flex; gap: 22px; list-style: none; }
-
-        .footer-links a {
-            font-size: 0.8rem;
-            color: var(--text-3);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .footer-links a:hover { color: var(--text-2); }
-
-        @media (max-width: 560px) {
-            .hero { padding: 40px 0 36px; }
-            .terminal { font-size: 0.72rem; }
-        }
-    </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="container">
-    <nav>
-        <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
-            <span class="brand-word">Head<span>room</span></span>
-        </a>
-        <a href="./" class="nav-back">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
-            </svg>
-            Audita
-        </a>
-    </nav>
+<div class="glow glow--tl"></div>
+
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="guide.html">User Guide</a>
+      <a href="api.html">API</a>
+      <a href="faq.html" class="is-active">FAQ</a>
+      <a href="./" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>Audita</a>
+    </div>
+  </nav>
+
+  <header class="doc-header">
+    <p class="eyebrow">Audita · FAQ</p>
+    <h1 class="display">Frequently asked questions.</h1>
+    <p class="doc-header__lead">Type to find an answer, or browse by topic. Can't find what you're looking for? <a href="mailto:hello@headroomstudio.dev" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">Drop us an email.</a></p>
+  </header>
 </div>
 
-<div class="container">
-    <section class="hero">
-        <p class="hero-eyebrow">Audita</p>
-        <h1>Frequently Asked Questions</h1>
-        <p class="hero-desc">Can't find what you're looking for? <a href="mailto:hello@headroomstudio.dev" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Drop us an email.</a></p>
-    </section>
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read" style="padding-top: 32px;">
+  <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+    <div class="faq-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" placeholder="Search questions and answers…" aria-label="Search FAQ">
+      <button class="faq-search__clear" type="button" aria-label="Clear search" style="display:none;">×</button>
+      <span class="faq-search__count mono"></span>
+    </div>
+    <div class="chips">
+      <button class="chip is-active" data-cat="all">All</button>
+      <button class="chip" data-cat="setup">Setup &amp; Mic</button>
+      <button class="chip" data-cat="calibration">Calibration</button>
+      <button class="chip" data-cat="dose">Hearing dose</button>
+      <button class="chip" data-cat="lyra">Lyra pairing</button>
+      <button class="chip" data-cat="license">Trial &amp; Licensing</button>
+    </div>
+  </div>
+
+  <section class="faq-group" data-cat="setup">
+    <div class="faq-group__head"><p class="label">Setup &amp; Mic</p></div>
+    <article class="faq-item" id="need-measurement-mic">
+      <div class="faq-item__q"><h3>Do I need a measurement microphone?</h3><a class="faq-item__anchor" href="#need-measurement-mic">#</a></div>
+      <p>For meaningful <em>absolute</em> SPL you want a calibrated measurement mic, but Audita works with any CoreAudio input device. A mic-correction profile compensates for the capsule's frequency response so the reading reflects the room, not the mic. Without calibration the figures are relative — still useful for tracking consistency and trends over a session.</p>
+    </article>
+    <article class="faq-item" id="records-audio">
+      <div class="faq-item__q"><h3>Does Audita record my audio?</h3><a class="faq-item__anchor" href="#records-audio">#</a></div>
+      <p>No. Audio from your input device is analysed in real time to derive a level number and is never recorded, saved, or transmitted. Nothing leaves your Mac. Audita requests microphone permission only so macOS will let it read the input level.</p>
+    </article>
+    <article class="faq-item" id="which-input">
+      <div class="faq-item__q"><h3>Which input should I use?</h3><a class="faq-item__anchor" href="#which-input">#</a></div>
+      <p>Pick any individual input channel from your interface in Audita's settings — not just the default stereo pair. A dedicated measurement mic on its own input is ideal; a talkback mic also works for relative tracking.</p>
+    </article>
+  </section>
+
+  <section class="faq-group" data-cat="calibration">
+    <div class="faq-group__head"><p class="label">Calibration</p></div>
+    <article class="faq-item" id="how-calibration-works">
+      <div class="faq-item__q"><h3>How does target-level calibration work?</h3><a class="faq-item__anchor" href="#how-calibration-works">#</a></div>
+      <p>The pink-noise wizard plays a reference signal and walks you through setting your monitor controller to a specific dBA target. Audita records the knob-position note, the target value, and the measured SPL — one calibration per output device. From then on, the Monitoring Discipline tracker knows where "on target" is.</p>
+    </article>
+    <article class="faq-item" id="monitoring-discipline">
+      <div class="faq-item__q"><h3>What is Monitoring Discipline?</h3><a class="faq-item__anchor" href="#monitoring-discipline">#</a></div>
+      <p>A live measure of how consistently you actually monitor at your calibrated reference. It shows as an on-target % chip in the menu bar with a green / yellow / orange ladder, plus a three-segment under / on / over bar. It's the antidote to the monitor knob quietly drifting over a long day.</p>
+    </article>
+  </section>
+
+  <section class="faq-group" data-cat="dose">
+    <div class="faq-group__head"><p class="label">Hearing dose</p></div>
+    <article class="faq-item" id="dose-standard">
+      <div class="faq-item__q"><h3>What standard does the hearing dose use?</h3><a class="faq-item__anchor" href="#dose-standard">#</a></div>
+      <p>Audita accumulates dose using the <strong>NIOSH REL</strong>: an 85 dBA reference, a 3 dB exchange rate, and an 80 dBA accumulation threshold — the most protective mainstream occupational standard. Peak monitoring follows EU Directive 2003/10/EC (135 / 137 / 140 dBC action values, 115 dBA instantaneous ceiling).</p>
+    </article>
+    <article class="faq-item" id="pressure-bloom">
+      <div class="faq-item__q"><h3>What's the Pressure Bloom in my menu bar?</h3><a class="faq-item__anchor" href="#pressure-bloom">#</a></div>
+      <p>It's the menu-bar indicator that shows two things at once: live SPL (the arc count) and today's accumulated dose tier (the colour — green / yellow / orange / red). One glance tells you both how loud it is right now and how much of your day's safe exposure you've used.</p>
+    </article>
+    <article class="faq-item" id="conservative-mode">
+      <div class="faq-item__q"><h3>When should I use Conservative mode?</h3><a class="faq-item__anchor" href="#conservative-mode">#</a></div>
+      <p>Conservative mode accumulates dose using max(dBA, dBC) rather than dBA alone. Turn it on for bass-heavy work — sub-mixing, kick tracking, live sound — where low-frequency energy contributes more exposure than A-weighting credits.</p>
+    </article>
+  </section>
+
+  <section class="faq-group" data-cat="lyra">
+    <div class="faq-group__head"><p class="label">Lyra pairing</p></div>
+    <article class="faq-item" id="send-to-lyra">
+      <div class="faq-item__q"><h3>How does "Send to Lyra" work?</h3><a class="faq-item__anchor" href="#send-to-lyra">#</a></div>
+      <p>After a target-level calibration, click "Send to Lyra…" and pick a slot. Audita writes the calibrated dB SPL into one of <a href="../lyra/">Lyra</a>'s three reference slots via the <code>lyra://reference/{n}/save</code> URL. That slot then reads as e.g. "Mix — 85 dB SPL" in Lyra's menu and HUD, and you can jump to it with Ctrl+F-key. Requires Lyra 1.4 or later.</p>
+    </article>
+  </section>
+
+  <section class="faq-group" data-cat="license">
+    <div class="faq-group__head"><p class="label">Trial &amp; Licensing</p></div>
+    <article class="faq-item" id="trial">
+      <div class="faq-item__q"><h3>How does the trial and pricing work?</h3><a class="faq-item__anchor" href="#trial">#</a></div>
+      <p>Audita includes a 7-day free trial with full functionality. It's a one-time purchase through Lemon Squeezy — currently $6.99 during Better Hearing &amp; Speech Month (through May 31, 2026), $19.99 thereafter. A license activates on up to two Macs at once.</p>
+    </article>
+  </section>
+
+  <div class="faq-empty" style="display:none;">
+    <p style="font-size:0.95rem;color:var(--text-2);">No questions match your search.</p>
+    <p style="font-size:0.82rem;color:var(--text-3);margin-top:10px;">Try a different keyword, or <a href="mailto:hello@headroomstudio.dev" style="color:var(--accent);">email us</a>.</p>
+  </div>
+
+  <section style="padding: 24px 0 32px; border-top: 1px solid var(--border); margin-top: 12px;">
+    <p class="label" style="margin-bottom: 18px;">Dig deeper</p>
+    <div class="tiles tiles--3">
+      <a class="tile tile--featured" href="guide.html"><div class="tile__glyph">☰</div><h4>User Guide</h4><p>The complete reference. Every feature, every setting.</p><span class="tile__arrow">→</span></a>
+      <a class="tile" href="api.html"><div class="tile__glyph">⟨ ⟩</div><h4>API reference</h4><p>The audita:// URL scheme and preference keys.</p><span class="tile__arrow">→</span></a>
+      <a class="tile" href="releases.html"><div class="tile__glyph">↑</div><h4>Release notes</h4><p>Version history. What changed in each release.</p><span class="tile__arrow">→</span></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="guide.html">User Guide</a></li>
+      <li><a href="api.html">API</a></li>
+      <li><a href="releases.html">Release notes</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </footer>
 </div>
 
-<div class="container">
-    <hr class="divider">
-
-    <!-- ── The basics ──────────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">The basics</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What does Audita actually measure?</p>
-                <p class="faq-a">Audita reads audio from a microphone at your listening position and converts the signal to A-weighted sound pressure level (dBA) using a filter that models human hearing sensitivity. It samples 10 times per second. That single measurement chain feeds two things: a <strong>Monitoring Discipline</strong> tracker that classifies every reading against a target listening level you've calibrated to, and a <strong>NIOSH hearing dose</strong> counter that accumulates your daily exposure. At 85 dBA you have 8 hours of safe exposure; every 3 dB increase halves that time.</p>
-                <p class="faq-a">Audita also tracks C-weighted SPL in parallel for impulse peak monitoring. See <a href="#a-c-weighting">A-weighting &amp; C-weighting</a> below for why.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Does Audita work with headphones?</p>
-                <p class="faq-a">No. Audita is a monitor-room tool. It measures the SPL arriving at a microphone placed at your listening position, which works for speakers but not for headphones.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What does the dose percentage mean in practice?</p>
-                <p class="faq-a">The dose percentage is how much of your safe daily hearing budget has been spent. The four states map to NIOSH dose thresholds:</p>
-                <table class="dose-table">
-                    <thead>
-                        <tr><th>Dose</th><th>State</th><th>What to do</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>0-40%</td><td>Safe</td><td>Well within limits - keep working</td></tr>
-                        <tr><td>40-70%</td><td>Caution</td><td>Consider turning down a few dB</td></tr>
-                        <tr><td>70-90%</td><td>Warning</td><td>Take a break or reduce level significantly</td></tr>
-                        <tr><td>90%+</td><td>Over-exposed</td><td>Daily limit approaching - continued exposure risks permanent damage</td></tr>
-                    </tbody>
-                </table>
-                <p class="faq-a" style="margin-top: 12px;">The dose resets at midnight.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">My dose is stuck at 0%. Why?</p>
-                <p class="faq-a">No dose accumulates below <strong>80 dBA</strong> - that's the NIOSH threshold below which continuous exposure isn't considered harmful. If you're working at a level below 80 dBA at your mic position, you're in the safe zone. Try speaking directly into the mic to confirm the measurement is working. If you're seeing readings consistently lower than expected, your calibration offset may need adjusting - see the Calibration section below.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How long can I safely work at different levels?</p>
-                <p class="faq-a">Every 3 dB increase halves your safe time. At 85 dBA you have 8 hours; below 80 dBA no dose accumulates at all. Most studio monitoring sits between 75 and 90 dBA - seemingly moderate, but over a 10-hour session the dose can accumulate faster than you'd expect. <a href="guide.html#safe-duration">Full safe-duration table in the guide →</a></p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Setup & Permissions ─────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Setup &amp; Permissions</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Why does Audita need Microphone permission?</p>
-                <p class="faq-a">Audita measures sound pressure level by reading audio from your chosen input device. macOS requires <strong>Microphone access</strong> for any app that reads from an audio input. The audio is processed entirely on-device in real time and is never recorded to disk or transmitted anywhere - only the derived numeric SPL values are retained.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I grant Microphone permission?</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span><span>Open <strong>System Settings → Privacy &amp; Security → Microphone</strong></span></div>
-                    <div class="step"><span class="step-num">2</span><span>Find <strong>Audita</strong> in the list and toggle it <strong>on</strong></span></div>
-                    <div class="step"><span class="step-num">3</span><span><strong>Relaunch Audita</strong> - the permission takes effect on the next launch</span></div>
-                </div>
-                <div class="notice">
-                    <span class="notice-icon">💡</span>
-                    <p>If Audita doesn't appear in the Microphone list, launch the app first - it will request permission on its own. If the prompt doesn't appear, add Audita manually with the + button in System Settings.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Which input device should I use?</p>
-                <p class="faq-a">For meaningful measurements, use a microphone positioned near your listening position - ideally 30-60 cm from where your ears sit while working. A small measurement mic or a decent USB condenser gives more reliable results than the built-in Mac microphone, though the built-in mic is fine for getting a rough sense of levels.</p>
-                <p class="faq-a">Select your preferred input in <strong>Settings → Audio</strong>. Audita remembers the selection by device UID, so it reconnects to the right mic automatically even after unplugging and replugging.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Calibration ─────────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Calibration</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Why does frequency response calibration matter?</p>
-                <p class="faq-a">A-weighted SPL is computed by applying a standardised filter to the incoming signal. That filter assumes the measurement chain - microphone, preamp, and analogue-to-digital converter - is frequency-neutral. In practice, no microphone is perfectly flat, and the deviation matters most at the extremes of the audible range. A capsule that rolls off at 100 Hz will underreport bass energy; one that has a presence peak at 10 kHz will read high-frequency content as louder than it is.</p>
-                <p class="faq-a">For occupational dose tracking, errors in the A-weighted reading translate directly into errors in the dose calculation. A systematic 3 dB underread means your reported dose could be half of the real value. Frequency response calibration applies a correction curve to the signal <em>before</em> A-weighting is computed, making the virtual measurement chain effectively flat. It should be done before level calibration - a correct level offset on top of a distorted frequency response still produces inaccurate readings.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I calibrate the frequency response?</p>
-                <p class="faq-a">Place the measurement mic at your listening position, then run <strong>Settings → Audio → Step 1 → Measure</strong>. Audita plays pink noise for ~4 seconds, captures the spectral shape, and derives a corrective FIR filter automatically. <a href="guide.html#calibration">Full walkthrough in the guide →</a></p>
-                <p class="faq-a">A dedicated measurement mic (Behringer ECM8000, Superlux ECM999) gives the most accurate results. The built-in MacBook mic still benefits from correction but varies a lot between units.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can I save a calibration and reuse it later?</p>
-                <p class="faq-a">Yes - <strong>Settings → Audio → Calibration Profiles</strong> saves the FIR correction + level offset as a named profile you can switch between in one click. Useful when you alternate between rigs (studio desk / mobile rig / second room). The Step 3 reference monitor record is keyed separately by output-device UID and isn't part of profiles. <a href="guide.html#calibration">Detailed coverage in the guide →</a></p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why is there a calibration offset?</p>
-                <p class="faq-a">Audita computes SPL from the digital signal level of your microphone. That digital level depends on two things: the microphone's sensitivity, and the input gain set on your interface or in System Settings → Sound. Both vary between setups, so the raw reading isn't tied to a real-world SPL value without calibration. The offset bridges that gap.</p>
-                <p class="faq-a" style="margin-top: 8px;">The default value of <strong>94 dB</strong> corresponds to the IEC 60942 pistonphone standard - a calibration device that produces a known 94 dB tone at 1 kHz. In practice, virtually every setup will need a different offset, because your input gain almost certainly isn't set to match that reference. Treat the default as a starting point, not a correct value.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">I don't have a pistonphone. How do I calibrate?</p>
-                <p class="faq-a">Use the free <a href="https://apps.apple.com/us/app/niosh-sound-level-meter/id1096545820" target="_blank" rel="noopener"><strong>NIOSH Sound Level Meter</strong></a> on an iPhone as the reference. Place the iPhone at your listening position, play pink noise, and adjust Audita's calibration offset until the two readings agree to within 1-2 dB. NIOSH validate the app to ±2 dBA, which is plenty for setting a working offset. <a href="guide.html#calibration">Step-by-step procedure in the guide →</a></p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Monitoring Discipline ──────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Monitoring Discipline</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What is Monitoring Discipline?</p>
-                <p class="faq-a">It's a measure of how consistently you actually monitor at your chosen reference level. Set a target (e.g. 79 dBA for K-14) and a tolerance band (e.g. ±3 dB), and Audita classifies every reading at 10 Hz as <em>under</em>, <em>on-target</em>, or <em>over</em>. The menu bar shows a live <strong>on-target %</strong> chip - green above 80%, yellow 60-80%, orange below - plus a three-segment under/on/over bar so you can see which way the room is leaning. <em>Today's Summary</em> aggregates the same metric across sessions, and per-session figures land in <em>History</em> next to the dose stats.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why does this exist when you already track NIOSH dose?</p>
-                <p class="faq-a">NIOSH dose only starts accumulating above 80 dBA. If you mix at 75 dBA all day, your dose stays at 0% - useful for hearing safety, useless as a discipline metric. Monitoring Discipline works at any SPL, because the question it answers is different: not "have I damaged my ears today?" but "did I make decisions against a stable reference today, or against a moving one?" The two metrics complement each other.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Which target should I pick?</p>
-                <p class="faq-a">There are four industry presets to start from:</p>
-                <table class="dose-table">
-                    <thead>
-                        <tr><th>Target</th><th>Use case</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>73 dBA</td><td>Mastering - quiet critical listening, small rooms, late-night work</td></tr>
-                        <tr><td>79 dBA</td><td>K-14 - Bob Katz's general-purpose mixing reference</td></tr>
-                        <tr><td>83 dBA</td><td>K-12 - broadcast / loud-music mixing</td></tr>
-                        <tr><td>85 dBA</td><td>K-20 / Dolby / SMPTE - film, cinema, reference-loudness mix stages</td></tr>
-                    </tbody>
-                </table>
-                <p class="faq-a" style="margin-top: 12px;">Or set a custom target between 60 and 95 dBA. The default (79 dBA / ±3 dB) is a sensible starting point for most studio mixing.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">My on-target % drops when I take a break. Is that a bug?</p>
-                <p class="faq-a">No - and Audita guards against it. Periods of true silence (below a floor calculated from your target) are excluded from the on-target percentage entirely, so a coffee break doesn't deflate your score. The floor is the larger of <em>target − tolerance − 12 dB</em> or <em>50 dBA</em>, which catches "the room went quiet" without catching "I'm mixing 6 dB under reference" - that still counts as <em>under</em>, because monitoring 6 dB low is a real discipline gap, not silence.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What are the monitoring alerts?</p>
-                <p class="faq-a">Two opt-in macOS notifications, both fire once per session:</p>
-                <p class="faq-a"><strong>Drift</strong> - your rolling 30-minute Leq has crept significantly above your session baseline. Useful for catching the slow upward creep that happens over a long mix without you noticing.</p>
-                <p class="faq-a"><strong>Off target</strong> - you've sustained a deviation from your reference target band. The level is consistently outside ±tolerance, not just briefly poking out for a transient.</p>
-                <p class="faq-a">Each category has its own 30-minute snooze. Silencing a drift alert doesn't muffle a dose alert.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why does my on-target % show "-" early in a session?</p>
-                <p class="faq-a">The metric needs at least 30 seconds of active (non-silent) monitoring before it reports a percentage. Otherwise an early loud burst would peg the reading at 100% or 0% based on a tiny sample. Once you've crossed the 30-second threshold, the chip starts updating live.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── A-weighting & C-weighting ──────────────────────────────────── -->
-
-    <section class="faq-group" id="a-c-weighting">
-        <p class="group-label">A-weighting &amp; C-weighting</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Why does Audita show both dBA and dBC?</p>
-                <p class="faq-a">Human hearing is not equally sensitive at all frequencies. International standards define <strong>weighting curves</strong> that adjust measurements to reflect this. The two matter for different reasons:</p>
-                <p class="faq-a"><strong>A-weighting (dBA)</strong> models hearing sensitivity at moderate levels. It attenuates frequencies below 200 Hz (a 100 Hz tone measures about 19 dB lower than its physical level) and slightly boosts the 2-4 kHz range where hearing is most sensitive. This is the correct weighting for dose calculation because hearing damage from continuous exposure correlates with perceived loudness, not raw physical energy. NIOSH, OSHA, and EU Directive 2003/10/EC all mandate dBA for occupational dose.</p>
-                <p class="faq-a"><strong>C-weighting (dBC)</strong> is nearly flat from 31.5 Hz to 8 kHz - it only rolls off at the extremes. This makes it correct for measuring <strong>peak impulse levels</strong>. Impulsive sounds can cause mechanical damage to cochlear hair cells regardless of how loud they seem. A-weighting would underreport this risk because it de-emphasises the low-frequency content of many impulses. EU Directive 2003/10/EC specifically mandates C-weighted peak measurement (LCpeak) for exactly this reason.</p>
-                <img src="weighting-curves.png" alt="IEC 61672-1 A-weighting and C-weighting frequency response curves showing how A-weighting attenuates low frequencies while C-weighting remains nearly flat" class="chart-img">
-                <p class="chart-caption">IEC 61672-1 A-weighting vs C-weighting. A-weighting de-emphasises bass; C-weighting stays flat. The gap between the two readings indicates how much low-frequency energy A-weighting is missing.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What does the dBC − dBA gap indicator mean?</p>
-                <p class="faq-a">When the C-weighted reading is significantly higher than the A-weighted reading, it means substantial low-frequency energy is present that A-weighting is filtering out. Audita shows a gap indicator in the menu bar popover:</p>
-                <p class="faq-a"><strong>Gap &gt; 6 dB</strong> (caution): notable low-frequency content present. <strong>Gap &gt; 10 dB</strong> (warning): significant bass energy that A-weighting alone would underreport.</p>
-                <p class="faq-a">This matters most when mixing bass-heavy music, working with subwoofers, or tracking heavy kick drums and sub-bass content. In these situations, A-weighting gives you a false sense of safety - you may feel like the levels are manageable while the physical energy reaching your ears is substantially higher.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What is Conservative dose mode?</p>
-                <p class="faq-a">Standard NIOSH dose uses A-weighted SPL only. But when the C-weighted level is significantly higher than the A-weighted level, the physical energy hitting your ears is greater than A-weighting alone suggests. Conservative mode uses <strong>max(dBA, dBC)</strong> for dose accumulation at each tick - whichever weighting gives the higher reading drives the calculation.</p>
-                <p class="faq-a">For mid-range content (speech, acoustic instruments), dBA ≈ dBC and behaviour is unchanged. For bass-heavy content, the C-weighted level will be higher and dose will accumulate faster - a more protective posture.</p>
-                <p class="faq-a">There is no formal NIOSH or OSHA standard for this approach. It's a maximum-protection option. Enable it in <strong>Settings → Safety</strong>.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Sessions & DAW detection ───────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Sessions &amp; DAW detection</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">How does auto-session detection work?</p>
-                <p class="faq-a">A session starts when the first tracked DAW launches and ends when the last one quits - opening multiple DAWs at once keeps a single session running. Disable it (or switch to manual Start / End Session) in <strong>Settings → DAWs</strong>. <a href="guide.html#sessions">More on the session lifecycle in the guide →</a></p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">My DAW isn't being detected. What do I do?</p>
-                <p class="faq-a">First confirm that auto-session detection is enabled in <strong>Settings → DAWs</strong>. If your DAW isn't in the built-in list of 15, you can add its bundle ID manually. To find a DAW's bundle ID:</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span><span>Right-click the app in Finder and choose <strong>Get Info</strong></span></div>
-                    <div class="step"><span class="step-num">2</span><span>Or run this in Terminal to look it up directly:</span></div>
-                </div>
-                <div class="terminal">mdls -name kMDItemCFBundleIdentifier /Applications/YourDAW.app</div>
-                <div class="steps" style="margin-top: 8px;">
-                    <div class="step"><span class="step-num">3</span><span>Copy the identifier (e.g. <span class="chip">com.example.myDAW</span>)</span></div>
-                    <div class="step"><span class="step-num">4</span><span>In Audita, go to <strong>Settings → DAWs → Add DAW…</strong> and paste it in</span></div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why doesn't a session appear in history after I worked for a while?</p>
-                <p class="faq-a">Sessions with less than <strong>0.1% dose</strong> are excluded from history - this filters out sessions where the microphone wasn't meaningfully active (e.g. you opened your DAW without playing audio at a measurable level). Make sure audio is actually playing through your monitors before starting a session, and that your calibration offset is correct so SPL readings are in the expected range.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I read the weekly chart?</p>
-                <p class="faq-a">The seven bars represent the last seven calendar days, oldest on the left, today on the right. Each bar height is normalised to the highest day - the tallest bar fills the available space, and shorter bars scale proportionally. The number above each bar is that day's total dose as a percentage of the daily limit. Bar colours follow the same Safe / Caution / Warning / Over-exposed thresholds used by the menu bar icon.</p>
-                <p class="faq-a">The <strong>Daily avg</strong> header is the arithmetic mean of all seven days' dose percentages - on a typical day this week, how much of your daily budget did you use?</p>
-                <p class="faq-a">The <strong>EU weekly</strong> header is the EU L_EX,w - the weekly noise exposure level from ISO 9612 and EU Directive 2003/10/EC, expressed in dBA and directly comparable to the 85 dBA daily criterion. Below 80 dBA is green; 80-85 dBA is orange; ≥ 85 dBA is red, meaning weekly exposure is unsustainable at that pace.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Peak monitoring ────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Peak monitoring</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What are the peak impulse thresholds?</p>
-                <p class="faq-a">The thresholds come from <strong>EU Directive 2003/10/EC</strong>, which mandates C-weighted peak measurement for impulse monitoring:</p>
-                <table class="dose-table">
-                    <thead>
-                        <tr><th>Threshold</th><th>EU action level</th><th>Meaning</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>135 dBC</td><td>Lower action value</td><td>Hearing protection must be available</td></tr>
-                        <tr><td>137 dBC</td><td>Upper action value</td><td>Hearing protection must be worn</td></tr>
-                        <tr><td>140 dBC</td><td>Absolute ceiling</td><td>No exposure permitted</td></tr>
-                    </tbody>
-                </table>
-                <p class="faq-a" style="margin-top: 12px;">These matter because transient sounds can cause mechanical damage to cochlear hair cells regardless of cumulative dose. Peak notifications are rate-limited to one per 30 seconds to avoid spam during intense sessions (e.g. drum tracking).</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What is the 115 dBA instantaneous ceiling?</p>
-                <p class="faq-a">The 115 dBA limit is the maximum permissible instantaneous A-weighted level per EU Directive 2003/10/EC. Unlike the C-weighted LCpeak thresholds that target impulsive bass-heavy events, this limit applies to any sudden A-weighted spike. Audita counts the number of ticks in each session where this threshold is exceeded and shows a badge in the session history - even a count of 1 warrants attention, as this level is capable of causing immediate cochlear damage.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Leq & Ln statistics ───────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Leq &amp; Ln statistics</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What is Leq?</p>
-                <p class="faq-a">Leq (equivalent continuous level) is the energy-average of all sound levels measured over a given time window. It answers the question: what single steady level would carry the same total acoustic energy as the actual fluctuating signal? The formula is Leq = 10 · log₁₀(mean(10^(Lᵢ/10))), where each Lᵢ is an individual A-weighted SPL reading. Unlike an arithmetic average, Leq is dominated by the loud moments - a few loud seconds pull the Leq up significantly more than many quiet ones.</p>
-                <p class="faq-a">Audita shows Leq over three rolling windows: 1 minute, 10 minutes, and 30 minutes. These update live in the menu bar panel.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How does Leq relate to the dose percentage?</p>
-                <p class="faq-a">Your dose is computed using the same energy-averaging formula, but applied across the whole day. The Leq windows give you a shorter-term view of the same thing - Leq(1 min) shows the level of the last minute, Leq(10 min) of the last ten minutes, and so on. If Leq(10 min) is consistently above 85 dBA, your dose is accumulating faster than the NIOSH 8-hour limit.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What are L10, L50, and L90?</p>
-                <p class="faq-a">L10, L50, and L90 are statistical percentile levels computed over the last 30 minutes of A-weighted SPL readings. They describe the distribution of levels in a session, not just the average.</p>
-                <p class="faq-a"><strong>L10</strong> is the level exceeded 10% of the time - it captures your loud peaks. If L10 is high, you're spending meaningful time at elevated levels.<br>
-                <strong>L50</strong> is the median level - exceeded exactly 50% of the time. This is your typical working level.<br>
-                <strong>L90</strong> is the level exceeded 90% of the time - it represents the background noise floor of your room. If L90 is already at 60-65 dBA, that's a significant constant exposure even before you play anything.</p>
-                <p class="faq-a">A healthy session has a clear gap between L10 and L90, indicating dynamic range. When all three values are close together, the environment is consistently loud without much variation.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why do the Leq windows show "-" when I first start?</p>
-                <p class="faq-a">Leq(1 min) needs 1 minute of data, Leq(10 min) needs 10 minutes, and Leq(30 min) / Ln percentiles need 30 minutes. The display shows a dash until the required window is filled. This is intentional - showing an estimate from only a few seconds of data would be misleading.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Standards ──────────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Standards</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Why NIOSH and not OSHA?</p>
-                <p class="faq-a">Both are US occupational noise standards, but NIOSH is more protective. OSHA uses a 5 dB exchange rate and a 90 dBA criterion level - parameters designed for heavy industry decades ago. NIOSH uses a <strong>3 dB exchange rate</strong> and an <strong>85 dBA criterion</strong>, which aligns with current audiological research and is the basis for EU Directive 2003/10/EC. For audio professionals who sit at moderate-to-high levels for long stretches, NIOSH is the right standard to use.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Is Audita a replacement for a professional sound level meter?</p>
-                <p class="faq-a">No. Audita gives useful, science-based awareness of your exposure levels during everyday work - and that awareness alone can meaningfully reduce long-term risk. A <strong>calibrated, certified sound level meter</strong> (IEC 61672 Class 1 or 2) is required for formal occupational health compliance assessments. Treat Audita as a practical daily monitoring tool, not a regulatory instrument.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Companion apps ─────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Companion apps</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Does Audita work with Lyra?</p>
-                <p class="faq-a">Yes. <a href="../lyra/">Lyra</a> is our keyboard-driven volume control for Universal Audio Apollo interfaces. After running Audita's <strong>target-level calibration</strong> in Settings → Audio, click <strong>"Send to Lyra…"</strong> - Audita hands the position to Lyra by writing the live Apollo monitor level into one of three reference slots, tagged with the name and dB SPL value you picked. Recall the position later with <strong>Ctrl+F10 / F11 / F12</strong> in Lyra. The slot displays as e.g. <em>"Mix - 85 dB SPL"</em> in Lyra's menu and HUD instead of a generic percentage.</p>
-                <p class="faq-a">The integration uses Lyra's <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://reference/{n}/save</code> URL scheme, so even if Lyra is closed, macOS launches it on demand. Requires <strong>Lyra 1.4 or later</strong>. If Lyra isn't installed, Audita shows a small link to the product page in place of the button - no nags or interruptions.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Troubleshooting ─────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Troubleshooting</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Notifications aren't appearing.</p>
-                <p class="faq-a">Check <strong>System Settings → Notifications → Audita</strong>. If Audita isn't listed, relaunch the app - it requests notification permission on every launch. Make sure the alert style is set to Alerts or Banners, not None. If they disappeared after an update, reset permissions and re-grant them:</p>
-                <div class="terminal">tccutil reset All com.headroom.Audita</div>
-                <p class="faq-a" style="margin-top: 8px;">Relaunch Audita and grant notification permission when prompted.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">The Sparkle update prompt isn't appearing.</p>
-                <p class="faq-a">Sparkle caches its "already checked" state. To force a fresh check:</p>
-                <div class="terminal">defaults delete com.headroom.Audita</div>
-                <p class="faq-a" style="margin-top: 8px;">Relaunch Audita, then use <strong>menu → Check for Updates…</strong></p>
-            </div>
-
-        </div>
-    </section>
-
-    <hr class="divider">
-    <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
-        <ul class="footer-links">
-            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
-            <li><a href="guide.html">User Guide</a></li>
-            <li><a href="api.html">API</a></li>
-            <li><a href="releases.html">Release notes</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-        </ul>
-    </footer>
-</div>
-
+<script src="../waveform.js"></script>
+<script src="../faq.js"></script>
 </body>
 </html>

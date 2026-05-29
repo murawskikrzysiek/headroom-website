@@ -31,7 +31,7 @@
   }
 
   function initScrollspy() {
-    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"], .doc-contents a[href^="#"]'));
     if (!links.length) return;
     var sections = links.map(function (a) {
       var id = a.getAttribute('href').slice(1);

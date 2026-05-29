@@ -4,9 +4,8 @@
 User-agent: *
 Allow: /
 
-# Sparkle appcasts are not for humans / search — block them politely.
+# Sparkle appcasts are for the apps, not for search engines
 Disallow: /lyra/appcast.xml
 Disallow: /audita/appcast.xml
-Disallow: /auris/appcast.xml
 
 Sitemap: https://headroomstudio.dev/sitemap.xml
