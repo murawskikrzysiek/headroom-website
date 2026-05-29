@@ -184,6 +184,10 @@
         <span class="tag tag-impr">Impr</span>
         <span><strong>Reliability and security hardening.</strong> Continuous trial and license enforcement (measurement stops the moment a trial expires), a clock-rollback-proof trial that survives a Keychain wipe, callback-URL hardening on the <code>audita://</code> scheme, and validated Auris imports.</span>
       </li>
+      <li>
+        <span class="tag tag-fix">Fix</span>
+        <span><strong>Corrected the EU weekly exposure level (L_EX,w).</strong> A wrong exchange-rate constant in the weekly calculation pushed the figure toward the 85 dBA criterion regardless of your actual exposure, so even quiet weeks read close to the limit. It now uses the correct 3 dB exchange rate, so the History weekly level and the Weekly Exposure widget report accurate values: a typical mixed week reads in the green or amber range rather than always near red.</span>
+      </li>
     </ul>
   </section>
 
