@@ -25,6 +25,26 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
+        <!--
+          DRAFT v1.3 item. Before release-cut: set the real pubDate, then run
+          `make sign-update` on Audita-1.3.dmg and paste the edSignature + the
+          DMG byte length below (both are placeholders now). Do not publish this
+          appcast with the placeholder signature: Sparkle will reject the update.
+        -->
+        <item>
+            <title>Version 1.3 - Widgets</title>
+            <pubDate>Mon, 01 Jun 2026 14:00:00 +0000</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.3.dmg"
+                sparkle:edSignature="PLACEHOLDER_RUN_make_sign-update_AT_RELEASE"
+                length="0"
+                type="application/octet-stream" />
+        </item>
+
         <item>
             <title>Version 1.2 - Session reports + automation API</title>
             <pubDate>Tue, 19 May 2026 14:00:00 +0000</pubDate>
