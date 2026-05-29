@@ -93,8 +93,8 @@ code {
 
 /* ── 3. Layout ───────────────────────────────────────────────────────────── */
 .container { max-width: var(--maxw-wide); margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
-.container--docs { max-width: var(--maxw-docs); padding: 0 32px; }
-.container--read { max-width: var(--maxw-read); padding: 0 32px; }
+.container--docs { max-width: var(--maxw-docs); margin: 0 auto; padding: 0 32px; }
+.container--read { max-width: var(--maxw-read); margin: 0 auto; padding: 0 32px; }
 
 .rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
