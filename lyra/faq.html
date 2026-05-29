@@ -1,582 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyra FAQ - Apollo Volume Control on Mac, Setup & Permissions</title>
-    <link rel="canonical" href="https://headroomstudio.dev/lyra/faq.html">
-    <meta name="description" content="Common questions about Lyra: Accessibility permissions, supported Apollo models, UA Mixer Engine setup, hotkey customization, trial, and licensing.">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lyra FAQ — Setup, UA Mixer Engine, Shortcuts &amp; Licensing</title>
+  <link rel="canonical" href="https://headroomstudio.dev/lyra/faq.html">
+  <meta name="description" content="Answers to common Lyra questions — Accessibility permission, UA Mixer Engine, Reference Levels, Shortcuts, widgets, compatibility, and licensing.">
+  <meta property="og:title" content="Lyra FAQ">
+  <meta property="og:description" content="Common questions about Lyra — setup, UA Mixer Engine, Shortcuts, widgets, and licensing.">
+  <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lyra FAQ">
+  <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
 
-        :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
-            --accent:       #7c84f6;
-            --accent-dim:   rgba(124, 132, 246, 0.10);
-            --radius-btn:   9px;
-        }
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Why does Lyra need Accessibility permission?", "acceptedAnswer": { "@type": "Answer", "text": "Lyra intercepts the F10, F11, and F12 keys globally — it captures them before macOS passes them to other apps. This requires Accessibility access. No other input is read or recorded; Lyra only acts on those three keys, and only when your Apollo is connected." } },
+      { "@type": "Question", "name": "Does Lyra work if UA Console is closed?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. UA Mixer Engine runs independently in the background — Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not." } },
+      { "@type": "Question", "name": "Which Apollo interfaces are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Any Universal Audio Apollo Thunderbolt interface, including Apollo Twin X, x4, x6, x8, x8p, x16, and Arrow. If it uses UA Console and UA Mixer Engine, it works with Lyra." } },
+      { "@type": "Question", "name": "How does the trial work?", "acceptedAnswer": { "@type": "Answer", "text": "Lyra includes a 7-day free trial with full functionality, starting from first launch. After it ends, the app prompts you to purchase. As of 1.6, if the trial expires you can still run 'Test for 5 minutes' sessions — two per day — to verify a fix against your gear before buying." } }
+    ]
+  }
+  </script>
 
-        html { font-size: 16px; scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ─── Nav ─── */
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
-
-        .brand {
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
-        .brand-word { font-weight: 600; color: #c8c6f0; }
-        .brand-word span { font-weight: 500; color: #7a78a8; }
-
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-2);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .nav-back:hover { color: var(--text); }
-        .nav-back svg { width: 14px; height: 14px; }
-
-        /* ─── Hero ─── */
-
-        .hero {
-            padding: 56px 0 48px;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-size: clamp(1.6rem, 4vw, 2rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 12px;
-        }
-
-        .hero-desc {
-            font-size: 0.9375rem;
-            color: var(--text-2);
-            line-height: 1.7;
-        }
-
-        /* ─── Divider ─── */
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0 0 48px;
-        }
-
-        /* ─── FAQ groups ─── */
-
-        .faq-group {
-            padding-bottom: 52px;
-        }
-
-        .group-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-3);
-            margin-bottom: 20px;
-        }
-
-        /* ─── FAQ items ─── */
-
-        .faq-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .faq-item {
-            border-top: 1px solid var(--border);
-            padding: 20px 0;
-        }
-
-        .faq-item:last-child {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .faq-q {
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.45;
-            letter-spacing: -0.01em;
-            margin-bottom: 10px;
-        }
-
-        .faq-a {
-            font-size: 0.9rem;
-            color: var(--text-2);
-            line-height: 1.75;
-        }
-
-        .faq-a + .faq-a {
-            margin-top: 8px;
-        }
-
-        .faq-a strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .faq-a a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
-            transition: color 0.18s;
-        }
-
-        .faq-a a:hover { color: #a0aaff; }
-
-        /* ─── Steps list ─── */
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .step {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            font-size: 0.9rem;
-            color: var(--text-2);
-            line-height: 1.6;
-        }
-
-        .step-num {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--accent);
-            background: var(--accent-dim);
-            border-radius: 4px;
-            padding: 2px 6px;
-            margin-top: 2px;
-            flex-shrink: 0;
-            letter-spacing: 0.02em;
-        }
-
-        /* ─── Notice box ─── */
-
-        .notice {
-            margin-top: 12px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .notice-icon {
-            font-size: 0.8rem;
-            flex-shrink: 0;
-            margin-top: 3px;
-            opacity: 0.45;
-        }
-
-        .notice p {
-            font-size: 0.8rem;
-            color: var(--text-2);
-            line-height: 1.6;
-        }
-
-        /* ─── Footer ─── */
-
-        footer {
-            padding: 28px 0 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
-
-        .footer-links { display: flex; gap: 22px; list-style: none; }
-
-        .footer-links a {
-            font-size: 0.8rem;
-            color: var(--text-3);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .footer-links a:hover { color: var(--text-2); }
-
-        @media (max-width: 560px) {
-            .hero { padding: 40px 0 36px; }
-        }
-    </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="container">
-    <nav>
-        <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
-            <span class="brand-word">Head<span>room</span></span>
-        </a>
-        <a href="./" class="nav-back">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
-            </svg>
-            Lyra
-        </a>
-    </nav>
+<div class="glow glow--tl"></div>
+
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="guide.html">User Guide</a>
+      <a href="api.html">API</a>
+      <a href="faq.html" class="is-active">FAQ</a>
+      <a href="./" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>Lyra</a>
+    </div>
+  </nav>
+
+  <header class="doc-header">
+    <p class="eyebrow">Lyra · FAQ</p>
+    <h1 class="display">Frequently asked questions.</h1>
+    <p class="doc-header__lead">Type to find an answer, or browse by topic. Can't find what you're looking for? <a href="mailto:hello@headroomstudio.dev" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">Drop us an email.</a></p>
+  </header>
 </div>
 
-<div class="container">
-    <section class="hero">
-        <p class="hero-eyebrow">Lyra</p>
-        <h1>Frequently Asked Questions</h1>
-        <p class="hero-desc">Can't find what you're looking for? <a href="mailto:hello@headroomstudio.dev" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Drop us an email.</a></p>
-    </section>
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read" style="padding-top: 32px;">
+  <!-- Search + chips -->
+  <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+    <div class="faq-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" placeholder="Search questions and answers…" aria-label="Search FAQ">
+      <button class="faq-search__clear" type="button" aria-label="Clear search" style="display:none;">×</button>
+      <span class="faq-search__count mono"></span>
+    </div>
+    <div class="chips">
+      <button class="chip is-active" data-cat="all">All</button>
+      <button class="chip" data-cat="setup">Setup &amp; Permissions</button>
+      <button class="chip" data-cat="mixer">UA Mixer Engine</button>
+      <button class="chip" data-cat="reference">Reference Levels</button>
+      <button class="chip" data-cat="automation">Shortcuts &amp; Widgets</button>
+      <button class="chip" data-cat="compat">Compatibility</button>
+      <button class="chip" data-cat="license">Trial &amp; Licensing</button>
+    </div>
+  </div>
+
+  <!-- Setup -->
+  <section class="faq-group" data-cat="setup">
+    <div class="faq-group__head"><p class="label">Setup &amp; Permissions</p></div>
+    <article class="faq-item" id="accessibility-why">
+      <div class="faq-item__q"><h3>Why does Lyra need Accessibility permission?</h3><a class="faq-item__anchor" href="#accessibility-why">#</a></div>
+      <p>Lyra intercepts the F10, F11, and F12 keys globally — meaning it captures them before macOS passes them on to other apps. This requires Accessibility access, which is how macOS controls which apps are allowed to monitor and intercept system-wide input. No other input is read or recorded. Lyra only acts on those three keys, and only when your Apollo is connected.</p>
+    </article>
+    <article class="faq-item" id="grant-accessibility">
+      <div class="faq-item__q"><h3>How do I grant Accessibility permission?</h3><a class="faq-item__anchor" href="#grant-accessibility">#</a></div>
+      <ol class="faq-steps">
+        <li><span class="n">1</span><span>Open System Settings → Privacy &amp; Security → Accessibility</span></li>
+        <li><span class="n">2</span><span>Click the + button at the bottom of the list</span></li>
+        <li><span class="n">3</span><span>Navigate to your Applications folder and select Lyra</span></li>
+        <li><span class="n">4</span><span>Make sure the toggle next to Lyra is turned on</span></li>
+        <li><span class="n">5</span><span>Relaunch Lyra</span></li>
+      </ol>
+      <div class="faq-tip"><span style="opacity:0.5;font-size:0.85rem;margin-top:2px;">💡</span><p>If Lyra doesn't appear in the list right after adding it, quit and reopen System Settings — it sometimes needs a refresh before the new entry shows up.</p></div>
+    </article>
+    <article class="faq-item" id="keyboard-monitoring-notice">
+      <div class="faq-item__q"><h3>macOS showed a notification saying Lyra is monitoring keyboard input. Is that normal?</h3><a class="faq-item__anchor" href="#keyboard-monitoring-notice">#</a></div>
+      <p>Yes, completely normal. When an app uses a global keyboard tap — which is how Lyra intercepts F10/F11/F12 — macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
+    </article>
+  </section>
+
+  <!-- Mixer -->
+  <section class="faq-group" data-cat="mixer">
+    <div class="faq-group__head"><p class="label">UA Mixer Engine</p></div>
+    <article class="faq-item" id="what-is-mixer-engine">
+      <div class="faq-item__q"><h3>What is UA Mixer Engine?</h3><a class="faq-item__anchor" href="#what-is-mixer-engine">#</a></div>
+      <p>UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac — routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
+      <p>You don't need to do anything special to set it up. If you've ever used UA Console, UA Mixer Engine is already installed.</p>
+    </article>
+    <article class="faq-item" id="console-closed">
+      <div class="faq-item__q"><h3>Does Lyra work if UA Console is closed?</h3><a class="faq-item__anchor" href="#console-closed">#</a></div>
+      <p>Yes. UA Mixer Engine runs independently in the background — Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not. As of 1.6, Lyra can optionally auto-start Mixer Engine when your Apollo wakes up, and auto-quit the UA apps when it disconnects.</p>
+    </article>
+    <article class="faq-item" id="mixer-not-running">
+      <div class="faq-item__q"><h3>Lyra says "UA Mixer not running". What do I do?</h3><a class="faq-item__anchor" href="#mixer-not-running">#</a></div>
+      <p>This means your Apollo is detected but UA Mixer Engine isn't running yet. Click "Start UA Mixer Engine" in the Lyra menu — this launches the process without needing to open Console. It should connect within a few seconds. If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
+    </article>
+  </section>
+
+  <!-- Reference -->
+  <section class="faq-group" data-cat="reference">
+    <div class="faq-group__head"><p class="label">Reference Levels</p></div>
+    <article class="faq-item" id="what-are-reference-levels">
+      <div class="faq-item__q"><h3>What are Reference Levels?</h3><a class="faq-item__anchor" href="#what-are-reference-levels">#</a></div>
+      <p>Three named monitor presets, each storing a specific Apollo monitor level. Hit Ctrl+F10 / F11 / F12 to jump straight to the level stored in slot 1, 2, or 3 — useful for K-System reference, A/B'ing at a different loudness, or quick check-mixes at low volume without losing your main setting. The defaults are Quiet, Mix, and Loud; rename them to whatever fits your workflow.</p>
+    </article>
+    <article class="faq-item" id="db-spl-label">
+      <div class="faq-item__q"><h3>Why does my slot show "85 dB SPL" instead of a percentage?</h3><a class="faq-item__anchor" href="#db-spl-label">#</a></div>
+      <p>Because it was calibrated. When a slot is written via Audita's "Send to Lyra…" action it carries a measured dB SPL value, and Lyra prefers that label everywhere — menu, HUD pill — because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
+    </article>
+    <article class="faq-item" id="more-than-three-slots">
+      <div class="faq-item__q"><h3>Can I have more than three slots?</h3><a class="faq-item__anchor" href="#more-than-three-slots">#</a></div>
+      <p>No, three is the design. The slots map onto Ctrl+F10/F11/F12, and three covers the useful cases (quiet / reference / loud) without becoming a long list nobody remembers. If you need more positions, drive Lyra from a Stream Deck or Shortcuts via the <code>lyra://volume/set?tapered=…</code> URL — that supports any number of saved positions in your launcher of choice.</p>
+    </article>
+  </section>
+
+  <!-- Automation -->
+  <section class="faq-group" data-cat="automation">
+    <div class="faq-group__head"><p class="label">Shortcuts &amp; Widgets</p></div>
+    <article class="faq-item" id="shortcuts-app">
+      <div class="faq-item__q"><h3>Does Lyra work with the macOS Shortcuts app?</h3><a class="faq-item__anchor" href="#shortcuts-app">#</a></div>
+      <p>Yes — as of v1.5, Lyra ships an App Intents bundle with eleven intents covering every action you can drive from the URL scheme, plus structured reads. They show up in Shortcuts, Spotlight (pre-wired App Shortcuts), Siri (via a named Shortcut), and Focus Filters. Requires macOS 13 or later. On macOS 12, Lyra runs as usual and the Shortcuts surface is hidden.</p>
+    </article>
+    <article class="faq-item" id="widgets">
+      <div class="faq-item__q"><h3>What are the widgets, and do I need them?</h3><a class="faq-item__anchor" href="#widgets">#</a></div>
+      <p>New in 1.6: four interactive widgets for the macOS widget gallery (Notification Center or desktop). Control Panel bundles volume, Mute/DIM/Mono, and the three reference slots; the others are smaller single-purpose tiles. They show live state and act the instant you tap. They're entirely optional — Lyra works the same from the keyboard without ever adding a widget. Widgets require macOS 14 or later.</p>
+    </article>
+    <article class="faq-item" id="siri">
+      <div class="faq-item__q"><h3>Can I control Lyra with Siri?</h3><a class="faq-item__anchor" href="#siri">#</a></div>
+      <p>Yes, but via a named Shortcut you build yourself — not by saying the App Shortcut phrases directly. Open Shortcuts.app → New Shortcut, drop in the Lyra action(s), name it something Siri can hear cleanly ("Mute the monitor", "Mix level"), and save. Then say "Hey Siri, mute the monitor" and Siri runs the chain.</p>
+    </article>
+  </section>
+
+  <!-- Compatibility -->
+  <section class="faq-group" data-cat="compat">
+    <div class="faq-group__head"><p class="label">Compatibility</p></div>
+    <article class="faq-item" id="supported-interfaces">
+      <div class="faq-item__q"><h3>Which Apollo interfaces are supported?</h3><a class="faq-item__anchor" href="#supported-interfaces">#</a></div>
+      <p>Lyra works with any Universal Audio Apollo Thunderbolt interface, including the Apollo Twin X, Apollo x4, x6, x8, x8p, x16, and the Arrow. If your interface uses UA Console and UA Mixer Engine, it will work with Lyra.</p>
+    </article>
+    <article class="faq-item" id="intel-macs">
+      <div class="faq-item__q"><h3>Does Lyra run on Intel Macs?</h3><a class="faq-item__anchor" href="#intel-macs">#</a></div>
+      <p>Yes. As of 1.6 Lyra ships as a universal binary and runs natively on both Apple Silicon and Intel Macs, macOS 12 or later. Note that the interactive widgets require macOS 14+, but the core app runs identically without them on 12 and 13.</p>
+    </article>
+    <article class="faq-item" id="headphone-volume">
+      <div class="faq-item__q"><h3>Can Lyra control my headphone volume?</h3><a class="faq-item__anchor" href="#headphone-volume">#</a></div>
+      <p>No. The headphone output level on Apollo interfaces is controlled by a hardware knob that isn't exposed through the UA Mixer Engine protocol — it's a physical analog control built into the hardware. Lyra controls the monitor (speaker) output only.</p>
+    </article>
+  </section>
+
+  <!-- Licensing -->
+  <section class="faq-group" data-cat="license">
+    <div class="faq-group__head"><p class="label">Trial &amp; Licensing</p></div>
+    <article class="faq-item" id="trial">
+      <div class="faq-item__q"><h3>How does the trial work?</h3><a class="faq-item__anchor" href="#trial">#</a></div>
+      <p>Lyra includes a 7-day free trial with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app prompts you to purchase. As of 1.6, if the trial expires before you're ready to buy, the activation window offers a "Test for 5 minutes" button that unlocks the controls for five minutes at a time — two sessions per day, resetting at local midnight.</p>
+    </article>
+    <article class="faq-item" id="multiple-macs">
+      <div class="faq-item__q"><h3>Can I use my license on multiple Macs?</h3><a class="faq-item__anchor" href="#multiple-macs">#</a></div>
+      <p>Yes — each license can be active on up to two Macs simultaneously. If you need to activate on a third machine, deactivate on one of the existing ones first via Lyra menu → "Manage License…" → Deactivate.</p>
+    </article>
+  </section>
+
+  <div class="faq-empty" style="display:none;">
+    <p style="font-size:0.95rem;color:var(--text-2);">No questions match your search.</p>
+    <p style="font-size:0.82rem;color:var(--text-3);margin-top:10px;">Try a different keyword, or <a href="mailto:hello@headroomstudio.dev" style="color:var(--accent);">email us</a>.</p>
+  </div>
+
+  <!-- Dig deeper -->
+  <section style="padding: 24px 0 32px; border-top: 1px solid var(--border); margin-top: 12px;">
+    <p class="label" style="margin-bottom: 18px;">Dig deeper</p>
+    <div class="tiles tiles--3">
+      <a class="tile tile--featured" href="guide.html"><div class="tile__glyph">☰</div><h4>User Guide</h4><p>The complete reference. Every feature, every setting.</p><span class="tile__arrow">→</span></a>
+      <a class="tile" href="api.html"><div class="tile__glyph">⟨ ⟩</div><h4>Automation API</h4><p>Endpoints, parameters, return values, copy-paste examples.</p><span class="tile__arrow">→</span></a>
+      <a class="tile" href="releases.html"><div class="tile__glyph">↑</div><h4>Release notes</h4><p>Version history. What changed in each release.</p><span class="tile__arrow">→</span></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="guide.html">User Guide</a></li>
+      <li><a href="api.html">API</a></li>
+      <li><a href="releases.html">Release notes</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </footer>
 </div>
 
-<div class="container">
-    <hr class="divider">
-
-    <!-- ── Setup & Permissions ─────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Setup &amp; Permissions</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Why does Lyra need Accessibility permission?</p>
-                <p class="faq-a">Lyra intercepts the F10, F11, and F12 keys globally - meaning it captures them before macOS passes them on to other apps. This requires <strong>Accessibility access</strong>, which is how macOS controls which apps are allowed to monitor and intercept system-wide input. No other input is read or recorded. Lyra only acts on those three keys, and only when your Apollo is connected.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I grant Accessibility permission?</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span>Open <strong>System Settings → Privacy &amp; Security → Accessibility</strong></div>
-                    <div class="step"><span class="step-num">2</span>Click the <strong>+</strong> button at the bottom of the list</div>
-                    <div class="step"><span class="step-num">3</span>Navigate to your Applications folder and select <strong>Lyra</strong></div>
-                    <div class="step"><span class="step-num">4</span>Make sure the toggle next to Lyra is turned <strong>on</strong></div>
-                    <div class="step"><span class="step-num">5</span><strong>Relaunch Lyra</strong></div>
-                </div>
-                <div class="notice">
-                    <span class="notice-icon">💡</span>
-                    <p>If Lyra doesn't appear in the list right after adding it, quit and reopen System Settings - it sometimes needs a refresh before the new entry shows up.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">macOS showed a notification saying Lyra is monitoring keyboard input. Is that normal?</p>
-                <p class="faq-a">Yes, completely normal. When an app uses a global keyboard tap - which is how Lyra intercepts F10/F11/F12 - macOS displays a privacy notification to let you know. This is macOS being transparent, not an indication that anything unusual is happening. Lyra only acts on those three specific keys.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Where do I find Lyra's settings?</p>
-                <p class="faq-a">As of v1.6, press <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code> with Lyra focused, or pick <strong>Settings…</strong> from the menu bar menu. The window has two sections - <strong>Automation</strong> (the v1.6 auto-start / auto-quit toggles, plus their notification sub-toggles) and <strong>General</strong> (HUD overlay on/off, volume step size). Both sections persist across launches and changes take effect immediately.</p>
-                <p class="faq-a">On v1.5 and earlier there's no in-app settings UI - those builds use sensible defaults and a couple of <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">defaults write</code> escape hatches. Update to v1.6 to flip toggles instead.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── UA Mixer Engine ─────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">UA Mixer Engine</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What is UA Mixer Engine?</p>
-                <p class="faq-a">UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac - routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
-                <p class="faq-a">You don't need to do anything special to set it up. If you've ever used UA Console, UA Mixer Engine is already installed.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra work if UA Console is closed?</p>
-                <p class="faq-a">Yes. UA Mixer Engine runs independently in the background - Console is just a graphical front-end for it. As long as Mixer Engine is running, Lyra works whether Console is open or not.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Lyra says "UA Mixer not running". What do I do?</p>
-                <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu - this launches the process without needing to open Console. It should connect within a few seconds.</p>
-                <p class="faq-a">If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
-                <p class="faq-a">As of v1.6 you can also have Lyra do this for you automatically - see <em>"Does Lyra start UA Mixer Engine automatically?"</em> below.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra start UA Mixer Engine automatically?</p>
-                <p class="faq-a">Only if you opt in. As of v1.6, Lyra's <strong>Settings window</strong> (open with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) has an <em>"Auto-start UA Mixer Engine when Apollo is detected"</em> toggle. It's <strong>off by default</strong> - Lyra doesn't take any opinion on your UA workflow until you ask for one. With it on, Lyra opens the headless UA Mixer Engine the moment Apollo wakes up, using the same launch path as the manual <em>"Start UA Mixer Engine"</em> menu button (standalone Mixer Engine app first, UA Console fallback for older driver installs).</p>
-                <p class="faq-a">A paired <em>"Show a notification when this happens"</em> sub-toggle (on by default) posts a banner each time Lyra starts the Engine, so you can watch the automation a few times before trusting it silently. Once you're comfortable, turn the sub-toggle off and let it run in the background.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Will Lyra close my UA Console when I unplug for a minute?</p>
-                <p class="faq-a">Only if you opt in, only after a seven-second grace window, and only if Apollo doesn't come back inside that window. The relevant setting is <em>"Auto-quit UA apps when Apollo disconnects"</em> in Lyra's <strong>Settings window</strong> (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) and it's <strong>off by default</strong>. With it on, after Apollo has been gone for about seven seconds Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. If Apollo returns inside the grace window - brief sleep/wake, Thunderbolt renegotiation, briefly switching ports - nothing gets killed.</p>
-                <p class="faq-a">This mirrors the <a href="https://uadforum.com/community/index.php?threads/uad-mixer-engine-energy-draw.79450/#post-614588" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">popular auto-close script</a> from uadforum.com, just without the launchd job to maintain. A paired notification sub-toggle (on by default) tells you which apps got closed - and the banner only shows if at least one of them was actually running, so no noise when there's nothing to do.</p>
-                <p class="faq-a">If you'd rather have UA Console stay open across short disconnects, leave the toggle off. Lyra's default behaviour is the same as v1.5: do nothing on disconnect, reconnect when Apollo returns.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Reference Levels ───────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Reference Levels</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">What are Reference Levels?</p>
-                <p class="faq-a">Three named monitor presets, each storing a specific Apollo monitor level. Hit <strong>Ctrl+F10 / F11 / F12</strong> to jump straight to the level stored in slot 1, 2, or 3 - useful for K-System reference, A/B'ing at a different loudness, or quick check-mixes at low volume without losing your main setting.</p>
-                <p class="faq-a">The defaults are <em>Quiet</em>, <em>Mix</em>, and <em>Loud</em>; rename them to whatever fits your workflow (e.g. <em>K-14</em>, <em>Cinema</em>, <em>Late night</em>) from the menu bar's <strong>Reference Levels</strong> submenu.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I save a position into a slot?</p>
-                <p class="faq-a">Adjust your Apollo monitor knob to where you want it, then open the menu bar's <strong>Reference Levels</strong> submenu and pick <em>"Save current as → Slot 1 / 2 / 3"</em>. The slot now stores that exact tapered position; Ctrl+F-key will jump straight back to it.</p>
-                <p class="faq-a">For a calibrated slot tagged with a measured dB SPL value, run Audita's target-level calibration and use <strong>"Send to Lyra…"</strong> instead. See the Audita pairing question below.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why does my slot show "85 dB SPL" instead of a percentage?</p>
-                <p class="faq-a">Because it was calibrated. When a slot is written via Audita's <em>"Send to Lyra…"</em> action it carries a measured dB SPL value, and Lyra prefers that label everywhere - menu, HUD pill - because it's what you actually think in when you're working at a reference level. Manually-saved slots show a tapered percentage instead.</p>
-                <p class="faq-a">If you manually overwrite a calibrated slot via <em>"Save current as…"</em>, the dB SPL is cleared: the prior measurement was tied to the old position and no longer applies. Re-run Audita to restore the calibrated label.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">What's the difference between jumping to a slot and just hitting volume up/down?</p>
-                <p class="faq-a">Volume up/down (F11/F12) walks the Apollo monitor level by your configured step. Reference Level jump (Ctrl+F-key) sets the level to a specific stored position in one shot. So if you've calibrated slot 2 to 79 dB SPL for mixing, Ctrl+F11 will land you there exactly regardless of where the knob currently is - no incremental key-mashing required.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can I have more than three slots?</p>
-                <p class="faq-a">No, three is the design. The slots map onto Ctrl+F10/F11/F12, and three is enough to cover the useful cases (quiet / reference / loud) without turning into a long list nobody remembers. If you need more positions, drive Lyra from a Stream Deck or Shortcuts via the <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=…</code> URL - that supports any number of saved positions in your launcher of choice.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Do Reference Levels work with mute, DIM, and mono?</p>
-                <p class="faq-a">Yes - they're independent. Jumping to a slot only changes the monitor level; mute, DIM, and mono states stay where they are. So you can engage DIM (Shift+F10), then jump to a quiet reference level, and DIM stays on top of that.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Shortcuts, Siri & Focus ─────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Shortcuts, Siri &amp; Focus</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
-                <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
-                <p class="faq-a">The most-used intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later. On macOS 12, Lyra runs as usual and the Shortcuts surface is hidden.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can I control Lyra with Siri?</p>
-                <p class="faq-a">Yes, but via a named Shortcut you build yourself - not by saying the App Shortcut phrases directly. On macOS as of macOS 26, Apple's natural-language matcher for App Shortcuts (<em>Flexible Matching</em>) is iOS / Catalyst-only. Saying <em>"Toggle mute in Lyra"</em> straight to Siri on a Mac returns "Sorry, I don't understand" - and this affects every native macOS App-Intents app, not just Lyra.</p>
-                <p class="faq-a">The reliable Siri path on macOS: open <strong>Shortcuts.app → New Shortcut</strong>, drop in the Lyra action (or a chain - "Switch to Reference Level 2", then "Toggle DIM", then a Set Focus action), name it something Siri can hear cleanly (<em>"Mute the monitor"</em>, <em>"Mix level"</em>, <em>"Listening session"</em>), and save. Then say <em>"Hey Siri, mute the monitor"</em> and Siri runs the chain. It's actually more powerful than the App Shortcut path - one Siri phrase can trigger several Lyra actions plus a Focus change.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can Lyra integrate with macOS Focus modes?</p>
-                <p class="faq-a">Yes. Open <strong>System Settings → Focus</strong>, pick a mode, then <strong>Add Filter → Lyra → Switch to Reference Level</strong> and pick a slot. Enabling the Focus jumps Lyra's monitor to that slot. A "Mixing" Focus that hops to slot 2 and silences non-DAW notifications, or a "Mastering" Focus that switches to slot 3, are common setups.</p>
-                <p class="faq-a"><strong>On deactivation: do nothing, or restore.</strong> The Focus Filter has a "Restore previous level when Focus ends" toggle (off by default). When off, deactivating the Focus leaves the monitor wherever the filter put it. When on, Lyra captures the live tapered position at activation and rolls back to it when the Focus turns off. The restore target is held in memory only, so quitting Lyra mid-Focus loses the cached level. Requires macOS 13 or later.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why doesn't my Lyra Focus Filter trigger when Lyra is closed?</p>
-                <p class="faq-a">Apple's Focus Filter framework doesn't launch the host app on Focus events - if Lyra isn't already running when a Focus enables, the filter silently does nothing. Enable <strong>Launch at Login</strong> in Lyra's menu so Lyra is always present in the menu bar when Focus events fire.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Why does the "Set Monitor Level" intent take a percent, not dB?</p>
-                <p class="faq-a">UA Mixer Engine controls the Apollo monitor via a <em>tapered</em> 0.0-1.0 curve, not a linear dB scale - the curve maps the analog feel of the hardware knob, where the bottom half of the travel is finer than the top. A dB-set against that curve would mislead anyone calibrating against an SPL meter (the same dB value in the intent would land at a different actual level depending on system gain). The intent surfaces percent so what you set is what Lyra writes. A dB-scale set will land alongside a planned <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?db=…</code> URL endpoint in a future release.</p>
-                <p class="faq-a">If you need the dB number for a specific reference level, run <a href="../audita/">Audita's</a> target-level calibration and use <em>"Send to Lyra…"</em> - the slot then carries the measured dB SPL alongside the tapered position, and <strong>Switch to Reference Level</strong> jumps you there in one step.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Widgets ─────────────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Widgets</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra have widgets?</p>
-                <p class="faq-a">Yes - as of v1.6, Lyra ships four interactive desktop widgets. <strong>Control Panel</strong> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <strong>Monitor Toggles</strong> (medium) carries Mute / DIM / Mono; <strong>Volume</strong> (small or medium) steps the level up and down; <strong>Reference Levels</strong> (medium) jumps to slot 1, 2, or 3. Add them from <strong>Notification Centre → Edit Widgets</strong>, then search "Lyra".</p>
-                <p class="faq-a">They show <strong>live state</strong> - Mute and Mono tiles fill with the accent colour when active, the current reference slot highlights, and the buttons dim when Lyra isn't connected - and react the instant you tap. Each tap fires a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://</code> URL so the action runs in the menu bar app, which means Lyra needs to be running for the buttons to do anything. The widgets require <strong>macOS 14 (Sonoma) or later</strong>; on macOS 12 and 13 Lyra runs normally and the widget gallery entries are simply absent.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Compatibility ───────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Compatibility</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">Which Apollo interfaces are supported?</p>
-                <p class="faq-a">Lyra works with any Universal Audio Apollo Thunderbolt interface, including the Apollo Twin X, Apollo x4, x6, x8, x8p, x16, and the Arrow. If your interface uses UA Console and UA Mixer Engine, it will work with Lyra.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can Lyra control my headphone volume?</p>
-                <p class="faq-a">No. The headphone output level on Apollo interfaces is controlled by a <strong>hardware knob</strong> that isn't exposed through the UA Mixer Engine protocol - it's a physical analog control built directly into the hardware. Lyra controls the monitor (speaker) output only.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra affect my audio quality or signal chain?</p>
-                <p class="faq-a">Not at all. Lyra only adjusts the monitor output level - the same parameter you'd change in Console's monitor section. It doesn't touch your signal chain, insert any processing, or affect recordings in any way. Console and all your UAD plugins continue running exactly as before.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can I use Lyra with Stream Deck, Keyboard Maestro, or Shortcuts?</p>
-                <p class="faq-a">Yes. Lyra registers a <strong><code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://</code></strong> URL scheme that any of those tools can call. Common targets: <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/2</code> to jump to a stored monitor preset, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/set?tapered=0.4</code> to set an absolute level, and <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://mute/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">dim/toggle</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">mono/toggle</code> for the toggles. The <a href="index.html#url-scheme" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">full URL list</a> is on the main page.</p>
-                <p class="faq-a">As of v1.5, three new read endpoints (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://volume/get</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://reference/current</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://state</code>) return live state via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> callbacks, and every endpoint can chain into a follow-up URL via <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-success</code> / <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">x-error</code>. The <a href="api.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">API reference</a> has copy-paste examples for each launcher.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Does Lyra work with Audita?</p>
-                <p class="faq-a">Yes. <a href="../audita/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Audita</a> (formerly Auris) is our SPL meter for macOS - it measures the actual sound pressure level your speakers are producing. After running Audita's target-level calibration, you can hit <strong>"Send to Lyra…"</strong> and Audita will write the freshly-calibrated level into one of Lyra's three reference slots, complete with the measured dB SPL value. The slot then displays as e.g. <em>"Mix - 85 dB SPL"</em> in Lyra's menu and HUD, and Ctrl+F11 jumps you straight back to that calibrated listening level.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Licensing & Trial ───────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Trial &amp; Licensing</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">How does the trial work?</p>
-                <p class="faq-a">Lyra includes a <strong>7-day free trial</strong> with full functionality. The trial starts from the first time you launch the app and counts down regardless of how often you use it. Once it ends, the app will prompt you to purchase.</p>
-                <p class="faq-a">As of v1.6, if you need to test a specific fix or feature against your gear before committing, the activation window offers a <strong>"Test for 5 minutes"</strong> button - <strong>two five-minute sessions per day</strong>, counter resets at local midnight. Useful for verifying a build does what you need before paying; not a workaround for the trial.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">How do I activate my license?</p>
-                <div class="steps">
-                    <div class="step"><span class="step-num">1</span>After purchasing, you'll receive a <strong>license key by email</strong></div>
-                    <div class="step"><span class="step-num">2</span>Open the Lyra menu bar menu and click <strong>"Enter License Key…"</strong></div>
-                    <div class="step"><span class="step-num">3</span>Paste your key and click <strong>Activate</strong></div>
-                </div>
-                <p class="faq-a" style="margin-top: 10px;">Activation requires an internet connection. Once activated, Lyra will work normally offline.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Can I use my license on multiple Macs?</p>
-                <p class="faq-a">Yes - each license can be active on up to <strong>two Macs simultaneously</strong>. If you need to activate on a third machine, deactivate on one of the existing ones first via Lyra menu → <strong>"Manage License…"</strong> → Deactivate, then activate again on the new Mac with the same key.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">I lost my license key. How do I retrieve it?</p>
-                <p class="faq-a">Check your original purchase confirmation email from Lemon Squeezy. If you can't find it, <a href="mailto:hello@headroomstudio.dev">contact us</a> with your purchase email address and we'll help you recover it.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ── Troubleshooting ─────────────────────────────────────────────── -->
-
-    <section class="faq-group">
-        <p class="group-label">Troubleshooting</p>
-        <div class="faq-list">
-
-            <div class="faq-item">
-                <p class="faq-q">The F-keys aren't working. What should I check?</p>
-                <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
-                <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
-            </div>
-
-            <div class="faq-item">
-                <p class="faq-q">Lyra isn't detecting my Apollo.</p>
-                <p class="faq-a">Make sure your Apollo is powered on and connected before launching Lyra. If it's connected but not detected, open the Lyra menu - if you see a device name but a "UA Mixer not running" message, click "Start UA Mixer Engine". If no device appears at all, try relaunching Lyra after confirming the Apollo shows up in UA Console.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <hr class="divider">
-    <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
-        <ul class="footer-links">
-            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
-            <li><a href="guide.html">User Guide</a></li>
-            <li><a href="api.html">API</a></li>
-            <li><a href="releases.html">Release notes</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-        </ul>
-    </footer>
-</div>
-
+<script src="../waveform.js"></script>
+<script src="../faq.js"></script>
 </body>
 </html>
