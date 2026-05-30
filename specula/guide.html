@@ -69,7 +69,7 @@
             gap: 10px;
         }
 
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
         .brand-word { font-weight: 600; color: #c8c6f0; }
         .brand-word span { font-weight: 500; color: #7a78a8; }
 
@@ -699,9 +699,9 @@
         <table>
             <tr><th>Metric</th><th>Music</th><th>Podcast</th><th>VOD</th><th>Broadcast</th></tr>
             <tr><td class="wrap-ok">Integrated, LRA, M/S, True/Sample Peak, Targets, Per-channel</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="wrap-ok">Speech-Gated I, Speech %</td><td>—</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="wrap-ok">Noise Floor (ACX)</td><td>—</td><td>✓</td><td>—</td><td>—</td></tr>
-            <tr><td class="wrap-ok">Dynamic Range, Headroom</td><td>✓</td><td>—</td><td>—</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Speech-Gated I, Speech %</td><td>-</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Noise Floor (ACX)</td><td>-</td><td>✓</td><td>-</td><td>-</td></tr>
+            <tr><td class="wrap-ok">Dynamic Range, Headroom</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
         </table>
 
         <p class="prose"><strong>Settings → Targets</strong> is a per-mode catalog editor - four sections, one per mode, each with its target toggles. Use it to decide which targets show up next to a loaded file when that mode is active.</p>
@@ -764,7 +764,7 @@
             <li><strong>Integrated LUFS</strong> is the full-program measurement (ITU-R BS.1770 with K-weighting and two-stage gating). Used by music streaming, EBU R128, ARIB TR-B32, OP-59, ACX, and anything labelled simply "LUFS".</li>
             <li><strong>Dialog-gated LKFS</strong> is the same BS.1770 algorithm applied only to the portions of the file containing speech, classified by the Silero neural VAD on file load. Used by Netflix and every other major VOD platform (Prime Video, Apple TV+, Disney+, Max), by streaming podcast targets, and by ATSC A/85 / the CALM Act (which the spec calls "anchor-element" measurement but is functionally dialog-gated for typical TV programming).</li>
         </ul>
-        <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "—" and dialog-gated target verdicts as "no speech".</p>
+        <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "-" and dialog-gated target verdicts as "no speech".</p>
 
         <h3>Asymmetric platform normalization</h3>
         <p class="prose">Not every streaming platform applies the gain it computes. <strong>Apple Music's Sound Check, YouTube, and Tidal only turn loud tracks down</strong>; they leave quieter-than-reference tracks at their original level. So if your master sits at −18 LUFS against Apple Music's −16 reference, the platform plays it at −18, not boosted to −16. Specula reflects this:</p>
@@ -878,9 +878,9 @@
         <h3>Tuning the VAD (Settings → Speech)</h3>
         <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
         <ol>
-            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
-            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
-            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
+            <li><strong>Threshold</strong> (0.1 - 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 - 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
+            <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
         </ol>
 
         <div class="shot-placeholder">
@@ -1427,7 +1427,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <li><strong>Line 3.</strong> The two ACX gates the integrated alone doesn't catch: true peak and noise floor.</li>
             <li><strong>Line 4.</strong> Secondary metrics: LRA, speech-gated (Dlg), and speech percentage.</li>
         </ul>
-        <p class="prose">Missing metrics render as muted <code>—</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
+        <p class="prose">Missing metrics render as muted <code>-</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
 
         <h3>ACX gates</h3>
         <p class="prose">Each chapter is independently checked against three ACX delivery limits. Failures render the metric in red on the ribbon slot and on the report's chapter table:</p>
@@ -1654,9 +1654,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>Speech</h3>
         <ul>
-            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
-            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped.</li>
-            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
+            <li><strong>Threshold</strong> (0.1 - 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 - 2.0 s, default 0.10) - shorter detections are dropped.</li>
+            <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
         </ul>
         <p class="prose">Edits re-run detection in about half a second and the new history feeds back into the live loudness path. If you have manual edits in Dialogue mode when you move a slider, they're pushed onto the Dialogue mode undo stack first so you can <kbd>⌘Z</kbd> back to them. See <a href="#speech-gated">Speech-gated loudness + Dialogue mode</a> for the full workflow.</p>
 

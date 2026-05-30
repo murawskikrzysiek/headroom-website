@@ -1,5 +1,5 @@
 /* ============================================================================
-   headroom.css — shared design system for headroomstudio.dev
+   headroom.css - shared design system for headroomstudio.dev
    Plain CSS, no build step. Linked from every page as /headroom.css
    (relative: headroom.css from root, ../headroom.css from app folders).
 
@@ -242,6 +242,12 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
   background: rgba(62,207,124,0.06); border: 1px solid rgba(62,207,124,0.20); border-radius: 12px;
   max-width: 480px; font-size: 0.875rem; color: var(--text); }
 .nl-success .mono { color: var(--green); }
+.nl-consent { flex-basis: 100%; display: flex; align-items: flex-start; gap: 8px; padding: 2px 4px 6px;
+  font-size: 0.72rem; line-height: 1.45; color: var(--text-3); cursor: pointer; }
+.nl-consent input { margin-top: 2px; flex-shrink: 0; accent-color: var(--accent); }
+.nl-consent a { color: var(--text-2); border-bottom: 1px solid var(--border); }
+.nl-consent a:hover { color: var(--text); }
+.nl-error { color: var(--red, #f67c7c); font-size: 0.78rem; margin-top: 8px; flex-basis: 100%; }
 
 /* ── 11. Dig-deeper tiles ────────────────────────────────────────────────── */
 .tiles { display: grid; gap: 12px; }

@@ -1,6 +1,6 @@
-/* waveform.js — ambient signal band.
+/* waveform.js - ambient signal band.
    Drop a <div class="waveform"><canvas></canvas></div> anywhere and call
-   nothing — this auto-initialises every .waveform on the page.
+   nothing - this auto-initialises every .waveform on the page.
 
    One canvas per page is trivial; the IntersectionObserver pause + rAF
    throttle are belt-and-suspenders for pages that might stack a few. */

@@ -1,4 +1,4 @@
-/* docs.js — shared behaviour for Guide + API pages.
+/* docs.js - shared behaviour for Guide + API pages.
    1. Copy buttons on .codeblock and .endpoint__url
    2. TOC scrollspy: highlights the .toc link for the section nearest the top. */
 (function () {

@@ -1,4 +1,4 @@
-/* activity-feed.js — builds the "Recent" feed from real sources, with the
+/* activity-feed.js - builds the "Recent" feed from real sources, with the
    server-rendered rows as fallback.
 
    It reads release info from each app's Sparkle appcast.xml and post info
@@ -17,7 +17,7 @@
    untouched, so the page always shows something sensible.
 
    Blog index contract (the new blog/index.html emits this): each post is a
-   link carrying data attributes the parser reads directly —
+   link carrying data attributes the parser reads directly -
      <a class="post-card" data-post data-title="…" data-date="2026-05-15"
         data-tag="Lyra" data-read="10 min" data-summary="…" href="…">
    No fragile HTML scraping; just attribute reads. */

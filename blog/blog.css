@@ -1,4 +1,4 @@
-/* blog.css — blog-specific styles layered on headroom.css.
+/* blog.css - blog-specific styles layered on headroom.css.
    Load AFTER headroom.css: <link rel="stylesheet" href="../headroom.css">
                             <link rel="stylesheet" href="blog.css"> */
 
@@ -67,7 +67,7 @@
 .byline__share a { font-size: 0.78rem; color: var(--text-3); padding: 7px 12px; border: 1px solid var(--border); border-radius: 7px; }
 .byline__share a:hover { color: var(--text); border-color: var(--border-hover); }
 
-/* ── Imported post body — classes from the original article markup ── */
+/* ── Imported post body - classes from the original article markup ── */
 .article-header { padding: 40px 0 36px; }
 .article-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 .article-header h1 { font-family: var(--font-display); font-size: 2.95rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; color: var(--text); margin-top: 18px; }

@@ -48,7 +48,7 @@
         }
 
         .container {
-            max-width: 720px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -73,7 +73,7 @@
             gap: 10px;
         }
 
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
         .brand-word { font-weight: 600; color: #c8c6f0; }
         .brand-word span { font-weight: 500; color: #7a78a8; }
 
@@ -89,6 +89,12 @@
         }
 
         .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
         .nav-back svg { width: 14px; height: 14px; }
 
         /* ─── Hero ─── */
@@ -186,6 +192,28 @@
         }
 
         .faq-a a:hover { color: #a0aaff; }
+
+        /* faq-search.js injected UI - search box, category chips, empty state.
+           .chip is scoped to .chips so it never touches the inline mono .chip above. */
+        .faq-search { position: relative; background: rgba(255,255,255,0.025); border: 1px solid var(--border);
+            border-radius: 12px; padding: 0 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+        .faq-search svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--text-3); fill: none; }
+        .faq-search input { flex: 1; background: transparent; border: none; outline: none; color: var(--text);
+            font-family: inherit; font-size: 0.95rem; padding: 14px 0; }
+        .faq-search__count { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 0.7rem; color: var(--text-3); white-space: nowrap; }
+        .faq-search__clear { background: transparent; border: none; cursor: pointer; color: var(--text-3);
+            font-size: 1.2rem; line-height: 1; padding: 0; transition: color 0.18s; }
+        .faq-search__clear:hover { color: var(--text); }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips .chip { display: inline-block; font-size: 0.78rem; font-weight: 500; font-family: inherit;
+            padding: 6px 12px; border-radius: 100px; cursor: pointer; background: transparent;
+            border: 1px solid var(--border); color: var(--text-3); white-space: nowrap;
+            transition: background 0.18s, color 0.18s, border-color 0.18s; }
+        .chips .chip:hover { color: var(--text-2); }
+        .chips .chip.is-active { background: rgba(124,132,246,0.14); border-color: rgba(124,132,246,0.30); color: var(--accent); }
+        .faq-item mark { background: rgba(124,132,246,0.24); color: var(--accent); padding: 0 2px; border-radius: 3px; }
+        .faq-empty { padding: 40px 20px; text-align: center; border: 1px dashed var(--border); border-radius: 14px;
+            background: rgba(124,132,246,0.03); }
 
         /* ─── Inline mono chip ─── */
 
@@ -357,7 +385,7 @@
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
   .hr-waveform canvas { width:100%; height:100%; display:block; }
-  /* Sticky side TOC layout — applied without touching content */
+  /* Sticky side TOC layout - applied without touching content */
   .doc-grid { display:grid; grid-template-columns:210px 1fr; column-gap:48px; align-items:start; max-width:1060px; margin-left:auto; margin-right:auto; }
   .doc-grid > .page-header, .doc-grid > .hr-waveform { grid-column:1 / -1; }
   .doc-grid > .toc { grid-column:1; position:sticky; top:28px; align-self:start; max-height:calc(100vh - 56px); overflow:auto; margin:0; }
@@ -373,11 +401,12 @@
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
+        <div class="nav-links"><a href="guide.html" class="nav-link">User Guide</a><a href="api.html" class="nav-link">API</a><span class="nav-link is-current">FAQ</span></div>
         <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 2L4 7l5 5"></path>
             </svg>
-            Audita
+            Back to Audita
         </a>
     </nav>
 </div>
@@ -773,4 +802,5 @@
 
 
 
-<script src="../waveform.js"></script></body></html>
+<script src="../waveform.js"></script>
+<script src="../faq-search.js"></script></body></html>

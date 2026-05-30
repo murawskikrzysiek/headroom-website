@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Audita Privacy Policy — No Tracking, No Telemetry</title>
+  <title>Audita Privacy Policy - No Tracking, No Telemetry</title>
   <link rel="canonical" href="https://headroomstudio.dev/audita/privacy.html">
   <meta name="description" content="Audita measures sound locally on your Mac, collects no personal data, and sends no telemetry. Read the full Headroom Studio privacy policy.">
   <meta property="og:title" content="Audita Privacy Policy">
+  <meta property="og:description" content="Audita analyzes audio only locally. No recording, no upload, no telemetry.">
   <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -54,12 +55,28 @@
 
   <section class="priv-section">
     <h2>Microphone &amp; audio input</h2>
-    <p>Audita requests <strong>microphone / audio input</strong> permission so it can read the level from your chosen CoreAudio input device and compute SPL. Audio is analysed in real time to derive a level number — <strong>it is never recorded, saved, or transmitted</strong>. No audio leaves your Mac.</p>
+    <p>Audita requests <strong>microphone / audio input</strong> permission so it can read the level from your chosen CoreAudio input device and compute SPL. Audio is analysed in real time to derive a level number - <strong>it is never recorded, saved, or transmitted</strong>. No audio leaves your Mac.</p>
   </section>
 
   <section class="priv-section">
     <h2>Data collected</h2>
     <p>None that leaves your device. Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Session data</h2>
+    <p>Session history - including start/end times, dose percentages, average and peak SPL, and DAW names - is stored locally at <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>.</p>
+    <p>This file never leaves your device. Sessions older than 90 days are pruned automatically on launch. The retention threshold (and a separate detailed-time-series retention) is user-configurable in <strong>Settings → General → Storage</strong>.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Session reports (PDF)</h2>
+    <p>When you open a session report, Audita renders a PDF to a temporary location at <code>~/Library/Caches/Audita Reports/</code>. The folder lives inside the standard macOS Caches directory; macOS manages cleanup on its own schedule. You can also empty it by hand at any time. The PDF is generated locally and only leaves your Mac if you actively share or save it through the macOS Share menu.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Automation surfaces</h2>
+    <p>Audita ships an <code>audita://</code> URL scheme and a bundle of App Intents for Shortcuts, Siri, and Focus filters. These are local automation surfaces. URL responses use <code>x-callback-url</code>, which sends the response payload to a URL <em>you</em> supply. Audita does not contact any remote service through these surfaces; if your callback URL points to a third party, that's your choice and that party's policy then applies. The intents and URL scheme are read-and-toggle only: they cannot change calibration, license state, or A/C-weighting coefficients.</p>
   </section>
 
   <section class="priv-section">
@@ -83,13 +100,18 @@
   </section>
 
   <section class="priv-section">
+    <h2>Newsletter</h2>
+    <p>If you subscribe to the Headroom Studio newsletter, your email address is stored and processed by <strong>MailerLite</strong>, an external email provider, solely to send the updates you opted in to. We collect only your email address, and only with your explicit consent (the checkbox on the signup form). Every email includes an unsubscribe link and you can opt out at any time. See <a href="https://www.mailerlite.com/legal/privacy-policy" target="_blank" rel="noopener">MailerLite's privacy policy</a>. The newsletter is entirely separate from the Audita app, which sends no email and loads no MailerLite code.</p>
+  </section>
+
+  <section class="priv-section">
     <h2>Auto-update checks</h2>
     <p>Audita uses <strong>Sparkle</strong> for automatic updates, periodically fetching the appcast at <code>https://headroomstudio.dev/audita/appcast.xml</code>. The request includes your macOS version and CPU architecture for compatibility; no personal data is transmitted.</p>
   </section>
 
   <section class="priv-section">
     <h2>Your data rights</h2>
-    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout and, if you've subscribed, what MailerLite holds (email address). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
   </section>
 
   <section class="priv-section">
@@ -98,7 +120,7 @@
     <ol>
       <li>Quit Audita from the menu bar.</li>
       <li>Drag Audita from <code>/Applications</code> to the Trash.</li>
-      <li>To also clear settings and session history: <code>defaults delete com.headroom.Audita</code> in Terminal.</li>
+      <li>To also remove session history and settings: delete <code>~/Library/Containers/com.headroom.Audita</code>.</li>
     </ol>
   </section>
 

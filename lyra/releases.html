@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lyra Release Notes — Version History &amp; Changelog</title>
+  <title>Lyra Release Notes - Version History &amp; Changelog</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/releases.html">
   <meta name="description" content="Version history for Lyra, the Apollo volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.6.">
   <meta property="og:title" content="Lyra Release Notes">
@@ -20,7 +20,7 @@
     Self-contained on purpose: this page is also loaded inside Sparkle's
     update window (a WKWebView), where depending on /headroom.css is a risk.
     Styles are embedded and mirror the shared design tokens. No animations,
-    no canvas — it must render statically in the modal.
+    no canvas - it must render statically in the modal.
   -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,14 +83,14 @@
   <section class="release" id="v1.6">
     <div class="release-header"><span class="version">Version 1.6</span><span class="date">May 2026</span><span class="badge-new">Latest</span></div>
     <ul class="changes">
-      <li><span class="tag tag-new">New</span><span><strong>Interactive widgets</strong> — four widgets in the macOS widget gallery. <em>Control Panel</em> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <em>Monitor Toggles</em> (medium) carries Mute / DIM / Mono; <em>Volume</em> (small or medium) steps the level; <em>Reference Levels</em> (medium) jumps to slot 1, 2, or 3. Every widget shows live state and reacts the instant you tap. Each tap fires a <code>lyra://</code> URL so the action runs in the menu bar app. Requires macOS 14+; on macOS 12 and 13 Lyra runs identically without the widget gallery entries.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Settings window</strong> (<kbd>Cmd+,</kbd>) — Lyra's first proper preferences window. Houses two new Automation toggles and surfaces the existing <em>Show volume HUD overlay</em> and <em>Volume step</em> prefs that previously had no UI.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Interactive widgets</strong> - four widgets in the macOS widget gallery. <em>Control Panel</em> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <em>Monitor Toggles</em> (medium) carries Mute / DIM / Mono; <em>Volume</em> (small or medium) steps the level; <em>Reference Levels</em> (medium) jumps to slot 1, 2, or 3. Every widget shows live state and reacts the instant you tap. Each tap fires a <code>lyra://</code> URL so the action runs in the menu bar app. Requires macOS 14+; on macOS 12 and 13 Lyra runs identically without the widget gallery entries.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Settings window</strong> (<kbd>Cmd+,</kbd>) - Lyra's first proper preferences window. Houses two new Automation toggles and surfaces the existing <em>Show volume HUD overlay</em> and <em>Volume step</em> prefs that previously had no UI.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>Auto-start UA Mixer Engine when Apollo is detected</strong> (opt-in, off by default). With this on, Lyra opens UA's headless Mixer Engine the moment Apollo wakes up.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>Auto-quit UA apps when Apollo disconnects</strong> (opt-in, off by default). After about seven seconds without Apollo, Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. Cancelled if Apollo comes back inside the grace window, so brief sleep/wake won't kill anything.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Notification sub-toggles</strong> — each automation has a paired <em>Show a notification when this happens</em> sub-toggle (on by default) that posts a banner when the automation fires.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Test sessions after the trial</strong> — if the trial expires before you're ready to buy, the activation window now offers a <em>"Test for 5 minutes"</em> button that unlocks the controls for five minutes at a time. Two sessions per day, resetting at local midnight.</span></li>
-      <li><span class="tag tag-impr">Impr</span><span><strong>Monitor output discovered at connect</strong> — Lyra now finds the Apollo's Monitor output dynamically when the interface connects rather than relying on a fixed output path. More resilient on Apollo variants beyond the Twin X.</span></li>
-      <li><span class="tag tag-impr">Impr</span><span><strong>Runs on Intel Macs</strong> — v1.6 ships as a universal binary, so Lyra now runs natively on Intel Macs (macOS 12 or later) alongside Apple Silicon.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Notification sub-toggles</strong> - each automation has a paired <em>Show a notification when this happens</em> sub-toggle (on by default) that posts a banner when the automation fires.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Test sessions after the trial</strong> - if the trial expires before you're ready to buy, the activation window now offers a <em>"Test for 5 minutes"</em> button that unlocks the controls for five minutes at a time. Two sessions per day, resetting at local midnight.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Monitor output discovered at connect</strong> - Lyra now finds the Apollo's Monitor output dynamically when the interface connects rather than relying on a fixed output path. More resilient on Apollo variants beyond the Twin X.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Runs on Intel Macs</strong> - v1.6 ships as a universal binary, so Lyra now runs natively on Intel Macs (macOS 12 or later) alongside Apple Silicon.</span></li>
       <li><span class="tag tag-impr">Impr</span><span>Price is now <strong>$9.99</strong>.</span></li>
     </ul>
   </section>
@@ -98,13 +98,13 @@
   <section class="release" id="v1.5">
     <div class="release-header"><span class="version">Version 1.5</span><span class="date">May 2026</span></div>
     <ul class="changes">
-      <li><span class="tag tag-new">New</span><span><strong>App Intents bundle</strong> — eleven intents exposed to Shortcuts.app, Spotlight, and Siri. Read state, toggle the Apollo, adjust or set the monitor level, and drive Reference Levels. Every intent returns structured values for chaining. Requires macOS 13+; macOS 12 launches identically without the Shortcuts surface.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>App Shortcuts</strong> — the most-reached-for intents surface straight in Spotlight without building a Shortcut first.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Focus Filter</strong> — Lyra appears in <em>System Settings → Focus → Focus Filters</em>. Attach a "Switch to Reference Level" filter to any Focus.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>URL scheme read endpoints</strong> — <code>lyra://volume/get</code>, <code>lyra://reference/current</code>, and <code>lyra://state</code> let other tools pull Lyra's state back via <code>x-success</code>.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>x-callback-url chaining</strong> — every URL endpoint now accepts optional <code>x-success</code> and <code>x-error</code> parameters.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>App Intents bundle</strong> - eleven intents exposed to Shortcuts.app, Spotlight, and Siri. Read state, toggle the Apollo, adjust or set the monitor level, and drive Reference Levels. Every intent returns structured values for chaining. Requires macOS 13+; macOS 12 launches identically without the Shortcuts surface.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>App Shortcuts</strong> - the most-reached-for intents surface straight in Spotlight without building a Shortcut first.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Focus Filter</strong> - Lyra appears in <em>System Settings → Focus → Focus Filters</em>. Attach a "Switch to Reference Level" filter to any Focus.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>URL scheme read endpoints</strong> - <code>lyra://volume/get</code>, <code>lyra://reference/current</code>, and <code>lyra://state</code> let other tools pull Lyra's state back via <code>x-success</code>.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>x-callback-url chaining</strong> - every URL endpoint now accepts optional <code>x-success</code> and <code>x-error</code> parameters.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>Automation API reference page.</strong> See the <a href="api.html">full API reference</a> for every endpoint, return field, and copy-paste examples.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>User Guide menu link</strong> — a new <em>User Guide…</em> entry in Lyra's menu opens the <a href="guide.html">user guide</a> in your browser.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>User Guide menu link</strong> - a new <em>User Guide…</em> entry in Lyra's menu opens the <a href="guide.html">user guide</a> in your browser.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><code>lyra://volume/set</code> now waits for the Apollo's dB echo so the returned tapered and dB readings stay in sync.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><code>lyra://reference/current</code> always returns the live <code>tapered</code> and <code>db</code>, and adds <code>slot=none</code> when no slot matches.</span></li>
       <li><span class="tag tag-fix">Fix</span><span>Error messages in URL responses are now plain ASCII instead of typographic en-dashes that became <code>%E2%80%93</code> escapes.</span></li>
@@ -114,31 +114,31 @@
   <section class="release" id="v1.4">
     <div class="release-header"><span class="version">Version 1.4</span><span class="date">April 2026</span></div>
     <ul class="changes">
-      <li><span class="tag tag-new">New</span><span><strong>Reference Levels</strong> — three named monitor presets (default <em>Quiet / Mix / Loud</em>) you can rename and recall. Useful for K-System reference, A/B'ing loudness, or quickly checking a mix at a low level.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Ctrl+F10 / F11 / F12</strong> — jump to Reference Level slot 1, 2, or 3.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Reference Levels submenu</strong> — jump to, save into, or rename a slot from the menu bar menu.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>HUD slot name</strong> — jumping to a Reference Level shows the slot name (e.g. <em>Mix</em>) on the on-screen pill.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>URL scheme</strong> — drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts: <code>lyra://reference/{1|2|3|cycle}</code>, <code>lyra://volume/set?tapered=…</code>, <code>lyra://volume/{up|down}</code>, and <code>lyra://{mute|dim|mono}/toggle</code>.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Audita pairing</strong> — <a href="../audita/">Audita</a> can write its calibrations straight into a Lyra slot via <code>lyra://reference/{n}/save</code>, and the slot displays as e.g. <em>"Mix — 85 dB SPL"</em>. Requires Audita 1.0 or later.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Reference Levels</strong> - three named monitor presets (default <em>Quiet / Mix / Loud</em>) you can rename and recall. Useful for K-System reference, A/B'ing loudness, or quickly checking a mix at a low level.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Ctrl+F10 / F11 / F12</strong> - jump to Reference Level slot 1, 2, or 3.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Reference Levels submenu</strong> - jump to, save into, or rename a slot from the menu bar menu.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>HUD slot name</strong> - jumping to a Reference Level shows the slot name (e.g. <em>Mix</em>) on the on-screen pill.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>URL scheme</strong> - drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts: <code>lyra://reference/{1|2|3|cycle}</code>, <code>lyra://volume/set?tapered=…</code>, <code>lyra://volume/{up|down}</code>, and <code>lyra://{mute|dim|mono}/toggle</code>.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Audita pairing</strong> - <a href="../audita/">Audita</a> can write its calibrations straight into a Lyra slot via <code>lyra://reference/{n}/save</code>, and the slot displays as e.g. <em>"Mix - 85 dB SPL"</em>. Requires Audita 1.0 or later.</span></li>
     </ul>
   </section>
 
   <section class="release" id="v1.3">
     <div class="release-header"><span class="version">Version 1.3</span><span class="date">April 2026</span></div>
     <ul class="changes">
-      <li><span class="tag tag-new">New</span><span><strong>Fine-step control</strong> — hold Shift while pressing F11/F12 for a half-size volume step.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>DIM shortcut</strong> — Shift+F10 toggles Apollo's hardware DIM.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Mono shortcut</strong> — Opt+F10 toggles L+R sum to mono for quick compatibility checks.</span></li>
-      <li><span class="tag tag-new">New</span><span><strong>Menu items</strong> — DIM and Mono appear in the menu bar menu with live checkmarks.</span></li>
-      <li><span class="tag tag-impr">Impr</span><span><strong>Menu bar icon</strong> — horizontal bar through the dot when DIM is active; vertical when Mono. Both can stack.</span></li>
-      <li><span class="tag tag-impr">Impr</span><span><strong>Volume HUD</strong> — pill turns amber when DIM is active so the state is obvious at a glance.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Fine-step control</strong> - hold Shift while pressing F11/F12 for a half-size volume step.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>DIM shortcut</strong> - Shift+F10 toggles Apollo's hardware DIM.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Mono shortcut</strong> - Opt+F10 toggles L+R sum to mono for quick compatibility checks.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Menu items</strong> - DIM and Mono appear in the menu bar menu with live checkmarks.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Menu bar icon</strong> - horizontal bar through the dot when DIM is active; vertical when Mono. Both can stack.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Volume HUD</strong> - pill turns amber when DIM is active so the state is obvious at a glance.</span></li>
     </ul>
   </section>
 
   <section class="release" id="v1.2">
     <div class="release-header"><span class="version">Version 1.2</span><span class="date">March 2026</span></div>
     <ul class="changes">
-      <li><span class="tag tag-fix">Fix</span><span>Version bump — 1.1 was released without updating the bundle version string.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span>Version bump - 1.1 was released without updating the bundle version string.</span></li>
       <li><span class="tag tag-impr">Impr</span><span>Price reduced to <strong>$4.99</strong>.</span></li>
     </ul>
   </section>

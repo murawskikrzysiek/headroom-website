@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Headroom Studio — Notes from the studio</title>
+    <title>Headroom Studio - Notes from the studio</title>
     <link>https://headroomstudio.dev/blog/</link>
     <description>Monitoring discipline, hearing health, and the small macOS tools that make studio work easier.</description>
     <language>en</language>
@@ -27,7 +27,7 @@
     </item>
 
     <item>
-      <title>Calibrate once, recall forever — pairing Audita and Lyra</title>
+      <title>Calibrate once, recall forever - pairing Audita and Lyra</title>
       <link>https://headroomstudio.dev/blog/pairing-audita-and-lyra.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/pairing-audita-and-lyra.html</guid>
       <pubDate>Mon, 27 Apr 2026 09:00:00 +0000</pubDate>
@@ -36,7 +36,7 @@
     </item>
 
     <item>
-      <title>The 3 dB rule — the single number that explains studio loudness</title>
+      <title>The 3 dB rule - the single number that explains studio loudness</title>
       <link>https://headroomstudio.dev/blog/the-3-db-rule.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/the-3-db-rule.html</guid>
       <pubDate>Sun, 27 Apr 2026 09:00:00 +0000</pubDate>
@@ -45,12 +45,12 @@
     </item>
 
     <item>
-      <title>Monitor at a number, not a vibe — the case for calibrated studio listening</title>
+      <title>Monitor at a number, not a vibe - the case for calibrated studio listening</title>
       <link>https://headroomstudio.dev/blog/calibrated-monitoring.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/calibrated-monitoring.html</guid>
       <pubDate>Mon, 20 Apr 2026 09:00:00 +0000</pubDate>
       <category>Practice</category>
-      <description>Translation, consistency, lower hearing dose, less fatigue — the case for calibrated studio listening.</description>
+      <description>Translation, consistency, lower hearing dose, less fatigue - the case for calibrated studio listening.</description>
     </item>
   </channel>
 </rss>
