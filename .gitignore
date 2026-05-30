@@ -11,6 +11,10 @@
 # page-ready PNGs in blog/screenshots/ ship.
 blog/screenshots/before-crop/
 
+# ─── Cloudflare Worker (newsletter proxy) ───────────────────────────────────
+# wrangler's local cache holds account id / name - never commit it (public repo).
+.wrangler/
+
 # ─── Brand asset outputs ─────────────────────────────────────────────────────
 # Regeneratable via `node gen_app_banners/generate-brand-assets.mjs`. Live
 # site assets (the root-level favicon-*.png, apple-touch-icon.png, etc.)
