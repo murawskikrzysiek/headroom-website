@@ -96,17 +96,24 @@ submit the form with a content blocker on, and confirm it succeeds.
 
 If a group id ever changes, update `GROUPS` in `worker.js` and redeploy.
 
-## Rate limiting (recommended at launch)
+## Rate limiting (optional hardening)
 
-Add a Cloudflare Rate Limiting rule so the endpoint can't be used to bomb a victim with
-double opt-in confirmation emails (anyone can POST an arbitrary address). Double opt-in
-already means a victim is never subscribed outright, but a rule blunts the email volume.
+Double opt-in already means nobody is subscribed without confirming, so the only abuse
+left is confirmation-email volume; a rate limit blunts that. On the current Cloudflare
+dashboard this lives under **Security -> Security rules** (the old "WAF -> Rate limiting"
+path is gone):
 
-Dashboard -> zone `headroomstudio.dev` -> **Security** -> **WAF** -> **Rate limiting rules**
--> **Create rule**:
-- When incoming requests match: `Hostname` equals `api.headroomstudio.dev`
-- Rate: **5 requests per 1 minute**, counting by **IP**
-- Action: **Managed Challenge** (or Block)
+Dashboard -> zone `headroomstudio.dev` -> **Security** -> **Security rules** ->
+**Create rule** -> **Rate limiting rule**:
+- Match: `Hostname` equals `api.headroomstudio.dev` (this subdomain is proxied, so the rule
+  applies; the grey-cloud apex is unaffected and doesn't need it)
+- Rate: ~5 requests per 10s (or per minute) per IP - use the most restrictive period the
+  plan offers
+- Action: **Block**
+
+The Free plan allows one rate limiting rule with limited options. If the matching fields are
+too restrictive to express the hostname, it is fine to skip - double opt-in is the real
+guard. A per-IP throttle can also be added inside the Worker (Cache API) if ever needed.
 
 ## Notes
 
