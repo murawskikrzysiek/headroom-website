@@ -96,24 +96,18 @@ submit the form with a content blocker on, and confirm it succeeds.
 
 If a group id ever changes, update `GROUPS` in `worker.js` and redeploy.
 
-## Rate limiting (optional hardening)
+## Rate limiting
 
-Double opt-in already means nobody is subscribed without confirming, so the only abuse
-left is confirmation-email volume; a rate limit blunts that. On the current Cloudflare
-dashboard this lives under **Security -> Security rules** (the old "WAF -> Rate limiting"
-path is gone):
+The Worker throttles per IP in-process via the Cache API: `RL_LIMIT` requests per
+`RL_WINDOW` seconds (default 10 / 60). It's approximate (per-colo, non-atomic) but needs no
+binding and works on the Free plan. Over the limit it returns HTTP 429
+`{"error":"rate_limited"}`. Tune the two constants at the top of `worker.js`.
 
-Dashboard -> zone `headroomstudio.dev` -> **Security** -> **Security rules** ->
-**Create rule** -> **Rate limiting rule**:
-- Match: `Hostname` equals `api.headroomstudio.dev` (this subdomain is proxied, so the rule
-  applies; the grey-cloud apex is unaffected and doesn't need it)
-- Rate: ~5 requests per 10s (or per minute) per IP - use the most restrictive period the
-  plan offers
-- Action: **Block**
-
-The Free plan allows one rate limiting rule with limited options. If the matching fields are
-too restrictive to express the hostname, it is fine to skip - double opt-in is the real
-guard. A per-IP throttle can also be added inside the Worker (Cache API) if ever needed.
+This stacks on the real guards (double opt-in + MailerLite's one-confirmation-per-email-per-24h),
+so a dashboard rule is **not required**. If you ever want a second layer at the edge, the
+current dashboard path is **Security -> Security rules -> Create rule -> Rate limiting rule**
+(the old "WAF -> Rate limiting" path is gone): match `Hostname equals api.headroomstudio.dev`,
+~5/min per IP, action Block. The Free plan allows one such rule.
 
 ## Notes
 

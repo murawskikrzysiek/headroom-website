@@ -61,6 +61,33 @@ function json(obj, status, headers) {
   });
 }
 
+// Per-IP throttle via the Cache API. Per-colo and non-atomic, so it's approximate -
+// abuse-blunting, not a security boundary. The real guards are double opt-in and
+// MailerLite's one-confirmation-per-email-per-24h limit; this just caps bulk scripting.
+const RL_LIMIT = 10;   // max subscribe attempts ...
+const RL_WINDOW = 60;  // ... per this many seconds, per IP
+
+async function rateLimited(ip) {
+  const cache = (typeof caches !== 'undefined' && caches.default) ? caches.default : null;
+  if (!cache) return false; // no Cache API (e.g. unit tests) -> don't throttle
+  const key = new Request('https://ratelimit.internal/' + encodeURIComponent(ip));
+  const now = Date.now();
+  let count = 0;
+  let resetAt = now + RL_WINDOW * 1000;
+  const hit = await cache.match(key);
+  if (hit) {
+    count = parseInt(hit.headers.get('x-rl-count') || '0', 10) || 0;
+    resetAt = parseInt(hit.headers.get('x-rl-reset') || '0', 10) || resetAt;
+    if (resetAt <= now) { count = 0; resetAt = now + RL_WINDOW * 1000; } // window rolled over
+  }
+  count += 1;
+  const ttl = Math.max(1, Math.ceil((resetAt - now) / 1000));
+  await cache.put(key, new Response('', {
+    headers: { 'x-rl-count': String(count), 'x-rl-reset': String(resetAt), 'Cache-Control': 'max-age=' + ttl },
+  }));
+  return count > RL_LIMIT;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -103,6 +130,11 @@ export default {
 
     if (!EMAIL.test(email)) {
       return json({ success: false, error: 'invalid_email' }, 400, headers);
+    }
+
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (await rateLimited(ip)) {
+      return json({ success: false, error: 'rate_limited' }, 429, headers);
     }
 
     // Subscribe via the official server API (assigns to the group; double opt-in,
