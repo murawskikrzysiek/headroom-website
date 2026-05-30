@@ -207,13 +207,12 @@
         <h3 class="display">Audita release notes + hearing-health notes.</h3>
         <p>Every Audita release with a short note on what changed, plus the occasional essay on monitoring and hearing health. Unsubscribe in one click.</p>
       </div>
-      <form class="nl-form" method="post" target="hr_ml_target"
-            action="https://assets.mailerlite.com/jsonp/2338219/forms/187189736836695111/subscribe"
-            data-ml-account="2338219" data-ml-form="187189736836695111">
-        <input type="email" name="fields[email]" placeholder="you@studio.com" required>
-        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio.        <a href="/audita/privacy.html">Privacy</a></label>        <input type="hidden" name="ml-submit" value="1">
-        <input type="hidden" name="anticsrf" value="true">
-        <button type="submit">Subscribe →</button>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/audita">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe →</button>
+        </div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
       </form>
     </div>
   </section>

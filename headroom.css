@@ -229,25 +229,29 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
   background: linear-gradient(135deg, rgba(124,132,246,0.06), rgba(124,132,246,0.02) 60%, transparent); }
 .newsletter h3 { font-size: 1.55rem; margin: 14px 0 8px; font-weight: 650; }
 .newsletter p { color: var(--text-2); font-size: 0.9rem; line-height: 1.6; }
-.nl-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+.nl-form { display: flex; flex-direction: column; gap: 10px; max-width: 480px; }
+.nl-row { display: flex; gap: 8px; align-items: center;
   background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 12px;
-  padding: 8px 8px 8px 18px; max-width: 480px; }
+  padding: 8px 8px 8px 18px; transition: border-color var(--t-fast); }
+.nl-row:focus-within { border-color: rgba(124,132,246,0.45); }
 .nl-form input[type=email] { flex: 1; min-width: 180px; background: transparent; border: none;
   outline: none; color: var(--text); font-family: inherit; font-size: 0.875rem; padding: 8px 0; }
 .nl-form button { padding: 8px 14px; border-radius: 7px; font-size: 0.8rem; font-weight: 600;
-  background: var(--accent); color: #0b0b0f; border: none; cursor: pointer;
+  background: var(--accent); color: #0b0b0f; border: none; cursor: pointer; white-space: nowrap;
   transition: opacity var(--t-fast); }
 .nl-form button:hover { opacity: 0.9; }
+.nl-form button:disabled { cursor: default; opacity: 0.7; }
 .nl-success { display: flex; align-items: center; gap: 10px; padding: 14px 18px;
   background: rgba(62,207,124,0.06); border: 1px solid rgba(62,207,124,0.20); border-radius: 12px;
   max-width: 480px; font-size: 0.875rem; color: var(--text); }
 .nl-success .mono { color: var(--green); }
-.nl-consent { flex-basis: 100%; display: flex; align-items: flex-start; gap: 8px; padding: 2px 4px 6px;
+.nl-consent { display: flex; align-items: flex-start; gap: 8px; padding: 0 4px;
   font-size: 0.72rem; line-height: 1.45; color: var(--text-3); cursor: pointer; }
-.nl-consent input { margin-top: 2px; flex-shrink: 0; accent-color: var(--accent); }
+.nl-consent input { margin-top: 1px; flex-shrink: 0; accent-color: var(--accent); }
 .nl-consent a { color: var(--text-2); border-bottom: 1px solid var(--border); }
 .nl-consent a:hover { color: var(--text); }
-.nl-error { color: var(--red, #f67c7c); font-size: 0.78rem; margin-top: 8px; flex-basis: 100%; }
+.nl-error { color: var(--red, #f67c7c); font-size: 0.78rem; margin-top: 2px; padding: 0 4px; }
+.nl-error a { color: var(--red, #f67c7c); border-bottom: 1px solid rgba(246,124,124,0.4); }
 
 /* ── 11. Dig-deeper tiles ────────────────────────────────────────────────── */
 .tiles { display: grid; gap: 12px; }

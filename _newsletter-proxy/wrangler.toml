@@ -1,0 +1,11 @@
+name = "headroom-newsletter"
+main = "worker.js"
+compatibility_date = "2026-05-01"
+
+# Bind the Worker to a proxied (orange-cloud) custom domain. This subdomain is
+# independent of the apex/www records, which stay DNS-only (grey-cloud) for the
+# GitHub Pages cert - so this does NOT touch Pages TLS. `wrangler deploy` creates
+# the proxied DNS record for api.headroomstudio.dev automatically.
+routes = [
+  { pattern = "api.headroomstudio.dev", custom_domain = true }
+]

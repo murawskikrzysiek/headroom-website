@@ -1,19 +1,27 @@
-/* newsletter.js - custom MailerLite subscribe via fetch().
-   MailerLite's form endpoint returns access-control-allow-origin:*, so we POST
-   with fetch() and read the JSON result - success/failure is REAL, not optimistic.
+/* newsletter.js - custom MailerLite subscribe via a first-party proxy.
+
+   The form posts to our own Cloudflare Worker (form.action =
+   https://api.headroomstudio.dev/s/<list>), which forwards to MailerLite
+   server-side and returns { "success": true }. Going through a first-party
+   subdomain means content blockers (1Blocker, uBlock, Brave, Firefox ETP)
+   that block assets.mailerlite.com cannot block the signup - they have no
+   reason to touch api.headroomstudio.dev.
+
    Requires the GDPR consent checkbox to be ticked.
 
    Markup contract (see any page's .nl-form):
-     <form class="nl-form" action="https://assets.mailerlite.com/jsonp/{acct}/forms/{id}/subscribe" ...>
-       <input type="email" name="fields[email]" required>
+     <form class="nl-form" action="https://api.headroomstudio.dev/s/main" method="post" target="hr_ml_target">
+       <div class="nl-row">
+         <input type="email" name="email" required>
+         <button type="submit">Subscribe →</button>
+       </div>
        <label class="nl-consent"><input type="checkbox" required> … </label>
-       <input type="hidden" name="ml-submit" value="1">
-       <input type="hidden" name="anticsrf" value="true">
-       <button type="submit">Subscribe →</button>
      </form>
-   If JS fails to load, the form still posts traditionally into a hidden iframe. */
+   If JS fails to load, the form still posts traditionally into a hidden iframe;
+   the Worker answers a native post with a redirect. */
 (function () {
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var MAILTO = '<a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>';
 
   function ensureTarget() {
     if (document.querySelector('iframe[name="hr_ml_target"]')) return;
@@ -32,20 +40,13 @@
     form.parentNode.replaceChild(ok, form);
   }
 
+  /* msg may contain trusted HTML (we control every call site - never user input). */
   function showError(form, btn, msg) {
     var err = form.querySelector('.nl-error');
     if (!err) { err = document.createElement('div'); err.className = 'nl-error'; form.appendChild(err); }
-    err.textContent = msg || 'Something went wrong. Please try again.';
+    err.innerHTML = msg || 'Something went wrong. Please try again.';
     btn.textContent = 'Subscribe →';
     btn.disabled = false;
-  }
-
-  function firstError(data) {
-    try {
-      var f = data && data.errors && data.errors.fields;
-      for (var k in f) { if (f[k] && f[k][0]) return f[k][0]; }
-    } catch (e) {}
-    return null;
   }
 
   function wire(form) {
@@ -65,18 +66,18 @@
       btn.disabled = true;
 
       var body = new URLSearchParams();
-      body.set('fields[email]', addr);
-      body.set('ml-submit', '1');
-      body.set('anticsrf', 'true');
+      body.set('email', addr);
 
       /* Plain form-urlencoded body keeps this a "simple" CORS request (no preflight). */
       fetch(form.action, { method: 'POST', body: body })
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (data) {
           if (data && data.success) { showSuccess(form, addr); }
-          else { showError(form, btn, firstError(data)); }
+          else { showError(form, btn, 'We could not complete your subscription. Please try again, or email ' + MAILTO + '.'); }
         })
-        .catch(function () { showError(form, btn, null); });
+        .catch(function () {
+          showError(form, btn, 'We could not reach the signup service. Email ' + MAILTO + ' and we will add you.');
+        });
     });
   }
 

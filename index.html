@@ -213,13 +213,12 @@
         <h3 class="display">Notes from the studio.</h3>
         <p>When there's something worth saying about monitoring, hearing health, or shipping the next thing. No more than a few times a year.</p>
       </div>
-      <form class="nl-form" method="post" target="hr_ml_target"
-            action="https://assets.mailerlite.com/jsonp/2338219/forms/187194958233470300/subscribe"
-            data-ml-account="2338219" data-ml-form="187194958233470300">
-        <input type="email" name="fields[email]" placeholder="you@studio.com" required>
-        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio.        <a href="/audita/privacy.html">Privacy</a></label>        <input type="hidden" name="ml-submit" value="1">
-        <input type="hidden" name="anticsrf" value="true">
-        <button type="submit">Subscribe →</button>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe →</button>
+        </div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
       </form>
     </div>
   </section>

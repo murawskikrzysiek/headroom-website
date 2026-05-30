@@ -225,13 +225,12 @@
         <h3 class="display">Lyra release notes, by email.</h3>
         <p>Every Lyra release with a short note on what changed and why. Lands in your inbox the day it ships. Unsubscribe in one click.</p>
       </div>
-      <form class="nl-form" method="post" target="hr_ml_target"
-            action="https://assets.mailerlite.com/jsonp/2338219/forms/187194794019129025/subscribe"
-            data-ml-account="2338219" data-ml-form="187194794019129025">
-        <input type="email" name="fields[email]" placeholder="you@studio.com" required>
-        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio.        <a href="/audita/privacy.html">Privacy</a></label>        <input type="hidden" name="ml-submit" value="1">
-        <input type="hidden" name="anticsrf" value="true">
-        <button type="submit">Subscribe →</button>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/lyra">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe →</button>
+        </div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
       </form>
     </div>
   </section>
