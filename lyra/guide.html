@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lyra - User Guide</title>
@@ -15,9 +14,9 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -49,7 +48,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* ─── Nav ─── */
         nav {
@@ -70,7 +69,7 @@
             gap: 10px;
         }
 
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
         .brand-word { font-weight: 600; color: #c8c6f0; }
         .brand-word span { font-weight: 500; color: #7a78a8; }
 
@@ -85,6 +84,12 @@
             transition: color 0.18s;
         }
         .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
         .nav-back svg { width: 14px; height: 14px; }
 
         /* ─── Page header ─── */
@@ -437,30 +442,43 @@
             .screenshot-row { grid-template-columns: 1fr; }
         }
     </style>
-</head>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style id="hr-rework">
+  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
+  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
+  .hr-waveform canvas { width:100%; height:100%; display:block; }
+  /* Sticky side TOC layout - applied without touching content */
+  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  .doc-grid { display:block; }
+  .doc-grid .toc { display:block; }
+</style></head>
 <body>
 
 <div class="container">
     <nav>
         <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
+        <div class="nav-links"><span class="nav-link is-current">User Guide</span><a href="api.html" class="nav-link">API</a><a href="faq.html" class="nav-link">FAQ</a></div>
         <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
+                <path d="M9 2L4 7l5 5"></path>
             </svg>
             Back to Lyra
         </a>
     </nav>
 </div>
 
-<div class="container">
+<div class="container doc-grid">
     <header class="page-header" id="top">
         <p class="page-eyebrow">Lyra · User Guide</p>
         <h1>Everything Lyra does, and how to drive it.</h1>
         <p class="page-lede">Lyra maps F10 / F11 / F12 to the monitor volume of a Universal Audio Apollo. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
-    </header>
+    </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents">
         <p class="toc-label">Contents</p>
@@ -537,13 +555,13 @@
         <p class="prose">Lyra draws its own icon - a 300° knob ring with a tick mark whose angle reflects the current monitor level (0% = 7 o'clock, 50% = 12 o'clock, 100% = 5 o'clock). State stacks:</p>
 
         <table>
-            <tr><th>Glyph</th><th>Meaning</th></tr>
+            <tbody><tr><th>Glyph</th><th>Meaning</th></tr>
             <tr><td class="wrap-ok">Filled centre dot + tick at volume angle</td><td class="wrap-ok">Normal - current monitor level</td></tr>
             <tr><td class="wrap-ok">Hollow centre ring, no tick</td><td class="wrap-ok"><strong>Muted</strong></td></tr>
             <tr><td class="wrap-ok">Centre dot with horizontal bar through it</td><td class="wrap-ok"><strong>DIM</strong> active</td></tr>
             <tr><td class="wrap-ok">Centre dot with vertical bar through it</td><td class="wrap-ok"><strong>Mono</strong> active</td></tr>
             <tr><td class="wrap-ok">Horizontal <strong>and</strong> vertical bar</td><td class="wrap-ok">DIM + Mono together</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose">The icon is a template image, so it follows the system's menu bar tint automatically (light, dark, accessibility inverted, etc.).</p>
     </section>
@@ -603,7 +621,7 @@
         <p class="prose">All shortcuts work globally and are intercepted before any other app sees them - but <strong>only when Mixer Engine is reachable</strong>. When it isn't, the F-keys fall through to whatever the system would otherwise do (usually nothing on a UA-only setup).</p>
 
         <table>
-            <tr><th>Shortcut</th><th>Action</th></tr>
+            <tbody><tr><th>Shortcut</th><th>Action</th></tr>
             <tr><td><kbd>F12</kbd></td><td class="wrap-ok">Volume up - one step</td></tr>
             <tr><td><kbd>F11</kbd></td><td class="wrap-ok">Volume down - one step</td></tr>
             <tr><td><kbd>F10</kbd></td><td class="wrap-ok">Mute / Unmute</td></tr>
@@ -614,7 +632,7 @@
             <tr><td><kbd>⌃F10</kbd></td><td class="wrap-ok">Jump to Reference Level slot 1</td></tr>
             <tr><td><kbd>⌃F11</kbd></td><td class="wrap-ok">Jump to Reference Level slot 2</td></tr>
             <tr><td><kbd>⌃F12</kbd></td><td class="wrap-ok">Jump to Reference Level slot 3</td></tr>
-        </table>
+        </tbody></table>
 
         <h3>About the step size</h3>
         <p class="prose">Lyra uses a default step of 1/16 of full range (~6.25%). Shift halves it to ~3.125% for fine adjustments - the same pattern macOS uses for built-in volume keys.</p>
@@ -745,54 +763,54 @@ open "lyra://mute/toggle"</code></pre>
 
         <h3>Reference Levels</h3>
         <table>
-            <tr><th>URL</th><th>What it does</th></tr>
+            <tbody><tr><th>URL</th><th>What it does</th></tr>
             <tr><td><code>lyra://reference/1</code></td><td class="wrap-ok">Jump to slot 1</td></tr>
             <tr><td><code>lyra://reference/2</code></td><td class="wrap-ok">Jump to slot 2</td></tr>
             <tr><td><code>lyra://reference/3</code></td><td class="wrap-ok">Jump to slot 3</td></tr>
             <tr><td><code>lyra://reference/cycle</code></td><td class="wrap-ok">Advance to the next slot</td></tr>
             <tr><td class="wrap-ok"><code>lyra://reference/{1|2|3}/save?name=Mix&amp;dBSPL=85</code></td><td class="wrap-ok">Write a slot. Lyra reads the live Apollo level for the tapered value. <code>dBSPL</code> optional.</td></tr>
             <tr><td class="wrap-ok"><code>lyra://reference/{n}/save?name=Mix&amp;dBSPL=85&amp;tapered=0.5</code></td><td class="wrap-ok">Same, but with an explicit tapered override.</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose"><code>save</code> is the URL Audita uses; you can use it from your own scripts too. If you omit <code>name</code>, the slot's existing name is kept. If you omit <code>dBSPL</code>, any existing calibration value on the slot is preserved (only an explicit value will replace it - URLs can't clear calibration).</p>
 
         <h3>Volume</h3>
         <table>
-            <tr><th>URL</th><th>What it does</th></tr>
+            <tbody><tr><th>URL</th><th>What it does</th></tr>
             <tr><td><code>lyra://volume/set?tapered=0.5</code></td><td class="wrap-ok">Set absolute level. <code>tapered</code> is 0.0-1.0 - same scale as <code>CRMonitorLevelTapered</code>.</td></tr>
             <tr><td><code>lyra://volume/up</code></td><td class="wrap-ok">Step up one full step (default 1/16).</td></tr>
             <tr><td><code>lyra://volume/up?fine=1</code></td><td class="wrap-ok">Step up by half - Shift equivalent.</td></tr>
             <tr><td><code>lyra://volume/down</code></td><td class="wrap-ok">Step down one full step.</td></tr>
             <tr><td><code>lyra://volume/down?fine=1</code></td><td class="wrap-ok">Step down by half.</td></tr>
-        </table>
+        </tbody></table>
 
         <h3>Toggles</h3>
         <table>
-            <tr><th>URL</th><th>What it does</th></tr>
+            <tbody><tr><th>URL</th><th>What it does</th></tr>
             <tr><td><code>lyra://mute/toggle</code></td><td class="wrap-ok">Toggle mute (same as F10)</td></tr>
             <tr><td><code>lyra://dim/toggle</code></td><td class="wrap-ok">Toggle DIM (same as Shift+F10)</td></tr>
             <tr><td><code>lyra://mono/toggle</code></td><td class="wrap-ok">Toggle Mono (same as Option+F10)</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose">All action URLs require Lyra to be running and your Apollo to be reachable (Mixer Engine connected). If the Mixer Engine isn't up, volume / toggle URLs are silently dropped - Lyra never queues or replays them. Pass <code>x-error=…</code> (see below) if you want a structured failure callback instead of a silent drop.</p>
 
         <h3>Reads (v1.5)</h3>
         <p class="prose">Three endpoints return live state via the <code>x-success</code> callback. They have no effect on their own - they only fire when the caller supplies an <code>x-success</code> URL.</p>
         <table>
-            <tr><th>URL</th><th>Returns (appended to x-success)</th></tr>
+            <tbody><tr><th>URL</th><th>Returns (appended to x-success)</th></tr>
             <tr><td class="wrap-ok"><code>lyra://volume/get?x-success=…</code></td><td class="wrap-ok"><code>tapered</code>, <code>db</code></td></tr>
             <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume.</td></tr>
             <tr><td class="wrap-ok"><code>lyra://state?x-success=…</code></td><td class="wrap-ok">All of the above, plus <code>muted</code>, <code>dim</code>, <code>mono</code>, <code>mixer_connected</code>, <code>device_connected</code>, <code>device_name</code>, <code>volume_step</code>.</td></tr>
-        </table>
+        </tbody></table>
         <p class="prose"><code>db</code> may be absent for a fraction of a second on first launch - Lyra waits for the first <code>CRMonitorLevel</code> push from the Apollo before it can answer. After that it stays in sync with the hardware knob.</p>
 
         <h3>x-callback-url (v1.5)</h3>
         <p class="prose">Any endpoint - read or action - accepts two optional callback URLs so you can chain Lyra into a wider workflow (Shortcuts, Drafts, Stream Deck multi-actions, …):</p>
         <table>
-            <tr><th>Param</th><th>Fires when</th></tr>
+            <tbody><tr><th>Param</th><th>Fires when</th></tr>
             <tr><td><code>x-success</code></td><td class="wrap-ok">The endpoint completed. Returned values are appended to this URL as query items. Action endpoints also append <code>result=ok</code> plus a small status object (e.g. <code>muted=true</code>).</td></tr>
             <tr><td><code>x-error</code></td><td class="wrap-ok">The endpoint failed. Lyra appends <code>error_code</code> and <code>error_message</code>. Common codes: <code>mixer_disconnected</code>, <code>invalid_slot</code>, <code>invalid_argument</code>, <code>device_not_found</code>, <code>unknown_endpoint</code>.</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose"><strong>Example - chain "set volume to 0.4 and then run a Raycast script":</strong></p>
         <pre><code>lyra://volume/set?tapered=0.4&amp;x-success=raycast://script/run?id=announce-mix</code></pre>
@@ -840,12 +858,12 @@ open "lyra://mute/toggle"</code></pre>
         <p class="screenshot-caption">Lyra's widgets on the desktop - the Control Panel (left), plus the Monitor Toggles and Volume widgets.</p>
 
         <table>
-            <tr><th>Widget</th><th>Buttons</th><th>Sizes</th></tr>
+            <tbody><tr><th>Widget</th><th>Buttons</th><th>Sizes</th></tr>
             <tr><td>Lyra - Control Panel</td><td class="wrap-ok">Volume, Mute / DIM / Mono, Slots 1-3 (all in one)</td><td>Large</td></tr>
             <tr><td>Lyra - Monitor Toggles</td><td class="wrap-ok">Mute, DIM, Mono</td><td>Medium</td></tr>
             <tr><td>Lyra - Volume</td><td class="wrap-ok">Volume down, Volume up</td><td>Small or Medium</td></tr>
             <tr><td>Lyra - Reference Levels</td><td class="wrap-ok">Slot 1, Slot 2, Slot 3</td><td>Medium</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose">Every widget carries a small Lyra header - the menu-bar knob mark, the "Lyra" wordmark, and a live connection dot (green when the Mixer Engine is reachable, red when it isn't). The small Volume widget shows the dot alone to save space; the larger widgets add a "Connected" / "Offline" label.</p>
 
@@ -871,12 +889,12 @@ open "lyra://mute/toggle"</code></pre>
 
         <p class="prose">The monitor parameters Lyra reads/writes:</p>
         <table>
-            <tr><th>Parameter</th><th>Path</th><th>What it controls</th></tr>
+            <tbody><tr><th>Parameter</th><th>Path</th><th>What it controls</th></tr>
             <tr><td>Volume (tapered)</td><td class="wrap-ok"><code>/devices/0/outputs/4/CRMonitorLevelTapered</code></td><td class="wrap-ok">Float 0.0-1.0 - the Monitor knob</td></tr>
             <tr><td>Mute</td><td class="wrap-ok"><code>/devices/0/outputs/4/Mute</code></td><td class="wrap-ok">Bool</td></tr>
             <tr><td>DIM</td><td class="wrap-ok"><code>/devices/0/outputs/4/DimOn</code></td><td class="wrap-ok">Bool - Apollo applies the attenuation set in Console</td></tr>
             <tr><td>Mix-to-Mono</td><td class="wrap-ok"><code>/devices/0/outputs/4/MixToMono</code></td><td class="wrap-ok">Bool</td></tr>
-        </table>
+        </tbody></table>
 
         <p class="prose">The paths above show <code>outputs/4</code> because that's the Monitor output on Apollo Twin X. As of v1.6, the output index is <strong>discovered at connect</strong>, not pinned - Lyra asks the Mixer Engine which output is the Monitor and uses whichever index your hardware reports. Twin X reports <code>4</code>; other Apollo models report different indices. If discovery doesn't return a usable answer, Lyra falls back to <code>4</code> so existing Twin X setups are unaffected.</p>
 
@@ -1097,5 +1115,7 @@ open "lyra://mute/toggle"</code></pre>
     });
 </script>
 
-</body>
-</html>
+
+
+
+<script src="../waveform.js"></script></body></html>

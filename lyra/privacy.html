@@ -1,312 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyra Privacy Policy - No Tracking, No Telemetry</title>
-    <link rel="canonical" href="https://headroomstudio.dev/lyra/privacy.html">
-    <meta name="description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac. Read the full Headroom Studio privacy policy.">
-    <meta property="og:title" content="Lyra Privacy Policy">
-    <meta property="og:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
-    <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Lyra Privacy Policy">
-    <meta name="twitter:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
-    <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
-            --accent:       #7c84f6;
-            --accent-dim:   rgba(124, 132, 246, 0.14);
-            --green:        #3ecf7c;
-            --radius-btn:   9px;
-        }
-
-        html { font-size: 16px; scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ─── Nav ─── */
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
-
-        .brand {
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
-        .brand-word { font-weight: 600; color: #c8c6f0; }
-        .brand-word span { font-weight: 500; color: #7a78a8; }
-
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-2);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .nav-back:hover { color: var(--text); }
-        .nav-back svg { width: 14px; height: 14px; }
-
-        /* ─── Hero ─── */
-
-        .hero {
-            padding: 56px 0 48px;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-size: clamp(1.6rem, 4vw, 2rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 10px;
-        }
-
-        .hero-meta {
-            font-size: 0.825rem;
-            color: var(--text-3);
-        }
-
-        /* ─── Divider ─── */
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0 0 48px;
-        }
-
-        /* ─── Sections ─── */
-
-        .section {
-            padding-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 14px;
-            letter-spacing: -0.01em;
-        }
-
-        /* ─── Prose ─── */
-
-        .prose {
-            font-size: 0.9375rem;
-            color: var(--text-2);
-            line-height: 1.8;
-        }
-
-        .prose + .prose { margin-top: 10px; }
-
-        .prose strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .prose a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
-            transition: color 0.18s;
-        }
-
-        .prose a:hover { color: #a0aaff; }
-
-        /* ─── Footer ─── */
-
-        footer {
-            padding: 28px 0 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
-
-        .footer-links { display: flex; gap: 22px; list-style: none; }
-
-        .footer-links a {
-            font-size: 0.8rem;
-            color: var(--text-3);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .footer-links a:hover { color: var(--text-2); }
-
-        @media (max-width: 560px) {
-            .hero { padding: 40px 0 36px; }
-        }
-    </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lyra Privacy Policy - No Tracking, No Telemetry</title>
+  <link rel="canonical" href="https://headroomstudio.dev/lyra/privacy.html">
+  <meta name="description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac. Read the full Headroom Studio privacy policy.">
+  <meta property="og:title" content="Lyra Privacy Policy">
+  <meta property="og:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
+  <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lyra Privacy Policy">
+  <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <style>
+    .priv-section { padding-bottom: 40px; }
+    .priv-section h2 { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em; }
+    .priv-section p, .priv-section li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; max-width: 720px; }
+    .priv-section p + p { margin-top: 10px; }
+    .priv-section strong { color: var(--text); font-weight: 600; }
+    .priv-section a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
+    .priv-section ol { padding-left: 22px; margin-top: 8px; list-style: decimal; }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="container">
-    <nav>
-        <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
-            <span class="brand-word">Head<span>room</span></span>
-        </a>
-        <a href="./" class="nav-back">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
-            </svg>
-            Lyra
-        </a>
-    </nav>
-</div>
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="./" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>Lyra</a>
+  </nav>
 
-<div class="container">
-    <section class="hero">
-        <p class="hero-eyebrow">Lyra</p>
-        <h1>Privacy Policy</h1>
-        <p class="hero-meta">Last updated: May 2026</p>
-    </section>
-</div>
+  <header class="doc-header">
+    <p class="eyebrow">Lyra</p>
+    <h1 class="display">Privacy Policy</h1>
+    <p class="doc-header__meta">Last updated: May 2026</p>
+  </header>
 
-<div class="container">
-    <hr class="divider">
+  <hr class="rule" style="margin-bottom: 48px;">
 
-    <section class="section">
-        <p class="section-title">Overview</p>
-        <p class="prose">Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics, no crash reporting, and no telemetry. The app does reach the network for license validation, auto-update checks, and the URL handoff to Audita; each is described below.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Overview</h2>
+    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics, no crash reporting, and no telemetry. The app does reach the network for license validation, auto-update checks, and the URL handoff to Audita; each is described below.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Data collected</p>
-        <p class="prose">None. The app does not collect any information about you or your usage.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Data collected</h2>
+    <p>None. The app does not collect any information about you or your usage.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Accessibility permission</p>
-        <p class="prose">Lyra requests <strong>Accessibility access</strong> in System Settings. This permission is used solely to intercept the F10, F11, and F12 key presses system-wide. No other input is read or recorded.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Accessibility permission</h2>
+    <p>Lyra requests <strong>Accessibility access</strong> in System Settings. This permission is used solely to intercept the F10, F11, and F12 key presses system-wide. No other input is read or recorded.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">UA Mixer Engine communication</p>
-        <p class="prose">The app communicates with <strong>UA Mixer Engine</strong> through a local TCP connection on your machine. This communication stays entirely on your device - no data leaves your computer.</p>
-    </section>
+  <section class="priv-section">
+    <h2>UA Mixer Engine communication</h2>
+    <p>The app communicates with <strong>UA Mixer Engine</strong> through a local TCP connection on your machine. This communication stays entirely on your device - no data leaves your computer.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">License validation</p>
-        <p class="prose">When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server (e.g. you're offline), it grants the benefit of the doubt and continues to run normally.</p>
-    </section>
+  <section class="priv-section">
+    <h2>License validation</h2>
+    <p>When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server (e.g. you're offline), it grants the benefit of the doubt and continues to run normally.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Purchases</p>
-        <p class="prose">Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider. When you purchase the app, Lemon Squeezy's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Lemon Squeezy's privacy policy at <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Purchases</h2>
+    <p>Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider. When you purchase the app, Lemon Squeezy's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Lemon Squeezy's privacy policy at <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Audita pairing</p>
-        <p class="prose">When you use Audita's <em>"Send to Lyra…"</em> feature, Audita opens a <code>lyra://</code> URL on the same Mac to hand a slot number, a name (e.g. "K-14"), and a dB SPL value to Lyra. The handoff happens entirely between two local apps via macOS's URL handler. Nothing leaves your device.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Audita pairing</h2>
+    <p>When you use Audita's <em>"Send to Lyra…"</em> feature, Audita opens a <code>lyra://</code> URL on the same Mac to hand a slot number, a name (e.g. "K-14"), and a dB SPL value to Lyra. The handoff happens entirely between two local apps via macOS's URL handler. Nothing leaves your device.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Website analytics</p>
-        <p class="prose">The <strong>headroomstudio.dev</strong> website uses <strong>Cloudflare Web Analytics</strong>, a cookieless, privacy-first analytics service. It records aggregate pageviews, top referrers, and country (no individual user tracking, no cookies, no GDPR cookie banner required). This applies to the website only; the Lyra app does not load these scripts.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Website analytics</h2>
+    <p>The <strong>headroomstudio.dev</strong> website uses <strong>Cloudflare Web Analytics</strong>, a cookieless, privacy-first analytics service. It records aggregate pageviews, top referrers, and country (no individual user tracking, no cookies, no GDPR cookie banner required). This applies to the website only; the Lyra app does not load these scripts.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Newsletter signup</p>
-        <p class="prose">If you sign up for the Headroom newsletter via the form on the website, your email address is sent to <strong>MailerLite</strong>, our newsletter provider. MailerLite's privacy policy applies. We use it only to send occasional release announcements; you can unsubscribe from any email. The MailerLite script loads on the homepage only and does not run inside the app.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Newsletter signup</h2>
+    <p>If you sign up for the Headroom newsletter via the form on the website, your email address is sent to <strong>MailerLite</strong>, our newsletter provider. MailerLite's privacy policy applies. We use it only to send occasional release announcements; you can unsubscribe from any email. The newsletter form lives on the website and does not run inside the app.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Auto-update checks</p>
-        <p class="prose">Lyra uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code style="font-size: 0.875rem; color: var(--text-3);">https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility; no personal data is transmitted.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Auto-update checks</h2>
+    <p>Lyra uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility; no personal data is transmitted.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Your data rights</p>
-        <p class="prose">If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you've subscribed, what MailerLite holds (email address). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Your data rights</h2>
+    <p>If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you've subscribed, what MailerLite holds (email address). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Uninstalling Lyra</p>
-        <p class="prose">To remove Lyra and its local data:</p>
-        <ol class="prose" style="margin-top: 8px; padding-left: 22px;">
-            <li>Quit Lyra from the menu bar.</li>
-            <li>Drag Lyra from <code style="font-size: 0.875rem; color: var(--text-3);">/Applications</code> to the Trash.</li>
-            <li>To also clear settings (saved reference levels, HUD preference, target device): <code style="font-size: 0.875rem; color: var(--text-3);">defaults delete com.headroom.Lyra</code> in Terminal.</li>
-        </ol>
-        <p class="prose" style="margin-top: 8px;">Your license key survives this and reactivates on a fresh install. To clear the license too, deactivate it first via <strong>Menu → Manage License → Deactivate</strong> before uninstalling.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Uninstalling Lyra</h2>
+    <p>To remove Lyra and its local data:</p>
+    <ol>
+      <li>Quit Lyra from the menu bar.</li>
+      <li>Drag Lyra from <code>/Applications</code> to the Trash.</li>
+      <li>To also clear settings (saved reference levels, HUD preference, target device): <code>defaults delete com.headroom.Lyra</code> in Terminal.</li>
+    </ol>
+    <p>Your license key survives this and reactivates on a fresh install. To clear the license too, deactivate it first via <strong>Menu → Manage License → Deactivate</strong> before uninstalling.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Contact</p>
-        <p class="prose">If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Contact</h2>
+    <p>If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+  </section>
 
-    <hr class="divider">
-    <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
-        <ul class="footer-links">
-            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
-            <li><a href="guide.html">User Guide</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="api.html">API</a></li>
-            <li><a href="releases.html">Release notes</a></li>
-        </ul>
-    </footer>
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="guide.html">User Guide</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="api.html">API</a></li>
+      <li><a href="releases.html">Release notes</a></li>
+    </ul>
+  </footer>
 </div>
 
 </body>

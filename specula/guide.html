@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula - User Guide</title>
@@ -15,8 +14,8 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -48,7 +47,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* ─── Nav ─── */
         nav {
@@ -69,7 +68,7 @@
             gap: 10px;
         }
 
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
         .brand-word { font-weight: 600; color: #c8c6f0; }
         .brand-word span { font-weight: 500; color: #7a78a8; }
 
@@ -84,12 +83,16 @@
             transition: color 0.18s;
         }
         .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
         .nav-back svg { width: 14px; height: 14px; }
 
         /* ─── Page header ─── */
-        .page-header {
-            padding: 32px 0 24px;
-        }
+        .page-header { padding: 32px 0 24px; }
 
         .page-eyebrow {
             font-size: 0.7rem;
@@ -201,6 +204,7 @@
 
         .prose + .prose { margin-top: 12px; }
         .prose + ul, .prose + ol, ul + .prose, ol + .prose { margin-top: 12px; }
+        .prose + table, table + .prose { margin-top: 14px; }
 
         .prose strong, ul strong, li strong, td strong {
             color: var(--text);
@@ -422,6 +426,18 @@
             th, td { padding: 8px 10px 8px 0; }
         }
     </style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style id="hr-rework">
+  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
+  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
+  .hr-waveform canvas { width:100%; height:100%; display:block; }
+  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  .doc-grid { display:block; }
+  .doc-grid .toc { display:block; }
+</style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
@@ -429,24 +445,25 @@
 <div class="container">
     <nav>
         <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
+        <div class="nav-links"><span class="nav-link is-current">User Guide</span></div>
         <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
+                <path d="M9 2L4 7l5 5"></path>
             </svg>
             Back to Specula
         </a>
     </nav>
 </div>
 
-<div class="container">
+<div class="container doc-grid">
     <header class="page-header" id="top">
         <p class="page-eyebrow">Specula · User guide</p>
         <h1>Everything Specula does, and how to drive it.</h1>
         <p class="page-lede">This page is the canonical reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The same content is mirrored in <code>USER-GUIDE.md</code> in the Specula repository.</p>
-    </header>
+    </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents">
         <p class="toc-label">Contents</p>
@@ -699,9 +716,9 @@
         <table>
             <tr><th>Metric</th><th>Music</th><th>Podcast</th><th>VOD</th><th>Broadcast</th></tr>
             <tr><td class="wrap-ok">Integrated, LRA, M/S, True/Sample Peak, Targets, Per-channel</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="wrap-ok">Speech-Gated I, Speech %</td><td>—</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="wrap-ok">Noise Floor (ACX)</td><td>—</td><td>✓</td><td>—</td><td>—</td></tr>
-            <tr><td class="wrap-ok">Dynamic Range, Headroom</td><td>✓</td><td>—</td><td>—</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Speech-Gated I, Speech %</td><td>-</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td class="wrap-ok">Noise Floor (ACX)</td><td>-</td><td>✓</td><td>-</td><td>-</td></tr>
+            <tr><td class="wrap-ok">Dynamic Range, Headroom</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
         </table>
 
         <p class="prose"><strong>Settings → Targets</strong> is a per-mode catalog editor - four sections, one per mode, each with its target toggles. Use it to decide which targets show up next to a loaded file when that mode is active.</p>
@@ -764,7 +781,7 @@
             <li><strong>Integrated LUFS</strong> is the full-program measurement (ITU-R BS.1770 with K-weighting and two-stage gating). Used by music streaming, EBU R128, ARIB TR-B32, OP-59, ACX, and anything labelled simply "LUFS".</li>
             <li><strong>Dialog-gated LKFS</strong> is the same BS.1770 algorithm applied only to the portions of the file containing speech, classified by the Silero neural VAD on file load. Used by Netflix and every other major VOD platform (Prime Video, Apple TV+, Disney+, Max), by streaming podcast targets, and by ATSC A/85 / the CALM Act (which the spec calls "anchor-element" measurement but is functionally dialog-gated for typical TV programming).</li>
         </ul>
-        <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "—" and dialog-gated target verdicts as "no speech".</p>
+        <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "-" and dialog-gated target verdicts as "no speech".</p>
 
         <h3>Asymmetric platform normalization</h3>
         <p class="prose">Not every streaming platform applies the gain it computes. <strong>Apple Music's Sound Check, YouTube, and Tidal only turn loud tracks down</strong>; they leave quieter-than-reference tracks at their original level. So if your master sits at −18 LUFS against Apple Music's −16 reference, the platform plays it at −18, not boosted to −16. Specula reflects this:</p>
@@ -878,9 +895,9 @@
         <h3>Tuning the VAD (Settings → Speech)</h3>
         <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
         <ol>
-            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
-            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
-            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
+            <li><strong>Threshold</strong> (0.1 - 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 - 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
+            <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
         </ol>
 
         <div class="shot-placeholder">
@@ -1427,7 +1444,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <li><strong>Line 3.</strong> The two ACX gates the integrated alone doesn't catch: true peak and noise floor.</li>
             <li><strong>Line 4.</strong> Secondary metrics: LRA, speech-gated (Dlg), and speech percentage.</li>
         </ul>
-        <p class="prose">Missing metrics render as muted <code>—</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
+        <p class="prose">Missing metrics render as muted <code>-</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
 
         <h3>ACX gates</h3>
         <p class="prose">Each chapter is independently checked against three ACX delivery limits. Failures render the metric in red on the ribbon slot and on the report's chapter table:</p>
@@ -1654,9 +1671,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>Speech</h3>
         <ul>
-            <li><strong>Threshold</strong> (0.1 – 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
-            <li><strong>Minimum region duration</strong> (0.05 – 2.0 s, default 0.10) - shorter detections are dropped.</li>
-            <li><strong>Merge gap</strong> (0.05 – 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
+            <li><strong>Threshold</strong> (0.1 - 0.9, default 0.5) - Silero confidence below which a frame counts as non-speech.</li>
+            <li><strong>Minimum region duration</strong> (0.05 - 2.0 s, default 0.10) - shorter detections are dropped.</li>
+            <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
         </ul>
         <p class="prose">Edits re-run detection in about half a second and the new history feeds back into the live loudness path. If you have manual edits in Dialogue mode when you move a slider, they're pushed onto the Dialogue mode undo stack first so you can <kbd>⌘Z</kbd> back to them. See <a href="#speech-gated">Speech-gated loudness + Dialogue mode</a> for the full workflow.</p>
 
@@ -1781,18 +1798,17 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
     </section>
+</div>
 
-    <hr class="divider">
-
+<div class="container">
     <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
+        <p class="footer-copy">© 2026 Headroom Studio. Made by Krzysiek.</p>
         <ul class="footer-links">
-            <li><a href="./">Specula</a></li>
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="./">Specula home</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
 </div>
 
-</body>
-</html>
+<script src="../waveform.js"></script></body></html>

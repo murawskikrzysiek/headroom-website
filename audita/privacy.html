@@ -1,309 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audita Privacy Policy - Audio Never Leaves Your Mac</title>
-    <link rel="canonical" href="https://headroomstudio.dev/audita/privacy.html">
-    <meta name="description" content="Audita analyzes audio only locally - no recording, no upload, no telemetry. Read the full Headroom Studio privacy policy.">
-    <meta property="og:title" content="Audita Privacy Policy">
-    <meta property="og:description" content="Audita analyzes audio only locally. No recording, no upload, no telemetry.">
-    <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Audita Privacy Policy">
-    <meta name="twitter:description" content="Audita analyzes audio only locally. No recording, no upload, no telemetry.">
-    <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
-            --accent:       #7c84f6;
-            --accent-dim:   rgba(124, 132, 246, 0.14);
-            --green:        #3ecf7c;
-            --radius-btn:   9px;
-        }
-
-        html { font-size: 16px; scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ─── Nav ─── */
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
-
-        .brand {
-            font-size: 1.05rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
-        .brand-word { font-weight: 600; color: #c8c6f0; }
-        .brand-word span { font-weight: 500; color: #7a78a8; }
-
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-2);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .nav-back:hover { color: var(--text); }
-        .nav-back svg { width: 14px; height: 14px; }
-
-        /* ─── Hero ─── */
-
-        .hero {
-            padding: 56px 0 48px;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-size: clamp(1.6rem, 4vw, 2rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 10px;
-        }
-
-        .hero-meta {
-            font-size: 0.825rem;
-            color: var(--text-3);
-        }
-
-        /* ─── Divider ─── */
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0 0 48px;
-        }
-
-        /* ─── Sections ─── */
-
-        .section {
-            padding-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 14px;
-            letter-spacing: -0.01em;
-        }
-
-        /* ─── Prose ─── */
-
-        .prose {
-            font-size: 0.9375rem;
-            color: var(--text-2);
-            line-height: 1.8;
-        }
-
-        .prose + .prose { margin-top: 10px; }
-
-        .prose strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .prose a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
-            transition: color 0.18s;
-        }
-
-        .prose a:hover { color: #a0aaff; }
-
-        /* ─── Footer ─── */
-
-        footer {
-            padding: 28px 0 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
-
-        .footer-links { display: flex; gap: 22px; list-style: none; }
-
-        .footer-links a {
-            font-size: 0.8rem;
-            color: var(--text-3);
-            text-decoration: none;
-            transition: color 0.18s;
-        }
-
-        .footer-links a:hover { color: var(--text-2); }
-
-        @media (max-width: 560px) {
-            .hero { padding: 40px 0 36px; }
-        }
-    </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audita Privacy Policy - No Tracking, No Telemetry</title>
+  <link rel="canonical" href="https://headroomstudio.dev/audita/privacy.html">
+  <meta name="description" content="Audita measures sound locally on your Mac, collects no personal data, and sends no telemetry. Read the full Headroom Studio privacy policy.">
+  <meta property="og:title" content="Audita Privacy Policy">
+  <meta property="og:description" content="Audita analyzes audio only locally. No recording, no upload, no telemetry.">
+  <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <style>
+    .priv-section { padding-bottom: 40px; }
+    .priv-section h2 { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em; }
+    .priv-section p, .priv-section li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; max-width: 720px; }
+    .priv-section p + p { margin-top: 10px; }
+    .priv-section strong { color: var(--text); font-weight: 600; }
+    .priv-section a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
+    .priv-section ol { padding-left: 22px; margin-top: 8px; list-style: decimal; }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="container">
-    <nav>
-        <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
-            <span class="brand-word">Head<span>room</span></span>
-        </a>
-        <a href="./" class="nav-back">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
-            </svg>
-            Audita
-        </a>
-    </nav>
-</div>
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="./" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>Audita</a>
+  </nav>
 
-<div class="container">
-    <section class="hero">
-        <p class="hero-eyebrow">Audita</p>
-        <h1>Privacy Policy</h1>
-        <p class="hero-meta">Last updated: May 2026</p>
-    </section>
-</div>
+  <header class="doc-header">
+    <p class="eyebrow">Audita</p>
+    <h1 class="display">Privacy Policy</h1>
+    <p class="doc-header__meta">Last updated: May 2026</p>
+  </header>
 
-<div class="container">
-    <hr class="divider">
+  <hr class="rule" style="margin-bottom: 48px;">
 
-    <section class="section">
-        <p class="section-title">Overview</p>
-        <p class="prose">Audita is a local macOS utility. It does not transmit, upload, or share any personal data or audio. All measurements and session history are stored only on your Mac. There are no analytics, no crash reporting, and no external network connections made by the app during normal use.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Overview</h2>
+    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics, no crash reporting, and no telemetry. The app reaches the network only for license validation and auto-update checks; each is described below.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Microphone access</p>
-        <p class="prose">Audita requests <strong>Microphone access</strong> in System Settings. This permission is used solely to measure sound pressure levels from your chosen audio input device. Audio is processed entirely on-device in real time - raw audio samples are never recorded to disk, never transmitted, and are discarded after each measurement tick. Only derived numeric values (SPL in dBA/dBC, dose percentage) are retained.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Microphone &amp; audio input</h2>
+    <p>Audita requests <strong>microphone / audio input</strong> permission so it can read the level from your chosen CoreAudio input device and compute SPL. Audio is analysed in real time to derive a level number - <strong>it is never recorded, saved, or transmitted</strong>. No audio leaves your Mac.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Session data</p>
-        <p class="prose">Session history - including start/end times, dose percentages, average and peak SPL, and DAW names - is stored locally at:</p>
-        <p class="prose" style="margin-top: 8px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 0.8125rem; color: var(--text-3); background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);">~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</p>
-        <p class="prose" style="margin-top: 12px;">This file never leaves your device. Sessions older than 90 days are pruned automatically on launch. The retention threshold (and a separate detailed-time-series retention) is user-configurable in <strong>Settings → General → Storage</strong>.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Data collected</h2>
+    <p>None that leaves your device. Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Session reports (PDF)</p>
-        <p class="prose">When you open a session report, Audita renders a PDF to a temporary location at <code style="font-size: 0.875rem; color: var(--text-3);">~/Library/Caches/Audita Reports/</code>. The folder lives inside the standard macOS Caches directory; macOS manages cleanup on its own schedule. You can also empty it by hand at any time. The PDF is generated locally and only leaves your Mac if you actively share or save it through the macOS Share menu.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Session data</h2>
+    <p>Session history - including start/end times, dose percentages, average and peak SPL, and DAW names - is stored locally at <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>.</p>
+    <p>This file never leaves your device. Sessions older than 90 days are pruned automatically on launch. The retention threshold (and a separate detailed-time-series retention) is user-configurable in <strong>Settings → General → Storage</strong>.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Preferences and settings</p>
-        <p class="prose">Your settings - selected input device, calibration offset, DAW list, dose preferences, retention thresholds, and notification settings - are stored locally on your Mac and are never transmitted.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Session reports (PDF)</h2>
+    <p>When you open a session report, Audita renders a PDF to a temporary location at <code>~/Library/Caches/Audita Reports/</code>. The folder lives inside the standard macOS Caches directory; macOS manages cleanup on its own schedule. You can also empty it by hand at any time. The PDF is generated locally and only leaves your Mac if you actively share or save it through the macOS Share menu.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Automation surfaces</p>
-        <p class="prose">Audita ships an <code>audita://</code> URL scheme and a bundle of App Intents for Shortcuts, Siri, and Focus filters. These are local automation surfaces. URL responses use <code>x-callback-url</code>, which sends the response payload to a URL <em>you</em> supply. Audita does not contact any remote service through these surfaces; if your callback URL points to a third party, that's your choice and that party's policy then applies. The intents and URL scheme are read-and-toggle only: they cannot change calibration, license state, or A/C-weighting coefficients.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Automation surfaces</h2>
+    <p>Audita ships an <code>audita://</code> URL scheme and a bundle of App Intents for Shortcuts, Siri, and Focus filters. These are local automation surfaces. URL responses use <code>x-callback-url</code>, which sends the response payload to a URL <em>you</em> supply. Audita does not contact any remote service through these surfaces; if your callback URL points to a third party, that's your choice and that party's policy then applies. The intents and URL scheme are read-and-toggle only: they cannot change calibration, license state, or A/C-weighting coefficients.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Lyra integration</p>
-        <p class="prose">When you click <strong>Send to Lyra…</strong> after a calibration, Audita opens a <code>lyra://</code> URL on the same Mac to hand a slot number, a name (e.g. "K-14"), and a dB SPL value to Lyra. Nothing leaves your device. The handoff happens entirely between two local apps via macOS's URL handler.</p>
-    </section>
+  <section class="priv-section">
+    <h2>License validation</h2>
+    <p>When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server, it continues to run normally.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Auto-update checks</p>
-        <p class="prose">Audita uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code style="font-size: 0.875rem; color: var(--text-3);">https://headroomstudio.dev/audita/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility, but no personal data is transmitted. You can disable automatic checks in the app's menu.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Purchases</h2>
+    <p>Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider, whose privacy policy applies to the transaction. Headroom does not receive or store your payment details. See <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Purchases</p>
-        <p class="prose">Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider. When you purchase Audita, Lemon Squeezy's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Lemon Squeezy's privacy policy at <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Lyra pairing</h2>
+    <p>When you use <em>"Send to Lyra…"</em>, Audita opens a <code>lyra://</code> URL on the same Mac to hand a slot number, a name, and a dB SPL value to <a href="../lyra/">Lyra</a>. The handoff happens entirely between two local apps via macOS's URL handler. Nothing leaves your device.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Your data rights</p>
-        <p class="prose">If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Audita holds no personal data on its own: all session and SPL data lives locally on your Mac, and the only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to Lemon Squeezy where applicable.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Website analytics</h2>
+    <p>The <strong>headroomstudio.dev</strong> website uses <strong>Cloudflare Web Analytics</strong>, a cookieless, privacy-first service recording only aggregate pageviews, referrers, and country. This applies to the website only; the Audita app does not load these scripts.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Uninstalling Audita</p>
-        <p class="prose">To remove Audita and its local data:</p>
-        <ol class="prose" style="margin-top: 8px; padding-left: 22px;">
-            <li>Quit Audita from the menu bar.</li>
-            <li>Drag Audita from <code style="font-size: 0.875rem; color: var(--text-3);">/Applications</code> to the Trash.</li>
-            <li>To also remove session history and settings: delete <code style="font-size: 0.875rem; color: var(--text-3);">~/Library/Containers/com.headroom.Audita</code>.</li>
-        </ol>
-        <p class="prose" style="margin-top: 8px;">Your license key (if you've activated) survives this and reactivates a fresh install on the same Mac. To clear the license too, deactivate it first via <strong>Menu → Manage License → Deactivate</strong> before uninstalling.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Newsletter</h2>
+    <p>If you subscribe to the Headroom Studio newsletter, your email address is stored and processed by <strong>MailerLite</strong>, an external email provider, solely to send the updates you opted in to. We collect only your email address, and only with your explicit consent (the checkbox on the signup form). Every email includes an unsubscribe link and you can opt out at any time. See <a href="https://www.mailerlite.com/legal/privacy-policy" target="_blank" rel="noopener">MailerLite's privacy policy</a>. The newsletter is entirely separate from the Audita app, which sends no email and loads no MailerLite code.</p>
+  </section>
 
-    <section class="section">
-        <p class="section-title">Contact</p>
-        <p class="prose">If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
-    </section>
+  <section class="priv-section">
+    <h2>Auto-update checks</h2>
+    <p>Audita uses <strong>Sparkle</strong> for automatic updates, periodically fetching the appcast at <code>https://headroomstudio.dev/audita/appcast.xml</code>. The request includes your macOS version and CPU architecture for compatibility; no personal data is transmitted.</p>
+  </section>
 
-    <hr class="divider">
-    <footer>
-        <span class="footer-copy">© 2026 Headroom</span>
-        <ul class="footer-links">
-            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
-            <li><a href="guide.html">User Guide</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="api.html">API</a></li>
-            <li><a href="releases.html">Release notes</a></li>
-        </ul>
-    </footer>
+  <section class="priv-section">
+    <h2>Your data rights</h2>
+    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Uninstalling Audita</h2>
+    <p>To remove Audita and its local data:</p>
+    <ol>
+      <li>Quit Audita from the menu bar.</li>
+      <li>Drag Audita from <code>/Applications</code> to the Trash.</li>
+      <li>To also remove session history and settings: delete <code>~/Library/Containers/com.headroom.Audita</code>.</li>
+    </ol>
+  </section>
+
+  <section class="priv-section">
+    <h2>Contact</h2>
+    <p>Questions about this policy? Reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="guide.html">User Guide</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="api.html">API</a></li>
+      <li><a href="releases.html">Release notes</a></li>
+    </ul>
+  </footer>
 </div>
 
 </body>

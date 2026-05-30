@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita Automation API - App Intents, audita:// URL scheme, x-callback-url</title>
@@ -20,8 +19,8 @@
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -52,7 +51,7 @@
         }
 
         .container {
-            max-width: 780px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -77,7 +76,7 @@
             gap: 10px;
         }
 
-        .brand-mark { width: 28px; height: 28px; color: #c8c6f0; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
         .brand-word { font-weight: 600; color: #c8c6f0; }
         .brand-word span { font-weight: 500; color: #7a78a8; }
 
@@ -93,6 +92,12 @@
         }
 
         .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
         .nav-back svg { width: 14px; height: 14px; }
 
         /* ─── Hero ─── */
@@ -492,21 +497,34 @@
             .meta-key:first-child { padding-top: 0; }
         }
     </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
-</head>
+    <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style id="hr-rework">
+  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
+  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
+  .hr-waveform canvas { width:100%; height:100%; display:block; }
+  /* Sticky side TOC layout - applied without touching content */
+  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  .doc-grid { display:block; }
+  .doc-grid .toc { display:block; }
+</style></head>
 <body>
 
 <div class="container">
     <nav>
         <a href="/" class="brand">
-            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
             <span class="brand-word">Head<span>room</span></span>
         </a>
+        <div class="nav-links"><a href="guide.html" class="nav-link">User Guide</a><span class="nav-link is-current">API</span><a href="faq.html" class="nav-link">FAQ</a></div>
         <a href="./" class="nav-back">
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2L4 7l5 5"/>
+                <path d="M9 2L4 7l5 5"></path>
             </svg>
-            Audita
+            Back to Audita
         </a>
     </nav>
 </div>
@@ -518,7 +536,11 @@
         <p class="hero-desc">Audita exposes two scriptable surfaces: a bundle of <strong>App Intents</strong> for Shortcuts, Siri, and Focus Filters, and an <code>audita://</code> <strong>URL scheme</strong> for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, <code>open</code> from a shell). Both surfaces map onto the same underlying state and share an error vocabulary.</p>
         <p class="hero-meta">v1.2 - last updated for the v1.2 release. The intents require macOS 14 (Sonoma) or later; the URL scheme works on every supported macOS.</p>
 
-        <nav class="toc" aria-label="On this page">
+        
+    </section><div class="hr-waveform waveform"><canvas></canvas></div>
+</div>
+
+<div class="container doc-grid"><nav class="toc" aria-label="On this page">
             <p class="toc-label">On this page</p>
             <ul>
                 <li><a href="#overview">Overview</a></li>
@@ -532,10 +554,6 @@
                 <li><a href="#cross-app">Cross-app: studio-on ritual</a></li>
             </ul>
         </nav>
-    </section>
-</div>
-
-<div class="container">
     <hr class="divider">
 
     <!-- ─── Overview ─── -->
@@ -543,7 +561,7 @@
         <p class="section-label">Overview</p>
         <h2>Two surfaces, same state<a class="anchor" href="#overview">#</a></h2>
         <p class="prose"><strong>App Intents</strong> are the native macOS Shortcuts surface. Drag them into a Shortcut, speak them at Siri, or wire them into a Focus Filter. They get typed parameters, structured return values, and proper error dialogs when something goes wrong. They're the smoothest path for anyone living inside the Shortcuts ecosystem.</p>
-        <p class="prose">The <code>audita://</code> <strong>URL scheme</strong> is the lowest-common-denominator surface for everything else. Anything that can fire a URL can drive it: Stream Deck's built-in <strong>System &raquo; Open</strong> action, Keyboard Maestro's <strong>Open URL</strong>, Hammerspoon's <code>hs.urlevent.openURL</code>, AppleScript's <code>open location</code>, <code>open "audita://..."</code> from the shell. Responses flow back through <code>x-callback-url</code> as flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
+        <p class="prose">The <code>audita://</code> <strong>URL scheme</strong> is the lowest-common-denominator surface for everything else. Anything that can fire a URL can drive it: Stream Deck's built-in <strong>System » Open</strong> action, Keyboard Maestro's <strong>Open URL</strong>, Hammerspoon's <code>hs.urlevent.openURL</code>, AppleScript's <code>open location</code>, <code>open "audita://..."</code> from the shell. Responses flow back through <code>x-callback-url</code> as flat snake_case query parameters in plain ASCII - no JSON parsing required on the consumer side.</p>
         <p class="prose">Audita's <strong>state</strong> is single-sourced: the intents and URLs read and write through the same <code>AppState</code>. Starting a session via Siri, the menu bar, or the URL scheme is the same operation; the URL endpoints don't see a parallel reality.</p>
 
         <h3>Trying it from the shell</h3>
@@ -562,7 +580,7 @@
 
         <div class="notice">
             <span class="notice-icon">!</span>
-            <p>Pushing a calibrated SPL into a Lyra reference slot lives in Audita Settings &rarr; Audio &rarr; "Send to Lyra...", not in the intent surface. Sharing a session report is handled by the <a href="guide.html#session-reports">Session Report</a> window's macOS Share menu, not an intent.</p>
+            <p>Pushing a calibrated SPL into a Lyra reference slot lives in Audita Settings → Audio → "Send to Lyra...", not in the intent surface. Sharing a session report is handled by the <a href="guide.html#session-reports">Session Report</a> window's macOS Share menu, not an intent.</p>
         </div>
 
         <h3>Reads</h3>
@@ -629,7 +647,7 @@
         <p class="prose">Audita registers a Focus Filter called <strong>Start a Mixing Session</strong>. Wire it once and a Focus turning on starts a session automatically; the Focus turning off ends it.</p>
 
         <ol class="prose-list">
-            <li>Open <strong>System Settings &rarr; Focus &rarr; (pick a Focus) &rarr; Add Filter &rarr; Audita &rarr; Start a Mixing Session</strong>.</li>
+            <li>Open <strong>System Settings → Focus → (pick a Focus) → Add Filter → Audita → Start a Mixing Session</strong>.</li>
             <li>Optional: set a DAW label. It's recorded in the session as <code>daw</code>.</li>
             <li>Turn the Focus on. Audita starts a session.</li>
             <li>Turn the Focus off. Audita ends the session.</li>
@@ -722,7 +740,7 @@
         <h3>Read endpoints</h3>
 
         <div class="endpoint">
-            <span class="endpoint-url">audita://spl?x-success=&hellip;</span>
+            <span class="endpoint-url">audita://spl?x-success=…</span>
             <p class="endpoint-desc">Live SPL snapshot. Updates at 10 Hz behind the scenes; this returns whatever the audio engine published most recently.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Returns</div>
@@ -735,7 +753,7 @@
         </div>
 
         <div class="endpoint">
-            <span class="endpoint-url">audita://dose?x-success=&hellip;</span>
+            <span class="endpoint-url">audita://dose?x-success=…</span>
             <p class="endpoint-desc">Today's NIOSH dose plus the four peak counters. Dose is persisted to disk on every measurement; this read works even if the audio engine is currently stopped.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Returns</div>
@@ -746,7 +764,7 @@
         </div>
 
         <div class="endpoint">
-            <span class="endpoint-url">audita://session?x-success=&hellip;</span>
+            <span class="endpoint-url">audita://session?x-success=…</span>
             <p class="endpoint-desc">The currently-running session, if any. The "no session" case returns the same shape with an empty value rather than absent keys, so callers branch on <code>active</code> instead of checking key presence.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Returns</div>
@@ -757,7 +775,7 @@
         </div>
 
         <div class="endpoint">
-            <span class="endpoint-url">audita://state?x-success=&hellip;</span>
+            <span class="endpoint-url">audita://state?x-success=…</span>
             <p class="endpoint-desc">Aggregated read - every key from the three reads above, plus the monitoring pause state. Use this when you want one round-trip to populate a Shortcut, Stream Deck overlay, or status dashboard.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Returns</div>
@@ -928,7 +946,7 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
         <h3>The same flow via URL scheme</h3>
         <p class="prose">If you're driving the chain from Stream Deck or Keyboard Maestro instead of Shortcuts, the equivalent URL sequence:</p>
         <pre class="code-block"><span class="cmt"># 1. Open the DAW (any "open this app" mechanism works -</span>
-<span class="cmt">#    Stream Deck's System &raquo; Open, Keyboard Maestro's Activate Specific App,</span>
+<span class="cmt">#    Stream Deck's System » Open, Keyboard Maestro's Activate Specific App,</span>
 <span class="cmt">#    `open -a "Logic Pro"` from a shell).</span>
 
 <span class="cmt"># 2. Start the session.</span>
@@ -949,7 +967,7 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
 
     <hr class="divider">
     <footer>
-        <span class="footer-copy">&copy; 2026 Headroom</span>
+        <span class="footer-copy">© 2026 Headroom</span>
         <ul class="footer-links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="guide.html">User Guide</a></li>
@@ -960,5 +978,7 @@ audita://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfo
     </footer>
 </div>
 
-</body>
-</html>
+
+
+
+<script src="../waveform.js"></script></body></html>
