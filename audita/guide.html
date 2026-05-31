@@ -617,8 +617,8 @@
 
         <p class="prose">The three thresholds (yellow / orange / red) are individually configurable. Their steppers cross-clamp to keep the bands monotonic - you can't set red below orange. Colors use <code>NSColor.system{Green,Yellow,Orange,Red}</code> so they adapt for accessibility and color-blind palettes.</p>
 
-        <h3>Em-dash placeholder when stopped</h3>
-        <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows an em-dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
+        <h3>Dash placeholder when stopped</h3>
+        <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows a dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
 
         <h3>Prefer the v1.1 ear icon?</h3>
         <p class="prose"><strong>Settings → General → Menu Bar → Use classic ear icon</strong> restores the SF Symbol ear in both the menu bar and the menu window. Off by default; flip it on if you preferred the v1.1 look or if the dose-tier colour reads more clearly to you as the four-icon set than as a single colour-shifting bloom.</p>
@@ -1104,11 +1104,11 @@
     <section class="guide-section" id="troubleshooting">
         <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
-        <h3>No SPL reading - the menu bar shows an em-dash</h3>
+        <h3>No SPL reading - the menu bar shows a dash</h3>
         <ol>
             <li><strong>Microphone permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Microphone</strong> and verify Audita is in the list and toggled on.</li>
             <li><strong>Input device selected.</strong> Open <strong>Settings → Audio</strong> and confirm the measurement microphone is selected. If you previously selected a device that has since been unplugged, Audita stops measuring gracefully - re-select an available device or plug the original back in.</li>
-            <li><strong>Audio engine status.</strong> The em-dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
+            <li><strong>Audio engine status.</strong> The dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
         </ol>
 
         <h3>Readings are wildly off (off by 20+ dB)</h3>
