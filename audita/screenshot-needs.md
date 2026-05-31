@@ -70,11 +70,13 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
-### 3. `widgets.png` (v1.3) - status: pending
+### 3. `widgets.png` (v1.3) - status: current
 
-**Where it appears.** `audita/index.html` Screenshots section, the headline 1.3 feature; pairs with the "New in 1.3" hero highlight. Reusable in `audita/guide.html` section 18 (Widgets).
+> **Captured 2026-05-31.** Desktop composite of all six widgets (On Target, Today's Dose, Latest SPL, Safe Streak, Weekly Exposure, Overview) across small / medium / large sizes, on the standard mountain wallpaper. Seeded via `scripts/seed-screenshots.py` in the app repo. Wired into `audita/index.html` (Screenshots row, after the hero) and `audita/guide.html` section 18.
 
-**Target file.** `audita/widgets.png`. No file in the repo yet; the page does NOT reference it until it exists (avoids a broken image on the live site). Once captured, drop it here and it gets wired into the screenshot row.
+**Where it appears.** `audita/index.html` Screenshots section, the headline 1.3 feature; pairs with the "New in 1.3" hero highlight. Also `audita/guide.html` section 18 (Widgets).
+
+**Target file.** `audita/widgets.png`. Present.
 
 **What to capture.** A desktop arrangement of the six v1.3 widgets so the feature reads at a glance. Strong composition: **On Target** (medium, showing the 7-day on-target chart), **Today's Dose** (small, tinted ring), **Weekly Exposure** (medium or large, the 7-day bar chart with the EU L_EX,w line against the 85 dBA criterion), and **Overview** (large), plus **Latest SPL** and **Safe Streak** (small) if they fit cleanly. Show them as live widgets in the macOS widget layout (on the desktop or the Notification Center column), NOT the Edit-Widgets gallery.
 
