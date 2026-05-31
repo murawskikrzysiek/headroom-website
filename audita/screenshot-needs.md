@@ -70,6 +70,34 @@ This is the website-side companion to `Audita/docs/screenshot-needs.md` in the a
 
 ---
 
+### 3. `widgets.png` (v1.3) - status: current
+
+> **Captured 2026-05-31.** Six widgets (On Target, Today's Dose, Latest SPL, Safe Streak, Weekly Exposure, Overview) across small / medium / large sizes, on the standard mountain wallpaper. Seeded via `scripts/seed-screenshots.py` in the app repo. The all-six composite is the index hero; per-widget shots illustrate the guide.
+
+**Where they appear.**
+- `audita/widgets.png` - the catch-all composite, in `audita/index.html` Screenshots row (after the hero), pairing with the "New in 1.3" highlight.
+- Per-widget shots in `audita/guide.html` section 18 (Widgets), one under each widget's description: `audita-on-target.png`, `audita-spl.png`, `audita-streak.png`, `audita-weekly-exposure.png`, and `audita-dose-summary.png` (Today's Dose + Overview).
+
+**Target files.** All present in `audita/`.
+
+**What to capture.** A desktop arrangement of the six v1.3 widgets so the feature reads at a glance. Strong composition: **On Target** (medium, showing the 7-day on-target chart), **Today's Dose** (small, tinted ring), **Weekly Exposure** (medium or large, the 7-day bar chart with the EU L_EX,w line against the 85 dBA criterion), and **Overview** (large), plus **Latest SPL** and **Safe Streak** (small) if they fit cleanly. Show them as live widgets in the macOS widget layout (on the desktop or the Notification Center column), NOT the Edit-Widgets gallery.
+
+**Resolution.** 2x retina. Capture the widget cluster with a little surrounding dark wallpaper; the site renders at up to ~1200 px wide, do not pre-resize.
+
+**Theme.** Dark mode / dark wallpaper to match the site.
+
+**Setup (so the numbers tell the monitoring-discipline story).**
+- Audita has run and published state (widgets need at least one launch).
+- A session recently active so On Target shows a real weekly percentage (~75% on-target reads well) and the 7-day chart has variation.
+- Dose in the caution / yellow tier (~55%) so Today's Dose reads yellow, not empty and not alarming red. Use the DEBUG dose simulator if available.
+- Weekly Exposure: a varied week so bars sit mostly green / amber against the 85 dBA line (consistent with the corrected L_EX,w in 1.3), not pinned near red.
+- Latest SPL: a plausible studio level with a recent timestamp, not "Idle".
+- macOS 14 (Sonoma) or later (widgets require Sonoma+).
+
+**Anonymisation.** No real DAW project or client names in any visible widget text.
+
+---
+
 ## guide.html
 
 ### 4. `images/screenshots/menubar-popover-main.png` - status: current

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Audita - menu-bar SPL meter &amp; hearing-dose tracker for macOS</title>
   <link rel="canonical" href="https://headroomstudio.dev/audita/">
-  <meta name="description" content="Audita is a menu-bar SPL meter for macOS - pin your monitor chain to a calibrated reference and track NIOSH hearing dose at the same time. Pairs with Lyra. macOS. $19.99, with a $6.99 intro through May 31, 2026 for Better Hearing &amp; Speech Month.">
+  <meta name="description" content="Calibrated SPL meter for your Mac menu bar. Pin your monitor chain to a target dBA reference and track NIOSH hearing dose across sessions. Now with six desktop widgets, including On Target monitoring discipline. $19.99, one-time, 7-day free trial.">
   <meta property="og:title" content="Audita - SPL meter &amp; hearing-dose tracker">
   <meta property="og:description" content="A menu-bar SPL meter for monitoring discipline and hearing protection.">
   <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
@@ -30,11 +30,11 @@
     "name": "Audita",
     "operatingSystem": "macOS 14.0 or later",
     "applicationCategory": "MultimediaApplication",
-    "softwareVersion": "1.2",
+    "softwareVersion": "1.3",
     "description": "A menu-bar SPL meter for macOS - calibrated monitoring reference plus NIOSH hearing-dose tracking. Pairs with Lyra.",
     "url": "https://headroomstudio.dev/audita/",
     "image": "https://headroomstudio.dev/audita/og.png",
-    "offers": { "@type": "Offer", "price": "6.99", "priceValidUntil": "2026-05-31", "priceCurrency": "USD" },
+    "offers": { "@type": "Offer", "price": "19.99", "priceCurrency": "USD" },
     "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
   }
   </script>
@@ -64,7 +64,7 @@
       <img class="app-hero__icon" src="icon.png" alt="Audita app icon">
     </div>
     <div>
-      <p class="eyebrow">Version 1.2</p>
+      <p class="eyebrow">Version 1.3</p>
       <h1 class="display">Audita</h1>
       <p class="app-hero__desc">
         A menu-bar SPL meter built to do two jobs at once. Pin your monitor chain to a calibrated reference and stay there. Track how much hearing the day has cost using NIOSH-aligned dose accumulation. Both run passively while you work.
@@ -76,12 +76,15 @@
         <span class="badge">Hearing health</span>
         <span class="badge">NIOSH</span>
       </div>
+      <p class="app-hero__meta" style="margin-top:18px; max-width:540px; line-height:1.55; border-left:2px solid var(--accent); padding-left:14px;">
+        <strong style="color:var(--accent);font-weight:600;">New in 1.3:</strong> six desktop widgets for on-target monitoring, dose, SPL, streak, and weekly exposure. <a href="releases.html" style="color:var(--accent);">What's new →</a>
+      </p>
       <div class="app-hero__cta">
-        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.2.dmg"><span>↓</span>Download free trial</a>
-        <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1">Buy - <s>$19.99</s> $6.99</a>
+        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.3.dmg"><span>↓</span>Download free trial</a>
+        <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1">Buy - $19.99</a>
       </div>
       <p class="app-hero__meta" style="margin-top:14px; max-width:540px; line-height:1.55;">
-        <strong style="color:var(--text);font-weight:600;">Better Hearing &amp; Speech Month</strong> - $6.99 through May 31, 2026 (regular $19.99 thereafter) · 7-day free trial · macOS 14+
+        $19.99 · 7-day free trial · one-time purchase · macOS 14+
       </p>
       <div class="app-hero__doclinks">
         <a href="guide.html" class="primary">Read the user guide →</a>
@@ -97,12 +100,13 @@
   <!-- Screenshots -->
   <section class="shots">
     <div class="shot"><img src="audita-hero.png" alt="Audita at a glance - Monitoring Discipline gauge, live A-weighted SPL, NIOSH dose tracker, calibrated reference targets, and the Send-to-Lyra workflow"></div>
-    <div class="shot"><img src="history.png" alt="Audita session history window showing past recording sessions with dose and peak levels"></div>
     <div class="shots-grid shots-grid--3">
       <div class="shot"><img src="menu_bloom_green.png" alt="Audita menu bar popover - Safe dose tier (green)"></div>
       <div class="shot"><img src="menu_bloom_yellow.png" alt="Audita menu bar popover - Caution dose tier (yellow)"></div>
       <div class="shot"><img src="menu_bloom_red.png" alt="Audita menu bar popover - Danger dose tier (red)"></div>
     </div>
+    <div class="shot"><img src="widgets.png" alt="Audita's six desktop widgets: On Target (weekly monitoring discipline), Today's Dose, Latest SPL, Safe Streak, Weekly Exposure (EU L_EX,w), and the Overview tile, shown across small, medium, and large sizes"></div>
+    <div class="shot"><img src="history.png" alt="Audita session history window showing past recording sessions with dose and peak levels"></div>
     <div class="shots-grid shots-grid--2">
       <div class="shot"><img src="calibration-wizard.png" alt="Audita target-level calibration wizard - pin the monitor controller to a known dBA reference"></div>
       <div class="shot"><img src="send-to-lyra.png" alt="Audita's Send to Lyra sheet - write a calibration straight into one of Lyra's three reference slots"></div>
@@ -159,6 +163,7 @@
         <div class="feature-row"><div class="feature-row__k">Conservative mode</div><div class="feature-row__v">Optional setting that uses max(dBA, dBC) for dose accumulation. Designed for bass-heavy work - sub-mixing, kick tracking, live sound.</div></div>
         <div class="feature-row"><div class="feature-row__k">Input channel selection</div><div class="feature-row__v">Pick any individual input channel - a talkback mic, a dedicated measurement input, or a specific channel on a multi-channel interface like the Apollo Twin X. Channel names are read from the driver.</div></div>
         <div class="feature-row"><div class="feature-row__k">Non-invasive</div><div class="feature-row__v">Lives in the menu bar. Measures passively via any CoreAudio input device. Nothing touches your signal chain.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 14 Sonoma or later).</div></div>
       </div>
     </div>
   </section>
@@ -186,15 +191,15 @@
       <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases →</a>
     </div>
     <div class="feed" data-feed data-feed-apps="audita" data-feed-scope="audita" data-feed-blog="/blog/" data-feed-limit="4">
-      <a class="feed-row" href="releases.html#v1.2">
+      <a class="feed-row" href="releases.html#v1.3">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.2</span></div>
-          <p class="feed-row__title">Audita 1.2</p>
-          <p class="feed-row__summary">Session reports with PDF sharing, seven App Intents plus a Focus filter, the audita:// URL scheme, pause/resume monitoring, and the Pressure Bloom menu-bar glyph.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.3</span></div>
+          <p class="feed-row__title">Audita 1.3</p>
+          <p class="feed-row__summary">Six desktop widgets for on-target monitoring, dose, SPL, streak, and weekly exposure; post-trial test sessions; reliability and security hardening; and a corrected EU weekly exposure (L_EX,w) calculation.</p>
           <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">May</span><p class="feed-row__date">19 May 2026</p></div>
+        <div class="feed-row__meta"><span class="feed-row__ago">Jun</span><p class="feed-row__date">1 Jun 2026</p></div>
       </a>
     </div>
   </section>

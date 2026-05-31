@@ -500,6 +500,7 @@
             <li><a href="#updates">15 · Updates</a></li>
             <li><a href="#troubleshooting">16 · Troubleshooting</a></li>
             <li><a href="#feedback">17 · Reporting bugs</a></li>
+            <li><a href="#widgets">18 · Widgets</a></li>
         </ul>
     </nav>
 
@@ -537,7 +538,7 @@
 
         <p class="prose" style="margin-top: 12px;">The dose resets at midnight.</p>
 
-        <p class="prose">Audita is <strong>$19.99 regular</strong>, one-time purchase, with a 7-day free trial. macOS 14 (Sonoma) or later.</p>
+        <p class="prose">Audita is <strong>$19.99</strong>, one-time purchase, with a 7-day free trial. macOS 14 (Sonoma) or later.</p>
     </section>
 
     <hr class="divider">
@@ -616,8 +617,8 @@
 
         <p class="prose">The three thresholds (yellow / orange / red) are individually configurable. Their steppers cross-clamp to keep the bands monotonic - you can't set red below orange. Colors use <code>NSColor.system{Green,Yellow,Orange,Red}</code> so they adapt for accessibility and color-blind palettes.</p>
 
-        <h3>Em-dash placeholder when stopped</h3>
-        <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows an em-dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
+        <h3>Dash placeholder when stopped</h3>
+        <p class="prose">When the audio engine is not running (no session, no active measurement), the readout shows a dash placeholder rather than "0 dBA" - a stopped meter is genuinely silent in the room only if you've calibrated against the room noise floor, which most users haven't. The placeholder makes it visually obvious the meter isn't measuring.</p>
 
         <h3>Prefer the v1.1 ear icon?</h3>
         <p class="prose"><strong>Settings → General → Menu Bar → Use classic ear icon</strong> restores the SF Symbol ear in both the menu bar and the menu window. Off by default; flip it on if you preferred the v1.1 look or if the dose-tier colour reads more clearly to you as the four-icon set than as a single colour-shifting bloom.</p>
@@ -1067,7 +1068,7 @@
     <section class="guide-section" id="licensing">
         <h2>14. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
-        <p class="prose">Audita is <strong>$19.99</strong> regular price, one-time purchase, via Lemon Squeezy. An intro price of <strong>$6.99</strong> runs through end-of-day 2026-05-31 for Better Hearing &amp; Speech Month.</p>
+        <p class="prose">Audita is <strong>$19.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
         <h3>Trial</h3>
         <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Audita shows a hard-lock window on launch and refuses to run until you activate a license.</p>
@@ -1103,11 +1104,11 @@
     <section class="guide-section" id="troubleshooting">
         <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
-        <h3>No SPL reading - the menu bar shows an em-dash</h3>
+        <h3>No SPL reading - the menu bar shows a dash</h3>
         <ol>
             <li><strong>Microphone permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Microphone</strong> and verify Audita is in the list and toggled on.</li>
             <li><strong>Input device selected.</strong> Open <strong>Settings → Audio</strong> and confirm the measurement microphone is selected. If you previously selected a device that has since been unplugged, Audita stops measuring gracefully - re-select an available device or plug the original back in.</li>
-            <li><strong>Audio engine status.</strong> The em-dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
+            <li><strong>Audio engine status.</strong> The dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
         </ol>
 
         <h3>Readings are wildly off (off by 20+ dB)</h3>
@@ -1146,8 +1147,32 @@
     <section class="guide-section" id="feedback">
         <h2>17. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Audita</code>.</p>
+    </section>
 
-        <a href="#top" class="back-to-top">↑ Back to top</a>
+    <hr class="divider">
+
+    <!-- ─────── 18. Widgets ─────── -->
+    <section class="guide-section" id="widgets">
+        <h2>18. Widgets (v1.3+) <a href="#widgets" class="anchor">#</a></h2>
+
+        <p class="prose">Audita ships six desktop widgets so both sides of Audita are visible at a glance, without opening the app: how closely you are holding your monitoring level, and how much of your hearing budget the day has used. To add one, right-click the desktop (or open Notification Center and choose Edit Widgets) and find Audita. They run on macOS 14 (Sonoma) and later, and need Audita to have run at least once so it can publish its current state.</p>
+
+        <p class="prose"><strong>On Target (small, medium).</strong> How much of your monitoring this week was at your calibrated reference level, as a time-weighted percentage, with a 7-day chart on the medium size. When a session is running it also shows the live state (on target, below, or above). This is the Monitoring Discipline use case on the desktop, and it stays useful when you are not monitoring. The same figure also appears as an On target tile in the History window.</p>
+        <img src="audita-on-target.png" alt="Audita On Target widget (small and medium): weekly on-target percentage with a 7-day chart and the live on-target state" class="screenshot-full">
+
+        <p class="prose"><strong>Latest SPL (small, medium).</strong> The most recent A-weighted level Audita measured, with dBC on the medium size. Widgets cannot listen to your audio the way the app does, so this is the last reading, with the time it was taken. When Audita is not measuring it reads Idle rather than showing 0 dBA.</p>
+        <img src="audita-spl.png" alt="Audita Latest SPL widget (small and medium): most recent A-weighted level, with dBC on the medium size" class="screenshot-full">
+
+        <p class="prose"><strong>Safe Streak (small, medium).</strong> Consecutive days, up to yesterday, your dose stayed under 50% of the daily limit. The same streak Audita reports through Shortcuts and Siri.</p>
+        <img src="audita-streak.png" alt="Audita Safe Streak widget (small and medium): consecutive days under 50% dose" class="screenshot-full">
+
+        <p class="prose"><strong>Weekly Exposure (medium, large).</strong> Your last 7 days of dose as a bar chart, with the EU weekly exposure level (L_EX,w, ISO 9612) against the 85 dBA criterion. The same figures as the in-app weekly chart.</p>
+        <img src="audita-weekly-exposure.png" alt="Audita Weekly Exposure widget (medium and large): 7-day dose bar chart with the EU weekly L_EX,w level against the 85 dBA criterion" class="screenshot-full">
+
+        <p class="prose"><strong>Today's Dose (small, medium)</strong> shows your accumulated NIOSH dose as a ring that fills and changes colour from green to red; the medium size adds your safe streak and EU weekly level. <strong>Overview (large)</strong> puts today's dose, latest SPL, your on-target state, your streak, and the weekly chart in one tile.</p>
+        <img src="audita-dose-summary.png" alt="Audita Today's Dose ring (small and medium) and the large Overview tile combining dose, latest SPL, on-target, streak, and the weekly chart" class="screenshot-full">
+
+        <p class="prose">Widgets refresh when your dose tier changes colour, when a session starts or ends, at midnight, and on a light schedule while you are measuring. The system limits how often a widget can redraw, so the numbers move about once a minute rather than in real time. For a live reading, use the menu bar or the floating panel.</p>
     </section>
 </div>
 
