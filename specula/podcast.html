@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specula for Podcast Production — dialog-gated loudness QC on macOS</title>
+    <link rel="canonical" href="https://headroomstudio.dev/specula/podcast.html">
+    <meta name="description" content="Hit Apple Podcasts and Spotify Podcasts targets on macOS with dialogue measured properly — not contaminated by music beds or room tone. Speech-gated LUFS off a neural VAD you can hand-correct, plus a live noise floor.">
+    <meta property="og:title" content="Specula for Podcast Production">
+    <meta property="og:description" content="Measure the talking, not the music bed. Speech-gated LUFS against Apple Podcasts and Spotify Podcasts targets, with neural speech detection you can hand-correct.">
+    <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula for Podcast Production">
+    <meta name="twitter:description" content="Dialog-gated podcast loudness QC on macOS: speech-gated LUFS, a live noise floor, and a neural VAD you can hand-correct.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Specula for Podcast Production",
+        "description": "Dialog-gated podcast loudness QC on macOS: speech-gated LUFS against Apple Podcasts and Spotify Podcasts targets, a live noise floor, and a neural VAD you can hand-correct.",
+        "url": "https://headroomstudio.dev/specula/podcast.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Specula",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication",
+            "offers": { "@type": "Offer", "price": "99", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" }
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Specula</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
+        </div>
+        <div>
+            <p class="eyebrow">Workflow · Podcast</p>
+            <h1 class="display">Measure the talking, not the music bed.</h1>
+            <p class="app-hero__desc">
+                Podcast platforms specify a dialog-gated loudness target, not a whole-file one. Measure the episode as a single number and the intro bed, the stinger, and the room tone all drag it off. Specula runs a neural VAD over the file, gates a parallel integrated LUFS to the speech blocks, and reads that against the Apple Podcasts and Spotify Podcasts targets — with the speech regions hand-correctable when the detector guesses wrong.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS</span>
+                <span class="badge">Speech-gated LUFS</span>
+                <span class="badge">Silero neural VAD</span>
+                <span class="badge">Dialogue mode</span>
+                <span class="badge">Noise floor</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#speech-gated">Read the speech-gated guide</a>
+                <a class="btn btn-learn" href="index.html">All of Specula</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">macOS 14+ · one-time purchase · $99 at launch</p>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- The problem -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Why whole-file LUFS is the wrong number</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    Dialog loudness measured over the whole file is wrong the moment there's music or SFX in it. The platforms know that, so they specify dialog-gated targets.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;"><strong>An integrated LUFS reading over the entire episode mixes the talking with everything that isn't talking.</strong> A loud cold-open music bed, a sponsor stinger, a long quiet pause — they all land in the same average, so the file can read on-target while the actual voice sits a couple of LU off where a listener hears it. Specula computes loudness <em>only</em> over the speech blocks, so the number you check against Apple Podcasts or Spotify Podcasts is the dialogue, not the dialogue blended with the bed.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The same separation matters at the quiet end. The room-tone <strong>noise floor</strong> between phrases is invisible on a whole-file loudness meter and inaudible on headphones, but it's measured over every non-speech sample here, so a noisy capture shows up as a number before it ships.</p>
+
+                <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="std-row"><span class="std-row__tag">Apple Podcasts</span><span class="std-row__desc">−16 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Spotify Podcasts</span><span class="std-row__desc">−14 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
+                    <div class="std-row"><span class="std-row__tag">ACX</span><span class="std-row__desc">−20.5 LUFS ±2.5 LU, noise floor ≤ −60 dB RMS, true peak ≤ −3 dBTP — for audiobook work, covered in the <a href="audiobook.html">audiobook workflow</a>.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The workflow -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">The workflow</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Load to verdict in four steps. The detector does the first pass; you correct it; the targets read off the result.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">1 · Mark speech on load</div><div class="feature-row__v">Drop the episode; the <strong>Silero neural VAD</strong> runs on load, downsampling the file to 16 kHz mono and classifying every 100 ms block as speech or non-speech. Detected speech shades teal on the waveform (the <strong>SG</strong> toggle), so you can eyeball the result before relying on the numbers.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Hand-correct in Dialogue mode</div><div class="feature-row__v"><strong>Dialogue mode</strong> (<kbd>⌘4</kbd>) lets you fix what the VAD missed: <strong>drag</strong> a region's body to move it or its edges to resize, mark <kbd>I</kbd> / <kbd>O</kbd> the DAW way, <kbd>S</kbd> to split at the playhead, <kbd>Delete</kbd> to remove. 50-step undo / redo, including drags. Edits auto-save to a versioned <code>.dlg.json</code> sidecar next to the file (debounced 500 ms), so re-opening the episode re-applies them.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Read speech-gated LUFS</div><div class="feature-row__v">The Loudness section shows <strong>Speech-Gated Integrated LUFS</strong> and <strong>Speech %</strong> alongside the full-file integrated value, plus a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample) in Podcast mode. Same BS.1770 K-weighting and dual gating as the full measurement, accumulated only over the speech blocks.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Check against the platform</div><div class="feature-row__v">In Podcast mode the Loudness Targets panel shows the penalty against <strong>Apple Podcasts</strong> (−16 LKFS) and <strong>Spotify Podcasts</strong> (−14 LKFS), both dialog-gated, with a triangle if the true peak breaches −1 dBTP. Run offline analysis (<kbd>⌘Return</kbd>) over the whole file for the settled number, then export the receipt — <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two-tier VAD depth -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Two-tier speech detection, and where your corrections go</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>Tier 1 is a Silero neural VAD</strong> (MIT-licensed, run via FluidAudio). On load the file is downsampled to 16 kHz mono and classified per 100 ms block; the model is fetched once on first launch (~2 MB) and cached locally, after which detection is fully offline. <strong>Tier 2 is a spectral fallback</strong> that covers the rare case where Silero is unavailable — it classifies on four spectral features (an HF gate, a 300–3 400 Hz band-energy ratio, spectral flatness, and a harmonicity-plus-flux test) so the speech-gated path still produces a result.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>The corrected regions feed straight into the speech-gated path.</strong> When you fix regions in Dialogue mode, the dialog-gated LUFS, the noise-floor reading, and the Apple Podcasts / Spotify Podcasts verdicts all recompute against the speech and silence you confirmed — not what the raw VAD guessed. Region tint shows provenance: <strong>teal</strong> for pristine Silero output, <strong>amber</strong> for VAD regions you've edited, <strong>blue</strong> for ones loaded from a sidecar.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Bias the detector to your material in Settings → Speech.</strong> Three sliders re-run detection in about half a second: <strong>Threshold</strong> (0.1–0.9, default 0.5 — lower picks up quieter speech), <strong>Minimum region duration</strong> (0.05–2.0 s, default 0.10 — raise to reject clicks and short interjections), and <strong>Merge gap</strong> (0.05–2.0 s, default 0.10 — larger values fuse nearby regions through breath pauses). <strong>Reset to VAD</strong> discards your edits, deletes the sidecar, and re-runs Silero with the current tuning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Ship the episode on target</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It won't level or de-noise the episode for you — it tells you what the dialogue actually measures against each platform's spec, so the number you submit is the talking, not the talking plus the music bed.</p>
+                <div class="app-hero__cta" style="margin-top: 24px;">
+                    <a href="guide.html#speech-gated" class="btn btn-primary">Read the speech-gated guide →</a>
+                    <a href="index.html" class="btn btn-outline">Back to Specula</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Specula</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+</body>
+</html>
