@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for streaming &amp; broadcast loudness compliance — pass delivery on macOS</title>
+    <title>Specula for streaming &amp; broadcast loudness compliance: pass delivery on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/compliance.html">
-    <meta name="description" content="Verify a master against the delivery spec on macOS before you send it. A hard pass/fail per platform and standard — EBU R128, ATSC A/85, the −27 LKFS VOD band — with the exact failing reason named, plus a PDF receipt.">
+    <meta name="description" content="Verify a master against the delivery spec on macOS before you send it. A hard pass/fail per platform and standard: EBU R128, ATSC A/85, the −27 LKFS VOD band, with the exact failing reason named, plus a PDF receipt.">
     <meta property="og:title" content="Specula for streaming &amp; broadcast compliance">
     <meta property="og:description" content="Get a hard pass/fail per platform and standard before delivery, not a re-deliver email three days later.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Compliance</p>
             <h1 class="display">Pass delivery the first time.</h1>
             <p class="app-hero__desc">
-                A delivery spec is a hard line, and the file either clears it or comes back. Specula reads your master against the platform or standard you're delivering to and returns a hard pass/fail per target — with the exact failing reason named, not a number you have to interpret. Pick the delivery mode, run one offline pass, read the verdict, export the PDF as the receipt that travels with the file.
+                A delivery spec is a hard line, and the file either clears it or comes back. Specula reads your master against the platform or standard you're delivering to and returns a hard pass/fail per target, with the exact failing reason named, not a number you have to interpret. Pick the delivery mode, run one offline pass, read the verdict, export the PDF as the receipt that travels with the file.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -100,7 +100,7 @@
                     A DAW meter tells you where the master sits. A delivery spec tells you whether it ships. Those aren't the same question.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">Every platform and broadcaster publishes a target: an integrated or dialog-gated loudness band, a true-peak ceiling, sometimes a short-term cap or a noise-floor limit. Miss any one and the file bounces. The DAW's loudness meter shows the integrated number, but it won't tell you that EBU R128 S1 also caps max short-term, or that Netflix measures against dialogue rather than the full programme, or that your true peak reads fine on samples but breaches once you account for inter-sample peaks.</p>
-                <p class="prose-lead" style="margin-top: 14px;">A re-deliver costs days: the QC pass, the email, the re-export, the second QC pass. Specula turns the rejection condition into a number on screen before the file leaves your studio. It computes both the full-programme integrated LUFS and the dialog-gated reading in parallel, reads the 4× oversampled true peak, tracks max short-term and the noise floor — then checks every one against the spec and tells you which criterion failed and by how much.</p>
+                <p class="prose-lead" style="margin-top: 14px;">A re-deliver costs days: the QC pass, the email, the re-export, the second QC pass. Specula turns the rejection condition into a number on screen before the file leaves your studio. It computes both the full-programme integrated LUFS and the dialog-gated reading in parallel, reads the 4× oversampled true peak, tracks max short-term and the noise floor, then checks every one against the spec and tells you which criterion failed and by how much.</p>
             </div>
         </div>
     </section>
@@ -114,9 +114,9 @@
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Pick a delivery mode</div><div class="feature-row__v">The Mode picker at the top of the info panel sets the analysis context: <strong>Music</strong>, <strong>Podcast</strong>, <strong>VOD</strong>, or <strong>Broadcast</strong>. Mode decides which targets sit next to the file and which metric rows appear. Configure up to four targets per mode in Settings → Targets, so the panel shows only the platforms you actually deliver to.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Run one offline pass</div><div class="feature-row__v"><kbd>⌘A</kbd> to select the whole file, <kbd>⌘Return</kbd> to run the full offline analysis. The live panel updates while a file plays, but a delivery verdict should be computed over the entire master, not a rolling estimate — the offline pass gives you the integrated, dialog-gated, true-peak, and short-term numbers the targets evaluate against.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Run one offline pass</div><div class="feature-row__v"><kbd>⌘A</kbd> to select the whole file, <kbd>⌘Return</kbd> to run the full offline analysis. The live panel updates while a file plays, but a delivery verdict should be computed over the entire master, not a rolling estimate, the offline pass gives you the integrated, dialog-gated, true-peak, and short-term numbers the targets evaluate against.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Read the verdict per target</div><div class="feature-row__v">Each target row shows a green dot when the loudness sits in the tolerance band <em>and</em> the true peak is at or below the ceiling. When it doesn't, the row names the reason: <strong>FAIL L</strong> (loudness outside the band), <strong>FAIL TP</strong> (loudness in band, true peak over the ceiling), <strong>FAIL S↑</strong> (max short-term over the spec's ceiling, used by EBU R128 S1), <strong>FAIL NF</strong> (noise floor over the spec's RMS ceiling, used by ACX). Loudness fails take precedence, so the primary reason always shows first. Hover a row for the per-criterion ✓/✗ breakdown.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Export the receipt</div><div class="feature-row__v"><kbd>⌥⌘E</kbd> writes the PDF, <kbd>⇧⌘E</kbd> writes JSON. The PDF's per-target card carries the same verdict the app shows, with the failing value printed inline (e.g. <code>Not compliant · S↑ (−15.0 LUFS)</code>) so a reviewer reads the result without hovering. The JSON's <code>loudnessTargets.targets[]</code> carries an inline <code>verdict</code> object — <code>status</code>, <code>actualLUFS</code>, and the non-compliance reason / limit — so a delivery pipeline can branch on pass/fail without recomputing.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Export the receipt</div><div class="feature-row__v"><kbd>⌥⌘E</kbd> writes the PDF, <kbd>⇧⌘E</kbd> writes JSON. The PDF's per-target card carries the same verdict the app shows, with the failing value printed inline (e.g. <code>Not compliant · S↑ (−15.0 LUFS)</code>) so a reviewer reads the result without hovering. The JSON's <code>loudnessTargets.targets[]</code> carries an inline <code>verdict</code> object: <code>status</code>, <code>actualLUFS</code>, and the non-compliance reason / limit, so a delivery pipeline can branch on pass/fail without recomputing.</div></div>
             </div>
         </div>
     </section>
@@ -126,14 +126,14 @@
         <div class="section__grid">
             <p class="label">Four delivery modes, twenty-two targets</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Music mode</strong> reports the gain each streaming platform will apply rather than a hard verdict — a master at −10 LUFS reads "Spotify −4 dB" — and tells the truth about asymmetric platforms (Apple Music, YouTube, Tidal turn loud tracks down but never boost quiet ones). <strong>Podcast mode</strong> mixes streaming penalties for Apple Podcasts and Spotify with the ACX audiobook spec.</p>
+                <p class="prose-lead"><strong>Music mode</strong> reports the gain each streaming platform will apply rather than a hard verdict. A master at −10 LUFS reads "Spotify −4 dB", and tells the truth about asymmetric platforms (Apple Music, YouTube, Tidal turn loud tracks down but never boost quiet ones). <strong>Podcast mode</strong> mixes streaming penalties for Apple Podcasts and Spotify with the ACX audiobook spec.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>VOD and Broadcast modes are the hard pass/fail surface.</strong> VOD verifies against the −27 LKFS dialog-gated band shared by Netflix, Prime Video, Apple TV+, Disney+, and Max. Broadcast verifies EBU R128, R128 S1 short-form (which adds the max-short-term ceiling), ATSC A/85 / the CALM Act, ARIB TR-B32, and OP-59. Each target carries its own reference, tolerance band, and true-peak ceiling; the full catalog with every number is in the <a href="guide.html#loudness">user guide</a>.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Dialog-gated targets read the speech-gated path.</strong> Netflix and its VOD peers, ATSC A/85, and the streaming podcast targets all measure loudness over speech blocks only, classified by the Silero neural VAD on file load — so room tone and music beds don't skew the verdict. Their reference lines lead with <code>dialog ·</code> in the panel so you can see which measurement source is in play; a file with no detected speech reads "no speech" instead of a misleading number. If the VAD mislabels anything, correct it by hand in <a href="guide.html#speech-gated">Dialogue mode</a> and the corrected regions feed straight into the dialog-gated verdicts.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Dialog-gated targets read the speech-gated path.</strong> Netflix and its VOD peers, ATSC A/85, and the streaming podcast targets all measure loudness over speech blocks only, classified by the Silero neural VAD on file load, so room tone and music beds don't skew the verdict. Their reference lines lead with <code>dialog ·</code> in the panel so you can see which measurement source is in play; a file with no detected speech reads "no speech" instead of a misleading number. If the VAD mislabels anything, correct it by hand in <a href="guide.html#speech-gated">Dialogue mode</a> and the corrected regions feed straight into the dialog-gated verdicts.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">Music</span><span class="std-row__desc">Spotify · Apple Music · YouTube · Tidal · Amazon · Deezer · SoundCloud · AES TD1008</span></div>
                     <div class="std-row"><span class="std-row__tag">Podcast</span><span class="std-row__desc">Apple Podcasts · Spotify Podcasts · ACX</span></div>
-                    <div class="std-row"><span class="std-row__tag">VOD</span><span class="std-row__desc">Netflix · Prime · Apple TV+ · Disney+ · Max — all −27 LKFS dialog-gated</span></div>
+                    <div class="std-row"><span class="std-row__tag">VOD</span><span class="std-row__desc">Netflix · Prime · Apple TV+ · Disney+ · Max: all −27 LKFS dialog-gated</span></div>
                     <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 S1 short-form · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span></div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
         <div class="section__grid">
             <p class="label">Send the delivery with the receipt attached</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the mix is done" and "it's been delivered." It won't master the file for you — it verifies the master against the exact spec you're delivering to, names the reason if anything's off, and hands you a PDF that documents the pass. The first QC is the only one you run.</p>
+                <p class="prose-lead">Specula is the pass between "the mix is done" and "it's been delivered." It won't master the file for you. It verifies the master against the exact spec you're delivering to, names the reason if anything's off, and hands you a PDF that documents the pass. The first QC is the only one you run.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#loudness" class="btn btn-primary">Read the loudness guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

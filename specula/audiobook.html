@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for Audiobooks &amp; ACX — per-chapter loudness QC on macOS</title>
+    <title>Specula for Audiobooks &amp; ACX: per-chapter loudness QC on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/audiobook.html">
     <meta name="description" content="Check audiobooks against the ACX spec on macOS before you upload. Per-chapter integrated LUFS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.">
     <meta property="og:title" content="Specula for Audiobooks &amp; ACX">
-    <meta property="og:description" content="Find every reason ACX would reject your audiobook before you upload it — chapter by chapter, not three days later in an email.">
+    <meta property="og:description" content="Find every reason ACX would reject your audiobook before you upload it, chapter by chapter, not three days later in an email.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Audiobook / ACX</p>
             <h1 class="display">Audiobooks, scored chapter by chapter.</h1>
             <p class="app-hero__desc">
-                Find every reason ACX would reject your audiobook before you upload it. Specula segments the file into chapters, runs a full BS.1770 loudness pass on each one, and flags integrated LUFS, true peak, and the room-tone noise floor against the ACX spec — and against the book's own median — so a single bad pickup shows up here, not three days later in a rejection email.
+                Find every reason ACX would reject your audiobook before you upload it. Specula segments the file into chapters, runs a full BS.1770 loudness pass on each one, and flags integrated LUFS, true peak, and the room-tone noise floor against the ACX spec, and against the book's own median, so a single bad pickup shows up here, not three days later in a rejection email.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -102,7 +102,7 @@
                 <p class="prose-lead" style="margin-top: 22px;">Integrated loudness and true peak you can usually eyeball in a DAW. The room-tone <strong>noise floor</strong> is different: it's inaudible on headphones, invisible on a standard loudness meter, and the single most common reason an audiobook bounces back. Specula reads all three off the file directly, so the rejection condition is a number on screen instead of a surprise.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
-                    <div class="std-row"><span class="std-row__tag">ACX I</span><span class="std-row__desc">Integrated loudness between −23 and −18 LUFS — measured per chapter, not just for the file as a whole.</span></div>
+                    <div class="std-row"><span class="std-row__tag">ACX I</span><span class="std-row__desc">Integrated loudness between −23 and −18 LUFS, measured per chapter, not just for the file as a whole.</span></div>
                     <div class="std-row"><span class="std-row__tag">ACX TP</span><span class="std-row__desc">True peak at or below −3 dBTP, detected on the 4× oversampled inter-sample peak.</span></div>
                     <div class="std-row"><span class="std-row__tag">ACX NF</span><span class="std-row__desc">Room-tone noise floor at or below −60 dB RMS, measured over every non-speech sample.</span></div>
                 </div>
@@ -118,10 +118,10 @@
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Load to receipt in four steps. One file, one pass, every chapter scored.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Load &amp; clean speech</div><div class="feature-row__v">Drop the file; Silero's neural VAD marks every speech block on load. If a breath, a page turn, or a music bed got mislabelled, fix it in <strong>Dialogue mode</strong> (<kbd>⌘4</kbd>) — drag a region, mark <kbd>I</kbd> / <kbd>O</kbd>, split with <kbd>S</kbd> — so the noise floor and speech metrics measure the right samples. Edits auto-save to a <code>.dlg.json</code> sidecar and re-apply next time you open the file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1 · Load &amp; clean speech</div><div class="feature-row__v">Drop the file; Silero's neural VAD marks every speech block on load. If a breath, a page turn, or a music bed got mislabelled, fix it in <strong>Dialogue mode</strong> (<kbd>⌘4</kbd>): drag a region, mark <kbd>I</kbd> / <kbd>O</kbd>, split with <kbd>S</kbd>, so the noise floor and speech metrics measure the right samples. Edits auto-save to a <code>.dlg.json</code> sidecar and re-apply next time you open the file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Split into chapters</div><div class="feature-row__v"><strong>Chapter mode</strong> (<kbd>⌘3</kbd>) → <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon. Drag any boundary to correct it, click one and <strong>Remove</strong> to merge two chapters, rename slots, or import a hand-made layout as a JSON sidecar.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse Loudness</strong> runs a full BS.1770 pass per chapter: integrated LUFS, true peak, sample peak, noise floor, LRA, max momentary / short-term, speech-gated LUFS, speech %. Each chapter is flagged against the three ACX gates <em>and</em> against the book's own median (default ±2 LU).</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">Export the report — <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The per-chapter table carries the same red-cell signalling the app shows, so a narrator or producer reads the exact failing chapters and conditions without opening Specula.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">Export the report: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The per-chapter table carries the same red-cell signalling the app shows, so a narrator or producer reads the exact failing chapters and conditions without opening Specula.</div></div>
             </div>
         </div>
     </section>
@@ -161,7 +161,7 @@
         <div class="section__grid">
             <p class="label">Ship the audiobook with confidence</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the narration is done" and "it's uploaded to ACX." It won't record or de-noise for you — it tells you, per chapter, exactly which files will clear the spec and which won't, before a reviewer ever opens them.</p>
+                <p class="prose-lead">Specula is the pass between "the narration is done" and "it's uploaded to ACX." It won't record or de-noise for you. It tells you, per chapter, exactly which files will clear the spec and which won't, before a reviewer ever opens them.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#chapter" class="btn btn-primary">Read the Chapter-mode guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

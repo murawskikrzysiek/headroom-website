@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for Batch QC &amp; automation — score a folder unattended on macOS</title>
+    <title>Specula for Batch QC &amp; automation: score a folder unattended on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/automation.html">
-    <meta name="description" content="Score a whole folder of audio unattended on macOS, with the same numbers the app produces. The specula CLI, eight App Intents, and Finder Services run one measurement engine — deterministic sorted-key JSON for diffs.">
+    <meta name="description" content="Score a whole folder of audio unattended on macOS, with the same numbers the app produces. The specula CLI, eight App Intents, and Finder Services run one measurement engine, deterministic sorted-key JSON for diffs.">
     <meta property="og:title" content="Specula for Batch QC &amp; automation">
     <meta property="og:description" content="Checking dozens of files by hand in a GUI doesn't scale. Put the same engine in a script: the specula CLI, App Intents, and Finder Services, all the same numbers.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Batch QC &amp; automation">
-    <meta name="twitter:description" content="The specula CLI, eight App Intents, and Finder Services — one engine, the same numbers, deterministic JSON you can diff across runs.">
+    <meta name="twitter:description" content="The specula CLI, eight App Intents, and Finder Services: one engine, the same numbers, deterministic JSON you can diff across runs.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Batch QC &amp; automation</p>
             <h1 class="display">Score a folder unattended, same numbers as the app.</h1>
             <p class="app-hero__desc">
-                Checking files one at a time in a GUI works until there are dozens of them. The <code>specula</code> CLI and eight App Intents run the exact measurement engine the app uses — same integrated LUFS, same 4× oversampled true peak, same speech-gated reading — so a script walking a directory produces numbers identical to the window. Output is pretty-printed JSON with sorted keys, so a diff across two runs shows what actually changed, not key reordering.
+                Checking files one at a time in a GUI works until there are dozens of them. The <code>specula</code> CLI and eight App Intents run the exact measurement engine the app uses: same integrated LUFS, same 4× oversampled true peak, same speech-gated reading, so a script walking a directory produces numbers identical to the window. Output is pretty-printed JSON with sorted keys, so a diff across two runs shows what actually changed, not key reordering.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -99,12 +99,12 @@
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Opening, reading, and closing files by hand is fine for one master. For a folder of forty, you want the engine in a script.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">The thing that makes the manual loop slow isn't the measurement — it's the file handling around it: open, wait, read off six numbers, note the failures, next file. Specula's answer is to expose the same <code>LoudnessProcessor</code> the window drives as a headless tool. <strong>The CLI, the App Intents, and the Finder Services all run one engine</strong>, so a batch pass and a hand check of the same file return the same integrated LUFS, true peak, and speech-gated reading. No second implementation to drift out of sync.</p>
+                <p class="prose-lead" style="margin-top: 22px;">The thing that makes the manual loop slow isn't the measurement, it's the file handling around it: open, wait, read off six numbers, note the failures, next file. Specula's answer is to expose the same <code>LoudnessProcessor</code> the window drives as a headless tool. <strong>The CLI, the App Intents, and the Finder Services all run one engine</strong>, so a batch pass and a hand check of the same file return the same integrated LUFS, true peak, and speech-gated reading. No second implementation to drift out of sync.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
-                    <div class="std-row"><span class="std-row__tag">CLI</span><span class="std-row__desc">Four subcommands — <code>analyze</code> / <code>compare</code> / <code>edit</code> / <code>report</code> — for shell scripts that walk a folder of files.</span></div>
+                    <div class="std-row"><span class="std-row__tag">CLI</span><span class="std-row__desc">Four subcommands: <code>analyze</code> / <code>compare</code> / <code>edit</code> / <code>report</code>, for shell scripts that walk a folder of files.</span></div>
                     <div class="std-row"><span class="std-row__tag">Intents</span><span class="std-row__desc">Eight App Intents for Shortcuts and Siri, with chainable output a downstream step reads without parsing JSON.</span></div>
-                    <div class="std-row"><span class="std-row__tag">Services</span><span class="std-row__desc">Three Finder right-click Services — Analyze, Compare, Get Report — that work out of the box, nothing to build.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Services</span><span class="std-row__desc">Three Finder right-click Services: Analyze, Compare, Get Report, that work out of the box, nothing to build.</span></div>
                 </div>
             </div>
         </div>
@@ -118,17 +118,17 @@
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Install once, then put the same numbers in a loop.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Install the CLI</div><div class="feature-row__v">From the repo, <code>make cli-install</code> builds Release and copies the binary to <code>~/bin/specula</code> (so <code>~/bin</code> needs to be on <code>$PATH</code>; verify with <code>specula --version</code>). The four subcommands — <strong>analyze</strong>, <strong>compare</strong>, <strong>edit</strong>, <strong>report</strong> — run the same measurement engine the app uses, so the script gets the exact same numbers.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Analyze in a loop</div><div class="feature-row__v"><code>specula analyze &lt;FILE&gt;</code> emits the headline numbers — integrated LUFS, true peak, sample peak, loudness range, speech-gated LUFS, stereo correlation — as JSON. Pass <code>--no-vad</code> to skip Silero (faster, works offline) or <code>--no-stereo</code> to skip the per-block correlation pass. Walk the folder, parse one field, flag the misses.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1 · Install the CLI</div><div class="feature-row__v">From the repo, <code>make cli-install</code> builds Release and copies the binary to <code>~/bin/specula</code> (so <code>~/bin</code> needs to be on <code>$PATH</code>; verify with <code>specula --version</code>). The four subcommands (<strong>analyze</strong>, <strong>compare</strong>, <strong>edit</strong>, <strong>report</strong>) run the same measurement engine the app uses, so the script gets the exact same numbers.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Analyze in a loop</div><div class="feature-row__v"><code>specula analyze &lt;FILE&gt;</code> emits the headline numbers: integrated LUFS, true peak, sample peak, loudness range, speech-gated LUFS, stereo correlation, as JSON. Pass <code>--no-vad</code> to skip Silero (faster, works offline) or <code>--no-stereo</code> to skip the per-block correlation pass. Walk the folder, parse one field, flag the misses.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Cut a receipt per file</div><div class="feature-row__v"><code>specula report &lt;FILE&gt;</code> runs the full report through the headless pipeline. <code>--format json|html|pdf</code> selects the shape (PDF is the same dark-themed report the GUI preview renders; PDF requires <code>--out</code>). <code>--mode music|podcast|vod|broadcast</code> picks which loudness-target catalog evaluates the file; <code>--no-curve</code> drops the per-100 ms loudness curve for smaller batch output.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Diff two versions</div><div class="feature-row__v"><code>specula compare &lt;A&gt; &lt;B&gt;</code> reports every metric side-by-side with <code>B − A</code> deltas. <code>--match-loudness</code> nets out the integrated-LUFS delta so the deltas surface spectral or shape differences instead of pure level drift; <code>--out-diff &lt;PATH&gt;</code> writes the <code>A − gainB·B</code> residual as a Float32 WAV and adds a <code>residual</code> block to the JSON. Sample rate and channel count must match — it refuses structural mismatches rather than resampling.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Diff two versions</div><div class="feature-row__v"><code>specula compare &lt;A&gt; &lt;B&gt;</code> reports every metric side-by-side with <code>B − A</code> deltas. <code>--match-loudness</code> nets out the integrated-LUFS delta so the deltas surface spectral or shape differences instead of pure level drift; <code>--out-diff &lt;PATH&gt;</code> writes the <code>A − gainB·B</code> residual as a Float32 WAV and adds a <code>residual</code> block to the JSON. Sample rate and channel count must match, it refuses structural mismatches rather than resampling.</div></div>
 
                 <p class="prose-lead" style="margin-top: 22px;">A one-chapter report straight to PDF, the same shape the GUI prints:</p>
                 <div class="callout" style="margin-top: 16px;">
                     <span style="opacity:0.5;">$</span>
                     <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">specula report ch01.wav --mode podcast --format pdf --out ch01.pdf</p>
                 </div>
-                <p class="prose-lead" style="margin-top: 16px;">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic — a changed number is the only thing that shows up. Silence reads as <code>"-inf"</code> rather than blowing up the encoder. Full command reference in the <a href="guide.html#cli">CLI section of the user guide</a>.</p>
+                <p class="prose-lead" style="margin-top: 16px;">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic, a changed number is the only thing that shows up. Silence reads as <code>"-inf"</code> rather than blowing up the encoder. Full command reference in the <a href="guide.html#cli">CLI section of the user guide</a>.</p>
             </div>
         </div>
     </section>
@@ -138,12 +138,12 @@
         <div class="section__grid">
             <p class="label">No shell? Use the App Intents</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Eight App Intents</strong> let the system Shortcuts app and Siri call the same engine the CLI does — no file-handling shell glue, output is chainable. Four core actions ship in two variants each, a <strong>file-input</strong> and a <strong>path-input</strong>, so they fit whichever Shortcuts workflow shape you have: <strong>Get Measurements</strong>, <strong>Compare Files</strong>, <strong>Get Compare Diff</strong>, and <strong>Get Report</strong>.</p>
+                <p class="prose-lead"><strong>Eight App Intents</strong> let the system Shortcuts app and Siri call the same engine the CLI does, no file-handling shell glue, output is chainable. Four core actions ship in two variants each, a <strong>file-input</strong> and a <strong>path-input</strong>, so they fit whichever Shortcuts workflow shape you have: <strong>Get Measurements</strong>, <strong>Compare Files</strong>, <strong>Get Compare Diff</strong>, and <strong>Get Report</strong>.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The returns are AppEntity output you chain on directly.</strong> Get Measurements exposes every numeric field as a Shortcuts variable, so a downstream step can branch ("if Integrated LUFS &gt; -12 then…") without parsing JSON. Compare Files returns both sides plus the <code>B − A</code> deltas; Get Compare Diff returns the residual WAV; Get Report returns the JSON / HTML / PDF file you can pipe straight into AirDrop, Save File, or Mail.</p>
-                <p class="prose-lead" style="margin-top: 14px;">The <strong>(from Path)</strong> variants take the audio file as a text string instead of a File, so a clipboard-driven shortcut is just <em>Get Clipboard → Get Report (from Path)</em>. They accept bare paths, paths with spaces, tildes, shell quotes, curly quotes from Notes/Mail, and percent-encoded <code>file://</code> URLs — quotes stripped, tilde expanded automatically.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Spotlight phrases trigger them too: "Measure with Specula", "Compare files in Specula", "Get diff with Specula", "Build a report with Specula" (and their path-input siblings). All eight default to <strong>speech detection off</strong> — flip the toggle in the Shortcut step when you need speech-gated metrics.</p>
-                <p class="prose-lead" style="margin-top: 14px;">For a right-click pass with nothing to configure, three <strong>Finder Services</strong> install automatically — <strong>Analyze in Specula</strong>, <strong>Compare in Specula</strong>, and <strong>Get Report from Specula</strong>. The report service runs headlessly: it analyses the file, builds the PDF, and drops it next to the source (falling back to <code>~/Downloads</code> if the source directory isn't writable), then reveals it in Finder without ever popping a window.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>One gotcha on the CLI side:</strong> negative numerics need the <code>--option=value</code> form. Swift's argument parser reads a bare leading <code>-</code> as a short-option name, so <code>--gain -3</code> is rejected — write <code>--gain=-3</code> (likewise <code>--normalize-lufs=-14</code>, <code>--lufs-ceiling=-1</code>). Positive numbers work in either form.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The <strong>(from Path)</strong> variants take the audio file as a text string instead of a File, so a clipboard-driven shortcut is just <em>Get Clipboard → Get Report (from Path)</em>. They accept bare paths, paths with spaces, tildes, shell quotes, curly quotes from Notes/Mail, and percent-encoded <code>file://</code> URLs, quotes stripped, tilde expanded automatically.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Spotlight phrases trigger them too: "Measure with Specula", "Compare files in Specula", "Get diff with Specula", "Build a report with Specula" (and their path-input siblings). All eight default to <strong>speech detection off</strong>, flip the toggle in the Shortcut step when you need speech-gated metrics.</p>
+                <p class="prose-lead" style="margin-top: 14px;">For a right-click pass with nothing to configure, three <strong>Finder Services</strong> install automatically: <strong>Analyze in Specula</strong>, <strong>Compare in Specula</strong>, and <strong>Get Report from Specula</strong>. The report service runs headlessly: it analyses the file, builds the PDF, and drops it next to the source (falling back to <code>~/Downloads</code> if the source directory isn't writable), then reveals it in Finder without ever popping a window.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>One gotcha on the CLI side:</strong> negative numerics need the <code>--option=value</code> form. Swift's argument parser reads a bare leading <code>-</code> as a short-option name, so <code>--gain -3</code> is rejected, write <code>--gain=-3</code> (likewise <code>--normalize-lufs=-14</code>, <code>--lufs-ceiling=-1</code>). Positive numbers work in either form.</p>
             </div>
         </div>
     </section>
@@ -153,7 +153,7 @@
         <div class="section__grid">
             <p class="label">Put the same engine in your pipeline</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the same measurement engine whether you're reading one file in the window or scoring a folder from a Folder Action. The CLI and App Intents won't record, mix, or repair for you — they tell you, file by file, exactly which ones clear the spec and which don't, with numbers you can diff across runs.</p>
+                <p class="prose-lead">Specula is the same measurement engine whether you're reading one file in the window or scoring a folder from a Folder Action. The CLI and App Intents won't record, mix, or repair for you. They tell you, file by file, exactly which ones clear the spec and which don't, with numbers you can diff across runs.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#cli" class="btn btn-primary">Read the CLI guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for Music Mastering — confirm a master is delivery-ready on macOS</title>
+    <title>Specula for Music Mastering: confirm a master is delivery-ready on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/mastering.html">
     <meta name="description" content="Confirm a master is delivery-ready before it ships. Specula reads the per-platform gain each streaming service applies, checks true peak, LRA, stereo width, and phase, and lets you audition the file the way Spotify or Apple Music will play it.">
     <meta property="og:title" content="Specula for Music Mastering">
-    <meta property="og:description" content="See the exact gain each platform will apply to your master — and the true peak, stereo, and phase that decide whether it survives delivery — before it ships.">
+    <meta property="og:description" content="See the exact gain each platform will apply to your master, and the true peak, stereo, and phase that decide whether it survives delivery, before it ships.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Music Mastering">
-    <meta name="twitter:description" content="Per-platform gain, true peak, stereo width, and phase for a music master on macOS — read the delivery numbers before you upload.">
+    <meta name="twitter:description" content="Per-platform gain, true peak, stereo width, and phase for a music master on macOS: read the delivery numbers before you upload.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Mastering</p>
             <h1 class="display">A master that survives delivery.</h1>
             <p class="app-hero__desc">
-                A master can sound right on your monitors and still arrive wrong. Specula reads the per-platform gain each streaming service will apply, checks the true peak, loudness range, stereo width, and phase that decide whether it holds together at delivery, and lets you audition the file the way Spotify or Apple Music will actually play it — before you upload.
+                A master can sound right on your monitors and still arrive wrong. Specula reads the per-platform gain each streaming service will apply, checks the true peak, loudness range, stereo width, and phase that decide whether it holds together at delivery, and lets you audition the file the way Spotify or Apple Music will actually play it, before you upload.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -97,13 +97,13 @@
             <p class="label">Sounds right, fails at delivery</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    The master is finished. Whether it survives Spotify, Apple Music, and the rest is a separate question — one your DAW doesn't answer.
+                    The master is finished. Whether it survives Spotify, Apple Music, and the rest is a separate question, one your DAW doesn't answer.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Three things go wrong between "done" and "uploaded," and none of them are audible on a quiet pass through your monitors. The integrated LUFS overshoots and <strong>Spotify turns the track down</strong>. The master is quieter than reference and <strong>Apple Music dims it</strong> — or leaves it exactly where it is, depending on the platform. And a "stereo" file is secretly mono on the verses or out of phase in the bridge, so it collapses on a phone speaker. Each of these is a number the file already contains. Specula reads them out so the delivery condition is on screen, not a surprise after upload.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Three things go wrong between "done" and "uploaded," and none of them are audible on a quiet pass through your monitors. The integrated LUFS overshoots and <strong>Spotify turns the track down</strong>. The master is quieter than reference and <strong>Apple Music dims it</strong>, or leaves it exactly where it is, depending on the platform. And a "stereo" file is secretly mono on the verses or out of phase in the bridge, so it collapses on a phone speaker. Each of these is a number the file already contains. Specula reads them out so the delivery condition is on screen, not a surprise after upload.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">Gain</span><span class="std-row__desc">Each streaming platform applies its own gain to hit its reference. Specula shows the exact dB it will apply to your master, per platform.</span></div>
-                    <div class="std-row"><span class="std-row__tag">Peak</span><span class="std-row__desc">The ceiling is the inter-sample peak, not the sample magnitude — read on the 4× oversampled true peak (dBTP), the value the platform actually limits against.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Peak</span><span class="std-row__desc">The ceiling is the inter-sample peak, not the sample magnitude, read on the 4× oversampled true peak (dBTP), the value the platform actually limits against.</span></div>
                     <div class="std-row"><span class="std-row__tag">Phase</span><span class="std-row__desc">Mid/side correlation and a Lissajous phase scope catch the mono-collapse and out-of-phase content a stereo monitor hides.</span></div>
                 </div>
             </div>
@@ -119,9 +119,9 @@
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Load &amp; read the platform gain</div><div class="feature-row__v">Open the master and set <strong>Mode</strong> to <strong>Music</strong> in the InfoPanel. The Loudness Targets panel shows one row per platform with the gain it will apply: a mix at −10 LUFS reads <strong>Spotify −4 dB</strong> (Spotify turns it down 4 dB to reach its −14 LUFS reference), Apple Music −6 dB, YouTube −4 dB. The dot is green within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. Pick up to four targets per mode in Settings → Targets.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Check peak, range, stereo, phase</div><div class="feature-row__v">The Loudness sidebar carries <strong>integrated LUFS</strong>, <strong>true peak</strong> (4× oversampled dBTP — turns red above −1 dBTP), <strong>sample peak</strong>, and <strong>LRA</strong> live. The M/S section plots the mid/side Pearson correlation (+1 mono, 0 natural stereo, −1 out of phase) with a plain-English hover label; the Lissajous <strong>phase scope</strong> shows out-of-phase content at a glance. A separate triangle on a target row warns when the true peak breaches that platform's ceiling.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Check peak, range, stereo, phase</div><div class="feature-row__v">The Loudness sidebar carries <strong>integrated LUFS</strong>, <strong>true peak</strong> (4× oversampled dBTP, turns red above −1 dBTP), <strong>sample peak</strong>, and <strong>LRA</strong> live. The M/S section plots the mid/side Pearson correlation (+1 mono, 0 natural stereo, −1 out of phase) with a plain-English hover label; the Lissajous <strong>phase scope</strong> shows out-of-phase content at a glance. A separate triangle on a target row warns when the true peak breaches that platform's ceiling.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Audition at the target</div><div class="feature-row__v">Every target row has a waveform-circle toggle. Press it and Specula matches playback to that target: gain offset = <code>target − source LUFS</code>, with a 5 ms lookahead <strong>true-peak limiter</strong> at the target's <code>dBTP</code> ceiling (enforced on the 4× oversampled inter-sample peak, not just the sample magnitude). Hit play and hear the master the way the platform will play it. The loaded buffer is never modified; release the toggle to restore unity gain.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Export the report</div><div class="feature-row__v">Export the receipt — <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The full-file report populates the complete grid the moment the file loads: integrated LUFS, 4× oversampled true peak, sample peak, LRA, Max Momentary / Short-term, DR, and per-channel peak / RMS / crest. Each target row carries its verdict, so a client or label reads the per-platform numbers without opening Specula.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Export the report</div><div class="feature-row__v">Export the receipt: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The full-file report populates the complete grid the moment the file loads: integrated LUFS, 4× oversampled true peak, sample peak, LRA, Max Momentary / Short-term, DR, and per-channel peak / RMS / crest. Each target row carries its verdict, so a client or label reads the per-platform numbers without opening Specula.</div></div>
             </div>
         </div>
     </section>
@@ -131,7 +131,7 @@
         <div class="section__grid">
             <p class="label">Not every platform boosts</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>The asymmetry most meters get wrong.</strong> Apple Music's Sound Check, YouTube, and Tidal <strong>only turn loud tracks down</strong>; they leave a quieter-than-reference track exactly where it is. So a master at −18 LUFS doesn't get pushed up to Apple Music's −16 reference — it plays at −18. On those three platforms Specula shows a quiet master as <strong>"as-is"</strong> in green, not the misleading "+2 dB · platform gain" you'll see elsewhere.</p>
+                <p class="prose-lead"><strong>The asymmetry most meters get wrong.</strong> Apple Music's Sound Check, YouTube, and Tidal <strong>only turn loud tracks down</strong>; they leave a quieter-than-reference track exactly where it is. So a master at −18 LUFS doesn't get pushed up to Apple Music's −16 reference, it plays at −18. On those three platforms Specula shows a quiet master as <strong>"as-is"</strong> in green, not the misleading "+2 dB · platform gain" you'll see elsewhere.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The platforms that do boost.</strong> Spotify (in its default mode), Amazon Music, Deezer, and SoundCloud raise quiet tracks peak-limited to reach their reference, so for those rows the +X dB number is real and Specula shows it unchanged. The distinction matters because it changes what you do next: a master that reads "as-is" on Apple Music but "+3 dB" on Spotify is being treated as two different deliverables by two services, and only one of them is touching your level.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The Music catalog covers Spotify (−14 LUFS), Apple Music (−16), YouTube (−14), Tidal (−14), Amazon Music (−14, −2 dBTP ceiling), Deezer (−15), SoundCloud (−14), and the vendor-neutral AES TD1008 (−18). Each row's subtitle states whether it's symmetric or "turns down only," so the behaviour is on the row, not in your head. The live panel updates as the file plays; the full catalog with references, tolerances, and true-peak ceilings is in the <a href="guide.html#loudness">user guide</a>.</p>
             </div>
@@ -143,7 +143,7 @@
         <div class="section__grid">
             <p class="label">Ship the master with confidence</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the master is done" and "it's uploaded." It won't master the track for you — it tells you the exact gain each platform will apply, whether the true peak survives the ceiling, and whether the stereo image holds up in mono, before a single service touches the file.</p>
+                <p class="prose-lead">Specula is the pass between "the master is done" and "it's uploaded." It won't master the track for you. It tells you the exact gain each platform will apply, whether the true peak survives the ceiling, and whether the stereo image holds up in mono, before a single service touches the file.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#loudness" class="btn btn-primary">Read the loudness guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

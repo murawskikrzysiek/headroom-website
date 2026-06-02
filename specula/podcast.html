@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for Podcast Production — dialog-gated loudness QC on macOS</title>
+    <title>Specula for Podcast Production: dialog-gated loudness QC on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/podcast.html">
-    <meta name="description" content="Hit Apple Podcasts and Spotify Podcasts targets on macOS with dialogue measured properly — not contaminated by music beds or room tone. Speech-gated LUFS off a neural VAD you can hand-correct, plus a live noise floor.">
+    <meta name="description" content="Hit Apple Podcasts and Spotify Podcasts targets on macOS with dialogue measured properly, not contaminated by music beds or room tone. Speech-gated LUFS off a neural VAD you can hand-correct, plus a live noise floor.">
     <meta property="og:title" content="Specula for Podcast Production">
     <meta property="og:description" content="Measure the talking, not the music bed. Speech-gated LUFS against Apple Podcasts and Spotify Podcasts targets, with neural speech detection you can hand-correct.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Podcast</p>
             <h1 class="display">Measure the talking, not the music bed.</h1>
             <p class="app-hero__desc">
-                Podcast platforms specify a dialog-gated loudness target, not a whole-file one. Measure the episode as a single number and the intro bed, the stinger, and the room tone all drag it off. Specula runs a neural VAD over the file, gates a parallel integrated LUFS to the speech blocks, and reads that against the Apple Podcasts and Spotify Podcasts targets — with the speech regions hand-correctable when the detector guesses wrong.
+                Podcast platforms specify a dialog-gated loudness target, not a whole-file one. Measure the episode as a single number and the intro bed, the stinger, and the room tone all drag it off. Specula runs a neural VAD over the file, gates a parallel integrated LUFS to the speech blocks, and reads that against the Apple Podcasts and Spotify Podcasts targets, with the speech regions hand-correctable when the detector guesses wrong.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -99,13 +99,13 @@
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Dialog loudness measured over the whole file is wrong the moment there's music or SFX in it. The platforms know that, so they specify dialog-gated targets.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;"><strong>An integrated LUFS reading over the entire episode mixes the talking with everything that isn't talking.</strong> A loud cold-open music bed, a sponsor stinger, a long quiet pause — they all land in the same average, so the file can read on-target while the actual voice sits a couple of LU off where a listener hears it. Specula computes loudness <em>only</em> over the speech blocks, so the number you check against Apple Podcasts or Spotify Podcasts is the dialogue, not the dialogue blended with the bed.</p>
+                <p class="prose-lead" style="margin-top: 22px;"><strong>An integrated LUFS reading over the entire episode mixes the talking with everything that isn't talking.</strong> A loud cold-open music bed, a sponsor stinger, a long quiet pause, they all land in the same average, so the file can read on-target while the actual voice sits a couple of LU off where a listener hears it. Specula computes loudness <em>only</em> over the speech blocks, so the number you check against Apple Podcasts or Spotify Podcasts is the dialogue, not the dialogue blended with the bed.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The same separation matters at the quiet end. The room-tone <strong>noise floor</strong> between phrases is invisible on a whole-file loudness meter and inaudible on headphones, but it's measured over every non-speech sample here, so a noisy capture shows up as a number before it ships.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">Apple Podcasts</span><span class="std-row__desc">−16 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
                     <div class="std-row"><span class="std-row__tag">Spotify Podcasts</span><span class="std-row__desc">−14 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
-                    <div class="std-row"><span class="std-row__tag">ACX</span><span class="std-row__desc">−20.5 LUFS ±2.5 LU, noise floor ≤ −60 dB RMS, true peak ≤ −3 dBTP — for audiobook work, covered in the <a href="audiobook.html">audiobook workflow</a>.</span></div>
+                    <div class="std-row"><span class="std-row__tag">ACX</span><span class="std-row__desc">−20.5 LUFS ±2.5 LU, noise floor ≤ −60 dB RMS, true peak ≤ −3 dBTP, for audiobook work, covered in the <a href="audiobook.html">audiobook workflow</a>.</span></div>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
                 <div class="feature-row"><div class="feature-row__k">1 · Mark speech on load</div><div class="feature-row__v">Drop the episode; the <strong>Silero neural VAD</strong> runs on load, downsampling the file to 16 kHz mono and classifying every 100 ms block as speech or non-speech. Detected speech shades teal on the waveform (the <strong>SG</strong> toggle), so you can eyeball the result before relying on the numbers.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Hand-correct in Dialogue mode</div><div class="feature-row__v"><strong>Dialogue mode</strong> (<kbd>⌘4</kbd>) lets you fix what the VAD missed: <strong>drag</strong> a region's body to move it or its edges to resize, mark <kbd>I</kbd> / <kbd>O</kbd> the DAW way, <kbd>S</kbd> to split at the playhead, <kbd>Delete</kbd> to remove. 50-step undo / redo, including drags. Edits auto-save to a versioned <code>.dlg.json</code> sidecar next to the file (debounced 500 ms), so re-opening the episode re-applies them.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Read speech-gated LUFS</div><div class="feature-row__v">The Loudness section shows <strong>Speech-Gated Integrated LUFS</strong> and <strong>Speech %</strong> alongside the full-file integrated value, plus a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample) in Podcast mode. Same BS.1770 K-weighting and dual gating as the full measurement, accumulated only over the speech blocks.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Check against the platform</div><div class="feature-row__v">In Podcast mode the Loudness Targets panel shows the penalty against <strong>Apple Podcasts</strong> (−16 LKFS) and <strong>Spotify Podcasts</strong> (−14 LKFS), both dialog-gated, with a triangle if the true peak breaches −1 dBTP. Run offline analysis (<kbd>⌘Return</kbd>) over the whole file for the settled number, then export the receipt — <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Check against the platform</div><div class="feature-row__v">In Podcast mode the Loudness Targets panel shows the penalty against <strong>Apple Podcasts</strong> (−16 LKFS) and <strong>Spotify Podcasts</strong> (−14 LKFS), both dialog-gated, with a triangle if the true peak breaches −1 dBTP. Run offline analysis (<kbd>⌘Return</kbd>) over the whole file for the settled number, then export the receipt: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON.</div></div>
             </div>
         </div>
     </section>
@@ -132,9 +132,9 @@
         <div class="section__grid">
             <p class="label">Two-tier speech detection, and where your corrections go</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Tier 1 is a Silero neural VAD</strong> (MIT-licensed, run via FluidAudio). On load the file is downsampled to 16 kHz mono and classified per 100 ms block; the model is fetched once on first launch (~2 MB) and cached locally, after which detection is fully offline. <strong>Tier 2 is a spectral fallback</strong> that covers the rare case where Silero is unavailable — it classifies on four spectral features (an HF gate, a 300–3 400 Hz band-energy ratio, spectral flatness, and a harmonicity-plus-flux test) so the speech-gated path still produces a result.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>The corrected regions feed straight into the speech-gated path.</strong> When you fix regions in Dialogue mode, the dialog-gated LUFS, the noise-floor reading, and the Apple Podcasts / Spotify Podcasts verdicts all recompute against the speech and silence you confirmed — not what the raw VAD guessed. Region tint shows provenance: <strong>teal</strong> for pristine Silero output, <strong>amber</strong> for VAD regions you've edited, <strong>blue</strong> for ones loaded from a sidecar.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Bias the detector to your material in Settings → Speech.</strong> Three sliders re-run detection in about half a second: <strong>Threshold</strong> (0.1–0.9, default 0.5 — lower picks up quieter speech), <strong>Minimum region duration</strong> (0.05–2.0 s, default 0.10 — raise to reject clicks and short interjections), and <strong>Merge gap</strong> (0.05–2.0 s, default 0.10 — larger values fuse nearby regions through breath pauses). <strong>Reset to VAD</strong> discards your edits, deletes the sidecar, and re-runs Silero with the current tuning.</p>
+                <p class="prose-lead"><strong>Tier 1 is a Silero neural VAD</strong> (MIT-licensed, run via FluidAudio). On load the file is downsampled to 16 kHz mono and classified per 100 ms block; the model is fetched once on first launch (~2 MB) and cached locally, after which detection is fully offline. <strong>Tier 2 is a spectral fallback</strong> that covers the rare case where Silero is unavailable, it classifies on four spectral features (an HF gate, a 300 to 3 400 Hz band-energy ratio, spectral flatness, and a harmonicity-plus-flux test) so the speech-gated path still produces a result.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>The corrected regions feed straight into the speech-gated path.</strong> When you fix regions in Dialogue mode, the dialog-gated LUFS, the noise-floor reading, and the Apple Podcasts / Spotify Podcasts verdicts all recompute against the speech and silence you confirmed, not what the raw VAD guessed. Region tint shows provenance: <strong>teal</strong> for pristine Silero output, <strong>amber</strong> for VAD regions you've edited, <strong>blue</strong> for ones loaded from a sidecar.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Bias the detector to your material in Settings → Speech.</strong> Three sliders re-run detection in about half a second: <strong>Threshold</strong> (0.1 to 0.9, default 0.5, lower picks up quieter speech), <strong>Minimum region duration</strong> (0.05 to 2.0 s, default 0.10, raise to reject clicks and short interjections), and <strong>Merge gap</strong> (0.05 to 2.0 s, default 0.10, larger values fuse nearby regions through breath pauses). <strong>Reset to VAD</strong> discards your edits, deletes the sidecar, and re-runs Silero with the current tuning.</p>
             </div>
         </div>
     </section>
@@ -144,7 +144,7 @@
         <div class="section__grid">
             <p class="label">Ship the episode on target</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It won't level or de-noise the episode for you — it tells you what the dialogue actually measures against each platform's spec, so the number you submit is the talking, not the talking plus the music bed.</p>
+                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It won't level or de-noise the episode for you. It tells you what the dialogue actually measures against each platform's spec, so the number you submit is the talking, not the talking plus the music bed.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#speech-gated" class="btn btn-primary">Read the speech-gated guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
