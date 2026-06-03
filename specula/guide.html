@@ -729,7 +729,7 @@
         <table>
             <tr><th>Mode</th><th>Treatment</th><th>Source</th></tr>
             <tr><td>Music / Streaming</td><td class="wrap-ok">Penalty: shows the gain the platform will apply (e.g. Spotify −4 dB)</td><td class="wrap-ok">Integrated LUFS</td></tr>
-            <tr><td>Podcast / Spoken Word</td><td class="wrap-ok">Penalty for streaming podcast targets; compliance for ACX</td><td class="wrap-ok">Dialog-gated (streaming) / Integrated (ACX)</td></tr>
+            <tr><td>Podcast / Spoken Word</td><td class="wrap-ok">Penalty for streaming podcast targets; compliance for ACX</td><td class="wrap-ok">Dialog-gated (streaming) / RMS (ACX)</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Compliance: green dot or <strong>FAIL L</strong> / <strong>FAIL TP</strong> against the dialog-gated band</td><td class="wrap-ok">Dialog-gated LUFS</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">Compliance against the integrated band and the true-peak ceiling</td><td class="wrap-ok">Integrated LUFS</td></tr>
         </table>
@@ -778,7 +778,7 @@
         <h3>Dialog-gated vs integrated measurement</h3>
         <p class="prose">Different specs measure loudness differently and Specula computes both in parallel so the right one feeds each target.</p>
         <ul>
-            <li><strong>Integrated LUFS</strong> is the full-program measurement (ITU-R BS.1770 with K-weighting and two-stage gating). Used by music streaming, EBU R128, ARIB TR-B32, OP-59, ACX, and anything labelled simply "LUFS".</li>
+            <li><strong>Integrated LUFS</strong> is the full-program measurement (ITU-R BS.1770 with K-weighting and two-stage gating). Used by music streaming, EBU R128, ARIB TR-B32, OP-59, and anything labelled simply "LUFS". ACX is the exception: it specifies plain <strong>RMS</strong> (dBFS), not LUFS, so the ACX target evaluates the file's RMS, not its integrated LUFS.</li>
             <li><strong>Dialog-gated LKFS</strong> is the same BS.1770 algorithm applied only to the portions of the file containing speech, classified by the Silero neural VAD on file load. Used by Netflix and every other major VOD platform (Prime Video, Apple TV+, Disney+, Max), by streaming podcast targets, and by ATSC A/85 / the CALM Act (which the spec calls "anchor-element" measurement but is functionally dialog-gated for typical TV programming).</li>
         </ul>
         <p class="prose">The Loudness section shows both values side by side. Each target row's reference line is prefixed with <code>dialog ·</code> when the target evaluates against the dialog-gated reading. Files that contain no detected speech show the dialog-gated reading as "-" and dialog-gated target verdicts as "no speech".</p>
@@ -832,7 +832,7 @@
             <tr><td>Music</td><td class="wrap-ok">AES TD1008 (streaming)</td><td class="wrap-ok">−18 LUFS</td><td class="wrap-ok">penalty (symmetric, vendor-neutral)</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Apple Podcasts ✓</td><td class="wrap-ok">−16 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
             <tr><td>Podcast</td><td class="wrap-ok">Spotify (Podcast) ✓</td><td class="wrap-ok">−14 LKFS dialog-gated</td><td class="wrap-ok">penalty</td><td class="wrap-ok">−1 dBTP</td></tr>
-            <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 LUFS</td><td class="wrap-ok">±2.5 LU</td><td class="wrap-ok">−3 dBTP (plus noise floor)</td></tr>
+            <tr><td>Podcast</td><td class="wrap-ok">ACX (Audiobook)</td><td class="wrap-ok">−20.5 dB RMS</td><td class="wrap-ok">±2.5 dB</td><td class="wrap-ok">−3 dBTP (plus noise floor)</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Netflix ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Prime Video ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
             <tr><td>VOD</td><td class="wrap-ok">Apple TV+ ✓</td><td class="wrap-ok">−27 LKFS dialog-gated</td><td class="wrap-ok">±2 LU</td><td class="wrap-ok">−2 dBTP</td></tr>
@@ -1391,7 +1391,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">chapter-mode-ribbon.png</div>
-            <div class="shot-desc">Specula window with a multi-chapter audiobook loaded. Chapter ribbon (⌃6) visible at the bottom, slots showing per-chapter LUFS / TP / NF readouts, deviation badge, with at least one chapter ACX-red flagged (e.g. NF above &minus;60 dB or integrated outside the [&minus;23, &minus;18] LUFS band). Waveform above with the teal boundary lines and #N badges visible. The "money shot" for the audiobook workflow.</div>
+            <div class="shot-desc">Specula window with a multi-chapter audiobook loaded. Chapter ribbon (⌃6) visible at the bottom, slots showing per-chapter RMS / LUFS / TP / NF readouts, deviation badge, with at least one chapter ACX-red flagged (e.g. NF above &minus;60 dB or RMS outside the [&minus;23, &minus;18] dB band). Waveform above with the teal boundary lines and #N badges visible. The "money shot" for the audiobook workflow.</div>
         </div>
 
         <h3>Entering the mode</h3>
@@ -1420,7 +1420,8 @@
         <h3>Per-chapter measurements</h3>
         <p class="prose"><strong>Analyse Loudness</strong> in the toolbar runs an offline BS.1770 pass per chapter and populates the full measurement set. For each chapter:</p>
         <ul>
-            <li><strong>Integrated LUFS (I)</strong> - gated EBU R128 integrated over the chapter's audio. The headline number an ACX submission lives or dies on.</li>
+            <li><strong>RMS (dB)</strong> - plain RMS over the chapter, in dBFS. This is the metric ACX's −23 to −18 dB loudness window actually checks (un-weighted RMS, not K-weighted LUFS), so it drives the per-chapter ACX loudness gate. Valid at any length, so it populates even for short chapters.</li>
+            <li><strong>Integrated LUFS (I)</strong> - gated EBU R128 integrated over the chapter's audio. Shown alongside RMS as a narrator-consistency reference: it drives the deviation-from-median flag, not the ACX loudness gate.</li>
             <li><strong>True peak (TP, dBTP)</strong> - 4× oversampled per ITU-R BS.1770-4. ACX rejects above −3 dBTP.</li>
             <li><strong>Sample peak (SP, dBFS)</strong> - cheaper than true peak; useful for very short chapters where inter-sample peak isn't meaningful. Populated even when the chapter is too short for an integrated reading so clipping still surfaces.</li>
             <li><strong>Loudness range (LRA, LU)</strong> - consistency indicator inside one chapter. Large LRA usually means a section the narrator should re-record.</li>
@@ -1430,18 +1431,18 @@
             <li><strong>Median noise floor (NF, dB RMS)</strong> - median RMS across non-speech blocks. ACX rejects above −60 dB. Median rather than mean so a voice block the VAD occasionally misclassifies doesn't bias the reading upward.</li>
             <li><strong>Speech percentage (Sp)</strong> - fraction of the chapter the VAD classified as speech.</li>
         </ul>
-        <p class="prose">Chapters shorter than 10 s skip the loudness measurements entirely (BS.1770 absolute-gate and relative-gate machinery isn't reliable below that). Sample peak still populates so clipping doesn't slip through.</p>
+        <p class="prose">Chapters shorter than 10 s skip the BS.1770 measurements entirely (the absolute-gate and relative-gate machinery isn't reliable below that). RMS and sample peak still populate, since plain RMS and peak are valid at any length, so the ACX loudness gate and clipping don't slip through on short chapters.</p>
 
         <h3>Ribbon slot layout</h3>
         <p class="prose">Each slot is four lines tall:</p>
         <pre><code>#NN · Chapter Name                                 m:ss
--20.6 LUFS    +0.0 LU
+-20.4 dB RMS    -20.6 LUFS  +0.0 LU
 TP -2.1 dBTP    NF -62 dB
 LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <ul>
             <li><strong>Line 1.</strong> Index, name, and chapter length (h:mm:ss for chapters over an hour).</li>
-            <li><strong>Line 2.</strong> Integrated LUFS and the deviation from the book median (e.g. <code>+1.4 LU</code>).</li>
-            <li><strong>Line 3.</strong> The two ACX gates the integrated alone doesn't catch: true peak and noise floor.</li>
+            <li><strong>Line 2.</strong> RMS (the ACX loudness gate, red when outside [−23, −18] dB), with the integrated LUFS and its deviation from the book median alongside (LUFS reddens when the deviation exceeds the threshold).</li>
+            <li><strong>Line 3.</strong> The other two ACX gates: true peak and noise floor.</li>
             <li><strong>Line 4.</strong> Secondary metrics: LRA, speech-gated (Dlg), and speech percentage.</li>
         </ul>
         <p class="prose">Missing metrics render as muted <code>-</code> so the row positions stay stable across chapters that haven't been analysed yet, are too short for an integrated reading, or fall outside the VAD's coverage.</p>
@@ -1449,7 +1450,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <h3>ACX gates</h3>
         <p class="prose">Each chapter is independently checked against three ACX delivery limits. Failures render the metric in red on the ribbon slot and on the report's chapter table:</p>
         <ul>
-            <li><strong>Integrated outside [−23, −18] LUFS.</strong> The integrated LUFS cell turns red.</li>
+            <li><strong>RMS outside [−23, −18] dB.</strong> The RMS cell turns red.</li>
             <li><strong>True peak &gt; −3 dBTP.</strong> The TP cell turns red.</li>
             <li><strong>Median noise floor &gt; −60 dB RMS.</strong> The NF cell turns red.</li>
         </ul>
@@ -1471,7 +1472,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle the section's visibility with <kbd>⌃6</kbd> (independent of whether chapter mode is active).</p>
 
         <h3>In the report</h3>
-        <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (I outside [−23, −18], TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
+        <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: RMS, integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (RMS outside [−23, −18] dB, TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
     </section>
 
     <hr class="divider">

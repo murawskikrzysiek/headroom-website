@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for Audiobooks &amp; ACX: per-chapter loudness QC on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/audiobook.html">
-    <meta name="description" content="Check audiobooks against the ACX spec on macOS before you upload. Per-chapter integrated LUFS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.">
+    <meta name="description" content="Check audiobooks against the ACX spec on macOS before you upload. Per-chapter RMS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.">
     <meta property="og:title" content="Specula for Audiobooks &amp; ACX">
     <meta property="og:description" content="Find every reason ACX would reject your audiobook before you upload it, chapter by chapter, not three days later in an email.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Audiobooks &amp; ACX">
-    <meta name="twitter:description" content="Per-chapter ACX loudness QC on macOS: integrated LUFS, true peak, and the −60 dB noise floor that gets audiobooks rejected.">
+    <meta name="twitter:description" content="Per-chapter ACX loudness QC on macOS: RMS, true peak, and the −60 dB noise floor that gets audiobooks rejected.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -29,7 +29,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Specula for Audiobooks & ACX",
-        "description": "Per-chapter ACX loudness QC on macOS: integrated LUFS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.",
+        "description": "Per-chapter ACX loudness QC on macOS: RMS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.",
         "url": "https://headroomstudio.dev/specula/audiobook.html",
         "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
         "about": {
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Audiobook / ACX</p>
             <h1 class="display">Audiobooks, scored chapter by chapter.</h1>
             <p class="app-hero__desc">
-                Find every reason ACX would reject your audiobook before you upload it. Specula segments the file into chapters, runs a full BS.1770 loudness pass on each one, and flags integrated LUFS, true peak, and the room-tone noise floor against the ACX spec, and against the book's own median, so a single bad pickup shows up here, not three days later in a rejection email.
+                Find every reason ACX would reject your audiobook before you upload it. Specula segments the file into chapters, runs a full loudness pass on each one, and flags RMS, true peak, and the room-tone noise floor against the ACX spec, plus each chapter's integrated LUFS against the book's own median, so a single bad pickup shows up here, not three days later in a rejection email.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -99,10 +99,10 @@
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     ACX checks three things and rejects on any of them. Two are easy to hit; the third is the one that catches people.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Integrated loudness and true peak you can usually eyeball in a DAW. The room-tone <strong>noise floor</strong> is different: it's inaudible on headphones, invisible on a standard loudness meter, and the single most common reason an audiobook bounces back. Specula reads all three off the file directly, so the rejection condition is a number on screen instead of a surprise.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Loudness and true peak you can usually eyeball in a DAW. The room-tone <strong>noise floor</strong> is different: it's inaudible on headphones, invisible on a standard loudness meter, and the single most common reason an audiobook bounces back. Specula reads all three off the file directly, so the rejection condition is a number on screen instead of a surprise.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
-                    <div class="std-row"><span class="std-row__tag">ACX I</span><span class="std-row__desc">Integrated loudness between −23 and −18 LUFS, measured per chapter, not just for the file as a whole.</span></div>
+                    <div class="std-row"><span class="std-row__tag">ACX RMS</span><span class="std-row__desc">RMS between −23 and −18 dB, measured per chapter, not just for the file as a whole. ACX checks plain RMS, not K-weighted LUFS, so Specula evaluates RMS here too.</span></div>
                     <div class="std-row"><span class="std-row__tag">ACX TP</span><span class="std-row__desc">True peak at or below −3 dBTP, detected on the 4× oversampled inter-sample peak.</span></div>
                     <div class="std-row"><span class="std-row__tag">ACX NF</span><span class="std-row__desc">Room-tone noise floor at or below −60 dB RMS, measured over every non-speech sample.</span></div>
                 </div>
@@ -120,7 +120,7 @@
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Load &amp; clean speech</div><div class="feature-row__v">Drop the file; Silero's neural VAD marks every speech block on load. If a breath, a page turn, or a music bed got mislabelled, fix it in <strong>Dialogue mode</strong> (<kbd>⌘4</kbd>): drag a region, mark <kbd>I</kbd> / <kbd>O</kbd>, split with <kbd>S</kbd>, so the noise floor and speech metrics measure the right samples. Edits auto-save to a <code>.dlg.json</code> sidecar and re-apply next time you open the file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Split into chapters</div><div class="feature-row__v"><strong>Chapter mode</strong> (<kbd>⌘3</kbd>) → <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon. Drag any boundary to correct it, click one and <strong>Remove</strong> to merge two chapters, rename slots, or import a hand-made layout as a JSON sidecar.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse Loudness</strong> runs a full BS.1770 pass per chapter: integrated LUFS, true peak, sample peak, noise floor, LRA, max momentary / short-term, speech-gated LUFS, speech %. Each chapter is flagged against the three ACX gates <em>and</em> against the book's own median (default ±2 LU).</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse Loudness</strong> runs a full pass per chapter: RMS, integrated LUFS, true peak, sample peak, noise floor, LRA, max momentary / short-term, speech-gated LUFS, speech %. Each chapter is flagged against the three ACX gates (RMS, true peak, noise floor) <em>and</em> against the book's own median (default ±2 LU on the integrated LUFS).</div></div>
                 <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">Export the report: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The per-chapter table carries the same red-cell signalling the app shows, so a narrator or producer reads the exact failing chapters and conditions without opening Specula.</div></div>
             </div>
         </div>
@@ -131,7 +131,7 @@
         <div class="section__grid">
             <p class="label">Per chapter, and against the median</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>A file-level pass isn't enough for a book.</strong> An audiobook can sit at a perfect −20 LUFS overall while one chapter recorded on a different day drifts to −16, or a single quiet pickup dips under the noise-floor line. ACX checks per chapter, so Specula does too: every chapter gets its own verdict on integrated LUFS, true peak, and noise floor.</p>
+                <p class="prose-lead"><strong>A file-level pass isn't enough for a book.</strong> An audiobook can sit at a perfect −20 dB RMS overall while one chapter recorded on a different day drifts to −16, or a single quiet pickup dips under the noise-floor line. ACX checks per chapter, so Specula does too: every chapter gets its own ACX verdict on RMS, true peak, and noise floor.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The outlier flag</strong> catches consistency problems the absolute gates miss. Each chapter is compared to the book's own median loudness; anything beyond the tolerance (default ±2 LU) is flagged even if it's technically inside the ACX band. That's how you spot the chapter that will sound jarringly louder to a listener mid-book.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The corrected dialogue regions from step 1 feed straight into this: per-chapter speech-gated LUFS and the noise-floor reading all measure the speech and silence you confirmed, not what the raw VAD guessed.</p>
             </div>
