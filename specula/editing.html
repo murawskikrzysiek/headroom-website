@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file</title>
+    <link rel="canonical" href="https://headroomstudio.dev/specula/editing.html">
+    <meta name="description" content="Make the small fix without booting a DAW. Trim, fade, gain, remove DC, normalize to a LUFS target with a 4× oversampled true-peak limiter, or cap inter-sample peaks with Limit TP. Single-level undo; Specula always saves as a new file.">
+    <meta property="og:title" content="Specula for Editing &amp; Repair">
+    <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and always saves a new file.">
+    <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula for Editing &amp; Repair">
+    <meta name="twitter:description" content="Non-destructive editing on macOS: trim, fade, gain, normalize to LUFS with a true-peak limiter, Limit TP. Always saves as a new file.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Specula for Editing & Repair",
+        "description": "Non-destructive editing on macOS: trim, fade, gain, invert phase, normalize to a peak or LUFS target with a 4× oversampled true-peak limiter, Limit TP, remove DC, swap channels, split to mono. Single-level undo; always saves as a new file.",
+        "url": "https://headroomstudio.dev/specula/editing.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Specula",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication",
+            "offers": { "@type": "Offer", "price": "99", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" }
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Specula</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
+        </div>
+        <div>
+            <p class="eyebrow">Workflow · Editing</p>
+            <h1 class="display">The small fix, without booting a DAW.</h1>
+            <p class="app-hero__desc">
+                A trim. A fade. A LUFS normalize before upload. None of that needs a session, a project file, and a render queue, and none of it should put the master at risk. Specula's Edit mode does the operation in place on the loaded buffer, keeps a single-level undo, and writes the result to a <strong>new file</strong>. The original on disk is never touched.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS</span>
+                <span class="badge">Non-destructive</span>
+                <span class="badge">Normalize LUFS</span>
+                <span class="badge">True-peak limiter</span>
+                <span class="badge">Always saves new</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#edit">Read the edit-mode guide</a>
+                <a class="btn btn-learn" href="index.html">All of Specula</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">macOS 14+ · one-time purchase · $99 at launch</p>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- The problem -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">When you don't need a DAW</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    The fix is thirty seconds of work. Opening a DAW to do it isn't.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">You loaded the file to check the numbers and now you can see the one thing that needs fixing: a few seconds of room tone to trim off the head, a fade to clean up the tail, a normalize to the LUFS target the delivery wants. Round-tripping that through a DAW means a new project, an import, a bounce, and a settings dialog for each. Doing it by hand on the master means there's nothing to fall back to if you get the gain wrong.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Specula does the small jobs where the file already is. Two rules keep it safe: there's a one-step undo for the operation you just ran, and saving always produces a <strong>new file</strong>. Specula has no in-place overwrite, so the source you loaded stays exactly as it was on disk.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The workflow -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">The workflow</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Enter the mode, run the operation, save a new file. Three steps, no project.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">1 · Enter Edit mode</div><div class="feature-row__v"><kbd>⌘1</kbd> toggles Edit mode; the waveform shows an amber <strong>EDIT</strong> badge while it's active. Edit is <strong>mutually exclusive with Compare</strong>. The Compare controls are disabled while you're editing, and Edit is unavailable when more than one compare slot is loaded. A toolbar appears below the transport; operations that take parameters (silence, gain, fade, normalize) open a small popover where you set the values and click Apply.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Apply an operation</div><div class="feature-row__v">Each operation runs on the current selection or the whole file. <strong>Trim</strong> crops to the selection; <strong>Add Silence</strong> inserts before, after, or replaces the selection (in seconds or samples); <strong>Change Level</strong> applies linear gain in dB; <strong>Invert Phase</strong> multiplies by −1; <strong>Fade</strong> offers linear, logarithmic, and equal-power curves in and out (six total). <strong>Normalize Peak</strong> targets a dBFS value; <strong>Normalize LUFS</strong> targets a LUFS value with a ceiling, auto-applying a 5 ms-lookahead true-peak limiter when it raises loudness. <strong>Limit TP</strong> caps inter-sample peaks at a <code>dBTP</code> ceiling on its own. <strong>Remove DC Offset</strong> subtracts each channel's mean; <strong>Swap Channels</strong> does a stereo L↔R swap; <strong>Split to Mono</strong> writes N mono WAV files, one per channel, to a folder you pick.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Undo, or save a new file</div><div class="feature-row__v"><kbd>⌘Z</kbd> restores the buffer captured before the last edit. Undo is <strong>single-level</strong>. Applying a new operation overwrites the previous snapshot, so undo always steps back exactly one edit. When the result is right, <kbd>⇧⌘S</kbd> opens a save panel and writes the current buffer to a new file (WAV at the file's native bit depth and sample rate by default). Specula never writes in place: <strong>Save As never overwrites the original</strong>.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- True-peak limiter depth -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">The ceiling is a true-peak ceiling</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>A peak normalize that only watches sample values lies to you.</strong> The number that gets a master rejected, and the one streaming platforms enforce, is the inter-sample peak: the level the signal reaches once the converter reconstructs the analog waveform between samples. A file can read −1.0 dBFS on sample magnitude and still overshoot when it's played back.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Specula's limiter measures the <strong>4× oversampled inter-sample peak</strong> and enforces the ceiling against that, in <code>dBTP</code>, not against the raw sample magnitude. <strong>Normalize LUFS</strong> runs it automatically whenever the normalize raises loudness, in two offline passes: pass one builds the gain envelope from the input's oversampled peaks; pass two catches any residual peaks the release stage might leave fractionally over the ceiling.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Limit TP</strong> is the same limiter on its own, no loudness measurement, no gain stage. Reach for it when the integrated LUFS is already where you want it and you only need the inter-sample peaks capped under a platform ceiling.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Fix it where the file is</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Edit mode is for the jobs that don't earn a DAW session: a trim, a fade, a normalize, a channel split, a phase flip. Specula runs them on the loaded buffer, keeps a one-step undo, and saves a new file every time, so the fix is fast and the master is never the thing you edited.</p>
+                <div class="app-hero__cta" style="margin-top: 24px;">
+                    <a href="guide.html#edit" class="btn btn-primary">Read the edit-mode guide →</a>
+                    <a href="index.html" class="btn btn-outline">Back to Specula</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Specula</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+</body>
+</html>
