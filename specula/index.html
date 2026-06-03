@@ -262,6 +262,7 @@
                 <div class="feature-row"><div class="feature-row__k">Can I get a PDF report without opening the app?</div><div class="feature-row__v">Yes. From the terminal: <code>specula report mix.wav --mode music --format pdf --out report.pdf</code>. From Shortcuts: use the <strong>Get Report</strong> action with <strong>Format</strong> set to PDF. Both produce pixel-identical output to the GUI's PDF preview (off-screen WKWebView under the hood). HTML and JSON formats are available too via the same <code>--format</code> flag or the same Shortcut step.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Do I have to run an offline selection analysis for every file?</div><div class="feature-row__v">No. The full-file report now populates every metric the GUI's InfoPanel renders: integrated LUFS, 4× oversampled true peak, sample peak, LRA, Max Momentary, Max Short-term, DR, speech-gated LUFS, and per-channel stats, the moment the file finishes loading. <strong>⌘Return</strong> selection analysis is still there when you want the numbers for a specific region; you no longer need it just to see true peak on the whole file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Negative numbers like <code>--gain -3</code> get rejected by the CLI; why?</div><div class="feature-row__v">Swift's argument parser reads a bare leading <code>-</code> as a short-option name. Use the <code>--option=value</code> form for any negative numeric: <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>, <code>--lufs-ceiling=-1</code>. Positive numbers work in either form.</div></div>
+                <div class="feature-row"><div class="feature-row__k">How do I report a bug or send feedback?</div><div class="feature-row__v">Found a bug or have an idea? <a href="mailto:hello@headroomstudio.dev?subject=Specula%20feedback">Send feedback</a>. It goes straight to the inbox at hello@headroomstudio.dev. The same path is in the app under Help, Send Feedback.</div></div>
             </div>
         </div>
     </section>
@@ -286,6 +287,7 @@
         <ul class="footer__links">
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="guide.html">User Guide</a></li>
+            <li><a href="mailto:hello@headroomstudio.dev?subject=Specula%20feedback">Send Feedback</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
