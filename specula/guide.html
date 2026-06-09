@@ -857,6 +857,28 @@
             <div class="shot-name">loudness-targets-settings-aes-td1008.png</div>
             <div class="shot-desc">Settings → Targets tab with the Music mode catalog expanded. The new <strong>AES TD1008 (streaming)</strong> entry is visible alongside the existing Music targets, with its "penalty, turns down only" / "penalty" subtitle annotations readable beneath each platform.</div>
         </div>
+
+        <h3>Normalize to target (destructive)</h3>
+        <p class="prose">Where Match previews a target by ear, Normalize commits to it. Integrated targets (music streaming, broadcast) and dialog-gated targets (VOD, streaming podcasts) carry a second button on the row, the up-to-line icon next to the Match toggle. Press it and Specula opens Edit mode with the Normalize section pre-filled to that target, then click Apply to normalize the loaded buffer.</p>
+        <p class="prose">The Normalize panel states its <strong>Basis</strong> so you always know which loudness is being targeted, and shows the move before you commit:</p>
+        <ul>
+            <li><strong>Basis</strong> is <strong>Integrated</strong> (LUFS) for music and broadcast targets, or <strong>Dialog-gated</strong> (LKFS) for VOD and podcast targets. It names the measurement the target is scored against, which is the one Normalize lands on the reference.</li>
+            <li><strong>Now / Target / Gain</strong> spell out the current reading, the platform reference, and the gain that will be applied. The whole file is shifted by that uniform gain; "dialog-gated" describes how the gain is chosen (so the speech-gated loudness hits the target), not that only the dialogue is touched.</li>
+            <li><strong>Ceiling</strong> is the only editable field: the <code>dBTP</code> true-peak limiter ceiling, pre-filled to the target's.</li>
+        </ul>
+        <p class="prose">This is a normal edit: it lands on the 16-level undo stack, and exporting writes a new file rather than overwriting the source. Integrated targets re-measure and iterate to the reference; dialog-gated targets apply the uniform gain that lands the speech-gated reading on the reference. Both finish with the same two-pass true-peak limiter at the ceiling.</p>
+        <p class="prose">The <strong>ACX RMS target</strong> is the one exception: it stays compliance-only with no Normalize button. ACX is a hard delivery spec whose noise-floor requirement a gain can't satisfy (raising RMS into the window raises the noise floor with it), so normalizing its level alone could read as "now compliant" when it isn't. The button is also disabled (with a tooltip) until a loudness reading is available, and unavailable in multi-file Compare, since Edit and Compare are mutually exclusive.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>Normalize is the destructive counterpart to Match: Match is a live playback gain you can release at any time, Normalize bakes the gain into a new file. Both target the same basis the row is scored against and share the same true-peak limiter math; the difference is whether the loaded buffer is rewritten.</p>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-normalize-button.png</div>
+            <div class="shot-desc">Loudness Targets panel showing the new <strong>Normalize</strong> (up-to-line / arrow.up.to.line) button next to the existing Match waveform-circle toggle on each row, on both an integrated row (e.g. Spotify &minus;14) and a dialog-gated row (e.g. Netflix &minus;27). The open Normalize popover shows the <strong>Basis</strong> line (Integrated or Dialog-gated) with the Now / Target / Gain readout and the editable Ceiling field. Dark mode. Demonstrates the second per-row button that commits to a target rather than previewing it.</div>
+        </div>
     </section>
 
     <hr class="divider">
@@ -1348,7 +1370,7 @@
         <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
-        <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures a single-level undo snapshot, runs the DSP, swaps the buffer, and resumes.</p>
+        <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures an undo snapshot (pushed onto a 16-level disk-backed stack), runs the DSP, swaps the buffer, and resumes.</p>
 
         <table>
             <tr><th>Operation</th><th>Notes</th></tr>
@@ -1366,11 +1388,11 @@
         </table>
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit. Single-level only - applying a new edit overwrites the previous undo snapshot.</p>
+        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit; <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is 16-level: each edit pushes a snapshot onto a disk-backed stack, so only the current buffer stays in RAM while deep history persists.</p>
 
         <div class="note">
             <span class="note-icon">⚠</span>
-            <p><strong>RAM note:</strong> undo doubles RAM usage for the duration of one edit, since the snapshot is a full clone of the buffer. For a 60-minute 24-bit stereo file at 96 kHz that's ~2.5 GB while the snapshot exists.</p>
+            <p><strong>RAM note:</strong> undo history is disk-backed. Each snapshot is written to a temp WAV and dropped from RAM, so only the current buffer stays resident no matter how deep the history goes. The transient memory cost of an edit is the edit operation's own working set, not the undo stack.</p>
         </div>
 
         <h3>Save</h3>
