@@ -1364,7 +1364,7 @@
         <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
-        <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures a single-level undo snapshot, runs the DSP, swaps the buffer, and resumes.</p>
+        <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures an undo snapshot (pushed onto a 16-level disk-backed stack), runs the DSP, swaps the buffer, and resumes.</p>
 
         <table>
             <tr><th>Operation</th><th>Notes</th></tr>
@@ -1382,11 +1382,11 @@
         </table>
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit. Single-level only - applying a new edit overwrites the previous undo snapshot.</p>
+        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit; <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is 16-level: each edit pushes a snapshot onto a disk-backed stack, so only the current buffer stays in RAM while deep history persists.</p>
 
         <div class="note">
             <span class="note-icon">⚠</span>
-            <p><strong>RAM note:</strong> undo doubles RAM usage for the duration of one edit, since the snapshot is a full clone of the buffer. For a 60-minute 24-bit stereo file at 96 kHz that's ~2.5 GB while the snapshot exists.</p>
+            <p><strong>RAM note:</strong> undo history is disk-backed. Each snapshot is written to a temp WAV and dropped from RAM, so only the current buffer stays resident no matter how deep the history goes. The transient memory cost of an edit is the edit operation's own working set, not the undo stack.</p>
         </div>
 
         <h3>Save</h3>
