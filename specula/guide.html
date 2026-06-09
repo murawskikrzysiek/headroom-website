@@ -857,6 +857,22 @@
             <div class="shot-name">loudness-targets-settings-aes-td1008.png</div>
             <div class="shot-desc">Settings → Targets tab with the Music mode catalog expanded. The new <strong>AES TD1008 (streaming)</strong> entry is visible alongside the existing Music targets, with its "penalty, turns down only" / "penalty" subtitle annotations readable beneath each platform.</div>
         </div>
+
+        <h3>Normalize to target (destructive)</h3>
+        <p class="prose">Where Match previews a target by ear, Normalize commits to it. Integrated targets (music streaming and broadcast specs) carry a second button on the row, the up-to-line icon next to the Match toggle. Press it and Specula opens Edit mode with the Normalize section pre-filled to that target: LUFS mode, the target's integrated reference, and its <code>dBTP</code> ceiling wired into the true-peak limiter. Review the values and click Apply to normalize the loaded buffer.</p>
+        <p class="prose">This is a normal edit: it lands on the 16-level undo stack, and exporting writes a new file rather than overwriting the source. The DSP is identical to the Normalize LUFS edit op, so the result is a two-pass, true-peak-limited normalization to the platform reference.</p>
+        <p class="prose">Only integrated-source targets get the button. Dialog-gated targets (Netflix and peers, streaming podcasts) and the ACX RMS target are compliance checks, not normalization destinations: normalization iterates the file's integrated loudness to the reference, which wouldn't land a dialog-gated or RMS reading on its mark. The button is hidden on those rows, and disabled (with a tooltip) until a loudness reading is available. Normalize is unavailable in multi-file Compare, since Edit and Compare are mutually exclusive.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>Normalize is the destructive counterpart to Match: Match is a live playback gain you can release at any time, Normalize bakes the gain into a new file. Both read the integrated source and share the same true-peak limiter math; the difference is whether the loaded buffer is rewritten.</p>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">loudness-targets-normalize-button.png</div>
+            <div class="shot-desc">Loudness Targets panel in Music mode with integrated rows (Spotify &minus;14 / Apple Music &minus;16 / YouTube &minus;14) showing the new <strong>Normalize</strong> (up-to-line / arrow.up.to.line) button next to the existing Match waveform-circle toggle on each row. Dark mode. Demonstrates the second per-row button that commits to a target rather than previewing it.</div>
+        </div>
     </section>
 
     <hr class="divider">
