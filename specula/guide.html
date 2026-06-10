@@ -1537,9 +1537,13 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
         <h3>Install</h3>
-        <pre><code>cd Specula
-make cli-install      # builds Release + copies binary to ~/bin/specula</code></pre>
-        <p class="prose"><code>~/bin</code> must be on <code>$PATH</code>. Verify with <code>specula --version</code>.</p>
+        <p class="prose">The CLI ships inside the app bundle. Pick <strong>Specula → Install Command-Line Tool…</strong> and Specula links <code>specula</code> into <code>/usr/local/bin</code> (one admin prompt if that folder needs it). The link points at the copy inside Specula.app, so app updates keep the installed command current.</p>
+        <p class="prose">Manual alternative (scripted setups):</p>
+        <pre><code>sudo ln -sfh "/Applications/Specula.app/Contents/Helpers/specula" /usr/local/bin/specula</code></pre>
+        <p class="prose">Verify with <code>specula --version</code>.</p>
+
+        <h3>Licensing</h3>
+        <p class="prose">The CLI shares the app's license and trial. It runs through the 7-day trial (a days-left note prints on stderr) and requires the license activated in the app after that (<strong>Specula → Manage License…</strong>); an expired, unlicensed install exits with code 77 and an explanation on stderr. <code>--help</code> and <code>--version</code> always work. The first licensed run asks once for access to the license in the Keychain - click <strong>Always Allow</strong>. Do that once in a local Terminal window before using the tool over SSH, where the prompt can't appear.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
