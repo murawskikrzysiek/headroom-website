@@ -62,10 +62,9 @@
   </section>
 
   <section class="priv-section">
-    <h2>Silero VAD model download</h2>
-    <p>On first launch, Specula's speech-detection feature downloads the open-source <strong>Silero VAD</strong> model (~2 MB) from HuggingFace via the <strong>FluidAudio</strong> Swift library. This is a one-time download. The model is cached locally at:</p>
-    <p class="pathline">~/Library/Application Support/FluidAudio/Models/</p>
-    <p style="margin-top: 12px;">After the download, Specula does not need a network connection. No audio is sent to HuggingFace or anywhere else; only the model file is fetched.</p>
+    <h2>Speech-detection model</h2>
+    <p>Specula's speech detection uses the open-source <strong>Silero VAD</strong> model. The model ships <strong>inside the app</strong>, so there is normally no download and no network connection is needed: speech-gated analysis works fully offline, including on machines behind a firewall. No audio is ever sent anywhere.</p>
+    <p style="margin-top: 12px;">In the rare case the bundled model is unavailable, the <strong>FluidAudio</strong> library may fetch a one-time copy from HuggingFace and cache it locally. No audio is transmitted in either case; only the model file would be fetched.</p>
   </section>
 
   <section class="priv-section">

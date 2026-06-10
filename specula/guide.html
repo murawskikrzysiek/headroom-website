@@ -516,7 +516,7 @@
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>First launch downloads the Silero VAD model (~2 MB) from HuggingFace to <code>~/Library/Application Support/FluidAudio/Models/</code>. Network is required for that one-time fetch only - afterwards Specula runs fully offline.</p>
+            <p>The Silero VAD model ships inside Specula, so speech-gated analysis works fully offline, with no download and no network connection. It runs the same on a studio machine that's firewalled off from the internet.</p>
         </div>
     </section>
 
@@ -893,7 +893,7 @@
         <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms <code>[Bool]</code> history is injected into <code>LoudnessProcessor</code>. Selection analysis re-runs Silero on just the selection.</p>
 
         <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
-        <p class="prose">Used when Silero is unavailable (model not yet downloaded or returns an error). Four spectral features:</p>
+        <p class="prose">Used when Silero is unavailable (the bundled model fails to load or returns an error). Four spectral features:</p>
         <ol>
             <li><strong>HF gate</strong> - if HF energy &gt; 0.35 × total → non-speech (rejects plosives and cymbals).</li>
             <li><strong>Band Energy Ratio</strong> (300-3 400 Hz) - threshold 0.45.</li>
@@ -1650,7 +1650,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; first run downloads the Silero model from HuggingFace and may take a moment.</p>
+            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the Silero model ships inside Specula, so the first speech-gated run just loads it (no download) and may take a moment.</p>
         </div>
     </section>
 
