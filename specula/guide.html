@@ -1542,12 +1542,6 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <pre><code>sudo ln -sfh "/Applications/Specula.app/Contents/Helpers/specula" /usr/local/bin/specula</code></pre>
         <p class="prose">Verify with <code>specula --version</code>.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">specula-cli-install-menu@2x.png</div>
-            <div class="shot-desc">Specula app menu open with <strong>Install Command-Line Tool…</strong> highlighted (directly under Manage License…). Crop to the open menu.</div>
-        </div>
-
         <h3>Licensing</h3>
         <p class="prose">The CLI shares the app's license and trial. It runs through the 7-day trial (a days-left note prints on stderr) and requires the license activated in the app after that (<strong>Specula → Manage License…</strong>); an expired, unlicensed install exits with code 77 and an explanation on stderr. <code>--help</code> and <code>--version</code> always work. The first licensed run asks once for access to the license in the Keychain - click <strong>Always Allow</strong>. Do that once in a local Terminal window before using the tool over SSH, where the prompt can't appear.</p>
 
