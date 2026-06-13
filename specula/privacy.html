@@ -63,8 +63,7 @@
 
   <section class="priv-section">
     <h2>Speech-detection model</h2>
-    <p>Specula's speech detection uses the open-source <strong>Silero VAD</strong> model. The model ships <strong>inside the app</strong>, so there is normally no download and no network connection is needed: speech-gated analysis works fully offline, including on machines behind a firewall. No audio is ever sent anywhere.</p>
-    <p style="margin-top: 12px;">In the rare case the bundled model is unavailable, the <strong>FluidAudio</strong> library may fetch a one-time copy from HuggingFace and cache it locally. No audio is transmitted in either case; only the model file would be fetched.</p>
+    <p>Specula's speech detection runs entirely on your Mac, using the open-source <strong>Silero VAD</strong> model via the <strong>FluidAudio</strong> library. No audio, and no information about your files, is ever sent anywhere.</p>
   </section>
 
   <section class="priv-section">
