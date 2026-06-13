@@ -513,11 +513,6 @@
             <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
             <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Speech · Report tabs).</li>
         </ol>
-
-        <div class="note">
-            <span class="note-icon">ⓘ</span>
-            <p>The Silero VAD model ships inside Specula, so speech-gated analysis works fully offline, with no download and no network connection. It runs the same on a studio machine that's firewalled off from the internet.</p>
-        </div>
     </section>
 
     <hr class="divider">
@@ -893,7 +888,7 @@
         <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms <code>[Bool]</code> history is injected into <code>LoudnessProcessor</code>. Selection analysis re-runs Silero on just the selection.</p>
 
         <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
-        <p class="prose">Used when Silero is unavailable (the bundled model fails to load or returns an error). Four spectral features:</p>
+        <p class="prose">Used when Silero is unavailable (it fails to load or returns an error). Four spectral features:</p>
         <ol>
             <li><strong>HF gate</strong> - if HF energy &gt; 0.35 × total → non-speech (rejects plosives and cymbals).</li>
             <li><strong>Band Energy Ratio</strong> (300-3 400 Hz) - threshold 0.45.</li>
@@ -1554,7 +1549,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <h3><code>specula analyze &lt;FILE&gt;</code></h3>
         <p class="prose">Headline numbers (integrated LUFS, true peak, sample peak, loudness range, speech-gated LUFS, stereo correlation) as JSON.</p>
         <pre><code>specula analyze mix-v2.wav
-specula analyze mix-v2.wav --no-vad        # skip Silero (faster, works offline)
+specula analyze mix-v2.wav --no-vad        # skip Silero (faster)
 specula analyze mix-v2.wav --no-stereo     # skip the per-block correlation pass</code></pre>
 
         <h3><code>specula compare &lt;A&gt; &lt;B&gt;</code></h3>
@@ -1650,7 +1645,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the Silero model ships inside Specula, so the first speech-gated run just loads it (no download) and may take a moment.</p>
+            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the first speech-gated run may take a moment as the model loads.</p>
         </div>
     </section>
 
