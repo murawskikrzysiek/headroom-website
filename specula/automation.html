@@ -153,7 +153,7 @@
         <div class="section__grid">
             <p class="label">Put the same engine in your pipeline</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the same measurement engine whether you're reading one file in the window or scoring a folder from a Folder Action. The CLI and App Intents won't record, mix, or repair for you. They tell you, file by file, exactly which ones clear the spec and which don't, with numbers you can diff across runs.</p>
+                <p class="prose-lead">Specula is the same measurement engine whether you're reading one file in the window or scoring a folder from a Folder Action. The CLI both flags the misses and fixes the fixable ones in the same pass: <code>specula edit in.wav --normalize-lufs=-16 --lufs-ceiling=-1 --out out.wav</code> normalizes and caps a file unattended, so a Folder Action can correct what it flagged instead of handing you a list. What a gain can't fix it leaves alone: a noisy capture or a bad mix is still your job, with numbers you can diff across runs. <a href="editing.html">See the editing workflow →</a></p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#cli" class="btn btn-primary">Read the CLI guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
