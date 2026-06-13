@@ -108,28 +108,45 @@
 
     <!-- Built for your workflow -->
     <section class="section section--bordered">
-        <div class="section__grid">
-            <div>
-                <p class="label">Built for your workflow</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Specula isn't one meter. It's the pass you make before a file leaves your studio. Find your job below; each is a path through the same engine.</p>
-            </div>
-            <div>
-                <div class="feature-row"><div class="feature-row__k">Music mastering &amp; release prep</div><div class="feature-row__v">Confirm a master is delivery-ready before it ships. Load it, read the per-platform gain each streaming service will apply, check true peak / LRA / stereo width / phase, then press a target's match toggle to hear it the way Spotify or Apple Music will play it. <a href="mastering.html">The mastering workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Reference comparison (A/B + diff)</div><div class="feature-row__v">Settle "is rev 4 actually better than rev 3, or just louder?" Drop up to six versions, level-match by integrated LUFS, auto-align to the sample, then <strong>Listen to Diff</strong> to hear the A−X residual. What changed becomes its own waveform you can solo and export. <a href="compare.html">The comparison workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Streaming &amp; broadcast compliance</div><div class="feature-row__v">Pass delivery the first time. Pick a mode, run <kbd>⌘Return</kbd> over the whole file, and read a hard verdict per target (FAIL L / TP / S↑ / NF names the exact reason), then export the PDF as your receipt. Covers EBU R128, ATSC A/85 (CALM), ARIB TR-B32, OP-59, and the −27 LKFS VOD band. <a href="compliance.html">The compliance workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Podcast production</div><div class="feature-row__v">Hit Apple / Spotify podcast and ACX numbers with dialogue measured properly. Silero's neural VAD marks speech on load; correct it by hand in Dialogue mode; read speech-gated LUFS and the live noise floor against each platform's spec. <a href="podcast.html">The podcast workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Audiobook / ACX QC</div><div class="feature-row__v">Catch every ACX rejection condition before you upload, chapter by chapter. Detect chapters at silences, run a full pass per chapter, and flag RMS, true peak, and the −60 dB noise floor against the ACX gates, plus integrated LUFS against the book's own median. <a href="audiobook.html">The audiobook workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Editing &amp; repair</div><div class="feature-row__v">Make the small fix without booting a DAW. Trim, fade, remove DC, swap or split channels, normalize to a LUFS target with a true-peak limiter at the ceiling, or cap inter-sample peaks with Limit TP. 16-level undo/redo; always saves as a new file. <a href="editing.html">The editing workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Batch QC &amp; automation</div><div class="feature-row__v">Score a whole folder unattended. The <code>specula</code> CLI (<code>analyze</code> / <code>compare</code> / <code>edit</code> / <code>report</code>) and eight chainable App Intents run the same engine as the app: walk a directory, flag every file past a threshold, AirDrop the failures, no shell glue. <a href="automation.html">The automation workflow →</a></div></div>
-                <div class="feature-row"><div class="feature-row__k">Surround &amp; downmix checks</div><div class="feature-row__v">Verify a multichannel master and its fold-downs. Route N→M in the Output window, apply BS.775 / Pro Logic II downmix presets, and measure PRE (the file) or POST (after the downmix) so you confirm channel order and the stereo fold without altering the source. <a href="surround.html">The surround workflow →</a></div></div>
-            </div>
+        <div class="apps-head"><p class="label">Built for your workflow</p><span style="font-size: 0.74rem; color: var(--text-4);">Eight jobs · one engine</span></div>
+        <p style="font-size: 0.78rem; color: var(--text-3); margin: 6px 0 22px; line-height: 1.55; max-width: 620px;">Specula isn't one meter. It's the pass you make before a file leaves your studio. Find your job; each is a path through the same engine.</p>
+        <div class="tiles tiles--4">
+            <a class="tile" href="mastering.html">
+                <div class="tile__glyph">◎</div><h4>Mastering</h4>
+                <p>Confirm a master is delivery-ready, with the per-platform gain each streaming service will apply.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="compare.html">
+                <div class="tile__glyph">⇄</div><h4>Reference compare</h4>
+                <p>A/B up to six versions, level-matched and auto-aligned, then hear the A−X diff as its own waveform.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="compliance.html">
+                <div class="tile__glyph">✓</div><h4>Compliance</h4>
+                <p>A hard pass/fail per target for streaming and broadcast, with a PDF receipt.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="podcast.html">
+                <div class="tile__glyph">◉</div><h4>Podcast</h4>
+                <p>Dialog-gated loudness with neural speech detection you can hand-correct.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="audiobook.html">
+                <div class="tile__glyph">▤</div><h4>Audiobook / ACX</h4>
+                <p>Per-chapter QC: catch every ACX rejection condition before you upload.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="editing.html">
+                <div class="tile__glyph">✎</div><h4>Editing &amp; repair</h4>
+                <p>Trim, fade, normalize to a LUFS target, repair, no DAW. Always saved as a new file.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="automation.html">
+                <div class="tile__glyph">⟨ ⟩</div><h4>Batch &amp; automation</h4>
+                <p>Score a whole folder unattended with the <code>specula</code> CLI and chainable App Intents.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="surround.html">
+                <div class="tile__glyph">⊞</div><h4>Surround &amp; downmix</h4>
+                <p>Verify multichannel order and BS.775 / Pro Logic II fold-downs, PRE or POST.</p><span class="tile__arrow">→</span>
+            </a>
         </div>
-        <div class="callout" style="max-width:none; margin-top:28px; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;">
-            <div style="flex:1 1 280px;">
-                <p style="color:var(--text); font-weight:600; font-size:0.95rem; margin-bottom:4px;">Spoken-word work is where Specula goes deepest</p>
-                <p>Neural speech detection you can hand-correct, dialog-gated targets for every major platform, and per-chapter ACX scoring, the things generalist meters skip.</p>
-            </div>
-            <a href="audiobook.html" class="btn btn-primary">See the audiobook workflow →</a>
+        <div class="callout" style="margin-top:24px;">
+            <p style="color:var(--text); font-weight:600; font-size:0.95rem; margin-bottom:4px;">Spoken-word work is where Specula goes deepest</p>
+            <p>Neural speech detection you can hand-correct, dialog-gated targets for every major platform, and per-chapter ACX scoring, the things generalist meters skip.</p>
         </div>
     </section>
 
