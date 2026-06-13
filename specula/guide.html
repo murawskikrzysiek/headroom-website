@@ -874,6 +874,10 @@
             <div class="shot-name">loudness-targets-normalize-button.png</div>
             <div class="shot-desc">Loudness Targets panel showing the new <strong>Normalize</strong> (up-to-line / arrow.up.to.line) button next to the existing Match waveform-circle toggle on each row, on both an integrated row (e.g. Spotify &minus;14) and a dialog-gated row (e.g. Netflix &minus;27). The open Normalize popover shows the <strong>Basis</strong> line (Integrated or Dialog-gated) with the Now / Target / Gain readout and the editable Ceiling field. Dark mode. Demonstrates the second per-row button that commits to a target rather than previewing it.</div>
         </div>
+
+        <h3>Limit TP to target (destructive)</h3>
+        <p class="prose">Where <strong>Normalize</strong> fixes a loudness miss (<strong>FAIL L</strong>), <strong>Limit TP</strong> fixes a true-peak overage (<strong>FAIL TP</strong>). When the file's true peak sits above a target's ceiling, that row shows a Limit TP button (the waveform-pulse icon) alongside Normalize. Press it and Specula opens Edit mode with the Limit TP section pre-filled to that target's ceiling; click <strong>Apply</strong> to cap the inter-sample peaks. Loudness is left untouched, so this is the right fix when the level is already where you want it and only the peaks breach the ceiling, the one-click counterpart to the FAIL L → Normalize button.</p>
+        <p class="prose">The button is contextual: it appears only when there's a true peak over the ceiling to fix. That covers a hard <strong>FAIL TP</strong> (loudness in band, peak over), a loudness-compliant row carrying the orange over-ceiling triangle, and a music target whose peaks still clip its ceiling. It's offered on any target type, ACX included, because every target carries a true-peak ceiling and capping peaks never raises the noise floor (unlike Normalize). <strong>FAIL S↑</strong> and <strong>FAIL NF</strong> get no fix button, since no peak limit corrects a short-term or noise-floor miss. Like Normalize, it lands on the undo stack, saves as a new file, and is unavailable in multi-file Compare.</p>
     </section>
 
     <hr class="divider">
@@ -954,6 +958,9 @@
         </ul>
 
         <p class="prose">Edited regions are auto-saved to <code>&lt;audio&gt;.dlg.json</code> next to the audio file (debounced 500 ms after the last edit). Sidecar files round-trip cleanly: re-opening the same audio re-applies your edits, and the schema is versioned (currently v1) so future format changes won't silently corrupt old work.</p>
+
+        <h3>Acting on the regions: Level Dialogue</h3>
+        <p class="prose">The regions aren't only a measurement input. Once they're right, switch to Edit mode (<kbd>⌘1</kbd>) and use <strong><a href="#edit">Level Dialogue</a></strong> to act on them. It ducks the room tone in the non-speech regions (a downward expander with a fast attack and slow release, so word onsets and tails stay clean) and can optionally lift the dialogue to a target in the same pass. Gating the silence before applying the makeup gain is what lets dialogue normalize without the noise floor riding up with it, the fix for the most common ACX rejection. When you lift to a target you also set a true-peak ceiling, and the makeup boost is capped there by the same limiter Normalize uses. It's a gate, not a denoiser, so it helps a marginal room tone rather than a hissy recording.</p>
 
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
@@ -1257,6 +1264,17 @@
         <h3>Why it matters</h3>
         <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system. The preset library covers the common stereo and surround downmix workflows in one click; the matrix view makes any custom mapping obvious at a glance.</p>
 
+        <h3>Render to File</h3>
+        <p class="prose">Once a downmix, reorder, or custom matrix is right, <strong>Render to File…</strong> (in the Routing section header) renders it to a new audio file, so the routing is a deliverable, not just an audition. Every per-route gain, polarity, and Pro Logic II ±90° phase shift is applied exactly as it sounds on playback, computed offline.</p>
+        <p class="prose"><strong>Only the outputs you've actually routed are written.</strong> A 5.1 → stereo downmix on an 8-channel device renders a 2-channel file, not eight channels padded with silence (outputs with no source are dropped). The result writes as a new file (WAV, or CAF when the output channel layout can't be stored in WAV order) and never overwrites the source.</p>
+        <p class="prose">It bakes the <strong>routing only</strong>: the playback-side loudness match and the channel solo / mute are not baked, so the output is exactly what the matrix defines. To drop a channel from the bake, mute its route in the matrix (set its source to none) rather than relying on the monitor mute.</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">routing-render-to-file.png</div>
+            <div class="shot-desc">The Output window over a 5.1 file with a 5.1 → stereo (Lo/Ro) downmix set up in the routing matrix, the <strong>Render to File…</strong> button in the Routing section header highlighted (or its save sheet open). Dark mode. Demonstrates that the surround routing can be written to a file, not only auditioned.</div>
+        </div>
+
         <h3>PRE / POST monitor mode</h3>
         <p class="prose">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement:</p>
         <ul>
@@ -1358,7 +1376,7 @@
         <div class="shot-placeholder">
             <span class="shot-tag">Screenshot</span>
             <div class="shot-name">edit-mode.png</div>
-            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Silence, Gain, Phase, Fade, Normalize, Limit TP, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
+            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Cut, Silence, Gain, Phase, Fade, Normalize, Limit TP, Level Dialogue, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
         </div>
 
         <h3>Enter / exit</h3>
@@ -1369,18 +1387,52 @@
 
         <table>
             <tr><th>Operation</th><th>Notes</th></tr>
-            <tr><td>Trim</td><td class="wrap-ok">Crop to the current selection.</td></tr>
-            <tr><td>Add Silence</td><td class="wrap-ok">Insert before / after / replace selection. Units: seconds or samples.</td></tr>
+            <tr><td>Trim</td><td class="wrap-ok">Crop to the current selection (keep the selection, discard the rest).</td></tr>
+            <tr><td>Cut</td><td class="wrap-ok">Remove the selection and join the audio on either side - the opposite of Trim. Use it to take a too-long pause or a flubbed line out of the middle. An equal-power crossfade at the join (default 10 ms, set it or 0 for a hard cut) hides the splice click; it's clamped to the audio kept on each side. Undoable, saves as a new file, and large files stream the result.</td></tr>
+            <tr><td>Add Silence</td><td class="wrap-ok">Insert at the playhead (no selection needed - park the cursor where the gap belongs, say 500 ms for a video edit, and Apply), insert before / after or replace a selection, or insert at the file start / end. Units: seconds or samples.</td></tr>
             <tr><td>Change Level</td><td class="wrap-ok">Linear gain in dB, applied to the selection or the whole file.</td></tr>
             <tr><td>Invert Phase</td><td class="wrap-ok">Multiply by −1.</td></tr>
             <tr><td>Fade</td><td class="wrap-ok">Linear / Logarithmic / Equal-power × In / Out - 6 fade curves total.</td></tr>
-            <tr><td>Normalize Peak</td><td class="wrap-ok">Target dBFS.</td></tr>
-            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling (interpreted as <code>dBTP</code>). Auto-applies a 5 ms lookahead <strong>true-peak limiter</strong> when normalization increases loudness so inter-sample peaks stay under the ceiling, not just sample peaks. Two-pass offline: pass 1 builds the gain envelope from the input's oversampled peaks; pass 2 catches any residual peaks the release stage might leave fractionally over the ceiling.</td></tr>
-            <tr><td>Limit TP</td><td class="wrap-ok">True-peak limiter only, ceiling in <code>dBTP</code>. Loudness otherwise unchanged. Use when integrated LUFS is already where you want it but inter-sample peaks need to be capped under a platform ceiling. Same DSP as the limiter Normalize LUFS uses; just skips the loudness measurement and gain stage.</td></tr>
+            <tr><td>Normalize Peak</td><td class="wrap-ok">Target dBFS. Applies to the selection when one is set, otherwise the whole file.</td></tr>
+            <tr><td>Normalize LUFS</td><td class="wrap-ok">Target LUFS + ceiling (interpreted as <code>dBTP</code>). Auto-applies a 5 ms lookahead <strong>true-peak limiter</strong> when normalization increases loudness so inter-sample peaks stay under the ceiling, not just sample peaks. Two-pass offline: pass 1 builds the gain envelope from the input's oversampled peaks; pass 2 catches any residual peaks the release stage might leave fractionally over the ceiling. Scopes to the selection when one is set (measure and gain over that range only), otherwise the whole file.</td></tr>
+            <tr><td>Limit TP</td><td class="wrap-ok">True-peak limiter only, ceiling in <code>dBTP</code>. Loudness otherwise unchanged. Use when integrated LUFS is already where you want it but inter-sample peaks need to be capped under a platform ceiling. Same DSP as the limiter Normalize LUFS uses; just skips the loudness measurement and gain stage. Scopes to the selection when one is set, otherwise the whole file.</td></tr>
+            <tr><td>Level Dialogue</td><td class="wrap-ok">A region-aware downward expander keyed to the detected speech regions (the ones you can tune in <a href="#speech-gated">Dialogue mode</a>). It ducks the room tone <em>between</em> phrases with a fast attack and slow release, so word onsets and tails stay clean, no clipped starts, no chopped ends. Tick <strong>Lift dialogue to target</strong> and it also gains the speech to a loudness target in the same pass, capping inter-sample peaks at a true-peak ceiling. Because the silence is gated before the makeup gain goes on, the floor ends up lower, not higher: that's the move a plain dialog-gated Normalize can't make, since a uniform gain lifts the floor along with the voice. It's a gate, not a denoiser, so it helps a marginal floor (a quiet room tone just under the gate), not a hissy recording. Undoable, saves as a new file.</td></tr>
             <tr><td>Remove DC Offset</td><td class="wrap-ok">Subtracts each channel's mean.</td></tr>
             <tr><td>Swap Channels</td><td class="wrap-ok">Stereo L↔R swap.</td></tr>
             <tr><td>Split to Mono</td><td class="wrap-ok">Writes N mono WAV files (one per channel) to a directory you pick. Channel labels in the filename.</td></tr>
         </table>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">edit-cut-popover.png</div>
+            <div class="shot-desc">Edit mode over a spoken-word file with a selection across a too-long pause. The <strong>Cut</strong> popover is open showing the equal-power crossfade field (default 10 ms) and the Apply button; the selected range is highlighted on the waveform with the audio on either side visible. Dark mode. Demonstrates removing a range and closing up the sides, the opposite of Trim.</div>
+        </div>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">level-dialogue-popover.png</div>
+            <div class="shot-desc">Edit mode over a podcast / audiobook file. The <strong>Level Dialogue</strong> popover is open showing the duck-amount control, the <strong>Lift dialogue to target</strong> checkbox (ticked), the target loudness field, and a true-peak ceiling field, with Apply. The waveform behind shows teal speech-region shading so the region-aware nature is legible. Dark mode. The "money shot" for the spoken-word leveling workflow.</div>
+        </div>
+
+        <h3>Keyboard shortcuts (Pro Tools / LUNA-style)</h3>
+        <p class="prose">Edit mode adds a set of single-key edits, active only in Edit mode so they don't shadow the transport keys, and listed in the <strong>Edit menu</strong> so the keys are always visible. The first group acts on the selection; the playhead group acts at the cursor. Cut uses a 10 ms equal-power crossfade by default; the fade keys use the equal-power curve.</p>
+        <table>
+            <tr><th>Key</th><th>Action</th><th>Acts on</th></tr>
+            <tr><td><kbd>⌫</kbd></td><td class="wrap-ok"><strong>Cut</strong> (remove and crossfade-join)</td><td class="wrap-ok">selection</td></tr>
+            <tr><td><kbd>⌥⌫</kbd></td><td class="wrap-ok">Silence selection (replace, keep length)</td><td class="wrap-ok">selection</td></tr>
+            <tr><td><kbd>⌘T</kbd></td><td class="wrap-ok">Trim to selection (keep it, discard the rest)</td><td class="wrap-ok">selection</td></tr>
+            <tr><td><kbd>⌘F</kbd> / <kbd>⌥⌘F</kbd></td><td class="wrap-ok">Fade In / Fade Out</td><td class="wrap-ok">selection</td></tr>
+            <tr><td><kbd>⌃↑</kbd> / <kbd>⌃↓</kbd></td><td class="wrap-ok">Gain +1 / −1 dB</td><td class="wrap-ok">selection</td></tr>
+            <tr><td><kbd>⌘⌫</kbd></td><td class="wrap-ok">Cut to start (remove start → playhead)</td><td class="wrap-ok">playhead</td></tr>
+            <tr><td><kbd>⇧⌘⌫</kbd></td><td class="wrap-ok">Cut to end (remove playhead → end)</td><td class="wrap-ok">playhead</td></tr>
+            <tr><td><kbd>⌥[</kbd> / <kbd>⌥]</kbd></td><td class="wrap-ok">Fade in to / out from the playhead</td><td class="wrap-ok">playhead</td></tr>
+        </table>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">edit-menu-shortcuts.png</div>
+            <div class="shot-desc">The macOS menu bar <strong>Edit</strong> menu open while Specula is in Edit mode, showing the selection and playhead edit commands with their shortcuts visible in the right column (Cut ⌫, Silence ⌥⌫, Trim to Selection ⌘T, Fade In ⌘F / Fade Out ⌥⌘F, Gain +1 dB ⌃↑ / −1 dB ⌃↓, Cut to Start ⌘⌫, Cut to End ⇧⌘⌫, Fade In to Playhead ⌥[ / Fade Out from Playhead ⌥]). Dark mode. Shows the keys are discoverable from the menu.</div>
+        </div>
 
         <h3>Undo</h3>
         <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit; <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is 16-level: each edit pushes a snapshot onto a disk-backed stack, so only the current buffer stays in RAM while deep history persists.</p>
@@ -1394,7 +1446,7 @@
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code>. Format defaults to WAV at the file's native bit depth and sample rate.</p>
 
         <h3>Edit toolbar</h3>
-        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Silence, Gain, Fade, Normalize, Limit TP) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1.</p>
+        <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
     </section>
 
     <hr class="divider">
@@ -1474,13 +1526,29 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">These three gates are independent of the deviation-from-median flag, so each chapter answers two separate questions: <em>will ACX accept this chapter on its own?</em> (the three red/no-red signals) and <em>is this chapter consistent with the rest of the book?</em> (the deviation badge, controlled by the ±2 LU threshold in Settings → Targets → Chapter detection).</p>
 
         <h3>Outlier flag</h3>
-        <p class="prose">The deviation threshold (default ±2.0 LU) drives the red-tint flag on outlier slots and the headline banner at the top of the ribbon ("Chapter 07 is 2.3 LU above median"). Adjust the threshold in Settings → Targets → Chapter detection.</p>
+        <p class="prose">The <strong>consistency metric</strong> (RMS or integrated LUFS) and the <strong>deviation threshold</strong> (default ±2.0, in that metric's unit) drive the red-tint flag on outlier slots and the headline banner at the top of the ribbon ("Chapter 07 is 2.3 dB above median"). RMS is the default, since it's what ACX delivery is judged on. Both live in Settings → Targets → Chapter detection (the metric is also set in the Level… popover).</p>
+
+        <h3>Level chapters</h3>
+        <p class="prose">The fix for the outlier flag, and for the consistency deviation across a book. <strong>Level…</strong> in the toolbar opens a popover with two choices:</p>
+        <ul>
+            <li><strong>Metric</strong>: <strong>RMS</strong> (the metric ACX delivery is judged on, and the default) or <strong>integrated LUFS</strong> (for music-album chapter consistency). The same choice drives the ribbon's deviation flag, so the fix matches what's flagged.</li>
+            <li><strong>Target</strong>: the <strong>book median</strong> (each chapter to the book's own median, for consistency) or a <strong>fixed value</strong> (e.g. −20 dB RMS, mid the ACX −23..−18 band, for consistency <em>and</em> compliance in one pass).</li>
+        </ul>
+        <p class="prose">It applies a per-chapter uniform gain, then re-measures so the ribbon updates. RMS covers every chapter; LUFS skips chapters under 10 s (no integrated reading), as it does chapters already on target. Run <strong>Analyse Loudness</strong> first; the button stays disabled until there's a reading.</p>
+        <p class="prose">It's a single undoable edit (<kbd>⌘Z</kbd>). Chapter mode shows a dirty dot and a <strong>Save As</strong> button when the buffer has unsaved edits, and <kbd>⇧⌘S</kbd> writes the leveled file without leaving Chapter mode. Two honest caveats: a uniform per-chapter gain moves that chapter's room-tone noise floor with its level (for a floor-aware pass, gate the room tone first with <a href="#edit">Level Dialogue</a>, then level), and a large boost can lift peaks toward clipping (check each chapter's true peak, or run Limit TP, afterwards).</p>
+
+        <div class="shot-placeholder">
+            <span class="shot-tag">Screenshot</span>
+            <div class="shot-name">chapter-level-popover.png</div>
+            <div class="shot-desc">Chapter mode with a multi-chapter audiobook loaded and at least one chapter flagged as a loudness outlier on the ribbon. The <strong>Level…</strong> popover is open showing the <strong>Metric</strong> choice (RMS / integrated LUFS, RMS selected) and the <strong>Target</strong> choice (book median / fixed value), with Apply. Dark mode. Demonstrates leveling every chapter to a common loudness in one move.</div>
+        </div>
 
         <h3>Reset to detected</h3>
         <p class="prose">Restores Specula's silence-detection result, dropping all manual boundary edits, adds, and removes. Renames are kept.</p>
 
         <h3>Export / Import</h3>
         <p class="prose"><strong>Export…</strong> writes the current chapters (name + start + end) to a JSON sidecar. <strong>Import…</strong> loads one back, replacing the current chapter list. The exported JSON is plain Specula JSON; the importer also accepts a slimmer format with just <code>start</code> and <code>end</code> per entry, so you can hand-craft one.</p>
+        <p class="prose"><strong>Export CSV…</strong> writes the per-chapter metrics table (RMS, integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary / short-term, dialog LUFS, noise floor, speech %) as a spreadsheet-ready CSV, for the producers who live in spreadsheets. Run <strong>Analyse Loudness</strong> first so the metric columns are populated.</p>
 
         <h3>Recall</h3>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
@@ -1516,7 +1584,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <li><strong>Violations</strong> - loudness threshold violations.</li>
         </ul>
 
-        <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading.</p>
+        <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading. For the audiobook and podcast producers who live in spreadsheets, <strong>Chapter mode → Export CSV…</strong> writes the per-chapter metrics table as a CSV (one row per chapter), and the CLI's <code>specula report &lt;file&gt; --format csv</code> does the same from the command line. See <a href="#chapter">Chapter mode</a>.</p>
 
         <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the GUI's InfoPanel renders. No more "run <kbd>⌘Return</kbd> to measure true peak" placeholder for the whole-file case.</p>
 
@@ -1587,8 +1655,9 @@ specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
 specula report mix.wav --mode podcast --out report.json               # JSON to file
 specula report mix.wav --mode music --format html --out report.html   # the same dark-themed HTML the GUI preview window renders
 specula report mix.wav --mode music --format pdf  --out report.pdf    # rasterised PDF (off-screen WKWebView)
+specula report book.wav --mode podcast --format csv --out chapters.csv # per-chapter metrics table as CSV
 specula report mix.wav --mode broadcast --no-curve                    # drop the loudness curve for smaller batch output</code></pre>
-        <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, or <code>pdf</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers.</p>
+        <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, <code>pdf</code>, or <code>csv</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>csv</code> emits the per-chapter metrics table when the file has chapters, otherwise a flat metric,value table of the file-level numbers. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers.</p>
 
         <h3>Output format</h3>
         <p class="prose">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic. Non-finite floats (silence → <code>-∞</code>) render as <code>"-inf"</code> strings rather than blowing up the encoder.</p>
@@ -1756,9 +1825,18 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         </table>
 
         <h3>Edit mode</h3>
+        <p class="prose">These operate only in Edit mode (so they don't shadow the transport keys) and are listed in the <strong>Edit menu</strong>. The first group needs a selection; the playhead group acts at the cursor. Defaults: Cut uses a 10 ms equal-power crossfade; the fade keys use the equal-power curve.</p>
         <table>
-            <tr><td><kbd>⌘Z</kbd></td><td class="wrap-ok">Undo last edit</td></tr>
+            <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo last edit</td></tr>
             <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio (new file)</td></tr>
+            <tr><td><kbd>⌫</kbd></td><td class="wrap-ok">Cut (remove and crossfade-join) - selection</td></tr>
+            <tr><td><kbd>⌥⌫</kbd></td><td class="wrap-ok">Silence selection (replace, keep length) - selection</td></tr>
+            <tr><td><kbd>⌘T</kbd></td><td class="wrap-ok">Trim to selection (keep it, discard the rest) - selection</td></tr>
+            <tr><td><kbd>⌘F</kbd> / <kbd>⌥⌘F</kbd></td><td class="wrap-ok">Fade In / Fade Out - selection</td></tr>
+            <tr><td><kbd>⌃↑</kbd> / <kbd>⌃↓</kbd></td><td class="wrap-ok">Gain +1 / −1 dB - selection</td></tr>
+            <tr><td><kbd>⌘⌫</kbd></td><td class="wrap-ok">Cut to start (remove start → playhead) - playhead</td></tr>
+            <tr><td><kbd>⇧⌘⌫</kbd></td><td class="wrap-ok">Cut to end (remove playhead → end) - playhead</td></tr>
+            <tr><td><kbd>⌥[</kbd> / <kbd>⌥]</kbd></td><td class="wrap-ok">Fade in to / out from the playhead - playhead</td></tr>
         </table>
 
         <h3>Chapter mode</h3>

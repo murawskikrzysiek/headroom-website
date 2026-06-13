@@ -77,6 +77,7 @@
                 <span class="badge">Chapter mode</span>
                 <span class="badge">Speech-gated LUFS</span>
                 <span class="badge">−60 dB noise floor</span>
+                <span class="badge">Level Dialogue</span>
             </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#chapter">Read the Chapter-mode guide</a>
@@ -156,12 +157,24 @@
         </div>
     </section>
 
+    <!-- Fix what's flagged -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Fix what's flagged, in the same app</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Each red cell points at its fix, and the two that bounce the most audiobooks have a fix in Edit mode.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Noise floor over −60 dB RMS</strong> is the most common ACX rejection, and it's the one a uniform gain can't fix, because raising the voice raises the room tone with it. <strong>Level Dialogue</strong> (Edit mode) is built for exactly this: it ducks the room tone <em>between</em> phrases using the speech regions you confirmed in step 1, with a fast attack and slow release so word onsets and tails stay clean. Tick <strong>Lift dialogue to target</strong> and it also brings the voice to your RMS target in the same pass, capping inter-sample peaks at a true-peak ceiling. Because the silence is gated before the makeup gain goes on, the floor ends up lower, not higher, the move a plain Normalize can't make. It's a gate, not a denoiser: it rescues a marginal floor (a quiet room tone just under the gate), not a hissy recording, which still wants a better capture.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>A chapter that drifts off the book's loudness</strong> is the consistency flag, and <strong>Level chapters</strong> (Chapter mode → <strong>Level…</strong>) is the one-move fix: pick the metric (RMS, the ACX one, by default) and the target (the book's own median, or a fixed value such as −20 dB RMS, mid the ACX −23..−18 band, for consistency and compliance at once), and Specula applies a per-chapter gain and re-measures. A <strong>true peak</strong> over −3 dBTP is a <strong>Limit TP</strong> pass that caps the inter-sample peaks without touching loudness. Each is one undoable edit that saves a new file, never the original. <a href="editing.html">See the editing workflow →</a></p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Ship the audiobook with confidence</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the narration is done" and "it's uploaded to ACX." It tells you, per chapter, exactly which files clear the spec and which won't, and points each red cell at its fix: a chapter outside the <strong>RMS</strong> band gets selected and brought in with <strong>Change Level</strong> (raising a quiet chapter lifts its noise floor too, so check both), and a <strong>true peak</strong> over −3 dBTP gets <strong>Limit TP</strong>. The <strong>noise floor</strong> is the one no gain fixes, which is exactly why it bounces the most audiobooks: it needs a quieter room, re-recorded tone, or an external denoiser, not a meter. <a href="editing.html">See the editing workflow →</a></p>
+                <p class="prose-lead">Specula is the pass between "the narration is done" and "it's uploaded to ACX." It tells you, per chapter, exactly which files clear the spec and which won't, and gives you the fix for the two flags that bounce the most books: <strong>Level Dialogue</strong> for a marginal room-tone floor, and <strong>Level chapters</strong> for a chapter that drifts off the book's loudness. Read the numbers, fix the flags, hand off the receipt.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#chapter" class="btn btn-primary">Read the Chapter-mode guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
