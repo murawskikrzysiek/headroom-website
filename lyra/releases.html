@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lyra Release Notes - Version History &amp; Changelog</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/releases.html">
-  <meta name="description" content="Version history for Lyra, the Apollo volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.6.">
+  <meta name="description" content="Version history for Lyra, the Apollo volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.7.">
   <meta property="og:title" content="Lyra Release Notes">
   <meta property="og:description" content="Version history for Lyra, the Apollo volume control app for macOS.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -80,8 +80,16 @@
     </div>
   </header>
 
+  <section class="release" id="v1.7">
+    <div class="release-header"><span class="version">Version 1.7</span><span class="date">June 2026</span><span class="badge-new">Latest</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-impr">Impr</span><span><strong>Volume HUD on real Liquid Glass</strong> - on macOS 26 the on-screen volume pill is rendered with the system's Liquid Glass material, the same way the native volume control is: a solid glass panel that reads grey over a light desktop and darker over a dark one, with a white glyph and level bar. Earlier macOS keeps the dark pill.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>About and Settings windows on real Liquid Glass</strong> - on macOS 26 both windows use the system's Liquid Glass material instead of a frosted approximation, matching the rest of macOS 26 and following your Light or Dark appearance.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.6">
-    <div class="release-header"><span class="version">Version 1.6</span><span class="date">May 2026</span><span class="badge-new">Latest</span></div>
+    <div class="release-header"><span class="version">Version 1.6</span><span class="date">May 2026</span></div>
     <ul class="changes">
       <li><span class="tag tag-new">New</span><span><strong>Interactive widgets</strong> - four widgets in the macOS widget gallery. <em>Control Panel</em> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <em>Monitor Toggles</em> (medium) carries Mute / DIM / Mono; <em>Volume</em> (small or medium) steps the level; <em>Reference Levels</em> (medium) jumps to slot 1, 2, or 3. Every widget shows live state and reacts the instant you tap. Each tap fires a <code>lyra://</code> URL so the action runs in the menu bar app. Requires macOS 14+; on macOS 12 and 13 Lyra runs identically without the widget gallery entries.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>Settings window</strong> (<kbd>Cmd+,</kbd>) - Lyra's first proper preferences window. Houses two new Automation toggles and surfaces the existing <em>Show volume HUD overlay</em> and <em>Volume step</em> prefs that previously had no UI.</span></li>
