@@ -91,6 +91,15 @@
 <div class="waveform"><canvas></canvas></div>
 
 <div class="container">
+
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-overview.png" alt="Specula's main window analysing a stereo master: stacked waveform, inferno spectrogram, loudness curve, FFT spectrum, and a Lissajous phase scope." loading="lazy" decoding="async">
+            <figcaption><strong>The whole file, in numbers and in pictures.</strong> Waveform, spectrogram, loudness curve, FFT, and phase scope on a single master.</figcaption>
+        </figure>
+    </section>
+
     <!-- Why Specula -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -177,6 +186,22 @@
                 <div class="feature-row"><div class="feature-row__k">Shortcuts + Siri</div><div class="feature-row__v">Eight App Intents with chainable measurement and comparison entities.</div></div>
             </div>
         </div>
+        <!-- Measurement montage -->
+        <div class="shots shots--tight" style="margin-top: 28px; padding-bottom: 0;">
+            <figure class="shot">
+                <img src="specula-spectrogram.png" alt="Specula spectrogram view with the inferno colormap on a log frequency scale." loading="lazy" decoding="async">
+                <figcaption><strong>Spectrogram.</strong> Four colormaps, log or mel scale, with separate live and offline stores.</figcaption>
+            </figure>
+            <figure class="shot">
+                <img src="specula-stereo.png" alt="Mid/side stereo-width readout across a master, coloured by zone from mono to out of phase." loading="lazy" decoding="async">
+                <figcaption><strong>Stereo width.</strong> Mid/side correlation over time, with plain-language zone labels.</figcaption>
+            </figure>
+            <figure class="shot shot--narrow">
+                <img src="specula-loudness-sidebar.png" alt="Specula loudness sidebar: integrated LUFS, max momentary and short-term, loudness range, true peak and sample peak." loading="lazy" decoding="async">
+                <figcaption><strong>Loudness, live.</strong> EBU R128 momentary, short-term, integrated, LRA, and 4× oversampled true peak.</figcaption>
+            </figure>
+        </div>
+
         <div class="callout" style="max-width:none; margin-top:28px; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;">
             <div style="flex:1 1 280px;">
                 <p style="color:var(--text); font-weight:600; font-size:0.95rem; margin-bottom:4px;">Full reference: every feature, every shortcut, every setting</p>

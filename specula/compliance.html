@@ -91,6 +91,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-violations.png" alt="Specula highlighting momentary and short-term loudness violations along the waveform against the set thresholds." loading="lazy" decoding="async">
+            <figcaption><strong>Every overshoot, marked.</strong> Momentary and short-term violations are lit on the timeline against your thresholds.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -136,6 +144,27 @@
                     <div class="std-row"><span class="std-row__tag">VOD</span><span class="std-row__desc">Netflix · Prime · Apple TV+ · Disney+ · Max: all −27 LKFS dialog-gated</span></div>
                     <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 S1 short-form · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot shot--narrow">
+                    <img src="specula-targets-vod.png" alt="VOD mode loudness targets showing Netflix, Prime Video, Apple TV+ and Max all reading FAIL L for a file outside the dialog-gated window, with the true peak over its ceiling." loading="lazy" decoding="async">
+                    <figcaption><strong>Pass or fail, per platform.</strong> Each delivery spec reads its own verdict against dialog-gated loudness and the true-peak ceiling.</figcaption>
+                </figure>
+                <figure class="shot shot--narrow">
+                    <img src="specula-limit-tp.png" alt="A loudness target row whose true peak is over the ceiling, offering a one-click Limit TP fix next to the Normalize button." loading="lazy" decoding="async">
+                    <figcaption><strong>One-click fixes.</strong> A true-peak overage offers Limit TP; a loudness miss offers Normalize. Both are non-destructive and save a new file.</figcaption>
+                </figure>
+                <figure class="shot shot--mid">
+                    <img src="specula-report.png" alt="A Specula PDF report listing per-platform loudness verdicts, true peak, LRA and per-channel stats." loading="lazy" decoding="async">
+                    <figcaption><strong>A receipt to hand off.</strong> Export the per-platform verdicts as PDF or JSON so a client reads them without opening Specula.</figcaption>
+                </figure>
             </div>
         </div>
     </section>

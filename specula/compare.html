@@ -91,6 +91,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-compare-dock.png" alt="Specula compare view with files A through F docked, each slot showing integrated LUFS and true peak, plus per-slot nudge and gain controls." loading="lazy" decoding="async">
+            <figcaption><strong>Up to six versions, side by side.</strong> Each slot carries its own loudness and true-peak read, with sample-accurate align and gain trim.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -128,6 +136,27 @@
                 <p class="prose-lead"><strong>What changed becomes its own waveform.</strong> The diff slot is a virtual slot that plays back the <code>A − X</code> residual, the sample-by-sample subtraction of the active version from the reference. Once level and timing are matched, everything the two versions share cancels to silence, and what's left is the change itself. You route that residual through the same waveform, spectrogram, and export paths as any other slot, so you can see where in the file the difference lives and how loud it is, not just hear that something moved.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Polarity matters for the subtraction.</strong> Each slot has a <strong>ϕ</strong> toggle that flips polarity, useful for catching a wiring error, and for diff work where flipping one signal is what makes the residual sit closer to zero. The diff slot recomputes automatically (80&nbsp;ms debounced) whenever nudge, gain, polarity, or level-match changes, so the residual always reflects your current alignment. It has no live measurement of its own, switching to a diff slot clears the live loudness and stereo displays, because the diff buffer plays pre-computed.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Or overlay instead of subtract.</strong> The <strong>Waveform A overlay</strong> toggle draws slot A's waveform as a ghost behind whichever slot is active, a direct visual A/B at the sample level without leaving the active version. And the <strong>Compare metrics</strong> popover puts every loaded slot side by side in one table: integrated LUFS, true peak, sample peak, LRA, DR, speech stats. Read the numbers and hear the residual, from the same comparison.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-compare-diff.png" alt="The A−X residual waveform after level-matching, isolating exactly what changed between two versions." loading="lazy" decoding="async">
+                    <figcaption><strong>Listen to the difference.</strong> The A−X residual isolates what actually changed between two takes, with optional level-match.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-compare-metrics.png" alt="Compare metrics popover tabulating integrated LUFS, true peak, LRA and more across every loaded slot." loading="lazy" decoding="async">
+                    <figcaption><strong>Every number in one table.</strong> Compare loudness, peak, and range across all loaded versions at once.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-compare-ghost.png" alt="Waveform compare with slot A drawn as a ghost behind the active slot for visual alignment." loading="lazy" decoding="async">
+                    <figcaption><strong>Ghost overlay.</strong> Slot A sits behind the active version so level and timing differences read at a glance.</figcaption>
+                </figure>
             </div>
         </div>
     </section>

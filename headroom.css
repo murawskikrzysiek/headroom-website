@@ -299,7 +299,18 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card);
   transition: opacity var(--t-fast); }
 .shot:hover { opacity: 0.9; }
-.shot img { width: 100%; height: auto; }
+.shot img { width: 100%; height: auto; display: block; }
+
+/* Captioned figures + size variants for the workflow / guide pages. Additive: */
+/* the plain div.shot galleries on the Lyra and Audita pages are unaffected     */
+/* (they carry no figcaption and no size modifier).                              */
+figure.shot { margin: 0; display: flex; flex-direction: column; }
+.shot figcaption { padding: 10px 14px 12px; font-size: 0.74rem; line-height: 1.5;
+  color: var(--text-3); border-top: 1px solid var(--border); }
+.shot figcaption strong { color: var(--text-2); font-weight: 600; }
+.shot--narrow { max-width: 440px; margin-inline: auto; }
+.shot--mid    { max-width: 720px; margin-inline: auto; }
+.shots--tight { padding: 8px 0 28px; }
 
 .section { padding: 36px 0; }
 .section--bordered { border-top: 1px solid var(--border); }

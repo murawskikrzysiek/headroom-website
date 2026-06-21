@@ -92,6 +92,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-surround-matrix.png" alt="Specula's output routing matrix: a patch-bay mapping 5.1 source channels to output channels with per-cell gain." loading="lazy" decoding="async">
+            <figcaption><strong>Route any channel anywhere.</strong> The matrix maps each source channel to outputs with per-cell gain, for monitoring or downmix.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -153,6 +161,33 @@
             <div>
                 <p class="prose-lead">Above the built-in presets is a <strong>Saved</strong> row for your own routings. <strong>Save</strong> captures everything currently in the matrix: every output's sources, gains, and polarity flags, under a name you choose; saved presets only appear when a file and device with matching channel counts are loaded. <strong>Export</strong> writes all your saved presets to a Specula Routing Presets JSON file, and <strong>Import</strong> reads one back, appending any presets not already in your library (deduplicated by ID), so a fold-down you trust travels to a collaborator's machine intact. Right-click a saved preset for Rename, Export (just that one), or Delete. They persist in a versioned key, so a future schema change can migrate old entries instead of dropping them.</p>
                 <p class="prose-lead" style="margin-top: 16px;">This is how you check channel order: route the surround master to your monitor layout, listen, and read the result. Switch the sidebar to <strong>POST</strong> after a fold-down and the integrated LUFS, true peak, and per-channel readings all reflect the stereo pair the routing produced, with the loaded file left untouched. The order is confirmed by ear and by number first; then, when the fold-down is right, <strong>Render to File…</strong> writes it to a new file as the deliverable, never over the source.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-render-to-file.png" alt="The routing window with a 5.1 to stereo downmix set and a Render to File button in the header." loading="lazy" decoding="async">
+                    <figcaption><strong>Render the downmix to a file.</strong> Only the routed outputs are written; the source is never overwritten.</figcaption>
+                </figure>
+                <figure class="shot shot--mid">
+                    <img src="specula-surround-list.png" alt="The routing list view with typeable per-contribution dB values and built-in downmix presets." loading="lazy" decoding="async">
+                    <figcaption><strong>Type exact gains.</strong> The list view sets each contribution in dB, with built-in downmix presets.</figcaption>
+                </figure>
+                <div class="shots-grid shots-grid--2">
+                    <figure class="shot">
+                        <img src="specula-monitor-pre.png" alt="The PRE monitor toggle metering the source channels before routing." loading="lazy" decoding="async">
+                        <figcaption><strong>PRE.</strong> Meter the source channels before routing.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="specula-monitor-post.png" alt="The POST monitor toggle metering the routed output after the matrix." loading="lazy" decoding="async">
+                        <figcaption><strong>POST.</strong> Meter the routed output after the matrix.</figcaption>
+                    </figure>
+                </div>
             </div>
         </div>
     </section>

@@ -316,44 +316,6 @@
             margin: 0;
         }
 
-        /* ─── Screenshot placeholder ─── */
-        .shot-placeholder {
-            margin: 14px 0 6px;
-            padding: 28px 18px;
-            border: 1px dashed var(--border);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.012);
-            text-align: center;
-        }
-
-        .shot-placeholder .shot-tag {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            background: var(--accent-dim);
-            padding: 3px 9px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        .shot-placeholder .shot-name {
-            font-size: 0.85rem;
-            color: var(--text);
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .shot-placeholder .shot-desc {
-            font-size: 0.78rem;
-            color: var(--text-3);
-            line-height: 1.55;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
         /* ─── Pre / code block ─── */
         pre {
             margin: 14px 0;
@@ -499,11 +461,10 @@
     <section class="guide-section" id="quick-start">
         <h2>1. Quick start <a href="#quick-start" class="anchor">#</a></h2>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">main-window.png - full app overview</div>
-            <div class="shot-desc">Full window with a stereo file loaded, waveform on top, FFT + spectrogram + stereo width visible, info sidebar showing live LUFS values. The "money shot" for the page.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-overview.png" alt="Specula main window with a stereo master loaded: waveform, spectrogram, FFT, stereo width, and the live loudness sidebar." loading="lazy" decoding="async">
+            <figcaption><strong>The full window.</strong> Waveform, spectrogram, FFT, stereo width, and the live loudness sidebar on one file.</figcaption>
+        </figure>
 
         <ol>
             <li><kbd>⌘O</kbd> - pick an audio file (WAV / AIFF / FLAC / CAF / MP3 / AAC).</li>
@@ -562,12 +523,6 @@
         <p class="prose">The Transport bar shows the current output as a compact <strong>Output: &lt;Device Name&gt;</strong> pill on the right side. Click it (or press <kbd>⌥⌘O</kbd>, or pick <strong>Window → Output Panel</strong>) to open the <strong>Output</strong> window. The window holds a device dropdown (with channel count next to each name; the <strong>Refresh Devices</strong> item lives at the bottom of the menu) above the per-channel routing matrix. Switching device rebuilds the audio engine. Specula is happy with any device, from built-in speakers to multichannel pro audio interfaces.</p>
 
         <p class="prose">The Output window is hidden by default and remembers its size and position across launches. On macOS 26 the window itself uses Liquid Glass, so it reads as a floating utility panel over the main app (the same Liquid Glass opt-out toggle covers it). Routing details are in <a href="#routing">Channel routing &amp; monitor mode</a>.</p>
-
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">transport-bar.png - transport bar detail</div>
-            <div class="shot-desc">Close-up of the transport bar showing play/pause/stop, time display, rate slider, and the new compact <code>Output: &lt;Device Name&gt;</code> pill on the right end.</div>
-        </div>
     </section>
 
     <hr class="divider">
@@ -578,11 +533,10 @@
 
         <p class="prose">Renders all channels of the loaded file simultaneously, scaled to fill the section height. Each channel uses its layout colour - mono, stereo, quad, 5.1, 7.1 each have a distinct palette.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">waveform-clip-detection.png</div>
-            <div class="shot-desc">Stereo waveform with a visible selection drag highlight and a clip region (red overlay) on a transient. Time ruler visible on top.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-waveform.png" alt="Stereo waveform with a selection highlight and a red clip region on a transient, time ruler on top." loading="lazy" decoding="async">
+            <figcaption><strong>Waveform.</strong> Drag-select, click-to-seek, clip detection, and a dBFS grid across all channels.</figcaption>
+        </figure>
 
         <h3>Interaction</h3>
         <ul>
@@ -658,11 +612,10 @@
             <p>You no longer need ⌘Return just to populate true peak or per-channel stats on a freshly loaded file. Those land in the Offline tab and the report automatically. Reach for ⌘Return when the question is about a region of the file, or when you want the averaged spectrum on the FFT view.</p>
         </div>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">selection-analysis-sidebar.png</div>
-            <div class="shot-desc">Right info panel with selection analysis filled in - time range, per-channel peak/RMS/crest table, integrated LUFS, LRA, true peak.</div>
-        </div>
+        <figure class="shot shot--narrow">
+            <img src="specula-loudness-sidebar.png" alt="Info sidebar with per-channel peak, RMS and crest, integrated LUFS, LRA, and true peak." loading="lazy" decoding="async">
+            <figcaption><strong>Selection analysis.</strong> A full offline pass fills the sidebar with per-channel peak, RMS, and crest.</figcaption>
+        </figure>
 
         <h3>Frequency selection (FFT)</h3>
         <p class="prose">The FFT spectrum view has its own horizontal selection on the frequency axis - and it's an active playback filter, not a measurement readout. See <a href="#fft">FFT spectrum</a> for details. <kbd>Esc</kbd> clears the FFT selection too.</p>
@@ -695,11 +648,10 @@
             <tr><td>Sample Peak (dBFS)</td><td class="wrap-ok">Highest absolute sample value across the whole file.</td></tr>
         </table>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-sidebar.png</div>
-            <div class="shot-desc">Info sidebar focused on the loudness section - M/S/I/LRA/TP values, sample peak, plus the Loudness Targets panel underneath populated with a Music-mode mix (Spotify / Apple Music / YouTube / Tidal rows visible).</div>
-        </div>
+        <figure class="shot shot--narrow">
+            <img src="specula-loudness-sidebar.png" alt="Loudness section of the sidebar: momentary, short-term, integrated, LRA, true peak, and sample peak." loading="lazy" decoding="async">
+            <figcaption><strong>Live loudness.</strong> Momentary, short-term, integrated, LRA, and 4× oversampled true peak.</figcaption>
+        </figure>
 
         <h3>Live vs Offline loudness display</h3>
         <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback. <strong>Offline</strong> shows the whole-file results from the load-time analysis pass, populated immediately after the file finishes loading; running <kbd>⌘Return</kbd> on a selection narrows the same metrics to that selection.</p>
@@ -752,23 +704,16 @@
         </table>
         <p class="prose">The addition is backwards-compatible: existing JSON consumers that ignore the field continue to work. Useful for batch QC scripts, CI gates on render farms, and Shortcuts workflows that branch on whether a master will pass a given platform without re-running the math.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-dialog-prefix.png</div>
-            <div class="shot-desc">Close-up of the Loudness Targets panel in VOD mode, focused on the Netflix row so the <code>dialog · &minus;27 LKFS</code> reference line is clearly readable. Demonstrates the new prefix that flags dialog-gated targets.</div>
-        </div>
+        <figure class="shot shot--narrow">
+            <img src="specula-targets-vod.png" alt="VOD mode loudness targets with the Netflix row showing the dialog reference at −27 LKFS." loading="lazy" decoding="async">
+            <figcaption><strong>Dialog-gated targets.</strong> The 'dialog' prefix marks targets measured over speech only, like Netflix at −27 LKFS.</figcaption>
+        </figure>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-acx-noisefloor.png</div>
-            <div class="shot-desc">Info panel with Speech-Gated section visible. Noise Floor row reads in red (e.g. &minus;55 dB) against the ACX &minus;60 dB ceiling. Loudness Targets panel below shows the ACX row lit with <strong>FAIL NF</strong>.</div>
-        </div>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-settings.png</div>
-            <div class="shot-desc">Settings → Targets tab. Mode picker at the top (Music selected), the catalog list underneath with four checkmarks on the defaults (Spotify, Apple Music, YouTube, Tidal) and the remaining Music entries unchecked.</div>
-        </div>
+        <figure class="shot shot--mid">
+            <img src="specula-settings-targets.png" alt="Settings Targets tab with the Music catalog and the default platforms checked." loading="lazy" decoding="async">
+            <figcaption><strong>Pick your targets.</strong> Choose up to four per mode in Settings, Targets.</figcaption>
+        </figure>
 
         <h3>Dialog-gated vs integrated measurement</h3>
         <p class="prose">Different specs measure loudness differently and Specula computes both in parallel so the right one feeds each target.</p>
@@ -786,11 +731,10 @@
         </ul>
         <p class="prose">Settings → Targets surfaces the behaviour in each target's subtitle ("penalty, turns down only" vs "penalty"). The match-button tooltip on each row also states which measurement source the match will use.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-asymmetric.png</div>
-            <div class="shot-desc">Side-by-side pair of the Loudness Targets panel in Music mode. Left: a quiet master (~&minus;18 LUFS) showing Apple Music / YouTube / Tidal as <strong>"as-is"</strong> in green and Spotify with a small <strong>+X dB</strong> readout (symmetric, still boosts). Right: a hot master (~&minus;10 LUFS) showing Apple Music <strong>&minus;6 dB</strong>, YouTube <strong>&minus;4 dB</strong>, Tidal <strong>&minus;4 dB</strong>, Spotify <strong>&minus;4 dB</strong> - all asymmetric platforms turn it down. Demonstrates the two-mode behaviour in one frame.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-targets-asis.png" alt="A quiet master in Music mode: Apple Music, YouTube, and Tidal read as-is in green while a boosting platform shows a real gain." loading="lazy" decoding="async">
+            <figcaption><strong>Asymmetric platforms.</strong> Apple Music, YouTube, and Tidal leave a quiet master as-is; the platforms that boost show the real gain.</figcaption>
+        </figure>
 
         <h3>Match to target (non-destructive)</h3>
         <p class="prose">Each target row has a small waveform-circle toggle on the right. Press it and Specula matches playback to that target:</p>
@@ -806,11 +750,10 @@
             <p>5 ms playback latency while match is active. Dialog-gated targets can be matched too - the gain is computed against the speech-gated reading. Targets disable with a tooltip explaining which reading is missing (typically "no detected speech" for dialog-gated targets on speech-free files).</p>
         </div>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-match-dialog-gated.png</div>
-            <div class="shot-desc">Loudness Targets panel in VOD mode with the Netflix row's waveform-circle match button engaged (filled state) and a subtle tinted row background showing the match is active. Demonstrates that dialog-gated targets are now matchable.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-match.png" alt="A loudness target row with match-to-target engaged, playing at the platform reference through a true-peak limiter." loading="lazy" decoding="async">
+            <figcaption><strong>Match to target.</strong> Audition the file at a target's reference and ceiling without altering it.</figcaption>
+        </figure>
 
         <h4>Shipping catalog</h4>
         <p class="prose">Defaults are marked ✓.</p>
@@ -841,17 +784,11 @@
             <tr><td>Broadcast</td><td class="wrap-ok">OP-59 (Australia)</td><td class="wrap-ok">−24 LUFS</td><td class="wrap-ok">±1 LU</td><td class="wrap-ok">−1 dBTP</td></tr>
         </table>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-r128-s1-fail-shortterm.png</div>
-            <div class="shot-desc">Loudness Targets panel in Broadcast mode with the EBU R128 S1 row visible. File is a commercial / promo that meets the &minus;23 LUFS band but has a hot Max Short-term spike, so the row reads <strong>FAIL S↑</strong> in red. Demonstrates the multi-criteria evaluator.</div>
-        </div>
+        <figure class="shot shot--narrow">
+            <img src="specula-targets-broadcast.png" alt="Broadcast mode loudness targets including EBU R128 and ATSC A/85." loading="lazy" decoding="async">
+            <figcaption><strong>Broadcast specs.</strong> EBU R128, ATSC A/85, and multi-criteria verdicts including max short-term.</figcaption>
+        </figure>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-settings-aes-td1008.png</div>
-            <div class="shot-desc">Settings → Targets tab with the Music mode catalog expanded. The new <strong>AES TD1008 (streaming)</strong> entry is visible alongside the existing Music targets, with its "penalty, turns down only" / "penalty" subtitle annotations readable beneath each platform.</div>
-        </div>
 
         <h3>Normalize to target (destructive)</h3>
         <p class="prose">Where Match previews a target by ear, Normalize commits to it. Integrated targets (music streaming, broadcast) and dialog-gated targets (VOD, streaming podcasts) carry a second button on the row, the up-to-line icon next to the Match toggle. Press it and Specula opens Edit mode with the Normalize section pre-filled to that target, then click Apply to normalize the loaded buffer.</p>
@@ -869,11 +806,6 @@
             <p>Normalize is the destructive counterpart to Match: Match is a live playback gain you can release at any time, Normalize bakes the gain into a new file. Both target the same basis the row is scored against and share the same true-peak limiter math; the difference is whether the loaded buffer is rewritten.</p>
         </div>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-targets-normalize-button.png</div>
-            <div class="shot-desc">Loudness Targets panel showing the new <strong>Normalize</strong> (up-to-line / arrow.up.to.line) button next to the existing Match waveform-circle toggle on each row, on both an integrated row (e.g. Spotify &minus;14) and a dialog-gated row (e.g. Netflix &minus;27). The open Normalize popover shows the <strong>Basis</strong> line (Integrated or Dialog-gated) with the Now / Target / Gain readout and the editable Ceiling field. Dark mode. Demonstrates the second per-row button that commits to a target rather than previewing it.</div>
-        </div>
 
         <h3>Limit TP to target (destructive)</h3>
         <p class="prose">Where <strong>Normalize</strong> fixes a loudness miss (<strong>FAIL L</strong>), <strong>Limit TP</strong> fixes a true-peak overage (<strong>FAIL TP</strong>). When the file's true peak sits above a target's ceiling, that row shows a Limit TP button (the waveform-pulse icon) alongside Normalize. Press it and Specula opens Edit mode with the Limit TP section pre-filled to that target's ceiling; click <strong>Apply</strong> to cap the inter-sample peaks. Loudness is left untouched, so this is the right fix when the level is already where you want it and only the peaks breach the ceiling, the one-click counterpart to the FAIL L → Normalize button.</p>
@@ -907,11 +839,10 @@
             <li><strong>Noise Floor</strong> - dB RMS over every VAD-classified non-speech sample. Live during playback; offline value populates after analysis. Turns red above the ACX ceiling of −60 dB RMS, the single most common audiobook rejection reason. Files with no non-speech blocks read <code>−∞</code>.</li>
         </ul>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">speech-regions.png</div>
-            <div class="shot-desc">Waveform with the SG toggle enabled - speech blocks shaded teal. Ideally a podcast or dialog file where the speech regions and silences are clearly visible.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-speech-regions.png" alt="Waveform with the speech-gating toggle on and speech blocks shaded teal." loading="lazy" decoding="async">
+            <figcaption><strong>Speech regions.</strong> The neural VAD shades detected speech, fully offline.</figcaption>
+        </figure>
 
         <h3>Tuning the VAD (Settings → Speech)</h3>
         <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
@@ -921,11 +852,10 @@
             <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - minimum silence between two regions before they're kept separate. Larger values fuse nearby regions through breath pauses.</li>
         </ol>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">settings-speech-vad.png</div>
-            <div class="shot-desc">Settings window on the new <strong>Speech</strong> tab. Three sliders visible (Threshold, Minimum region duration, Merge gap) with their current values readable. A small caption underneath each slider explains the trade-off. Dark mode.</div>
-        </div>
+        <figure class="shot shot--mid">
+            <img src="specula-settings-speech.png" alt="Settings Speech tab with threshold, minimum-region, and merge-gap sliders." loading="lazy" decoding="async">
+            <figcaption><strong>Tune the VAD.</strong> Threshold, minimum region, and merge gap, each with a plain-language note.</figcaption>
+        </figure>
 
         <h3>Dialogue mode (manual region authoring)</h3>
         <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the four modal authoring modes (Edit, Compare, Chapter, Dialogue) the app exposes, mutually exclusive with the other three. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
@@ -962,17 +892,10 @@
         <h3>Acting on the regions: Level Dialogue</h3>
         <p class="prose">The regions aren't only a measurement input. Once they're right, switch to Edit mode (<kbd>⌘1</kbd>) and use <strong><a href="#edit">Level Dialogue</a></strong> to act on them. It ducks the room tone in the non-speech regions (a downward expander with a fast attack and slow release, so word onsets and tails stay clean) and can optionally lift the dialogue to a target in the same pass. Gating the silence before applying the makeup gain is what lets dialogue normalize without the noise floor riding up with it, the fix for the most common ACX rejection. When you lift to a target you also set a true-peak ceiling, and the makeup boost is capped there by the same limiter Normalize uses. It's a gate, not a denoiser, so it helps a marginal room tone rather than a hissy recording.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">dialogue-mode-waveform.png</div>
-            <div class="shot-desc">Specula in Dialogue mode (⌘4) over a dialogue / podcast file. Waveform shows a mix of region tints: a couple of green (pristine VAD) regions, one amber edited region with a faint ghost of the original VAD bounds visible behind it, and one blue hand-painted region. Dialogue toolbar pinned below the transport showing Add region / I / O / Delete / Split / Undo / Redo / Reset to VAD / Export… / Import… The toolbar carries the rose accent colour reserved for Dialogue mode. Selected region drawn with a brighter outline.</div>
-        </div>
-
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">dialogue-mode-toolbar-detail.png</div>
-            <div class="shot-desc">Close-up of the Dialogue mode toolbar with the In / Out pending-anchor state visible: "In @ 12.34s" pill on the left, dashed amber anchor line on the waveform behind the toolbar. Demonstrates the In / Out workflow's intermediate state. Dark mode.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-dialogue-mode.png" alt="Dialogue mode with region tints for auto, edited, and hand-painted regions and the dialogue toolbar." loading="lazy" decoding="async">
+            <figcaption><strong>Dialogue mode.</strong> Hand-correct the detected regions; tints show auto, edited, and hand-painted.</figcaption>
+        </figure>
     </section>
 
     <hr class="divider">
@@ -988,12 +911,6 @@
         </ul>
         <p class="prose">After offline selection analysis, the Loudness Curve view fills in for the analysed range; live playback adds new samples as they're measured.</p>
         <p class="prose">The exported JSON and PDF reports plot <strong>three</strong> traces: Momentary (yellow), Short-term (blue), and a running Integrated trace (green) that converges to the file's final integrated reading at the tail. The third trace is the easiest way to see how a master "settled" against its target during the run.</p>
-
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">loudness-curve.png</div>
-            <div class="shot-desc">Loudness curve view filled with momentary + short-term traces over a multi-minute selection, showing the typical "peaks and plateaus" shape of a real master.</div>
-        </div>
     </section>
 
     <hr class="divider">
@@ -1020,11 +937,10 @@
 
         <p class="prose">Real-time logarithmic-frequency spectrum from 20 Hz - 20 kHz. Toggle with <kbd>⌃4</kbd>.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">fft-with-note-hover.png</div>
-            <div class="shot-desc">FFT view with the cursor hovering over a peak, showing the readout: frequency in Hz, magnitude in dB, and the closest musical note + cents deviation (e.g. "442.6 Hz · −18.2 dB · A4 +10 ¢"). NOTES toggle visible as ON.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-fft.png" alt="FFT spectrum with a hover readout showing frequency, magnitude in dB, and the nearest note." loading="lazy" decoding="async">
+            <figcaption><strong>FFT spectrum.</strong> Five windows, frequency-range selection, and note-name on hover.</figcaption>
+        </figure>
 
         <h3>Window function</h3>
         <p class="prose">Five windows, switchable from <strong>Settings → FFT / Analysis</strong>:</p>
@@ -1073,11 +989,10 @@
 
         <p class="prose">Rolling time-frequency display. Toggle with <kbd>⌃3</kbd>. All settings live in <strong>Settings → Spectrogram</strong>.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">spectrogram-inferno.png</div>
-            <div class="shot-desc">Spectrogram view of a music track with Inferno colormap and log frequency scale. Should show clear harmonics and transients to demonstrate the rendering quality.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-spectrogram.png" alt="Spectrogram of a music track with the Inferno colormap on a log frequency scale." loading="lazy" decoding="async">
+            <figcaption><strong>Spectrogram.</strong> Four colormaps, log or mel scale, configurable dB range and time resolution.</figcaption>
+        </figure>
 
         <h3>Colormap (4 options)</h3>
         <ul>
@@ -1142,11 +1057,10 @@
 
         <p class="prose">Computes the Pearson correlation between the mid and side signals over rolling windows. Toggle with <kbd>⌃5</kbd>.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">stereo-width.png</div>
-            <div class="shot-desc">Stereo width view with the zone colour mode enabled, showing a curve that crosses through the narrow / stereo / wide zones over a track.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-stereo.png" alt="Stereo width view with zone colour mode, the curve crossing narrow, stereo, and wide zones." loading="lazy" decoding="async">
+            <figcaption><strong>Stereo width.</strong> Mid/side correlation with zone colouring and plain-language hover labels.</figcaption>
+        </figure>
 
         <h3>Display modes</h3>
         <p class="prose">The control strip has a <strong>Correlation / Width %</strong> toggle:</p>
@@ -1216,11 +1130,10 @@
 
         <p class="prose">The window is hidden by default. Open it when you need to reroute, then close it again. Routing settings persist for the loaded file.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">output-window-matrix.png</div>
-            <div class="shot-desc">The Output window opened over the main app on macOS 26. Device dropdown at the top showing the current interface with its channel count, the Saved presets row underneath, the built-in mixdown preset bar (5.1 to Lo/Ro, Lt/Rt, Mono) below that, and the routing matrix in Matrix view for a 5.1 file: rows are device outputs, columns are L/R/C/LFE/Ls/Rs, routed cells show the on/off dot, the ϕ glyph (orange on the Lt/Rt-encoded surround cells), and the dB value. Liquid Glass panel framing visible.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-surround-matrix.png" alt="The Output window routing matrix for a 5.1 file with per-cell routing and gain." loading="lazy" decoding="async">
+            <figcaption><strong>Routing matrix.</strong> Map any source channel to any output, with per-cell gain and polarity.</figcaption>
+        </figure>
 
         <h3>List view vs Matrix view</h3>
         <p class="prose">The routing section has a <strong>List / Matrix</strong> toggle. Same data, two presentations.</p>
@@ -1252,11 +1165,6 @@
             <li>Saved presets are persisted in UserDefaults under a versioned key, so a future schema bump can migrate old entries instead of dropping them.</li>
         </ul>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">output-window-saved-presets.png</div>
-            <div class="shot-desc">Close-up of the Output window with the Saved presets row populated (e.g. "Studio monitors", "Headphones direct", "Surround check") above the built-in mixdown preset bar. One Saved preset right-click open showing the Rename / Export / Delete menu. Import and Export buttons visible at the row end.</div>
-        </div>
 
         <h3>Polarity inversion</h3>
         <p class="prose">Polarity inversion is a per-source-slot flag, separate from gain. List view has a small <strong>ϕ</strong> button next to each source's gain knob; Matrix view has the dedicated <strong>ϕ</strong> click zone in every routed cell (orange glyph when active). Needed for Pro Logic II Lt/Rt encoding and useful for quick A/B phase checks across any single route.</p>
@@ -1269,11 +1177,10 @@
         <p class="prose"><strong>Only the outputs you've actually routed are written.</strong> A 5.1 → stereo downmix on an 8-channel device renders a 2-channel file, not eight channels padded with silence (outputs with no source are dropped). The result writes as a new file (WAV, or CAF when the output channel layout can't be stored in WAV order) and never overwrites the source.</p>
         <p class="prose">It bakes the <strong>routing only</strong>: the playback-side loudness match and the channel solo / mute are not baked, so the output is exactly what the matrix defines. To drop a channel from the bake, mute its route in the matrix (set its source to none) rather than relying on the monitor mute.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">routing-render-to-file.png</div>
-            <div class="shot-desc">The Output window over a 5.1 file with a 5.1 → stereo (Lo/Ro) downmix set up in the routing matrix, the <strong>Render to File…</strong> button in the Routing section header highlighted (or its save sheet open). Dark mode. Demonstrates that the surround routing can be written to a file, not only auditioned.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-render-to-file.png" alt="The Output window with a 5.1 to stereo downmix and the Render to File button in the header." loading="lazy" decoding="async">
+            <figcaption><strong>Render to file.</strong> Write the routed downmix to a new file; only routed outputs are written.</figcaption>
+        </figure>
 
         <h3>PRE / POST monitor mode</h3>
         <p class="prose">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement:</p>
@@ -1294,11 +1201,10 @@
 
         <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the <code>CompareToolbarView</code> sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">compare-mode.png</div>
-            <div class="shot-desc">Specula in Compare mode (⌘2) with three slots loaded (A, B, C). Compare toolbar pinned below the transport in sky-blue accent, showing the per-slot offset / gain controls, the auto-align button, the polarity ϕ toggle, the level-match L toggle, and the prominent <strong>Listen to Diff</strong> toggle on the active non-A slot. File dock above shows the three slot chips. Transport bar's Compare button is filled with the sky-blue accent.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-compare-dock.png" alt="Compare mode with multiple slots loaded, the file dock showing per-slot metrics." loading="lazy" decoding="async">
+            <figcaption><strong>Compare mode.</strong> A/B up to six versions, level-matched and auto-aligned.</figcaption>
+        </figure>
 
         <h3>Entering the mode</h3>
         <p class="prose">Three ways in:</p>
@@ -1331,11 +1237,6 @@
         <p class="prose">The compare toolbar's offset (samples + ms) and gain (dB) readouts are <strong>editable TextFields</strong>, not just display labels. Click into one, type the value you want, press <kbd>Return</kbd> to commit (or <kbd>Esc</kbd> to cancel). Each field has a small <strong>↺</strong> reset button that appears when the value is non-zero - one click returns it to zero. Right-click either field for the same Reset entry.</p>
         <p class="prose">The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit next to the fields for fine adjustments by ear. Combined with level-match into a single atomic gain read by the audio render callback. The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with it on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">compare-toolbar-editable-fields.png</div>
-            <div class="shot-desc">Close-up of the Compare toolbar's per-slot controls with one of the offset TextFields focused (insertion cursor visible) and the ↺ reset glyph showing next to it because the value is non-zero. Adjacent gain field shows a typed value like "-1.4 dB". The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit alongside. Demonstrates the new editable fields.</div>
-        </div>
 
         <h3>Auto-align</h3>
         <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
@@ -1352,11 +1253,10 @@
             <li>Can be <strong>exported to WAV</strong> via the <strong>Export Diff</strong> button next to the toggle (enabled when a residual is cached), or with <kbd>⌃⌘E</kbd>.</li>
         </ul>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">compare-listen-to-diff.png</div>
-            <div class="shot-desc">Compare toolbar with the <strong>Listen to Diff</strong> toggle engaged on the active slot (filled state, sky-blue accent). The waveform above now shows the residual - mostly quiet with a few low-level transients. Export Diff button visible next to the toggle. Bare-D keyboard hint pill in the corner. Demonstrates the new per-slot diff listening mode rather than a separate diff slot.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-compare-diff.png" alt="Compare with Listen to Diff engaged; the waveform shows the low-level residual." loading="lazy" decoding="async">
+            <figcaption><strong>Listen to the difference.</strong> The A−X residual isolates exactly what changed.</figcaption>
+        </figure>
 
         <h3>Waveform A overlay</h3>
         <p class="prose">The <strong>Waveform A Overlay</strong> toggle (Edit menu → "Waveform A Overlay" or in the Compare panel) draws slot A's waveform as a ghost behind whichever slot is active - direct visual A/B at the sample level.</p>
@@ -1373,11 +1273,10 @@
 
         <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">edit-mode.png</div>
-            <div class="shot-desc">Edit mode active - amber EDIT badge visible, edit toolbar showing all operation buttons (Trim, Cut, Silence, Gain, Phase, Fade, Normalize, Limit TP, Level Dialogue, DC Remove, Channel Swap, Split to Mono), Save As button visible, Done/Undo buttons.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-edit-toolbar.png" alt="Edit mode active with the amber EDIT badge and the full operation toolbar." loading="lazy" decoding="async">
+            <figcaption><strong>Edit mode.</strong> Trim, Cut, Gain, Fade, Normalize, Limit TP, Level Dialogue, and more, with 16-level undo.</figcaption>
+        </figure>
 
         <h3>Enter / exit</h3>
         <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
@@ -1402,17 +1301,15 @@
             <tr><td>Split to Mono</td><td class="wrap-ok">Writes N mono WAV files (one per channel) to a directory you pick. Channel labels in the filename.</td></tr>
         </table>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">edit-cut-popover.png</div>
-            <div class="shot-desc">Edit mode over a spoken-word file with a selection across a too-long pause. The <strong>Cut</strong> popover is open showing the equal-power crossfade field (default 10 ms) and the Apply button; the selected range is highlighted on the waveform with the audio on either side visible. Dark mode. Demonstrates removing a range and closing up the sides, the opposite of Trim.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-edit-cut.png" alt="The Cut popover with an equal-power crossfade field over a selected range." loading="lazy" decoding="async">
+            <figcaption><strong>Cut.</strong> Remove a range and crossfade the join, the opposite of Trim.</figcaption>
+        </figure>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">level-dialogue-popover.png</div>
-            <div class="shot-desc">Edit mode over a podcast / audiobook file. The <strong>Level Dialogue</strong> popover is open showing the duck-amount control, the <strong>Lift dialogue to target</strong> checkbox (ticked), the target loudness field, and a true-peak ceiling field, with Apply. The waveform behind shows teal speech-region shading so the region-aware nature is legible. Dark mode. The "money shot" for the spoken-word leveling workflow.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-level-dialogue.png" alt="The Level Dialogue popover with a duck amount, a lift-to-target toggle, and a true-peak ceiling, over teal speech regions." loading="lazy" decoding="async">
+            <figcaption><strong>Level Dialogue.</strong> Duck room tone before the makeup gain, so the floor drops instead of rising.</figcaption>
+        </figure>
 
         <h3>Keyboard shortcuts (Pro Tools / LUNA-style)</h3>
         <p class="prose">Edit mode adds a set of single-key edits, active only in Edit mode so they don't shadow the transport keys, and listed in the <strong>Edit menu</strong> so the keys are always visible. The first group acts on the selection; the playhead group acts at the cursor. Cut uses a 10 ms equal-power crossfade by default; the fade keys use the equal-power curve.</p>
@@ -1428,11 +1325,6 @@
             <tr><td><kbd>⌥[</kbd> / <kbd>⌥]</kbd></td><td class="wrap-ok">Fade in to / out from the playhead</td><td class="wrap-ok">playhead</td></tr>
         </table>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">edit-menu-shortcuts.png</div>
-            <div class="shot-desc">The macOS menu bar <strong>Edit</strong> menu open while Specula is in Edit mode, showing the selection and playhead edit commands with their shortcuts visible in the right column (Cut ⌫, Silence ⌥⌫, Trim to Selection ⌘T, Fade In ⌘F / Fade Out ⌥⌘F, Gain +1 dB ⌃↑ / −1 dB ⌃↓, Cut to Start ⌘⌫, Cut to End ⇧⌘⌫, Fade In to Playhead ⌥[ / Fade Out from Playhead ⌥]). Dark mode. Shows the keys are discoverable from the menu.</div>
-        </div>
 
         <h3>Undo</h3>
         <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit; <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is 16-level: each edit pushes a snapshot onto a disk-backed stack, so only the current buffer stays in RAM while deep history persists.</p>
@@ -1457,11 +1349,10 @@
 
         <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other three modes (Edit, Compare, Dialogue) so the workspace stays focused.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">chapter-mode-ribbon.png</div>
-            <div class="shot-desc">Specula window with a multi-chapter audiobook loaded. Chapter ribbon (⌃6) visible at the bottom, slots showing per-chapter RMS / LUFS / TP / NF readouts, deviation badge, with at least one chapter ACX-red flagged (e.g. NF above &minus;60 dB or RMS outside the [&minus;23, &minus;18] dB band). Waveform above with the teal boundary lines and #N badges visible. The "money shot" for the audiobook workflow.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-chapters.png" alt="Chapter mode with a multi-chapter audiobook, the ribbon showing per-chapter RMS, LUFS, TP and NF, one chapter flagged red." loading="lazy" decoding="async">
+            <figcaption><strong>Chapter mode.</strong> Per-chapter RMS, true peak, and noise floor, with ACX outliers flagged.</figcaption>
+        </figure>
 
         <h3>Entering the mode</h3>
         <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, and Dialogue. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, and Dialogue.</p>
@@ -1537,11 +1428,10 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">It applies a per-chapter uniform gain, then re-measures so the ribbon updates. RMS covers every chapter; LUFS skips chapters under 10 s (no integrated reading), as it does chapters already on target. Run <strong>Analyse Loudness</strong> first; the button stays disabled until there's a reading.</p>
         <p class="prose">It's a single undoable edit (<kbd>⌘Z</kbd>). Chapter mode shows a dirty dot and a <strong>Save As</strong> button when the buffer has unsaved edits, and <kbd>⇧⌘S</kbd> writes the leveled file without leaving Chapter mode. Two honest caveats: a uniform per-chapter gain moves that chapter's room-tone noise floor with its level (for a floor-aware pass, gate the room tone first with <a href="#edit">Level Dialogue</a>, then level), and a large boost can lift peaks toward clipping (check each chapter's true peak, or run Limit TP, afterwards).</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">chapter-level-popover.png</div>
-            <div class="shot-desc">Chapter mode with a multi-chapter audiobook loaded and at least one chapter flagged as a loudness outlier on the ribbon. The <strong>Level…</strong> popover is open showing the <strong>Metric</strong> choice (RMS / integrated LUFS, RMS selected) and the <strong>Target</strong> choice (book median / fixed value), with Apply. Dark mode. Demonstrates leveling every chapter to a common loudness in one move.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-level-chapters.png" alt="The Level Chapters popover with an RMS or LUFS metric and a book-median or fixed target." loading="lazy" decoding="async">
+            <figcaption><strong>Level chapters.</strong> Bring every chapter to a common loudness in one move.</figcaption>
+        </figure>
 
         <h3>Reset to detected</h3>
         <p class="prose">Restores Specula's silence-detection result, dropping all manual boundary edits, adds, and removes. Renames are kept.</p>
@@ -1608,11 +1498,6 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <h3>Licensing</h3>
         <p class="prose">The CLI shares the app's license and trial. It runs through the 7-day trial (a days-left note prints on stderr) and requires the license activated in the app after that (<strong>Specula → Manage License…</strong>); an expired, unlicensed install exits with code 77 and an explanation on stderr. <code>--help</code> and <code>--version</code> always work. The first licensed run asks once for access to the license in the Keychain - click <strong>Always Allow</strong>. Do that once in a local Terminal window before using the tool over SSH, where the prompt can't appear.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">cli-analyze-json.png</div>
-            <div class="shot-desc">Terminal window (dark theme) running <code>specula analyze sample.wav</code> and showing the pretty-printed JSON output - integrated LUFS, true peak, sample peak, LRA, speech-gated LUFS, stereo correlation. Wide enough to show one full row per key.</div>
-        </div>
 
         <h3><code>specula analyze &lt;FILE&gt;</code></h3>
         <p class="prose">Headline numbers (integrated LUFS, true peak, sample peak, loudness range, speech-gated LUFS, stereo correlation) as JSON.</p>
@@ -1665,11 +1550,10 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         <h3>Shortcuts (App Intents)</h3>
         <p class="prose">Specula surfaces <strong>eight App Intents</strong> that the system Shortcuts app and Siri can call directly. Same engine as the CLI; same numbers. No file-handling shell glue required, output is chainable. The four core actions ship in two variants each (file-input and text-path) so they fit whichever Shortcuts workflow shape you have.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">shortcuts-get-measurements.png</div>
-            <div class="shot-desc">macOS Shortcuts editor with a small workflow built around the <strong>Get Measurements</strong> action - file parameter bound to a Shortcut Input, downstream <code>If</code> step that branches on the <em>Integrated LUFS</em> magic variable. Demonstrates AppEntity chainability without parsing JSON.</div>
-        </div>
+        <figure class="shot">
+            <img src="specula-shortcuts.png" alt="macOS Shortcuts editor with the Get Measurements action and a downstream branch on Integrated LUFS." loading="lazy" decoding="async">
+            <figcaption><strong>Shortcuts.</strong> Chain measurements into automations without parsing JSON.</figcaption>
+        </figure>
 
         <table>
             <tr><th>Action</th><th>File-input</th><th>Path-input</th><th>Returns</th></tr>
@@ -1726,11 +1610,10 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Five tabs: Layout · Spectrogram · FFT / Analysis · Speech · Report.</p>
 
-        <div class="shot-placeholder">
-            <span class="shot-tag">Screenshot</span>
-            <div class="shot-name">settings-spectrogram.png</div>
-            <div class="shot-desc">Settings window on the Spectrogram tab - colormap segmented control showing Inferno/Turbo/Plasma/Viridis, frequency scale (Log/Mel), and the Floor/Ceiling sliders.</div>
-        </div>
+        <figure class="shot shot--mid">
+            <img src="specula-settings-spectrogram.png" alt="Settings Spectrogram tab with colormap, frequency scale, and floor and ceiling sliders." loading="lazy" decoding="async">
+            <figcaption><strong>Settings.</strong> Colormap, frequency scale, and dB range for the spectrogram.</figcaption>
+        </figure>
 
         <h3>Layout</h3>
         <p class="prose">Defaults for which sections show on launch:</p>

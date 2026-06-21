@@ -91,6 +91,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-overview.png" alt="Specula's main window analysing a stereo master: stacked waveform, inferno spectrogram, loudness curve, FFT spectrum, and a Lissajous phase scope." loading="lazy" decoding="async">
+            <figcaption><strong>One window, every delivery number.</strong> Waveform, spectrogram, loudness curve, FFT, and phase scope on a single master.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -135,6 +143,31 @@
                 <p class="prose-lead"><strong>The asymmetry most meters get wrong.</strong> Apple Music's Sound Check, YouTube, and Tidal <strong>only turn loud tracks down</strong>; they leave a quieter-than-reference track exactly where it is. So a master at −18 LUFS doesn't get pushed up to Apple Music's −16 reference, it plays at −18. On those three platforms Specula shows a quiet master as <strong>"as-is"</strong> in green, not the misleading "+2 dB · platform gain" you'll see elsewhere.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The platforms that do boost.</strong> Spotify (in its default mode), Amazon Music, Deezer, and SoundCloud raise quiet tracks peak-limited to reach their reference, so for those rows the +X dB number is real and Specula shows it unchanged. The distinction matters because it changes what you do next: a master that reads "as-is" on Apple Music but "+3 dB" on Spotify is being treated as two different deliverables by two services, and only one of them is touching your level.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The Music catalog covers Spotify (−14 LUFS), Apple Music (−16), YouTube (−14), Tidal (−14), Amazon Music (−14, −2 dBTP ceiling), Deezer (−15), SoundCloud (−14), and the vendor-neutral AES TD1008 (−18). Each row's subtitle states whether it's symmetric or "turns down only," so the behaviour is on the row, not in your head. The live panel updates as the file plays; the full catalog with references, tolerances, and true-peak ceilings is in the <a href="guide.html#loudness">user guide</a>.</p>
+                <figure class="shot shot--narrow" style="margin-top: 22px;">
+                    <img src="specula-targets-asis.png" alt="A quiet master in Music mode: Apple Music, YouTube, and Tidal read 'as-is' in green while Spotify shows a real upward gain." loading="lazy" decoding="async">
+                    <figcaption><strong>Not every platform boosts.</strong> Apple Music, YouTube, and Tidal leave a quiet master as-is (green); the platforms that do boost show the real gain.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-match.png" alt="A loudness target row with match-to-target engaged, playing the master at the platform reference through a true-peak limiter." loading="lazy" decoding="async">
+                    <figcaption><strong>Audition at the target.</strong> Match playback to a platform's reference and true-peak ceiling. The loaded file is never modified.</figcaption>
+                </figure>
+                <figure class="shot shot--narrow">
+                    <img src="specula-loudness-sidebar.png" alt="Specula loudness sidebar: integrated LUFS, max momentary and short-term, loudness range, 4× oversampled true peak, and sample peak." loading="lazy" decoding="async">
+                    <figcaption><strong>The delivery numbers, live.</strong> Integrated LUFS, LRA, and 4× oversampled true peak update as the file plays.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-stereo.png" alt="Stereo width readout plotting mid/side correlation across the master with zone colouring from mono to out-of-phase." loading="lazy" decoding="async">
+                    <figcaption><strong>Stereo image over time.</strong> Mid/side correlation flags the mono-collapse and out-of-phase sections a stereo monitor hides.</figcaption>
+                </figure>
             </div>
         </div>
     </section>

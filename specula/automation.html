@@ -91,6 +91,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-report.png" alt="A Specula PDF report: headline loudness metrics, per-platform target verdicts, a loudness curve and per-channel stats." loading="lazy" decoding="async">
+            <figcaption><strong>One report, every number.</strong> Headline loudness, per-platform verdicts, and per-channel stats, as PDF or sorted-key JSON.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -144,6 +152,23 @@
                 <p class="prose-lead" style="margin-top: 14px;">Spotlight phrases trigger them too: "Measure with Specula", "Compare files in Specula", "Get diff with Specula", "Build a report with Specula" (and their path-input siblings). All eight default to <strong>speech detection off</strong>, flip the toggle in the Shortcut step when you need speech-gated metrics.</p>
                 <p class="prose-lead" style="margin-top: 14px;">For a right-click pass with nothing to configure, three <strong>Finder Services</strong> install automatically: <strong>Analyze in Specula</strong>, <strong>Compare in Specula</strong>, and <strong>Get Report from Specula</strong>. The report service runs headlessly: it analyses the file, builds the PDF, and drops it next to the source (falling back to <code>~/Downloads</code> if the source directory isn't writable), then reveals it in Finder without ever popping a window.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>One gotcha on the CLI side:</strong> negative numerics need the <code>--option=value</code> form. Swift's argument parser reads a bare leading <code>-</code> as a short-option name, so <code>--gain -3</code> is rejected, write <code>--gain=-3</code> (likewise <code>--normalize-lufs=-14</code>, <code>--lufs-ceiling=-1</code>). Positive numbers work in either form.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-shortcuts.png" alt="A Shortcuts workflow using Specula's Get Measurements action with its chainable output." loading="lazy" decoding="async">
+                    <figcaption><strong>Drive it from Shortcuts.</strong> App Intents return measurements you can chain into any automation.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-finder-services.png" alt="The Finder right-click Services menu with Analyze in Specula, Compare in Specula and Get Report from Specula." loading="lazy" decoding="async">
+                    <figcaption><strong>Right-click in Finder.</strong> Analyze, Compare, or Get Report run the same engine with nothing to configure.</figcaption>
+                </figure>
             </div>
         </div>
     </section>

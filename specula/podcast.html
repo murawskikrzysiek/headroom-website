@@ -92,6 +92,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-dialogue-mode.png" alt="Specula in Dialogue mode with detected speech regions over the waveform, one region being hand-edited." loading="lazy" decoding="async">
+            <figcaption><strong>Dialogue, detected and correctable.</strong> A neural VAD marks speech; you can hand-correct any region before it drives the loudness read.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -147,6 +155,31 @@
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Where the dialogue is off level or the room tone sits high, the fix is in Edit mode.</strong> <strong>Level Dialogue</strong> works off the same speech regions the measurement uses (the ones you confirmed in Dialogue mode): it ducks the room tone <em>between</em> phrases with a fast attack and slow release, so word onsets and tails stay clean. Tick <strong>Lift dialogue to target</strong> and it also brings the voice to a target in the same pass, capping inter-sample peaks at a true-peak ceiling. Gating the silence before the makeup gain is what lets the dialogue come up without the floor riding up with it, the difference between a clean episode and one where every pause hisses. It's a gate, not a denoiser, so it rescues a marginal floor (a quiet room tone just under the gate); a genuinely hissy recording still wants a better capture.</p>
                 <p class="prose-lead" style="margin-top: 14px;">For a straight level move, <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass that caps the peaks without touching loudness. Each is one undoable edit that saves a new file. <a href="editing.html">See the editing workflow →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-speech-regions.png" alt="Teal speech regions overlaid on a spoken-word waveform immediately after load." loading="lazy" decoding="async">
+                    <figcaption><strong>Speech, found on load.</strong> The Silero neural model marks spoken regions automatically, fully offline.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-level-dialogue.png" alt="The Level Dialogue popover with a duck-room-tone field and a lift-dialogue-to-target toggle for LKFS and dBTP." loading="lazy" decoding="async">
+                    <figcaption><strong>Level the dialogue without raising the floor.</strong> It ducks room tone before the makeup gain, so the floor drops instead of riding up.</figcaption>
+                </figure>
+                <figure class="shot shot--narrow">
+                    <img src="specula-speech-lufs.png" alt="Speech-gated integrated LUFS and a live noise-floor readout in the loudness sidebar." loading="lazy" decoding="async">
+                    <figcaption><strong>Speech-gated loudness.</strong> The dialog-gated LUFS and noise floor are measured over speech only, not the silences.</figcaption>
+                </figure>
+                <figure class="shot shot--narrow">
+                    <img src="specula-targets-podcast.png" alt="Podcast mode targets for Apple Podcasts and Spotify, with the ACX audiobook row and its noise-floor criterion." loading="lazy" decoding="async">
+                    <figcaption><strong>Podcast and audiobook specs.</strong> Apple, Spotify, and the ACX RMS window with its noise-floor requirement, side by side.</figcaption>
+                </figure>
             </div>
         </div>
     </section>

@@ -92,6 +92,14 @@
 
 <div class="container">
 
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-edit-toolbar.png" alt="Specula's edit toolbar with the amber EDIT badge and operations: Trim, Cut, Gain, Silence, Fade, Normalize, Limit TP, Level Dialogue and more." loading="lazy" decoding="async">
+            <figcaption><strong>A real edit toolset.</strong> Trim, Cut, Gain, Silence, Fade, Normalize, Limit TP, and Level Dialogue, all non-destructive with 16-level undo.</figcaption>
+        </figure>
+    </section>
+
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -161,6 +169,31 @@
                 <p class="prose-lead"><strong>Level Dialogue</strong> is the edit for spoken word. It's a region-aware downward expander keyed to the speech regions Specula already detects (the ones you can fine-tune in <a href="podcast.html">Dialogue mode</a>): it ducks the room tone <em>between</em> phrases with a fast attack and slow release, so word onsets and tails stay clean, no clipped starts, no chopped ends.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Tick <strong>Lift dialogue to target</strong> and it also gains the speech to a loudness target in the same pass, capping inter-sample peaks at a true-peak ceiling. Because the silence is gated first and the makeup gain goes on after, the noise floor ends up lower, not higher, which is the move a plain dialog-gated Normalize can't make (a uniform gain lifts the floor along with the voice). That's why this is the fix for the most common ACX rejection, a room-tone floor sitting just over the line.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>It's a gate, not a denoiser.</strong> It rescues a marginal floor, a quiet room tone just under the gate, not a genuinely hissy recording, which still wants a better capture or a dedicated denoiser. Like every edit here, it's undoable and saves as a new file. See the <a href="audiobook.html">audiobook</a> and <a href="podcast.html">podcast</a> workflows for where it fits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it in Specula</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <figure class="shot">
+                    <img src="specula-edit-cut.png" alt="The Cut popover with a crossfade-milliseconds field and presets, with a selection active." loading="lazy" decoding="async">
+                    <figcaption><strong>Cut and join.</strong> Remove a selection and crossfade the join, the opposite of Trim.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-edit-normalize.png" alt="The Normalize popover set to a LUFS target with a true-peak ceiling." loading="lazy" decoding="async">
+                    <figcaption><strong>Normalize to a number.</strong> Hit a peak or LUFS target; loudness moves are true-peak limited automatically.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-edit-limit-tp.png" alt="The Limit TP popover with true-peak ceiling presets." loading="lazy" decoding="async">
+                    <figcaption><strong>Cap the peaks.</strong> A lookahead true-peak limiter holds the ceiling without touching loudness.</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="specula-edit-selection-scope.png" alt="A Normalize popover showing the 'Applies to the selection' scope hint with a time range active." loading="lazy" decoding="async">
+                    <figcaption><strong>Scoped to a selection.</strong> Normalize and Limit TP can act on one passage instead of the whole file.</figcaption>
+                </figure>
             </div>
         </div>
     </section>
