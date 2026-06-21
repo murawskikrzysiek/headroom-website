@@ -1788,7 +1788,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td>FluidAudio (Apache 2.0)</td><td class="wrap-ok">Swift wrapper for Silero on Apple platforms</td></tr>
         </table>
 
-        <p class="prose">Specula's <code>LoudnessTests</code> target validates the BS.1770-4 implementation against the ITU reference test sequences in <code>Tests/LoudnessTests/TestSignals/</code>.</p>
+        <p class="prose">Specula's <code>LoudnessTests</code> target validates the loudness implementation against the EBU R128 loudness test set (EBU Tech 3341 / 3342) in <code>Tests/LoudnessTests/TestSignals/</code>, to the EBU Tech 3341 ±0.1 LU tolerance. The underlying measurement algorithm is ITU-R BS.1770-4, which EBU R128 builds on.</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
     </section>
