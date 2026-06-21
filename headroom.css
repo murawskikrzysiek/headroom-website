@@ -305,11 +305,14 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 /* the plain div.shot galleries on the Lyra and Audita pages are unaffected     */
 /* (they carry no figcaption and no size modifier).                              */
 figure.shot { margin: 0; display: flex; flex-direction: column; }
+/* Cap height so tall/portrait shots (sidebars, the PDF report) don't dominate;
+   landscape heroes still fill their width. Image is centered when capped. */
+figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto; margin: 0 auto; }
 .shot figcaption { padding: 10px 14px 12px; font-size: 0.74rem; line-height: 1.5;
   color: var(--text-3); border-top: 1px solid var(--border); }
 .shot figcaption strong { color: var(--text-2); font-weight: 600; }
-.shot--narrow { max-width: 440px; margin-inline: auto; }
-.shot--mid    { max-width: 720px; margin-inline: auto; }
+.shot--narrow { max-width: 320px; margin-inline: auto; }
+.shot--mid    { max-width: 640px; margin-inline: auto; }
 .shots--tight { padding: 8px 0 28px; }
 
 .section { padding: 36px 0; }

@@ -387,6 +387,17 @@
             table { font-size: 0.82rem; }
             th, td { padding: 8px 10px 8px 0; }
         }
+
+        /* Screenshot figures (doc-sized, one per line; click to zoom via lightbox.js) */
+        figure.shot { display: block; max-width: 540px; margin: 20px 0; border: 1px solid var(--border);
+            border-radius: 10px; overflow: hidden; background: var(--bg-card); }
+        figure.shot img { display: block; margin: 0 auto; max-width: 100%; max-height: 460px;
+            width: auto; height: auto; }
+        figure.shot figcaption { padding: 9px 13px 11px; font-size: 0.78rem; line-height: 1.5;
+            color: var(--text-2); border-top: 1px solid var(--border); }
+        figure.shot figcaption strong { color: var(--text); font-weight: 600; }
+        figure.shot--narrow { max-width: 300px; }
+        figure.shot--mid { max-width: 540px; }
     </style>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style id="hr-rework">
@@ -1311,7 +1322,7 @@
             <figcaption><strong>Level Dialogue.</strong> Duck room tone before the makeup gain, so the floor drops instead of rising.</figcaption>
         </figure>
 
-        <h3>Keyboard shortcuts (Pro Tools / LUNA-style)</h3>
+        <h3>Keyboard shortcuts</h3>
         <p class="prose">Edit mode adds a set of single-key edits, active only in Edit mode so they don't shadow the transport keys, and listed in the <strong>Edit menu</strong> so the keys are always visible. The first group acts on the selection; the playhead group acts at the cursor. Cut uses a 10 ms equal-power crossfade by default; the fade keys use the equal-power curve.</p>
         <table>
             <tr><th>Key</th><th>Action</th><th>Acts on</th></tr>

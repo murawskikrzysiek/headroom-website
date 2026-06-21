@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/editing.html">
-    <meta name="description" content="Make the small fix without booting a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target with a 4× oversampled true-peak limiter, or cap inter-sample peaks with Limit TP, with Pro Tools / LUNA-style keyboard shortcuts. 16-level undo/redo; Specula always saves as a new file.">
+    <meta name="description" content="Make the small fix without booting a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target with a 4× oversampled true-peak limiter, or cap inter-sample peaks with Limit TP, with keyboard shortcuts. 16-level undo/redo; Specula always saves as a new file.">
     <meta property="og:title" content="Specula for Editing &amp; Repair">
     <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and always saves a new file.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Editing</p>
             <h1 class="display">The small fix, without booting a DAW.</h1>
             <p class="app-hero__desc">
-                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. None of that needs a session, a project file, and a render queue, and none of it should put the master at risk. Specula's Edit mode does the operation on the loaded buffer, with Pro Tools / LUNA-style keyboard shortcuts, keeps up to 16 levels of undo/redo, and writes the result to a <strong>new file</strong>. The original on disk is never touched.
+                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. None of that needs a session, a project file, and a render queue, and none of it should put the master at risk. Specula's Edit mode does the operation on the loaded buffer, with keyboard shortcuts, keeps up to 16 levels of undo/redo, and writes the result to a <strong>new file</strong>. The original on disk is never touched.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -146,7 +146,7 @@
         <div class="section__grid">
             <p class="label">Edit with the keyboard</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Edit mode has Pro Tools / LUNA-style shortcuts</strong>, active only in Edit mode so they don't shadow the transport keys, and listed in the <strong>Edit menu</strong> so the keys are always visible. One group acts on the selection, the other at the playhead.</p>
+                <p class="prose-lead"><strong>Edit mode has keyboard shortcuts</strong>, active only in Edit mode so they don't shadow the transport keys, and listed in the <strong>Edit menu</strong> so the keys are always visible. One group acts on the selection, the other at the playhead.</p>
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">⌫</span><span class="std-row__desc">Cut: remove the selection and crossfade-join the sides.</span></div>
                     <div class="std-row"><span class="std-row__tag">⌥⌫</span><span class="std-row__desc">Silence the selection (replace, keep the length).</span></div>
@@ -224,5 +224,6 @@
 </div>
 
 <script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
 </body>
 </html>
