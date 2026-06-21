@@ -483,7 +483,7 @@
             <li>Drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
             <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
-            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT · Speech · Report tabs).</li>
+            <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements tabs).</li>
         </ol>
     </section>
 
@@ -522,13 +522,13 @@
         <p class="prose">Stop is unchanged either way: it always rewinds to the beginning of the file.</p>
 
         <h3>Playback rate</h3>
-        <p class="prose">Variable rate from 0.25× to 4×, with optional pitch preservation (timestretch) via <code>AVAudioUnitTimePitch</code>.</p>
+        <p class="prose">Variable rate from 0.25× to 2×, with optional pitch preservation (timestretch) via <code>AVAudioUnitTimePitch</code>.</p>
         <table>
             <tr><td><kbd>[</kbd></td><td class="wrap-ok">Step rate down</td></tr>
             <tr><td><kbd>]</kbd></td><td class="wrap-ok">Step rate up</td></tr>
             <tr><td><kbd>\</kbd></td><td class="wrap-ok">Reset rate to 1×</td></tr>
         </table>
-        <p class="prose">The Transport bar exposes both the rate slider and the "preserve pitch" toggle.</p>
+        <p class="prose">The Transport bar exposes the rate menu (0.25× · 0.5× · 0.75× · 1× · 1.25× · 1.5× · 2×) and the "preserve pitch" toggle.</p>
 
         <h3>Output device</h3>
         <p class="prose">The Transport bar shows the current output as a compact <strong>Output: &lt;Device Name&gt;</strong> pill on the right side. Click it (or press <kbd>⌥⌘O</kbd>, or pick <strong>Window → Output Panel</strong>) to open the <strong>Output</strong> window. The window holds a device dropdown (with channel count next to each name; the <strong>Refresh Devices</strong> item lives at the bottom of the menu) above the per-channel routing matrix. Switching device rebuilds the audio engine. Specula is happy with any device, from built-in speakers to multichannel pro audio interfaces.</p>
@@ -1434,7 +1434,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">The fix for the outlier flag, and for the consistency deviation across a book. <strong>Level…</strong> in the toolbar opens a popover with two choices:</p>
         <ul>
             <li><strong>Metric</strong>: <strong>RMS</strong> (the metric ACX delivery is judged on, and the default) or <strong>integrated LUFS</strong> (for music-album chapter consistency). The same choice drives the ribbon's deviation flag, so the fix matches what's flagged.</li>
-            <li><strong>Target</strong>: the <strong>book median</strong> (each chapter to the book's own median, for consistency) or a <strong>fixed value</strong> (e.g. −20 dB RMS, mid the ACX −23..−18 band, for consistency <em>and</em> compliance in one pass).</li>
+            <li><strong>Target</strong>: the <strong>book median</strong> (each chapter to the book's own median, for consistency) or a <strong>fixed value</strong> (e.g. −20 dB RMS, mid the ACX −23..−18 band, for consistency <em>and</em> compliance in one pass). The fixed value is entered in the selected metric's unit (dB RMS, or LU when the metric is integrated LUFS).</li>
         </ul>
         <p class="prose">It applies a per-chapter uniform gain, then re-measures so the ribbon updates. RMS covers every chapter; LUFS skips chapters under 10 s (no integrated reading), as it does chapters already on target. Run <strong>Analyse Loudness</strong> first; the button stays disabled until there's a reading.</p>
         <p class="prose">It's a single undoable edit (<kbd>⌘Z</kbd>). Chapter mode shows a dirty dot and a <strong>Save As</strong> button when the buffer has unsaved edits, and <kbd>⇧⌘S</kbd> writes the leveled file without leaving Chapter mode. Two honest caveats: a uniform per-chapter gain moves that chapter's room-tone noise floor with its level (for a floor-aware pass, gate the room tone first with <a href="#edit">Level Dialogue</a>, then level), and a large boost can lift peaks toward clipping (check each chapter's true peak, or run Limit TP, afterwards).</p>
@@ -1619,7 +1619,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
     <section class="guide-section" id="settings">
         <h2>20. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>⌘,</kbd>. Five tabs: Layout · Spectrogram · FFT / Analysis · Speech · Report.</p>
+        <p class="prose">Open with <kbd>⌘,</kbd>. Nine tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements.</p>
 
         <figure class="shot shot--mid">
             <img src="specula-settings-spectrogram.png" alt="Settings Spectrogram tab with colormap, frequency scale, and floor and ceiling sliders." loading="lazy" decoding="async">
