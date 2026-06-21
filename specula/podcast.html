@@ -76,6 +76,7 @@
                 <span class="badge">Speech-gated LUFS</span>
                 <span class="badge">Silero neural VAD</span>
                 <span class="badge">Dialogue mode</span>
+                <span class="badge">Level Dialogue</span>
                 <span class="badge">Noise floor</span>
             </div>
             <div class="app-hero__cta">
@@ -139,12 +140,23 @@
         </div>
     </section>
 
+    <!-- Fix what's off -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Level the dialogue, in the same app</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>Where the dialogue is off level or the room tone sits high, the fix is in Edit mode.</strong> <strong>Level Dialogue</strong> works off the same speech regions the measurement uses (the ones you confirmed in Dialogue mode): it ducks the room tone <em>between</em> phrases with a fast attack and slow release, so word onsets and tails stay clean. Tick <strong>Lift dialogue to target</strong> and it also brings the voice to a target in the same pass, capping inter-sample peaks at a true-peak ceiling. Gating the silence before the makeup gain is what lets the dialogue come up without the floor riding up with it, the difference between a clean episode and one where every pause hisses. It's a gate, not a denoiser, so it rescues a marginal floor (a quiet room tone just under the gate); a genuinely hissy recording still wants a better capture.</p>
+                <p class="prose-lead" style="margin-top: 14px;">For a straight level move, <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass that caps the peaks without touching loudness. Each is one undoable edit that saves a new file. <a href="editing.html">See the editing workflow →</a></p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Ship the episode on target</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It tells you what the dialogue actually measures against each platform's spec, and where it misses, fixes it: <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass. The capture itself it can't clean: it reads the room-tone floor so a noisy recording shows up before you publish, but quieting it takes a better record or an external denoiser, not a meter. <a href="editing.html">See the editing workflow →</a></p>
+                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It tells you what the dialogue actually measures against each platform's spec, levels the dialogue and ducks the room tone with <strong>Level Dialogue</strong>, lands the episode on a target with <strong>Normalize</strong>, and caps the peaks with <strong>Limit TP</strong>, all without leaving the file you loaded.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#speech-gated" class="btn btn-primary">Read the speech-gated guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
