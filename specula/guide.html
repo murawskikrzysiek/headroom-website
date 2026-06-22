@@ -1284,6 +1284,8 @@
 
         <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
 
+        <p class="prose">Edit, Chapter, and Dialogue share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all three modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
+
         <figure class="shot">
             <img src="specula-edit-toolbar.png" alt="Edit mode active with the amber EDIT badge and the full operation toolbar." loading="lazy" decoding="async">
             <figcaption><strong>Edit mode.</strong> Trim, Cut, Gain, Fade, Normalize, Limit TP, Level Dialogue, and more, with 16-level undo.</figcaption>
@@ -1338,15 +1340,11 @@
 
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> restores the buffer/model captured before the last edit; <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is 16-level: each edit pushes a snapshot onto a disk-backed stack, so only the current buffer stays in RAM while deep history persists.</p>
+        <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters) and the Level Dialogue pass, since the three modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit or Chapter.</p>
 
-        <div class="note">
-            <span class="note-icon">⚠</span>
-            <p><strong>RAM note:</strong> undo history is disk-backed. Each snapshot is written to a temp WAV and dropped from RAM, so only the current buffer stays resident no matter how deep the history goes. The transient memory cost of an edit is the edit operation's own working set, not the undo stack.</p>
-        </div>
-
-        <h3>Save</h3>
-        <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code>. Format defaults to WAV at the file's native bit depth and sample rate.</p>
+        <h3>Save and Discard</h3>
+        <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code> (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
+        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, and Dialogue alike, because those three modes share one editing session.</p>
 
         <h3>Edit toolbar</h3>
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
@@ -1437,10 +1435,11 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <li><strong>Target</strong>: the <strong>book median</strong> (each chapter to the book's own median, for consistency) or a <strong>fixed value</strong> (e.g. −20 dB RMS, mid the ACX −23..−18 band, for consistency <em>and</em> compliance in one pass). The fixed value is entered in the selected metric's unit (dB RMS, or LU when the metric is integrated LUFS).</li>
         </ul>
         <p class="prose">It applies a per-chapter uniform gain, then re-measures so the ribbon updates. RMS covers every chapter; LUFS skips chapters under 10 s (no integrated reading), as it does chapters already on target. Run <strong>Analyse Loudness</strong> first; the button stays disabled until there's a reading.</p>
-        <p class="prose">It's a single undoable edit (<kbd>⌘Z</kbd>). Chapter mode shows a dirty dot and a <strong>Save As</strong> button when the buffer has unsaved edits, and <kbd>⇧⌘S</kbd> writes the leveled file without leaving Chapter mode. Two honest caveats: a uniform per-chapter gain moves that chapter's room-tone noise floor with its level (for a floor-aware pass, gate the room tone first with <a href="#edit">Level Dialogue</a>, then level), and a large boost can lift peaks toward clipping (check each chapter's true peak, or run Limit TP, afterwards).</p>
+        <p class="prose">It's a single undoable edit (<kbd>⌘Z</kbd>). Chapter mode shows a dirty dot and a <strong>Save As</strong> button when the buffer has unsaved edits, and <kbd>⇧⌘S</kbd> writes the leveled file without leaving Chapter mode.</p>
+        <p class="prose">A <strong>true-peak ceiling</strong> is applied in the same edit, on by default, so a boosted chapter can't run past the delivery ceiling. It defaults to <strong>−3 dBTP</strong> for RMS/ACX and <strong>−1 dBTP</strong> for LUFS (tracking the metric), and the Level popover lets you change it or switch it off. One caveat remains: a uniform per-chapter gain moves that chapter's room-tone noise floor with its level, so for a floor-aware pass, gate the room tone first with <a href="#edit">Level Dialogue</a>, then level.</p>
 
         <figure class="shot">
-            <img src="specula-level-chapters.png" alt="The Level Chapters popover with an RMS or LUFS metric and a book-median or fixed target." loading="lazy" decoding="async">
+            <img src="specula-level-chapters.png" alt="The Level Chapters popover with an RMS or LUFS metric, a book-median or fixed target, and a true-peak ceiling." loading="lazy" decoding="async">
             <figcaption><strong>Level chapters.</strong> Bring every chapter to a common loudness in one move.</figcaption>
         </figure>
 
