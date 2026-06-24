@@ -94,7 +94,7 @@
     <!-- Hero shot -->
     <section class="shots shots--tight">
         <figure class="shot">
-            <img src="specula-tp-violations.png" alt="Specula highlighting momentary, short-term, and true-peak loudness violations along the waveform against the set thresholds." loading="lazy" decoding="async">
+            <img src="specula-violations.png" alt="Specula marking momentary, short-term, and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with live breach counts (M 13, ST 11, TP 55) in the threshold strip." loading="lazy" decoding="async">
             <figcaption><strong>Every overshoot, marked.</strong> Set momentary, short-term, and true-peak thresholds and every 100 ms block that breaches one is lit on the timeline, so a FAIL TP isn't just a verdict, it's a position you can seek to.</figcaption>
         </figure>
     </section>
@@ -157,11 +157,15 @@
         </div>
     </section>
 
-    <!-- Violations screenshot -->
+    <!-- Violations screenshots: waveform marks + loudness curve detail -->
     <section class="shots shots--tight">
         <figure class="shot">
-            <img src="specula-violations.png" alt="Specula marking momentary, short-term, and true-peak loudness violations as coloured bands along a 5.1 master's waveform, with live breach counts (M 13, ST 11, TP 55) in the threshold strip and the momentary and short-term loudness curves below." loading="lazy" decoding="async">
-            <figcaption><strong>Every overshoot, located.</strong> Momentary, short-term, and true-peak breaches each light their blocks along the timeline, across every channel, with a live count per metric in the strip (here 13 / 11 / 55). Each one is a position you seek to, not a number you hunt for.</figcaption>
+            <img src="specula-violations-stereo.png" alt="A stereo master in Specula with momentary, short-term, and true-peak loudness violations shaded along the waveform and the loudness curve below, breach counts M 5, ST 4, TP 16 in the threshold strip." loading="lazy" decoding="async">
+            <figcaption><strong>A count, then the locations.</strong> The strip tallies how many blocks breach each threshold (here 5 momentary, 4 short-term, 16 true-peak); the shaded bands on the waveform are where they sit. Seek to each instead of re-scanning the file.</figcaption>
+        </figure>
+        <figure class="shot">
+            <img src="specula-loudness-curve.png" alt="Specula's loudness curve: the momentary and short-term curves rising against their dashed threshold lines, with the integrated level and the speech-gated reference shown alongside." loading="lazy" decoding="async">
+            <figcaption><strong>How far over, not just that it crossed.</strong> The momentary and short-term curves ride against their dashed threshold lines, so every breach shows its depth alongside its place.</figcaption>
         </figure>
     </section>
 
