@@ -123,10 +123,46 @@
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Pick a delivery mode</div><div class="feature-row__v">The Mode picker at the top of the info panel sets the analysis context: <strong>Music</strong>, <strong>Podcast</strong>, <strong>VOD</strong>, or <strong>Broadcast</strong>. Mode decides which targets sit next to the file and which metric rows appear. Configure up to four targets per mode in Settings → Targets, so the panel shows only the platforms you actually deliver to.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Run one offline pass</div><div class="feature-row__v"><kbd>⌘A</kbd> to select the whole file, <kbd>⌘Return</kbd> to run the full offline analysis. The live panel updates while a file plays, but a delivery verdict should be computed over the entire master, not a rolling estimate, the offline pass gives you the integrated, dialog-gated, true-peak, and short-term numbers the targets evaluate against.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Read the verdict, fix it in one click</div><div class="feature-row__v">Each target row shows a green dot when the loudness sits in the tolerance band <em>and</em> the true peak is at or below the ceiling. When it doesn't, the row names the reason: <strong>FAIL L</strong> (loudness outside the band), <strong>FAIL TP</strong> (loudness in band, true peak over the ceiling), <strong>FAIL S↑</strong> (max short-term over the spec's ceiling, used by EBU R128 S1), <strong>FAIL NF</strong> (noise floor over the spec's RMS ceiling, used by ACX). Loudness fails take precedence, so the primary reason always shows first. Hover a row for the per-criterion ✓/✗ breakdown. The two fixable fails carry a button right on the row: <strong>FAIL L</strong> shows <strong>Normalize</strong> and <strong>FAIL TP</strong> shows <strong>Limit TP</strong>, each opening Edit mode pre-filled to that target so you review and Apply instead of reading the spec and typing it in. <strong>FAIL S↑</strong> and <strong>FAIL NF</strong> stay flag-only, since no single move fixes a short-term spike or a noisy capture. And a FAIL TP tells you the master breaches, not where: set the <strong>TP threshold</strong> in the loudness-curve strip to the target's ceiling and every 100 ms block whose 4× oversampled inter-sample peak goes over it lights up on the waveform, so you can seek straight to each overshoot rather than re-scanning the file in a DAW.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Read the verdict, fix it in one click</div><div class="feature-row__v">Each target row shows a green dot when the loudness sits in the tolerance band <em>and</em> the true peak is at or below the ceiling. When it doesn't, the row names the reason: <strong>FAIL L</strong> (loudness outside the band), <strong>FAIL TP</strong> (loudness in band, true peak over the ceiling), <strong>FAIL S↑</strong> (max short-term over the spec's ceiling, used by EBU R128 S1), <strong>FAIL NF</strong> (noise floor over the spec's RMS ceiling, used by ACX). Loudness fails take precedence, so the primary reason always shows first. Hover a row for the per-criterion ✓/✗ breakdown. The two fixable fails carry a button right on the row: <strong>FAIL L</strong> shows <strong>Normalize</strong> and <strong>FAIL TP</strong> shows <strong>Limit TP</strong>, each opening Edit mode pre-filled to that target so you review and Apply instead of reading the spec and typing it in. <strong>FAIL S↑</strong> and <strong>FAIL NF</strong> stay flag-only, since no single move fixes a short-term spike or a noisy capture. Naming the reason is half the job; locating every breaching moment on the timeline is the next step, below.</div></div>
                 <div class="feature-row"><div class="feature-row__k">4 · Export the receipt</div><div class="feature-row__v"><kbd>⌥⌘E</kbd> writes the PDF, <kbd>⇧⌘E</kbd> writes JSON. The PDF's per-target card carries the same verdict the app shows, with the failing value printed inline (e.g. <code>Not compliant · S↑ (−15.0 LUFS)</code>) so a reviewer reads the result without hovering. The JSON's <code>loudnessTargets.targets[]</code> carries an inline <code>verdict</code> object: <code>status</code>, <code>actualLUFS</code>, and the non-compliance reason / limit, so a delivery pipeline can branch on pass/fail without recomputing.</div></div>
             </div>
         </div>
+    </section>
+
+    <!-- From verdict to location: visualising overshoots -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">From verdict to location</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">A maximum number tells you the master breached, and by how much. It can't tell you which second of forty minutes. Specula marks every breach on the timeline.</p>
+            </div>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    A re-deliver note says "too loud." Specula says where: 2:14, 7:48, 31:02, and on which meter.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">Most tools hand you a single worst case: max momentary, max short-term, max true peak. That settles whether the file ships, but not the question you actually act on, which moment to touch. The usual answer is to reopen the master in a DAW with a meter up and scrub until the needle jumps. Specula turns the verdict into a map. Set the spec's ceilings in the loudness-curve strip and every 100 ms block that crosses one is shaded along the waveform, full height across every channel, so each overshoot is a place you click to.</p>
+
+                <p class="prose-lead" style="margin-top: 14px;">Three ceilings, three time scales, each catching a failure the others miss:</p>
+
+                <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px;">
+                    <div class="feature-row"><div class="feature-row__k">Momentary · 400 ms</div><div class="feature-row__v">The fast transient a slow meter sleeps through: a snare crack, a slammed door, a plosive, a music sting. Set the <strong>M threshold</strong> and every block over it is shaded.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Short-term · 3 s</div><div class="feature-row__v">The sustained stretch that rides too hot: a shouted line, a loud chorus, a music bed climbing under dialogue. EBU R128 S1 caps it for short-form; set the <strong>S threshold</strong> and every breaching span is marked.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">True peak · inter-sample</div><div class="feature-row__v">The clip a sample meter never sees: peaks that surface only once the signal is reconstructed between samples. Set the <strong>TP threshold</strong> to the platform ceiling and every block whose 4× oversampled peak goes over is flagged.</div></div>
+                </div>
+
+                <p class="prose-lead" style="margin-top: 18px;">Each shades in its own colour, matched to the threshold field you set, and layers over the rest, so where two breaches overlap you still see both. The threshold field carries a running count, so you know how many there are before you start. And the marks arrive both ways: live, building as the file plays, and all at once from the offline pass (<kbd>⌘Return</kbd>). Stacked right above the waveform, the loudness curve plots momentary and short-term against that same threshold as a reference line, so you read how far over each breach goes, not only that it crossed.</p>
+
+                <p class="prose-lead" style="margin-top: 14px;">That is the distance between a QC report and a fix. You seek to the one shouted line and ride it, or to the one transient and cap it, while the rest of a nearly-right master stays untouched.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Violations screenshot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-violations.png" alt="Specula marking momentary, short-term, and true-peak loudness violations as coloured bands along a 5.1 master's waveform, with live breach counts (M 13, ST 11, TP 55) in the threshold strip and the momentary and short-term loudness curves below." loading="lazy" decoding="async">
+            <figcaption><strong>Every overshoot, located.</strong> Momentary, short-term, and true-peak breaches each light their blocks along the timeline, across every channel, with a live count per metric in the strip (here 13 / 11 / 55). Each one is a position you seek to, not a number you hunt for.</figcaption>
+        </figure>
     </section>
 
     <!-- The four modes and the catalog -->
