@@ -479,8 +479,9 @@
 
         <ol>
             <li><kbd>⌘O</kbd> - pick an audio file (WAV / AIFF / FLAC / CAF / MP3 / AAC).</li>
-            <li><kbd>Space</kbd> plays. <kbd>⌘.</kbd> stops.</li>
-            <li>Drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
+            <li><kbd>Space</kbd> plays. <kbd>⌘.</kbd> stops. <strong>Click</strong> the waveform to move the playhead.</li>
+            <li><kbd>⌘</kbd>-drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
+            <li><strong>Scroll</strong> to zoom, <kbd>⌥</kbd>-scroll for amplitude (vertical) zoom, <kbd>⇧</kbd>-scroll to pan.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
             <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
             <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements tabs).</li>
@@ -551,12 +552,12 @@
 
         <h3>Interaction</h3>
         <ul>
-            <li><strong>Click</strong> anywhere on the waveform → seek to that time.</li>
-            <li><strong>Drag</strong> → create a selection region. Drag the edge of an existing selection to resize. Drag the body to move it.</li>
-            <li><strong>Pinch</strong> (trackpad) or <strong>scroll-wheel</strong> (mouse) → horizontal zoom. Specula keeps the cursor pixel anchored as you zoom.</li>
+            <li><strong>Click</strong> or plain <strong>drag</strong> → move the playhead (a drag scrubs). A click also clears any existing selection.</li>
+            <li><kbd>⌘</kbd>-drag → create a selection region. Once a selection exists, drag its edge to resize it or drag its body to move it (no <kbd>⌘</kbd> needed). <kbd>Esc</kbd> clears it.</li>
+            <li><strong>Scroll</strong> (mouse wheel or two-finger swipe) → horizontal zoom. Specula keeps the cursor pixel anchored as you zoom.</li>
             <li><kbd>⇧</kbd>-scroll → pan / scroll horizontally.</li>
             <li><kbd>⌥</kbd>-scroll → amplitude (vertical) zoom.</li>
-            <li><strong>Double-click</strong> → reset zoom and selection.</li>
+            <li>The control strip below the waveform also has <strong>−/+ zoom</strong> buttons, a <strong>fit</strong> button (back to full width), and a separate <strong>amplitude</strong> zoom control, so you can zoom without a scroll wheel. The small <strong>?</strong> button there opens this gesture legend in-app.</li>
         </ul>
 
         <h3>Ruler</h3>
@@ -969,7 +970,7 @@
         <p class="prose">Hover anywhere on the spectrum and the cursor reads out frequency in Hz, magnitude in dB, <strong>and</strong> the closest musical note + cents deviation. Toggle on/off via the <strong>NOTES</strong> button in the FFT control strip.</p>
 
         <h3>Frequency selection - live BAND / NOTCH filter</h3>
-        <p class="prose">Drag horizontally on the spectrum to capture a frequency range. The selection is <strong>an active playback filter</strong>, not a measurement readout - playback is routed through it so you can hear what's inside or outside the band.</p>
+        <p class="prose"><kbd>⌘</kbd>-drag horizontally on the spectrum to capture a frequency range. The selection is <strong>an active playback filter</strong>, not a measurement readout - playback is routed through it so you can hear what's inside or outside the band.</p>
         <p class="prose">A <strong>BAND / NOTCH</strong> toggle in the FFT control strip switches the filter mode:</p>
         <ul>
             <li><strong>BAND</strong> (band-pass) - only the selected range passes. Everything outside the band is silenced. Solo a range to hear what's there: <em>"is that 4&nbsp;kHz buzz a sibilance issue or a ground loop?"</em></li>
@@ -1694,6 +1695,17 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>[</kbd></td><td class="wrap-ok">Step rate down</td></tr>
             <tr><td><kbd>]</kbd></td><td class="wrap-ok">Step rate up</td></tr>
             <tr><td><kbd>\</kbd></td><td class="wrap-ok">Reset rate to 1×</td></tr>
+        </table>
+
+        <h3>Waveform navigation (mouse / trackpad)</h3>
+        <table>
+            <tr><th>Gesture</th><th>Action</th></tr>
+            <tr><td class="wrap-ok"><strong>Click</strong> / plain <strong>drag</strong></td><td class="wrap-ok">Move the playhead (drag scrubs)</td></tr>
+            <tr><td class="wrap-ok"><kbd>⌘</kbd>-drag</td><td class="wrap-ok">Create a selection region</td></tr>
+            <tr><td class="wrap-ok">Drag a selection's <strong>edge / body</strong></td><td class="wrap-ok">Resize / move it</td></tr>
+            <tr><td class="wrap-ok"><strong>Scroll</strong> (wheel or two-finger)</td><td class="wrap-ok">Horizontal zoom (cursor-anchored)</td></tr>
+            <tr><td class="wrap-ok"><kbd>⇧</kbd>-scroll</td><td class="wrap-ok">Pan horizontally</td></tr>
+            <tr><td class="wrap-ok"><kbd>⌥</kbd>-scroll</td><td class="wrap-ok">Amplitude (vertical) zoom</td></tr>
         </table>
 
         <h3>Selection &amp; analysis</h3>
