@@ -435,7 +435,7 @@
     <header class="page-header" id="top">
         <p class="page-eyebrow">Specula · User guide</p>
         <h1>Everything Specula does, and how to drive it.</h1>
-        <p class="page-lede">This page is the canonical reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The same content is mirrored in <code>USER-GUIDE.md</code> in the Specula repository.</p>
+        <p class="page-lede">This page is the canonical reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents">
@@ -523,7 +523,7 @@
         <p class="prose">Stop is unchanged either way: it always rewinds to the beginning of the file.</p>
 
         <h3>Playback rate</h3>
-        <p class="prose">Variable rate from 0.25× to 2×, with optional pitch preservation (timestretch) via <code>AVAudioUnitTimePitch</code>.</p>
+        <p class="prose">Variable rate from 0.25× to 2×, with optional pitch preservation (timestretch).</p>
         <table>
             <tr><td><kbd>[</kbd></td><td class="wrap-ok">Step rate down</td></tr>
             <tr><td><kbd>]</kbd></td><td class="wrap-ok">Step rate up</td></tr>
@@ -602,9 +602,9 @@
             <li><strong>Dynamic Range</strong>, <strong>Headroom</strong>, <strong>Speech-gated Noise Floor</strong>.</li>
             <li><strong>Per-channel Peak / RMS / Crest Factor / DC</strong>.</li>
             <li><strong>Stereo width</strong> curve, <strong>loudness curves</strong> (momentary / short-term / integrated per-100&nbsp;ms).</li>
-            <li><strong>Spectrogram columns</strong> for the whole file, <em>if</em> the new "Auto-compute spectrogram on load" toggle is enabled in Settings → Spectrogram → Performance. Off by default; see <a href="#spectrogram">Spectrogram</a>.</li>
+            <li><strong>Spectrogram columns</strong> for the whole file, <em>if</em> the "Auto-compute spectrogram on load" toggle is enabled in Settings → Spectrogram → Performance. Off by default; see <a href="#spectrogram">Spectrogram</a>.</li>
         </ul>
-        <p class="prose">These numbers feed the InfoPanel's Offline tab and both the PDF and JSON reports immediately after open. A typical music track finishes the pass in a few hundred milliseconds. Long-form audio takes proportionally longer.</p>
+        <p class="prose">These numbers feed the info panel's Offline tab and both the PDF and JSON reports immediately after open. A typical music track finishes the pass in a few hundred milliseconds. Long-form audio takes proportionally longer.</p>
 
         <h3>Selection analysis (⌘Return)</h3>
         <p class="prose">⌘Return reruns the full analysis pipeline on the current selection rather than the whole file. Use it when you want metrics scoped to a specific region (a chorus, a problem section, a candidate edit point), or when you want the <strong>averaged FFT spectrum</strong> view.</p>
@@ -621,7 +621,7 @@
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>You no longer need ⌘Return just to populate true peak or per-channel stats on a freshly loaded file. Those land in the Offline tab and the report automatically. Reach for ⌘Return when the question is about a region of the file, or when you want the averaged spectrum on the FFT view.</p>
+            <p>⌘Return is not required to populate true peak or per-channel stats on a freshly loaded file: those land in the Offline tab and the report automatically. Reach for ⌘Return when the question is about a region of the file, or when you want the averaged spectrum on the FFT view.</p>
         </div>
 
         <figure class="shot shot--narrow">
@@ -639,9 +639,9 @@
     <section class="guide-section" id="loudness">
         <h2>5. EBU R128 loudness <a href="#loudness" class="anchor">#</a></h2>
 
-        <p class="prose">Specula's <code>LoudnessProcessor</code> implements full ITU-R BS.1770-4 / EBU R128:</p>
+        <p class="prose">Specula implements full ITU-R BS.1770-4 / EBU R128:</p>
         <ul>
-            <li><strong>K-weighting</strong> - two cascaded biquad IIR sections via <code>vDSP_biquad</code>, coefficients computed once per sample rate.</li>
+            <li><strong>K-weighting</strong> - two cascaded biquad IIR sections, coefficients computed once per sample rate.</li>
             <li><strong>100 ms gating blocks</strong> - each block contributes one mean square value.</li>
             <li><strong>400 ms sliding window</strong> for momentary.</li>
             <li><strong>3 second sliding window</strong> for short-term.</li>
@@ -670,7 +670,7 @@
         <p class="prose">The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-file or whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, Noise Floor (Podcast mode), and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
 
         <h3>Mode (Music / Podcast / VOD / Broadcast)</h3>
-        <p class="prose">The InfoPanel has a top-level <strong>Mode</strong> picker right under the File section. Mode is the per-file analysis context - switch it to reframe the same file as a different deliverable. It drives both the Loudness Targets panel and which metric rows appear in the sidebar:</p>
+        <p class="prose">The info panel has a top-level <strong>Mode</strong> picker right under the File section. Mode is the per-file analysis context - switch it to reframe the same file as a different deliverable. It drives both the Loudness Targets panel and which metric rows appear in the sidebar:</p>
 
         <table>
             <tr><th>Metric</th><th>Music</th><th>Podcast</th><th>VOD</th><th>Broadcast</th></tr>
@@ -714,7 +714,7 @@
             <tr><td><code>nonComplianceActual</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The actual reading on the failing criterion.</td></tr>
             <tr><td><code>nonComplianceLimit</code></td><td class="wrap-ok">number</td><td class="wrap-ok">The ceiling or band edge the failing criterion exceeded.</td></tr>
         </table>
-        <p class="prose">The addition is backwards-compatible: existing JSON consumers that ignore the field continue to work. Useful for batch QC scripts, CI gates on render farms, and Shortcuts workflows that branch on whether a master will pass a given platform without re-running the math.</p>
+        <p class="prose">JSON consumers that ignore the field keep working. Useful for batch QC scripts, CI gates on render farms, and Shortcuts workflows that branch on whether a master will pass a given platform without re-running the math.</p>
 
         <figure class="shot shot--narrow">
             <img src="specula-targets-vod.png" alt="VOD mode loudness targets with the Netflix row showing the dialog reference at −27 LKFS." loading="lazy" decoding="async">
@@ -833,7 +833,7 @@
         <p class="prose">Specula uses a two-tier voice activity detection pipeline to compute integrated loudness over speech-only blocks. This matters for podcast / dialog / film mixing where you want to ignore room tone, music beds, and silence.</p>
 
         <h3>Tier 1 - Silero neural VAD</h3>
-        <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms <code>[Bool]</code> history is injected into <code>LoudnessProcessor</code>. Selection analysis re-runs Silero on just the selection.</p>
+        <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms speech / non-speech history feeds the loudness measurement. Selection analysis re-runs Silero on just the selection.</p>
 
         <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
         <p class="prose">Used when Silero is unavailable (it fails to load or returns an error). Four spectral features:</p>
@@ -857,7 +857,7 @@
         </figure>
 
         <h3>Tuning the VAD (Settings → Speech)</h3>
-        <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history is fed straight back into <code>LoudnessProcessor</code>.</p>
+        <p class="prose">Three sliders bias the detector for the content you work with. Edits trigger a re-analysis in roughly half a second, and the new history feeds straight back into the loudness measurement.</p>
         <ol>
             <li><strong>Threshold</strong> (0.1 - 0.9, default 0.5) - confidence below which a frame is classified as non-speech. Lower picks up quieter speech; higher rejects more non-speech.</li>
             <li><strong>Minimum region duration</strong> (0.05 - 2.0 s, default 0.10) - shorter detections are dropped. Raise to reject clicks and very short interjections.</li>
@@ -977,7 +977,7 @@
             <li><strong>NOTCH</strong> (band-reject) - the selected range is cut from playback. Confirm you've identified the offending frequency before reaching for an EQ.</li>
         </ul>
         <p class="prose">The filter is live - adjust the selection edges and the audio responds in real time. Drag the body of the selection to slide the band across the spectrum while keeping its width.</p>
-        <p class="prose">Implementation: stereo files use <code>AVAudioUnitEQ</code> (highpass + lowpass for BAND, parametric −40 dB cut for NOTCH); multichannel files use raw biquad coefficients applied per-channel in the render callback.</p>
+        <p class="prose">Stereo files use a highpass + lowpass pair for BAND and a parametric −40 dB cut for NOTCH; multichannel files apply the same filtering per channel.</p>
         <p class="prose"><kbd>Esc</kbd> clears the selection and bypasses the filter.</p>
 
         <h3>Smoothing</h3>
@@ -1058,7 +1058,7 @@
         <p class="prose">Pick a single channel or a downmix. The spectrogram persists per-slot in compare mode, so switching slots restores that slot's spectrogram history (both live and offline).</p>
 
         <h3>Settings persistence</h3>
-        <p class="prose">Colormap, frequency scale, dB Floor, dB Ceiling, and FFT overlap all persist across launches via UserDefaults. Tune the view once and Specula remembers.</p>
+        <p class="prose">Colormap, frequency scale, dB Floor, dB Ceiling, and FFT overlap all persist across launches. Tune the view once and Specula remembers.</p>
     </section>
 
     <hr class="divider">
@@ -1164,7 +1164,7 @@
             <li><strong>7.1 downmix</strong> (file is 8 ch): 7.1 to Lo/Ro, 7.1 to Lt/Rt (PLII, same polarity rule applied to both side and back surround pairs), 7.1 to 5.1.</li>
             <li><strong>Test</strong> (file is 6 ch): Ls/Rs solo, C/LFE solo, for inspecting surround content in isolation.</li>
         </ul>
-        <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted so the preset acts as a complete replacement rather than a partial overlay.</p>
+        <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted, so the preset fully replaces the routing.</p>
         <p class="prose">Coefficients follow ITU-R BS.775-3. The &minus;3 dB factor on summed channels is 1/sqrt(2), the equal-power gain for correlated channel summation. The Pro Logic II coefficients (&minus;1.2 dB and &minus;6.2 dB on surrounds, with phase inversion on the left total) match the Dolby specification.</p>
 
         <h3>Saved (user) presets</h3>
@@ -1174,7 +1174,7 @@
             <li><strong>Import</strong> reads a Specula Routing Presets JSON file and appends any presets not already in your library (deduplicated by ID). Use this to receive setups from a collaborator.</li>
             <li><strong>Export</strong> writes all your saved presets to a JSON file, ready to share.</li>
             <li><strong>Right-click a saved preset</strong> for Rename, Export (just that one), or Delete.</li>
-            <li>Saved presets are persisted in UserDefaults under a versioned key, so a future schema bump can migrate old entries instead of dropping them.</li>
+            <li>Saved presets persist across launches and survive future updates.</li>
         </ul>
 
 
@@ -1211,7 +1211,7 @@
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
-        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the <code>CompareToolbarView</code> sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
+        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the compare toolbar sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
 
         <figure class="shot">
             <img src="specula-compare-dock.png" alt="Compare mode with multiple slots loaded, the file dock showing per-slot metrics." loading="lazy" decoding="async">
@@ -1247,7 +1247,7 @@
 
         <h3>Editable offset and gain</h3>
         <p class="prose">The compare toolbar's offset (samples + ms) and gain (dB) readouts are <strong>editable TextFields</strong>, not just display labels. Click into one, type the value you want, press <kbd>Return</kbd> to commit (or <kbd>Esc</kbd> to cancel). Each field has a small <strong>↺</strong> reset button that appears when the value is non-zero - one click returns it to zero. Right-click either field for the same Reset entry.</p>
-        <p class="prose">The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit next to the fields for fine adjustments by ear. Combined with level-match into a single atomic gain read by the audio render callback. The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with it on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
+        <p class="prose">The ±1 sample / ±1 ms / ±0.1 dB / ±1 dB nudge buttons sit next to the fields for fine adjustments by ear, folded together with level-match into one gain stage. The transport bar's <strong>↺ Hold play-start</strong> toggle (full description in <a href="#playback">Loading &amp; playback → Transport</a>) extends to compare-mode nudges: with it on, every nudge re-seeks playback to where Play was last started, so the comparison point stays fixed while you click ±1 sample / ±1 ms.</p>
 
 
         <h3>Auto-align</h3>
@@ -1296,7 +1296,7 @@
         <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
-        <p class="prose">All operations are pure DSP functions that take the current channel data and return a new buffer. The pipeline pauses playback, captures an undo snapshot (pushed onto a 16-level disk-backed stack), runs the DSP, swaps the buffer, and resumes.</p>
+        <p class="prose">Each operation pauses playback, captures an undo snapshot (a 16-level disk-backed stack), applies the change, and resumes.</p>
 
         <table>
             <tr><th>Operation</th><th>Notes</th></tr>
@@ -1344,7 +1344,7 @@
         <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters) and the Level Dialogue pass, since the three modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit or Chapter.</p>
 
         <h3>Save and Discard</h3>
-        <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current buffer to a new file using <code>AVAudioFile</code> (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
+        <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current audio to a new file (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
         <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, and Dialogue alike, because those three modes share one editing session.</p>
 
         <h3>Edit toolbar</h3>
@@ -1372,7 +1372,7 @@
         <p class="prose">The detector absorbs leading and trailing silence into the first and last chapters. Chapter 1 always starts at 0 s, the last chapter always ends at file duration, and the ribbon covers the full file timeline with no gaps at the edges.</p>
 
         <h3>Boundaries follow zoom and scroll</h3>
-        <p class="prose">Boundary markers are drawn inside every time-axis section that has one open: waveform, loudness curve, spectrogram, and stereo width. Each section uses its own time-to-x mapping, so the boundaries stay aligned across stacked views at any zoom level. The chapter ribbon mirrors the waveform's zoom and horizontal scroll; ribbon slots are positioned absolutely (rather than packed in an HStack) so narrow chapters keep their width when neighbours dominate the visible range.</p>
+        <p class="prose">Boundary markers are drawn inside every time-axis section that has one open: waveform, loudness curve, spectrogram, and stereo width. Each section uses its own time-to-x mapping, so the boundaries stay aligned across stacked views at any zoom level. The chapter ribbon mirrors the waveform's zoom and horizontal scroll, and narrow chapters keep their width when neighbours dominate the visible range.</p>
 
         <h3>Editing boundaries</h3>
         <p class="prose">Each chapter boundary draws as a vertical teal line with a "#N" badge labelling the chapter that starts at that boundary. <strong>Drag</strong> a boundary on the waveform to move it. Hit zone is 6 px; the cursor switches to the macOS resize cursor when it lands on a boundary. Drag clamps so neither neighbouring chapter shrinks below 1 s of content. A time + dBFS hover readout tracks the boundary's new position while the drag is in progress.</p>
@@ -1487,7 +1487,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading. For the audiobook and podcast producers who live in spreadsheets, <strong>Chapter mode → Export CSV…</strong> writes the per-chapter metrics table as a CSV (one row per chapter), and the CLI's <code>specula report &lt;file&gt; --format csv</code> does the same from the command line. See <a href="#chapter">Chapter mode</a>.</p>
 
-        <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the GUI's InfoPanel renders. No more "run <kbd>⌘Return</kbd> to measure true peak" placeholder for the whole-file case.</p>
+        <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the info panel shows.</p>
 
         <p class="prose">Each entry in <code>loudnessTargets.targets[]</code> in the JSON envelope carries an inline <code>verdict</code> object so a Shortcut, CLI pipeline, or batch QC script can branch on pass / fail without recomputing it against the target spec. Fields: <code>status</code> (<code>compliant</code> / <code>penalty</code> / <code>notCompliant</code> / <code>unavailable</code>), <code>actualLUFS</code>, plus <code>penaltyGainDB</code> / <code>penaltyApplies</code> / <code>truePeakClean</code> for streaming targets and <code>nonComplianceReason</code> / <code>nonComplianceActual</code> / <code>nonComplianceLimit</code> for hard-spec fails. The PDF and HTML reports render the same verdict as a status badge. Full field reference in <a href="#loudness">Loudness targets</a>.</p>
     </section>
@@ -1519,19 +1519,20 @@ specula analyze mix-v2.wav --no-stereo     # skip the per-block correlation pass
         <h3><code>specula compare &lt;A&gt; &lt;B&gt;</code></h3>
         <p class="prose">Two files side-by-side with <code>B − A</code> deltas for every metric.</p>
         <pre><code>specula compare master-v1.wav master-v2.wav
-specula compare master-v1.wav master-v2.wav --match-loudness</code></pre>
+specula compare master-v1.wav master-v2.wav --match-loudness
+specula compare master-v1.wav master-v2.wav --no-vad   # skip Silero on both files</code></pre>
         <p class="prose"><code>--match-loudness</code> subtracts the integrated-LUFS delta from B's peak / speech-gated readings so the deltas surface spectral or shape differences instead of being dominated by level mismatch. Useful when you've rebalanced a mix but want to know whether the tonality really changed.</p>
         <p class="prose"><code>--out-diff &lt;PATH&gt;</code> additionally writes the <strong>A − gainB·B residual</strong> to that path as a Float32 WAV (paired with <code>--match-loudness</code> to net out pure level differences before subtracting). The compare JSON gains a <code>residual</code> block carrying the residual's peak / RMS / applied gain so a script can branch on the residual energy without re-loading the file. Sample rate + channel count must match between A and B - the diff refuses structural mismatches rather than silently resampling.</p>
 
         <h3><code>specula edit &lt;FILE&gt; --out &lt;OUT&gt; …</code></h3>
-        <p class="prose">Applies edit operations and writes the result to <code>--out</code>. <code>--out</code> is required and <strong>must not resolve to the same path as the input</strong> - Specula never writes in place, the same contract the GUI's Save As enforces.</p>
+        <p class="prose">Applies edit operations and writes the result to <code>--out</code> (<code>-o</code> for short). <code>--out</code> is required and <strong>must not resolve to the same path as the input</strong> - Specula never writes in place, the same contract the app's Save As enforces.</p>
         <pre><code>specula edit mix.wav --out mix-norm.wav --normalize-lufs=-14 --lufs-ceiling=-1
 specula edit mix.wav --out mix-trimmed.wav --trim 5.0:30.5
 specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>Negative values need the <code>--option=value</code> form</strong> (e.g. <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>). Swift's argument parser reads a bare leading <code>-</code> as a short-option name and refuses the value otherwise.</p>
+            <p><strong>Negative values need the <code>--option=value</code> form</strong> (e.g. <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>). The CLI otherwise reads a bare leading <code>-</code> as an option name and rejects the value.</p>
         </div>
 
         <p class="prose">Supported operations (applied in this order if multiple are passed):</p>
@@ -1549,11 +1550,11 @@ specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
         <p class="prose">Full Specula report through the headless pipeline, in your choice of format.</p>
         <pre><code>specula report mix.wav --mode music                                   # JSON to stdout
 specula report mix.wav --mode podcast --out report.json               # JSON to file
-specula report mix.wav --mode music --format html --out report.html   # the same dark-themed HTML the GUI preview window renders
-specula report mix.wav --mode music --format pdf  --out report.pdf    # rasterised PDF (off-screen WKWebView)
+specula report mix.wav --mode music --format html --out report.html   # the same dark-themed HTML the app's preview window renders
+specula report mix.wav --mode music --format pdf  --out report.pdf    # rasterised PDF
 specula report book.wav --mode podcast --format csv --out chapters.csv # per-chapter metrics table as CSV
 specula report mix.wav --mode broadcast --no-curve                    # drop the loudness curve for smaller batch output</code></pre>
-        <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, <code>pdf</code>, or <code>csv</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>csv</code> emits the per-chapter metrics table when the file has chapters, otherwise a flat metric,value table of the file-level numbers. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers.</p>
+        <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, <code>pdf</code>, or <code>csv</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>csv</code> emits the per-chapter metrics table when the file has chapters, otherwise a flat metric,value table of the file-level numbers. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers. <code>--no-vad</code> skips Silero speech detection (the speech-gated fields read <code>-inf</code>) and <code>--no-stereo</code> skips the correlation pass, both for faster unattended batches.</p>
 
         <h3>Output format</h3>
         <p class="prose">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic. Non-finite floats (silence → <code>-∞</code>) render as <code>"-inf"</code> strings rather than blowing up the encoder.</p>
@@ -1576,10 +1577,10 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <p class="prose">Each action's behaviour:</p>
         <ul>
-            <li><strong>Get Measurements</strong> - every numeric field is exposed as a Shortcuts variable a downstream step can compare against ("if Integrated LUFS &gt; -12 then …").</li>
+            <li><strong>Get Measurements</strong> - every numeric field is exposed as a Shortcuts variable a downstream step can compare against ("if Integrated LUFS &gt; -12 then …"). Carries a <strong>Skip Stereo Correlation</strong> toggle (off by default) to shave the per-block correlation pass on very long files.</li>
             <li><strong>Compare Files</strong> - the <em>Match Loudness</em> toggle subtracts the integrated-LUFS delta from B's peak / speech-gated numbers so the deltas surface spectral / shape differences instead of pure level drift.</li>
             <li><strong>Get Compare Diff</strong> - returns the residual audio you can listen to or further analyse. With <em>Match Loudness</em> on, B is scaled to A's integrated LUFS before subtracting so the residual reflects spectral / shape differences. Sample rate + channel count must match between A and B; the intent throws a typed error otherwise (no resampling).</li>
-            <li><strong>Get Report</strong> - <em>Format</em> selects JSON / HTML / PDF; PDF is the dark-themed report identical to the GUI preview window. Pipe the result straight into AirDrop, Save File, Mail, or any Shortcut file step.</li>
+            <li><strong>Get Report</strong> - <em>Format</em> selects JSON / HTML / PDF; PDF is the dark-themed report identical to the app's preview window. A <strong>Loudness Mode</strong> picker (Music / Podcast / VOD / Broadcast) chooses which target catalog drives the verdict, the same as the CLI's <code>--mode</code>. Pipe the result straight into AirDrop, Save File, Mail, or any Shortcut file step.</li>
         </ul>
 
         <h4>Binding the file input</h4>
@@ -1605,12 +1606,22 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <li>"Get diff with Specula" / "Get diff from paths with Specula"</li>
             <li>"Build a report with Specula" / "Build a report from path with Specula"</li>
         </ul>
+        <p class="prose">Each file-input action also answers to a second phrasing: "Get measurements from Specula", "Compare audio in Specula", "Get Specula report".</p>
         <p class="prose">Type one into Spotlight (<kbd>⌘Space</kbd>). Intents with required file parameters will prompt for the file via a picker; for variable-driven workflows the Shortcuts app is the better surface.</p>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
             <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the first speech-gated run may take a moment as the model loads.</p>
         </div>
+
+        <h3>Finder Services (right-click → Services)</h3>
+        <p class="prose">Three services install automatically and appear under <strong>Services</strong> when you right-click one or more audio files in Finder. They work out of the box, with nothing to build in Shortcuts or configure in Automator.</p>
+        <ul>
+            <li><strong>Analyze in Specula</strong> opens the selected file with live measurement.</li>
+            <li><strong>Compare in Specula</strong> opens 1-6 selected files: the first becomes slot A (the reference), the rest land in slots B through F.</li>
+            <li><strong>Get Report from Specula</strong> runs headlessly: it analyses the file, builds the PDF, and saves it as <code>Specula Report - &lt;filename&gt;.pdf</code> next to the source (auto-numbered if that name exists), falling back to <code>~/Downloads</code> if the source folder isn't writable, then reveals it in Finder. If Specula wasn't running it stays hidden the whole time, so no empty window pops up.</li>
+        </ul>
+        <p class="prose">If the entries don't appear right after first install, log out and back in (or reboot) so Launch Services indexes them.</p>
     </section>
 
     <hr class="divider">
@@ -1633,18 +1644,18 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         </ul>
         <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
 
-        <p class="prose"><strong>Liquid Glass chrome</strong> (macOS 26+ only). On macOS 26 the transport bar, file dock, info panel, seek bar, and section-toggle strip use the system Liquid Glass material so they feel native alongside Finder, Safari, and other macOS 26 apps. Default on. Turn off in <strong>Settings → Layout → Appearance</strong> for the previous solid dark chrome, useful when recording screenshots or screencasts where the depth-aware refraction would change with whatever's underneath the window, or simply if you prefer the flat look. The toggle is hidden on macOS 14-25 (Liquid Glass isn't available there; chrome stays solid regardless).</p>
+        <p class="prose"><strong>Liquid Glass chrome</strong> (macOS 26+ only). On macOS 26 the transport bar, file dock, info panel, seek bar, and section-toggle strip use the system Liquid Glass material so they feel native alongside Finder, Safari, and other macOS 26 apps. Default on. Turn off in <strong>Settings → Layout → Appearance</strong> for solid dark chrome, useful when recording screenshots or screencasts where the depth-aware refraction would change with whatever's underneath the window, or simply if you prefer the flat look. The toggle is hidden on macOS 14-25 (Liquid Glass isn't available there; chrome stays solid regardless).</p>
 
-        <p class="prose">With the toggle on, each chrome strip renders as a <strong>rounded floating pill</strong> (radius 6, with a small dark gutter between strips and the window edges), the macOS 26 native pattern Music, Photos, and Calendar use. The Liquid Glass material's edge highlights become the rim of each pill rather than horizontal lines crossing the window. The SeekBar's accent fill also picks up the glass material when the toggle is on (otherwise solid). With the toggle off, chrome reverts to edge-to-edge square strips, the rounding belongs to the Liquid Glass look.</p>
+        <p class="prose">With the toggle on, each chrome strip renders as a <strong>rounded floating pill</strong> (radius 6, with a small dark gutter between strips and the window edges), the macOS 26 native pattern Music, Photos, and Calendar use. The Liquid Glass material's edge highlights become the rim of each pill rather than horizontal lines crossing the window. The seek bar's accent fill also picks up the glass material when the toggle is on (otherwise solid). With the toggle off, chrome is edge-to-edge square strips; the rounding belongs to the Liquid Glass look.</p>
 
-        <p class="prose">The SeekBar's track and fill are 8 px tall regardless of the toggle (was 3 px before), a generally more substantial slider lane that reads better whether it's filled with glass or solid colour.</p>
+        <p class="prose">The seek bar's track and fill are 8 px tall regardless of the toggle, a substantial slider lane that reads well whether it's filled with glass or solid colour.</p>
 
         <h3>Spectrogram</h3>
         <ul>
             <li><strong>Colormap</strong> - Inferno / Turbo / Plasma / Viridis.</li>
             <li><strong>Frequency Scale</strong> - Log / Mel.</li>
             <li><strong>dB Range</strong> - Floor (−120 to −24) and Ceiling (−18 to 0).</li>
-            <li><strong>Time resolution (FFT overlap)</strong> - 75% (default), 87.5%, 93.75%, 96.875%, 98.4375%. Higher overlap = denser columns per second. The two highest settings can lengthen offline Analyse at large FFT sizes; the Settings footer flags them as deliberate-use options.</li>
+            <li><strong>Time resolution (FFT overlap)</strong> - 75% (default), 87.5%, 93.75%, 96.875%, 98.4375%. Higher overlap = denser columns per second. The two highest settings can lengthen offline Analyse at large FFT sizes; the Settings footer flags them as the heavier options.</li>
             <li><strong>Performance → Auto-compute spectrogram on load</strong> - off by default. When on, the whole-file offline spectrogram is built during the load-time analysis pass instead of waiting for <kbd>⌘Return</kbd> on a selection. Sub-second for typical music tracks; long-form audio takes proportionally longer.</li>
         </ul>
         <p class="prose">All six values (colormap, frequency scale, Floor, Ceiling, FFT overlap, auto-compute on load) persist across launches.</p>
