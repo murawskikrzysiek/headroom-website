@@ -72,8 +72,13 @@
   </section>
 
   <section class="priv-section">
+    <h2>License activation and validation</h2>
+    <p>When you activate a license, or when Specula validates it on launch, the app contacts Lemon Squeezy's licensing API at <code>api.lemonsqueezy.com</code>. The only data sent is your license key and a per-device instance ID generated for the activation. No audio, no file contents, and no personal data are transmitted. Your audio never leaves your Mac. During the trial, before any license is entered, the app makes no such calls.</p>
+  </section>
+
+  <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility, but no personal data is transmitted. You can disable automatic checks in the app's menu.</p>
+    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. This request carries only the standard details of an HTTPS request; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. You can disable automatic checks in the app's menu.</p>
   </section>
 
   <section class="priv-section">

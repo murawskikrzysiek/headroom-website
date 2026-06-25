@@ -9,6 +9,10 @@
     <meta property="og:description" content="Complete reference for Specula - every feature, every keyboard shortcut, every setting.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula User Guide">
+    <meta name="twitter:description" content="Complete reference for Specula - every feature, every keyboard shortcut, every setting.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -833,7 +837,7 @@
         <p class="prose">Specula uses a two-tier voice activity detection pipeline to compute integrated loudness over speech-only blocks. This matters for podcast / dialog / film mixing where you want to ignore room tone, music beds, and silence.</p>
 
         <h3>Tier 1 - Silero neural VAD</h3>
-        <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms speech / non-speech history feeds the loudness measurement. Selection analysis re-runs Silero on just the selection.</p>
+        <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad" rel="noopener">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio" rel="noopener">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms speech / non-speech history feeds the loudness measurement. Selection analysis re-runs Silero on just the selection.</p>
 
         <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
         <p class="prose">Used when Silero is unavailable (it fails to load or returns an error). Four spectral features:</p>
@@ -848,7 +852,7 @@
         <ul>
             <li><strong>Speech-gated Integrated LUFS (SG-I)</strong> - same dual gating as full integrated, but only accumulates VAD-classified speech blocks. Threshold reference shown in sidebar is −27 LUFS (Netflix dialog target).</li>
             <li><strong>Speech %</strong> - fraction of the file (or selection) classified as speech. <code>-</code> is shown for content with &lt; 0.5 % speech.</li>
-            <li><strong>Noise Floor</strong> - dB RMS over every VAD-classified non-speech sample. Live during playback; offline value populates after analysis. Turns red above the ACX ceiling of −60 dB RMS, the single most common audiobook rejection reason. Files with no non-speech blocks read <code>−∞</code>.</li>
+            <li><strong>Noise Floor</strong> - dB RMS over every VAD-classified non-speech sample. Live during playback; offline value populates after analysis. Turns red above the ACX ceiling of −60 dB RMS, a common audiobook rejection reason. Files with no non-speech blocks read <code>−∞</code>.</li>
         </ul>
 
         <figure class="shot">
@@ -902,7 +906,7 @@
         <p class="prose">Edited regions are auto-saved to <code>&lt;audio&gt;.dlg.json</code> next to the audio file (debounced 500 ms after the last edit). Sidecar files round-trip cleanly: re-opening the same audio re-applies your edits, and the schema is versioned (currently v1) so future format changes won't silently corrupt old work.</p>
 
         <h3>Acting on the regions: Level Dialogue</h3>
-        <p class="prose">The regions aren't only a measurement input. Once they're right, switch to Edit mode (<kbd>⌘1</kbd>) and use <strong><a href="#edit">Level Dialogue</a></strong> to act on them. It ducks the room tone in the non-speech regions (a downward expander with a fast attack and slow release, so word onsets and tails stay clean) and can optionally lift the dialogue to a target in the same pass. Gating the silence before applying the makeup gain is what lets dialogue normalize without the noise floor riding up with it, the fix for the most common ACX rejection. When you lift to a target you also set a true-peak ceiling, and the makeup boost is capped there by the same limiter Normalize uses. It's a gate, not a denoiser, so it helps a marginal room tone rather than a hissy recording.</p>
+        <p class="prose">The regions aren't only a measurement input. Once they're right, switch to Edit mode (<kbd>⌘1</kbd>) and use <strong><a href="#edit">Level Dialogue</a></strong> to act on them. It ducks the room tone in the non-speech regions (a downward expander with a fast attack and slow release, so word onsets and tails stay clean) and can optionally lift the dialogue to a target in the same pass. Gating the silence before applying the makeup gain is what lets dialogue normalize without the noise floor riding up with it, the fix for a common ACX rejection. When you lift to a target you also set a true-peak ceiling, and the makeup boost is capped there by the same limiter Normalize uses. It's a gate, not a denoiser, so it helps a marginal room tone rather than a hissy recording.</p>
 
         <figure class="shot">
             <img src="specula-dialogue-mode.png" alt="Dialogue mode with region tints for auto, edited, and hand-painted regions and the dialogue toolbar." loading="lazy" decoding="async">
