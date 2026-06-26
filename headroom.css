@@ -252,6 +252,9 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .nl-consent a:hover { color: var(--text); }
 .nl-error { color: var(--red, #f67c7c); font-size: 0.78rem; margin-top: 2px; padding: 0 4px; }
 .nl-error a { color: var(--red, #f67c7c); border-bottom: 1px solid rgba(246,124,124,0.4); }
+/* Honeypot: off-screen, not focusable, never shown to humans. */
+.nl-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.cf-turnstile { margin: 4px 0 2px; }
 
 /* ── 11. Dig-deeper tiles ────────────────────────────────────────────────── */
 .tiles { display: grid; gap: 12px; }

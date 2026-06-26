@@ -151,6 +151,12 @@
           <input type="email" name="email" placeholder="you@studio.com" required>
           <button type="submit">Subscribe &#8594;</button>
         </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
         <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
       </form>
     </div>
@@ -179,5 +185,6 @@
 
 <script src="../waveform.js"></script>
 <script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
