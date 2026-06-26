@@ -839,13 +839,13 @@
         <h3>Tier 1 - Silero neural VAD</h3>
         <p class="prose">Runs the <a href="https://github.com/snakers4/silero-vad" rel="noopener">Silero VAD</a> model via <a href="https://github.com/FluidInference/FluidAudio" rel="noopener">FluidAudio</a>. On file load, the entire file is downsampled to 16 kHz mono and classified. The resulting per-100&nbsp;ms speech / non-speech history feeds the loudness measurement. Selection analysis re-runs Silero on just the selection.</p>
 
-        <h3>Tier 2 - Spectral fallback (SpeechVAD)</h3>
+        <h3>Tier 2 - Spectral fallback</h3>
         <p class="prose">Used when Silero is unavailable (it fails to load or returns an error). Four spectral features:</p>
         <ol>
             <li><strong>HF gate</strong> - if HF energy &gt; 0.35 × total → non-speech (rejects plosives and cymbals).</li>
             <li><strong>Band Energy Ratio</strong> (300-3 400 Hz) - threshold 0.45.</li>
             <li><strong>Spectral Flatness Measure</strong> (dB) - threshold −8 dB.</li>
-            <li><strong>Harmonicity + Spectral Flux</strong> - ACF peak ratio ≥ 0.40 = voiced.</li>
+            <li><strong>Harmonicity + Spectral Flux</strong> - voiced when the 2nd and 3rd harmonics of the dominant 80-400 Hz bin carry ≥ 20% of the fundamental's energy.</li>
         </ol>
 
         <h3>Output</h3>
@@ -1573,8 +1573,8 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <table>
             <tr><th>Action</th><th>File-input</th><th>Path-input</th><th>Returns</th></tr>
-            <tr><td class="wrap-ok">Measurements</td><td class="wrap-ok"><strong>Get Measurements</strong></td><td class="wrap-ok"><strong>Get Measurements (from Path)</strong></td><td class="wrap-ok"><code>SpeculaMeasurements</code> (I, M, S, LRA, TP, SP, DR, Speech-Gated, Speech %)</td></tr>
-            <tr><td class="wrap-ok">Numeric compare</td><td class="wrap-ok"><strong>Compare Files</strong></td><td class="wrap-ok"><strong>Compare Files (from Paths)</strong></td><td class="wrap-ok"><code>SpeculaComparison</code> (both sides + B − A deltas)</td></tr>
+            <tr><td class="wrap-ok">Measurements</td><td class="wrap-ok"><strong>Get Measurements</strong></td><td class="wrap-ok"><strong>Get Measurements (from Path)</strong></td><td class="wrap-ok"><strong>Specula Measurements</strong> (I, M, S, LRA, TP, SP, DR, Speech-Gated, Speech %)</td></tr>
+            <tr><td class="wrap-ok">Numeric compare</td><td class="wrap-ok"><strong>Compare Files</strong></td><td class="wrap-ok"><strong>Compare Files (from Paths)</strong></td><td class="wrap-ok"><strong>Specula Comparison</strong> (both sides + B − A deltas)</td></tr>
             <tr><td class="wrap-ok">Audio compare</td><td class="wrap-ok"><strong>Get Compare Diff</strong></td><td class="wrap-ok"><strong>Get Compare Diff (from Paths)</strong></td><td class="wrap-ok">residual WAV file (A − gainB·B)</td></tr>
             <tr><td class="wrap-ok">Report</td><td class="wrap-ok"><strong>Get Report</strong></td><td class="wrap-ok"><strong>Get Report (from Path)</strong></td><td class="wrap-ok">report file (JSON / HTML / PDF)</td></tr>
         </table>
@@ -1615,7 +1615,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>All eight intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the first speech-gated run may take a moment as the model loads.</p>
+            <p>The six measurement, compare, and report intents default to <strong>speech detection off</strong>. Flip the "Enable Speech Detection" toggle in the Shortcut step when you need speech-gated metrics; the first speech-gated run may take a moment as the model loads. The two Get Compare Diff intents return a pure residual, so they carry no speech toggle.</p>
         </div>
 
         <h3>Finder Services (right-click → Services)</h3>
