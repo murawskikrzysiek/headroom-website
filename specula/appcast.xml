@@ -30,6 +30,7 @@
 
         <item>
             <title>Version 1.0 - First public release</title>
+            <description>Pro audio analysis for macOS: EBU R128 loudness, speech-gated LUFS, FFT and spectrogram, six-file compare, and non-destructive editing.</description>
             <pubDate>Fri, 26 Jun 2026 12:00:00 +0000</pubDate>
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
