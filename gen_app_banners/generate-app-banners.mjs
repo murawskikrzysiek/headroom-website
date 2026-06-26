@@ -63,7 +63,7 @@ const APPS = [
     slug: 'specula',
     name: 'Specula',
     icon: join(ICONS_DIR, 'specula/icon.png'),
-    subtitle: 'Pro audio analysis — loudness, FFT, compare & edit',
+    subtitle: 'Pro audio analysis: loudness, FFT, compare & edit',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
 ];
@@ -212,7 +212,15 @@ async function writePng(canvas, path) {
 }
 
 // ─── MAIN ──────────────────────────────────────────────────────
-for (const app of APPS) {
+// Optional first arg: a single app slug (e.g. `node generate-app-banners.mjs
+// specula`) regenerates just that app. With no arg, every app is regenerated.
+const only = process.argv[2];
+const apps = only ? APPS.filter((a) => a.slug === only) : APPS;
+if (only && apps.length === 0) {
+  console.error(`Unknown app slug "${only}". Known: ${APPS.map((a) => a.slug).join(', ')}`);
+  process.exit(1);
+}
+for (const app of apps) {
   const og = await render(1200, 630,  app, 2); // → 2400×1260
   const ls = await render(1600, 1200, app, 2); // → 3200×2400
   await writePng(og, join(OUT_DIR, app.slug, 'og.png'));

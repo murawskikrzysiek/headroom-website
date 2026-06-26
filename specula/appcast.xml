@@ -28,7 +28,21 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- No releases yet. Add <item> entries below in reverse-chronological order. -->
+        <item>
+            <title>Version 1.0 - First public release</title>
+            <pubDate>Fri, 26 Jun 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-1.0.dmg"
+                sparkle:edSignature="Csgp5/QDsHVs2cBUSdvfAo5EhyQ9Wd49pZ6f4Rj0Uejq74N2+iULoG/3+3F05blEgHm7d65yUQPIiHQfkT00BQ=="
+                length="14471230"
+                type="application/octet-stream" />
+        </item>
+
+        <!-- Add newer <item> entries above this line, in reverse-chronological order. -->
 
     </channel>
 </rss>
