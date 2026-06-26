@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Specula Release Notes - Version History &amp; Changelog</title>
+  <link rel="canonical" href="https://headroomstudio.dev/specula/releases.html">
+  <meta name="description" content="Version history for Specula, the audio analysis and EBU R128 loudness metering app for macOS.">
+  <meta property="og:title" content="Specula Release Notes">
+  <meta property="og:description" content="Version history for Specula, the macOS audio analyser and EBU R128 / BS.1770-4 loudness meter.">
+  <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Self-contained for Sparkle's update window - embedded styles, no external deps, no animation. -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0b0b0f; --border:#1e1e2a; --border-soft:#1a1a24; --text:#eeeef6;
+      --text-2:#c8c8d8; --text-3:#6e6e90; --text-4:#4a4a64; --accent:#7c84f6; --green:#3ecf7c; --red:#f67c7c; --blue:#7c9af6; }
+    body { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-size: 14px; line-height: 1.6; background: var(--bg); color: var(--text);
+      padding: 28px 24px 48px; max-width: 580px; margin: 0 auto; -webkit-font-smoothing: antialiased; }
+    .back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: var(--accent); text-decoration: none; }
+    .app-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .app-icon { width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0; overflow: hidden; }
+    .app-icon img { width: 100%; height: 100%; display: block; }
+    .app-name { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+    .app-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    .prenote { padding: 14px 16px; background: #14141e; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 12.5px; color: #9c9cb8; line-height: 1.55; margin-bottom: 28px; }
+    .prenote strong { color: var(--text-2); }
+    .release { margin-bottom: 28px; }
+    .release + .release { padding-top: 18px; border-top: 1px solid var(--border-soft); }
+    .release-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+    .version { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: -0.2px; }
+    .date { font-size: 12px; color: var(--text-3); }
+    .badge-soon { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      background: rgba(124,132,246,0.16); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-left: auto; }
+    .changes { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .changes li { display: flex; align-items: flex-start; gap: 10px; color: var(--text-2); font-size: 13px; line-height: 1.55; }
+    .tag { flex-shrink: 0; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      padding: 2px 6px; border-radius: 4px; margin-top: 2px; min-width: 38px; text-align: center;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .tag-new  { background: rgba(62,207,124,0.12);  color: var(--green); }
+    .tag-fix  { background: rgba(246,124,124,0.12);  color: var(--red); }
+    .tag-impr { background: rgba(124,154,246,0.14); color: var(--blue); }
+    code { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+      background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; color: #d6d6f0; }
+    a { color: var(--accent); text-decoration: none; }
+    strong { color: var(--text); font-weight: 600; } em { color: var(--text); font-style: normal; font-weight: 500; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-size: 11px; color: var(--text-4); text-align: center; }
+    footer a { color: var(--accent); }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+  <a class="back" href="./">← Back to Specula</a>
+
+  <header class="app-header">
+    <div class="app-icon"><img src="icon.png" alt="Specula"></div>
+    <div>
+      <div class="app-name">Specula</div>
+      <div class="app-sub">Audio analysis &amp; loudness metering for macOS</div>
+    </div>
+  </header>
+
+  <div class="prenote">
+    <strong>Specula has not shipped publicly yet.</strong> Version 1.0 is the first public release; the notes below are what it ships with. This page gets the release date and automatic updates begin the day it goes live.
+  </div>
+
+  <section class="release" id="v1.0">
+    <div class="release-header"><span class="version">Version 1.0</span><span class="date">Coming soon</span><span class="badge-soon">First release</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>EBU R128 / ITU-R BS.1770-4 loudness.</strong> Momentary, short-term, integrated, loudness range, and 4× oversampled true peak, verified against the EBU Tech 3341 / 3342 loudness test signals. Read it live while a file plays, or offline over the whole file or a time selection.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Speech-gated loudness with neural speech detection.</strong> A bundled Silero VAD model gates loudness to dialogue only, so room tone, music beds, and silence are excluded and podcast and film dialogue read true. It runs fully offline, with no download and no network connection.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>A 22-target compliance catalog across four modes.</strong> <em>Music</em> reports the gain each platform applies (Spotify, Apple Music, YouTube, Tidal, Amazon Music, Deezer, SoundCloud, AES TD1008); <em>Podcast / Spoken word</em> mixes streaming penalties with the ACX audiobook spec including the −60 dB RMS noise-floor check; <em>VOD</em> verifies the Netflix / Prime / Apple TV+ / Disney+ / Max −27 LKFS dialog-gated band; <em>Broadcast</em> verifies EBU R128, R128 S1 short-form, ATSC A/85 (CALM Act), ARIB TR-B32, and OP-59. Each row gives a hard verdict; <strong>Match</strong> previews the level by ear and <strong>Normalize</strong> / <strong>Limit TP</strong> commit it with a two-pass true-peak limiter.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Spectrum, spectrogram, and stereo views.</strong> An FFT spectrum with five selectable windows, a configurable-overlap spectrogram, per-channel peak / RMS / crest / DC, dynamic range, and a stereo correlation and phase scope.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Reference compare, up to six files.</strong> Load up to six masters, level-match them by integrated LUFS, auto-align to the sample, and hear the A−X residual, the part that actually differs, as its own waveform you can solo, scrub, and export.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Non-destructive editing without a DAW.</strong> Trim, cut with a crossfade join, insert silence, gain, fade, invert phase, remove DC, swap channels, split to mono, normalize to a peak or LUFS target, and a standalone Limit TP, all keyboard-driven with 16-level undo. Specula always saves a new file and never overwrites the source.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Chapter mode for audiobooks.</strong> Segment a book at its silences, score every chapter against the three ACX gates (RMS, true peak, noise floor) and against the book's own median, level every chapter to a common loudness in one move, and put the per-chapter table in the PDF, or export it as CSV.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Dialogue mode.</strong> Hand-correct the detected speech regions that drive dialog-gated loudness and the noise floor (add / drag / Mark In-Out), with provenance tinting and a JSON sidecar so corrections travel with the file.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Surround and downmix.</strong> A per-channel routing matrix with BS.775 and Pro Logic II fold-down presets (real ±90° phase, not just polarity), correct BS.1770 weighting for non-SMPTE multichannel orders such as AAC 5.1 and 7.1, and Render to File to write the routed result.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Reports you can hand off.</strong> A dark-themed PDF / HTML / JSON report with every metric, a per-target verdict, the loudness curve, and the chapter table. The JSON carries an inline verdict per target so a script can branch on pass/fail without recomputing it.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Command line and Shortcuts.</strong> A <code>specula</code> command-line tool (<code>analyze</code> / <code>compare</code> / <code>edit</code> / <code>report</code>) ships inside the app, plus eight App Intents and three Finder Services, all on the same engine, so batch QC scripts and automations get the exact same numbers as the app.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Built for current macOS.</strong> Liquid Glass chrome and an Icon Composer app icon on macOS 26, document-app conventions (Open With, drag onto the Dock, Open Recent, multi-file open), and automatic updates. Free 7-day trial; after it ends you can still run two 5-minute test sessions a day. Requires macOS 14 Sonoma or later.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="./">Specula</a> &nbsp;·&nbsp; <a href="guide.html">User Guide</a> &nbsp;·&nbsp;
+    <a href="compliance.html">Compliance</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a> &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+  </footer>
+
+</body>
+</html>
