@@ -115,7 +115,7 @@
 
         <h2>Pairs with per-chapter analysis</h2>
 
-        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is Chapter mode, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine - together they answer "is this shippable to ACX" before ACX answers it for you.</p>
+        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is <a href="per-chapter-loudness.html">Chapter mode</a>, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine - together they answer "is this shippable to ACX" before ACX answers it for you.</p>
 
         <div class="callout"><strong>Why it matters:</strong> gating the gaps brings the measured floor down, but it can't scrub the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The value of measuring the floor on the silence, and watching it live, is catching that while you can still do something about it, not after the submission bounces.</div>
 
@@ -123,6 +123,13 @@
             <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. The speech-gated noise floor, the ACX preset and chapter analysis ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
         </div>
 
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="per-chapter-loudness.html"><span>The one loud chapter - per-chapter loudness for audiobook delivery</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV is measured on the dialogue, not the mix</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
     </article>
 
   <section style="padding-bottom: 60px;">

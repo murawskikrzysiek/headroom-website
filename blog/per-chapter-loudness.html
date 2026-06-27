@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Per-Chapter Loudness for Audiobook Delivery - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/per-chapter-loudness.html">
+  <meta name="description" content="An audiobook can pass on the whole-file loudness number and still fail chapter by chapter. Per-chapter RMS, deviation from the book's own median, and the three ACX gates - measured before you upload.">
+  <meta property="og:title" content="The one loud chapter - per-chapter loudness for audiobook delivery">
+  <meta property="og:description" content="An audiobook can read fine on the whole-file number and fail chapter by chapter. Measure every chapter against the book's own centre, before the distributor does.">
+  <meta property="og:image" content="https://headroomstudio.dev/specula/specula-chapters.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The one loud chapter - per-chapter loudness for audiobook delivery">
+  <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-chapters.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+
+  <header class="article-header">
+        <p class="article-eyebrow">Audiobook</p>
+        <h1>The one loud chapter - per-chapter loudness for audiobook delivery</h1>
+        <p class="article-subtitle">An audiobook can read fine on the whole-file number and fail chapter by chapter. The fix is to measure every chapter against the book's own centre, before the distributor does it for you.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>26 June 2026</span>
+            <span class="dot"></span>
+            <span>8 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>Audiobook delivery is judged in pieces. ACX - Amazon's spec, used by Audible and most distributors - takes each chapter as its own file, and each file has to clear the same three gates on its own: RMS loudness between <strong>-23 and -18 dB</strong>, true peak at or below <strong>-3 dBTP</strong>, and a room-tone noise floor at or below <strong>-60 dB RMS</strong>. A book that averages out fine across four hours tells you nothing about whether chapter 14 clears those gates by itself.</p>
+
+        <p>The trap is the single number. Open a finished book in an analyser and the headline reading is one integrated loudness figure for the whole file. It is the wrong altitude for this job. The thing that gets a submission sent back is almost never the average across the book; it is one chapter that drifted away from the rest.</p>
+
+        <h2>What "consistent" means to a listener</h2>
+
+        <p>Two chapters can both sit inside the -23 to -18 dB window and still be several dB apart. Both pass the hard gate; the listener still hears the jump at the chapter break and reaches for the volume. The gate is per file. Perceived consistency is across files. A book where every chapter lands near the same loudness sounds professional; one where chapter 7 runs 4 dB hotter than its neighbours sounds like it was assembled from different sessions, which it usually was.</p>
+
+        <p>So there are two questions, not one. Does each chapter clear the ACX gates on its own, and does each chapter sit close to the rest of the book. A single integrated number for the whole file answers neither.</p>
+
+        <h2>Finding the chapters</h2>
+
+        <p>Chapter mode segments the file at its silences. Audiobook chapters end in silence by construction - the producer wants the listener to register that a chapter ended - so the boundaries are already in the audio. Specula scans for silences longer than the minimum duration (default <strong>2 s</strong>) below the silence threshold (default <strong>-55 dB</strong>); the audio between two silences becomes a chapter.</p>
+
+        <p>Two rules make the detected boundaries match what a human would mark. Runs of content shorter than 1 s get absorbed into the surrounding chapter, so a single cough between paragraphs doesn't open a spurious one-second "chapter". And leading and trailing silence folds into the first and last chapters, so chapter 1 always starts at 0, the last chapter always ends at the file's end, and the ribbon covers the whole timeline with no gaps at the edges.</p>
+
+        <p>Detection is a starting point, not the verdict. Every boundary is a draggable marker on the waveform: add one at the playhead, remove one to merge two chapters, rename a chapter inline. If you already have a chapter list, import it as a JSON sidecar instead of detecting from scratch.</p>
+
+        <figure class="figure">
+            <img src="../specula/specula-chapters.png" alt="Specula in Chapter mode: a waveform split into five chapters by teal boundary markers, with a ribbon below showing each chapter's RMS and deviation from the median">
+            <figcaption>Chapter mode over a multi-segment file. The ribbon along the bottom carries each chapter's RMS and its deviation from the book's median; the strip above names the worst outlier - here, "Chapter 01 is 4.4 dB below median." Boundaries are the teal markers on the waveform: drag to adjust, or re-detect.</figcaption>
+        </figure>
+
+        <h2>The number that matters: deviation from the median</h2>
+
+        <p>Click Analyse Loudness and Specula runs a BS.1770 pass on every chapter and a plain-RMS pass for the ACX gate. The ribbon then shows, per chapter, its RMS, its integrated LUFS, and the useful part: how far its loudness sits from the median of the whole book. The book's own centre is the reference, so the flag is relative to the material in front of you, not to an arbitrary target.</p>
+
+        <p>Chapters more than the threshold from the median - default <strong>±2 dB</strong> on RMS, or switch the metric to integrated LUFS and it's ±2 LU - tint red, and the headline names the worst one. Fix that chapter, re-analyse, watch the spread close up.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Chapter</th><th>RMS</th><th>Deviation from median</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>01</td><td>-33.9 dB</td><td>-4.4 dB</td></tr>
+                <tr><td>02</td><td>-27.0 dB</td><td>+2.4 dB</td></tr>
+                <tr><td>03</td><td>-33.0 dB</td><td>-3.5 dB</td></tr>
+                <tr><td>04</td><td>-28.8 dB</td><td>+0.6 dB</td></tr>
+                <tr><td>05</td><td>-29.5 dB</td><td>0.0 dB</td></tr>
+            </tbody>
+        </table>
+
+        <p>Median -29.5 dB RMS. Chapter 1 is the furthest out at 4.4 dB under; with the default ±2 dB flag, chapters 1, 2 and 3 all trip it. The absolute numbers here belong to a short test file, not a finished book - the point is that the spread is visible at a glance, chapter by chapter, before anything ships. Chapters shorter than 10 s skip the gated BS.1770 measurements, because the gating needs that minimum, but their RMS and peak still populate, since those are valid at any length.</p>
+
+        <h2>The deliverable</h2>
+
+        <p>The report carries the table out of the app. The PDF, JSON and CSV exports each gain a Chapters section: every chapter's RMS, integrated LUFS, true peak, noise floor and deviation, with cells turning red on the three ACX gates - RMS outside -23 to -18 dB, peak over -3 dBTP, floor over -60 dB RMS. Hand it to the producer and the chapter that needs another pass is already circled.</p>
+
+        <figure class="figure">
+            <img src="../specula/specula-chapter-report.png" alt="A Specula PDF report showing summary loudness tiles, a loudness curve, and a per-chapter table at the bottom with fail-red cells on the ACX gates">
+            <figcaption>The Chapters section of the exported report, under the book's summary loudness and noise-floor figures. Per-chapter metrics with fail-red cells on the ACX gates. Self-contained - the producer doesn't need the app to read it.</figcaption>
+        </figure>
+
+        <h2>Revisions keep the layout</h2>
+
+        <p>Audiobook revisions are routine: a producer flags a chapter, the narrator re-records, you deliver v2 of the file. The chapter boundaries don't move between versions - only the audio inside one of them does. Export the layout as a JSON sidecar and re-import it onto the new file, so you are not re-marking forty boundaries by hand every time a single chapter comes back.</p>
+
+        <h2>Where it sits next to the ACX preset</h2>
+
+        <p>Chapter mode is the per-chapter half of audiobook QC. The other half is the per-file verdict: Specula's Loudness Targets panel carries an ACX preset (-20.5 dB RMS ±2.5, peak at or below -3 dBTP, plus the speech-gated noise floor) that judges the file as a whole. The preset tells you the book is in spec; Chapter mode tells you which chapter isn't. A submission can pass the first and fail the second, which is exactly the case worth catching before upload.</p>
+
+        <p>That noise-floor gate is its own measurement - it reads the room tone in the gaps between phrases, and it is the gate that catches narrators out, because you can't hear it while you record. <a href="acx-noise-floor.html">That's the next post.</a></p>
+
+        <div class="kicker">
+            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. Chapter mode, the ACX preset, the speech-gated noise floor and the full report ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="acx-noise-floor.html"><span>The noise floor problem - why audiobooks get rejected on the quiet parts</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV is measured on the dialogue, not the mix</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

@@ -18,6 +18,15 @@
     </item>
 
     <item>
+      <title>The one loud chapter - per-chapter loudness for audiobook delivery</title>
+      <link>https://headroomstudio.dev/blog/per-chapter-loudness.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/per-chapter-loudness.html</guid>
+      <pubDate>Fri, 26 Jun 2026 10:00:00 +0000</pubDate>
+      <category>Audiobook</category>
+      <description>An audiobook can pass on the whole-file loudness number and still fail chapter by chapter. Per-chapter RMS, deviation from the book's own median, and the three ACX gates - measured before you upload.</description>
+    </item>
+
+    <item>
       <title>The noise floor problem - why audiobooks get rejected on the quiet parts</title>
       <link>https://headroomstudio.dev/blog/acx-noise-floor.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/acx-noise-floor.html</guid>
