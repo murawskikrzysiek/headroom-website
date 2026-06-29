@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Streaming TV Loudness Is Measured on the Dialogue - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/dialogue-gated-loudness.html">
+  <meta name="description" content="Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.">
+  <meta property="og:title" content="Why streaming TV is measured on the dialogue, not the mix">
+  <meta property="og:description" content="The streaming-TV loudness spec everyone quotes is dialogue-gated. Measure the full mix instead and the number can be off by more than 10 dB.">
+  <meta property="og:image" content="https://headroomstudio.dev/specula/specula-targets-vod.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why streaming TV is measured on the dialogue, not the mix">
+  <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-targets-vod.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+
+  <header class="article-header">
+        <p class="article-eyebrow">Loudness</p>
+        <h1>Why streaming TV is measured on the dialogue, not the mix</h1>
+        <p class="article-subtitle">Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>27 June 2026</span>
+            <span class="dot"></span>
+            <span>9 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>Every streaming-TV delivery spec quotes the same loudness number. Netflix, Prime Video, Apple TV+, Disney+, HBO Max: <strong>-27 LKFS</strong>, true peak under -2 dBTP. The number is easy to find and easy to hit. The part that's easy to miss is two words next to it in the spec - <em>dialogue-gated</em>.</p>
+
+        <p>-27 LKFS dialogue-gated means you measure the loudness of the speech, not the whole programme. A scene with a quiet conversation under a loud music bed is judged on the conversation. A trailer that runs thirty seconds of explosions and ten of voiceover is judged on the voiceover. The integrated loudness of the full mix - the number a loudness meter shows by default - is answering a different question than the one the delivery spec is asking.</p>
+
+        <h2>How far apart the two numbers get</h2>
+
+        <p>The integrated and the dialogue-gated readings diverge exactly when there is a lot of non-speech energy in the mix: music, effects, ambience. Here is one mix in Specula, read both ways at once.</p>
+
+        <figure class="figure">
+            <img src="screenshots/dialogue-vs-integrated.png" alt="Specula's Loudness panel in VOD mode: whole-programme integrated -22.2 LUFS, speech-gated -27.7 LKFS, with Netflix, Prime Video, Apple TV+ and HBO Max all reading OK against the -27 dialogue target">
+            <figcaption>One file, VOD mode. The whole-programme integrated loudness reads -22.2 LUFS; the speech-gated reading - the dialogue alone - is -27.7 LKFS, 5.5 dB quieter. The dialogue sits inside the -27 ±2 LU window, so every streamer reads OK. Judge the same file on its -22.2 integrated number and it looks 4.8 dB too loud - a mix you would reach for a limiter to tame, when the delivery already passes.</figcaption>
+        </figure>
+
+        <p>Read the -22.2 on its own and you would reach for a limiter to pull the "too loud" mix down toward -27. That is backwards. The dialogue is already at -27.7, comfortably inside the window; the mix doesn't need taming, and taming it would drag the speech below the target's lower bound and break a file that currently passes. The integrated number isn't wrong - it is answering a different question - and acting on it here would turn a clean delivery into a failed one. That is the trap dialogue-gating exists to prevent, and it is invisible to any reading taken over the full programme.</p>
+
+        <h2>Where the dialogue number comes from</h2>
+
+        <p>Measuring the dialogue means knowing where the dialogue is. Specula runs a neural voice-activity detector - a bundled Silero model, running on-device - over every loaded file, labelling each 100 ms block as speech or not, and gates a parallel BS.1770 integrated measurement to the speech blocks. The result is the dialogue-gated number the streaming specs ask for, sitting directly beside the full-programme integrated reading so you can see both and the gap between them.</p>
+
+        <p>The detector is good, but no detector is infallible, and a sung line, a whispered aside, or a voice buried under a loud music bed is exactly where automatic classification can slip. When it does, the speech map is not fixed: Dialogue mode lets you correct which regions count as speech by hand, and the corrected map feeds straight back into the dialogue-gated reading and every target verdict that depends on it. The automatic pass gets you most of the way; the manual one is there for the files that need it. The SG toggle on the waveform shades the detected speech blocks so you can check the map against what you hear before trusting the number.</p>
+
+        <p>The same speech map does double duty elsewhere: it is what makes the <a href="acx-noise-floor.html">audiobook noise floor</a> measurable, by gating the measurement to the silence instead of the speech. Pointing it at the streamers' targets was largely a matter of comparing the speech-gated reading against the right numbers.</p>
+
+        <h2>Four delivery modes, one panel</h2>
+
+        <p>VOD is one of four modes in the Loudness Targets panel; together they cover 22 platforms and standards. The reason for a panel instead of four fixed badges is that each delivery world measures loudness differently, and the verdict has to match the spec rather than approximate it.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Mode</th><th>Covers</th><th>Judged on</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Music</td><td>Spotify, Apple Music, YouTube, Tidal, Amazon, Deezer, SoundCloud</td><td>Integrated, as a per-platform offset</td></tr>
+                <tr><td>Podcast</td><td>Apple Podcasts, Spotify, ACX audiobook</td><td>Dialogue-gated; ACX on RMS</td></tr>
+                <tr><td>VOD</td><td>Netflix, Prime Video, Apple TV+, Disney+, HBO Max</td><td>Dialogue-gated</td></tr>
+                <tr><td>Broadcast</td><td>EBU R128, ATSC A/85 (CALM), ARIB TR-B32, OP-59</td><td>Integrated, except CALM (dialogue-gated)</td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Music</strong> doesn't pass or fail; it tells you the offset. A master at -10 LUFS reads Spotify -4 dB, Apple Music -6 dB - the actual gain each service applies when it normalises you on playback. "Spotify will turn this down 4 dB" is something you can act on; "outside the Spotify range" tells you nothing about the size of the problem. The references behind those offsets are -14 LUFS for Spotify, YouTube, Tidal and SoundCloud, -16 for Apple Music, -15 for Deezer, with Amazon Music adding a -2 dBTP ceiling.</p>
+
+        <p><strong>Podcast</strong> runs Apple Podcasts (-16 LKFS) and Spotify (-14 LKFS) as dialogue-gated penalty targets, and folds in ACX audiobook compliance with its RMS window and the -60 dB noise floor. <strong>VOD</strong> is the five streamers, all at -27 LKFS dialogue-gated, ±2 LU, peaks under -2 dBTP, hard pass or fail on the speech-gated reading. <strong>Broadcast</strong> is the EBU R128 family (-23 LUFS, ±0.5, with a ±1 live tolerance and a tighter short-form variant), plus ATSC A/85 and the CALM Act (-24 LKFS), ARIB TR-B32 for Japan and OP-59 for Australia.</p>
+
+        <h2>Dialogue-gating isn't only a streaming thing</h2>
+
+        <p>It is worth noticing which rows in that table are dialogue-gated: all five VOD platforms, and the CALM Act over on the broadcast side. The CALM Act - the US law that stopped TV adverts being louder than the programmes around them - is itself dialogue-gated, at -24 LKFS. The streamers didn't invent the idea; they adopted it. The principle is the same one in every case: judge perceived loudness on the voice, because the voice is what a viewer's attention tracks. Once you have seen the integrated and dialogue-gated numbers drift several dB apart on the same file, it is obvious why the spec is written that way.</p>
+
+        <p>The loudness math underneath all of it is ITU-R BS.1770-4: K-weighting, dual gating, 4x oversampled true-peak detection, validated against the EBU R128 test set. The dialogue gate is that same algorithm, run only over the blocks the detector marked as speech. Same standard, narrower window - which is precisely what the delivery spec asked for.</p>
+
+        <div class="kicker">
+            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS: load a file and read every loudness, spectral and stereo number on it, with a four-mode Loudness Targets panel covering 22 platforms and standards. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later. See the <a href="../specula/compliance.html">compliance guide</a> for the full target list.</p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="acx-noise-floor.html"><span>The noise floor problem - why audiobooks get rejected on the quiet parts</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

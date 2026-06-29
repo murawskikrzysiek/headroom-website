@@ -6,7 +6,16 @@
     <description>Monitoring discipline, hearing health, and the small macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 26 Jun 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Why streaming TV is measured on the dialogue, not the mix</title>
+      <link>https://headroomstudio.dev/blog/dialogue-gated-loudness.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/dialogue-gated-loudness.html</guid>
+      <pubDate>Sat, 27 Jun 2026 09:00:00 +0000</pubDate>
+      <category>Loudness</category>
+      <description>Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.</description>
+    </item>
 
     <item>
       <title>The noise floor problem - why audiobooks get rejected on the quiet parts</title>

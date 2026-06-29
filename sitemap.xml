@@ -21,7 +21,8 @@
   <url><loc>https://headroomstudio.dev/audita/privacy.html</loc><lastmod>2026-05-15</lastmod><priority>0.4</priority></url>
 
   <!-- Blog -->
-  <url><loc>https://headroomstudio.dev/blog/</loc><lastmod>2026-06-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://headroomstudio.dev/blog/</loc><lastmod>2026-06-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://headroomstudio.dev/blog/dialogue-gated-loudness.html</loc><lastmod>2026-06-27</lastmod><priority>0.6</priority></url>
   <url><loc>https://headroomstudio.dev/blog/acx-noise-floor.html</loc><lastmod>2026-06-26</lastmod><priority>0.6</priority></url>
   <url><loc>https://headroomstudio.dev/blog/wiring-lyra-into-mac-automation.html</loc><lastmod>2026-05-15</lastmod><priority>0.6</priority></url>
   <url><loc>https://headroomstudio.dev/blog/musicians-tinnitus-meta-analysis.html</loc><lastmod>2026-05-02</lastmod><priority>0.6</priority></url>
