@@ -66,24 +66,24 @@
   <!-- Featured -->
   <section style="padding-bottom: 24px;">
     <p class="label" style="margin-bottom: 22px;">Latest</p>
-    <a href="wiring-lyra-into-mac-automation.html" class="feat"
-       data-post data-title="Wiring Lyra into every Mac automation surface"
-       data-date="2026-05-15" data-tag="Lyra" data-read="10 min"
-       data-summary="App Intents, Focus Filters, x-callback URLs. One change underneath, several different shapes on top.">
+    <a href="acx-noise-floor.html" class="feat"
+       data-post data-title="The noise floor problem - why audiobooks get rejected on the quiet parts"
+       data-date="2026-06-26" data-tag="Audiobook" data-read="7 min"
+       data-summary="The noise floor is the ACX gate narrators trip over - the room tone in the gaps between phrases. Measuring it means reading the silence, not the speech.">
       <div class="feat__body">
         <div>
-          <p class="feat__kicker">Lyra · 10 min read</p>
-          <h2 class="feat__title">Wiring Lyra into every Mac automation surface - App Intents, Focus Filters, x-callback URLs</h2>
-          <p class="feat__excerpt">Lyra 1.5 is scriptable from every Mac automation surface I could find. Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.</p>
+          <p class="feat__kicker">Audiobook · 7 min read</p>
+          <h2 class="feat__title">The noise floor problem - why audiobooks get rejected on the quiet parts</h2>
+          <p class="feat__excerpt">Noise floor is the ACX gate narrators trip over, and the one you can't fix in mastering. Measuring it correctly means gating to the silence between words, which is what a neural VAD over the whole file makes possible.</p>
         </div>
-        <div class="feat__meta"><span>15 May 2026</span><span class="dot"></span><span>K. Murawski</span></div>
+        <div class="feat__meta"><span>26 June 2026</span><span class="dot"></span><span>K. Murawski</span></div>
       </div>
       <div class="feat__art">
         <div class="feat__terminal">
-          <div class="g"><span class="a">$</span> open "lyra://reference/2"</div>
-          <div class="mut">↳ slot: 2 · name: Mix · 85 dB SPL</div>
-          <div class="g" style="margin-top:16px;"><span class="a">$</span> open "lyra://state?x-success=…"</div>
-          <div class="ok">↳ { "muted": false, "tapered": 0.58 }</div>
+          <div class="g">noise floor <span class="a">-21.4</span> <span class="mut">dB RMS</span></div>
+          <div class="g" style="color:#f6726e;">↳ FAIL NF · ACX needs ≤ -60</div>
+          <div class="g" style="margin-top:16px;">after cleanup <span class="a">-64.2</span> <span class="mut">dB RMS</span></div>
+          <div class="ok">↳ OK · measured between phrases</div>
         </div>
       </div>
     </a>
@@ -92,6 +92,19 @@
   <!-- Older posts -->
   <section style="padding: 36px 0 64px;">
     <div class="posts">
+      <div class="post-item">
+        <a href="wiring-lyra-into-mac-automation.html"
+           data-post data-title="Wiring Lyra into every Mac automation surface"
+           data-date="2026-05-15" data-tag="Lyra" data-read="10 min"
+           data-summary="App Intents, Focus Filters, x-callback URLs. One change underneath, several different shapes on top.">
+          <div><p class="post-item__tag" style="color:#7c84f6;">Lyra</p><p class="post-item__date">15 May 2026</p></div>
+          <div>
+            <h3 class="post-item__title">Wiring Lyra into every Mac automation surface</h3>
+            <p class="post-item__excerpt">Lyra 1.5 is scriptable from every Mac automation surface I could find. Shortcuts, Spotlight, Focus Filters, Stream Deck, Keyboard Maestro, Raycast. One change underneath, several different shapes on top.</p>
+          </div>
+          <span class="post-item__read">10 min</span>
+        </a>
+      </div>
       <div class="post-item">
         <a href="musicians-tinnitus-meta-analysis.html"
            data-post data-title="The musician tinnitus number is 43%"

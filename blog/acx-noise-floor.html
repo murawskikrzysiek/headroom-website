@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Noise Floor Problem: Why Audiobooks Get Rejected - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/acx-noise-floor.html">
+  <meta name="description" content="The noise floor is the ACX gate narrators trip over - the room tone in the gaps between phrases. Measuring it means reading the silence, not the speech, which is harder than it sounds.">
+  <meta property="og:title" content="The noise floor problem - why audiobooks get rejected on the quiet parts">
+  <meta property="og:description" content="Noise floor is the ACX gate narrators trip over - the one you can't fix in mastering. Measuring it correctly means gating to the silence between words.">
+  <meta property="og:image" content="https://headroomstudio.dev/blog/screenshots/acx-02-noise-floor-fail.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The noise floor problem - why audiobooks get rejected on the quiet parts">
+  <meta name="twitter:image" content="https://headroomstudio.dev/blog/screenshots/acx-02-noise-floor-fail.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read">
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+
+  <header class="article-header">
+        <p class="article-eyebrow">Audiobook</p>
+        <h1>The noise floor problem - why audiobooks get rejected on the quiet parts</h1>
+        <p class="article-subtitle">The noise floor is the ACX gate narrators trip over - the room tone in the gaps between phrases. Measuring it means reading the silence, not the speech, which is harder than it sounds.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>26 June 2026</span>
+            <span class="dot"></span>
+            <span>7 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>ACX rejects an audiobook submission on three numbers: loudness (RMS between -23 and -18 dB), true peak (above -3 dBTP), and noise floor (above -60 dB RMS). The first two are familiar to anyone who has shipped to streaming. The third is the one narrators trip over, because it measures something you can't hear while you are performing - the room when you stop talking.</p>
+
+        <p>Noise floor in ACX terms is not the loudest background moment. It is the RMS level of the audio between phrases: the room tone, the air handling, the computer fan, the traffic through a cracked window, the hum off a light. Ten seconds of an AC compressor cycling on during chapter 14 can fail the whole file. A laptop fan caught by a cardioid at the wrong angle can fail it. None of it is audible under the voice; all of it counts when the voice stops.</p>
+
+        <h2>Why the obvious measurement is wrong</h2>
+
+        <p>The naive way to measure a noise floor is to take the quietest few percent of the file and call that the floor. It is quick, and it is wrong for spoken word, for two reasons.</p>
+
+        <p>First, the quiet samples <em>during</em> speech aren't room tone. The dips between syllables, the closures of plosives, the breaths - these sit well below the spoken words but well above the actual room. Include them and your "floor" is really the bottom of the speech, several dB more optimistic than the truth.</p>
+
+        <p>Second, a single figure for a four-hour file averages a noisy chapter into nineteen clean ones. The book reads fine on the global number; ACX rejects on the one chapter where the computer fan got a little louder. The correct measurement is narrower: take only the samples that are genuinely not speech, and measure those. Which means you first have to know, sample by sample, where the speech is.</p>
+
+        <h2>Gating on speech</h2>
+
+        <p>Specula classifies speech with a neural voice-activity detector - Silero (MIT-licensed), run through FluidAudio, with the model bundled in the app so the analysis runs entirely on your Mac. It runs at 16 kHz over every loaded file and labels each 100 ms block as speech or not. A lighter spectral detector covers the rare file the neural model can't process.</p>
+
+        <p>That speech map already drives the dialogue-gated loudness reading. The noise floor is a second reader of the same timeline: for every block the detector marks as non-speech, Specula takes the plain, unweighted RMS and folds it into a running figure. The number recomputes block by block, so it tracks live as the file plays. A file with no non-speech at all reads negative infinity, and the gate passes trivially.</p>
+
+        <figure class="figure">
+            <img src="screenshots/acx-01-speech-map.png" alt="A Specula waveform with the speech regions highlighted in green and the gaps between them left dark">
+            <figcaption>The speech map on the source file. Silero classifies every 100 ms block as speech or not; speech shows in green, and the noise floor is measured only over the gaps between them - the room tone in those gaps is what the reading catches.</figcaption>
+        </figure>
+
+        <p>You are not stuck with the detector's first guess, which matters when a file fools it - a music bed with vocals read as speech, a whispered line read as silence. The Speech tab in Settings exposes three sliders: a confidence <strong>threshold</strong> (default 0.5; lower picks up quieter speech, higher rejects more), a <strong>minimum region duration</strong> that drops clicks and breaths, and a <strong>merge gap</strong> that fuses regions split by short pauses. Move any one and the file re-analyses in about half a second.</p>
+
+        <p>And where detection is simply wrong about a stretch, <strong>Dialogue mode</strong> lets you paint the regions by hand - drag an edge, split at the playhead, add or delete a region. Moved regions turn amber and new ones blue against the detector's green, so it is obvious where you have overruled it. Either way, the dialogue-gated loudness and the noise floor recompute from whatever the regions end up being - the number follows your call on what counts as speech, not just the model's.</p>
+
+        <p>Measuring the floor on the gaps also points to the fix. The room tone lives in the gaps between phrases, so pulling the level down there takes it out of the file and out of the number, while the speech itself is left alone:</p>
+
+        <figure class="figure">
+            <img src="screenshots/acx-noise-lowered.png" alt="The same Specula waveform after the level in the non-speech gaps has been pulled down, with the speech regions highlighted in amber">
+            <figcaption>The same file with the level in the non-speech gaps pulled down. The speech itself is left in place; the room tone between phrases - what the floor reads - drops away.</figcaption>
+        </figure>
+
+        <h2>Reading the verdict</h2>
+
+        <p>The floor shows in the Loudness panel next to the other RMS readouts, labelled for exactly what it is - dB RMS over non-speech. Above -60 dB it turns red and the ACX preset's row reads "FAIL NF"; bring it under the ceiling and the row reads OK. Here is the panel on either side of that edit:</p>
+
+        <div class="figure-pair">
+          <figure class="figure">
+            <img src="screenshots/acx-02-noise-floor-fail.png" alt="Specula Loudness Targets panel: Noise Floor -21.4 dB RMS in red, ACX row reading FAIL NF">
+            <figcaption>Before - the non-speech floor reads -21.4 dB RMS, far above the -60 dB ceiling, and ACX reads FAIL NF.</figcaption>
+          </figure>
+          <figure class="figure">
+            <img src="screenshots/acx-03-noise-floor-ok.png" alt="Specula Loudness Targets panel: Noise Floor -64.2 dB RMS, ACX row reading OK in green">
+            <figcaption>After - the floor drops to -64.2 dB RMS, under the ceiling, and ACX reads OK.</figcaption>
+          </figure>
+        </div>
+
+        <p>Same three gates, one panel, one glance - and the noise floor is the row that moved. The ACX preset carries Apple Podcasts and Spotify (Podcast) alongside it in penalty terms; ACX is the row with the noise-floor gate attached.</p>
+
+        <h2>The workflow</h2>
+
+        <p>For an ACX submission it comes down to this: drop the chapter file in, give the detector a few seconds to run (a one-hour chapter analyses in seconds on Apple silicon), and read the panel. If a row is red you know which of the three things to fix - re-record the noisy passage, pull the loudness into the window, or run a gentle noise reduction - before you upload and wait for the rejection email.</p>
+
+        <p>And because the floor is computed per block and shown live, you can scrub to the chapter the report flagged and watch the number climb at exactly the point where the fan got louder. The measurement doesn't just say a file failed; it shows you where.</p>
+
+        <h2>Pairs with per-chapter analysis</h2>
+
+        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is Chapter mode, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine - together they answer "is this shippable to ACX" before ACX answers it for you.</p>
+
+        <div class="callout"><strong>Why it matters:</strong> gating the gaps brings the measured floor down, but it can't scrub the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The value of measuring the floor on the silence, and watching it live, is catching that while you can still do something about it, not after the submission bounces.</div>
+
+        <div class="kicker">
+            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. The speech-gated noise floor, the ACX preset and chapter analysis ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
+        </div>
+
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

@@ -82,6 +82,9 @@
 .figure { margin: 28px 0; }
 .figure img { width: 100%; border-radius: 12px; border: 1px solid var(--border); cursor: zoom-in; }
 .figure figcaption { font-size: 0.82rem; color: var(--text-3); line-height: 1.6; margin-top: 12px; }
+.figure-pair { display: flex; gap: 18px; align-items: flex-start; margin: 28px 0; }
+.figure-pair .figure { margin: 0; flex: 1 1 0; min-width: 0; }
+@media (max-width: 600px) { .figure-pair { flex-direction: column; } }
 .article .callout { display: block; margin: 28px 0; padding: 16px 20px; border-radius: 10px; background: rgba(124,132,246,0.06); border-left: 3px solid var(--accent); border-top: none; font-size: 0.9rem; color: var(--text-2); line-height: 1.65; max-width: none; }
 .article .callout strong { color: var(--text); }
 .article .callout a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }

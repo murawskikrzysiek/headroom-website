@@ -1,10 +1,11 @@
 /* lightbox.js - shared click-to-zoom for screenshots, with prev/next.
-   Targets `.shot img` (app landing pages) and `img.screenshot-full` /
-   `.screenshot-row img` (guide + blog pages). Self-contained: injects its own
+   Targets `.shot img` (app landing pages), `img.screenshot-full` /
+   `.screenshot-row img` (guide pages), and `.figure img` (blog posts).
+   Self-contained: injects its own
    overlay and styles, so it works regardless of the host page's CSS. Cycles
    through every matched image on the page (arrows / on-screen buttons / swipe-free). */
 (function () {
-  var SEL = '.shot img, img.screenshot-full, .screenshot-row img';
+  var SEL = '.shot img, img.screenshot-full, .screenshot-row img, .figure img';
 
   function init() {
     var imgs = Array.prototype.slice.call(document.querySelectorAll(SEL));
