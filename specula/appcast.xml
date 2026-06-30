@@ -38,8 +38,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-1.0.1.dmg"
-                sparkle:edSignature="REPLACE_WITH_sign_update_OUTPUT_FROM_make_release"
-                length="REPLACE_WITH_DMG_BYTE_LENGTH"
+                sparkle:edSignature="Up3m/46NgNYUr2yL1ogP/3leLfFOKo4Yjsg/nXDZS3E5FfL+PM+0ah1wQURK8K2ISkR7/tfIrifmmUOaAJjVAQ=="
+                length="14477217"
                 type="application/octet-stream" />
         </item>
 
