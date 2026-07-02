@@ -1071,7 +1071,7 @@
     <section class="guide-section" id="stereo">
         <h2>11. M/S stereo width <a href="#stereo" class="anchor">#</a></h2>
 
-        <p class="prose">Computes the Pearson correlation between the mid and side signals over rolling windows. Toggle with <kbd>⌃5</kbd>.</p>
+        <p class="prose">Computes the correlation between the left and right channels over rolling windows, using the standard correlation-meter convention (zero-lag normalized product). Toggle with <kbd>⌃5</kbd>.</p>
 
         <figure class="shot">
             <img src="specula-stereo.png" alt="Stereo width view with zone colour mode, the curve crossing narrow, stereo, and wide zones." loading="lazy" decoding="async">
@@ -1255,7 +1255,7 @@
 
 
         <h3>Auto-align</h3>
-        <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula runs decimated cross-correlation between slot A and the active slot to find the best sample offset, then applies it. Works on takes that are within ~10 seconds of each other.</p>
+        <p class="prose">Click the <strong>auto-align</strong> button on any non-A slot. Specula cross-correlates slot A and the active slot in two passes, a decimated pass to locate the offset coarsely and a full-rate pass to land on the exact sample, then applies the offset. Works on takes that are within ~10 seconds of each other.</p>
 
         <h3>Listen to Diff (per-slot)</h3>
         <p class="prose">Diff is a <strong>per-slot listening mode</strong>, not a separate slot. The active non-A slot's toolbar carries a prominent <strong>Listen to Diff</strong> toggle: press it and playback switches to the cached <code>A − slot</code> residual through the same waveform, spectrogram, and export paths the source uses. Press the toggle again (or pick another slot) to return to the source instantly.</p>
