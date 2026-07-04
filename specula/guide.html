@@ -993,6 +993,8 @@
         <h3>Selection-analysis spectrum</h3>
         <p class="prose">After <kbd>⌘Return</kbd> offline analysis, the FFT view switches to the <strong>averaged spectrum</strong> of the selection - a much smoother, more accurate read than the rolling live spectrum. Clearing the selection (<kbd>Esc</kbd>) returns to live mode.</p>
 
+        <p class="prose">On long selections the average samples up to 65,536 FFT windows spread evenly across the selection, which is statistically equivalent to averaging every overlapping window and much faster. <strong>Settings → FFT / Analysis → Average every window (exact)</strong> switches to accumulating every window instead; on hours-long audio at high overlap that can take minutes. Loudness measurements and the spectrogram are unaffected by this choice.</p>
+
         <h3>Spectrum under the playhead (paused)</h3>
         <p class="prose">While playback is stopped, <strong>clicking anywhere on the waveform or spectrogram</strong> recomputes the FFT for that position and updates the spectrum view to match. The FFT window ends at the cursor, so the spectrum you see lines up with the spectrogram column under the playhead. Useful for inspecting a specific moment without scrubbing: click, read, click again, read. Works for keyboard skips too (<kbd>←</kbd>, <kbd>→</kbd>, <kbd>⇧←</kbd>, <kbd>⇧→</kbd>).</p>
     </section>
@@ -1075,7 +1077,7 @@
 
         <figure class="shot">
             <img src="specula-stereo.png" alt="Stereo width view with zone colour mode, the curve crossing narrow, stereo, and wide zones." loading="lazy" decoding="async">
-            <figcaption><strong>Stereo width.</strong> Mid/side correlation with zone colouring and plain-language hover labels.</figcaption>
+            <figcaption><strong>Stereo width.</strong> Left/right correlation with zone colouring and plain-language hover labels.</figcaption>
         </figure>
 
         <h3>Display modes</h3>

@@ -28,6 +28,27 @@
         <description>Specula update feed</description>
         <language>en</language>
 
+        <!-- DRAFT: Version 1.1 - uncomment and complete at the release cut.
+             Fill in: pubDate (RFC 822), enclosure length (DMG byte size), and
+             sparkle:edSignature (run `sign_update Specula-1.1.dmg`). Confirm
+             sparkle:version matches the shipped CFBundleVersion (expected 3).
+
+        <item>
+            <title>Version 1.1</title>
+            <description>Big speed and memory release for long files: loading, zooming, editing, and analysis. Loudness fixes: exact BS.1770-4 K-weighting, loudness range without ramp-up windows, sample-exact auto-align, and true-peak highlights on the right block.</description>
+            <pubDate>DAY, DD Jul 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-1.1.dmg"
+                sparkle:edSignature="FILL_AT_RELEASE"
+                length="FILL_AT_RELEASE"
+                type="application/octet-stream" />
+        </item>
+        -->
+
         <item>
             <title>Version 1.0.1</title>
             <description>Fixes the waveform amplitude-zoom out (minus) button, which was too small to click reliably.</description>
