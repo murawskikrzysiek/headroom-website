@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/editing.html">
-    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target. Keyboard-driven, saved as a new file.">
+    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target, and host Audio Unit effects. Keyboard-driven, saved as a new file.">
     <meta property="og:title" content="Specula for Editing &amp; Repair">
     <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and always saves a new file.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -76,6 +76,7 @@
                 <span class="badge">Non-destructive</span>
                 <span class="badge">Cut &amp; Trim</span>
                 <span class="badge">Normalize LUFS</span>
+                <span class="badge">Audio Unit plugins</span>
                 <span class="badge">Keyboard shortcuts</span>
                 <span class="badge">Always saves new</span>
             </div>
@@ -171,6 +172,26 @@
                 <p class="prose-lead" style="margin-top: 14px;"><strong>It's a gate, not a denoiser.</strong> It rescues a marginal floor, a quiet room tone just under the gate, not a genuinely hissy recording, which still wants a better capture or a dedicated denoiser. Like every edit here, it's undoable and saves as a new file. See the <a href="audiobook.html">audiobook</a> and <a href="podcast.html">podcast</a> workflows for where it fits.</p>
             </div>
         </div>
+    </section>
+
+    <!-- Plugin chain -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Your Audio Unit effects, right here</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>Edit mode hosts a chain of Audio Unit effects.</strong> Add any effect installed on your Mac (both AUv2 and AUv3), chain several in order, bypass or reorder them, and open each plugin's own window, or a generic parameter panel for plugins that ship no interface of their own. It works on mono and stereo files.</p>
+                <p class="prose-lead" style="margin-top: 14px;">You tune by ear while the file plays, and every meter moves with you. Because the analysis tap sits <em>after</em> the chain, LUFS, true peak, FFT, spectrogram, and phase all read the processed sound as you turn knobs, so you're EQing or compressing against the same numbers you'll deliver against.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Render</strong> bakes the chain into the audio through fresh, latency-compensated instances and commits it as a normal edit you can undo. With the effect tail off (the default) the rendered audio is exactly as long as the input, so it still lines up for A/B and auto-align. Rendering clears the chain and remembers it, so Undo then <strong>Restore Last</strong> is the tweak-again loop, and it survives quitting the app. <strong>Render to Compare Slot</strong> loads the processed version next to the original in <a href="compare.html">Compare mode</a> so you can measure the difference with real numbers. Plugins run in their own process by default, so a third-party plugin crash can't take Specula down.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plugin chain shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-plugin-chain.png" alt="Specula's Edit mode with a plugin chain row under the toolbar: two Audio Unit effect chips loaded, each with bypass, reorder, window, and remove controls, and the meters reflecting the processed sound." loading="lazy" decoding="async">
+            <figcaption><strong>Audio Units in Edit mode.</strong> Chain effects, tune them live against every meter, then Render into the file or to a Compare slot.</figcaption>
+        </figure>
     </section>
 
     <!-- See it -->

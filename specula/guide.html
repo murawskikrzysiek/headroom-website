@@ -1355,6 +1355,27 @@
 
         <h3>Edit toolbar</h3>
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
+
+        <h3>Plugin chain (Audio Units)</h3>
+        <p class="prose">A second row under the edit toolbar hosts a chain of Audio Unit effects. It appears in Edit mode for mono and stereo files (it's hidden for multichannel playback). Click <strong>Add</strong> to browse the effects installed on your Mac, grouped by manufacturer and searchable by name, then pick one to append it to the chain. Both AUv2 and AUv3 effects are listed; instruments and other non-effect units aren't, since the chain processes an existing file.</p>
+
+        <figure class="shot">
+            <img src="specula-plugin-chain.png" alt="The plugin chain row under the edit toolbar with two Audio Unit effect chips loaded, each showing the effect name, its maker, and controls for bypass, reorder, opening the plugin window, and removal." loading="lazy" decoding="async">
+            <figcaption><strong>The chain.</strong> Add Audio Unit effects, reorder them, bypass or remove each, and open a plugin's window, all while the file plays.</figcaption>
+        </figure>
+
+        <p class="prose">Each plugin sits in its own chip showing the effect name and maker. While the file plays you tune it live: click the sliders icon to open the plugin's own window (or a generic parameter panel for plugins that ship no interface of their own), and because the analysis tap sits after the chain, every live meter, LUFS, true peak, FFT, spectrogram, and phase, responds to the processed sound as you turn knobs. The power icon bypasses a plugin, the chevrons reorder it, and <strong>✕</strong> removes it. A plugin that fails to load shows a red warning with the reason on hover. Parameter tweaks and bypass are gapless; adding, removing, or reordering rebuilds the playback graph with a brief gap, the same as switching output device.</p>
+
+        <p class="prose"><strong>Render</strong> bakes the chain into the audio. It renders offline through fresh plugin instances, compensates for each plugin's latency so the result stays sample-aligned with the original, and commits the result as a normal edit you can Undo. Rendering consumes the chain: it clears, and the snapshot is remembered, so <strong>Restore Last</strong> brings it back. The tweak-again loop is Undo, Restore Last, adjust, Render again, and Restore Last survives quitting the app. An <strong>Include effect tail</strong> checkbox (off by default) appends reverb and delay ring-out; with it off, the rendered audio is exactly as long as the input, which is what A/B comparison and auto-align rely on.</p>
+
+        <figure class="shot">
+            <img src="specula-plugin-render.png" alt="The Render popover for the plugin chain, with an Include effect tail checkbox, a Render button, and a Render to Compare Slot button." loading="lazy" decoding="async">
+            <figcaption><strong>Render.</strong> Bake the chain in as an undoable edit, or send the processed version to a Compare slot to A/B it against the source.</figcaption>
+        </figure>
+
+        <p class="prose"><strong>Render to Compare Slot</strong> renders the same way but loads the result as a new slot next to the original and switches to <a href="#compare">Compare mode</a>, so you can measure and A/B the processed version against the source with real numbers.</p>
+
+        <p class="prose">Leaving Edit mode with plugins still in the chain asks whether to render them or discard them first. Loading a new file starts a fresh chain; the previous one stays available under Restore Last, even across app restarts. Under <strong>Settings, Plugins</strong>, <strong>Prefer out-of-process Audio Units</strong> (on by default) keeps plugins isolated from the app so a crash in a third-party plugin doesn't take Specula down; turning it off loads them in-process for lower latency.</p>
     </section>
 
     <hr class="divider">
@@ -1678,6 +1699,11 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <li><strong>Merge gap</strong> (0.05 - 2.0 s, default 0.10) - silence shorter than this fuses two adjacent regions.</li>
         </ul>
         <p class="prose">Edits re-run detection in about half a second and the new history feeds back into the live loudness path. If you have manual edits in Dialogue mode when you move a slider, they're pushed onto the Dialogue mode undo stack first so you can <kbd>⌘Z</kbd> back to them. See <a href="#speech-gated">Speech-gated loudness + Dialogue mode</a> for the full workflow.</p>
+
+        <h3>Plugins</h3>
+        <ul>
+            <li><strong>Prefer out-of-process Audio Units</strong> (on by default) - loads each Audio Unit in its own process so a crash in a third-party plugin can't take Specula down. Turn it off to load plugins in-process for lower latency. Applies to the <a href="#edit">plugin chain</a> in Edit mode.</li>
+        </ul>
 
         <h3>Report</h3>
         <ul>
