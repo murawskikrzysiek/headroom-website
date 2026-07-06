@@ -1411,7 +1411,7 @@
             <figcaption><strong>Attenuate.</strong> Lower (or raise) just the selection by a chosen dB amount.</figcaption>
         </figure>
 
-        <p class="prose">Every operation feathers its edges in both time and frequency (the <strong>Feather</strong> popover sets how much), applies to the selected channels only (<strong>All channels</strong> by default; editing one side of a stereo file can skew the stereo image), and lands as a normal edit: <strong>Undo</strong> brings the audio back, the selection stays so you can iterate, and <strong>Save As</strong> writes a new file, never overwriting the original. <strong>Play span</strong> plays the selection's time range for a quick audition; with a selection active, the spacebar does the same.</p>
+        <p class="prose">Every operation feathers its edges in both time and frequency (the <strong>Feather</strong> popover sets how much), applies to the selected channels only (<strong>All channels</strong> by default; editing one side of a stereo file can skew the stereo image), and lands as a normal edit: <strong>Undo</strong> brings the audio back, the selection stays so you can iterate, and <strong>Save As</strong> writes a new file, never overwriting the original. <strong>Play span</strong> plays the selection's time range for a quick audition; with a selection active, the spacebar does the same. <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection itself: everything around it is silenced, with the same feathered edges the operations use, so you hear exactly what an Erase or Attenuate would touch before committing.</p>
 
         <p class="prose">The analysis window size (1024 to 8192) trades time detail against frequency detail; changing it clears the selection since the selection grid changes with it. Selections longer than 10 minutes are refused; select a shorter range and apply in passes.</p>
     </section>
@@ -1845,6 +1845,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>R</kbd> / <kbd>L</kbd> / <kbd>B</kbd> / <kbd>W</kbd></td><td class="wrap-ok">Rectangle / Lasso / Brush / Wand selection tool</td></tr>
             <tr><td><kbd>[</kbd> / <kbd>]</kbd></td><td class="wrap-ok">Brush size down / up</td></tr>
             <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play the selection's span (play / pause without one)</td></tr>
+            <tr><td><kbd>⇧Space</kbd></td><td class="wrap-ok">Solo the selection (play only what is selected)</td></tr>
             <tr><td><kbd>⇧</kbd>-drag / <kbd>⌥</kbd>-drag</td><td class="wrap-ok">Add to / subtract from the selection</td></tr>
             <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the selection</td></tr>
             <tr><td><kbd>Delete</kbd></td><td class="wrap-ok">Erase the selection down to the learned noise floor</td></tr>
