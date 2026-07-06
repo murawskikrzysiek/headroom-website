@@ -1402,7 +1402,7 @@
         <table>
             <tr><th>Operation</th><th>Notes</th></tr>
             <tr><td>Attenuate</td><td class="wrap-ok">Lowers (or raises) the selection by a dB amount you choose, default −18 dB.</td></tr>
-            <tr><td>Erase</td><td class="wrap-ok">(<kbd>Delete</kbd>) Pushes the selection down to the noise floor learned from the audio just before and after it, so the hole matches its surroundings instead of going to silence.</td></tr>
+            <tr><td>Erase</td><td class="wrap-ok">(<kbd>Delete</kbd>) Pushes the selection down to the noise floor learned from the audio just before and after it, minus an adjustable erase depth (in the Feather popover, default 12 dB). At depth 0 the hole matches its surroundings; more depth removes more decisively, which matters inside busy material where the surroundings are the music itself.</td></tr>
             <tr><td>Repair</td><td class="wrap-ok">Bridges the selection in time: each frequency's level is interpolated from the clean audio on both sides. Best for short blemishes crossing otherwise steady material.</td></tr>
         </table>
 
