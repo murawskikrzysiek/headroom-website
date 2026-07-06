@@ -463,11 +463,12 @@
             <li><a href="#edit">16 · Edit mode</a></li>
             <li><a href="#spectral">17 · Spectral mode</a></li>
             <li><a href="#chapter">18 · Chapter mode</a></li>
-            <li><a href="#export">19 · Export</a></li>
-            <li><a href="#cli">20 · Command-line tool (<code>specula</code>)</a></li>
-            <li><a href="#settings">21 · Settings</a></li>
-            <li><a href="#shortcuts">22 · Keyboard reference</a></li>
-            <li><a href="#standards">23 · Standards</a></li>
+            <li><a href="#record">19 · Record mode</a></li>
+            <li><a href="#export">20 · Export</a></li>
+            <li><a href="#cli">21 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">22 · Settings</a></li>
+            <li><a href="#shortcuts">23 · Keyboard reference</a></li>
+            <li><a href="#standards">24 · Standards</a></li>
         </ul>
     </nav>
 
@@ -488,7 +489,7 @@
             <li><kbd>⌘</kbd>-drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
             <li><strong>Scroll</strong> to zoom, <kbd>⌥</kbd>-scroll for amplitude (vertical) zoom, <kbd>⇧</kbd>-scroll to pan.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
-            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue · <kbd>⌘5</kbd> Spectral - the five authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose / violet) and its own toolbar in the same chrome slot.</li>
+            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue · <kbd>⌘5</kbd> Spectral · <kbd>⌘6</kbd> Record - the six authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose / violet / red) and its own toolbar in the same chrome slot.</li>
             <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements tabs).</li>
         </ol>
     </section>
@@ -875,7 +876,7 @@
         </figure>
 
         <h3>Dialogue mode (manual region authoring)</h3>
-        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the five modal authoring modes (Edit, Compare, Chapter, Dialogue, Spectral) the app exposes, mutually exclusive with the other four. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
+        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the six modal authoring modes (Edit, Compare, Chapter, Dialogue, Spectral, Record) the app exposes, mutually exclusive with the other five. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
 
         <p class="prose">Region painting on the waveform:</p>
         <ul>
@@ -1218,7 +1219,7 @@
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
-        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the five mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the compare toolbar sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other four mode toolbars use, so muscle memory carries between modes.</p>
+        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the six mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral, Record) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the compare toolbar sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other five mode toolbars use, so muscle memory carries between modes.</p>
 
         <figure class="shot">
             <img src="specula-compare-dock.png" alt="Compare mode with multiple slots loaded, the file dock showing per-slot metrics." loading="lazy" decoding="async">
@@ -1232,7 +1233,7 @@
             <li><strong>Drag a file</strong> onto the Compare toggle in the transport. The file loads as a new slot and Compare mode activates in one gesture.</li>
             <li><strong>Drop multiple files</strong> into an empty window. The first becomes slot A, the rest land in slots B - F, and Compare mode auto-activates.</li>
         </ul>
-        <p class="prose">Compare is mutually exclusive with Edit, Chapter, Dialogue, and Spectral. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
+        <p class="prose">Compare is mutually exclusive with Edit, Chapter, Dialogue, Spectral, and Record. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
 
         <h3>Loading slots</h3>
         <p class="prose">After the first file is open, drag additional files onto the window, drop them on the Compare toggle, or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
@@ -1292,7 +1293,7 @@
 
         <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
 
-        <p class="prose">Edit, Chapter, Dialogue, and Spectral share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all four modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
+        <p class="prose">Edit, Chapter, Dialogue, Spectral, and Record share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all five modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
 
         <figure class="shot">
             <img src="specula-edit-toolbar.png" alt="Edit mode active with the amber EDIT badge and the full operation toolbar." loading="lazy" decoding="async">
@@ -1300,7 +1301,7 @@
         </figure>
 
         <h3>Enter / exit</h3>
-        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the five mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
+        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the six mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral, Record); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
         <p class="prose">Each operation pauses playback, captures an undo snapshot (a 16-level disk-backed stack), applies the change, and resumes.</p>
@@ -1348,11 +1349,11 @@
 
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters), the Level Dialogue pass, and <a href="#spectral">Spectral mode</a> operations, since the modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit, Chapter, or Spectral.</p>
+        <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters), the Level Dialogue pass, <a href="#spectral">Spectral mode</a> operations, and takes landed from <a href="#record">Record mode</a> (each Append or Replace landing is one undo step), since the modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit, Chapter, or Spectral.</p>
 
         <h3>Save and Discard</h3>
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current audio to a new file (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
-        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, Dialogue, and Spectral alike, because those four modes share one editing session.</p>
+        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, Dialogue, Spectral, and Record alike, because those five modes share one editing session.</p>
 
         <h3>Edit toolbar</h3>
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
@@ -1427,7 +1428,7 @@
     <section class="guide-section" id="chapter">
         <h2>18. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
 
-        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other four modes (Edit, Compare, Dialogue, Spectral) so the workspace stays focused.</p>
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other five modes (Edit, Compare, Dialogue, Spectral, Record) so the workspace stays focused.</p>
 
         <figure class="shot">
             <img src="specula-chapters.png" alt="Chapter mode with a multi-chapter audiobook, the ribbon showing per-chapter RMS, LUFS, TP and NF, one chapter flagged red." loading="lazy" decoding="async">
@@ -1435,7 +1436,7 @@
         </figure>
 
         <h3>Entering the mode</h3>
-        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, Dialogue, and Spectral. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, Dialogue, and Spectral.</p>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, Dialogue, Spectral, and Record. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, Dialogue, Spectral, and Record.</p>
 
         <h3>Detect</h3>
         <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
@@ -1533,9 +1534,47 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 19. Export ─────── -->
+    <!-- ─────── 19. Record mode ─────── -->
+    <section class="guide-section" id="record">
+        <h2>19. Record mode <a href="#record" class="anchor">#</a></h2>
+
+        <p class="prose">Record straight into the app. Record mode (<kbd>⌘6</kbd>, or the <strong>Record</strong> button in the transport bar) captures from any input device on your Mac: a new file when nothing is loaded, a continuation appended to the loaded file, or a punch that replaces the current selection. It is the one mode that works with no file open, because it is how a file gets created. The first time you enter it, macOS asks for microphone permission.</p>
+
+        <figure class="shot">
+            <img src="specula-record-armed.png" alt="Record mode armed: the red record toolbar with input device, layout, and source pickers, the New / Append / Replace target, live momentary loudness and true peak meters, per-channel level bars, and the noise-floor readout." loading="lazy" decoding="async">
+            <figcaption><strong>Armed.</strong> Live meters run before anything is recorded; the floor readout verifies the room before the take.</figcaption>
+        </figure>
+
+        <h3>Input, channels, and sources</h3>
+        <p class="prose">Three pickers in the toolbar set up the capture. The <strong>input device</strong> list shows every device with input channels; the <strong>layout</strong> picker sets how many channels the take records: <strong>Mono</strong>, <strong>Stereo</strong>, or <strong>5.1</strong>, always stored as one file. The <strong>source</strong> picker chooses which hardware inputs feed the take: any single input for mono (a microphone on input 3 records from input 3), any adjacent pair for stereo, the first six for 5.1. Layouts a device can't feed don't appear; recording 5.1 needs an interface with at least six inputs.</p>
+
+        <h3>Armed metering</h3>
+        <p class="prose">Entering the mode arms the input: live meters run before anything is recorded. Per-channel level bars, momentary loudness, and true peak track the incoming signal, and a <strong>floor</strong> readout shows the quietest level heard over the last five seconds, so you can verify the room and chain before committing a take. Spoken-word specs care about exactly this: ACX wants the noise floor under −60 dB, and the readout turns orange when the room is louder than that. When recording starts, the loudness and true-peak meters reset so they describe the take, not the level check before it. Live values are for steering the session; the definitive numbers come from the analysis pass that runs when the take lands.</p>
+
+        <h3>Recording a new file</h3>
+        <p class="prose">With <strong>New</strong> selected, <strong>Record</strong> (or <kbd>R</kbd>) starts the take and <strong>Stop</strong> ends it. The take loads immediately, and everything that happens on any file load happens to it: waveform, loudness, speech detection, per-channel stats, report inputs. Takes are written to a temporary folder as they record; <strong>Save Take As…</strong> writes the loaded audio to a location of your choosing, and until then unsaved takes are kept for seven days. Recording streams to disk as it happens, so take length is bounded by free disk space, not memory.</p>
+
+        <h3>Append and Replace</h3>
+        <p class="prose">With a file loaded, <strong>Append</strong> records a take and joins it to the end of the file; <strong>Replace</strong> records a take and punches it into the current selection, with the take free to be longer or shorter than what it replaces. That's the flubbed-word workflow: select the word, hit Record, say it again, hit Stop. Both joins are smoothed with an equal-power crossfade (the <strong>Splice</strong> popover sets its length, default 10 ms; 0 ms is a hard splice), and each landing is one edit: <strong>Undo</strong> restores the audio exactly as it was. After a punch the selection moves to the landed take, so listening back is one Space away.</p>
+
+        <figure class="shot">
+            <img src="specula-record-punch.png" alt="A punch-in with the Replace target: a selection over a flubbed word on a speech waveform, the record toolbar set to Replace with the splice crossfade popover open at 10 ms." loading="lazy" decoding="async">
+            <figcaption><strong>Punch a word.</strong> Select the flub, record the fix; the take lands in the selection with an equal-power crossfade at each join.</figcaption>
+        </figure>
+
+        <p class="prose">A take records at the input device's sample rate and is converted to the file's rate when it lands. Mono takes adapt to any file (the same audio on every channel) and stereo takes fold to mono files; other channel mismatches are refused with a message, so a 5.1 file takes a 5.1 take.</p>
+
+        <p class="prose">Recording shares the same session as <a href="#edit">Edit mode</a>: record a chapter, trim its head in Edit, level it, then come back and re-record the one sentence you don't like, all in one undo history, and <strong>Save As</strong> always writes a new file. If the input device changes or disappears mid-take, the recording stops and everything captured up to that moment is kept.</p>
+
+        <h3>Takes and Compare</h3>
+        <p class="prose"><strong>To Compare</strong> sends the last finished take to a <a href="#compare">Compare</a> slot. Record the same part twice, load both takes side by side, and A/B them level-matched, or diff them, the way you'd compare two masters. Useful for microphone shootouts, performance picks, and before/after chain checks.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 20. Export ─────── -->
     <section class="guide-section" id="export">
-        <h2>19. Export <a href="#export" class="anchor">#</a></h2>
+        <h2>20. Export <a href="#export" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
@@ -1564,9 +1603,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 20. Command-line tool ─────── -->
+    <!-- ─────── 21. Command-line tool ─────── -->
     <section class="guide-section" id="cli">
-        <h2>20. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+        <h2>21. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
 
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
@@ -1696,9 +1735,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 21. Settings ─────── -->
+    <!-- ─────── 22. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>21. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>22. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Nine tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements.</p>
 
@@ -1756,9 +1795,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 22. Keyboard reference ─────── -->
+    <!-- ─────── 23. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>22. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>23. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -1808,6 +1847,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌘3</kbd></td><td class="wrap-ok">Enter / exit Chapter mode (accent: green)</td></tr>
             <tr><td><kbd>⌘4</kbd></td><td class="wrap-ok">Enter / exit Dialogue mode (accent: rose)</td></tr>
             <tr><td><kbd>⌘5</kbd></td><td class="wrap-ok">Enter / exit Spectral mode (accent: violet)</td></tr>
+            <tr><td><kbd>⌘6</kbd></td><td class="wrap-ok">Enter / exit Record mode (accent: red; the only mode that works with no file loaded)</td></tr>
         </table>
 
         <h3>Compare mode</h3>
@@ -1861,6 +1901,14 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <p class="prose">While Spectral mode is active, <kbd>L</kbd> selects the Lasso tool; the loop toggle stays available on the transport bar.</p>
 
+        <h3>Record mode</h3>
+        <table>
+            <tr><td><kbd>R</kbd></td><td class="wrap-ok">Start / stop recording</td></tr>
+            <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save As (a landed Append / Replace, like any edit)</td></tr>
+        </table>
+
+        <p class="prose">While Record mode is active, <kbd>R</kbd> starts and stops the take; in Spectral mode the same key is the Rectangle tool. The two never conflict because only one mode is active at a time.</p>
+
         <h3>Export</h3>
         <table>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON report</td></tr>
@@ -1890,9 +1938,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 23. Standards ─────── -->
+    <!-- ─────── 24. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>23. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>24. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>

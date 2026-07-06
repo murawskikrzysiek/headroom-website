@@ -49,7 +49,7 @@
   <header class="doc-header">
     <p class="eyebrow">Specula</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: May 2026</p>
+    <p class="doc-header__meta">Last updated: July 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
@@ -62,6 +62,11 @@
   <section class="priv-section">
     <h2>Audio file access</h2>
     <p>Specula opens audio files you select via the standard macOS file picker (or drag-and-drop). The entire file is loaded into RAM for analysis and discarded when the app is closed or another file is loaded. Audio is never written elsewhere on disk except when you explicitly export - for example, saving an edited file, exporting a diff WAV, or generating a PDF/JSON report - and even then it goes only to the location you choose.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Microphone and Record mode</h2>
+    <p>Record mode captures audio from your input device only while you are in the mode, after macOS grants microphone permission through the standard system prompt. Recordings are written to your Mac and nowhere else: takes stream to a temporary folder as they record, unsaved takes are kept there for seven days, and <strong>Save Take As…</strong> writes the audio only to the location you choose. No recorded audio is ever transmitted.</p>
   </section>
 
   <section class="priv-section">
