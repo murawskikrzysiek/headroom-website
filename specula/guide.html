@@ -1396,7 +1396,7 @@
         <p class="prose">The spectrogram is computed from the file at full resolution as you navigate; it uses the same color map and frequency scale (log or mel) as the analysis spectrogram. Pinch or <kbd>⌥</kbd>-scroll to zoom time around the cursor, scroll to pan. The readout under the cursor shows time, frequency, and level. For stereo files a channel switch in the toolbar shows the left channel, the right, or <strong>Both</strong> stacked, so you can see each channel's spectrogram on its own and spot content that lives in only one side.</p>
 
         <h3>Selecting</h3>
-        <p class="prose">Three tools, one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for straight time and frequency ranges, <strong>Lasso</strong> (<kbd>L</kbd>) for free shapes, <strong>Brush</strong> (<kbd>B</kbd>) for painting over curved traces like a bird chirp or a whistle. Plain dragging starts a new selection; hold <kbd>⇧</kbd> to add to it, <kbd>⌥</kbd> to subtract from it. The brush size slider (or <kbd>[</kbd> and <kbd>]</kbd>) sets the brush; on the log frequency axis the brush covers what it visually covers, wider in tone terms at the top than the bottom. <kbd>Esc</kbd> clears the selection.</p>
+        <p class="prose">Four tools, one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for straight time and frequency ranges, <strong>Lasso</strong> (<kbd>L</kbd>) for free shapes, <strong>Brush</strong> (<kbd>B</kbd>) for painting over curved traces like a bird chirp or a whistle, and <strong>Wand</strong> (<kbd>W</kbd>) for one-click shape matching: click a spot and the selection grows across the connected region at a similar level, with a tolerance slider for how far below the clicked level it may reach. Plain dragging (or a plain wand click) starts a new selection; hold <kbd>⇧</kbd> to add to it, <kbd>⌥</kbd> to subtract from it. The brush size slider (or <kbd>[</kbd> and <kbd>]</kbd>) sets the brush; on the log frequency axis the brush covers what it visually covers, wider in tone terms at the top than the bottom. <kbd>Esc</kbd> clears the selection.</p>
 
         <h3>Operations</h3>
         <table>
@@ -1411,7 +1411,7 @@
             <figcaption><strong>Attenuate.</strong> Lower (or raise) just the selection by a chosen dB amount.</figcaption>
         </figure>
 
-        <p class="prose">Every operation feathers its edges in both time and frequency (the <strong>Feather</strong> popover sets how much), applies to the selected channels only (<strong>All channels</strong> by default; editing one side of a stereo file can skew the stereo image), and lands as a normal edit: <strong>Undo</strong> brings the audio back, the selection stays so you can iterate, and <strong>Save As</strong> writes a new file, never overwriting the original. <strong>Play span</strong> plays the selection's time range for a quick audition.</p>
+        <p class="prose">Every operation feathers its edges in both time and frequency (the <strong>Feather</strong> popover sets how much), applies to the selected channels only (<strong>All channels</strong> by default; editing one side of a stereo file can skew the stereo image), and lands as a normal edit: <strong>Undo</strong> brings the audio back, the selection stays so you can iterate, and <strong>Save As</strong> writes a new file, never overwriting the original. <strong>Play span</strong> plays the selection's time range for a quick audition; with a selection active, the spacebar does the same.</p>
 
         <p class="prose">The analysis window size (1024 to 8192) trades time detail against frequency detail; changing it clears the selection since the selection grid changes with it. Selections longer than 10 minutes are refused; select a shorter range and apply in passes.</p>
     </section>
@@ -1842,8 +1842,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>Spectral mode</h3>
         <table>
-            <tr><td><kbd>R</kbd> / <kbd>L</kbd> / <kbd>B</kbd></td><td class="wrap-ok">Rectangle / Lasso / Brush selection tool</td></tr>
+            <tr><td><kbd>R</kbd> / <kbd>L</kbd> / <kbd>B</kbd> / <kbd>W</kbd></td><td class="wrap-ok">Rectangle / Lasso / Brush / Wand selection tool</td></tr>
             <tr><td><kbd>[</kbd> / <kbd>]</kbd></td><td class="wrap-ok">Brush size down / up</td></tr>
+            <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play the selection's span (play / pause without one)</td></tr>
             <tr><td><kbd>⇧</kbd>-drag / <kbd>⌥</kbd>-drag</td><td class="wrap-ok">Add to / subtract from the selection</td></tr>
             <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the selection</td></tr>
             <tr><td><kbd>Delete</kbd></td><td class="wrap-ok">Erase the selection down to the learned noise floor</td></tr>
