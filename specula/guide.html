@@ -461,12 +461,13 @@
             <li><a href="#routing">14 · Channel routing &amp; monitor mode</a></li>
             <li><a href="#compare">15 · Compare mode</a></li>
             <li><a href="#edit">16 · Edit mode</a></li>
-            <li><a href="#chapter">17 · Chapter mode</a></li>
-            <li><a href="#export">18 · Export</a></li>
-            <li><a href="#cli">19 · Command-line tool (<code>specula</code>)</a></li>
-            <li><a href="#settings">20 · Settings</a></li>
-            <li><a href="#shortcuts">21 · Keyboard reference</a></li>
-            <li><a href="#standards">22 · Standards</a></li>
+            <li><a href="#spectral">17 · Spectral mode</a></li>
+            <li><a href="#chapter">18 · Chapter mode</a></li>
+            <li><a href="#export">19 · Export</a></li>
+            <li><a href="#cli">20 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">21 · Settings</a></li>
+            <li><a href="#shortcuts">22 · Keyboard reference</a></li>
+            <li><a href="#standards">23 · Standards</a></li>
         </ul>
     </nav>
 
@@ -487,7 +488,7 @@
             <li><kbd>⌘</kbd>-drag on the waveform to select a region. <kbd>⌘Return</kbd> runs full offline analysis on the selection.</li>
             <li><strong>Scroll</strong> to zoom, <kbd>⌥</kbd>-scroll for amplitude (vertical) zoom, <kbd>⇧</kbd>-scroll to pan.</li>
             <li><kbd>⌃1</kbd>-<kbd>⌃5</kbd> toggle each analysis section on/off. <kbd>⌃⌥1</kbd>-<kbd>⌃⌥5</kbd> focuses one section (hides the rest).</li>
-            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue - the four authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose) and its own toolbar in the same chrome slot.</li>
+            <li><kbd>⌘1</kbd> Edit · <kbd>⌘2</kbd> Compare · <kbd>⌘3</kbd> Chapter · <kbd>⌘4</kbd> Dialogue · <kbd>⌘5</kbd> Spectral - the five authoring modes, mutually exclusive. Each carries its own accent colour (amber / sky-blue / green / rose / violet) and its own toolbar in the same chrome slot.</li>
             <li><kbd>⌘,</kbd> opens Preferences (Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements tabs).</li>
         </ol>
     </section>
@@ -874,7 +875,7 @@
         </figure>
 
         <h3>Dialogue mode (manual region authoring)</h3>
-        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the four modal authoring modes (Edit, Compare, Chapter, Dialogue) the app exposes, mutually exclusive with the other three. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
+        <p class="prose">For programme material where the VAD's false positives or misses matter, <kbd>⌘4</kbd> (or the <strong>Dialogue</strong> button on the transport bar) enters Dialogue authoring mode - one of the five modal authoring modes (Edit, Compare, Chapter, Dialogue, Spectral) the app exposes, mutually exclusive with the other four. Every detected region is visible on the waveform while the mode is active (the SG overlay is forced on so you don't need to discover the toggle).</p>
 
         <p class="prose">Region painting on the waveform:</p>
         <ul>
@@ -1217,7 +1218,7 @@
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
-        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the compare toolbar sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other three mode toolbars use, so muscle memory carries between modes.</p>
+        <p class="prose">Compare is a <strong>toggled mode</strong> (<kbd>⌘2</kbd>, or the Compare button in the transport bar), one of the five mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral) Specula exposes. The mode carries its own <strong>sky-blue accent colour</strong> and its own dedicated toolbar: the compare toolbar sits below the transport with the per-slot offset / gain / polarity controls, the diff toggle, and the metrics popover - the same shape the other four mode toolbars use, so muscle memory carries between modes.</p>
 
         <figure class="shot">
             <img src="specula-compare-dock.png" alt="Compare mode with multiple slots loaded, the file dock showing per-slot metrics." loading="lazy" decoding="async">
@@ -1231,7 +1232,7 @@
             <li><strong>Drag a file</strong> onto the Compare toggle in the transport. The file loads as a new slot and Compare mode activates in one gesture.</li>
             <li><strong>Drop multiple files</strong> into an empty window. The first becomes slot A, the rest land in slots B - F, and Compare mode auto-activates.</li>
         </ul>
-        <p class="prose">Compare is mutually exclusive with Edit, Chapter, and Dialogue. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
+        <p class="prose">Compare is mutually exclusive with Edit, Chapter, Dialogue, and Spectral. Entering one mode exits the others; the Compare-mode-only controls (per-slot toolbar, diff toggle, slot-switch keys) disappear when you leave the mode and reappear when you return.</p>
 
         <h3>Loading slots</h3>
         <p class="prose">After the first file is open, drag additional files onto the window, drop them on the Compare toggle, or use the <strong>+</strong> button on the file dock. New files load in detached background tasks; their per-file metrics (integrated LUFS, true peak, sample peak, LRA, DR, speech stats, loudness curve, stereo width curve, speech history) are computed on load.</p>
@@ -1291,7 +1292,7 @@
 
         <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
 
-        <p class="prose">Edit, Chapter, and Dialogue share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all three modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
+        <p class="prose">Edit, Chapter, Dialogue, and Spectral share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all four modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
 
         <figure class="shot">
             <img src="specula-edit-toolbar.png" alt="Edit mode active with the amber EDIT badge and the full operation toolbar." loading="lazy" decoding="async">
@@ -1299,7 +1300,7 @@
         </figure>
 
         <h3>Enter / exit</h3>
-        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the four mutually exclusive modes (Edit, Compare, Chapter, Dialogue); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
+        <p class="prose"><kbd>⌘1</kbd> toggles edit mode. Edit is one of the five mutually exclusive modes (Edit, Compare, Chapter, Dialogue, Spectral); entering it exits any other active mode. The mode carries the <strong>amber</strong> accent colour - matching the <strong>EDIT</strong> badge that lights on the waveform and the tint of the edit toolbar.</p>
 
         <h3>Operations</h3>
         <p class="prose">Each operation pauses playback, captures an undo snapshot (a 16-level disk-backed stack), applies the change, and resumes.</p>
@@ -1347,11 +1348,11 @@
 
 
         <h3>Undo</h3>
-        <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters) and the Level Dialogue pass, since the three modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit or Chapter.</p>
+        <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters), the Level Dialogue pass, and <a href="#spectral">Spectral mode</a> operations, since the modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit, Chapter, or Spectral.</p>
 
         <h3>Save and Discard</h3>
         <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current audio to a new file (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
-        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, and Dialogue alike, because those three modes share one editing session.</p>
+        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, Dialogue, and Spectral alike, because those four modes share one editing session.</p>
 
         <h3>Edit toolbar</h3>
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
@@ -1380,11 +1381,48 @@
 
     <hr class="divider">
 
-    <!-- ─────── 17. Chapter mode ─────── -->
-    <section class="guide-section" id="chapter">
-        <h2>17. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
+    <!-- ─────── 17. Spectral mode ─────── -->
+    <section class="guide-section" id="spectral">
+        <h2>17. Spectral mode <a href="#spectral" class="anchor">#</a></h2>
 
-        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other three modes (Edit, Compare, Dialogue) so the workspace stays focused.</p>
+        <p class="prose">See it, select it, take it out. Spectral mode (<kbd>⌘5</kbd>, or the <strong>Spectral</strong> button in the transport bar) turns the main canvas into a full resolution, zoomable spectrogram of the loaded file, where you select time and frequency regions and process just those. A cough inside a piano chord, a chair squeak under speech, a bite of mains hum: paint over the blemish and remove it, leaving everything around it untouched. Works on mono and stereo files; edits share Edit mode's undo history, unsaved-changes dot, and Save As.</p>
+
+        <figure class="shot">
+            <img src="specula-spectral-lasso.png" alt="Spectral mode with a stereo file in the stacked Both view: a lasso selection drawn around a blemish in one channel's spectrogram, with the violet spectral toolbar above." loading="lazy" decoding="async">
+            <figcaption><strong>Spectral mode.</strong> The canvas becomes a full resolution spectrogram; select the blemish and process just that.</figcaption>
+        </figure>
+
+        <h3>The canvas</h3>
+        <p class="prose">The spectrogram is computed from the file at full resolution as you navigate; it uses the same color map and frequency scale (log or mel) as the analysis spectrogram. Pinch or <kbd>⌥</kbd>-scroll to zoom time around the cursor, scroll to pan. The readout under the cursor shows time, frequency, and level. For stereo files a channel switch in the toolbar shows the left channel, the right, or <strong>Both</strong> stacked, so you can see each channel's spectrogram on its own and spot content that lives in only one side.</p>
+
+        <h3>Selecting</h3>
+        <p class="prose">Three tools, one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for straight time and frequency ranges, <strong>Lasso</strong> (<kbd>L</kbd>) for free shapes, <strong>Brush</strong> (<kbd>B</kbd>) for painting over curved traces like a bird chirp or a whistle. Plain dragging starts a new selection; hold <kbd>⇧</kbd> to add to it, <kbd>⌥</kbd> to subtract from it. The brush size slider (or <kbd>[</kbd> and <kbd>]</kbd>) sets the brush; on the log frequency axis the brush covers what it visually covers, wider in tone terms at the top than the bottom. <kbd>Esc</kbd> clears the selection.</p>
+
+        <h3>Operations</h3>
+        <table>
+            <tr><th>Operation</th><th>Notes</th></tr>
+            <tr><td>Attenuate</td><td class="wrap-ok">Lowers (or raises) the selection by a dB amount you choose, default −18 dB.</td></tr>
+            <tr><td>Erase</td><td class="wrap-ok">(<kbd>Delete</kbd>) Pushes the selection down to the noise floor learned from the audio just before and after it, so the hole matches its surroundings instead of going to silence.</td></tr>
+            <tr><td>Repair</td><td class="wrap-ok">Bridges the selection in time: each frequency's level is interpolated from the clean audio on both sides. Best for short blemishes crossing otherwise steady material.</td></tr>
+        </table>
+
+        <figure class="shot">
+            <img src="specula-spectral-attenuate.png" alt="The spectral toolbar with the Attenuate popover open: a dB amount field at the default −18 dB, over an active selection on the spectrogram." loading="lazy" decoding="async">
+            <figcaption><strong>Attenuate.</strong> Lower (or raise) just the selection by a chosen dB amount.</figcaption>
+        </figure>
+
+        <p class="prose">Every operation feathers its edges in both time and frequency (the <strong>Feather</strong> popover sets how much), applies to the selected channels only (<strong>All channels</strong> by default; editing one side of a stereo file can skew the stereo image), and lands as a normal edit: <strong>Undo</strong> brings the audio back, the selection stays so you can iterate, and <strong>Save As</strong> writes a new file, never overwriting the original. <strong>Play span</strong> plays the selection's time range for a quick audition.</p>
+
+        <p class="prose">The analysis window size (1024 to 8192) trades time detail against frequency detail; changing it clears the selection since the selection grid changes with it. Selections longer than 10 minutes are refused; select a shorter range and apply in passes.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 18. Chapter mode ─────── -->
+    <section class="guide-section" id="chapter">
+        <h2>18. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
+
+        <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other four modes (Edit, Compare, Dialogue, Spectral) so the workspace stays focused.</p>
 
         <figure class="shot">
             <img src="specula-chapters.png" alt="Chapter mode with a multi-chapter audiobook, the ribbon showing per-chapter RMS, LUFS, TP and NF, one chapter flagged red." loading="lazy" decoding="async">
@@ -1392,7 +1430,7 @@
         </figure>
 
         <h3>Entering the mode</h3>
-        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, and Dialogue. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, and Dialogue.</p>
+        <p class="prose">A <strong>Chapter</strong> button sits in the transport bar next to Edit, Compare, Dialogue, and Spectral. Click it to enter or exit chapter mode; <kbd>⌘3</kbd> does the same from the keyboard. Chapter mode carries the <strong>green</strong> accent colour - the chapter toolbar that slots in below the transport, the playing-chapter fill on the ribbon, and the Chapter button itself all match. Mutually exclusive with Edit, Compare, Dialogue, and Spectral.</p>
 
         <h3>Detect</h3>
         <p class="prose"><strong>Detect</strong> scans the loaded mono mix for silences longer than the minimum duration (default 2 s) below the silence threshold (default −55 dB). Each silence becomes a boundary; the audio between two silences becomes a chapter. Chapters whose total non-silent content runs under 1 s are dropped so a stray cough doesn't fragment the result.</p>
@@ -1490,9 +1528,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 18. Export ─────── -->
+    <!-- ─────── 19. Export ─────── -->
     <section class="guide-section" id="export">
-        <h2>18. Export <a href="#export" class="anchor">#</a></h2>
+        <h2>19. Export <a href="#export" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
@@ -1521,9 +1559,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 19. Command-line tool ─────── -->
+    <!-- ─────── 20. Command-line tool ─────── -->
     <section class="guide-section" id="cli">
-        <h2>19. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+        <h2>20. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
 
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
@@ -1653,9 +1691,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 20. Settings ─────── -->
+    <!-- ─────── 21. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>20. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>21. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Nine tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements.</p>
 
@@ -1713,9 +1751,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 21. Keyboard reference ─────── -->
+    <!-- ─────── 22. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>21. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>22. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -1764,6 +1802,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌘2</kbd></td><td class="wrap-ok">Enter / exit Compare mode (accent: sky-blue)</td></tr>
             <tr><td><kbd>⌘3</kbd></td><td class="wrap-ok">Enter / exit Chapter mode (accent: green)</td></tr>
             <tr><td><kbd>⌘4</kbd></td><td class="wrap-ok">Enter / exit Dialogue mode (accent: rose)</td></tr>
+            <tr><td><kbd>⌘5</kbd></td><td class="wrap-ok">Enter / exit Spectral mode (accent: violet)</td></tr>
         </table>
 
         <h3>Compare mode</h3>
@@ -1801,6 +1840,16 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo region edit (50-step history)</td></tr>
         </table>
 
+        <h3>Spectral mode</h3>
+        <table>
+            <tr><td><kbd>R</kbd> / <kbd>L</kbd> / <kbd>B</kbd></td><td class="wrap-ok">Rectangle / Lasso / Brush selection tool</td></tr>
+            <tr><td><kbd>[</kbd> / <kbd>]</kbd></td><td class="wrap-ok">Brush size down / up</td></tr>
+            <tr><td><kbd>⇧</kbd>-drag / <kbd>⌥</kbd>-drag</td><td class="wrap-ok">Add to / subtract from the selection</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the selection</td></tr>
+            <tr><td><kbd>Delete</kbd></td><td class="wrap-ok">Erase the selection down to the learned noise floor</td></tr>
+            <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo (shared with Edit mode's history)</td></tr>
+        </table>
+
         <h3>Export</h3>
         <table>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON report</td></tr>
@@ -1830,9 +1879,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 22. Standards ─────── -->
+    <!-- ─────── 23. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>22. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>23. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>
