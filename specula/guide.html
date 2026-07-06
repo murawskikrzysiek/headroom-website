@@ -1357,7 +1357,7 @@
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
 
         <h3>Plugin chain (Audio Units)</h3>
-        <p class="prose">A second row under the edit toolbar hosts a chain of Audio Unit effects. It appears in Edit mode for mono and stereo files (it's hidden for multichannel playback). Click <strong>Add</strong> to browse the effects installed on your Mac, grouped by manufacturer and searchable by name, then pick one to append it to the chain. Both AUv2 and AUv3 effects are listed; instruments and other non-effect units aren't, since the chain processes an existing file.</p>
+        <p class="prose">A second row under the edit toolbar hosts a chain of Audio Unit effects. It appears in Edit mode for mono and stereo files, whatever output device you monitor through (it is hidden only for multichannel files). Click <strong>Add</strong> to browse the effects installed on your Mac, grouped by manufacturer and searchable by name, then pick one to append it to the chain. Both AUv2 and AUv3 effects are listed; instruments and other non-effect units aren't, since the chain processes an existing file.</p>
 
         <figure class="shot">
             <img src="specula-plugin-chain.png" alt="The plugin chain row under the edit toolbar with two Audio Unit effect chips loaded, each showing the effect name, its maker, and controls for bypass, reorder, opening the plugin window, and removal." loading="lazy" decoding="async">
@@ -1702,7 +1702,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>Plugins</h3>
         <ul>
-            <li><strong>Prefer out-of-process Audio Units</strong> (on by default) - loads each Audio Unit in its own process so a crash in a third-party plugin can't take Specula down. Turn it off to load plugins in-process for lower latency. Applies to the <a href="#edit">plugin chain</a> in Edit mode.</li>
+            <li><strong>Prefer out-of-process Audio Units</strong> (on by default) - keeps AUv3 plugins isolated in their own process, so a crash in one of them can't take Specula down. Turn it off to load them in-process for lower latency. AUv2 plugins always run inside the app, so a faulty AUv2 plugin can crash it. Applies to the <a href="#edit">plugin chain</a> in Edit mode.</li>
         </ul>
 
         <h3>Report</h3>
