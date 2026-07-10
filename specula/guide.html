@@ -464,11 +464,12 @@
             <li><a href="#spectral">17 · Spectral mode</a></li>
             <li><a href="#chapter">18 · Chapter mode</a></li>
             <li><a href="#record">19 · Record mode</a></li>
-            <li><a href="#export">20 · Export</a></li>
-            <li><a href="#cli">21 · Command-line tool (<code>specula</code>)</a></li>
-            <li><a href="#settings">22 · Settings</a></li>
-            <li><a href="#shortcuts">23 · Keyboard reference</a></li>
-            <li><a href="#standards">24 · Standards</a></li>
+            <li><a href="#generator">20 · Signal generator</a></li>
+            <li><a href="#export">21 · Export</a></li>
+            <li><a href="#cli">22 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">23 · Settings</a></li>
+            <li><a href="#shortcuts">24 · Keyboard reference</a></li>
+            <li><a href="#standards">25 · Standards</a></li>
         </ul>
     </nav>
 
@@ -1574,9 +1575,54 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 20. Export ─────── -->
+    <!-- ─────── 20. Signal generator ─────── -->
+    <section class="guide-section" id="generator">
+        <h2>20. Signal generator <a href="#generator" class="anchor">#</a></h2>
+
+        <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘7</kbd>, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
+
+        <figure class="shot">
+            <img src="specula-generator-window.png" alt="The Signal Generator window: a module list stacking a sine tone and pink noise with per-module level, start, and length, format controls for sample rate, bit depth, and container, and a live waveform and spectrum preview with peak, RMS, and loudness readouts." loading="lazy" decoding="async">
+            <figcaption><strong>The builder.</strong> Stack and sequence modules per channel, watch the live preview, then Generate.</figcaption>
+        </figure>
+
+        <h3>Sources</h3>
+        <p class="prose">A signal is made of one or more modules. A module is one sound with a level, a start time, and a length:</p>
+        <ul>
+            <li><strong>Sine, square, sawtooth, triangle</strong> at a frequency you set. The square, sawtooth, and triangle are band-limited: they are built from their exact harmonic series up to the top of the band, so they stay clean at any frequency with no aliasing.</li>
+            <li><strong>Noise</strong> in three colours: white (flat), pink (−3 dB/octave), and brown (−6 dB/octave).</li>
+            <li><strong>Impulse</strong>: a single full-scale sample, the rest silence. With bursts (below) it becomes an impulse train.</li>
+            <li><strong>Sweep</strong>: a sine chirp from one frequency to another, linear (constant Hz per second) or logarithmic (constant octaves per second).</li>
+            <li><strong>Silence</strong>.</li>
+        </ul>
+        <p class="prose">A module's <strong>level</strong> is peak dBFS for the tones, sweeps, and impulse, and RMS dBFS for noise, so "−6 dBFS sine" and "−20 dBFS pink noise" both mean what they say.</p>
+
+        <h3>Stacking and sequencing</h3>
+        <p class="prose">Give a channel several modules and you get both layering and timelines from the same list:</p>
+        <ul>
+            <li>Modules that overlap in time <strong>sum</strong>: three sines at once is a chord; a tone plus noise is a tone in noise.</li>
+            <li>Modules placed one after another form a <strong>sequence</strong>: a second of silence, an impulse, a tone at 1 kHz, a sweep. Each module's start and length place it in time.</li>
+        </ul>
+
+        <h3>Per-module modifiers</h3>
+        <p class="prose">Under <strong>Modifiers</strong>, each module can add click-free <strong>fade in</strong> and <strong>fade out</strong> edges, a <strong>level sweep</strong> (ramp the level from one dB value to another, linear or in dB), and <strong>bursts</strong> (gate the module on and off, so a tone becomes tone bursts and an impulse becomes an impulse train; set the on and off lengths and how many pulses; for an impulse, on plus off set the spacing between impulses).</p>
+
+        <h3>Channels and format</h3>
+        <p class="prose"><strong>Same signal on all channels</strong> builds one signal and copies it to every channel; noise is decorrelated per channel, so stereo noise is real stereo. Turn it off to give each channel its own modules. Channel count runs from mono up.</p>
+        <p class="prose">Set the <strong>sample rate</strong>, <strong>bit depth</strong> (16 or 24-bit integer, or 32-bit float), and <strong>container</strong> (WAV, AIFF, or CAF). AIFF stores integer PCM only, so 32-bit float needs WAV or CAF. <strong>Set total length</strong> fixes the file's length, padding or trimming the modules to fit; leave it off and the length follows the last module's end. An optional <strong>peak ceiling</strong> scales the whole render down so its loudest sample sits at the level you choose, useful when stacked tones would sum past 0 dBFS.</p>
+
+        <h3>Preview</h3>
+        <p class="prose">A live waveform and spectrum of the current signal sits at the top of the window and updates as you edit, with running peak, RMS, and integrated-loudness readouts. <strong>Preview in Specula</strong> renders the current signal to a temporary file and loads it in the main window for the full analysis set (waveform, FFT, spectrogram, loudness). For long signals the in-window preview shows the first 30 seconds.</p>
+
+        <h3>Generate</h3>
+        <p class="prose"><strong>Generate…</strong> (<kbd>⌘Return</kbd>) asks where to save, writes the file, and reports its peak, RMS, and integrated loudness. <strong>Reveal</strong> shows it in the Finder; <strong>Open in Specula</strong> loads it into the main window for analysis. The same generator is on the command line as <code>specula generate</code> (see the <a href="#cli">CLI section</a>) for scripted batches.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 21. Export ─────── -->
     <section class="guide-section" id="export">
-        <h2>20. Export <a href="#export" class="anchor">#</a></h2>
+        <h2>21. Export <a href="#export" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
@@ -1605,9 +1651,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 21. Command-line tool ─────── -->
+    <!-- ─────── 22. Command-line tool ─────── -->
     <section class="guide-section" id="cli">
-        <h2>21. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+        <h2>22. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
 
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
@@ -1656,6 +1702,16 @@ specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
             <li><code>--limit-tp DBTP</code> - apply the true-peak limiter at this ceiling without changing loudness; runs last so it can catch any residual peaks left by an upstream normalize.</li>
         </ol>
         <p class="prose">LUFS normalization and <code>--limit-tp</code> use the same 5 ms two-pass true-peak limiter (BS.1770 4× polyphase oversampled detection).</p>
+
+        <h3><code>specula generate --out &lt;OUT&gt; …</code></h3>
+        <p class="prose">Synthesize a test signal and write it to <code>--out</code>. One source per run, across N identical channels:</p>
+        <pre><code>specula generate --sine 1000 --duration 5 --channels 2 --out tone.wav
+specula generate --noise pink --level=-20 --duration 10 --out pink.wav
+specula generate --sweep 20:20000 --sweep-shape log --duration 3 --bit-depth 24 --out sweep.wav</code></pre>
+        <p class="prose">Pick exactly one source: <code>--sine HZ</code>, <code>--square HZ</code>, <code>--saw HZ</code>, <code>--triangle HZ</code>, <code>--noise white|pink|brown</code>, <code>--sweep START:END</code>, <code>--impulse</code>, or <code>--silence</code>. <code>--level</code> is peak dBFS for tones and RMS dBFS for noise (default −6 / −20); pass negative values with the <code>--level=-20</code> form. Format flags: <code>--sample-rate</code> (default 48000), <code>--bit-depth 16|24|32f</code> (default 24), <code>--container wav|aiff|caf</code> (inferred from the <code>--out</code> extension otherwise), and <code>--peak-ceiling</code> to scale the render under a ceiling. The square, sawtooth, and triangle are band-limited, matching the app.</p>
+        <p class="prose">For layered or time-sequenced multichannel signals, describe the whole signal in JSON and pass it with <code>--spec-file</code>. The JSON mirrors the window's builder (channels holding timed modules), and omitted fields take the builder's defaults, so a minimal spec is:</p>
+        <pre><code>{"channels": [{"name": "L", "modules": [{"source": {"sine": {"frequency": 1000}}, "duration": 5}]}]}</code></pre>
+        <p class="prose">Module fields: <code>source</code> (required; <code>sine</code>/<code>square</code>/<code>sawtooth</code>/<code>triangle</code> with <code>frequency</code>, <code>noise</code> with a colour, <code>sweep</code> with <code>start</code>/<code>end</code>/<code>shape</code>, <code>impulse</code>, <code>silence</code>), <code>start</code>, <code>duration</code>, <code>gainDB</code>, <code>fadeInSeconds</code>, <code>fadeOutSeconds</code>, <code>levelSweep</code>, <code>burst</code>. Spec fields: <code>sampleRate</code>, <code>bitDepth</code> (<code>int16</code>/<code>int24</code>/<code>float32</code>), <code>container</code>, <code>channels</code>, <code>duration</code>, <code>peakCeilingDB</code>. The stdout receipt reports the written format and the measured peak, RMS, and integrated LUFS.</p>
 
         <h3><code>specula report &lt;FILE&gt;</code></h3>
         <p class="prose">Full Specula report through the headless pipeline, in your choice of format.</p>
@@ -1737,9 +1793,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 22. Settings ─────── -->
+    <!-- ─────── 23. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>22. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>23. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Nine tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements.</p>
 
@@ -1797,9 +1853,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 23. Keyboard reference ─────── -->
+    <!-- ─────── 24. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>23. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>24. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -1912,6 +1968,12 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <p class="prose">While Record mode is active, <kbd>R</kbd> starts and stops the take; in Spectral mode the same key is the Rectangle tool. The two never conflict because only one mode is active at a time.</p>
 
+        <h3>Signal generator</h3>
+        <table>
+            <tr><td><kbd>⌘7</kbd></td><td class="wrap-ok">Open the Signal Generator window</td></tr>
+            <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Generate (in the generator window)</td></tr>
+        </table>
+
         <h3>Export</h3>
         <table>
             <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export JSON report</td></tr>
@@ -1941,9 +2003,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
     <hr class="divider">
 
-    <!-- ─────── 24. Standards ─────── -->
+    <!-- ─────── 25. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>24. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>25. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>
