@@ -1579,7 +1579,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
     <section class="guide-section" id="generator">
         <h2>20. Signal generator <a href="#generator" class="anchor">#</a></h2>
 
-        <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘7</kbd>, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
+        <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘G</kbd>, the <strong>Generate</strong> button next to the mode selector, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. With no file open, the main window also offers a <strong>Generate a test signal</strong> tile below the drop zone. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
 
         <figure class="shot">
             <img src="specula-generator-window.png" alt="The Signal Generator window: a module list stacking a sine tone and pink noise with per-module level, start, and length, format controls for sample rate, bit depth, and container, and a live waveform and spectrum preview with peak, RMS, and loudness readouts." loading="lazy" decoding="async">
@@ -1970,7 +1970,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>Signal generator</h3>
         <table>
-            <tr><td><kbd>⌘7</kbd></td><td class="wrap-ok">Open the Signal Generator window</td></tr>
+            <tr><td><kbd>⌘G</kbd></td><td class="wrap-ok">Open the Signal Generator window</td></tr>
             <tr><td><kbd>⌘Return</kbd></td><td class="wrap-ok">Generate (in the generator window)</td></tr>
         </table>
 
