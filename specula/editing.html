@@ -195,24 +195,17 @@
         </figure>
     </section>
 
-    <!-- Spectral editing -->
+    <!-- Spectral editing teaser -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">See it, select it, take it out</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Spectral mode</strong> (<kbd>⌘5</kbd>) is for the blemish inside the audio you want to keep: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum, a bird chirp in ambience. The main canvas becomes a full resolution, zoomable spectrogram of the loaded file, and you select the blemish itself, in time and frequency, with a rectangle, a lasso, a brush, or a wand: click a spot with the wand and the selection grows across the connected region at a similar level, shaped by a dB tolerance and a time reach that re-tune the last click live (plain drag or click starts a new selection, Shift adds, Option subtracts, and the brush size is adjustable).</p>
-                <p class="prose-lead" style="margin-top: 14px;">Three operations process just the selection. <strong>Attenuate</strong> lowers (or raises) it by a chosen dB amount, default −18. <strong>Erase</strong> pushes it down to the noise floor learned from the audio just before and after it, minus an adjustable erase depth (default 12 dB), so removal stays decisive even inside busy material. <strong>Repair</strong> bridges it in time, interpolating each frequency's level from the clean audio on both sides, the move for short blemishes crossing otherwise steady material. Every operation feathers its edges in time and frequency; everything outside the selection stays untouched, sample for sample.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Audition before you commit: Space plays the selection's span, <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection itself with the same feathered edges the operations use, and <strong>Result</strong> (<kbd>⌥Space</kbd>) plays the span with the selection removed. For stereo files the canvas shows the left channel, the right, or both stacked, and an operation applies to all channels or just one (all channels is the default; editing one side can skew the stereo image). It's a normal edit like everything else on this page: it shares Edit mode's undo history, the selection survives an apply and an undo so you can iterate, and Save As writes a new file. See the <a href="guide.html#spectral">Spectral mode guide</a>.</p>
+                <p class="prose-lead"><strong>Spectral mode</strong> (<kbd>⌘5</kbd>) is for the blemish inside the audio you want to keep: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum. Select it on a full resolution, zoomable spectrogram, in time and frequency, then attenuate, erase, or repair just that region, leaving everything else untouched. It's a bigger job than the trims and fades on this page, so it gets its own workflow: selection tools, the wand's dB tolerance and time reach, feathering, and audition before you commit.</p>
+                <div class="app-hero__cta" style="margin-top: 20px;">
+                    <a href="repair.html" class="btn btn-primary">See the spectral repair workflow →</a>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Spectral shot -->
-    <section class="shots shots--tight">
-        <figure class="shot">
-            <img src="specula-spectral-lasso.png" alt="Specula's Spectral mode with a stereo file in the stacked Both view: a lasso selection drawn around a blemish in one channel's spectrogram, under the time ruler and waveform strip, with a frequency scale on the right and the violet spectral toolbar showing the four selection tools." loading="lazy" decoding="async">
-            <figcaption><strong>Spectral mode.</strong> Select the blemish on the spectrogram, then attenuate, erase, or repair just that.</figcaption>
-        </figure>
     </section>
 
     <!-- See it -->
