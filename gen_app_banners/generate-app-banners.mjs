@@ -68,6 +68,13 @@ const APPS = [
     features: 'EBU R128 loudness · custom targets · speech-gated LUFS · spectral editing · 6-file compare · record · signal generator · CLI',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
+  {
+    slug: 'videre',
+    name: 'Videre',
+    icon: join(ICONS_DIR, 'videre/icon.png'),
+    subtitle: 'Raw & encoded video inspection: HDR, scopes, metrics',
+    tagline: 'Headroom Studio · Precision tools for macOS',
+  },
 ];
 
 // Inter Tight is required — node-canvas does NOT resolve system fonts via

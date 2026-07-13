@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videre - Video Inspection &amp; Analysis for macOS</title>
+    <link rel="canonical" href="https://headroomstudio.dev/videre/">
+    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, and compare encodes with PSNR, SSIM, VMAF.">
+    <meta property="og:title" content="Videre">
+    <meta property="og:description" content="See what's actually in the frame. Raw and encoded video, HDR-correct display, scopes, metadata, bitstream, and compare metrics.">
+    <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Videre">
+    <meta name="twitter:description" content="Native macOS video inspector - raw and encoded sources, HDR display, scopes, metadata, bitstream, compare metrics.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Videre",
+        "operatingSystem": "macOS 14.0 or later",
+        "applicationCategory": "MultimediaApplication",
+        "description": "Native macOS video inspector - raw and encoded sources, color-managed SDR and HDR display, scopes, Dolby Vision and HDR10+ metadata, bitstream and container inspection, and compare metrics.",
+        "url": "https://headroomstudio.dev/videre/",
+        "image": "https://headroomstudio.dev/videre/og.png",
+        "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
+        </div>
+        <div>
+            <p class="eyebrow">In development</p>
+            <h1 class="display">Videre</h1>
+            <p class="app-hero__desc">
+                A native macOS inspector for people who work on video, not just with it. Open a raw YUV dump with no header or an encoded file, display it color-correctly in SDR and HDR, read every scope and every metadata block down to the bitstream fields, and compare two encodes with the metrics that decide codec shootouts.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS</span>
+                <span class="badge">PQ &amp; HLG</span>
+                <span class="badge">Dolby Vision metadata</span>
+                <span class="badge">HDR10+</span>
+                <span class="badge">VMAF</span>
+                <span class="badge">Bitstream inspector</span>
+            </div>
+            <div class="app-hero__cta">
+                <span class="btn btn-muted">Coming soon</span>
+                <a class="btn btn-outline" href="mailto:hello@headroomstudio.dev?subject=Videre">Get in touch</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">one-time purchase · macOS 14+</p>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- Hero shot: TODO(screenshot) - main window with an HDR clip, side
+         panel open, gamut + waveform scopes visible. Task in Craft:
+         Apps/Videre/Videre ToDo. Uncomment when the capture lands.
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="videre-overview.png" alt="Videre's main window inspecting an HDR clip: color-managed viewer, interpretation side panel, gamut and waveform scopes." loading="lazy" decoding="async">
+            <figcaption><strong>The whole frame, in numbers and in pictures.</strong> Color-managed viewer, live interpretation controls, and stacked scopes.</figcaption>
+        </figure>
+    </section>
+    -->
+
+    <!-- Why Videre -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Why Videre</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    Players show you a picture. Videre shows you the file: what the pixels are, what the metadata claims, and what survives an encode.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;"><strong>The interpretation problem.</strong> A raw YUV dump has no header; nothing in the file says 1920&times;1080, 10-bit, BT.709. And tagged files lie: a BT.601 clip marked BT.709 looks almost right, which is worse than wrong. Videre opens headerless files through a parameter sheet with a size guesser and filename hints, and every file, tagged or not, gets live interpretation controls: matrix, range, and transfer are pills you flip while the frame re-renders, with an amber marker whenever your choice diverges from what the file declares.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>The evidence problem.</strong> "Encoder A looks better" is not a result. Videre loads two sources into an A/B session with side-by-side, flip, wipe, and difference views, a temporal offset for misaligned clips, and per-frame PSNR, SSIM, MS-SSIM, VMAF, CAMBI, and &Delta;E metrics with a graph and a jump-to-worst-frame button. The numbers cross-validate against the reference implementations, so they hold up in a report.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>The metadata problem.</strong> Dolby Vision RPUs, HDR10+ scene metadata, VUI color tags, container boxes: a player consumes them silently or ignores them. Videre reads them out, per frame, searchable by field name, and exports them as JSON. When a clip looks wrong on one TV and fine on another, the answer is usually in a block nobody rendered visible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">What it opens</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Raw buffers straight from a codec under development, camera dumps, y4m pipelines, and finished deliverables.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Raw / headerless</div><div class="feature-row__v">Planar YUV at 8, 10, 12, and 16 bit in 4:2:0 / 4:2:2 / 4:4:4, semi-planar NV12/NV21/P010 class, packed YUYV / UYVY / v210, grayscale, and RGB orders. Custom resolutions and per-plane strides. A size guesser ranks candidate geometries from the file size; filename hints (1920x1080, p010, bt709 in the name) pre-fill the sheet.</div></div>
+                <div class="feature-row"><div class="feature-row__k">y4m</div><div class="feature-row__v">YUV4MPEG2 streams including 10-bit variants, with header tags mapped to interpretation and chroma siting.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Encoded</div><div class="feature-row__v">MP4 / MOV / QuickTime through the system decoder: HEVC, H.264, ProRes, with frame-exact random access and edit-list handling. Files with in-band parameter sets (hev1 / avc3) decode through Videre's own VideoToolbox path.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Reinterpret</div><div class="feature-row__v">&#8984;F re-opens the current file with different parameters, keeping frame position and zoom. Wrong guess costs nothing.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Display -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Display</p>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Color-managed viewer</div><div class="feature-row__v">BT.601 / 709 / 2020 matrices, video and full range, sRGB / gamma 2.2 / gamma 2.4 / PQ / HLG transfer, chroma siting. Conversion math is one implementation shared by the display shader, the pixel readout, and every scope, so what you see and what you measure never disagree.</div></div>
+                <div class="feature-row"><div class="feature-row__k">HDR on EDR displays</div><div class="feature-row__v">PQ and HLG render through the display's extended dynamic range headroom. A Display section shows the current EDR headroom, a &plusmn;6 EV display-only exposure control, a 1,000-nit tone-map preview, and a clipping highlight for content brighter than the display can show.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Pixel-level inspection</div><div class="feature-row__v">Zoom to a pixel grid, hover for code values and converted RGB, nits readout on HDR content, a magnifier loupe, channel isolation (Y, Cb, Cr, R, G, B, alpha, and ICtCp components), rotation metadata honored, copy or save any frame as PNG.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scopes -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Scopes</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Every analyzer toggles on a control-number shortcut, stacks in the inspector, and pops out to its own window.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Gamut</div><div class="feature-row__v">CIE 1931 chromaticity with the frame's pixel cloud, out-of-gamut and outside-P3 stats, and a rotatable 3D mode plotting chromaticity against luminance in nits, with gamut-volume outlines and a MaxCLL reference plane. Hover the diagram and matching pixels highlight in the image.</div></div>
+                <div class="feature-row"><div class="feature-row__k">ICtCp border check</div><div class="feature-row__v">Flags colors sitting within a chosen &Delta;E ITP margin of the edge of the representable volume, where chroma subsampling and quantization push them out of range. Cyan overlay on the image plus a per-frame stat.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Carriage stress</div><div class="feature-row__v">Simulates a carriage on the current frame: YCbCr or ICtCp, 4:4:4 / 4:2:2 / 4:2:0, 8 / 10 / 12-bit, and renders a per-pixel &Delta;E ITP damage heatmap with stats. What the chroma path of an encode does to the frame, before any encoder runs.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Waveform &amp; vectorscope</div><div class="feature-row__v">Luma and per-channel waveform, chroma vectorscope.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Levels</div><div class="feature-row__v">Per-channel histograms with min / max / mean and sub-black / super-white percentages.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Light levels</div><div class="feature-row__v">Measured MaxCLL / MaxFALL against the declared values, with staleness tracking and re-measure.</div></div>
+                <div class="feature-row"><div class="feature-row__k">QC checks</div><div class="feature-row__v">Black frames, freeze runs, letterbox bounds, and ITU-T P.910 SI / TI over the whole clip.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Dolby Vision</div><div class="feature-row__v">Per-frame RPU metadata decoded across CM v2.9 and v4.0: L1 dynamic levels, trims, active area, source primaries, target displays. Videre inspects the metadata; it does not compose.</div></div>
+                <div class="feature-row"><div class="feature-row__k">HDR10+</div><div class="feature-row__v">ST 2094-40 per-scene metadata with a per-frame MaxSCL graph and tone-curve knee readout.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspectors -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Bitstream &amp; container</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The layer below the pixels, readable without leaving the app.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Bitstream inspector</div><div class="feature-row__v">Header-level parsing of H.264, H.265, and AV1: parameter sets in full, SEI and metadata OBUs, slice and frame headers, grouped into per-frame access units that follow the playhead. Field names are the exact spec syntax-element names. Type a field name and search the whole stream for it.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Container inspector</div><div class="feature-row__v">The ISO base media box tree (MP4 / MOV / HEIF): sample tables, edit lists, color boxes, codec configuration records, HEIF item structure, encryption signalling, DASH indexes. Memory-mapped, so a multi-gigabyte file opens instantly.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Change tracking</div><div class="feature-row__v">Step frames with change-highlight on and any field that differs from the previous frame renders amber with its old value, so a drifting HDR10+ curve or a per-shot Dolby Vision trim is visible at a glance.</div></div>
+                <div class="feature-row"><div class="feature-row__k">JSON export</div><div class="feature-row__v">The full parse, every frame, machine-readable.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compare -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Compare &amp; metrics</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    Two sources, one verdict: aligned views for the eyes, cross-validated metrics for the report.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">Load a reference and a distorted version, even in different pixel formats or transfers; each side converts under its own interpretation. View them side-by-side, flip on a key, wipe with a draggable divider, or as a difference image with channel, heatmap, and binary styles. A temporal offset control lines up clips that don't start on the same frame.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Metrics run per frame with a chart, sequence aggregates, and a jump-to-worst-frame button: <strong>PSNR</strong> (matching the ffmpeg filter's conventions exactly), <strong>SSIM</strong> and <strong>MS-SSIM</strong> (the canonical definitions), <strong>VMAF</strong> and <strong>CAMBI</strong> (Netflix's libvmaf, statically linked), and <strong>&Delta;E2000</strong> / <strong>&Delta;E ITP</strong> color difference. Results export as JSON and CSV with a frozen report schema.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLI -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Automation</p>
+            <div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Four subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, built on the same engine as the app, so scripted QC gets identical numbers. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-validation -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Cross-validated</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">A measurement tool is only as good as its references. Videre's test suite pins its numbers to external implementations, not to itself.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="std-row"><span class="std-row__tag">PSNR</span><span class="std-row__desc">Matches <code>ffmpeg</code>'s psnr filter to the printed precision: average, min, max.</span></div>
+                <div class="std-row"><span class="std-row__tag">VMAF · CAMBI</span><span class="std-row__desc">Gated against the <code>vmaf</code> reference CLI built from the same Netflix release.</span></div>
+                <div class="std-row"><span class="std-row__tag">Dolby Vision</span><span class="std-row__desc">RPU decode cross-validated against <code>dovi_tool</code>-generated reference bitstreams, field by field.</span></div>
+                <div class="std-row"><span class="std-row__tag">HDR10+</span><span class="std-row__desc">ST 2094-40 parsing validated against <code>hdr10plus_tool</code> output.</span></div>
+                <div class="std-row"><span class="std-row__tag">Container</span><span class="std-row__desc">Box decoding compared field-for-field with GPAC's <code>mp4box</code> and <code>heif-info</code>.</span></div>
+                <div class="std-row"><span class="std-row__tag">Bitstream</span><span class="std-row__desc">Parameter-set parsing checked against <code>ffprobe</code>, <code>mediainfo</code>, and known encodes from x264, x265, and SVT-AV1.</span></div>
+                <div class="std-row"><span class="std-row__tag">Color math</span><span class="std-row__desc">BT.601 / 709 / 2020, BT.2100 PQ and HLG, BT.2124 &Delta;E ITP, CIEDE2000 pinned to published test values; the display shader is tested per-pixel against the CPU reference.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Requirements</p>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">macOS</div><div class="feature-row__v">Sonoma 14.0 or later.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Hardware</div><div class="feature-row__v">Any Mac that runs macOS 14. HDR rendering uses the display's EDR headroom; an XDR or recent MacBook Pro panel shows PQ and HLG at meaningful brightness.</div></div>
+                <div class="callout" style="margin-top: 20px;">
+                    <span style="opacity:0.5;">&#9432;</span>
+                    <p>All processing is local. Videre never transmits your video anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Status</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Videre is in development at Headroom Studio, the same one-person shop behind Specula, Audita, and Lyra. The analysis engine, scopes, inspectors, and compare metrics described above are built and under test; licensing and the first public release are being prepared.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Questions, or a workflow you want covered? <a href="mailto:hello@headroomstudio.dev?subject=Videre">hello@headroomstudio.dev</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">&copy; 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="mailto:hello@headroomstudio.dev?subject=Videre%20feedback">Send Feedback</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>
