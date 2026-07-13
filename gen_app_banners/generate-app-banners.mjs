@@ -66,6 +66,13 @@ const APPS = [
     subtitle: 'Pro audio analysis: loudness, FFT, compare & edit',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
+  {
+    slug: 'videre',
+    name: 'Videre',
+    icon: join(ICONS_DIR, 'videre/icon.png'),
+    subtitle: 'Raw & encoded video inspection: HDR, scopes, metrics',
+    tagline: 'Headroom Studio · Precision tools for macOS',
+  },
 ];
 
 // Inter Tight is required — node-canvas does NOT resolve system fonts via
