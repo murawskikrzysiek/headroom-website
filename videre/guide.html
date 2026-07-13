@@ -347,6 +347,15 @@
             <li><strong>clipping</strong>: highlights pixels brighter than the display can show.</li>
         </ul>
 
+        <h3>The Environment section</h3>
+        <p class="prose">The bottom of the info panel reports what the current screen can do, so you know whether to trust what you're seeing:</p>
+        <ul>
+            <li><strong>Screen</strong>, <strong>Gamut</strong> (Display P3 or sRGB class), and <strong>Refresh</strong>.</li>
+            <li><strong>EDR now</strong>: the live headroom above SDR white. It follows the brightness setting (turning brightness up eats headroom) and updates when you move the window to another display. Where the screen has reference modes, a <strong>Reference</strong> row shows their pinned headroom and whether the live value currently matches it; matching a reference mode is what makes viewing conditions repeatable. The clipping highlight uses the same live number.</li>
+            <li><strong>Night Shift</strong>: amber <code>ON · color shifted</code> when the OS is warming the white point; every color judgment on that screen is off until it's disabled. The state is read through a system interface with no public API; when it can't be read, the row is absent rather than wrong.</li>
+            <li>The <code>settings</code> link opens System Settings › Displays. Reference modes and presets can only be switched there; apps have no API for it.</li>
+        </ul>
+
         <!-- TODO(screenshot): guide-hdr-display.png - the Display section on a
              PQ clip: headroom readout, exposure slider, tone map + clipping
              toggles. Task in Craft: Apps/Videre/Videre ToDo.
