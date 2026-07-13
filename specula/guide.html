@@ -506,6 +506,7 @@
 
         <p class="prose">Other ways to open files:</p>
         <ul>
+            <li><strong>Click the drop zone.</strong> With nothing loaded, the main window shows three starting tiles side by side: <strong>Drop an audio file here</strong> (click it to open the file picker, or drop files on it), <strong>Generate a test signal</strong>, and <strong>Record audio</strong>.</li>
             <li><strong>Drag &amp; drop</strong> one or more audio files onto the main window, or onto the Dock icon (works whether Specula is running or not).</li>
             <li><strong>Open With</strong> from Finder (right-click an audio file). Specula registers as an audio handler but not the default, so it stays out of your way unless you pick it.</li>
             <li><strong>File → Open Recent</strong> lists the last files you opened from any source above. The list is managed by macOS, so it survives quitting and relaunching.</li>
@@ -528,6 +529,9 @@
         <p class="prose">Next to Loop in the transport bar is a small <strong>↺ Hold play-start</strong> toggle. Default: off. Pause stops playback at the current position (classic transport behaviour). Turn it on (the icon fills, accent-tinted) and <strong>Pause</strong> (<kbd>Space</kbd> or the play / pause toggle) returns the playhead to where Play was last started, or where you last manually placed the cursor with a waveform click. Tap <kbd>Space</kbd> again and you re-play the same passage from the same starting point. Useful when you're A/B'ing a passage by ear without wanting to re-position the cursor each time.</p>
         <p class="prose">In compare mode the toggle also makes nudge buttons (±1 sample / ±1 ms) re-seek to that anchor, so the comparison point doesn't drift forward while you click alignment buttons.</p>
         <p class="prose">Stop is unchanged either way: it always rewinds to the beginning of the file.</p>
+
+        <h4>Info panel</h4>
+        <p class="prose">The floating info panel on the left holds the File section, the loudness and channel readouts, the mode picker, and the output selector. Hide it with the sidebar button at the far left of the transport bar (accent-tinted while the panel is showing), with <kbd>⌘I</kbd>, or from <strong>View → Show Info Panel</strong>, to give the waveform and analysis views the full window width. The choice is remembered between launches.</p>
 
         <h3>Playback rate</h3>
         <p class="prose">Variable rate from 0.25× to 2×, with optional pitch preservation (timestretch).</p>
@@ -1539,7 +1543,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
     <section class="guide-section" id="record">
         <h2>19. Record mode <a href="#record" class="anchor">#</a></h2>
 
-        <p class="prose">Record straight into the app. Record mode (<kbd>⌘6</kbd>, or the <strong>Record</strong> button in the transport bar) captures from any input device on your Mac: a new file when nothing is loaded, a continuation appended to the loaded file, an insert at the playhead that pushes the rest later, or a punch that records over existing audio. It is the one mode that works with no file open, because it is how a file gets created. The first time you enter it, macOS asks for microphone permission.</p>
+        <p class="prose">Record straight into the app. Record mode (<kbd>⌘6</kbd>, the <strong>Record</strong> button in the transport bar, or the <strong>Record audio</strong> tile in the empty window) captures from any input device on your Mac: a new file when nothing is loaded, a continuation appended to the loaded file, an insert at the playhead that pushes the rest later, or a punch that records over existing audio. It is the one mode that works with no file open, because it is how a file gets created. The first time you enter it, macOS asks for microphone permission.</p>
 
         <figure class="shot">
             <img src="specula-record-armed.png" alt="Record mode armed: the red record toolbar with input device, layout, and source pickers, the New / Append / Insert / Punch target, live momentary loudness and true peak meters, per-channel level bars, and the noise-floor readout." loading="lazy" decoding="async">
@@ -1574,7 +1578,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
     <section class="guide-section" id="generator">
         <h2>20. Signal generator <a href="#generator" class="anchor">#</a></h2>
 
-        <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘G</kbd>, the <strong>Generate</strong> button next to the mode selector, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. With no file open, the main window also offers a <strong>Generate a test signal</strong> tile below the drop zone. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
+        <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘G</kbd>, the <strong>Generate</strong> button next to the mode selector, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. With no file open, the main window also offers a <strong>Generate a test signal</strong> tile beside the drop zone. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
 
         <figure class="shot">
             <img src="specula-signal-generator.png" alt="The Signal Generator window: a Sine module and a Silence module stacked in the module list, with per-module level, start, and length controls, output format settings for sample rate, bit depth, and container, and a live waveform and spectrum preview with peak, RMS, and loudness readouts." loading="lazy" decoding="async">
@@ -1978,6 +1982,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <h3>View - toggle sections</h3>
         <table>
+            <tr><td><kbd>⌘I</kbd></td><td class="wrap-ok">Show / hide the info panel</td></tr>
             <tr><td><kbd>⌃1</kbd></td><td class="wrap-ok">Toggle Waveform</td></tr>
             <tr><td><kbd>⌃2</kbd></td><td class="wrap-ok">Toggle Loudness Curve</td></tr>
             <tr><td><kbd>⌃3</kbd></td><td class="wrap-ok">Toggle Spectrogram</td></tr>
