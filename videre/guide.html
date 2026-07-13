@@ -352,7 +352,8 @@
         <ul>
             <li><strong>Screen</strong>, <strong>Gamut</strong> (Display P3 or sRGB class), and <strong>Refresh</strong>.</li>
             <li><strong>EDR now</strong>: the live headroom above SDR white. It follows the brightness setting (turning brightness up eats headroom) and updates when you move the window to another display. Where the screen has reference modes, a <strong>Reference</strong> row shows their pinned headroom and whether the live value currently matches it; matching a reference mode is what makes viewing conditions repeatable. The clipping highlight uses the same live number.</li>
-            <li><strong>Night Shift</strong>: amber <code>ON · color shifted</code> when the OS is warming the white point; every color judgment on that screen is off until it's disabled. The state is read through a system interface with no public API; when it can't be read, the row is absent rather than wrong.</li>
+            <li><strong>HDR</strong>: whether the screen can show anything above SDR white at all, and the most headroom it can reach. macOS reports capability as headroom multiples, never as panel nits; absolute nits aren't exposed to apps and only become known values in a reference mode (HDR Video: 100-nit SDR white, 1,000-nit peak).</li>
+            <li><strong>Night Shift</strong> and <strong>True Tone</strong>: amber when the OS is shifting color under you: Night Shift warms the white point, True Tone drifts it with ambient light. Either one invalidates color judgments until disabled. Both states are read through system interfaces with no public API; when a state can't be read, its row is absent rather than wrong.</li>
             <li>The <code>settings</code> link opens System Settings › Displays. Reference modes and presets can only be switched there; apps have no API for it.</li>
         </ul>
 
