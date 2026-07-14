@@ -116,6 +116,18 @@
         </div>
     </section>
 
+    <!-- Built for your workflow -->
+    <section class="section section--bordered">
+        <div class="apps-head"><p class="label">Built for your workflow</p></div>
+        <p style="font-size: 0.78rem; color: var(--text-3); margin: 6px 0 22px; line-height: 1.55; max-width: 620px;">Job-shaped paths through the same engine.</p>
+        <div class="tiles tiles--4">
+            <a class="tile" href="metadata-repair.html">
+                <div class="tile__glyph">⌗</div><h4>Metadata repair</h4>
+                <p>Fix wrong or missing color and HDR tags on an MP4/MOV without re-encoding. The output is verified byte-identical before the save succeeds.</p><span class="tile__arrow">→</span>
+            </a>
+        </div>
+    </section>
+
     <!-- Sources -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -181,6 +193,21 @@
         </div>
     </section>
 
+    <!-- Metadata repair -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Metadata repair</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The one thing Videre writes: the tags. The pixels stay untouched. <a href="metadata-repair.html" style="color: var(--accent);">See the workflow →</a></p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Repair Metadata (⇧⌘M)</div><div class="feature-row__v">Rewrites the color tags (primaries, transfer, matrix, range), the SMPTE ST 2086 mastering display volume, and the MaxCLL / MaxFALL content light level of an MP4/MOV without re-encoding. The sheet opens pre-filled with the file's current tags; keep, set, or remove each section, with BT.709 / BT.2020 PQ (HDR10) / BT.2020 HLG presets and any H.273 code point accepted.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Verified writes</div><div class="feature-row__v">The original file is never modified. The repaired copy goes to a new file, and the save succeeds only after the output passes verification: video and audio data byte-identical to the source, tags reading back exactly, file re-opening.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre retag</code></div><div class="feature-row__v">The same repair from a script: presets, an x265-style <code>master-display</code> string, MaxCLL / MaxFALL, remove flags, and per-track selection.</div></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Compare -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -200,7 +227,7 @@
         <div class="section__grid">
             <p class="label">Automation</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Four subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, built on the same engine as the app, so scripted QC gets identical numbers. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Five subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, built on the same engine as the app, so scripted QC gets identical numbers. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
             </div>
         </div>
     </section>

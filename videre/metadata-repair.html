@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videre for HDR metadata repair: fix color tags on macOS without re-encoding</title>
+    <link rel="canonical" href="https://headroomstudio.dev/videre/metadata-repair.html">
+    <meta name="description" content="Fix wrong or missing color tags, mastering display, and content light level on an MP4 or MOV without re-encoding. Pre-filled repair sheet, HDR10 and HLG presets, verified output, and a CLI for delivery scripts.">
+    <meta property="og:title" content="Videre for HDR metadata repair">
+    <meta property="og:description" content="Rewrite color tags, SMPTE ST 2086 mastering display, and MaxCLL / MaxFALL on MP4/MOV without re-encoding. The output is verified byte-identical before the save succeeds.">
+    <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Videre for HDR metadata repair">
+    <meta name="twitter:description" content="Fix wrong or missing color and HDR tags on MP4/MOV without re-encoding: pre-filled sheet, HDR10 and HLG presets, verified output, CLI for delivery scripts.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Videre for HDR metadata repair",
+        "description": "Fix wrong or missing color tags, mastering display, and content light level on an MP4 or MOV without re-encoding, with a verified output and a CLI for delivery scripts.",
+        "url": "https://headroomstudio.dev/videre/metadata-repair.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Videre",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication"
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Videre</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
+        </div>
+        <div>
+            <p class="eyebrow">Workflow · Metadata repair</p>
+            <h1 class="display">Fix the tags. Keep the pixels.</h1>
+            <p class="app-hero__desc">
+                A graded HDR deliverable bounces QC over a wrong or missing color tag, and the pixels were never the problem. Videre rewrites the color tags, the mastering display volume, and the content light level of an MP4 or MOV without re-encoding: read what the file actually carries, repair it from a pre-filled sheet or one command, and save a copy whose video and audio are verified byte-identical before the save succeeds.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS</span>
+                <span class="badge">No re-encode</span>
+                <span class="badge">SMPTE ST 2086</span>
+                <span class="badge">MaxCLL / MaxFALL</span>
+                <span class="badge">H.273</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#repair">Read the guide section</a>
+                <a class="btn btn-learn" href="index.html">All of Videre</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">one-time purchase · macOS 14+</p>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- Hero shot: TODO(screenshot) - videre-repair-sheet.png, the Repair
+         Metadata sheet open on an HDR file with the current tags pre-filled.
+         Task in Craft: Apps/Videre/Videre ToDo. Uncomment when the capture lands.
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet on an HDR file: color tag, mastering display, and content light level sections pre-filled with the file's current values, preset buttons above." loading="lazy" decoding="async">
+            <figcaption><strong>The repair sheet.</strong> Opens pre-filled with what the file carries now, so what you change is exactly the delta.</figcaption>
+        </figure>
+    </section>
+    -->
+
+    <!-- The problem -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">A wrong tag bounces a right master</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    The grade is correct. The file says otherwise. A player believes the file.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">An HDR deliverable carries its meaning in container metadata. The color tags declare which primaries, transfer, matrix, and range the pixels are coded in; the mastering display volume (SMPTE ST 2086) records the display the grade was made on; MaxCLL and MaxFALL summarize how bright the content gets. Players and QC tools read those boxes, not your intent. When one is missing or wrong, the pixels get interpreted under the wrong assumptions, the QC report flags the file, and the delivery comes back.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The pixels themselves are fine. A wrong tag is a labeling error, yet the usual fix is a full re-encode: hours of render time and a generation of quality spent to change a few dozen bytes of metadata. Videre edits those bytes directly. The video and audio data are not touched, and the output is checked against the original before the save succeeds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The workflow -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">The workflow</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Bounce email to redelivery in four steps. No render queue involved.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">1 · Diagnose what the file says</div><div class="feature-row__v">Open the deliverable. The metadata readout in the info panel (<kbd>⌘I</kbd>) shows the declared tags; the container inspector (<kbd>⌃9</kbd>, Container mode) shows the boxes themselves, <code>colr</code>, <code>mdcv</code>, and <code>clli</code>, with every field decoded. The bitstream inspector reads the color signalling inside the coded stream too, so a container problem and a bitstream problem are distinguishable before you pick the fix.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Repair from the pre-filled sheet</div><div class="feature-row__v"><strong>File → Repair Metadata…</strong> (<kbd>⇧⌘M</kbd>) opens pre-filled with the file's current tags. Each of the three sections can be kept as is, set to new values, or removed outright. Presets fill BT.709, BT.2020 PQ (HDR10), and BT.2020 HLG; the fields accept any H.273 code point, so an unusual tag is not a dead end. Mastering display values are entered in the raw integers x265's <code>master-display</code> string uses, with the derived chromaticities and cd/m² shown beside them.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Let the write prove itself</div><div class="feature-row__v">The original file is never modified; the repaired copy goes to a new file. Before the save succeeds, the output must pass three checks: the video and audio data byte-identical to the source, the requested tags reading back exactly, and the file re-opening. If any check fails, the output is deleted and the error names the reason. There is no state where a half-repaired file looks done.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Redeliver, or script it</div><div class="feature-row__v">For one file, save and send. For a pipeline, the same engine runs from the command line: <code>videre retag</code> takes the presets, an x265-style <code>master-display</code> string, and per-track selection, so the fix drops into the script that already packages the deliverable. Minutes instead of a re-render.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What it rewrites -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">What it rewrites, and what it doesn't</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Three boxes, each independently kept, set, or removed. Edits apply to every video track; the CLI's <code>--track</code> picks one.</p>
+            </div>
+            <div style="max-width: 640px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="std-row"><span class="std-row__tag">colr</span><span class="std-row__desc">Primaries, transfer, matrix, range: how a player converts the coded pixels to light. Presets or any H.273 code point.</span></div>
+                    <div class="std-row"><span class="std-row__tag">mdcv</span><span class="std-row__desc">The SMPTE ST 2086 mastering display volume: primaries, white point, and luminance range of the grading display. The static metadata HDR10 is built on.</span></div>
+                    <div class="std-row"><span class="std-row__tag">clli</span><span class="std-row__desc">MaxCLL and MaxFALL: the brightest pixel and the brightest frame average, the numbers downstream tone mapping reads.</span></div>
+                </div>
+                <p class="prose-lead" style="margin-top: 22px;">Scope: container metadata. Color signalling inside the coded stream itself (VUI in the parameter sets, SEI messages) is not rewritten. The container and bitstream inspectors show both layers side by side, so where the two disagree you see it, and you know exactly what a player will read.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verify shot: TODO(screenshot) - videre-container-colr.png, the container
+         inspector on the repaired file with colr / mdcv / clli unfolded.
+         Task in Craft: Apps/Videre/Videre ToDo. Uncomment when the capture lands.
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="videre-container-colr.png" alt="Videre's container inspector on a repaired file: the colr, mdcv, and clli boxes unfolded with every decoded field visible." loading="lazy" decoding="async">
+            <figcaption><strong>Check the result yourself.</strong> The container inspector decodes the boxes the repair wrote, field by field.</figcaption>
+        </figure>
+    </section>
+    -->
+
+    <!-- CLI -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">In a delivery script</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">The app and the command line share one engine, so a scripted repair behaves exactly like the sheet, verification included:</p>
+                <pre style="margin: 16px 0; padding: 14px 18px; border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); overflow-x: auto;"><code style="background: transparent; padding: 0; font-size: 0.82rem; line-height: 1.6;">videre retag graded.mov -o graded-fixed.mov --colr bt2020-pq \
+    --cll 1000,400 \
+    --master-display "G(13250,34500)B(7500,3000)R(34000,16000)WP(15635,16450)L(10000000,1)"</code></pre>
+                <p class="prose-lead"><code>videre retag --help</code> lists the edit flags, including <code>--remove-colr</code> / <code>--remove-clli</code> / <code>--remove-mdcv</code> for stripping a box, and <code>--track</code> for multi-track files.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Fix the label, keep the master</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A bounced deliverable does not have to go back through the render queue. Read what the file carries, correct the tags from the sheet or the command line, and send an output whose pixels are the ones you graded, verified byte for byte. The full reference, including every field and preset, is in the <a href="guide.html#repair">user guide</a>.</p>
+                <div class="app-hero__cta" style="margin-top: 24px;">
+                    <a href="guide.html#repair" class="btn btn-primary">Read the guide section →</a>
+                    <a href="index.html" class="btn btn-outline">Back to Videre</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Videre</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>
