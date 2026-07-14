@@ -285,14 +285,10 @@
         </ul>
         <p class="prose">Wrong guess? <kbd>⌘F</kbd> (Reinterpret Raw) re-opens the sheet pre-filled with the active parameters. Applying keeps the frame position, zoom, and any compare session, unless the dimensions change.</p>
 
-        <!-- TODO(screenshot): guide-parameter-sheet.png - the parameter sheet
-             on a headerless file with the size-guesser candidate list showing
-             a clean match. Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="guide-parameter-sheet.png" alt="Videre's parameter sheet for a headerless raw file: pixel format, dimensions, strides, and the size-guesser candidate list." loading="lazy" decoding="async">
             <figcaption><strong>The parameter sheet.</strong> The guesser ranks geometries that divide the file cleanly.</figcaption>
         </figure>
-        -->
 
         <h3>y4m</h3>
         <p class="prose">YUV4MPEG2 streams open directly, including 10-bit variants. Header tags map to the interpretation: the colorspace tag sets chroma siting, and <code>COLORRANGE=FULL</code> sets the range.</p>
@@ -310,14 +306,10 @@
             <li><strong>Chroma siting</strong> (left / center / top-left) affects the smooth-chroma display path and the carriage stress simulation.</li>
         </ul>
 
-        <!-- TODO(screenshot): guide-info-panel.png - the info panel with the
-             Transfer pill amber (diverged from tag) and the tagged reset
-             visible. Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot shot--narrow">
             <img src="guide-info-panel.png" alt="Videre's info panel: Matrix, Range, and Transfer pills with an amber diverged selection and the tagged reset." loading="lazy" decoding="async">
             <figcaption><strong>The interpretation pills.</strong> Amber = your selection differs from the file's declaration.</figcaption>
         </figure>
-        -->
     </section>
 
     <hr class="divider">
@@ -359,14 +351,10 @@
             <li>The <code>settings</code> link opens System Settings › Displays. Reference modes and presets can only be switched there; apps have no API for it.</li>
         </ul>
 
-        <!-- TODO(screenshot): guide-hdr-display.png - the Display section on a
-             PQ clip: headroom readout, exposure slider, tone map + clipping
-             toggles. Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot shot--narrow">
             <img src="guide-hdr-display.png" alt="Videre's Display section on a PQ interpretation: EDR headroom, exposure slider, tone map and clipping toggles." loading="lazy" decoding="async">
             <figcaption><strong>HDR display management.</strong> Display-only; the numbers never move.</figcaption>
         </figure>
-        -->
     </section>
 
     <hr class="divider">
@@ -396,13 +384,10 @@
         <p class="prose">The <strong>3D</strong> mode plots chromaticity against luminance in nits: a rotatable point cloud with gamut-volume outlines, a Display P3 reference, selectable height scales (linear / log / PQ), and a MaxCLL reference plane. Drag to orbit, scroll to zoom.</p>
         <p class="prose">The <strong>ICtCp border</strong> row is covered in <a href="#ictcp">section 10</a>.</p>
 
-        <!-- TODO(screenshot): guide-gamut-3d.png - 3D gamut cloud on HDR
-             content, MaxCLL plane visible. Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="guide-gamut-3d.png" alt="Videre's 3D gamut cloud: chromaticity against nits with gamut-volume outlines and the MaxCLL plane." loading="lazy" decoding="async">
             <figcaption><strong>The 3D gamut cloud.</strong> Chromaticity on the floor, nits up the axis.</figcaption>
         </figure>
-        -->
 
         <h3>Levels (⌃2)</h3>
         <p class="prose">Per-channel histograms with min / max / mean, sub-black and super-white percentages, and a hover bin readout.</p>
@@ -436,14 +421,10 @@
             <li>Field names are the exact spec syntax-element names, so results line up with the standard documents.</li>
         </ul>
 
-        <!-- TODO(screenshot): guide-bitstream-search.png - bitstream inspector
-             on an HEVC clip, field search active, a Dolby Vision RPU unfolded.
-             Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="guide-bitstream-search.png" alt="Videre's bitstream inspector: per-frame access units with a field search filtering the tree and a Dolby Vision RPU unfolded." loading="lazy" decoding="async">
             <figcaption><strong>Field search.</strong> Type a syntax-element name; the tree filters to units carrying it.</figcaption>
         </figure>
-        -->
 
         <h3>Container</h3>
         <p class="prose">For MP4 / MOV / HEIF sources the same scope gains a <strong>Container</strong> mode: the ISO base media box tree with decoded fields for the movie and track headers, edit lists, sample tables, color boxes (<code>colr</code>, <code>clli</code>, <code>mdcv</code>), codec configuration records, Dolby Vision configuration, HEIF item structure, encryption signalling, and DASH indexes. The file is memory-mapped, so multi-gigabyte files open instantly. The same field search works here.</p>
@@ -469,14 +450,10 @@
     --master-display "G(13250,34500)B(7500,3000)R(34000,16000)WP(15635,16450)L(10000000,1)"</code></pre>
         <p class="prose"><code>videre retag --help</code> lists the edit flags, including <code>--remove-colr</code> / <code>--remove-clli</code> / <code>--remove-mdcv</code>.</p>
 
-        <!-- TODO(screenshot): videre-repair-sheet.png - the Repair Metadata
-             sheet on an HDR file with the current tags pre-filled (shared with
-             metadata-repair.html). Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet: color tag, mastering display, and content light level sections pre-filled with the file's current values, preset buttons above." loading="lazy" decoding="async">
             <figcaption><strong>The repair sheet.</strong> Pre-filled with what the file carries now; keep, set, or remove each section.</figcaption>
         </figure>
-        -->
     </section>
 
     <hr class="divider">
@@ -490,14 +467,10 @@
             <li><strong>Analyze</strong> (<kbd>⇧⌘R</kbd>) runs the metrics over the sequence: <strong>PSNR</strong> (matching the ffmpeg filter's conventions exactly), <strong>SSIM</strong> and <strong>MS-SSIM</strong> (canonical definitions), <strong>VMAF</strong> and <strong>CAMBI</strong> (Netflix's libvmaf), <strong>ΔE2000</strong>, and <strong>ΔE ITP</strong> (BT.2124). Per-frame chart, sequence aggregates, a jump-to-worst-frame button, and JSON / CSV export with a frozen schema.</li>
         </ul>
 
-        <!-- TODO(screenshot): guide-compare-wipe.png - wipe view across
-             reference vs encode with the per-frame metrics chart visible.
-             Task in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="guide-compare-wipe.png" alt="Videre's compare mode: a wipe between reference and encode with the per-frame metrics chart below." loading="lazy" decoding="async">
-            <figcaption><strong>Wipe and measure.</strong> The divider for the eyes, the chart for the report.</figcaption>
+            <figcaption><strong>Wipe and measure.</strong> The divider for the eyes, the chart for the report. Footage: Big Buck Bunny (CC) Blender Foundation.</figcaption>
         </figure>
-        -->
     </section>
 
     <hr class="divider">
@@ -598,20 +571,14 @@
 
         <div class="note"><span class="note-icon">ⓘ</span><p><strong>Honest limits.</strong> This is a carriage preview, not a codec (no DCT, no rate control). The simulation runs on the stored pixel grid; rotation metadata passes through a real re-encode untouched, and the math matches that. A color edge aligned to the chroma block grid reconstructs losslessly, so test charts undersell what real footage shows. Full-range coding clips the most extreme chroma on its own (roughly 0.13 JND on a pure primary). PQ uses the full 10,000-nit container.</p></div>
 
-        <!-- TODO(screenshot): guide-border-flag.png - the gamut panel's ICtCp
-             border row enabled, cyan flags visible on saturated content.
-             TODO(screenshot): guide-stress.png - the carriage stress panel
-             with a heatmap showing seams on colorful content, 4:2:0 10-bit.
-             Tasks in Craft: Apps/Videre/Videre ToDo.
         <figure class="shot">
             <img src="guide-border-flag.png" alt="The ICtCp border check: cyan flags on saturated pixels with the gamut panel stat row." loading="lazy" decoding="async">
-            <figcaption><strong>The border check.</strong> The stat counts; the overlay locates.</figcaption>
+            <figcaption><strong>The border check.</strong> The stat counts; the overlay locates. Footage: Sintel (CC) Blender Foundation.</figcaption>
         </figure>
         <figure class="shot">
             <img src="guide-stress.png" alt="The carriage stress scope: damage heatmap with seams at color boundaries and the config pills." loading="lazy" decoding="async">
             <figcaption><strong>Carriage stress.</strong> Seams are subsampling; the flat wash is quantization.</figcaption>
         </figure>
-        -->
     </section>
 
     <hr class="divider">
