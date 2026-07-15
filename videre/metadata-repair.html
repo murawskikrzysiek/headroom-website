@@ -140,7 +140,7 @@
                     <div class="std-row"><span class="std-row__tag">mdcv</span><span class="std-row__desc">The SMPTE ST 2086 mastering display volume: primaries, white point, and luminance range of the grading display. The static metadata HDR10 is built on.</span></div>
                     <div class="std-row"><span class="std-row__tag">clli</span><span class="std-row__desc">MaxCLL and MaxFALL: the brightest pixel and the brightest frame average, the numbers downstream tone mapping reads.</span></div>
                 </div>
-                <p class="prose-lead" style="margin-top: 22px;">Scope: container metadata. Color signalling inside the coded stream itself (VUI in the parameter sets, SEI messages) is not rewritten. The container and bitstream inspectors show both layers side by side, so where the two disagree you see it, and you know exactly what a player will read.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Scope: both layers. Color signalling also lives inside the coded stream itself (VUI in the parameter sets, SEI messages), and decoders prefer it over the container tags, so every fix carries a scope control: container, bitstream, or both. Both is the default, so the layers agree after a repair. The container and bitstream inspectors show both layers side by side, so where the two disagree you see it before you pick the fix.</p>
             </div>
         </div>
     </section>
