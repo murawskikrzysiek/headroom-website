@@ -435,24 +435,40 @@
 
     <section class="guide-section" id="repair">
         <h2>8 · Metadata repair (⇧⌘M)<a class="anchor" href="#repair">#</a></h2>
-        <p class="prose"><strong>File → Repair Metadata…</strong> rewrites the color and HDR metadata of an MP4/MOV without re-encoding: the color tags (primaries, transfer, matrix, range), the mastering display volume (SMPTE ST 2086), and the content light level (MaxCLL/MaxFALL). The everyday save: a deliverable bounced for a wrong or missing color tag, and a re-encode would cost hours and a generation.</p>
+        <p class="prose"><strong>File → Repair Metadata…</strong> fixes color and HDR signalling on an MP4/MOV without re-encoding, in both places it lives: the container boxes (the tags a demuxer reads) and the coded stream itself (the signalling a decoder reads, which wins in most players). The everyday save: a deliverable bounced for a wrong or missing color tag, and a re-encode would cost hours and a generation.</p>
+        <p class="prose">Color signalling lives in two layers, and they can disagree. When they do, the sheet opens with a banner showing both values. Every fix has a scope control: container, bitstream, or both. Both is the default, so the layers always agree after a repair.</p>
+        <p class="prose">The fix catalog:</p>
         <ul>
-            <li>The sheet opens pre-filled with the file's current tags. Each of the three sections can be kept as is, set to new values, or removed.</li>
-            <li>Presets fill the common targets: BT.709, BT.2020 PQ (HDR10), BT.2020 HLG. The fields accept any H.273 code point, so unusual tags are not a dead end.</li>
-            <li>Mastering display values are entered in raw carriage units, the same integers x265's <code>master-display</code> string uses; the sheet shows the derived chromaticities and cd/m² beside them.</li>
-            <li>The original file is never modified. The repaired copy goes to a new file, and every write is verified before it succeeds: the video and audio data must be byte-identical, the requested tags must read back exactly, and the file must still open. If any check fails the output is deleted and the error says why.</li>
-            <li>Edits apply to every video track; the command line has a <code>--track</code> flag for multi-track files.</li>
-            <li>Scope: container metadata. Color signalling inside the coded stream itself (VUI/SEI) is not rewritten; the container inspector (<kbd>⌃9</kbd>) and bitstream inspector show both layers, so you can see exactly what a player will read.</li>
+            <li><strong>Color description</strong>: primaries, transfer, matrix, range. Presets fill the common targets (BT.709, BT.2020 PQ, BT.2020 HLG); the fields accept any H.273 code point, so unusual tags are not a dead end.</li>
+            <li><strong>Chroma siting</strong>: left, center, or top-left. This lives only in the coded stream (plain MP4 has no box for it). AV1 cannot express center siting, and the sheet says so instead of writing a wrong value.</li>
+            <li><strong>Content light level</strong> (MaxCLL/MaxFALL) and <strong>mastering display</strong> (SMPTE ST 2086): set or remove, in the container box and the coded stream's own messages. Mastering display values are entered in raw carriage units, the same integers x265's <code>master-display</code> string uses; the sheet shows the derived chromaticities and cd/m² beside them.</li>
+            <li><strong>HLG compatibility</strong>: adds the alternative-transfer-characteristics signal (18, HLG), with a checkbox for the broadcast pattern that also sets the transfer to 14 so legacy receivers see SDR.</li>
+            <li><strong>Sample aspect ratio</strong> and <strong>frame rate signalling</strong>: fix wrong declared values in the coded stream. The frame rate fix repairs the signalling only; the real container timing is untouched, so it never retimes the video.</li>
+            <li><strong>Strip dynamic HDR metadata</strong>: removes Dolby Vision RPUs and HDR10+ metadata from every carrier, including the Dolby Vision configuration box, for a plain HDR10 deliverable. Captions are never collateral: HDR metadata is matched by its registered provider, not by message type.</li>
         </ul>
-        <p class="prose">Same engine on the command line:</p>
+        <p class="prose">Safety, on every path:</p>
+        <ul>
+            <li>The original file is never modified. The repaired copy goes to a new file, and every write is verified before it succeeds. When only the container changes, the video and audio data must be byte-identical. When the coded stream changes, every frame of the output is decoded and compared to the input, plane by plane; the coded picture data itself is never touched. If any check fails the output is deleted and the error says why.</li>
+            <li>Edits apply to every video track; the command line has a <code>--track</code> flag for multi-track files.</li>
+        </ul>
+
+        <h3>Expert edits in the bitstream inspector</h3>
+        <p class="prose">The Bitstream panel (<kbd>⌃9</kbd>) can edit, not just read. Fields with self-contained semantics show a pencil: the color code points, range, chroma siting, aspect ratio, and timing. Editing one writes a new, verified file with every copy of the field updated. The level field is editable behind an explicit acknowledgement, because it changes what devices will accept the file, and every copy (parameter sets and the configuration record) is rewritten together. Structural fields (dimensions, profile, parameter-set IDs, anything that shapes how the rest of the stream parses) stay read-only; the tooltip explains why for each. Right-clicking a metadata unit offers removals: HDR10+ or Dolby Vision metadata, or a specific message type.</p>
+
+        <h3>The command line</h3>
+        <p class="prose">Same engine, plus raw elementary streams (.h264/.h265/.ivf), which the app does not open:</p>
         <pre><code>videre retag graded.mov -o graded-fixed.mov --colr bt2020-pq \
     --cll 1000,400 \
-    --master-display "G(13250,34500)B(7500,3000)R(34000,16000)WP(15635,16450)L(10000000,1)"</code></pre>
-        <p class="prose"><code>videre retag --help</code> lists the edit flags, including <code>--remove-colr</code> / <code>--remove-clli</code> / <code>--remove-mdcv</code>.</p>
+    --master-display "G(13250,34500)B(7500,3000)R(34000,16000)WP(15635,16450)L(10000000,1)"
+
+videre retag master.hevc -o master-fixed.hevc --chromaloc topleft
+videre retag hdr.mp4 -o hdr10.mp4 --strip-dynamic-hdr
+videre retag odd.mp4 -o fixed.mp4 --edit chroma_sample_loc_type_top_field=2</code></pre>
+        <p class="prose"><code>videre retag --help</code> lists everything: the fix flags (<code>--chromaloc</code>, <code>--sar</code>, <code>--fps</code>, <code>--hlg-compat</code>, <code>--strip-dynamic-hdr</code>), the remove flags, <code>--scope container|bitstream|both</code>, the expert flags (<code>--edit FIELD=VALUE</code>, <code>--remove-sei</code>, <code>--ack-level-change</code> for level changes), and <code>--json</code> for a machine-readable summary.</p>
 
         <figure class="shot">
-            <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet: color tag, mastering display, and content light level sections pre-filled with the file's current values, preset buttons above." loading="lazy" decoding="async">
-            <figcaption><strong>The repair sheet.</strong> Pre-filled with what the file carries now; keep, set, or remove each section.</figcaption>
+            <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet: color, chroma siting, light level, mastering display, and HLG compatibility fixes with per-fix scope controls, pre-filled with the file's current values." loading="lazy" decoding="async">
+            <figcaption><strong>The repair sheet.</strong> Pre-filled with what both layers carry now; every fix scoped to container, bitstream, or both.</figcaption>
         </figure>
     </section>
 
