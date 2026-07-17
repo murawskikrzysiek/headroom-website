@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/editing.html">
-    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target. Keyboard-driven, saved as a new file.">
+    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target, host Audio Unit effects, and take a cough or a squeak out on the spectrogram. Keyboard-driven, saved as a new file.">
     <meta property="og:title" content="Specula for Editing &amp; Repair">
     <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and always saves a new file.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Editing &amp; Repair">
-    <meta name="twitter:description" content="Non-destructive editing on macOS: trim, fade, gain, normalize to LUFS with a true-peak limiter, Limit TP. Always saves as a new file.">
+    <meta name="twitter:description" content="Non-destructive editing on macOS: trim, fade, gain, normalize to LUFS with a true-peak limiter, Limit TP, spectral repair. Always saves as a new file.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -29,7 +29,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Specula for Editing & Repair",
-        "description": "Non-destructive editing on macOS: trim, fade, gain, invert phase, normalize to a peak or LUFS target with a 4× oversampled true-peak limiter, Limit TP, remove DC, swap channels, split to mono. 16-level undo/redo; always saves as a new file.",
+        "description": "Non-destructive editing on macOS: trim, fade, gain, invert phase, normalize to a peak or LUFS target with a 4× oversampled true-peak limiter, Limit TP, remove DC, swap channels, split to mono, and spectral editing (attenuate, erase, or repair a time-frequency selection). 16-level undo/redo; always saves as a new file.",
         "url": "https://headroomstudio.dev/specula/editing.html",
         "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
         "about": {
@@ -69,13 +69,15 @@
             <p class="eyebrow">Workflow · Editing</p>
             <h1 class="display">The small fix, without booting a DAW.</h1>
             <p class="app-hero__desc">
-                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. None of that needs a session, a project file, and a render queue, and none of it should put the master at risk. Specula's Edit mode does the operation on the loaded buffer, with keyboard shortcuts, keeps up to 16 levels of undo/redo, and writes the result to a <strong>new file</strong>. The original on disk is never touched.
+                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. A cough painted out of a piano chord on the spectrogram. None of that needs a session, a project file, and a render queue, and none of it should put the master at risk. Specula's Edit mode does the operation on the loaded buffer, with keyboard shortcuts, keeps up to 16 levels of undo/redo, and writes the result to a <strong>new file</strong>. The original on disk is never touched.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
                 <span class="badge">Non-destructive</span>
                 <span class="badge">Cut &amp; Trim</span>
                 <span class="badge">Normalize LUFS</span>
+                <span class="badge">Audio Unit plugins</span>
+                <span class="badge">Spectral repair</span>
                 <span class="badge">Keyboard shortcuts</span>
                 <span class="badge">Always saves new</span>
             </div>
@@ -173,6 +175,39 @@
         </div>
     </section>
 
+    <!-- Plugin chain -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Your Audio Unit effects, right here</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>Edit mode hosts a chain of Audio Unit effects.</strong> Add any effect installed on your Mac (both AUv2 and AUv3), chain several in order, bypass or reorder them, and open each plugin's own window, or a generic parameter panel for plugins that ship no interface of their own. It works on mono and stereo files.</p>
+                <p class="prose-lead" style="margin-top: 14px;">You tune by ear while the file plays, and every meter moves with you. Because the analysis tap sits <em>after</em> the chain, LUFS, true peak, FFT, spectrogram, and phase all read the processed sound as you turn knobs, so you're EQing or compressing against the same numbers you'll deliver against.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Render</strong> bakes the chain into the audio through fresh, latency-compensated instances and commits it as a normal edit you can undo. With the effect tail off (the default) the rendered audio is exactly as long as the input, so it still lines up for A/B and auto-align. Rendering clears the chain and remembers it, so Undo then <strong>Restore Last</strong> is the tweak-again loop, and it survives quitting the app. <strong>Render to Compare Slot</strong> loads the processed version next to the original in <a href="compare.html">Compare mode</a> so you can measure the difference with real numbers. AUv3 plugins run in their own process by default, so a crash in one of them can't take Specula down; AUv2 plugins run inside the app.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plugin chain shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-plugin-chain.png" alt="Specula's Edit mode with a plugin chain row under the toolbar: two Audio Unit effect chips loaded, each with bypass, reorder, window, and remove controls, and the meters reflecting the processed sound." loading="lazy" decoding="async">
+            <figcaption><strong>Audio Units in Edit mode.</strong> Chain effects, tune them live against every meter, then Render into the file or to a Compare slot.</figcaption>
+        </figure>
+    </section>
+
+    <!-- Spectral editing teaser -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">See it, select it, take it out</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>Spectral mode</strong> (<kbd>⌘5</kbd>) is for the blemish inside the audio you want to keep: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum. Select it on a full resolution, zoomable spectrogram, in time and frequency, then attenuate, erase, or repair just that region, leaving everything else untouched. It's a bigger job than the trims and fades on this page, so it gets its own workflow: selection tools, the wand's dB tolerance and time reach, feathering, and audition before you commit.</p>
+                <div class="app-hero__cta" style="margin-top: 20px;">
+                    <a href="repair.html" class="btn btn-primary">See the spectral repair workflow →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
@@ -203,7 +238,7 @@
         <div class="section__grid">
             <p class="label">Fix it where the file is</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Edit mode is for the jobs that don't earn a DAW session: a trim, a cut out of the middle, a fade, a normalize on a selection, a dialogue level, a channel split, a phase flip, most of them a single keystroke. Specula runs them on the loaded buffer, keeps 16 levels of undo/redo, and saves a new file every time, so the fix is fast and the master is never the thing you edited.</p>
+                <p class="prose-lead">Edit mode is for the jobs that don't earn a DAW session: a trim, a cut out of the middle, a fade, a normalize on a selection, a dialogue level, a channel split, a phase flip, a cough painted out on the spectrogram, most of them a single keystroke. Specula runs them on the loaded buffer, keeps 16 levels of undo/redo, and saves a new file every time, so the fix is fast and the master is never the thing you edited.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#edit" class="btn btn-primary">Read the edit-mode guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
