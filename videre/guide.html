@@ -400,6 +400,7 @@
 
         <h3>QC checks (⌃6)</h3>
         <p class="prose">A whole-clip pass: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information.</p>
+        <p class="prose">For MP4/MOV files the panel also runs the <strong>delivery checks</strong>, the same six checks as <code>videre verify</code> (section 11) with the same severities: color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. Each row shows pass, warn, fail, or skip with a one-line reason.</p>
 
         <h3>Dolby Vision (⌃7)</h3>
         <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels with a per-frame graph, trims, active area, source primaries, and target-display blocks. Videre inspects the metadata; it does not compose an output image.</p>
@@ -426,6 +427,9 @@
             <figcaption><strong>Field search.</strong> Type a syntax-element name; the tree filters to units carrying it.</figcaption>
         </figure>
 
+        <h3>GOP / bitrate structure</h3>
+        <p class="prose">The panel's <strong>GOP / bitrate</strong> section charts frame size by frame type over the whole stream, in decode order: keyframe cadence is visible at a glance, and clicking a bar jumps the viewer to that frame. The stats row gives the keyframe count with the minimum, average, and maximum interval, per-type frame-size averages, and the stream bitrate (from the declared timing; when a stream declares none, the row says so instead of guessing). Sizes are the stored sample sizes. This is a header-level view of stream structure; it makes no claims about encoding quality. The same numbers come from <code>videre bitstream file.mp4 --frames</code> as a <code>frames_summary</code> block in the JSON.</p>
+
         <h3>Container</h3>
         <p class="prose">For MP4 / MOV / HEIF sources the same scope gains a <strong>Container</strong> mode: the ISO base media box tree with decoded fields for the movie and track headers, edit lists, sample tables, color boxes (<code>colr</code>, <code>clli</code>, <code>mdcv</code>), codec configuration records, Dolby Vision configuration, HEIF item structure, encryption signalling, and DASH indexes. The file is memory-mapped, so multi-gigabyte files open instantly. The same field search works here.</p>
         <p class="prose">Entropy-coded slice and tile data is out of scope; that is a decoder's job, and Videre is an inspector.</p>
@@ -443,8 +447,12 @@
             <li><strong>Chroma siting</strong>: left, center, or top-left. This lives only in the coded stream (plain MP4 has no box for it). AV1 cannot express center siting, and the sheet says so instead of writing a wrong value.</li>
             <li><strong>Content light level</strong> (MaxCLL/MaxFALL) and <strong>mastering display</strong> (SMPTE ST 2086): set or remove, in the container box and the coded stream's own messages. Mastering display values are entered in raw carriage units, the same integers x265's <code>master-display</code> string uses; the sheet shows the derived chromaticities and cd/m² beside them.</li>
             <li><strong>HLG compatibility</strong>: adds the alternative-transfer-characteristics signal (18, HLG), with a checkbox for the broadcast pattern that also sets the transfer to 14 so legacy receivers see SDR.</li>
-            <li><strong>Sample aspect ratio</strong> and <strong>frame rate signalling</strong>: fix wrong declared values in the coded stream. The frame rate fix repairs the signalling only; the real container timing is untouched, so it never retimes the video.</li>
+            <li><strong>Sample aspect ratio</strong>: fix a wrong declared pixel shape in both layers. Under container or both scope the <code>pasp</code> box and the track's display width are written from the same value as the coded stream's aspect ratio, so players that read either agree.</li>
+            <li><strong>Frame rate signalling</strong>: fix a wrong declared rate in the coded stream. The fix repairs the signalling only; the real container timing is untouched, so it never retimes the video.</li>
             <li><strong>Strip dynamic HDR metadata</strong>: removes Dolby Vision RPUs and HDR10+ metadata from every carrier, including the Dolby Vision configuration box, for a plain HDR10 deliverable. Captions are never collateral: HDR metadata is matched by its registered provider, not by message type.</li>
+            <li><strong>Make QuickTime-compatible</strong>: shown when the open file signals its decoder setup in-band (hev1 or avc3), a form QuickTime, Safari, and the system decoder refuse even though the video is valid. The fix moves the parameter sets into the configuration record (hvc1 or avc1) with the video untouched: every output frame is verified identical to the input, and the repaired file is proven to open on the system decoder before the save succeeds. Nothing else on macOS does this without a remux.</li>
+            <li><strong>Fast start</strong>: moves the index (moov) before the media data so the file starts playing before it finishes downloading. Every chunk offset is repointed and every sample byte is verified at its new position.</li>
+            <li><strong>Repair broken edit list</strong>: shown when the file carries a known remux defect, an edit list claiming exactly one second of pre-roll that stalls playback in players that honor it. The repair derives the real decoder delay from the file's own sample timing (never a constant) and verifies every frame decodes in order afterward.</li>
         </ul>
         <p class="prose">Safety, on every path:</p>
         <ul>
@@ -463,8 +471,11 @@
 
 videre retag master.hevc -o master-fixed.hevc --chromaloc topleft
 videre retag hdr.mp4 -o hdr10.mp4 --strip-dynamic-hdr
-videre retag odd.mp4 -o fixed.mp4 --edit chroma_sample_loc_type_top_field=2</code></pre>
-        <p class="prose"><code>videre retag --help</code> lists everything: the fix flags (<code>--chromaloc</code>, <code>--sar</code>, <code>--fps</code>, <code>--hlg-compat</code>, <code>--strip-dynamic-hdr</code>), the remove flags, <code>--scope container|bitstream|both</code>, the expert flags (<code>--edit FIELD=VALUE</code>, <code>--remove-sei</code>, <code>--ack-level-change</code> for level changes), and <code>--json</code> for a machine-readable summary.</p>
+videre retag odd.mp4 -o fixed.mp4 --edit chroma_sample_loc_type_top_field=2
+videre retag inband.mp4 -o compatible.mp4 --make-compatible
+videre retag upload.mp4 -o streamable.mp4 --faststart
+videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
+        <p class="prose"><code>videre retag --help</code> lists everything: the fix flags (<code>--chromaloc</code>, <code>--sar</code>, <code>--fps</code>, <code>--hlg-compat</code>, <code>--strip-dynamic-hdr</code>, <code>--make-compatible</code>, <code>--faststart</code>, <code>--fix-edit-list</code>), the remove flags, <code>--scope container|bitstream|both</code>, the expert flags (<code>--edit FIELD=VALUE</code>, <code>--remove-sei</code>, <code>--ack-level-change</code> for level changes), and <code>--json</code> for a machine-readable summary. The file-level operations run on their own pass; combining them with edits that rewrite samples is refused. Run them as two passes instead.</p>
 
         <figure class="shot">
             <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet: color, chroma siting, light level, mastering display, and HLG compatibility fixes with per-fix scope controls, pre-filled with the file's current values." loading="lazy" decoding="async">
@@ -601,12 +612,14 @@ videre retag odd.mp4 -o fixed.mp4 --edit chroma_sample_loc_type_top_field=2</cod
 
     <section class="guide-section" id="cli">
         <h2>11 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
-        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Five subcommands on the same engine as the app:</p>
+        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Six subcommands on the same engine as the app:</p>
         <pre><code>videre inspect  file.mp4              # format, interpretation, metadata → JSON
 videre compare  ref.y4m dist.mp4      # PSNR / SSIM / MS-SSIM / VMAF / ΔE → JSON
-videre bitstream file.hevc            # full parameter-set / SEI / RPU parse → JSON
+videre bitstream file.hevc --frames   # parameter sets / SEI / RPUs + GOP stats → JSON
 videre container file.mp4             # ISO box tree → JSON
-videre retag    in.mp4 -o out.mp4 …   # rewrite colr / mdcv / clli, verified</code></pre>
+videre retag    in.mp4 -o out.mp4 …   # repair signalling, verified
+videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code></pre>
+        <p class="prose"><code>videre verify</code> is the delivery gate: it runs six checks (color agreement between the container and the coded stream, declared against measured MaxCLL/MaxFALL, mastering display consistency across carriers, chroma siting, edit list sanity, system-decoder openability) and exits nonzero when one fails, so a pipeline can block a bad file before upload. Warnings pass by default; <code>--strict</code> fails them, and <code>--fail-on</code> / <code>--warn-on</code> tune single checks. Exit codes: 0 clean, 1 a check failed, 2 usage, 3 the analysis could not run, so a script can tell a bad deliverable from a broken gate. <code>--json</code> gives the same verdicts with the measured numbers included.</p>
         <p class="prose">Reports use a stable, versioned schema, so scripted QC can pin against it.</p>
     </section>
 
