@@ -379,6 +379,7 @@
             </tbody>
         </table>
         <p class="prose"><kbd>⌃⌥</kbd> + the same number extracts the analyzer into its own resizable window; press again to close it. A popped-out scope stays live even with its inspector section hidden.</p>
+        <p class="prose"><strong>Timeline strips.</strong> Every time-aligned graph runs as a full-width strip under the viewer rather than inside its panel: light levels, Dolby Vision L1, HDR10+ brightness, QC SI / TI, and the GOP / bitrate chart (section 7). Each strip shares the playhead with the seek bar, dragging it scrubs the viewer, and several strips stack. Panels keep the readouts plus a toggle row for their strip; the on-demand measurements (light levels, QC) open theirs when the pass finishes. A strip closes from its x button or the panel row.</p>
 
         <h3>Gamut (⌃1)</h3>
         <p class="prose">CIE 1931 chromaticity with the frame's pixel density cloud, the active space's gamut triangle, and out-of-gamut / outside-P3 stats. Hover the diagram and matching pixels highlight in the image; hover the image and a marker shows that pixel on the diagram.</p>
@@ -397,17 +398,17 @@
         <p class="prose">Luma and per-channel waveform; chroma vectorscope.</p>
 
         <h3>Light levels (⌃5)</h3>
-        <p class="prose">Measured MaxCLL and MaxFALL over the clip, side by side with the values the file declares. Results are tracked for staleness (a re-measure is offered when the interpretation changes).</p>
+        <p class="prose">Measured MaxCLL and MaxFALL over the clip, side by side with the values the file declares. Results are tracked for staleness (a re-measure is offered when the interpretation changes). The per-frame nits graph (max and average, with the declared CLL as a dashed rule) opens as a timeline strip when the measurement finishes.</p>
 
         <h3>QC checks (⌃6)</h3>
-        <p class="prose">A whole-clip pass: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information.</p>
+        <p class="prose">A whole-clip pass: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information. The per-frame SI / TI graph opens as a timeline strip when the pass finishes.</p>
         <p class="prose">For MP4/MOV files the panel also runs the <strong>delivery checks</strong>, the same six checks as <code>videre verify</code> (section 11) with the same severities: color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. Each row shows pass, warn, fail, or skip with a one-line reason.</p>
 
         <h3>Dolby Vision (⌃7)</h3>
-        <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels with a per-frame graph, trims, active area, source primaries, and target-display blocks. Videre inspects the metadata; it does not compose an output image.</p>
+        <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels, trims, active area, source primaries, and target-display blocks. The per-frame L1 graph is a timeline strip, toggled from the panel. Videre inspects the metadata; it does not compose an output image.</p>
 
         <h3>HDR10+ (⌃8)</h3>
-        <p class="prose">ST 2094-40 per-scene metadata with a per-frame MaxSCL / average graph and tone-curve knee readout.</p>
+        <p class="prose">ST 2094-40 per-scene metadata with a tone-curve knee readout. The per-frame MaxSCL / average graph is a timeline strip, toggled from the panel.</p>
     </section>
 
     <hr class="divider">
@@ -429,7 +430,7 @@
         </figure>
 
         <h3>GOP / bitrate structure</h3>
-        <p class="prose">Opening the panel's <strong>GOP / bitrate</strong> section shows the stats in the panel and runs the frame-size chart as a full-width strip under the viewer, sharing the playhead: the current-frame marker follows as you step or play, keyframe cadence is visible at a glance, and clicking a bar jumps the viewer to that frame. The stats give the keyframe count, the interval between keyframes (minimum to maximum with the average), per-type frame-size averages, and the stream bitrate (from the declared timing; when a stream declares none, the row says so instead of guessing). Sizes are the stored sample sizes.</p>
+        <p class="prose">Opening the panel's <strong>GOP / bitrate</strong> section shows the stats in the panel and runs the frame-size chart as a timeline strip under the viewer (section 6), sharing the playhead: the current-frame marker follows as you step or play, keyframe cadence is visible at a glance, and clicking a bar jumps the viewer to that frame. The stats give the keyframe count, the interval between keyframes (minimum to maximum with the average), per-type frame-size averages, and the stream bitrate (from the declared timing; when a stream declares none, the row says so instead of guessing). Sizes are the stored sample sizes.</p>
         <p class="prose">The strip carries the same <strong>Display / Decode</strong> switch as the transport bar (<a href="#display">section 4</a>); it is one app-wide setting, not a chart option. In decode order the chart shows the coded structure (reference frames as spikes with their dependent frames following), the playhead marker is the decode position, and a bar click lands exactly; in display order the bars line up with the playback timeline and clicks are exact there too. The switch appears when the stream actually reorders frames. The stats always use the decode-order definitions. This is a header-level view of stream structure; it makes no claims about encoding quality. The same numbers come from <code>videre bitstream file.mp4 --frames</code> as a <code>frames_summary</code> block in the JSON.</p>
 
         <h3>Container</h3>
