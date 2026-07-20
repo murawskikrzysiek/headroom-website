@@ -8,4 +8,7 @@ Allow: /
 Disallow: /lyra/appcast.xml
 Disallow: /audita/appcast.xml
 
+# Unlisted screenshot assets (forum posts etc.) — hotlinkable but not indexed
+Disallow: /assets/screens/
+
 Sitemap: https://headroomstudio.dev/sitemap.xml
