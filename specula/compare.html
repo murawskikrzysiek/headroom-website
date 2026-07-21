@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Reference comparison</p>
             <h1 class="display">Is rev 4 better, or just louder?</h1>
             <p class="app-hero__desc">
-                The louder version always sounds better, which is exactly why an A/B you can't level-match lies to you. Specula loads up to six versions side by side, matches them by integrated LUFS so level is out of the way, aligns them to the sample, and computes the A−X residual: the part that's actually different between two masters, turned into its own waveform you can solo, scrub, and export.
+                The louder version always sounds better, which is exactly why an A/B you can't level-match lies to you. Specula holds up to six versions side by side, level-matched by integrated LUFS and aligned to the sample. From there it computes the A−X residual: everything the two masters don't have in common, as its own waveform you can solo, scrub, and export.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -116,7 +116,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The workflow</p>
+                <p class="label">Set up a fair A/B</p>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Load the versions, take level and alignment out of the way, then listen to what's left.</p>
             </div>
             <div>
@@ -128,22 +128,10 @@
         </div>
     </section>
 
-    <!-- The residual / diff in depth -->
-    <section class="section section--bordered">
-        <div class="section__grid">
-            <p class="label">The residual is the answer</p>
-            <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>What changed becomes its own waveform.</strong> The diff slot is a virtual slot that plays back the <code>A − X</code> residual, the sample-by-sample subtraction of the active version from the reference. Once level and timing are matched, everything the two versions share cancels to silence, and what's left is the change itself. You route that residual through the same waveform, spectrogram, and export paths as any other slot, so you can see where in the file the difference lives and how loud it is, not just hear that something moved.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Polarity matters for the subtraction.</strong> Each slot has a <strong>ϕ</strong> toggle that flips polarity, useful for catching a wiring error, and for diff work where flipping one signal is what makes the residual sit closer to zero. The diff slot recomputes automatically (80&nbsp;ms debounced) whenever nudge, gain, polarity, or level-match changes, so the residual always reflects your current alignment. It has no live measurement of its own, switching to a diff slot clears the live loudness and stereo displays, because the diff buffer plays pre-computed.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Or overlay instead of subtract.</strong> The <strong>Waveform A overlay</strong> toggle draws slot A's waveform as a ghost behind whichever slot is active, a direct visual A/B at the sample level without leaving the active version. And the <strong>Compare metrics</strong> popover puts every loaded slot side by side in one table: integrated LUFS, true peak, sample peak, LRA, DR, speech stats. Read the numbers and hear the residual, from the same comparison.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">See it in Specula</p>
+            <p class="label">What it looks like</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-compare-diff.png" alt="The A−X residual waveform after level-matching, isolating exactly what changed between two versions." loading="lazy" decoding="async">
@@ -161,12 +149,24 @@
         </div>
     </section>
 
+    <!-- The residual / diff in depth -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">The residual is the answer</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>What changed becomes its own waveform.</strong> The diff slot is a virtual slot that plays back the <code>A − X</code> residual, the sample-by-sample subtraction of the active version from the reference. Once level and timing are matched, everything the two versions share cancels to silence, and what's left is the change itself. You route that residual through the same waveform, spectrogram, and export paths as any other slot, so you can see where in the file the difference lives and how loud it is, not just hear that something moved.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Polarity matters for the subtraction.</strong> Each slot has a <strong>ϕ</strong> toggle that flips polarity, useful for catching a wiring error, and for diff work where flipping one signal is what makes the residual sit closer to zero. The diff slot recomputes automatically (80&nbsp;ms debounced) whenever nudge, gain, polarity, or level-match changes, so the residual always reflects your current alignment. It has no live measurement of its own, switching to a diff slot clears the live loudness and stereo displays, because the diff buffer plays pre-computed.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Or overlay instead of subtract.</strong> The <strong>Waveform A overlay</strong> toggle draws slot A's waveform as a ghost behind whichever slot is active, a direct visual A/B at the sample level without leaving the active version. And the <strong>Compare metrics</strong> popover puts every loaded slot side by side in one table: integrated LUFS, true peak, sample peak, LRA, DR, speech stats. Read the numbers and hear the residual, from the same comparison.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Settle the comparison</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "I think this revision is better" and knowing it is. It level-matches the versions, aligns them, and hands you the difference as audio and as numbers, so the answer to "better or just louder?" stops being a guess.</p>
+                <p class="prose-lead">"Better or just louder?" has an answer you can play. Level-match the versions, align them, and the residual is the change itself, on screen as a waveform and in your monitors as audio. What the numbers claim and what you hear come from the same comparison.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#compare" class="btn btn-primary">Read the compare-mode guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

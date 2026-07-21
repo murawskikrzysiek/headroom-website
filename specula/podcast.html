@@ -69,7 +69,7 @@
             <p class="eyebrow">Workflow · Podcast</p>
             <h1 class="display">Measure the talking, not the music bed.</h1>
             <p class="app-hero__desc">
-                Podcast platforms specify a dialog-gated loudness target, not a whole-file one. Measure the episode as a single number and the intro bed, the stinger, and the room tone all drag it off. Specula runs a neural VAD over the file, gates a parallel integrated LUFS to the speech blocks, and reads that against the Apple Podcasts and Spotify Podcasts targets, with the speech regions hand-correctable when the detector guesses wrong.
+                Podcast platforms specify a dialog-gated loudness target, not a whole-file one. Measure the episode as a single number and the intro bed, the stinger, and the room tone all drag it off. So Specula finds the speech first: a neural VAD marks every spoken block, a parallel integrated LUFS accumulates over just those blocks, and the Apple Podcasts and Spotify Podcasts targets read off that. When the detector guesses wrong, you correct the regions by hand.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -124,14 +124,14 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The workflow</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Load to verdict in four steps. The detector does the first pass; you correct it; the targets read off the result.</p>
+                <p class="label">From episode to verdict</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The detector does the first pass, you correct it, the targets read off the result.</p>
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Mark speech on load</div><div class="feature-row__v">Drop the episode; the <strong>Silero neural VAD</strong> runs on load, downsampling the file to 16 kHz mono and classifying every 100 ms block as speech or non-speech. Detected speech shades teal on the waveform (the <strong>SG</strong> toggle), so you can eyeball the result before relying on the numbers.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Hand-correct in Dialogue mode</div><div class="feature-row__v"><strong>Dialogue mode</strong> (<kbd>⌘4</kbd>) lets you fix what the VAD missed: <strong>drag</strong> a region's body to move it or its edges to resize, mark <kbd>I</kbd> / <kbd>O</kbd> the DAW way, <kbd>S</kbd> to split at the playhead, <kbd>Delete</kbd> to remove. 50-step undo / redo, including drags. Edits auto-save to a versioned <code>.dlg.json</code> sidecar next to the file (debounced 500 ms), so re-opening the episode re-applies them.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Read speech-gated LUFS</div><div class="feature-row__v">The Loudness section shows <strong>Speech-Gated Integrated LUFS</strong> and <strong>Speech %</strong> alongside the full-file integrated value, plus a live <strong>Noise Floor</strong> readout (dB RMS over every non-speech sample) in Podcast mode. Same BS.1770 K-weighting and dual gating as the full measurement, accumulated only over the speech blocks.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Check against the platform</div><div class="feature-row__v">In Podcast mode the Loudness Targets panel shows the penalty against <strong>Apple Podcasts</strong> (−16 LKFS) and <strong>Spotify Podcasts</strong> (−14 LKFS), both dialog-gated, with a triangle if the true peak breaches −1 dBTP. Set the <strong>TP threshold</strong> to that −1 dBTP ceiling and every spot the episode breaches it lights up on the waveform, so an intro sting or a clipped laugh shows you where to seek rather than just that it happened somewhere. Run offline analysis (<kbd>⌘Return</kbd>) over the whole file for the settled number, then export the receipt: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Check against the platform</div><div class="feature-row__v">In Podcast mode the Loudness Targets panel shows the penalty against <strong>Apple Podcasts</strong> (−16 LKFS) and <strong>Spotify Podcasts</strong> (−14 LKFS), both dialog-gated, with a triangle if the true peak breaches −1 dBTP. Set the <strong>TP threshold</strong> to that −1 dBTP ceiling and the waveform marks each breach where it happens: an intro sting, a clipped laugh, a hot plosive, all seekable. Run offline analysis (<kbd>⌘Return</kbd>) over the whole file for the settled number, then export the receipt: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON.</div></div>
             </div>
         </div>
     </section>
@@ -153,8 +153,8 @@
         <div class="section__grid">
             <p class="label">Level the dialogue, in the same app</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Where the dialogue is off level or the room tone sits high, the fix is in Edit mode.</strong> <strong>Level Dialogue</strong> works off the same speech regions the measurement uses (the ones you confirmed in Dialogue mode): it ducks the room tone <em>between</em> phrases with a fast attack and slow release, so word onsets and tails stay clean. Tick <strong>Lift dialogue to target</strong> and it also brings the voice to a target in the same pass, capping inter-sample peaks at a true-peak ceiling. Gating the silence before the makeup gain is what lets the dialogue come up without the floor riding up with it, the difference between a clean episode and one where every pause hisses. It's a gate, not a denoiser, so it rescues a marginal floor (a quiet room tone just under the gate); a genuinely hissy recording still wants a better capture.</p>
-                <p class="prose-lead" style="margin-top: 14px;">For a straight level move, <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass that caps the peaks without touching loudness. Each is one undoable edit that saves a new file. <a href="editing.html">See the editing workflow →</a></p>
+                <p class="prose-lead"><strong>Where the dialogue is off level or the room tone sits high, the fix is in Edit mode.</strong> <strong>Level Dialogue</strong> works off the same speech regions the measurement uses (the ones you confirmed in Dialogue mode): it gates the gaps between phrases down, then optionally lifts the voice to your target in the same pass, which is what lets an episode come up in level while every pause stays quiet. It rescues a marginal floor; a genuinely hissy recording still wants a better capture.</p>
+                <p class="prose-lead" style="margin-top: 14px;">For a straight level move, <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass that caps the peaks and leaves the loudness alone. Each is one undoable edit that saves a new file. <a href="editing.html">The mechanics live on the editing page →</a></p>
             </div>
         </div>
     </section>
@@ -162,7 +162,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">See it in Specula</p>
+            <p class="label">In practice</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-speech-regions.png" alt="Teal speech regions overlaid on a spoken-word waveform immediately after load." loading="lazy" decoding="async">
@@ -170,7 +170,7 @@
                 </figure>
                 <figure class="shot">
                     <img src="specula-level-dialogue.png" alt="The Level Dialogue popover with a duck-room-tone field and a lift-dialogue-to-target toggle for LKFS and dBTP." loading="lazy" decoding="async">
-                    <figcaption><strong>Level the dialogue without raising the floor.</strong> It ducks room tone before the makeup gain, so the floor drops instead of riding up.</figcaption>
+                    <figcaption><strong>Level Dialogue.</strong> Room tone is gated down before the makeup gain goes on, so the floor drops while the voice comes up.</figcaption>
                 </figure>
                 <figure class="shot shot--narrow">
                     <img src="specula-speech-lufs.png" alt="Speech-gated integrated LUFS and a live noise-floor readout in the loudness sidebar." loading="lazy" decoding="async">
@@ -189,7 +189,7 @@
         <div class="section__grid">
             <p class="label">Ship the episode on target</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the edit is locked" and "it's published." It tells you what the dialogue actually measures against each platform's spec, levels the dialogue and ducks the room tone with <strong>Level Dialogue</strong>, lands the episode on a target with <strong>Normalize</strong>, and caps the peaks with <strong>Limit TP</strong>, all without leaving the file you loaded.</p>
+                <p class="prose-lead">The episode's number is the dialogue's number: measured over the speech you confirmed, checked against Apple's and Spotify's specs, and correctable in the same window when it's off. <strong>Level Dialogue</strong> for the floor, <strong>Normalize</strong> for the target, <strong>Limit TP</strong> for the peaks.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#speech-gated" class="btn btn-primary">Read the speech-gated guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
