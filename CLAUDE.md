@@ -1,127 +1,101 @@
 # CLAUDE.md
 
-This file provides context and guidance for working on the headroom-website repository.
+Context for working on the headroom-website repository.
 
 ## Project Overview
 
-Static website for **Headroom**, an indie macOS software label run by Krzysiek. Currently showcases **Lyra** — a menu bar utility for hardware volume control on Universal Audio Apollo interfaces via F10/F11/F12 keyboard shortcuts.
+Static website for **Headroom Studio** (headroomstudio.dev), Krzysiek's indie macOS software label. It serves marketing pages, guides, FAQs, API docs, release notes, a blog, and Sparkle appcast feeds for three shipping apps — **Lyra**, **Audita**, **Specula** — plus redirect stubs for **Auris** (renamed to Audita 2026-05-08; `auris/` pages redirect and its appcast points users at the rename).
 
-**Stack:** Plain HTML + CSS, no build tools, no dependencies. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS (proxy OFF — DNS only, required for GitHub Pages cert).
+**Stack:** Plain HTML + one shared stylesheet + a handful of vanilla JS helpers. No build step, no dependencies, nothing to install. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS (proxy **OFF** — DNS only, required for the GitHub Pages cert). Push to `main` deploys in ~1-2 min.
 
-**GitHub Pages:** Configured with CNAME file pointing to `headroomstudio.dev`. Push to `main` deploys automatically (~1-2 min).
+**Contact:** hello@headroomstudio.dev (iCloud Mail with custom domain).
 
-**Contact:** hello@headroomstudio.dev (Cloudflare Email Routing forwarding)
-
----
+App facts (features, versions, pricing) live in each app's repo `CLAUDE.md` — don't restate them here. Studio-wide invariants (appcast URLs, Lemon Squeezy, R2) live in `headroom/CLAUDE.md`.
 
 ## Repo Structure
 
 ```
 headroom-website/
-├── index.html                  # Homepage — app card grid + About section
-├── og-headroom.png             # OG image for homepage (1200×630)
-├── favicon.ico                 # Multi-size (16, 32, 48px)
-├── favicon-32x32.png
-├── apple-touch-icon.png        # 180×180
-├── generate_og_images.py       # Script to regenerate OG images (requires Pillow)
-├── CNAME                       # headroomstudio.dev
+├── index.html              # Homepage - app rows + About + activity feed + newsletter
+├── 404.html                # Standalone (embeds its own CSS; tokens mirror headroom.css §1)
+├── headroom.css            # THE shared stylesheet (see Styling)
+├── waveform.js             # Ambient animated signal band (auto-inits .waveform divs)
+├── lightbox.js             # Shared click-to-zoom w/ prev-next; self-contained (injects own CSS)
+├── faq-search.js           # Live search + category chips on the FAQ pages
+├── newsletter.js           # Subscribe form → first-party Cloudflare Worker proxy
+├── activity-feed.js        # "Recent" feed built from appcast.xml files + blog index
+├── sitemap.xml             # Maintained BY HAND - add new pages
+├── robots.txt              # Disallows appcasts + /assets/screens/
+├── CNAME                   # headroomstudio.dev
+├── favicon.ico / favicon-{16,32,48}x*.png / apple-touch-icon.png / headroom-mark*.svg
+├── og-headroom.png         # OG image for homepage (1200×630)
 │
-└── lyra/                       # All Lyra app files
-    ├── index.html              # App detail page
-    ├── privacy.html            # Privacy policy
-    ├── faq.html                # FAQ page
-    ├── appcast.xml             # Sparkle auto-update feed
-    ├── icon.png                # App icon (1024×1024, no built-in padding)
-    ├── og.png                  # OG image for Lyra (1200×630)
-    ├── screenshot-keys.png     # Keyboard controls illustration
-    ├── screenshot-menu.png     # Menu bar popover screenshot
-    └── screenshot-hud.png      # macOS volume HUD screenshot
+├── lyra/                   # Per-app folder: index, faq, guide, api, privacy,
+├── audita/                 #   releases, appcast.xml, icon.png, og.png, screenshots
+├── specula/                #   (+ 9 use-case pages specula/{mastering,compare,...}.html)
+├── auris/                  # Frozen post-rename stubs - redirect to audita/
+│
+├── blog/                   # index.html, blog.css, feed.xml (RSS), one HTML per post
+├── assets/screens/         # Unlisted screenshots for forum posts (see its README)
+├── gen_app_banners/        # Node script: OG + landing thumbnails (see its README)
+└── _newsletter-proxy/      # Cloudflare Worker on api.headroomstudio.dev (see its README)
 ```
 
-**Pattern for new apps:** create a new folder e.g. `your-app/` mirroring the `lyra/` structure.
+## Styling
 
----
+Three tiers — know which one you're editing:
 
-## Design System
+1. **`headroom.css`** — shared by all marketing pages, FAQs, privacy pages, releases, and the blog. Numbered sections (§1 Tokens … §17 Responsive). §12 has the app-detail components, the "Marketing texture" block before §13 has `.statband`/`.stat`, `.term`, `.specs`/`.spec`, `.faq-acc` — reuse these, don't re-invent. Design-system brief: `headroom/DESIGN-SYSTEM.md`.
+2. **`blog/blog.css`** — blog-only additions, loaded *after* headroom.css on blog pages.
+3. **Embedded styles** — the guide and API pages are self-contained: they embed their own docs taxonomy (`.toc`, `.note`, `.screenshot-*`, `guide-section`, `prose`, `hr-rework`). `404.html` also embeds everything; its `:root` values mirror headroom.css §1 and must be kept in sync by hand.
 
-All CSS is embedded in `<style>` tags within each HTML file (no external stylesheets).
+Tokens (palette, radii, fonts) live in `headroom.css` §1 — read them there, don't trust docs to be current. Typography is Inter / Inter Tight / JetBrains Mono via Google Fonts CDN.
 
-**CSS variables:**
-```css
---bg:       #0b0b0f   /* page background */
---bg-card:  #111118   /* card background */
---border:   #1c1c28   /* borders */
---text:     #eeeef6   /* primary text */
---text-2:   #6e6e90   /* secondary text */
---text-3:   #3a3a52   /* muted text */
---accent:   #7c84f6   /* purple — brand accent */
---green:    #3ecf7c   /* CTA buttons */
-```
+**Copy rules:** no em-dashes anywhere in user-facing output (spaced hyphens instead; the md→html guide mirror step converts them). Scrub all new copy against `headroom/claude-skills/ai-tell-scrub/SKILL.md`.
 
-**Typography:** Inter (Google Fonts CDN) with `-apple-system` fallback. `-webkit-font-smoothing: antialiased` on body.
+## Shared JS helpers
 
-**Max widths:** 960px on homepage, 720px on detail/privacy/faq pages.
+Each file's header comment documents its container contract — read it before wiring a page. All are plain script tags at the end of `<body>`, no modules, no build.
 
-**Responsive:** `clamp()` for type sizes, CSS Grid with `auto-fill` for app card grid, media queries at 560–640px.
+| File | What it does | Used on |
+|---|---|---|
+| `waveform.js` | ambient canvas band, auto-inits every `.waveform` | most pages |
+| `lightbox.js` | click-to-zoom with prev/next; targets `.shot img`, `img.screenshot-full`, `.screenshot-row img`, `.figure img`; injects its own overlay + styles | every page with zoomable images — do NOT add per-page lightboxes |
+| `faq-search.js` | search box + category chips over `.faq-group` markup | lyra + audita FAQ |
+| `newsletter.js` | posts the subscribe form to `api.headroomstudio.dev/s/<list>` (Worker → MailerLite) with a Turnstile token | homepage, blog, app pages |
+| `activity-feed.js` | merges appcast releases + blog posts into the `[data-feed]` container, newest first | homepage, app pages |
 
----
+## Guides mirror app repos
 
-## App Pages — Lyra
+- `lyra/guide.html` mirrors `Lyra/USER-GUIDE.md`; `specula/guide.html` mirrors `Specula/USER-GUIDE.md`. **Edit the markdown in the app repo, then re-mirror.** The md sources use em-dashes; the mirror step converts them to spaced hyphens — preserve that. The masthead (h1/lede) is website furniture, not in the md — edit it HTML-side.
+- `audita/guide.html` has **no markdown source** — edit the HTML directly.
 
-`lyra/index.html` contains:
-- Nav: brand logo + FAQ link + "All apps" back button (→ `../`)
-- Hero: icon (`icon.png`) + title + badges + CTA (currently "Coming soon" / btn-muted)
-- Screenshots section with lightbox (click to enlarge, click/Esc to close)
-- Features table (feature-key / feature-val rows)
-- Requirements section
-- How it works prose
-- Credits section (TCP port 4710 protocol note, Radu Varga attribution)
-- Footer with FAQ + Privacy links
+## Releases and appcasts
 
-**Icon display:** Icon container is `width: 120px; height: 120px; padding: 10px; box-sizing: border-box`, image fills 100% — this creates visual breathing room without changing the box size. The icon file has no built-in padding.
+Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<app>/appcast.xml` — update instructions in comments inside) and `releases.html` (human-readable notes). DMGs are hosted on Cloudflare R2 at `releases.headroomstudio.dev`, never in this repo. Release-day website work runs through the **release-cut** skill and the **website-updater** agent.
 
-**Lightbox:** Pure vanilla JS at bottom of `lyra/index.html`. Click any `.screenshot-full` or `.screenshot-row img` to open, click overlay or press Escape to close.
+## OG / banner images
 
-**Appcast:** `lyra/appcast.xml` is the Sparkle update feed hosted at `https://headroomstudio.dev/lyra/appcast.xml`. Update instructions are in comments inside that file.
+`gen_app_banners/` is a standalone Node script producing OG images (1200×630) and landing thumbnails in the house style, rendered at 2× for Retina. See its README for install/run. (The old `generate_og_images.py` is gone.)
 
----
+## External services
 
-## OG Images
+- **GitHub Pages** — hosting; deploys on push to `main`
+- **Cloudflare** — DNS (proxy OFF / DNS-only; turning it on breaks GitHub Pages TLS), R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
+- **Lemon Squeezy** — payment processor / license server for all apps (referenced in privacy pages and FAQs)
+- **MailerLite** — newsletter backend, reached only server-side via the Worker (`_newsletter-proxy/README.md` explains why: content blockers kill direct MailerLite fetches, and their public form endpoint 403s Worker IPs, so the Worker uses the server API)
+- **Google Fonts** — Inter / Inter Tight / JetBrains Mono via CDN
+- **Sparkle** — macOS auto-update framework consuming the appcasts
 
-Generated by `generate_og_images.py` (requires `pip install Pillow --break-system-packages`).
+## Adding a new app
 
-Fonts loaded from `../.skills/skills/canvas-design/canvas-fonts/` relative to script location. Run from repo root:
-
-```sh
-python generate_og_images.py
-```
-
-Outputs: `lyra/og.png` and `og-headroom.png`.
-
----
-
-## Adding a New App
-
-1. Create `your-app/` folder
-2. Add files: `index.html`, `privacy.html`, `faq.html` (use `lyra/` as template)
-3. Add `appcast.xml` if using Sparkle for auto-updates
-4. Add app card to grid in `index.html` (see `<!-- Add future apps here -->` comment)
-5. Add OG image generator function to `generate_og_images.py`
-6. Regenerate favicons if app has a different icon
-7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics section below). Required on every public page — homepage, app pages, FAQ, privacy, releases, blog posts, anything served from `headroomstudio.dev`. Without it, traffic from that page is invisible in the dashboard.
-
----
-
-## External Services
-
-- **Google Fonts** — Inter via CDN
-- **Paddle** — Payment processor (referenced in privacy policies)
-- **Cloudflare** — DNS for custom domain (proxy must be OFF / DNS only for GitHub Pages to work)
-- **Cloudflare Web Analytics** — privacy-first pageview analytics (no cookies, no GDPR banner). JS Snippet mode (required because proxy is off). Site token: `b17689e9a2d3478cb704287beb955f48`. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
-- **Sparkle** — macOS auto-update framework (appcast.xml per app)
-- **Cloudflare R2** — DMG hosting for Lyra releases (`releases.headroomstudio.dev`)
-
----
+1. Create `your-app/` mirroring an existing app folder (index, faq, privacy, releases, appcast.xml, icon, og)
+2. Add the app row to the homepage grid and, if it should appear in the feed, to the `data-feed-apps` list
+3. Generate the OG image + thumbnail with `gen_app_banners/`
+4. Add every new page to `sitemap.xml` (hand-maintained)
+5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern
+6. Include the full favicon set (`favicon.ico` 48x48, svg, 32, 16, apple-touch) in `<head>`
+7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics). Currently on all 41 pages — keep it at 100%.
 
 ## Analytics
 
@@ -131,22 +105,18 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 ```
 
-**Why JS Snippet mode** (not the auto-injection option in the Cloudflare dashboard): auto-injection requires Cloudflare proxy to be on so they can rewrite the HTML response server-side. Our proxy is **off** (DNS-only, for GitHub Pages TLS), so traffic never passes through Cloudflare's edge. JS Snippet mode runs client-side and works regardless of proxy state.
+**Why JS Snippet mode** (not dashboard auto-injection): auto-injection needs the Cloudflare proxy on to rewrite HTML at the edge; our proxy is off (DNS-only, for GitHub Pages TLS), so the snippet must run client-side. Captures pageviews, uniques, referrers, top pages/devices/countries. No cookies, no PII, no GDPR banner. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
 
-**What it captures:** pageviews, unique visitors, top referrers (so HN / Reddit / Gearspace traffic shows broken out), top pages, top devices, top countries. No event tracking, no per-user journey, no goals. Privacy-first — no cookies, no PII, no GDPR cookie banner needed.
+**Verifying:** after deploying a new page, visit it once and check the dashboard within ~5 min — a missing pageview means a missing or malformed snippet.
 
-**Verifying:** after deploying a new page, visit it once and check the dashboard within ~5 min. If a pageview doesn't show up, the snippet is missing or malformed.
+**Don't add Google Analytics or other heavy trackers** — cookie banner, page weight, wrong fit for the brand. If conversion goals are ever needed, use Plausible or Fathom instead.
 
-**If we ever turn Cloudflare proxy on** (future state — would require GitHub Pages TLS validation through CF "Full strict" mode), we could switch to the auto-injection option in the dashboard and remove the snippets from individual files. Don't do this without testing in staging first.
+## Key decisions
 
-**Don't add Google Analytics or other heavy trackers.** They'd require a cookie banner under GDPR, slow the page significantly, and don't fit the privacy-conscious indie brand. If we later need conversion goals (e.g. "buy button clicked"), upgrade to Plausible ($9/mo) or Fathom ($14/mo) — same privacy stance, similar weight.
-
----
-
-## Key Decisions & Context
-
-- **No build tools** — intentional. Plain HTML/CSS is easy to maintain and fast to ship.
-- **Cloudflare proxy OFF** — GitHub Pages needs to see the A records directly to issue TLS certs. Turning proxy on breaks HTTPS verification.
-- **Per-app folder structure** — moved from flat files (`lyra.html`, `lyra-privacy.html`) to `lyra/index.html` etc. to keep root clean as more apps are added.
-- **Icon padding via CSS** — app icon has no built-in padding, so padding is applied to the container div rather than the image itself, preserving the box size.
-- **Email** — hello@headroomstudio.dev uses iCloud Mail with custom domain — supports both sending and receiving.
+- **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship
+- **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
+- **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
+- **Cloudflare proxy OFF** — GitHub Pages must see the A records directly for TLS
+- **Per-app folder structure** — keeps root clean as apps accumulate
+- **Auris pages stay up** — old links and the old appcast must keep resolving post-rename
+- **`assets/screens/` is unlisted, not private** — hotlinkable for forum posts, excluded from sitemap + robots

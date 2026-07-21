@@ -198,17 +198,8 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox"><img src="" alt="" id="lightbox-img"></div>
-<script>
-  (function(){
-    var lb=document.getElementById('lightbox'), im=document.getElementById('lightbox-img');
-    document.querySelectorAll('.figure img').forEach(function(img){ img.addEventListener('click',function(){ im.src=img.src; im.alt=img.alt; lb.classList.add('active'); }); });
-    lb.addEventListener('click',function(){ lb.classList.remove('active'); });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('active'); });
-  })();
-</script>
-
 <script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
 <script src="../newsletter.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
