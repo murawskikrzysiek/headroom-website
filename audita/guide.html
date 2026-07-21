@@ -476,8 +476,8 @@
 <div class="container doc-grid">
     <header class="page-header" id="top">
         <p class="page-eyebrow">Audita · User Guide</p>
-        <h1>Everything Audita does, and how to drive it.</h1>
-        <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full <code>audita://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
+        <h1>The Audita reference.</h1>
+        <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. If a feature isn't on this page, Audita doesn't have it. The <code>audita://</code> URL scheme has its <a href="api.html">own page</a>.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents">
@@ -565,7 +565,7 @@
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
         <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar and popover header)</h3>
-        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header (see <a href="#dropdown-menu">The dropdown menu</a>), so both surfaces always show the same arc count and colour at any given moment.</p>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header.</p>
 
         <table>
             <tbody><tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
@@ -580,7 +580,7 @@
 
         <p class="prose">The dose-tier colour is unchanged from v1.1: safe 0-40 % is green, caution 40-70 % is yellow, warning 70-90 % is orange, danger 90 %+ is red. Today's dose is saved continuously so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
 
-        <p class="prose">When no session is running, the bloom renders as the full three-arc shape in a neutral system-foreground colour. That distinct "Audita is present, just not measuring" state reads differently from the dose-tinted bloom you see during a live session.</p>
+        <p class="prose">The no-session state is deliberately distinct: a full bloom with no dose tint reads as "Audita is present, just not measuring".</p>
     </section>
 
     <hr class="divider">
@@ -634,7 +634,7 @@
 
         <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, Monitoring Discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
 
-        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It shares its data driver with the menu bar glyph: <strong>arcs follow live SPL</strong>, <strong>colour follows today's NIOSH dose tier</strong>. Same state machine as the menu bar icon (see <a href="#menu-bar-icon-states">Menu bar icon states</a>), just rendered larger in the popover header. When no session is running, the popover glyph falls back to the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
+        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It's driven by the same state machine as the menu bar glyph - see <a href="#menu-bar-icon-states">Pressure Bloom states</a> for the arc and colour rules.</p>
 
         <h3>License status</h3>
         <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
