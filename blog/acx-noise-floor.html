@@ -105,22 +105,22 @@
           </figure>
         </div>
 
-        <p>Same three gates, one panel, one glance - and the noise floor is the row that moved. The ACX preset carries Apple Podcasts and Spotify (Podcast) alongside it in penalty terms; ACX is the row with the noise-floor gate attached.</p>
+        <p>Same three gates in one panel; the noise floor is the row that moved. The ACX preset carries Apple Podcasts and Spotify (Podcast) alongside it in penalty terms; ACX is the row with the noise-floor gate attached.</p>
 
         <h2>The workflow</h2>
 
-        <p>For an ACX submission it comes down to this: drop the chapter file in, give the detector a few seconds to run (a one-hour chapter analyses in seconds on Apple silicon), and read the panel. If a row is red you know which of the three things to fix - re-record the noisy passage, pull the loudness into the window, or run a gentle noise reduction - before you upload and wait for the rejection email.</p>
+        <p>For an ACX submission it comes down to this: drop the chapter file in, give the detector a few seconds to run (a one-hour chapter analyses in seconds on Apple silicon), and read the panel. If a row is red you know which of the three things to fix - re-record the noisy passage, pull the loudness into the window, or run a gentle noise reduction - before you upload.</p>
 
         <p>And because the floor is computed per block and shown live, you can scrub to the chapter the report flagged and watch the number climb at exactly the point where the fan got louder. The measurement doesn't just say a file failed; it shows you where.</p>
 
         <h2>Pairs with per-chapter analysis</h2>
 
-        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is <a href="per-chapter-loudness.html">Chapter mode</a>, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine - together they answer "is this shippable to ACX" before ACX answers it for you.</p>
+        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is <a href="per-chapter-loudness.html">Chapter mode</a>, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine, and together they cover both halves of the question ACX asks.</p>
 
-        <div class="callout"><strong>Why it matters:</strong> gating the gaps brings the measured floor down, but it can't scrub the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The value of measuring the floor on the silence, and watching it live, is catching that while you can still do something about it, not after the submission bounces.</div>
+        <p>One limit worth stating: gating the gaps brings the measured floor down, but it can't touch the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The point of measuring the floor on the silence, and watching it live, is catching that while re-recording is still an option.</p>
 
         <div class="kicker">
-            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. The speech-gated noise floor, the ACX preset and chapter analysis ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
+            <p>The speech-gated noise floor and the ACX preset ship in <a href="../specula/">Specula</a> 1.0 for macOS - $49 through 31 July, then $99.</p>
         </div>
 
         <div class="related">

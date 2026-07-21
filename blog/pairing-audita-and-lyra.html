@@ -56,9 +56,9 @@
 <div class="container--read">
   <article class="article">
 
-        <p>The monitor knob is the most consequential control in any studio, and the one most engineers have the loosest grip on. Ask a producer what level they mix at and you'll hear "comfortable", "loud enough", or - if they're feeling specific - "around eleven o'clock". None of those are numbers. None of them are repeatable. None of them survive a power cycle, a coffee break, or a session in another room.</p>
+        <p>Ask a producer what level they mix at and you'll hear "comfortable", "loud enough", or - if they're feeling specific - "around eleven o'clock". None of those are numbers, and none of them survive a power cycle, a coffee break, or a session in another room.</p>
 
-        <p>That gap between intention and reality is where a surprising amount of bad mixing happens. The chorus that felt enormous at 6pm sounds thin in the morning, not because the mix changed but because the level did. The bass that "needs another dB" gets it, then another the next day, then another, until the whole low end is mud at any volume below what was set four sessions ago. None of this requires the engineer to be careless. It just requires them not to know what level they're actually working at.</p>
+        <p>The case for mixing at a known SPL - translation, consistency, hearing dose, fatigue - is made at length in <a href="calibrated-monitoring.html">the calibrated monitoring post</a>. The short version: decisions made against a moving reference drift, and the drift compounds. This post is about the tooling that makes a fixed reference practical to live with.</p>
 
         <p>The reason this isn't already solved is that solving it has historically meant buying a calibrated SPL meter, leaving it sitting next to your monitor controller, and re-checking it every time you turn the knob. Which, predictably, no one does. The tool is too separate from the workflow to live inside it.</p>
 
@@ -95,7 +95,7 @@
             <figcaption>The menu bar shows the calibrated value alongside the name. Once both apps are paired, "Mix" stops being a vague intention and becomes a number.</figcaption>
         </figure>
 
-        <p>This is most of the value of the integration: a familiar listening level, a known number, a key combination. Not a dialog, not a calibration ritual to run again, not a meter sitting on the desk. Just <em>Ctrl+F11 → that's mix level → carry on</em>.</p>
+        <p>This is most of the value of the integration: a familiar listening level, a known number, a key combination. Just <em>Ctrl+F11 → that's mix level → carry on</em>.</p>
 
         <figure class="figure">
             <img src="screenshots/pairing-04-lyra-hud.png" alt="Lyra HUD overlay showing 'Mix - 79 dB SPL' on screen after pressing Ctrl+F11">
@@ -116,7 +116,7 @@
 
         <p>It also doesn't replace a real SPL meter for compliance work. Audita is a measurement-grade tool for studio context, not a Type-1 instrument. If a regulator needs paperwork, hire someone with a calibrated B&amp;K. For everything else - the daily decisions about how loud to listen - the integration is enough.</p>
 
-        <p>And it doesn't try to be everything for everybody. The slot count is fixed at three, the URL scheme is documented and stable, and both apps work fine independently. The pairing exists because the two products were already living next to each other in the menu bar, and connecting them was a few lines of URL handling away from being free.</p>
+        <p>And it stays deliberately small. The slot count is fixed at three, the URL scheme is documented and stable, and both apps work fine independently. The pairing exists because the two products were already living next to each other in the menu bar, and connecting them was a few lines of URL handling away from being free.</p>
 
         <h2>Where to start</h2>
 
@@ -124,7 +124,7 @@
 
         <p>The first calibration takes a few minutes if you've never used Audita's wizard before. Every subsequent one - re-pairing after moving rooms, swapping monitors, or adjusting a trim - takes about ninety seconds. The recall after that is one keystroke, indefinitely.</p>
 
-        <p>Most studio tools optimise for what happens during the mix. This one optimises for the part nobody talks about: knowing where the knob is.</p>
+        <p>Most studio tools optimise for what happens during the mix. This one optimises for the part in between: knowing where the knob is.</p>
 
         <div class="kicker">
             <p><a href="../audita/">Audita</a> is a real-time hearing dose meter for macOS - passive SPL tracking, NIOSH dose accumulation, and now Lyra calibration handoff. <a href="../lyra/">Lyra</a> is a menu-bar volume controller for UA Apollo interfaces - F-key shortcuts, three named reference levels, and a documented URL scheme. Both apps offer 7-day free trials and live in the menu bar.</p>
@@ -133,7 +133,7 @@
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - the single number that explains studio loudness</span><span class="arrow">→</span></a></li>
+                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - how loudness halves safe listening time</span><span class="arrow">→</span></a></li>
                 <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe - the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
             </ul>
         </div>
