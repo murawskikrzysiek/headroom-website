@@ -32,7 +32,8 @@ headroom-website/
 │
 ├── lyra/                   # Per-app folder: index, faq, guide, api, privacy,
 ├── audita/                 #   releases, appcast.xml, icon.png, og.png, screenshots
-├── specula/                #   (+ 9 use-case pages specula/{mastering,compare,...}.html)
+├── specula/                #   (+ 9 use-case pages specula/{mastering,compare,...}.html
+│                           #    + meter-demo.js, the live-meter demo for specula/index.html)
 ├── auris/                  # Frozen post-rename stubs - redirect to audita/
 │
 ├── blog/                   # index.html, blog.css, feed.xml (RSS), one HTML per post
@@ -45,7 +46,7 @@ headroom-website/
 
 Three tiers — know which one you're editing:
 
-1. **`headroom.css`** — shared by all marketing pages, FAQs, privacy pages, releases, and the blog. Numbered sections (§1 Tokens … §17 Responsive). §12 has the app-detail components, the "Marketing texture" block before §13 has `.statband`/`.stat`, `.term`, `.specs`/`.spec`, `.faq-acc`, and the signal-flow diagram kit (`.diagram` + `.dg-*` classes for inline SVG) — reuse these, don't re-invent. Each diagram figure holds two SVG renderings of the same flow, `.diagram__wide` and `.diagram__tall`; §17 swaps them at 640px, so edit both when changing a diagram (used on the three app index pages + the pairing blog post). Design-system brief: `headroom/DESIGN-SYSTEM.md`.
+1. **`headroom.css`** — shared by all marketing pages, FAQs, privacy pages, releases, and the blog. Numbered sections (§1 Tokens … §17 Responsive). §12 has the app-detail components, the "Marketing texture" block before §13 has `.statband`/`.stat`, `.term`, `.specs`/`.spec`, `.faq-acc`, and the signal-flow diagram kit (`.diagram` + `.dg-*` classes for inline SVG) — reuse these, don't re-invent. Each diagram figure holds two SVG renderings of the same flow, `.diagram__wide` and `.diagram__tall`; §17 swaps them at 640px, so edit both when changing a diagram (used on the three app index pages + the pairing blog post). The live-meter demo kit (`.mdemo` + in-SVG `.mdemo-*` classes) styles the BS.1770 demo on `specula/index.html`: the figure ships a **baked final state** (full SVG curves + readout values, so it reads complete without JS) and `specula/meter-demo.js` replays it live — after any DSP change, run the meter to the end in a browser and copy the finished `.mdemo__svg` polylines and readout values over the baked ones. Design-system brief: `headroom/DESIGN-SYSTEM.md`.
 2. **`blog/blog.css`** — blog-only additions, loaded *after* headroom.css on blog pages.
 3. **Embedded styles** — the guide and API pages are self-contained: they embed their own docs taxonomy (`.toc`, `.note`, `.screenshot-*`, `guide-section`, `prose`, `hr-rework`). `404.html` also embeds everything; its `:root` values mirror headroom.css §1 and must be kept in sync by hand.
 
@@ -64,6 +65,7 @@ Each file's header comment documents its container contract — read it before w
 | `faq-search.js` | search box + category chips over `.faq-group` markup | lyra + audita FAQ |
 | `newsletter.js` | posts the subscribe form to `api.headroomstudio.dev/s/<list>` (Worker → MailerLite) with a Turnstile token | homepage, blog, app pages |
 | `activity-feed.js` | merges appcast releases + blog posts into the `[data-feed]` container, newest first | homepage, app pages |
+| `specula/meter-demo.js` | live BS.1770-4 meter demo: synthesizes a deterministic 30 s program and meters it in JS (K-weighting, gated integrated, 4× true peak); auto-inits every `.mdemo`; under reduced motion stays static and hides Run | `specula/index.html` only |
 
 ## Guides mirror app repos
 

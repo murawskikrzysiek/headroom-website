@@ -418,6 +418,54 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
   letter-spacing: 0.12em; }
 .dg-u { font-family: var(--font-mono); font-size: 11px; fill: var(--accent-soft); }
 
+/* Live loudness meter demo (specula/index.html + specula/meter-demo.js).
+   The figure ships with a baked final state - full SVG curves + readout
+   values - so it reads complete without JS; meter-demo.js replays it live.
+   Target chips reuse .chip / .is-active from §15. */
+.mdemo { margin: 26px 0 0; }
+.mdemo__panel { border: 1px solid var(--border-hover); border-radius: 12px;
+  background: rgba(0,0,0,0.35); overflow: hidden; }
+.mdemo__bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.mdemo__title { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-4);
+  letter-spacing: 0.04em; margin-right: auto; }
+.mdemo__targets { display: flex; gap: 6px; }
+.mdemo__targets[hidden] { display: none; }
+.mdemo__run { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+  padding: 6px 13px; border-radius: 7px; cursor: pointer; color: var(--accent-soft);
+  background: rgba(124,132,246,0.14); border: 1px solid rgba(124,132,246,0.30);
+  transition: background var(--t-fast), border-color var(--t-fast); }
+.mdemo__run:hover { background: rgba(124,132,246,0.22); border-color: rgba(124,132,246,0.5); }
+.mdemo__scope { overflow-x: auto; }
+.mdemo__svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.mdemo__readouts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-top: 1px solid var(--border); }
+.mdemo__ro { background: var(--bg-card); padding: 11px 14px; }
+.mdemo__ro-l { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono);
+  font-size: 0.62rem; color: var(--text-3); letter-spacing: 0.04em; }
+.mdemo__sw { width: 14px; height: 0; border-top: 2px solid; }
+.mdemo__sw--m { border-color: rgba(160,170,255,0.38); }
+.mdemo__sw--s { border-color: var(--accent); }
+.mdemo__sw--i { border-color: var(--green); }
+.mdemo__ro-v { font-family: var(--font-mono); font-size: 1.12rem; font-weight: 600;
+  color: var(--text); letter-spacing: -0.01em; margin-top: 3px; }
+.mdemo__ro-v em { font-style: normal; font-size: 0.66rem; color: var(--text-4); }
+.mdemo__ro-s { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-3); margin-top: 2px; }
+.mdemo__ro-s.is-in { color: var(--green); }
+.mdemo__ro-s.is-out { color: var(--red); }
+.mdemo figcaption { font-size: 0.78rem; color: var(--text-3); line-height: 1.6;
+  margin-top: 14px; max-width: 640px; }
+.mdemo figcaption strong { color: var(--text-2); font-weight: 600; }
+.mdemo-grid { stroke: var(--border); }
+.mdemo-sec { stroke: var(--border); stroke-dasharray: 2 6; }
+.mdemo-m { fill: none; stroke: rgba(160,170,255,0.32); stroke-width: 1; }
+.mdemo-s { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linejoin: round; }
+.mdemo-i { fill: none; stroke: var(--green); stroke-width: 1.6; }
+.mdemo-tgt { stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 3 5; }
+.mdemo-ph { stroke: rgba(238,238,246,0.4); stroke-width: 1; }
+.mdemo-ax { font-family: var(--font-mono); font-size: 10px; fill: var(--text-4); }
+.mdemo-tl { font-family: var(--font-mono); font-size: 10px; fill: var(--text-3); }
+
 /* ── 13. Doc header + kbd ────────────────────────────────────────────────── */
 /* .doc-header: privacy pages + blog index. kbd: specula pages, lyra releases. */
 /* The guide and API pages embed their own docs styling (.toc/.note/etc.).    */
@@ -521,4 +569,5 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .tiles--4, .tiles--3 { grid-template-columns: 1fr; }
   .diagram__wide { display: none; }
   .diagram__tall { display: block; }
+  .mdemo__readouts { grid-template-columns: 1fr 1fr; }
 }
