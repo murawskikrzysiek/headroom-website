@@ -45,7 +45,7 @@ headroom-website/
 
 Three tiers — know which one you're editing:
 
-1. **`headroom.css`** — shared by all marketing pages, FAQs, privacy pages, releases, and the blog. Numbered sections (§1 Tokens … §17 Responsive). §12 has the app-detail components, the "Marketing texture" block before §13 has `.statband`/`.stat`, `.term`, `.specs`/`.spec`, `.faq-acc` — reuse these, don't re-invent. Design-system brief: `headroom/DESIGN-SYSTEM.md`.
+1. **`headroom.css`** — shared by all marketing pages, FAQs, privacy pages, releases, and the blog. Numbered sections (§1 Tokens … §17 Responsive). §12 has the app-detail components, the "Marketing texture" block before §13 has `.statband`/`.stat`, `.term`, `.specs`/`.spec`, `.faq-acc`, and the signal-flow diagram kit (`.diagram` + `.dg-*` classes for inline SVG) — reuse these, don't re-invent. Each diagram figure holds two SVG renderings of the same flow, `.diagram__wide` and `.diagram__tall`; §17 swaps them at 640px, so edit both when changing a diagram (used on the three app index pages + the pairing blog post). Design-system brief: `headroom/DESIGN-SYSTEM.md`.
 2. **`blog/blog.css`** — blog-only additions, loaded *after* headroom.css on blog pages.
 3. **Embedded styles** — the guide and API pages are self-contained: they embed their own docs taxonomy (`.toc`, `.note`, `.screenshot-*`, `guide-section`, `prose`, `hr-rework`). `404.html` also embeds everything; its `:root` values mirror headroom.css §1 and must be kept in sync by hand.
 

@@ -170,6 +170,66 @@
     </div>
   </section>
 
+  <!-- Pairs with Lyra -->
+  <section class="section section--bordered" id="pairing">
+    <div class="section__grid">
+      <p class="label">Pairs with Lyra</p>
+      <div>
+        <figure class="diagram">
+          <svg class="diagram__wide diagram__wide--s" viewBox="0 0 560 324" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+            <rect class="dg-group" x="10" y="26" width="383" height="112" rx="14"/>
+            <text class="dg-l" x="28" y="48">AUDITA</text>
+            <rect class="dg-box" x="28" y="60" width="154" height="60" rx="9"/>
+            <text class="dg-t" x="42" y="85">measurement mic</text>
+            <text class="dg-s" x="42" y="104">at the mix position</text>
+            <path class="dg-flow" d="M182 90H204m-5 -5 6 5-6 5"/>
+            <rect class="dg-box" x="208" y="60" width="167" height="60" rx="9"/>
+            <text class="dg-t" x="222" y="85">calibrate</text>
+            <text class="dg-s" x="222" y="104">pink noise &#183; 79.4 dBA</text>
+            <path class="dg-flow dg-flow--accent dg-dash" d="M292 138V222"/>
+            <path class="dg-flow dg-flow--accent" d="M292 222v6m-5 -6 5 6 5-6"/>
+            <text class="dg-u" x="306" y="168">lyra://reference/2/save</text>
+            <text class="dg-u" x="306" y="186">?name=Mix&amp;dBSPL=79.4</text>
+            <rect class="dg-group" x="212" y="200" width="327" height="112" rx="14"/>
+            <text class="dg-l" x="230" y="222">LYRA</text>
+            <rect class="dg-box dg-box--accent" x="230" y="234" width="125" height="60" rx="9"/>
+            <text class="dg-t" x="244" y="259">slot 2 &#183; Mix</text>
+            <text class="dg-s dg-s--a" x="244" y="278">79 dB SPL</text>
+            <path class="dg-flow" d="M355 264h22m-5 -5 6 5-6 5"/>
+            <rect class="dg-box" x="381" y="234" width="140" height="60" rx="9"/>
+            <text class="dg-t" x="395" y="259">Ctrl+F11</text>
+            <text class="dg-s" x="395" y="278">recalls the level</text>
+          </svg>
+          <svg class="diagram__tall" viewBox="0 0 340 514" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+            <rect class="dg-group" x="10" y="24" width="320" height="192" rx="14"/>
+            <text class="dg-l" x="28" y="46">AUDITA</text>
+            <rect class="dg-box" x="28" y="58" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="82">measurement mic</text>
+            <text class="dg-s" x="42" y="100">at the mix position</text>
+            <path class="dg-flow" d="M170 116v18m-5 -6 5 6 5-6"/>
+            <rect class="dg-box" x="28" y="140" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="164">calibrate</text>
+            <text class="dg-s" x="42" y="182">pink noise &#183; 79.4 dBA</text>
+            <path class="dg-flow dg-flow--accent dg-dash" d="M170 216v22"/>
+            <text class="dg-u" x="170" y="258" text-anchor="middle">lyra://reference/2/save</text>
+            <text class="dg-u" x="170" y="276" text-anchor="middle">?name=Mix&amp;dBSPL=79.4</text>
+            <path class="dg-flow dg-flow--accent" d="M170 286v16m-5 -6 5 6 5-6"/>
+            <rect class="dg-group" x="10" y="310" width="320" height="192" rx="14"/>
+            <text class="dg-l" x="28" y="332">LYRA</text>
+            <rect class="dg-box dg-box--accent" x="28" y="344" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="368">slot 2 &#183; Mix</text>
+            <text class="dg-s dg-s--a" x="42" y="386">79 dB SPL</text>
+            <path class="dg-flow" d="M170 402v18m-5 -6 5 6 5-6"/>
+            <rect class="dg-box" x="28" y="426" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="450">Ctrl+F11</text>
+            <text class="dg-s" x="42" y="468">recalls the level</text>
+          </svg>
+          <figcaption><strong>Audita measures, Lyra remembers.</strong> After a calibration, one keystroke puts the monitor back at a level you can cite in dB SPL. Walkthrough in <a href="../blog/pairing-audita-and-lyra.html">the pairing post</a>; needs <a href="../lyra/">Lyra</a> 1.4+.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- Standards -->
   <section class="section section--bordered">
     <div class="section__grid">

@@ -391,6 +391,33 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
 .faq-acc__a a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
 .faq-acc__a p + p { margin-top: 10px; }
 
+/* Signal-flow diagrams (inline SVG). Stroke-led: nodes on --border-hover,
+   group outlines on --border, one accent node per figure, mono labels, no
+   shadows. Each figure holds a wide and a tall rendering of the same flow;
+   §17 swaps them at 640px. */
+.diagram { margin: 0; }
+.diagram svg { height: auto; }
+.diagram__wide { display: block; width: 100%; max-width: 680px; }
+.diagram__wide--s { max-width: 600px; }
+.diagram__tall { display: none; width: 100%; max-width: 360px; margin: 0 auto; }
+.diagram figcaption { font-size: 0.78rem; color: var(--text-3); line-height: 1.6;
+  margin-top: 14px; max-width: 640px; }
+.diagram figcaption strong { color: var(--text-2); font-weight: 600; }
+.diagram figcaption a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
+.dg-box { fill: var(--bg-card); stroke: var(--border-hover); }
+.dg-box--accent { fill: rgba(124,132,246,0.09); stroke: rgba(124,132,246,0.55); }
+.dg-group { fill: rgba(255,255,255,0.015); stroke: var(--border); }
+.dg-flow { fill: none; stroke: var(--text-4); stroke-width: 1.2; }
+.dg-flow--accent { stroke: rgba(124,132,246,0.55); }
+.dg-dash { stroke-dasharray: 3 5; }
+.dg-t { font-family: var(--font-mono); font-size: 13.5px; font-weight: 500; fill: var(--text); }
+.dg-s { font-family: var(--font-mono); font-size: 11px; fill: var(--text-3); }
+.dg-s--a { fill: var(--accent-soft); }
+.dg-p { font-family: var(--font-mono); font-size: 12.5px; fill: var(--text-2); }
+.dg-l { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--text-3);
+  letter-spacing: 0.12em; }
+.dg-u { font-family: var(--font-mono); font-size: 11px; fill: var(--accent-soft); }
+
 /* ── 13. Doc header + kbd ────────────────────────────────────────────────── */
 /* .doc-header: privacy pages + blog index. kbd: specula pages, lyra releases. */
 /* The guide and API pages embed their own docs styling (.toc/.note/etc.).    */
@@ -492,4 +519,6 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .specs { grid-template-columns: 1fr; }
   .shots-grid--2, .shots-grid--3 { grid-template-columns: 1fr; }
   .tiles--4, .tiles--3 { grid-template-columns: 1fr; }
+  .diagram__wide { display: none; }
+  .diagram__tall { display: block; }
 }

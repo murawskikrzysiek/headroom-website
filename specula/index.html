@@ -170,6 +170,68 @@
         </div>
     </section>
 
+    <!-- The pipeline -->
+    <section class="section section--bordered" id="pipeline">
+        <div class="section__grid">
+            <p class="label">The pipeline</p>
+            <div>
+                <figure class="diagram">
+                    <svg class="diagram__wide" viewBox="0 0 700 246" role="img" aria-label="Specula's analysis pipeline: a loaded file fans out into five paths - BS.1770-4 loudness, oversampled true peak, FFT spectrum, Silero VAD speech gating, and correlation - which feed the 22 delivery targets and the JSON, PDF, and CLI reports.">
+                        <rect class="dg-box" x="10" y="95" width="140" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="120">master.wav</text>
+                        <text class="dg-s" x="24" y="139">mono to 7.1</text>
+                        <path class="dg-flow" d="M150 125H180M180 37V213"/>
+                        <path class="dg-flow" d="M180 37h19m-6 -5 6 5-6 5M180 81h19m-6 -5 6 5-6 5M180 125h19m-6 -5 6 5-6 5M180 169h19m-6 -5 6 5-6 5M180 213h19m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="205" y="20" width="250" height="34" rx="8"/>
+                        <text class="dg-p" x="219" y="41">BS.1770-4 &#183; M / S / I / LRA</text>
+                        <rect class="dg-box" x="205" y="64" width="250" height="34" rx="8"/>
+                        <text class="dg-p" x="219" y="85">true peak &#183; 4&#215; oversampled</text>
+                        <rect class="dg-box" x="205" y="108" width="250" height="34" rx="8"/>
+                        <text class="dg-p" x="219" y="129">FFT spectrum &#183; spectrogram</text>
+                        <rect class="dg-box" x="205" y="152" width="250" height="34" rx="8"/>
+                        <text class="dg-p" x="219" y="173">Silero VAD &#183; speech-gated LUFS</text>
+                        <rect class="dg-box" x="205" y="196" width="250" height="34" rx="8"/>
+                        <text class="dg-p" x="219" y="217">correlation &#183; phase scope</text>
+                        <path class="dg-flow" d="M455 37H480M455 81H480M455 125H480M455 169H480M455 213H480M480 37V213"/>
+                        <path class="dg-flow" d="M480 100h18m-6 -5 6 5-6 5M480 190h18m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="502" y="70" width="190" height="60" rx="9"/>
+                        <text class="dg-t" x="516" y="95">22 delivery targets</text>
+                        <text class="dg-s dg-s--a" x="516" y="114">penalty or pass / fail</text>
+                        <rect class="dg-box" x="502" y="160" width="190" height="60" rx="9"/>
+                        <text class="dg-t" x="516" y="185">JSON &#183; PDF &#183; CLI</text>
+                        <text class="dg-s" x="516" y="204">for scripts and CI</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 512" role="img" aria-label="Specula's analysis pipeline: a loaded file fans out into five paths - BS.1770-4 loudness, oversampled true peak, FFT spectrum, Silero VAD speech gating, and correlation - which feed the 22 delivery targets and the JSON, PDF, and CLI reports.">
+                        <rect class="dg-box" x="36" y="20" width="268" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="44">master.wav</text>
+                        <text class="dg-s" x="50" y="62">mono to 7.1</text>
+                        <path class="dg-flow" d="M170 78V94H18V303"/>
+                        <path class="dg-flow" d="M18 127h9m-6 -5 6 5-6 5M18 171h9m-6 -5 6 5-6 5M18 215h9m-6 -5 6 5-6 5M18 259h9m-6 -5 6 5-6 5M18 303h9m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="36" y="110" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="131">BS.1770-4 &#183; M / S / I / LRA</text>
+                        <rect class="dg-box" x="36" y="154" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="175">true peak &#183; 4&#215; oversampled</text>
+                        <rect class="dg-box" x="36" y="198" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="219">FFT spectrum &#183; spectrogram</text>
+                        <rect class="dg-box" x="36" y="242" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="263">Silero VAD &#183; speech-gated LUFS</text>
+                        <rect class="dg-box" x="36" y="286" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="307">correlation &#183; phase scope</text>
+                        <path class="dg-flow" d="M306 127H322M306 171H322M306 215H322M306 259H322M306 303H322M322 127V467"/>
+                        <path class="dg-flow" d="M322 379h-10m7 -5 -7 5 7 5M322 467h-10m7 -5 -7 5 7 5"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="350" width="270" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="374">22 delivery targets</text>
+                        <text class="dg-s dg-s--a" x="50" y="392">penalty or pass / fail</text>
+                        <rect class="dg-box" x="36" y="438" width="270" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="462">JSON &#183; PDF &#183; CLI</text>
+                        <text class="dg-s" x="50" y="480">for scripts and CI</text>
+                    </svg>
+                    <figcaption><strong>One engine, every mode.</strong> A loaded file fans out into the five analysis paths; verdicts and reports read from that same pass, in the window or from a script.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
     <!-- Built for your workflow -->
     <section class="section section--bordered">
         <div class="apps-head"><p class="label">Built for your workflow</p><span style="font-size: 0.74rem; color: var(--text-4);">Nine jobs · one engine</span></div>
