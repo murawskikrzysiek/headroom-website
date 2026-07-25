@@ -559,6 +559,10 @@
                     <div class="faq-acc__a"><p>Audio Units only (AUv2 and AUv3); VST and VST3 aren't loaded. Most macOS effect plugins install an AU alongside their other formats, and those show up in the Add browser, grouped by manufacturer. Instruments aren't listed, since the chain processes an existing file. AUv3 plugins run out-of-process, so a crash in one can't take Specula down.</p></div>
                 </details>
                 <details class="faq-acc">
+                    <summary>Is Specula a native Mac app?</summary>
+                    <div class="faq-acc__a"><p>Yes. Swift, AVAudioEngine, and Metal for the spectral canvas, not a web view in a desktop frame. Right-clicking audio in Finder gets three Services, Shortcuts and Spotlight get App Intents, and on macOS 26 the chrome is Liquid Glass, with an opt-out to solid chrome in Settings → Layout.</p></div>
+                </details>
+                <details class="faq-acc">
                     <summary>Can Specula remove a cough or a chair squeak from a recording?</summary>
                     <div class="faq-acc__a"><p>Yes, in Spectral mode (⌘5): draw around the blemish on the zoomable spectrogram with the rectangle, lasso, brush, or wand, then <strong>Attenuate</strong>, <strong>Erase</strong>, or <strong>Repair</strong> it. Space, ⇧Space, and ⌥Space audition the span, the selection alone, and the result before you commit, and everything outside the selection stays untouched. See the <a href="repair.html">spectral repair workflow</a>.</p></div>
                 </details>
