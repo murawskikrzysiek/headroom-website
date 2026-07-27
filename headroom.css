@@ -117,10 +117,10 @@ code {
 .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
 .nav { display: flex; align-items: center;
   justify-content: space-between; padding: 12px 18px;
-  border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
-  background: rgba(13,13,17,0.55);
-  -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 34px rgba(0,0,0,0.4); }
+  border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+  background: rgba(13,13,17,0.38);
+  -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
 
 .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--brand-mark);
   font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
@@ -144,7 +144,7 @@ code {
 .btn-primary { background: var(--green); color: #061a0e; }
 .btn-primary:hover { opacity: 0.88; }
 .btn-outline { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(255,255,255,0.14);
-  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); }
+  -webkit-backdrop-filter: blur(14px) saturate(1.7); backdrop-filter: blur(14px) saturate(1.7); }
 .btn-outline:hover { border-color: rgba(255,255,255,0.30); background: rgba(255,255,255,0.09); }
 .btn-outline s { text-decoration: line-through; opacity: 0.5; margin: 0 4px; font-weight: 500; }
 .btn-learn { justify-content: center; background: rgba(124,132,246,0.10); color: var(--accent);
@@ -163,7 +163,7 @@ code {
 .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
   text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-badge); white-space: nowrap;
   background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.08); color: var(--text-2);
-  -webkit-backdrop-filter: blur(12px) saturate(1.5); backdrop-filter: blur(12px) saturate(1.5); }
+  -webkit-backdrop-filter: blur(12px) saturate(1.7); backdrop-filter: blur(12px) saturate(1.7); }
 .badge--macos { background: rgba(50,130,220,0.12); color: #5aabee; }
 .badge--accent { background: rgba(124,132,246,0.14); color: var(--accent-soft); }
 
@@ -441,7 +441,7 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
   background: rgba(0,0,0,0.35); overflow: hidden; }
 .mdemo__bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   padding: 10px 14px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.045);
-  -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); }
+  -webkit-backdrop-filter: blur(18px) saturate(1.7); backdrop-filter: blur(18px) saturate(1.7); }
 .mdemo__title { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-4);
   letter-spacing: 0.04em; margin-right: auto; }
 .mdemo__targets { display: flex; gap: 6px; }
@@ -527,7 +527,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { font-size: 0.78rem; font-weight: 500; padding: 6px 12px; border-radius: 100px; cursor: pointer;
   background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.10); color: var(--text-3); font-family: inherit;
-  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.7); backdrop-filter: blur(14px) saturate(1.7);
   transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast); }
 .chip:hover { color: var(--text-2); }
 .chip.is-active { background: rgba(124,132,246,0.14); border-color: rgba(124,132,246,0.30); color: var(--accent-soft); }
