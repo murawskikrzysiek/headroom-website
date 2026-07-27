@@ -114,8 +114,9 @@ code {
    overlays); content surfaces (cards, tables, accordions, callouts) stay solid.
    Every glass element needs the reduced-transparency fallback at the bottom
    of this file. */
-.nav { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
-  justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
+.nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+.nav { display: flex; align-items: center;
+  justify-content: space-between; padding: 12px 18px;
   border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
   background: rgba(13,13,17,0.55);
   -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);

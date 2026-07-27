@@ -60,9 +60,11 @@
             width: 100%;
         }
 
-        nav:not(.toc) { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
 
-            justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
+        nav:not(.toc) { display: flex; align-items: center;
+
+            justify-content: space-between; padding: 12px 18px;
 
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
 
@@ -341,7 +343,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container nav-shell">
     <nav>
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
