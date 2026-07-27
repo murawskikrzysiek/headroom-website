@@ -50,7 +50,7 @@ Three tiers — know which one you're editing:
 2. **`blog/blog.css`** — blog-only additions, loaded *after* headroom.css on blog pages.
 3. **Embedded styles** — the guide and API pages are self-contained: they embed their own docs taxonomy (`.toc`, `.note`, `.screenshot-*`, `guide-section`, `prose`, `hr-rework`). `404.html` also embeds everything; its `:root` values mirror headroom.css §1 and must be kept in sync by hand.
 
-Tokens (palette, radii, fonts) live in `headroom.css` §1 — read them there, don't trust docs to be current. Typography is Inter / Inter Tight / JetBrains Mono via Google Fonts CDN.
+Tokens (palette, radii, fonts) live in `headroom.css` §1 — read them there, don't trust docs to be current. Typography is the **system stack** (SF Pro via `-apple-system`, SF Mono via `ui-monospace`) — no webfont CDN, don't reintroduce one. **Glass chrome rule: glass is for floating chrome (sticky nav pill, chips, secondary buttons, control bars), content surfaces stay solid** — every glass element needs the `prefers-reduced-transparency` fallback (shared block at the bottom of headroom.css; embedded-style pages carry their own).
 
 **Copy rules:** no em-dashes anywhere in user-facing output (spaced hyphens instead; the md→html guide mirror step converts them). Scrub all new copy against `headroom/claude-skills/ai-tell-scrub/SKILL.md`.
 
@@ -86,7 +86,6 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 - **Cloudflare** — DNS (proxy OFF / DNS-only; turning it on breaks GitHub Pages TLS), R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
 - **Lemon Squeezy** — payment processor / license server for all apps (referenced in privacy pages and FAQs)
 - **MailerLite** — newsletter backend, reached only server-side via the Worker (`_newsletter-proxy/README.md` explains why: content blockers kill direct MailerLite fetches, and their public form endpoint 403s Worker IPs, so the Worker uses the server API)
-- **Google Fonts** — Inter / Inter Tight / JetBrains Mono via CDN
 - **Sparkle** — macOS auto-update framework consuming the appcasts
 
 ## Adding a new app
@@ -118,6 +117,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
 - **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship
 - **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
 - **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
+- **System fonts + liquid-glass chrome** — 2026-07 design refresh: SF system stack (no webfonts), sticky glass nav on every page, glass on chips/badges/secondary buttons; periwinkle accent kept (it matches the app icons; the AI-default look was the Inter+violet+glow ensemble, not the hue)
 - **Cloudflare proxy OFF** — GitHub Pages must see the A records directly for TLS
 - **Per-app folder structure** — keeps root clean as apps accumulate
 - **Auris pages stay up** — old links and the old appcast must keep resolving post-rename

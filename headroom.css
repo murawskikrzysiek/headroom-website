@@ -25,15 +25,15 @@
 
 /* ── 1. Tokens ───────────────────────────────────────────────────────────── */
 :root {
-  --bg:            #0b0b0f;
-  --bg-card:       #111118;
-  --bg-card-hover: #16161f;
-  --border:        #1c1c28;
-  --border-hover:  #28283a;
+  --bg:            #0a0a0d;
+  --bg-card:       #101013;
+  --bg-card-hover: #141419;
+  --border:        #1c1c22;
+  --border-hover:  #2a2a33;
   --text:          #eeeef6;
-  --text-2:        #a8a8c0;
-  --text-3:        #6e6e90;
-  --text-4:        #3a3a52;
+  --text-2:        #a9a9b8;
+  --text-3:        #72727f;
+  --text-4:        #3b3b47;
   --accent:        #7c84f6;
   --accent-soft:   #a0aaff;
   --green:         #3ecf7c;
@@ -50,15 +50,17 @@
   --maxw-docs: 960px;   /* guide / api (with sidebar) */
   --maxw-read: 960px;   /* faq, privacy, blog post */
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  --font-display: 'Inter Tight', 'Inter', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
 }
 
 /* ── 2. Base ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { font-size: 16px; scroll-behavior: smooth; }
+
+html { scroll-padding-top: 84px; }
 
 body {
   font-family: var(--font-sans);
@@ -77,7 +79,7 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 img { display: block; max-width: 100%; }
 
-.display { font-family: var(--font-display); letter-spacing: -0.035em; }
+.display { font-family: var(--font-display); letter-spacing: -0.022em; }
 .mono { font-family: var(--font-mono); }
 
 code {
@@ -108,7 +110,16 @@ code {
   background: radial-gradient(ellipse 60% 50% at center, rgba(124,132,246,0.14) 0%, transparent 70%); }
 
 /* ── 4. Nav + brand ──────────────────────────────────────────────────────── */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
+/* Glass chrome. Rule: glass is for FLOATING CHROME (nav, chips, controls,
+   overlays); content surfaces (cards, tables, accordions, callouts) stay solid.
+   Every glass element needs the reduced-transparency fallback at the bottom
+   of this file. */
+.nav { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
+  justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
+  border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(13,13,17,0.55);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 34px rgba(0,0,0,0.4); }
 
 .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--brand-mark);
   font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
@@ -131,8 +142,9 @@ code {
   transition: opacity var(--t-fast), background var(--t-fast), border-color var(--t-fast); }
 .btn-primary { background: var(--green); color: #061a0e; }
 .btn-primary:hover { opacity: 0.88; }
-.btn-outline { background: transparent; color: var(--text); border-color: rgba(255,255,255,0.18); }
-.btn-outline:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); }
+.btn-outline { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(255,255,255,0.14);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); }
+.btn-outline:hover { border-color: rgba(255,255,255,0.30); background: rgba(255,255,255,0.09); }
 .btn-outline s { text-decoration: line-through; opacity: 0.5; margin: 0 4px; font-weight: 500; }
 .btn-learn { justify-content: center; background: rgba(124,132,246,0.10); color: var(--accent);
   border-color: rgba(124,132,246,0.20); }
@@ -149,7 +161,8 @@ code {
 
 .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
   text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-badge); white-space: nowrap;
-  background: rgba(255,255,255,0.05); color: var(--text-2); }
+  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.08); color: var(--text-2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5); backdrop-filter: blur(12px) saturate(1.5); }
 .badge--macos { background: rgba(50,130,220,0.12); color: #5aabee; }
 .badge--accent { background: rgba(124,132,246,0.14); color: var(--accent-soft); }
 
@@ -237,7 +250,7 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .nl-form input[type=email] { flex: 1; min-width: 180px; background: transparent; border: none;
   outline: none; color: var(--text); font-family: inherit; font-size: 0.875rem; padding: 8px 0; }
 .nl-form button { padding: 8px 14px; border-radius: 7px; font-size: 0.8rem; font-weight: 600;
-  background: var(--accent); color: #0b0b0f; border: none; cursor: pointer; white-space: nowrap;
+  background: var(--accent); color: #0a0a0d; border: none; cursor: pointer; white-space: nowrap;
   transition: opacity var(--t-fast); }
 .nl-form button:hover { opacity: 0.9; }
 .nl-form button:disabled { cursor: default; opacity: 0.7; }
@@ -284,7 +297,7 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
   transform: translate(-50%, -50%); border-radius: 50%; z-index: -1; pointer-events: none;
   background: radial-gradient(circle, rgba(124,132,246,0.16) 0%, transparent 65%); }
 .app-hero__icon { width: 108px; height: 108px; border-radius: 24px; }
-.app-hero h1 { font-size: 3.4rem; font-weight: 700; letter-spacing: -0.035em; line-height: 1.05;
+.app-hero h1 { font-size: 3.6rem; font-weight: 700; letter-spacing: -0.022em; line-height: 1.05;
   margin-top: 18px; color: var(--text); }
 .app-hero__desc { font-size: 1.05rem; color: var(--text-2); line-height: 1.65; margin-top: 14px; max-width: 620px; }
 .app-hero__badges { display: flex; gap: 6px; margin-top: 18px; flex-wrap: wrap; }
@@ -426,7 +439,8 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
 .mdemo__panel { border: 1px solid var(--border-hover); border-radius: 12px;
   background: rgba(0,0,0,0.35); overflow: hidden; }
 .mdemo__bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  padding: 10px 14px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.045);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); }
 .mdemo__title { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-4);
   letter-spacing: 0.04em; margin-right: auto; }
 .mdemo__targets { display: flex; gap: 6px; }
@@ -470,7 +484,7 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
 /* .doc-header: privacy pages + blog index. kbd: specula pages, lyra releases. */
 /* The guide and API pages embed their own docs styling (.toc/.note/etc.).    */
 .doc-header { padding: 40px 0 32px; }
-.doc-header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+.doc-header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
   color: var(--text); margin-top: 18px; }
 .doc-header__lead { font-size: 1rem; color: var(--text-2); max-width: 640px; line-height: 1.7; margin-top: 18px; }
 .doc-header__meta { display: flex; gap: 16px; margin-top: 22px; font-size: 0.78rem; color: var(--text-3); flex-wrap: wrap; }
@@ -511,7 +525,8 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { font-size: 0.78rem; font-weight: 500; padding: 6px 12px; border-radius: 100px; cursor: pointer;
-  background: transparent; border: 1px solid var(--border); color: var(--text-3); font-family: inherit;
+  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.10); color: var(--text-3); font-family: inherit;
+  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5);
   transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast); }
 .chip:hover { color: var(--text-2); }
 .chip.is-active { background: rgba(124,132,246,0.14); border-color: rgba(124,132,246,0.30); color: var(--accent-soft); }
@@ -570,4 +585,11 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .diagram__wide { display: none; }
   .diagram__tall { display: block; }
   .mdemo__readouts { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Glass fallback ──────────────────────────────────────────────────────
+   Solid surfaces when the user opts out of transparency. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav, .badge, .btn-outline, .chip, .mdemo__bar {
+    -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card); }
 }

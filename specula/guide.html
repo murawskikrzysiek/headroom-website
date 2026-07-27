@@ -17,20 +17,17 @@
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --border-hover: #28283a;
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
+            --border-hover: #2a2a33;
             --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
             --accent:       #7c84f6;
             --accent-dim:   rgba(124, 132, 246, 0.14);
             --green:        #3ecf7c;
@@ -40,10 +37,10 @@
             --radius-badge: 5px;
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.65;
@@ -54,12 +51,14 @@
         .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* ─── Nav ─── */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
+        nav { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
+            justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(13,13,17,0.55);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 34px rgba(0,0,0,0.4); }
+        @media (prefers-reduced-transparency: reduce) {
+            nav { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
@@ -403,10 +402,9 @@
         figure.shot--narrow { max-width: 300px; }
         figure.shot--mid { max-width: 540px; }
     </style>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style id="hr-rework">
-  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
-  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
+  .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }
   .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
@@ -2025,7 +2023,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
            title="Specula implements EBU R 128 loudness metering (Tech 3341 / 3342) and normalisation. The EBU R 128 logo is © EBU, used per its rules of use."
            style="display:flex; align-items:center; gap:11px; margin-top:14px; margin-bottom:18px; padding:9px 13px; background:#dcdce6; border-radius:10px; width:fit-content; text-decoration:none;">
             <img src="ebu-r128-logo.png" alt="EBU R 128 loudness logo" style="height:42px; width:auto; display:block;">
-            <span style="font-family:'Inter',-apple-system,sans-serif; color:#1a1a22; line-height:1.25;"><strong style="font-weight:700; font-size:0.82rem;">EBU R 128</strong><br><span style="color:#555; font-size:0.7rem;">loudness compliant</span></span>
+            <span style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif; color:#1a1a22; line-height:1.25;"><strong style="font-weight:700; font-size:0.82rem;">EBU R 128</strong><br><span style="color:#555; font-size:0.7rem;">loudness compliant</span></span>
         </a>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>

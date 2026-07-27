@@ -20,9 +20,9 @@
   <!-- Self-contained for Sparkle's update window - embedded styles, no external deps, no animation. -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --bg:#0b0b0f; --border:#1e1e2a; --border-soft:#1a1a24; --text:#eeeef6;
-      --text-2:#c8c8d8; --text-3:#6e6e90; --text-4:#4a4a64; --accent:#7c84f6; --green:#3ecf7c; --red:#f67c7c; --blue:#7c9af6; }
-    body { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    :root { --bg:#0a0a0d; --border:#1e1e2a; --border-soft:#1a1a24; --text:#eeeef6;
+      --text-2:#c8c8d8; --text-3:#72727f; --text-4:#4a4a64; --accent:#7c84f6; --green:#3ecf7c; --red:#f67c7c; --blue:#7c9af6; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
       font-size: 14px; line-height: 1.6; background: var(--bg); color: var(--text);
       padding: 28px 24px 48px; max-width: 580px; margin: 0 auto; -webkit-font-smoothing: antialiased; }
     .back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: var(--accent); text-decoration: none; }
@@ -45,11 +45,11 @@
     .changes li { display: flex; align-items: flex-start; gap: 10px; color: var(--text-2); font-size: 13px; line-height: 1.55; }
     .tag { flex-shrink: 0; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
       padding: 2px 6px; border-radius: 4px; margin-top: 2px; min-width: 38px; text-align: center;
-      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+      font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; }
     .tag-new  { background: rgba(62,207,124,0.12);  color: var(--green); }
     .tag-fix  { background: rgba(246,124,124,0.12);  color: var(--red); }
     .tag-impr { background: rgba(124,154,246,0.14); color: var(--blue); }
-    code { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+    code { font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; font-size: 12px;
       background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; color: #d6d6f0; }
     a { color: var(--accent); text-decoration: none; }
     strong { color: var(--text); font-weight: 600; } em { color: var(--text); font-style: normal; font-weight: 500; }
