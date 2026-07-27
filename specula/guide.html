@@ -414,6 +414,9 @@
   .doc-grid { display:block; }
   .doc-grid .toc { display:block; }
   @media (min-width: 1100px) {
+    /* the top-nav container follows the widened guide grid so the pinned bar
+       spans the full page width (toc rail included) and sits flush above it */
+    .container:has(> nav:not(.toc)) { max-width: 1300px; }
     .container.doc-grid { max-width: 1300px; display: grid;
       grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
       grid-template-areas: "gheader gheader" "gwave gwave" "gtoc gmain"; align-items: start; }
