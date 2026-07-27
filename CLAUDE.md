@@ -65,7 +65,7 @@ Each file's header comment documents its container contract — read it before w
 | `faq-search.js` | search box + category chips over `.faq-group` markup | lyra + audita FAQ |
 | `newsletter.js` | posts the subscribe form to `api.headroomstudio.dev/s/<list>` (Worker → MailerLite) with a Turnstile token | homepage, blog, app pages |
 | `activity-feed.js` | merges appcast releases + blog posts into the `[data-feed]` container, newest first | homepage, app pages |
-| `guide-toc.js` | sidebar-TOC upgrades for long guides: injects a fuzzy search field (titles fuzzy, body text substring, h3 deep-links) and scroll-spies the current section; wants `nav.toc[data-guide-toc]`; layout (sticky rail >=1100px, static card below) lives in the page's own CSS. Shell furniture - not part of the md mirror | all three guides (`{lyra,audita,specula}/guide.html`) |
+| `guide-toc.js` | sidebar-TOC upgrades for long guides: injects a fuzzy search field (titles fuzzy, body text substring, h3 deep-links) and scroll-spies the current section; wants `nav.toc[data-guide-toc]`; layout (sticky rail >=1100px, static card below) lives in the page's own CSS. Shell furniture - not part of the md mirror | all three guides + both API pages (a value on `data-guide-toc` overrides the search placeholder) |
 | `specula/meter-demo.js` | live BS.1770-4 meter demo: synthesizes a deterministic 30 s program and meters it in JS (K-weighting, gated integrated, 4× true peak); auto-inits every `.mdemo`; under reduced motion stays static and hides Run | `specula/index.html` only |
 
 ## Guides mirror app repos

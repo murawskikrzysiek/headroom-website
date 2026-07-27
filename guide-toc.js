@@ -36,8 +36,9 @@
   function build() {
     var toc = document.querySelector('nav.toc[data-guide-toc]');
     if (!toc || toc.querySelector('.toc-search')) return;
-    var list = toc.querySelector('.toc-list');
+    var list = toc.querySelector('.toc-list') || toc.querySelector('ul');
     if (!list) return;
+    list.classList.add('toc-list'); /* API pages use a bare <ul>; tag it so the shared CSS applies */
 
     /* ---- index ---- */
     var entries = [];
@@ -59,15 +60,18 @@
     if (!entries.length) return;
 
     /* ---- search UI ---- */
+    /* a value on data-guide-toc overrides the placeholder (API pages say "Search the API…") */
+    var ph = toc.getAttribute('data-guide-toc') || 'Search the guide…';
     var box = document.createElement('div');
     box.className = 'toc-search';
     box.innerHTML =
       '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>' +
-      '<input type="text" placeholder="Search the guide…" aria-label="Search the guide">' +
+      '<input type="text" aria-label="Search this page">' +
       '<button class="toc-search__clear" type="button" aria-label="Clear search">×</button>' +
       '<span class="toc-search__count"></span>';
     list.parentNode.insertBefore(box, list);
     var input = box.querySelector('input');
+    input.placeholder = ph;
     var clear = box.querySelector('.toc-search__clear');
     var count = box.querySelector('.toc-search__count');
 

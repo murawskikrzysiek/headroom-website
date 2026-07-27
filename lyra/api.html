@@ -521,10 +521,44 @@
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
   .hr-waveform canvas { width:100%; height:100%; display:block; }
-  /* Sticky side TOC layout - applied without touching content */
-  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  /* TOC: static "On this page" card at the top by default (no floating); from
+     1100px up it becomes a sticky left rail with scroll-spy + search (guide-toc.js). */
   .doc-grid { display:block; }
   .doc-grid .toc { display:block; }
+  @media (min-width: 1100px) {
+    .container { max-width: 1300px; }
+    .container.doc-grid { display: grid;
+      grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
+      grid-template-areas: "gtoc gmain"; align-items: start; }
+    .doc-grid > .toc { grid-area: gtoc; position: sticky; top: 84px; margin: 28px 0 24px;
+      max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain;
+      padding: 14px 16px; scrollbar-width: thin; }
+    .doc-grid > .guide-main { grid-area: gmain; min-width: 0; }
+    .doc-grid .toc ul { grid-template-columns: 1fr; gap: 2px; }
+    .doc-grid .toc-list > li > a { font-size: 0.8rem; line-height: 1.45; padding: 4px 0 4px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-list > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+  }
+  /* search field inside the TOC (injected by guide-toc.js; styles live here so
+     the JS stays markup-only, same split as faq-search.js) */
+  .toc-search { display: flex; align-items: center; gap: 8px; margin: 0 0 12px;
+    padding: 0 10px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.03); }
+  .toc-search svg { width: 14px; height: 14px; color: var(--text-3); fill: none; flex-shrink: 0; }
+  .toc-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 0.82rem; padding: 8px 0; }
+  .toc-search__count { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.66rem;
+    color: var(--text-3); white-space: nowrap; }
+  .toc-search__clear { display: none; background: transparent; border: none; cursor: pointer;
+    color: var(--text-3); font-size: 1.05rem; line-height: 1; padding: 0; }
+  .toc-search__clear:hover { color: var(--text); }
+  .toc-list li.gt-hidden { display: none; }
+  .toc-sub { list-style: none; margin: 2px 0 6px; padding: 0 0 0 14px; }
+  .toc-sub a { font-size: 0.78rem; color: var(--text-3); text-decoration: none; display: block;
+    padding: 2px 0; }
+  .toc-sub a:hover { color: var(--text); }
+  .toc-list mark, .toc-sub mark { background: rgba(124,132,246,0.24); color: var(--accent);
+    border-radius: 3px; padding: 0 1px; }
 </style></head>
 <body>
 
@@ -555,7 +589,7 @@
     </section><div class="hr-waveform waveform"><canvas></canvas></div>
 </div>
 
-<div class="container doc-grid"><nav class="toc" aria-label="On this page">
+<div class="container doc-grid"><nav class="toc" aria-label="On this page" data-guide-toc="Search the API…">
             <p class="toc-label">On this page</p>
             <ul>
                 <li><a href="#overview">Overview</a></li>
@@ -573,6 +607,8 @@
                 <li><a href="#gotchas">Notes &amp; gotchas</a></li>
             </ul>
         </nav>
+
+    <div class="guide-main">
     <hr class="divider">
 
     <!-- ─── Overview ─── -->
@@ -1056,9 +1092,10 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
+    </div><!-- /guide-main -->
 </div>
 
 
 
 
-<script src="../waveform.js"></script></body></html>
+<script src="../waveform.js"></script><script src="../guide-toc.js"></script></body></html>
