@@ -51,14 +51,14 @@
         .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* ─── Nav ─── */
-        nav { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
+        nav:not(.toc) { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
             justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.09);
             background: rgba(13,13,17,0.55);
             -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 34px rgba(0,0,0,0.4); }
         @media (prefers-reduced-transparency: reduce) {
-            nav { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
@@ -409,9 +409,45 @@
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
   .hr-waveform canvas { width:100%; height:100%; display:block; }
-  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  /* TOC: static Contents card at the top by default (no floating); from 1100px up
+     it becomes a sticky left rail with scroll-spy + search (guide-toc.js). */
   .doc-grid { display:block; }
   .doc-grid .toc { display:block; }
+  @media (min-width: 1100px) {
+    .container.doc-grid { max-width: 1300px; display: grid;
+      grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
+      grid-template-areas: "gheader gheader" "gwave gwave" "gtoc gmain"; align-items: start; }
+    .doc-grid > .page-header { grid-area: gheader; }
+    .doc-grid > .hr-waveform { grid-area: gwave; }
+    .doc-grid > .toc { grid-area: gtoc; position: sticky; top: 84px; margin: 28px 0 24px;
+      max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain;
+      padding: 14px 16px; scrollbar-width: thin; }
+    .doc-grid > .guide-main { grid-area: gmain; min-width: 0; }
+    .doc-grid .toc-list { grid-template-columns: 1fr; gap: 2px; }
+    .doc-grid .toc-list > li > a { font-size: 0.8rem; line-height: 1.45; padding: 4px 0 4px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-list > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+  }
+  /* search field inside the TOC (injected by guide-toc.js; styles live here so
+     the JS stays markup-only, same split as faq-search.js) */
+  .toc-search { display: flex; align-items: center; gap: 8px; margin: 0 0 12px;
+    padding: 0 10px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.03); }
+  .toc-search svg { width: 14px; height: 14px; color: var(--text-3); fill: none; flex-shrink: 0; }
+  .toc-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 0.82rem; padding: 8px 0; }
+  .toc-search__count { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.66rem;
+    color: var(--text-3); white-space: nowrap; }
+  .toc-search__clear { display: none; background: transparent; border: none; cursor: pointer;
+    color: var(--text-3); font-size: 1.05rem; line-height: 1; padding: 0; }
+  .toc-search__clear:hover { color: var(--text); }
+  .toc-list li.gt-hidden { display: none; }
+  .toc-sub { list-style: none; margin: 2px 0 6px; padding: 0 0 0 14px; }
+  .toc-sub a { font-size: 0.78rem; color: var(--text-3); text-decoration: none; display: block;
+    padding: 2px 0; }
+  .toc-sub a:hover { color: var(--text); }
+  .toc-list mark, .toc-sub mark { background: rgba(124,132,246,0.24); color: var(--accent);
+    border-radius: 3px; padding: 0 1px; }
 </style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -440,7 +476,7 @@
         <p class="page-lede">Every mode, panel, setting, and CLI flag, on one page. It runs long; the table of contents is the fastest way in.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
-    <nav class="toc" aria-label="Table of contents">
+    <nav class="toc" aria-label="Table of contents" data-guide-toc>
         <p class="toc-label">Contents</p>
         <ul class="toc-list">
             <li><a href="#quick-start">1 · Quick start</a></li>
@@ -470,6 +506,8 @@
             <li><a href="#standards">25 · Standards</a></li>
         </ul>
     </nav>
+
+    <div class="guide-main">
 
     <hr class="divider">
 
@@ -2028,6 +2066,7 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
     </section>
+    </div><!-- /guide-main -->
 </div>
 
 <div class="container">
@@ -2043,4 +2082,5 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
 
 <script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
+<script src="../guide-toc.js"></script>
 </body></html>

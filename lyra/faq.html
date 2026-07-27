@@ -44,7 +44,7 @@
 
         /* ─── Nav ─── */
 
-        nav { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
+        nav:not(.toc) { position: sticky; top: 14px; z-index: 60; display: flex; align-items: center;
 
             justify-content: space-between; margin: 18px 0 14px; padding: 12px 18px;
 
@@ -58,7 +58,7 @@
 
         @media (prefers-reduced-transparency: reduce) {
 
-            nav { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
