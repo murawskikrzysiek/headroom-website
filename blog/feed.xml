@@ -3,7 +3,7 @@
   <channel>
     <title>Headroom Studio - Notes from the studio</title>
     <link>https://headroomstudio.dev/blog/</link>
-    <description>Monitoring discipline, hearing health, and the small macOS tools that make studio work easier.</description>
+    <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0000</lastBuildDate>
