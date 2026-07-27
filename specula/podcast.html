@@ -95,7 +95,7 @@
     <section class="shots shots--tight">
         <figure class="shot">
             <img src="specula-dialogue-mode.png" alt="Specula in Dialogue mode with detected speech regions over the waveform, one region being hand-edited." loading="lazy" decoding="async">
-            <figcaption><strong>Dialogue, detected and correctable.</strong> A neural VAD marks speech; you can hand-correct any region before it drives the loudness read.</figcaption>
+            <figcaption><strong>Dialogue mode.</strong> A neural VAD marks speech; you can hand-correct any region before it drives the loudness read.</figcaption>
         </figure>
     </section>
 
@@ -150,7 +150,7 @@
     <!-- Fix what's off -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Level the dialogue, in the same app</p>
+            <p class="label">Then fix the level in Edit mode</p>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Where the dialogue is off level or the room tone sits high, the fix is in Edit mode.</strong> <strong>Level Dialogue</strong> works off the same speech regions the measurement uses (the ones you confirmed in Dialogue mode): it gates the gaps between phrases down, then optionally lifts the voice to your target in the same pass, which is what lets an episode come up in level while every pause stays quiet. It buys a few dB on a borderline floor. Hiss from the room or the preamp needs fixing at the source.</p>
                 <p class="prose-lead" style="margin-top: 14px;">For a straight level move, <strong>Normalize</strong> on a dialog-gated basis shifts the whole episode by the gain that lands speech-gated LUFS on Apple Podcasts' −16 or Spotify's −14, and a true-peak triangle is one <strong>Limit TP</strong> pass that caps the peaks and leaves the loudness alone. Each is one undoable edit that saves a new file. <a href="editing.html">The mechanics live on the editing page →</a></p>

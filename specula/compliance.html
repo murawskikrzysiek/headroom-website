@@ -94,7 +94,7 @@
     <section class="shots shots--tight">
         <figure class="shot">
             <img src="specula-violations.png" alt="Specula marking momentary, short-term, and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with live breach counts (M 13, ST 11, TP 55) in the threshold strip." loading="lazy" decoding="async">
-            <figcaption><strong>Every overshoot, marked.</strong> Set momentary, short-term, and true-peak thresholds and every 100 ms block that breaches one is lit on the timeline, so a FAIL TP isn't just a verdict, it's a position you can seek to.</figcaption>
+            <figcaption><strong>Violations on the timeline.</strong> Set momentary, short-term, and true-peak thresholds and every 100 ms block that breaches one is lit, so a FAIL TP isn't just a verdict, it's a position you can seek to.</figcaption>
         </figure>
     </section>
 
@@ -116,7 +116,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">One pass, every target</p>
+                <p class="label">Check all targets at once</p>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Pick the mode, run the pass, read the verdicts, export.</p>
             </div>
             <div>
@@ -160,7 +160,7 @@
     <section class="shots shots--tight">
         <figure class="shot">
             <img src="specula-violations-stereo.png" alt="A stereo master in Specula with momentary, short-term, and true-peak loudness violations shaded along the waveform and the loudness curve below, breach counts M 5, ST 4, TP 16 in the threshold strip." loading="lazy" decoding="async">
-            <figcaption><strong>A count, then the locations.</strong> The strip tallies how many blocks breach each threshold (here 5 momentary, 4 short-term, 16 true-peak); the shaded bands on the waveform are where they sit. Seek to each instead of re-scanning the file.</figcaption>
+            <figcaption><strong>The violation strip.</strong> It tallies how many blocks breach each threshold (here 5 momentary, 4 short-term, 16 true-peak); the shaded bands on the waveform are where they sit. Seek to each instead of re-scanning the file.</figcaption>
         </figure>
         <figure class="shot">
             <img src="specula-loudness-curve.png" alt="Specula's loudness curve: the momentary and short-term curves rising against their dashed threshold lines, with the integrated level and the speech-gated reference shown alongside." loading="lazy" decoding="async">
@@ -171,7 +171,7 @@
     <!-- The four modes and the catalog -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Four delivery modes, twenty-two targets</p>
+            <p class="label">The target catalog</p>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Music mode</strong> deals in gains, not verdicts: each row shows what that platform will do to the file at playback, and it's honest about the asymmetric ones (Apple Music, YouTube, Tidal turn loud tracks down but never boost quiet ones). <strong>Podcast mode</strong> mixes streaming penalties for Apple Podcasts and Spotify with the ACX audiobook spec.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>VOD and Broadcast modes are the hard pass/fail surface.</strong> VOD verifies against the −27 LKFS dialog-gated band shared by Netflix, Prime Video, Apple TV+, Disney+, and Max. Broadcast verifies EBU R128, R128 S1 short-form (which adds the max-short-term ceiling), ATSC A/85 / the CALM Act, ARIB TR-B32, and OP-59. Each target carries its own reference, tolerance band, and true-peak ceiling; the full catalog with every number is in the <a href="guide.html#loudness">user guide</a>.</p>
