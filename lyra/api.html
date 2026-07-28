@@ -18,20 +18,17 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --border-hover: #28283a;
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
+            --border-hover: #2a2a33;
             --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
             --accent:       #7c84f6;
             --accent-dim:   rgba(124, 132, 246, 0.14);
             --green:        #3ecf7c;
@@ -39,10 +36,10 @@
             --radius-btn:   9px;
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -58,12 +55,23 @@
 
         /* ─── Nav ─── */
 
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+
+        nav:not(.toc) { display: flex; align-items: center;
+
+            justify-content: space-between; padding: 12px 18px;
+
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+
+            background: rgba(13,13,17,0.38);
+
+            -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
+
+        @media (prefers-reduced-transparency: reduce) {
+
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
@@ -504,24 +512,65 @@
             .meta-key { padding-top: 10px; }
             .meta-key:first-child { padding-top: 0; }
         }
-    </style>
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
     <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style id="hr-rework">
-  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
-  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
+  .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }
   .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
   .hr-waveform canvas { width:100%; height:100%; display:block; }
-  /* Sticky side TOC layout - applied without touching content */
-  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  /* TOC: static "On this page" card at the top by default (no floating); from
+     1100px up it becomes a sticky left rail with scroll-spy + search (guide-toc.js). */
   .doc-grid { display:block; }
   .doc-grid .toc { display:block; }
+  @media (min-width: 1100px) {
+    .container { max-width: 1300px; }
+    .container.doc-grid { display: grid;
+      grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
+      grid-template-areas: "gtoc gmain"; align-items: start; }
+    .doc-grid > .toc { grid-area: gtoc; position: sticky; top: 84px; margin: 28px 0 24px;
+      max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain;
+      padding: 14px 16px; scrollbar-width: thin; }
+    .doc-grid > .guide-main { grid-area: gmain; min-width: 0; }
+    .doc-grid .toc ul { grid-template-columns: 1fr; gap: 2px; }
+    .doc-grid .toc-list > li > a { font-size: 0.8rem; line-height: 1.45; padding: 4px 0 4px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-list > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+  }
+  /* search field inside the TOC (injected by guide-toc.js; styles live here so
+     the JS stays markup-only, same split as faq-search.js) */
+  .toc-search { display: flex; align-items: center; gap: 8px; margin: 0 0 12px;
+    padding: 0 10px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.03); }
+  .toc-search svg { width: 14px; height: 14px; color: var(--text-3); fill: none; flex-shrink: 0; }
+  .toc-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 0.82rem; padding: 8px 0; }
+  .toc-search__count { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.66rem;
+    color: var(--text-3); white-space: nowrap; }
+  .toc-search__clear { display: none; background: transparent; border: none; cursor: pointer;
+    color: var(--text-3); font-size: 1.05rem; line-height: 1; padding: 0; }
+  .toc-search__clear:hover { color: var(--text); }
+  .toc-list li.gt-hidden { display: none; }
+  .toc-sub { list-style: none; margin: 2px 0 6px; padding: 0 0 0 14px; }
+  .toc-sub a { font-size: 0.78rem; color: var(--text-3); text-decoration: none; display: block;
+    padding: 2px 0; }
+  .toc-sub a:hover { color: var(--text); }
+  .toc-list mark, .toc-sub mark { background: rgba(124,132,246,0.24); color: var(--accent);
+    border-radius: 3px; padding: 0 1px; }
 </style></head>
 <body>
 
-<div class="container">
+<div class="container nav-shell">
     <nav>
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
@@ -548,7 +597,7 @@
     </section><div class="hr-waveform waveform"><canvas></canvas></div>
 </div>
 
-<div class="container doc-grid"><nav class="toc" aria-label="On this page">
+<div class="container doc-grid"><nav class="toc" aria-label="On this page" data-guide-toc="Search the API…">
             <p class="toc-label">On this page</p>
             <ul>
                 <li><a href="#overview">Overview</a></li>
@@ -566,6 +615,8 @@
                 <li><a href="#gotchas">Notes &amp; gotchas</a></li>
             </ul>
         </nav>
+
+    <div class="guide-main">
     <hr class="divider">
 
     <!-- ─── Overview ─── -->
@@ -1049,9 +1100,10 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
+    </div><!-- /guide-main -->
 </div>
 
 
 
 
-<script src="../waveform.js"></script></body></html>
+<script src="../waveform.js"></script><script src="../guide-toc.js"></script></body></html>

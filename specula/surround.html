@@ -19,9 +19,6 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../headroom.css">
 
     <script type="application/ld+json">
@@ -48,7 +45,7 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
+<div class="container nav-shell">
     <nav class="nav">
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
@@ -60,8 +57,10 @@
             <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
         </div>
     </nav>
+</div>
 
-    <header class="app-hero">
+<div class="container">
+        <header class="app-hero">
         <div class="app-hero__iconwrap">
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
@@ -69,7 +68,7 @@
             <p class="eyebrow">Workflow · Surround &amp; downmix</p>
             <h1 class="display">Check the surround master and its fold-downs.</h1>
             <p class="app-hero__desc">
-                A 5.1 or 7.1 master can ship with a swapped channel or a broken stereo fold-down, and the problem doesn't surface until delivery. Specula routes each source channel to one or more outputs in an N→M matrix with per-route gain and polarity, applies a mixdown preset (Lo/Ro, Lt/Rt Pro Logic II, 5.1, mono), and measures either the raw file (PRE) or the result of the routing (POST). Audition and measure the downmix live, then render it to a new file once it's right. The loaded file is never touched.
+                A 5.1 or 7.1 master can ship with a swapped channel or a broken stereo fold-down, and the problem doesn't surface until delivery. Specula puts an N→M routing matrix between the file and your monitors: per-route gain and polarity, mixdown presets from Lo/Ro to Lt/Rt Pro Logic II, and a PRE/POST switch that decides whether the meters read the raw file or the routed result. Audition the fold-down, measure it, render it to a new file once it's right.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -110,7 +109,7 @@
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. L/R/C/LFE/Ls/Rs sit in the wrong slots and the file passes every loudness check while pointing the centre at a surround speaker. The stereo fold-down is the other trap: most listeners hear the Lo/Ro or Lt/Rt version, not the full surround mix, and a fold-down that collapses or phases out doesn't show up on the multichannel meter.</p>
 
-                <p class="prose-lead" style="margin-top: 14px;">Specula lets you reroute channels for playback and apply the standard fold-down coefficients <strong>without modifying the file</strong>, so you verify ordering against your monitor system and measure the resulting stereo pair before delivery, not after a reviewer flags it.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Specula lets you reroute channels for playback and apply the standard fold-down coefficients <strong>without modifying the file</strong>, so you verify ordering against your monitor system and measure the resulting stereo pair before delivery.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">Order</span><span class="std-row__desc">Reroute any source channel to any output to confirm L/R/C/LFE/Ls/Rs land where your speakers expect them.</span></div>
@@ -125,7 +124,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The workflow</p>
+                <p class="label">Route, audition, render</p>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Open the matrix, route or apply a preset, then choose which signal you measure.</p>
             </div>
             <div>
@@ -133,8 +132,8 @@
                 <div class="feature-row"><div class="feature-row__k">2 · Route N→M in the matrix</div><div class="feature-row__v">The matrix maps each source channel to one or more outputs with per-route gain trim. In <strong>Matrix view</strong> (default) each routed cell splits into three zones: an on/off dot, a <strong>ϕ glyph</strong> that flips polarity (turns orange when active), and a typeable dB gain, drag a value vertically to adjust ±0.25 dB per pixel, click an unrouted cell to enable it at unity. <strong>List view</strong> gives one row per output with a source picker and a precise dB field. A silent row or unused source column jumps out at a glance. Your view preference persists across launches.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Apply a mixdown preset</div><div class="feature-row__v">The preset bar applies a complete mapping in one click, filtered to the presets that fit the current file and device channel counts. <strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R. <strong>5.1 downmix</strong> (6-ch file): Lo/Ro (BS.775 / Dolby stereo), Lt/Rt (Pro Logic II, same-side surround at −1.2 dB, opposite-side inverted at −6.2 dB), 5.1 to Mono. <strong>7.1 downmix</strong> (8-ch file): 7.1 to Lo/Ro, 7.1 to Lt/Rt, 7.1 to 5.1. Applying a preset is destructive to the current routing: it overwrites every output and mutes the ones it doesn't address.</div></div>
                 <div class="feature-row"><div class="feature-row__k">4 · Measure PRE or POST</div><div class="feature-row__v">A <strong>PRE / POST</strong> toggle in the Channels sidebar header decides which signal feeds the loudness measurement. <strong>PRE</strong> is the raw, unrouted file, the loudness of what's on disk, and what you want most of the time. <strong>POST</strong> measures after routing and gain, so when you've reduced channel count with the matrix (a 5.1 → stereo fold, say) you read the loudness of the resulting stereo pair.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Render the downmix to a file</div><div class="feature-row__v">When the fold-down sounds and measures right, <strong>Render to File…</strong> (in the Routing section header) writes it out, so the downmix is a deliverable, not just an audition. Every per-route gain, polarity, and Pro Logic II ±90° phase shift is applied exactly as you hear it, computed offline. <strong>Only the outputs you've actually routed are written</strong>: a 5.1 → stereo downmix renders a 2-channel file, not eight channels padded with silence. It saves as a new file (WAV, or CAF when the layout can't be stored in WAV order) and never overwrites the source.</div></div>
-                <div class="feature-row"><div class="feature-row__k">6 · Fix a blemish in one channel</div><div class="feature-row__v">A squeak in the left surround doesn't need a trip back to the DAW. <strong>Spectral mode</strong> (⌘5) edits multichannel files channel by channel: pick Ls from the channel menu, select the blemish on its spectrogram, and attenuate, erase, or repair it. The other channels stay untouched, sample for sample. See the <a href="repair.html">spectral repair workflow</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5 · Render the downmix to a file</div><div class="feature-row__v">When the fold-down sounds and measures right, <strong>Render to File…</strong> (in the Routing section header) writes it out as a deliverable. Every per-route gain, polarity, and Pro Logic II ±90° phase shift is applied exactly as you hear it, computed offline. <strong>Only the outputs you've actually routed are written</strong>: a 5.1 → stereo downmix renders a 2-channel file, not eight channels padded with silence. It saves as a new file (WAV, or CAF when the layout can't be stored in WAV order) and never overwrites the source.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6 · Fix a blemish in one channel</div><div class="feature-row__v">A squeak in the left surround doesn't need a trip back to the DAW. <strong>Spectral mode</strong> (⌘5) edits multichannel files channel by channel: pick Ls from the channel menu, catch the squeak on its spectrogram, and fix it in place. The rest of the bed is copied through unchanged. See the <a href="repair.html">spectral repair workflow</a>.</div></div>
             </div>
         </div>
     </section>
@@ -142,7 +141,7 @@
     <!-- Coefficients & standards -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Standard coefficients, not guesses</p>
+            <p class="label">The coefficients come from the standards</p>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>The fold-down presets follow the published specifications.</strong> Coefficients follow ITU-R BS.775-3: the −3 dB factor on summed channels is 1/√2, the equal-power gain for correlated channel summation. The Pro Logic II coefficients (−1.2 dB on the same-side surround and −6.2 dB on the opposite-side surround, with phase inversion applied to the left total) match the Dolby specification.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The 7.1 → Lt/Rt preset applies the same polarity rule to both the side and back surround pairs, so a 7.1 master folds down with the surrounds matrix-encoded correctly rather than summed flat. Because the matrix exposes per-route polarity directly via the ϕ glyph, you can also flip a single channel by hand for a quick phase check without touching a preset.</p>
@@ -156,7 +155,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Save a routing, verify the result</p>
+                <p class="label">Routing presets and render verification</p>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Your own downmixes, shareable; channel order confirmed against the stereo pair you measure.</p>
             </div>
             <div>
@@ -169,7 +168,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">See it in Specula</p>
+            <p class="label">The matrix at work</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-render-to-file.png" alt="The routing window with a 5.1 to stereo downmix set and a Render to File button in the header." loading="lazy" decoding="async">
@@ -198,7 +197,7 @@
         <div class="section__grid">
             <p class="label">Confirm the surround mix before delivery</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the surround mix is done" and "it's delivered." It lets you audition the channel order and every fold-down against your own monitors, measure the downmix you'll actually ship, and render that downmix to a new file when it's right, without changing a sample of the source.</p>
+                <p class="prose-lead">Audition the channel order on your own monitors, measure the fold-down most listeners will actually hear, and render it as the deliverable once it's right. The master stays a read-only input to all of it.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#routing" class="btn btn-primary">Read the routing guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

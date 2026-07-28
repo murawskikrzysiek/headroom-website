@@ -17,9 +17,6 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
   <link rel="stylesheet" href="blog.css">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -28,16 +25,18 @@
 
 <div class="glow glow--tl"></div>
 
-<div class="container--read">
-  <nav class="nav">
+<div class="container--read nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
     </a>
     <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
   </nav>
+</div>
 
-  <header class="article-header">
+<div class="container--read">
+    <header class="article-header">
         <p class="article-eyebrow">Loudness</p>
         <h1>Why streaming TV is measured on the dialogue, not the mix</h1>
         <p class="article-subtitle">Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.</p>
@@ -73,7 +72,7 @@
 
         <h2>Where the dialogue number comes from</h2>
 
-        <p>Measuring the dialogue means knowing where the dialogue is. Specula runs a neural voice-activity detector - a bundled Silero model, running on-device - over every loaded file, labelling each 100 ms block as speech or not, and gates a parallel BS.1770 integrated measurement to the speech blocks. The result is the dialogue-gated number the streaming specs ask for, sitting directly beside the full-programme integrated reading so you can see both and the gap between them.</p>
+        <p>Measuring the dialogue means knowing where the dialogue is. Specula runs a neural voice-activity detector - a bundled Silero model, running on-device - over every loaded file, mapping where the speech is in 100 ms steps, and gates a parallel BS.1770 integrated measurement to the speech blocks. The result is the dialogue-gated number the streaming specs ask for, sitting directly beside the full-programme integrated reading so you can see both and the gap between them.</p>
 
         <p>The detector is good, but no detector is infallible, and a sung line, a whispered aside, or a voice buried under a loud music bed is exactly where automatic classification can slip. When it does, the speech map is not fixed: Dialogue mode lets you correct which regions count as speech by hand, and the corrected map feeds straight back into the dialogue-gated reading and every target verdict that depends on it. The automatic pass gets you most of the way; the manual one is there for the files that need it. The SG toggle on the waveform shades the detected speech blocks so you can check the map against what you hear before trusting the number.</p>
 
@@ -106,7 +105,7 @@
         <p>The loudness math underneath all of it is ITU-R BS.1770-4: K-weighting, dual gating, 4x oversampled true-peak detection, validated against the EBU R128 test set. The dialogue gate is that same algorithm, run only over the blocks the detector marked as speech. Same standard, narrower window - which is precisely what the delivery spec asked for.</p>
 
         <div class="kicker">
-            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS: load a file and read every loudness, spectral and stereo number on it, with a four-mode Loudness Targets panel covering 22 platforms and standards. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later. See the <a href="../specula/compliance.html">compliance guide</a> for the full target list.</p>
+            <p>The Loudness Targets panel ships in <a href="../specula/">Specula</a>, a desktop audio analyser for macOS. The <a href="../specula/compliance.html">compliance guide</a> lists all 22 targets it checks.</p>
         </div>
 
         <div class="related">

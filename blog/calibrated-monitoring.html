@@ -17,9 +17,6 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
   <link rel="stylesheet" href="blog.css">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -28,16 +25,18 @@
 
 <div class="glow glow--tl"></div>
 
-<div class="container--read">
-  <nav class="nav">
+<div class="container--read nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
     </a>
     <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
   </nav>
+</div>
 
-  <header class="article-header">
+<div class="container--read">
+    <header class="article-header">
         <p class="article-eyebrow">Practice</p>
         <h1>Monitor at a number, not a vibe - the case for calibrated studio listening</h1>
         <p class="article-subtitle">Translation, consistency, lower hearing dose, less fatigue. The case for calibrated monitoring has been made for fifty years; the tooling finally caught up.</p>
@@ -56,11 +55,9 @@
 <div class="container--read">
   <article class="article">
 
-        <p>The most consequential decision in every studio session is not on any console or DAW. It's in the air between the monitors and the engineer's ears, and it gets remade forty times a day without anyone noticing - every time the monitor knob nudges up because the playback feels quiet, every time it gets pulled back because a client walked in, every time a session ends somewhere different from where it started.</p>
+        <p>Most studios set the monitor level by feel, several times a day. The playback feels quiet, so the knob comes up. A client walks in, so it comes down. The session ends somewhere different from where it started, and tomorrow's session starts from wherever that was.</p>
 
-        <p>Engineers who have never measured their actual monitoring SPL have one thing in common. They're surprised when they finally do.</p>
-
-        <p>That gap between intention and reality is where a real amount of bad mixing happens. The chorus that felt enormous at 6pm sounds thin in the morning. The bass that needs another decibel keeps needing one, until the whole low end is mud at any volume below what was set six sessions ago. The mix that translated fine at the studio falls apart in the car. None of these problems are mysterious. They all come from the same place: the engineer making decisions against a moving reference.</p>
+        <p>That drift is where a real amount of bad mixing happens. The chorus that felt enormous at 6pm sounds thin in the morning. The bass that needs another decibel keeps needing one, until the whole low end is mud at any volume below what was set six sessions ago. The mix that translated fine at the studio falls apart in the car. None of these problems are mysterious. They all come from the same place: the engineer making decisions against a moving reference.</p>
 
         <p>Calibrated monitoring is the practice of stopping the reference from moving. It is, by some distance, the most cost-effective upgrade most studios never make.</p>
 
@@ -77,15 +74,15 @@
 
         <h2>What you actually get</h2>
 
-        <p>The benefits of working at a calibrated reference are practical, not theoretical. Five of them are worth naming explicitly.</p>
+        <p>The benefits of working at a calibrated reference are practical, not theoretical.</p>
 
         <h3>Mixes translate better</h3>
 
-        <p>This is the headline finding everyone talks about, and it has a real mechanical reason. The equal-loudness contours of the human ear (originally measured by Fletcher and Munson in the 1930s, codified by ISO 226) are reasonably flat in the 75 to 85 dB SPL range. Below that, perceived bass and treble both fall off. Above it, perceived spectral balance distorts upward. Mixing inside the flat zone of those curves means the relative levels you set are the relative levels other people will hear when they play your work back, even on much smaller systems.</p>
+        <p>The equal-loudness contours of the human ear (originally measured by Fletcher and Munson in the 1930s, codified by ISO 226) are reasonably flat in the 75 to 85 dB SPL range. Below that, perceived bass and treble both fall off. Above it, perceived spectral balance distorts upward. Mixing inside the flat zone of those curves means the relative levels you set are the relative levels other people will hear when they play your work back, even on much smaller systems.</p>
 
         <h3>Sessions stay consistent over time</h3>
 
-        <p>The drift problem - where the monitor knob creeps up half a decibel here and a decibel there over the course of a day - vanishes when there's a calibrated position to return to. The mix you started in the morning gets compared to the mix you're making in the afternoon at the same level, instead of at "wherever the knob ended up after lunch". The same logic applies across days, across weeks, across rooms.</p>
+        <p>The drift problem - where the monitor knob creeps up half a decibel here and a decibel there over the course of a day - vanishes when there's a calibrated position to return to. The mix you started in the morning gets compared to the mix you're making in the afternoon at the same level, instead of at whatever the knob drifted to over lunch. The same logic applies across days, across weeks, across rooms.</p>
 
         <h3>Hearing dose becomes predictable</h3>
 
@@ -117,7 +114,7 @@
 
         <p>Adoption has always been uneven, for two stubbornly practical reasons.</p>
 
-        <p>The first is the SPL meter problem. Following any of these standards properly requires a calibrated meter that lives at the listening position and gets looked at during the work. A real one cost money, took up real estate on the desk, and required the engineer to actually consult it during a session - which, predictably, they didn't. Cheap phone-app meters existed, but they weren't trustworthy, and they weren't always within glance distance.</p>
+        <p>The first is the SPL meter problem. Following any of these standards properly requires a calibrated meter that lives at the listening position and gets looked at during the work. A real one cost money, took up real estate on the desk, and required the engineer to actually consult it during a session. Most never did. Cheap phone-app meters existed, but they weren't trustworthy, and they weren't always within glance distance.</p>
 
         <p>The second is the recall problem. Even with a known calibrated reference, returning the monitor knob to that exact position after a session of A/B'ing at louder levels was a task. Some engineers used tape marks on the monitor controller. Some used dedicated hardware monitor controllers with three-position recall. Most just eyeballed it.</p>
 
@@ -154,14 +151,14 @@
         <p>That's the version worth using in 2026. Same physics, same calibration math, same monitoring discipline that cinema rooms have used for fifty years and that Katz brought to music two and a half decades ago. Three keypresses and a small dose meter, instead of a desk full of analogue gear and the willpower to actually look at it. The barrier to entry is finally cheap.</p>
 
         <div class="kicker">
-            <p><a href="../audita/">Audita</a> is the SPL meter and dose tracker. <a href="../lyra/">Lyra</a> is the F-key recall layer for UA Apollo interfaces. They pair via a single click after a calibration - see <a href="pairing-audita-and-lyra.html">Calibrate once, recall forever</a> for the workflow. For the underlying frameworks, Bob Katz's <em>Mastering Audio</em> (third edition) and the SMPTE / Dolby cinema mix room specs are the canonical references.</p>
+            <p>The concrete Audita-and-Lyra version of this setup is in <a href="pairing-audita-and-lyra.html">Calibrate once, recall forever</a>. For the frameworks themselves, Bob Katz's <em>Mastering Audio</em> (third edition) and the SMPTE / Dolby cinema mix room specs are the canonical references.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
                 <li><a href="pairing-audita-and-lyra.html"><span>Calibrate once, recall forever - pairing Audita and Lyra</span><span class="arrow">→</span></a></li>
-                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - the single number that explains studio loudness</span><span class="arrow">→</span></a></li>
+                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - how loudness halves safe listening time</span><span class="arrow">→</span></a></li>
             </ul>
         </div>
     </article>
@@ -200,17 +197,8 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox"><img src="" alt="" id="lightbox-img"></div>
-<script>
-  (function(){
-    var lb=document.getElementById('lightbox'), im=document.getElementById('lightbox-img');
-    document.querySelectorAll('.figure img').forEach(function(img){ img.addEventListener('click',function(){ im.src=img.src; im.alt=img.alt; lb.classList.add('active'); }); });
-    lb.addEventListener('click',function(){ lb.classList.remove('active'); });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('active'); });
-  })();
-</script>
-
 <script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
 <script src="../newsletter.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>

@@ -17,9 +17,6 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
   <link rel="stylesheet" href="blog.css">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -28,16 +25,18 @@
 
 <div class="glow glow--tl"></div>
 
-<div class="container--read">
-  <nav class="nav">
+<div class="container--read nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
     </a>
     <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
   </nav>
+</div>
 
-  <header class="article-header">
+<div class="container--read">
+    <header class="article-header">
         <p class="article-eyebrow">Audiobook</p>
         <h1>The one loud chapter - per-chapter loudness for audiobook delivery</h1>
         <p class="article-subtitle">An audiobook can read fine on the whole-file number and fail chapter by chapter. The fix is to measure every chapter against the book's own centre, before the distributor does it for you.</p>
@@ -58,7 +57,7 @@
 
         <p>Audiobook delivery is judged in pieces. ACX - Amazon's spec, used by Audible and most distributors - takes each chapter as its own file, and each file has to clear the same three gates on its own: RMS loudness between <strong>-23 and -18 dB</strong>, true peak at or below <strong>-3 dBTP</strong>, and a room-tone noise floor at or below <strong>-60 dB RMS</strong>. A book that averages out fine across four hours tells you nothing about whether chapter 14 clears those gates by itself.</p>
 
-        <p>The trap is the single number. Open a finished book in an analyser and the headline reading is one integrated loudness figure for the whole file. It is the wrong altitude for this job. The thing that gets a submission sent back is almost never the average across the book; it is one chapter that drifted away from the rest.</p>
+        <p>Open a finished book in an analyser and the headline reading is one integrated loudness figure for the whole file - the wrong altitude for this job. The thing that gets a submission sent back is almost never the average across the book; it is one chapter that drifted away from the rest.</p>
 
         <h2>What "consistent" means to a listener</h2>
 
@@ -120,7 +119,7 @@
         <p>That noise-floor gate is its own measurement - it reads the room tone in the gaps between phrases, and it is the gate that catches narrators out, because you can't hear it while you record. <a href="acx-noise-floor.html">That's the next post.</a></p>
 
         <div class="kicker">
-            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. Chapter mode, the ACX preset, the speech-gated noise floor and the full report ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
+            <p>Chapter mode is part of <a href="../specula/">Specula</a> 1.0. Intro price $49 through 31 July, then $99; requires macOS 14 (Sonoma) or later.</p>
         </div>
 
         <div class="related">

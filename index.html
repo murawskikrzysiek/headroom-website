@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Headroom Studio - small macOS tools for serious audio work</title>
+  <title>Headroom Studio - focused macOS tools for serious audio work</title>
   <link rel="canonical" href="https://headroomstudio.dev/">
-  <meta name="description" content="Headroom is a one-person studio making small, focused macOS utilities for creators, producers and engineers. Lyra - Apollo volume control. Audita - SPL meter & hearing-dose tracker.">
+  <meta name="description" content="Headroom is a one-person studio making focused macOS tools for creators, producers and engineers. Lyra - Apollo volume control. Audita - SPL meter & hearing-dose tracker.">
 
-  <meta property="og:title" content="Headroom Studio - small tools, serious work">
-  <meta property="og:description" content="Focused macOS utilities for creators, producers and engineers who care about their workflow.">
+  <meta property="og:title" content="Headroom Studio - focused tools, serious work">
+  <meta property="og:description" content="Native macOS tools for people who work in sound - each one owns a single job.">
   <meta property="og:image" content="https://headroomstudio.dev/og-headroom.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://headroomstudio.dev/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Headroom Studio - small tools, serious work">
-  <meta name="twitter:description" content="Focused macOS utilities for creators, producers and engineers who care about their workflow.">
+  <meta name="twitter:title" content="Headroom Studio - focused tools, serious work">
+  <meta name="twitter:description" content="Native macOS tools for people who work in sound - each one owns a single job.">
   <meta name="twitter:image" content="https://headroomstudio.dev/og-headroom.png">
 
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -22,10 +22,6 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="headroom.css">
 
   <script type="application/ld+json">
@@ -35,7 +31,7 @@
     "name": "Headroom Studio",
     "url": "https://headroomstudio.dev/",
     "logo": "https://headroomstudio.dev/headroom-mark.svg",
-    "description": "A one-person studio making small, focused macOS utilities for creators, producers and engineers.",
+    "description": "A one-person studio making focused macOS tools for creators, producers and engineers.",
     "email": "hello@headroomstudio.dev",
     "founder": { "@type": "Person", "name": "Krzysiek Murawski" }
   }
@@ -48,8 +44,8 @@
 <div class="glow glow--tl"></div>
 <div class="glow glow--tr"></div>
 
-<div class="container">
-  <nav class="nav">
+<div class="container nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
@@ -61,14 +57,16 @@
       <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
     </ul>
   </nav>
+</div>
 
-  <header style="padding: 92px 0 56px;">
+<div class="container">
+    <header style="padding: 92px 0 56px;">
     <p class="eyebrow">Made for macOS</p>
     <h1 class="display" style="font-size: 4.4rem; font-weight: 700; line-height: 1.05; margin-top: 22px;">
-      Small tools.<br><span style="color: var(--text-3);">Serious work.</span>
+      Focused tools.<br><span style="color: var(--text-3);">Serious work.</span>
     </h1>
     <p style="font-size: 1.125rem; color: var(--text-2); max-width: 480px; line-height: 1.7; margin-top: 22px;">
-      Focused utilities for creators, producers and engineers who care about their workflow.
+      Native macOS tools for people who work in sound - each one owns a single job.
     </p>
   </header>
 </div>
@@ -142,13 +140,14 @@
             <h3>Specula</h3>
             <a href="specula/releases.html#v1.1" class="status status--shipping">Shipping · v1.1</a>
           </div>
-          <p class="app-row__desc">A pro-grade audio analyser for macOS - full EBU R128 loudness, FFT, stereo and phase, and sample-accurate A/B of up to six masters.</p>
+          <p class="app-row__desc">Pro audio analysis and repair for macOS - EBU R128 loudness against 22 delivery targets, six-file A/B compare, spectral editing that paints a cough out of the spectrogram, a signal generator, and a scriptable CLI.</p>
         </div>
         <div class="app-row__badges">
           <span class="badge badge--macos">macOS</span>
           <span class="badge">EBU R128</span>
-          <span class="badge">Analyser</span>
-          <span class="badge">Pro audio</span>
+          <span class="badge">Spectral editing</span>
+          <span class="badge">Signal generator</span>
+          <span class="badge">A/B compare</span>
         </div>
         <div class="app-row__buy">
           <span class="app-row__price">$49 <s>$99</s></span>
@@ -164,13 +163,12 @@
     <p class="label">About</p>
     <div style="max-width: 640px; margin-top: 22px;">
       <p class="prose-lead">
-        Headroom is a one-person studio making small, focused tools for macOS. I've spent most of my life around audio - live sound first, then recording and production, and eventually into software. These days I work in software quality at a major professional audio company, while my home studio stays busy with personal projects. Guitar has been the constant through all of it, and I've been steadily picking up drums and bass.
+        Headroom is a one-person studio making macOS tools for audio work. I've spent most of my life around audio - live sound first, then recording and production, and eventually into software. These days I work in software quality at a major professional audio company, while my home studio stays busy with personal projects. Guitar has been the constant through all of it, and I've been steadily picking up drums and bass.
       </p>
       <p class="prose-lead" style="margin-top: 14px;">
-        I build the apps I was always missing. Tools that do one thing well, feel native to macOS, and stay out of the way. <strong>Clean design isn't a nice-to-have - it's the point.</strong>
+        I build the apps I was always missing: focused tools that look and behave like they shipped with macOS.
       </p>
       <div class="callout">
-        <span style="opacity: 0.5; margin-top: 1px; font-size: 16px;">💬</span>
         <p><strong>Why aren't these apps free?</strong> Building and maintaining software properly takes real time and investment. A one-time purchase makes that sustainable without subscriptions, ads, or eventually abandoning the project. You buy it once; I keep it working.</p>
       </div>
     </div>
@@ -243,6 +241,7 @@
   </section>
 
   <footer class="footer">
+    <p class="footer__colophon">Hand-written HTML, no build step, no framework. Set in the system fonts. No trackers beyond a cookieless pageview counter. Hosted on GitHub Pages.</p>
     <span class="footer__copy">© 2026 Headroom Studio</span>
     <ul class="footer__links">
       <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>

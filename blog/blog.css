@@ -17,7 +17,7 @@
 .feat__excerpt { font-size: 0.95rem; color: var(--text-2); line-height: 1.65; margin-top: 16px; }
 .feat__meta { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; color: var(--text-3); }
 .feat__meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-4); }
-.feat__art { background: linear-gradient(135deg, rgba(124,132,246,0.10), rgba(11,11,15,0.5));
+.feat__art { background: linear-gradient(135deg, rgba(124,132,246,0.10), rgba(10,10,13,0.5));
   padding: 36px; display: flex; align-items: center; justify-content: center; border-left: 1px solid var(--border);
   position: relative; min-height: 280px; }
 .feat__terminal { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-2); line-height: 1.85;
@@ -98,9 +98,6 @@
 .related-list li:last-child a { border-bottom: none; }
 .related-list a:hover { color: var(--accent-soft); }
 .related-list .arrow { color: var(--text-3); }
-.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 100; padding: 40px; cursor: zoom-out; }
-.lightbox.active { display: flex; }
-.lightbox img { max-width: 100%; max-height: 100%; border-radius: 12px; }
 
 @media (max-width: 720px) {
   .feat { grid-template-columns: 1fr; }

@@ -18,28 +18,25 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
             --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
             --accent:       #7c84f6;
             --accent-dim:   rgba(124, 132, 246, 0.10);
             --radius-btn:   9px;
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -55,12 +52,23 @@
 
         /* ─── Nav ─── */
 
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+
+        nav:not(.toc) { display: flex; align-items: center;
+
+            justify-content: space-between; padding: 12px 18px;
+
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+
+            background: rgba(13,13,17,0.38);
+
+            -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
+
+        @media (prefers-reduced-transparency: reduce) {
+
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
@@ -206,8 +214,9 @@
         .faq-search__clear:hover { color: var(--text); }
         .chips { display: flex; flex-wrap: wrap; gap: 8px; }
         .chips .chip { display: inline-block; font-size: 0.78rem; font-weight: 500; font-family: inherit;
-            padding: 6px 12px; border-radius: 100px; cursor: pointer; background: transparent;
-            border: 1px solid var(--border); color: var(--text-3); white-space: nowrap;
+            padding: 6px 12px; border-radius: 100px; cursor: pointer; background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.10); color: var(--text-3); white-space: nowrap;
+            -webkit-backdrop-filter: blur(14px) saturate(1.7); backdrop-filter: blur(14px) saturate(1.7);
             transition: background 0.18s, color 0.18s, border-color 0.18s; }
         .chips .chip:hover { color: var(--text-2); }
         .chips .chip.is-active { background: rgba(124,132,246,0.14); border-color: rgba(124,132,246,0.30); color: var(--accent); }
@@ -374,12 +383,19 @@
             .hero { padding: 40px 0 36px; }
             .terminal { font-size: 0.72rem; }
         }
-    </style>
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
     <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style id="hr-rework">
-  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
-  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
+  .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }
   .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
@@ -394,7 +410,7 @@
 </style></head>
 <body>
 
-<div class="container">
+<div class="container nav-shell">
     <nav>
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
@@ -463,6 +479,11 @@
             <div class="faq-item">
                 <p class="faq-q">How long can I safely work at different levels?</p>
                 <p class="faq-a">Every 3 dB increase halves your safe time. At 85 dBA you have 8 hours; below 80 dBA no dose accumulates at all. Most studio monitoring sits between 75 and 90 dBA - seemingly moderate, but over a 10-hour session the dose can accumulate faster than you'd expect. <a href="guide.html#safe-duration">Full safe-duration table in the guide →</a></p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Is Audita a native Mac app?</p>
+                <p class="faq-a">Yes: Swift end to end. SwiftUI draws the views, AVAudioEngine runs the 10 Hz measurement chain, and the integrations are the system's own - seven App Intents, a Focus Filter, six desktop widgets, and the <strong>audita://</strong> URL scheme.</p>
             </div>
 
         </div>

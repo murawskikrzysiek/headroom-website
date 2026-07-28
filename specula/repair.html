@@ -19,9 +19,6 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../headroom.css">
 
     <script type="application/ld+json">
@@ -48,7 +45,7 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
+<div class="container nav-shell">
     <nav class="nav">
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
@@ -60,8 +57,10 @@
             <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
         </div>
     </nav>
+</div>
 
-    <header class="app-hero">
+<div class="container">
+        <header class="app-hero">
         <div class="app-hero__iconwrap">
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
@@ -107,7 +106,7 @@
             <p class="label">When there's no take two</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    The blemish is thirty seconds of work. Redoing the whole recording isn't.
+                    Everything about the take is right, except one moment.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">You're most of the way through a review and there it is: a cough landing under a line of dialogue, a chair creak between two piano chords, a burst of mains hum riding under a quiet passage. Everything else about the take is right. Re-recording it means getting the room, the performer, and the take back, and sometimes that's not available at all: the client has left, the location shoot wrapped, the interview subject isn't coming back, the source is an archival transfer with nothing left to record.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The fix that specific problem needs is narrow: find the blemish in time and frequency, select exactly that, and process only the selection, leaving everything around it untouched. That's a different job from a general noise-reduction pass or an EQ move across the whole file, and it's usually priced and packaged as its own thing.</p>
@@ -135,7 +134,7 @@
         <div class="section__grid">
             <div>
                 <p class="label">How it works</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Select the blemish, choose an operation, audition before you commit. Three steps on a spectrogram that's already zoomed to full resolution.</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Select the blemish, pick an operation, audition before you commit. All of it on a zoomable, full-resolution spectrogram.</p>
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Select the blemish</div><div class="feature-row__v"><kbd>⌘5</kbd> (or the <strong>Spectral</strong> button in the transport bar) turns the main canvas into a full-resolution, zoomable spectrogram of the loaded file. Four tools share one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for a straight time/frequency box, <strong>Lasso</strong> (<kbd>L</kbd>) for a free shape, <strong>Brush</strong> (<kbd>B</kbd>) for painting over a curved trace like a bird chirp or a whistle, and <strong>Wand</strong> (<kbd>W</kbd>) for one click: click a spot and the selection grows across the connected region at a similar level, shaped by a dB tolerance and a time reach that re-tune the last stroke live, so one click grabs the local stretch of a hum line, not the whole file, and dragging sweeps the wand along a blemish. The brush and wand paint: strokes add to the selection, an Option-stroke removes. With the rectangle and lasso a plain drag starts a new selection, Shift adds to it, Option subtracts, and Esc clears it. For stereo files the canvas shows the left channel, the right, or both stacked, so a blemish living in only one side is easy to spot. Multichannel files edit channel by channel: pick a channel of the bed (L, C, LFE, Ls, and so on, following the file's layout), fix it, and the other channels stay untouched, sample for sample; the selection persists across channel switches, so a blemish that spans channels is the same region applied a few times.</div></div>
@@ -145,10 +144,10 @@
         </div>
     </section>
 
-    <!-- See it in Specula -->
+    <!-- Up close (screenshots) -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">See it in Specula</p>
+            <p class="label">Up close</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-spectral-wand.png" alt="A wand selection hugging a harmonic shape in the spectrogram, with the wand's dB tolerance and time reach sliders visible in the violet spectral toolbar." loading="lazy" decoding="async">

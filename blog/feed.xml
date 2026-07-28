@@ -3,7 +3,7 @@
   <channel>
     <title>Headroom Studio - Notes from the studio</title>
     <link>https://headroomstudio.dev/blog/</link>
-    <description>Monitoring discipline, hearing health, and the small macOS tools that make studio work easier.</description>
+    <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0000</lastBuildDate>
@@ -50,7 +50,7 @@
       <guid isPermaLink="true">https://headroomstudio.dev/blog/musicians-tinnitus-meta-analysis.html</guid>
       <pubDate>Sat, 02 May 2026 09:00:00 +0000</pubDate>
       <category>Hearing health</category>
-      <description>A 2026 meta-analysis of 28,000+ musicians puts hard numbers on what audiology has been quietly saying for decades.</description>
+      <description>A 2026 meta-analysis of 28,000+ musicians puts hard numbers on tinnitus, hearing loss and hyperacusis. No genre is safer.</description>
     </item>
 
     <item>
@@ -63,7 +63,7 @@
     </item>
 
     <item>
-      <title>The 3 dB rule - the single number that explains studio loudness</title>
+      <title>The 3 dB rule - how loudness halves safe listening time</title>
       <link>https://headroomstudio.dev/blog/the-3-db-rule.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/the-3-db-rule.html</guid>
       <pubDate>Sun, 27 Apr 2026 09:00:00 +0000</pubDate>

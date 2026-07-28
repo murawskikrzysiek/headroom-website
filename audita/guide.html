@@ -13,21 +13,18 @@
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:           #0b0b0f;
-            --bg-card:      #111118;
-            --border:       #1c1c28;
-            --border-hover: #28283a;
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
+            --border-hover: #2a2a33;
             --text:         #eeeef6;
-            --text-2:       #6e6e90;
-            --text-3:       #3a3a52;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
             --accent:       #7c84f6;
             --accent-dim:   rgba(124, 132, 246, 0.14);
             --green:        #3ecf7c;
@@ -37,10 +34,10 @@
             --radius-badge: 5px;
         }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.65;
@@ -51,12 +48,15 @@
         .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
         /* ─── Nav ─── */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
-        }
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+        nav:not(.toc) { display: flex; align-items: center;
+            justify-content: space-between; padding: 12px 18px;
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+            background: rgba(13,13,17,0.38);
+            -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
+        @media (prefers-reduced-transparency: reduce) {
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
 
         .brand {
             font-size: 1.05rem;
@@ -412,28 +412,6 @@
             font-style: italic;
         }
 
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            cursor: zoom-out;
-            backdrop-filter: blur(6px);
-        }
-
-        .lightbox.active { display: flex; }
-
-        .lightbox img {
-            max-width: 92vw;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
-            object-fit: contain;
-        }
-
         /* ─── Responsive ─── */
         @media (max-width: 560px) {
             .toc-list { grid-template-columns: 1fr; }
@@ -441,23 +419,69 @@
             th, td { padding: 8px 10px 8px 0; }
             .screenshot-row { grid-template-columns: 1fr; }
         }
-    </style>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
 <style id="hr-rework">
-  .page-header h1, .hero h1 { font-family:'Inter Tight','Inter',-apple-system,sans-serif !important; letter-spacing:-0.035em; }
-  .guide-section h2, .section h2 { font-family:'Inter Tight','Inter',-apple-system,sans-serif; letter-spacing:-0.02em; }
+  .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
+  .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }
   .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
     -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
   .hr-waveform canvas { width:100%; height:100%; display:block; }
   /* Sticky side TOC layout - applied without touching content */
-  /* Single column at the unified .container width (960px); TOC card sits at the top. */
+  /* TOC: static Contents card at the top by default (no floating); from 1100px up
+     it becomes a sticky left rail with scroll-spy + search (guide-toc.js). */
   .doc-grid { display:block; }
   .doc-grid .toc { display:block; }
+  @media (min-width: 1100px) {
+    /* the nav shell follows the widened guide grid so the pinned bar
+       spans the full page width (toc rail included) and sits flush above it */
+    .container.nav-shell { max-width: 1300px; }
+    .container.doc-grid { max-width: 1300px; display: grid;
+      grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
+      grid-template-areas: "gheader gheader" "gwave gwave" "gtoc gmain"; align-items: start; }
+    .doc-grid > .page-header { grid-area: gheader; }
+    .doc-grid > .hr-waveform { grid-area: gwave; }
+    .doc-grid > .toc { grid-area: gtoc; position: sticky; top: 84px; margin: 28px 0 24px;
+      max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain;
+      padding: 14px 16px; scrollbar-width: thin; }
+    .doc-grid > .guide-main { grid-area: gmain; min-width: 0; }
+    .doc-grid .toc-list { grid-template-columns: 1fr; gap: 2px; }
+    .doc-grid .toc-list > li > a { font-size: 0.8rem; line-height: 1.45; padding: 4px 0 4px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-list > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+  }
+  /* search field inside the TOC (injected by guide-toc.js; styles live here so
+     the JS stays markup-only, same split as faq-search.js) */
+  .toc-search { display: flex; align-items: center; gap: 8px; margin: 0 0 12px;
+    padding: 0 10px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.03); }
+  .toc-search svg { width: 14px; height: 14px; color: var(--text-3); fill: none; flex-shrink: 0; }
+  .toc-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 0.82rem; padding: 8px 0; }
+  .toc-search__count { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.66rem;
+    color: var(--text-3); white-space: nowrap; }
+  .toc-search__clear { display: none; background: transparent; border: none; cursor: pointer;
+    color: var(--text-3); font-size: 1.05rem; line-height: 1; padding: 0; }
+  .toc-search__clear:hover { color: var(--text); }
+  .toc-list li.gt-hidden { display: none; }
+  .toc-sub { list-style: none; margin: 2px 0 6px; padding: 0 0 0 14px; }
+  .toc-sub a { font-size: 0.78rem; color: var(--text-3); text-decoration: none; display: block;
+    padding: 2px 0; }
+  .toc-sub a:hover { color: var(--text); }
+  .toc-list mark, .toc-sub mark { background: rgba(124,132,246,0.24); color: var(--accent);
+    border-radius: 3px; padding: 0 1px; }
 </style></head>
 <body>
 
-<div class="container">
+<div class="container nav-shell">
     <nav>
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
@@ -476,11 +500,11 @@
 <div class="container doc-grid">
     <header class="page-header" id="top">
         <p class="page-eyebrow">Audita · User Guide</p>
-        <h1>Everything Audita does, and how to drive it.</h1>
-        <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. This page is the canonical user reference. Skim the table of contents to jump to a feature, or read top-to-bottom for the full tour. The full <code>audita://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
+        <h1>The Audita reference.</h1>
+        <p class="page-lede">Audita is a menu bar SPL meter and NIOSH hearing-dose tracker for macOS. If a feature isn't on this page, Audita doesn't have it. The <code>audita://</code> URL scheme has its <a href="api.html">own page</a>.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
-    <nav class="toc" aria-label="Table of contents">
+    <nav class="toc" aria-label="Table of contents" data-guide-toc>
         <p class="toc-label">Contents</p>
         <ul class="toc-list">
             <li><a href="#what-audita-does">1 · What Audita does</a></li>
@@ -503,6 +527,8 @@
             <li><a href="#widgets">18 · Widgets</a></li>
         </ul>
     </nav>
+
+    <div class="guide-main">
 
     <hr class="divider">
 
@@ -565,7 +591,7 @@
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
         <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar and popover header)</h3>
-        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header (see <a href="#dropdown-menu">The dropdown menu</a>), so both surfaces always show the same arc count and colour at any given moment.</p>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header.</p>
 
         <table>
             <tbody><tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
@@ -580,7 +606,7 @@
 
         <p class="prose">The dose-tier colour is unchanged from v1.1: safe 0-40 % is green, caution 40-70 % is yellow, warning 70-90 % is orange, danger 90 %+ is red. Today's dose is saved continuously so a quit/relaunch doesn't lose progress. Accumulated dose is stamped with the calendar date and discarded if the date has changed since last launch - each day starts clean at midnight.</p>
 
-        <p class="prose">When no session is running, the bloom renders as the full three-arc shape in a neutral system-foreground colour. That distinct "Audita is present, just not measuring" state reads differently from the dose-tinted bloom you see during a live session.</p>
+        <p class="prose">The no-session state is deliberately distinct: a full bloom with no dose tint reads as "Audita is present, just not measuring".</p>
     </section>
 
     <hr class="divider">
@@ -634,7 +660,7 @@
 
         <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, Monitoring Discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
 
-        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It shares its data driver with the menu bar glyph: <strong>arcs follow live SPL</strong>, <strong>colour follows today's NIOSH dose tier</strong>. Same state machine as the menu bar icon (see <a href="#menu-bar-icon-states">Menu bar icon states</a>), just rendered larger in the popover header. When no session is running, the popover glyph falls back to the full three-arc neutral bloom that indicates "Audita is here, just not measuring".</p>
+        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It's driven by the same state machine as the menu bar glyph - see <a href="#menu-bar-icon-states">Pressure Bloom states</a> for the arc and colour rules.</p>
 
         <h3>License status</h3>
         <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
@@ -1174,6 +1200,7 @@
 
         <p class="prose">Widgets refresh when your dose tier changes colour, when a session starts or ends, at midnight, and on a light schedule while you are measuring. The system limits how often a widget can redraw, so the numbers move about once a minute rather than in real time. For a live reading, use the menu bar or the floating panel.</p>
     </section>
+    </div><!-- /guide-main -->
 </div>
 
 <div class="container">
@@ -1190,32 +1217,9 @@
     </footer>
 </div>
 
-<div class="lightbox" id="lightbox">
-    <img src="" alt="" id="lightbox-img">
-</div>
-
-<script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    document.querySelectorAll('.screenshot-full, .screenshot-row img').forEach(img => {
-        img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightbox.classList.add('active');
-        });
-    });
-
-    lightbox.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-    });
-
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') lightbox.classList.remove('active');
-    });
-</script>
 
 
 
-
-<script src="../waveform.js"></script></body></html>
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../guide-toc.js"></script></body></html>

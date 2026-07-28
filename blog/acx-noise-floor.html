@@ -17,9 +17,6 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
   <link rel="stylesheet" href="blog.css">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
@@ -28,16 +25,18 @@
 
 <div class="glow glow--tl"></div>
 
-<div class="container--read">
-  <nav class="nav">
+<div class="container--read nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
     </a>
     <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
   </nav>
+</div>
 
-  <header class="article-header">
+<div class="container--read">
+    <header class="article-header">
         <p class="article-eyebrow">Audiobook</p>
         <h1>The noise floor problem - why audiobooks get rejected on the quiet parts</h1>
         <p class="article-subtitle">The noise floor is the ACX gate narrators trip over - the room tone in the gaps between phrases. Measuring it means reading the silence, not the speech, which is harder than it sounds.</p>
@@ -105,22 +104,22 @@
           </figure>
         </div>
 
-        <p>Same three gates, one panel, one glance - and the noise floor is the row that moved. The ACX preset carries Apple Podcasts and Spotify (Podcast) alongside it in penalty terms; ACX is the row with the noise-floor gate attached.</p>
+        <p>Same three gates in one panel; the noise floor is the row that moved. The ACX preset carries Apple Podcasts and Spotify (Podcast) alongside it in penalty terms; ACX is the row with the noise-floor gate attached.</p>
 
         <h2>The workflow</h2>
 
-        <p>For an ACX submission it comes down to this: drop the chapter file in, give the detector a few seconds to run (a one-hour chapter analyses in seconds on Apple silicon), and read the panel. If a row is red you know which of the three things to fix - re-record the noisy passage, pull the loudness into the window, or run a gentle noise reduction - before you upload and wait for the rejection email.</p>
+        <p>For an ACX submission it comes down to this: drop the chapter file in, give the detector a few seconds to run (a one-hour chapter analyses in seconds on Apple silicon), and read the panel. If a row is red you know which of the three things to fix - re-record the noisy passage, pull the loudness into the window, or run a gentle noise reduction - before you upload.</p>
 
         <p>And because the floor is computed per block and shown live, you can scrub to the chapter the report flagged and watch the number climb at exactly the point where the fan got louder. The measurement doesn't just say a file failed; it shows you where.</p>
 
         <h2>Pairs with per-chapter analysis</h2>
 
-        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is <a href="per-chapter-loudness.html">Chapter mode</a>, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine - together they answer "is this shippable to ACX" before ACX answers it for you.</p>
+        <p>The noise floor is a whole-file gate. The other half of audiobook QC is per chapter: is every chapter inside the loudness window, and close to the book's centre. That is <a href="per-chapter-loudness.html">Chapter mode</a>, which segments the book at its silences and scores each chapter on the same three ACX gates. The floor measurement and the chapter pass share the same engine, and together they cover both halves of the question ACX asks.</p>
 
-        <div class="callout"><strong>Why it matters:</strong> gating the gaps brings the measured floor down, but it can't scrub the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The value of measuring the floor on the silence, and watching it live, is catching that while you can still do something about it, not after the submission bounces.</div>
+        <p>One limit worth stating: gating the gaps brings the measured floor down, but it can't touch the noise that rides under the speech itself - a genuinely noisy room still needs re-recording. The point of measuring the floor on the silence, and watching it live, is catching that while re-recording is still an option.</p>
 
         <div class="kicker">
-            <p><a href="../specula/">Specula</a> is a desktop audio analyser for macOS. The speech-gated noise floor, the ACX preset and chapter analysis ship in 1.0. Intro price $49 through 31 July, then $99. Requires macOS 14 (Sonoma) or later.</p>
+            <p>The speech-gated noise floor and the ACX preset ship in <a href="../specula/">Specula</a> 1.0 for macOS - $49 through 31 July, then $99.</p>
         </div>
 
         <div class="related">

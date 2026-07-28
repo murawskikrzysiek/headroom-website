@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://headroomstudio.dev/specula/audiobook.html">
     <meta name="description" content="Check audiobooks against the ACX spec on macOS before you upload. Per-chapter RMS, true peak, and the −60 dB RMS noise floor, with neural speech detection you can hand-correct.">
     <meta property="og:title" content="Specula for Audiobooks &amp; ACX">
-    <meta property="og:description" content="Catch ACX spec failures before you upload, chapter by chapter, not three days later in an email.">
+    <meta property="og:description" content="Per-chapter ACX QC on macOS: RMS, true peak, and the −60 dB noise floor, scored before you upload.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -19,9 +19,6 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../headroom.css">
 
     <script type="application/ld+json">
@@ -48,7 +45,7 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
+<div class="container nav-shell">
     <nav class="nav">
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
@@ -60,8 +57,10 @@
             <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
         </div>
     </nav>
+</div>
 
-    <header class="app-hero">
+<div class="container">
+        <header class="app-hero">
         <div class="app-hero__iconwrap">
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
@@ -69,7 +68,7 @@
             <p class="eyebrow">Workflow · Audiobook / ACX</p>
             <h1 class="display">Audiobooks, scored chapter by chapter.</h1>
             <p class="app-hero__desc">
-                Catch an ACX spec failure before you upload. Specula segments the file into chapters, runs a full loudness pass on each one, and flags RMS, true peak, and the room-tone noise floor against the ACX spec, plus each chapter's integrated LUFS against the book's own median, so a single bad pickup shows up here, not three days later in a rejection email.
+                ACX judges audiobooks chapter by chapter, so Specula does too. Chapter mode splits the file, runs a full loudness pass on every chapter, and scores RMS, true peak, and the room-tone noise floor against the ACX spec. Each chapter is also checked against the book's own median loudness, which catches the one pickup that drifted, the kind of miss a whole-file number averages away.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -96,7 +95,7 @@
     <section class="shots shots--tight">
         <figure class="shot">
             <img src="specula-chapters.png" alt="Specula in Chapter mode: chapter markers on the waveform and a per-chapter table with RMS, true peak and noise floor, one chapter flagged red." loading="lazy" decoding="async">
-            <figcaption><strong>Every chapter, checked against ACX.</strong> Per-chapter RMS, true peak, and noise floor, with outliers flagged against the book median.</figcaption>
+            <figcaption><strong>The chapter table.</strong> Per-chapter RMS, true peak, and noise floor, with outliers flagged against the book median.</figcaption>
         </figure>
     </section>
 
@@ -108,11 +107,11 @@
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     ACX checks three things and rejects on any of them. Two are easy to hit; the third is the one that catches people.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Loudness and true peak you can usually eyeball in a DAW. The room-tone <strong>noise floor</strong> is different: it's inaudible on headphones, invisible on a standard loudness meter, and a common reason an audiobook bounces back. Specula reads all three off the file directly, so the rejection condition is a number on screen instead of a surprise.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Loudness and true peak you can usually eyeball in a DAW. The room-tone <strong>noise floor</strong> is different: it's inaudible on headphones, invisible on a standard loudness meter, and a common reason an audiobook bounces back. Specula reads all three off the file directly, per chapter.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">ACX RMS</span><span class="std-row__desc">RMS between −23 and −18 dB, measured per chapter, not just for the file as a whole. ACX checks plain RMS, not K-weighted LUFS, so Specula evaluates RMS here too.</span></div>
-                    <div class="std-row"><span class="std-row__tag">ACX TP</span><span class="std-row__desc">True peak at or below −3 dBTP, detected on the 4× oversampled inter-sample peak. Set the TP threshold to −3 dBTP and every block that breaches it lights up on the waveform, so a stray mouth click or page-turn thump is a spot you seek to, not a hunt.</span></div>
+                    <div class="std-row"><span class="std-row__tag">ACX TP</span><span class="std-row__desc">True peak at or below −3 dBTP, detected on the 4× oversampled inter-sample peak. With the TP threshold parked at −3 dBTP, every breaching block, a stray mouth click, a page-turn thump, shows on the waveform at the spot it happened.</span></div>
                     <div class="std-row"><span class="std-row__tag">ACX NF</span><span class="std-row__desc">Room-tone noise floor at or below −60 dB RMS, measured over every non-speech sample.</span></div>
                 </div>
             </div>
@@ -123,14 +122,82 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The workflow</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Load to receipt in four steps. One file, one pass, every chapter scored.</p>
+                <p class="label">Score the book</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Clean the speech map, split the chapters, score everything, export.</p>
             </div>
             <div>
+                
+                <figure class="diagram" style="margin: 0 0 26px;">
+                    <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 196" role="img" aria-label="The chapter pass: the book is split at silences into chapters, each chapter is scored against the ACX gates and the book median, and the flagged chapter is fixed with Level chapters.">
+                        <rect class="dg-box" x="10" y="20" width="130" height="50" rx="9"/>
+                        <text class="dg-t" x="24" y="44">book.wav</text>
+                        <text class="dg-s" x="24" y="62">the master</text>
+                        <path class="dg-flow" d="M140 45h22m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="170" y="20" width="150" height="50" rx="8"/>
+                        <text class="dg-p" x="184" y="41">Detect</text>
+                        <text class="dg-s" x="184" y="59">split at silences</text>
+                        <path class="dg-flow" d="M320 45h22m-5 -5 6 5-6 5"/>
+                        <rect class="dg-group" x="350" y="16" width="240" height="58" rx="8"/>
+                        <rect class="dg-box" x="358" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="374" y="49" text-anchor="middle">01</text>
+                        <rect class="dg-box" x="396" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="412" y="49" text-anchor="middle">02</text>
+                        <rect class="dg-box" x="434" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="450" y="49" text-anchor="middle">03</text>
+                        <rect class="dg-box dg-box--accent" x="472" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s dg-s--a" x="488" y="49" text-anchor="middle">04</text>
+                        <rect class="dg-box" x="510" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="526" y="49" text-anchor="middle">05</text>
+                        <rect class="dg-box" x="548" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="564" y="49" text-anchor="middle">06</text>
+                        <path class="dg-flow" d="M470 74V96H46V149h10m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="60" y="116" width="280" height="66" rx="9"/>
+                        <text class="dg-p" x="74" y="138">scored per chapter</text>
+                        <text class="dg-s" x="74" y="156">RMS &#8722;23 to &#8722;18 &#183; TP &#8804; &#8722;3 dBTP</text>
+                        <text class="dg-s" x="74" y="172">floor &#8804; &#8722;60 dB &#183; drift &#177;2 LU</text>
+                        <path class="dg-flow" d="M340 149h16m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="370" y="116" width="220" height="66" rx="9"/>
+                        <text class="dg-t" x="384" y="140">chapter 04 flagged</text>
+                        <text class="dg-s dg-s--a" x="384" y="158">Level chapters brings it back</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 414" role="img" aria-label="The chapter pass: the book is split at silences into chapters, each chapter is scored against the ACX gates and the book median, and the flagged chapter is fixed with Level chapters.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="40">book.wav</text>
+                        <text class="dg-s" x="50" y="58">the master</text>
+                        <path class="dg-flow" d="M170 66v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="94" width="268" height="50" rx="8"/>
+                        <text class="dg-p" x="50" y="115">Detect</text>
+                        <text class="dg-s" x="50" y="133">split at silences</text>
+                        <path class="dg-flow" d="M170 144v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-group" x="36" y="172" width="268" height="56" rx="8"/>
+                        <rect class="dg-box" x="44" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="61" y="204" text-anchor="middle">01</text>
+                        <rect class="dg-box" x="87" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="104" y="204" text-anchor="middle">02</text>
+                        <rect class="dg-box" x="130" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="147" y="204" text-anchor="middle">03</text>
+                        <rect class="dg-box dg-box--accent" x="173" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s dg-s--a" x="190" y="204" text-anchor="middle">04</text>
+                        <rect class="dg-box" x="216" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="233" y="204" text-anchor="middle">05</text>
+                        <rect class="dg-box" x="259" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="276" y="204" text-anchor="middle">06</text>
+                        <path class="dg-flow" d="M170 228v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="256" width="268" height="66" rx="9"/>
+                        <text class="dg-p" x="50" y="278">scored per chapter</text>
+                        <text class="dg-s" x="50" y="296">RMS &#8722;23 to &#8722;18 &#183; TP &#8804; &#8722;3 dBTP</text>
+                        <text class="dg-s" x="50" y="312">floor &#8804; &#8722;60 dB &#183; drift &#177;2 LU</text>
+                        <path class="dg-flow" d="M170 322v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="350" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="374">chapter 04 flagged</text>
+                        <text class="dg-s dg-s--a" x="50" y="392">Level chapters brings it back</text>
+                    </svg>
+                    <figcaption><strong>The chapter pass.</strong> Detect cuts the book at silences; every chapter is scored against the ACX gates and the book median, and the flagged one is one Level chapters move from passing.</figcaption>
+                </figure>
                 <div class="feature-row"><div class="feature-row__k">1 · Load &amp; clean speech</div><div class="feature-row__v">Drop the file; Silero's neural VAD marks every speech block on load. If a breath, a page turn, or a music bed got mislabelled, fix it in <strong>Dialogue mode</strong> (<kbd>⌘4</kbd>): drag a region, mark <kbd>I</kbd> / <kbd>O</kbd>, split with <kbd>S</kbd>, so the noise floor and speech metrics measure the right samples. Edits auto-save to a <code>.dlg.json</code> sidecar and re-apply next time you open the file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Split into chapters</div><div class="feature-row__v"><strong>Chapter mode</strong> (<kbd>⌘3</kbd>) → <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon. Drag any boundary to correct it, click one and <strong>Remove</strong> to merge two chapters, rename slots, or import a hand-made layout as a JSON sidecar.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse Loudness</strong> runs a full pass per chapter: RMS, integrated LUFS, true peak, sample peak, noise floor, LRA, max momentary / short-term, speech-gated LUFS, speech %. Each chapter is flagged against the three ACX gates (RMS, true peak, noise floor) <em>and</em> against the book's own median (default ±2 LU on the integrated LUFS).</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">Export the report: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The per-chapter table carries the same red-cell signalling the app shows, so a narrator or producer reads the exact failing chapters and conditions without opening Specula.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">Export the report: <kbd>⌥⌘E</kbd> for PDF, <kbd>⇧⌘E</kbd> for JSON. The per-chapter table carries the same red-cell signalling the app shows: the exact failing chapters and conditions, ready to send to a narrator or producer as-is.</div></div>
             </div>
         </div>
     </section>
@@ -142,25 +209,7 @@
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>A file-level pass isn't enough for a book.</strong> An audiobook can sit at a perfect −20 dB RMS overall while one chapter recorded on a different day drifts to −16, or a single quiet pickup dips under the noise-floor line. ACX checks per chapter, so Specula does too: every chapter gets its own ACX verdict on RMS, true peak, and noise floor.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The outlier flag</strong> catches consistency problems the absolute gates miss. Each chapter is compared to the book's own median loudness; anything beyond the tolerance (default ±2 LU) is flagged even if it's technically inside the ACX band. That's how you spot the chapter that will sound jarringly louder to a listener mid-book.</p>
-                <p class="prose-lead" style="margin-top: 14px;">The corrected dialogue regions from step 1 feed straight into this: per-chapter speech-gated LUFS and the noise-floor reading all measure the speech and silence you confirmed, not what the raw VAD guessed.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Batch a series -->
-    <section class="section section--bordered">
-        <div class="section__grid">
-            <div>
-                <p class="label">Batch a whole series</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Skip the app window when you're checking dozens of files.</p>
-            </div>
-            <div>
-                <p class="prose-lead">The <code>specula</code> CLI runs the same engine the app uses, so a script gets the exact same numbers. Score one chapter to a PDF:</p>
-                <div class="callout" style="margin-top: 16px;">
-                    <span style="opacity:0.5;">$</span>
-                    <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;">specula report ch01.wav --mode podcast --format pdf --out ch01.pdf</p>
-                </div>
-                <p class="prose-lead" style="margin-top: 16px;">Or wire the <strong>Get Report</strong> App Intent into a Folder Action so every new chapter scores itself on save, and a downstream Shortcut step branches on <em>Integrated LUFS</em> or <em>Speech-Gated LUFS</em> without parsing JSON. Walk the folder, flag the chapters that miss, AirDrop the failures to the narrator. Full command reference in the <a href="guide.html#cli">CLI section of the user guide</a>.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The corrected dialogue regions from step 1 feed straight into this: per-chapter speech-gated LUFS and the noise-floor reading both measure against the speech and silence you confirmed.</p>
             </div>
         </div>
     </section>
@@ -171,8 +220,8 @@
             <p class="label">Fix what's flagged, in the same app</p>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Each red cell points at its fix, and the two that bounce the most audiobooks have a fix in Edit mode.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Noise floor over −60 dB RMS</strong> is a common ACX rejection, and it's the one a uniform gain can't fix, because raising the voice raises the room tone with it. <strong>Level Dialogue</strong> (Edit mode) is built for exactly this: it ducks the room tone <em>between</em> phrases using the speech regions you confirmed in step 1, with a fast attack and slow release so word onsets and tails stay clean. Tick <strong>Lift dialogue to target</strong> and it also brings the voice to your RMS target in the same pass, capping inter-sample peaks at a true-peak ceiling. Because the silence is gated before the makeup gain goes on, the floor ends up lower, not higher, the move a plain Normalize can't make. It's a gate, not a denoiser: it rescues a marginal floor (a quiet room tone just under the gate), not a hissy recording, which still wants a better capture.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>A chapter that drifts off the book's loudness</strong> is the consistency flag, and <strong>Level chapters</strong> (Chapter mode → <strong>Level…</strong>) is the one-move fix: pick the metric (RMS, the ACX one, by default) and the target (the book's own median, or a fixed value such as −20 dB RMS, mid the ACX −23..−18 band, for consistency and compliance at once), and Specula applies a per-chapter gain and re-measures. A <strong>true peak</strong> over −3 dBTP is a <strong>Limit TP</strong> pass that caps the inter-sample peaks without touching loudness. Each is one undoable edit that saves a new file, never the original. <a href="editing.html">See the editing workflow →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Noise floor over −60 dB RMS</strong> is a common ACX rejection, and it's the one a uniform gain can't fix, because raising the voice raises the room tone with it. <strong>Level Dialogue</strong> (Edit mode) attacks it from the other side: using the speech regions you confirmed in step 1, it pushes the tone between phrases down first, then brings the voice to your RMS target, so the floor lands lower while the narration comes up. The trick covers a floor that just misses, a room tone a dB or two over the line; hiss baked into the capture needs a re-record.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>A chapter that drifts off the book's loudness</strong> is the consistency flag, and <strong>Level chapters</strong> (Chapter mode → <strong>Level…</strong>) is the one-move fix: pick the metric (RMS, the ACX one, by default) and the target (the book's own median, or a fixed value such as −20 dB RMS, mid the ACX −23..−18 band, for consistency and compliance at once), and Specula applies a per-chapter gain and re-measures. A <strong>true peak</strong> over −3 dBTP takes one <strong>Limit TP</strong> pass, which trims the overshoots without disturbing the chapter levels you just set. Every fix is one undoable edit that writes a new file. <a href="editing.html">See the editing workflow →</a></p>
             </div>
         </div>
     </section>
@@ -180,7 +229,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">See it in Specula</p>
+            <p class="label">In the app</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-level-chapters.png" alt="The Level Chapters popover offering an RMS or LUFS metric, a book-median or fixed target, and a true-peak ceiling." loading="lazy" decoding="async">
@@ -202,12 +251,30 @@
         </div>
     </section>
 
+    <!-- Batch a series -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Batch a whole series</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Skip the app window when you're checking dozens of files.</p>
+            </div>
+            <div>
+                <p class="prose-lead">Everything above also runs headless: the <code>specula</code> CLI drives the app's measurement engine from a script. Score one chapter to a PDF:</p>
+                <div class="callout" style="margin-top: 16px;">
+                    <span style="opacity:0.5;">$</span>
+                    <p style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.82rem;">specula report ch01.wav --mode podcast --format pdf --out ch01.pdf</p>
+                </div>
+                <p class="prose-lead" style="margin-top: 16px;">Or wire the <strong>Get Report</strong> App Intent into a Folder Action so every new chapter scores itself on save, and a downstream Shortcut step branches on <em>Integrated LUFS</em> or <em>Speech-Gated LUFS</em> directly. Walk the folder, flag the chapters that miss, AirDrop the failures to the narrator. Full command reference in the <a href="guide.html#cli">CLI section of the user guide</a>.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Before you upload</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Specula is the pass between "the narration is done" and "it's uploaded to ACX." It tells you, per chapter, exactly which files clear the spec and which won't, and gives you the fix for the two flags that bounce the most books: <strong>Level Dialogue</strong> for a marginal room-tone floor, and <strong>Level chapters</strong> for a chapter that drifts off the book's loudness. Read the numbers, fix the flags, hand off the receipt.</p>
+                <p class="prose-lead">Per chapter, you know which files clear the spec and which won't, and the two flags that bounce the most books each have a one-move fix: <strong>Level Dialogue</strong> for a marginal room-tone floor, <strong>Level chapters</strong> for the one that drifts off the book's loudness. Read the numbers, fix the flags, hand off the receipt.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#chapter" class="btn btn-primary">Read the Chapter-mode guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>

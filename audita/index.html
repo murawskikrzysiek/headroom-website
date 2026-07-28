@@ -17,10 +17,9 @@
   <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
 
   <script type="application/ld+json">
@@ -45,8 +44,8 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
-  <nav class="nav">
+<div class="container nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
@@ -58,8 +57,10 @@
       <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
     </div>
   </nav>
+</div>
 
-  <header class="app-hero">
+<div class="container">
+    <header class="app-hero">
     <div class="app-hero__iconwrap">
       <img class="app-hero__icon" src="icon.png" alt="Audita app icon">
     </div>
@@ -132,9 +133,58 @@
         <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
           Where the monitor knob is actually set, and how much hearing the day has cost. Two questions almost no studio answers in numbers.
         </p>
-        <p class="prose-lead" style="margin-top: 22px;"><strong>The monitoring problem.</strong> The monitor knob drifts. A decibel up when playback feels quiet, half a decibel back when a client walks in. None of those moves register as wrong; together they mean the engineer in the afternoon is making decisions at a different level than the one in the morning.</p>
-        <p class="prose-lead" style="margin-top: 14px;"><strong>The hearing problem.</strong> Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish one very loud hour from eight moderately loud ones - the damage arithmetic is the same. Most professionals know this abstractly; almost none have ever measured their daily exposure.</p>
+        <p class="prose-lead" style="margin-top: 22px;">The monitor knob drifts. A decibel up when playback feels quiet, half a decibel back when a client walks in. None of those moves register as wrong; together they mean the engineer in the afternoon is making decisions at a different level than the one in the morning.</p>
+        <p class="prose-lead" style="margin-top: 14px;">Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish one very loud hour from eight moderately loud ones - the damage arithmetic is the same. Most professionals know this abstractly; almost none have ever measured their daily exposure.</p>
         <p class="prose-lead" style="margin-top: 14px;"><strong>One measurement chain, two jobs.</strong> Audita answers both from the menu bar. The same A-weighted SPL reading that updates the dose counter feeds the calibration tools, the Leq statistics, the target-level wizard, and the <a href="../lyra/">Lyra</a> integration.</p>
+
+        <figure class="diagram" style="margin-top: 22px;">
+            <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 226" role="img" aria-label="The NIOSH exchange rate: 85 dBA allows 8 hours, and each 3 dB step above it halves the safe time, down to 15 minutes at 100 dBA. Below 80 dBA no dose accumulates.">
+                <text class="dg-s dg-s--a" x="300" y="18" text-anchor="middle">each +3 dB halves the safe time</text>
+                <path class="dg-flow dg-flow--accent dg-dash" d="M54 26L534 146"/>
+                <rect class="dg-box dg-box--accent" x="14" y="40" width="80" height="138" rx="6"/>
+                <rect class="dg-box" x="110" y="64" width="80" height="114" rx="6"/>
+                <rect class="dg-box" x="206" y="88" width="80" height="90" rx="6"/>
+                <rect class="dg-box" x="302" y="112" width="80" height="66" rx="6"/>
+                <rect class="dg-box" x="398" y="136" width="80" height="42" rx="6"/>
+                <rect class="dg-box" x="494" y="160" width="80" height="18" rx="6"/>
+                <text class="dg-t" x="54" y="34" text-anchor="middle">8 h</text>
+                <text class="dg-t" x="150" y="58" text-anchor="middle">4 h</text>
+                <text class="dg-t" x="246" y="82" text-anchor="middle">2 h</text>
+                <text class="dg-t" x="342" y="106" text-anchor="middle">1 h</text>
+                <text class="dg-t" x="438" y="130" text-anchor="middle">30 min</text>
+                <text class="dg-t" x="534" y="154" text-anchor="middle">15 min</text>
+                <path class="dg-flow" d="M14 178H574"/>
+                <text class="dg-s" x="54" y="196" text-anchor="middle">85 dBA</text>
+                <text class="dg-s" x="150" y="196" text-anchor="middle">88 dBA</text>
+                <text class="dg-s" x="246" y="196" text-anchor="middle">91 dBA</text>
+                <text class="dg-s" x="342" y="196" text-anchor="middle">94 dBA</text>
+                <text class="dg-s" x="438" y="196" text-anchor="middle">97 dBA</text>
+                <text class="dg-s" x="534" y="196" text-anchor="middle">100 dBA</text>
+                <text class="dg-s" x="14" y="218">below 80 dBA, no dose accumulates &#183; NIOSH REL, 3 dB exchange rate</text>
+            </svg>
+            <svg class="diagram__tall" viewBox="0 0 340 276" role="img" aria-label="The NIOSH exchange rate: 85 dBA allows 8 hours, and each 3 dB step above it halves the safe time, down to 15 minutes at 100 dBA. Below 80 dBA no dose accumulates.">
+                <rect class="dg-box dg-box--accent" x="72" y="16" width="232" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="54" width="194" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="92" width="156" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="130" width="118" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="168" width="80" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="206" width="42" height="30" rx="6"/>
+                <text class="dg-s" x="64" y="36" text-anchor="end">85 dBA</text>
+                <text class="dg-s" x="64" y="74" text-anchor="end">88 dBA</text>
+                <text class="dg-s" x="64" y="112" text-anchor="end">91 dBA</text>
+                <text class="dg-s" x="64" y="150" text-anchor="end">94 dBA</text>
+                <text class="dg-s" x="64" y="188" text-anchor="end">97 dBA</text>
+                <text class="dg-s" x="64" y="226" text-anchor="end">100 dBA</text>
+                <text class="dg-p" x="72" y="36" dx="240">8 h</text>
+                <text class="dg-p" x="72" y="74" dx="202">4 h</text>
+                <text class="dg-p" x="72" y="112" dx="164">2 h</text>
+                <text class="dg-p" x="72" y="150" dx="126">1 h</text>
+                <text class="dg-p" x="72" y="188" dx="88">30 min</text>
+                <text class="dg-p" x="72" y="226" dx="50">15 min</text>
+                <text class="dg-s" x="24" y="262">below 80 dBA, no dose accumulates</text>
+            </svg>
+            <figcaption><strong>The dose arithmetic.</strong> NIOSH's 85 dBA criterion gives an 8-hour day; each 3 dB step above it cuts the time in half. Audita runs this against the SPL at your listening position, all session.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -164,6 +214,66 @@
         <div class="feature-row"><div class="feature-row__k">Input channel selection</div><div class="feature-row__v">Pick any individual input channel - a talkback mic, a dedicated measurement input, or a specific channel on a multi-channel interface like the Apollo Twin X. Channel names are read from the driver.</div></div>
         <div class="feature-row"><div class="feature-row__k">Non-invasive</div><div class="feature-row__v">Lives in the menu bar. Measures passively via any CoreAudio input device. Nothing touches your signal chain.</div></div>
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 14 Sonoma or later).</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pairs with Lyra -->
+  <section class="section section--bordered" id="pairing">
+    <div class="section__grid">
+      <p class="label">Pairs with Lyra</p>
+      <div>
+        <figure class="diagram">
+          <svg class="diagram__wide diagram__wide--s" viewBox="0 0 560 324" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+            <rect class="dg-group" x="10" y="26" width="383" height="112" rx="14"/>
+            <text class="dg-l" x="28" y="48">AUDITA</text>
+            <rect class="dg-box" x="28" y="60" width="154" height="60" rx="9"/>
+            <text class="dg-t" x="42" y="85">measurement mic</text>
+            <text class="dg-s" x="42" y="104">at the mix position</text>
+            <path class="dg-flow" d="M182 90H204m-5 -5 6 5-6 5"/>
+            <rect class="dg-box" x="208" y="60" width="167" height="60" rx="9"/>
+            <text class="dg-t" x="222" y="85">calibrate</text>
+            <text class="dg-s" x="222" y="104">pink noise &#183; 79.4 dBA</text>
+            <path class="dg-flow dg-flow--accent dg-dash" d="M292 138V222"/>
+            <path class="dg-flow dg-flow--accent" d="M292 222v6m-5 -6 5 6 5-6"/>
+            <text class="dg-u" x="306" y="168">lyra://reference/2/save</text>
+            <text class="dg-u" x="306" y="186">?name=Mix&amp;dBSPL=79.4</text>
+            <rect class="dg-group" x="212" y="200" width="327" height="112" rx="14"/>
+            <text class="dg-l" x="230" y="222">LYRA</text>
+            <rect class="dg-box dg-box--accent" x="230" y="234" width="125" height="60" rx="9"/>
+            <text class="dg-t" x="244" y="259">slot 2 &#183; Mix</text>
+            <text class="dg-s dg-s--a" x="244" y="278">79 dB SPL</text>
+            <path class="dg-flow" d="M355 264h22m-5 -5 6 5-6 5"/>
+            <rect class="dg-box" x="381" y="234" width="140" height="60" rx="9"/>
+            <text class="dg-t" x="395" y="259">Ctrl+F11</text>
+            <text class="dg-s" x="395" y="278">recalls the level</text>
+          </svg>
+          <svg class="diagram__tall" viewBox="0 0 340 514" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+            <rect class="dg-group" x="10" y="24" width="320" height="192" rx="14"/>
+            <text class="dg-l" x="28" y="46">AUDITA</text>
+            <rect class="dg-box" x="28" y="58" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="82">measurement mic</text>
+            <text class="dg-s" x="42" y="100">at the mix position</text>
+            <path class="dg-flow" d="M170 116v18m-5 -6 5 6 5-6"/>
+            <rect class="dg-box" x="28" y="140" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="164">calibrate</text>
+            <text class="dg-s" x="42" y="182">pink noise &#183; 79.4 dBA</text>
+            <path class="dg-flow dg-flow--accent dg-dash" d="M170 216v22"/>
+            <text class="dg-u" x="170" y="258" text-anchor="middle">lyra://reference/2/save</text>
+            <text class="dg-u" x="170" y="276" text-anchor="middle">?name=Mix&amp;dBSPL=79.4</text>
+            <path class="dg-flow dg-flow--accent" d="M170 286v16m-5 -6 5 6 5-6"/>
+            <rect class="dg-group" x="10" y="310" width="320" height="192" rx="14"/>
+            <text class="dg-l" x="28" y="332">LYRA</text>
+            <rect class="dg-box dg-box--accent" x="28" y="344" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="368">slot 2 &#183; Mix</text>
+            <text class="dg-s dg-s--a" x="42" y="386">79 dB SPL</text>
+            <path class="dg-flow" d="M170 402v18m-5 -6 5 6 5-6"/>
+            <rect class="dg-box" x="28" y="426" width="284" height="58" rx="9"/>
+            <text class="dg-t" x="42" y="450">Ctrl+F11</text>
+            <text class="dg-s" x="42" y="468">recalls the level</text>
+          </svg>
+          <figcaption><strong>Audita measures, Lyra remembers.</strong> After a calibration, one keystroke puts the monitor back at a level you can cite in dB SPL. Walkthrough in <a href="../blog/pairing-audita-and-lyra.html">the pairing post</a>; needs <a href="../lyra/">Lyra</a> 1.4+.</figcaption>
+        </figure>
       </div>
     </div>
   </section>

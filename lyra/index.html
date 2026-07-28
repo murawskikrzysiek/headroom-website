@@ -22,10 +22,6 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../headroom.css">
 
   <script type="application/ld+json">
@@ -50,8 +46,8 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
-  <nav class="nav">
+<div class="container nav-shell">
+    <nav class="nav">
     <a href="/" class="brand">
       <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
       <span class="brand-word">Head<span>room</span></span>
@@ -63,8 +59,10 @@
       <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
     </div>
   </nav>
+</div>
 
-  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+<div class="container">
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
   <header class="app-hero">
     <div class="app-hero__iconwrap">
       <img class="app-hero__icon" src="icon.png" alt="Lyra app icon">
@@ -168,6 +166,66 @@
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 12 or later).</div></div>
         <div class="feature-row"><div class="feature-row__k">Menu bar</div><div class="feature-row__v">Lives quietly in the menu bar. No dock icon, no windows, no UI to get in the way.</div></div>
         <div class="feature-row"><div class="feature-row__k">Non-invasive</div><div class="feature-row__v">Communicates directly with UA Mixer Engine. Console keeps running, your signal chain untouched, no drivers replaced or patched.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pairs with Audita ────────────────────────────────────────────── -->
+  <section class="section section--bordered" id="pairing">
+    <div class="section__grid">
+      <p class="label">Pairs with Audita</p>
+      <div>
+        <figure class="diagram">
+          <svg class="diagram__wide diagram__wide--s" viewBox="0 0 560 324" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+          <rect class="dg-group" x="10" y="26" width="383" height="112" rx="14"/>
+          <text class="dg-l" x="28" y="48">AUDITA</text>
+          <rect class="dg-box" x="28" y="60" width="154" height="60" rx="9"/>
+          <text class="dg-t" x="42" y="85">measurement mic</text>
+          <text class="dg-s" x="42" y="104">at the mix position</text>
+          <path class="dg-flow" d="M182 90H204m-5 -5 6 5-6 5"/>
+          <rect class="dg-box" x="208" y="60" width="167" height="60" rx="9"/>
+          <text class="dg-t" x="222" y="85">calibrate</text>
+          <text class="dg-s" x="222" y="104">pink noise &#183; 79.4 dBA</text>
+          <path class="dg-flow dg-flow--accent dg-dash" d="M292 138V222"/>
+          <path class="dg-flow dg-flow--accent" d="M292 222v6m-5 -6 5 6 5-6"/>
+          <text class="dg-u" x="306" y="168">lyra://reference/2/save</text>
+          <text class="dg-u" x="306" y="186">?name=Mix&amp;dBSPL=79.4</text>
+          <rect class="dg-group" x="212" y="200" width="327" height="112" rx="14"/>
+          <text class="dg-l" x="230" y="222">LYRA</text>
+          <rect class="dg-box dg-box--accent" x="230" y="234" width="125" height="60" rx="9"/>
+          <text class="dg-t" x="244" y="259">slot 2 &#183; Mix</text>
+          <text class="dg-s dg-s--a" x="244" y="278">79 dB SPL</text>
+          <path class="dg-flow" d="M355 264h22m-5 -5 6 5-6 5"/>
+          <rect class="dg-box" x="381" y="234" width="140" height="60" rx="9"/>
+          <text class="dg-t" x="395" y="259">Ctrl+F11</text>
+          <text class="dg-s" x="395" y="278">recalls the level</text>
+          </svg>
+          <svg class="diagram__tall" viewBox="0 0 340 514" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
+          <rect class="dg-group" x="10" y="24" width="320" height="192" rx="14"/>
+          <text class="dg-l" x="28" y="46">AUDITA</text>
+          <rect class="dg-box" x="28" y="58" width="284" height="58" rx="9"/>
+          <text class="dg-t" x="42" y="82">measurement mic</text>
+          <text class="dg-s" x="42" y="100">at the mix position</text>
+          <path class="dg-flow" d="M170 116v18m-5 -6 5 6 5-6"/>
+          <rect class="dg-box" x="28" y="140" width="284" height="58" rx="9"/>
+          <text class="dg-t" x="42" y="164">calibrate</text>
+          <text class="dg-s" x="42" y="182">pink noise &#183; 79.4 dBA</text>
+          <path class="dg-flow dg-flow--accent dg-dash" d="M170 216v22"/>
+          <text class="dg-u" x="170" y="258" text-anchor="middle">lyra://reference/2/save</text>
+          <text class="dg-u" x="170" y="276" text-anchor="middle">?name=Mix&amp;dBSPL=79.4</text>
+          <path class="dg-flow dg-flow--accent" d="M170 286v16m-5 -6 5 6 5-6"/>
+          <rect class="dg-group" x="10" y="310" width="320" height="192" rx="14"/>
+          <text class="dg-l" x="28" y="332">LYRA</text>
+          <rect class="dg-box dg-box--accent" x="28" y="344" width="284" height="58" rx="9"/>
+          <text class="dg-t" x="42" y="368">slot 2 &#183; Mix</text>
+          <text class="dg-s dg-s--a" x="42" y="386">79 dB SPL</text>
+          <path class="dg-flow" d="M170 402v18m-5 -6 5 6 5-6"/>
+          <rect class="dg-box" x="28" y="426" width="284" height="58" rx="9"/>
+          <text class="dg-t" x="42" y="450">Ctrl+F11</text>
+          <text class="dg-s" x="42" y="468">recalls the level</text>
+          </svg>
+          <figcaption><strong>From mic to keystroke.</strong> <a href="../audita/">Audita</a> runs the calibration and sends the result over the <code>lyra://</code> scheme; the slot keeps the name and the measured SPL, and Ctrl+F11 brings the monitor back to it.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
