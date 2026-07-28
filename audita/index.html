@@ -136,6 +136,55 @@
         <p class="prose-lead" style="margin-top: 22px;"><strong>The monitoring problem.</strong> The monitor knob drifts. A decibel up when playback feels quiet, half a decibel back when a client walks in. None of those moves register as wrong; together they mean the engineer in the afternoon is making decisions at a different level than the one in the morning.</p>
         <p class="prose-lead" style="margin-top: 14px;"><strong>The hearing problem.</strong> Long studio sessions at moderate levels accumulate exactly the same way loud ones do, just more quietly. The ear doesn't distinguish one very loud hour from eight moderately loud ones - the damage arithmetic is the same. Most professionals know this abstractly; almost none have ever measured their daily exposure.</p>
         <p class="prose-lead" style="margin-top: 14px;"><strong>One measurement chain, two jobs.</strong> Audita answers both from the menu bar. The same A-weighted SPL reading that updates the dose counter feeds the calibration tools, the Leq statistics, the target-level wizard, and the <a href="../lyra/">Lyra</a> integration.</p>
+
+        <figure class="diagram" style="margin-top: 22px;">
+            <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 226" role="img" aria-label="The NIOSH exchange rate: 85 dBA allows 8 hours, and each 3 dB step above it halves the safe time, down to 15 minutes at 100 dBA. Below 80 dBA no dose accumulates.">
+                <text class="dg-s dg-s--a" x="300" y="18" text-anchor="middle">each +3 dB halves the safe time</text>
+                <path class="dg-flow dg-flow--accent dg-dash" d="M54 26L534 146"/>
+                <rect class="dg-box dg-box--accent" x="14" y="40" width="80" height="138" rx="6"/>
+                <rect class="dg-box" x="110" y="64" width="80" height="114" rx="6"/>
+                <rect class="dg-box" x="206" y="88" width="80" height="90" rx="6"/>
+                <rect class="dg-box" x="302" y="112" width="80" height="66" rx="6"/>
+                <rect class="dg-box" x="398" y="136" width="80" height="42" rx="6"/>
+                <rect class="dg-box" x="494" y="160" width="80" height="18" rx="6"/>
+                <text class="dg-t" x="54" y="34" text-anchor="middle">8 h</text>
+                <text class="dg-t" x="150" y="58" text-anchor="middle">4 h</text>
+                <text class="dg-t" x="246" y="82" text-anchor="middle">2 h</text>
+                <text class="dg-t" x="342" y="106" text-anchor="middle">1 h</text>
+                <text class="dg-t" x="438" y="130" text-anchor="middle">30 min</text>
+                <text class="dg-t" x="534" y="154" text-anchor="middle">15 min</text>
+                <path class="dg-flow" d="M14 178H574"/>
+                <text class="dg-s" x="54" y="196" text-anchor="middle">85 dBA</text>
+                <text class="dg-s" x="150" y="196" text-anchor="middle">88 dBA</text>
+                <text class="dg-s" x="246" y="196" text-anchor="middle">91 dBA</text>
+                <text class="dg-s" x="342" y="196" text-anchor="middle">94 dBA</text>
+                <text class="dg-s" x="438" y="196" text-anchor="middle">97 dBA</text>
+                <text class="dg-s" x="534" y="196" text-anchor="middle">100 dBA</text>
+                <text class="dg-s" x="14" y="218">below 80 dBA, no dose accumulates &#183; NIOSH REL, 3 dB exchange rate</text>
+            </svg>
+            <svg class="diagram__tall" viewBox="0 0 340 276" role="img" aria-label="The NIOSH exchange rate: 85 dBA allows 8 hours, and each 3 dB step above it halves the safe time, down to 15 minutes at 100 dBA. Below 80 dBA no dose accumulates.">
+                <rect class="dg-box dg-box--accent" x="72" y="16" width="232" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="54" width="194" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="92" width="156" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="130" width="118" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="168" width="80" height="30" rx="6"/>
+                <rect class="dg-box" x="72" y="206" width="42" height="30" rx="6"/>
+                <text class="dg-s" x="64" y="36" text-anchor="end">85 dBA</text>
+                <text class="dg-s" x="64" y="74" text-anchor="end">88 dBA</text>
+                <text class="dg-s" x="64" y="112" text-anchor="end">91 dBA</text>
+                <text class="dg-s" x="64" y="150" text-anchor="end">94 dBA</text>
+                <text class="dg-s" x="64" y="188" text-anchor="end">97 dBA</text>
+                <text class="dg-s" x="64" y="226" text-anchor="end">100 dBA</text>
+                <text class="dg-p" x="72" y="36" dx="240">8 h</text>
+                <text class="dg-p" x="72" y="74" dx="202">4 h</text>
+                <text class="dg-p" x="72" y="112" dx="164">2 h</text>
+                <text class="dg-p" x="72" y="150" dx="126">1 h</text>
+                <text class="dg-p" x="72" y="188" dx="88">30 min</text>
+                <text class="dg-p" x="72" y="226" dx="50">15 min</text>
+                <text class="dg-s" x="24" y="262">below 80 dBA, no dose accumulates</text>
+            </svg>
+            <figcaption><strong>The dose arithmetic.</strong> NIOSH's 85 dBA criterion gives an 8-hour day; each 3 dB step above it cuts the time in half. Audita runs this against the SPL at your listening position, all session.</figcaption>
+        </figure>
       </div>
     </div>
   </section>

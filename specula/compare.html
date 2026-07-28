@@ -154,6 +154,50 @@
             <p class="label">The residual is the answer</p>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>What changed becomes its own waveform.</strong> The diff slot is a virtual slot that plays back the <code>A − X</code> residual, the sample-by-sample subtraction of the active version from the reference. Once level and timing are matched, everything the two versions share cancels to silence, and what's left is the change itself. You route that residual through the same waveform, spectrogram, and export paths as any other slot, so you can see where in the file the difference lives and how loud it is, not just hear that something moved.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 210" role="img" aria-label="How the residual is made: slot A and slots B to F are auto-aligned to the sample, level-matched by integrated LUFS, then subtracted into the A minus X residual.">
+                        <rect class="dg-box" x="10" y="20" width="150" height="50" rx="9"/>
+                        <text class="dg-t" x="24" y="44">slot A</text>
+                        <text class="dg-s" x="24" y="62">the reference</text>
+                        <rect class="dg-box" x="10" y="140" width="150" height="50" rx="9"/>
+                        <text class="dg-t" x="24" y="164">slots B&#8211;F</text>
+                        <text class="dg-s" x="24" y="182">up to five takes</text>
+                        <path class="dg-flow" d="M160 45H185V105M160 165H185V105M185 105h12m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="200" y="80" width="120" height="50" rx="8"/>
+                        <text class="dg-p" x="214" y="101">auto-align</text>
+                        <text class="dg-s" x="214" y="119">to the sample</text>
+                        <path class="dg-flow" d="M320 105h12m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="335" y="80" width="130" height="50" rx="8"/>
+                        <text class="dg-p" x="349" y="101">level-match</text>
+                        <text class="dg-s" x="349" y="119">LUFS &#183; polarity</text>
+                        <path class="dg-flow" d="M465 105h12m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="480" y="80" width="115" height="50" rx="9"/>
+                        <text class="dg-t" x="494" y="101">A &#8722; X</text>
+                        <text class="dg-s dg-s--a" x="494" y="119">the residual</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 366" role="img" aria-label="How the residual is made: slot A and slots B to F are auto-aligned to the sample, level-matched by integrated LUFS, then subtracted into the A minus X residual.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="40">slot A</text>
+                        <text class="dg-s" x="50" y="58">the reference</text>
+                        <rect class="dg-box" x="36" y="78" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="102">slots B&#8211;F</text>
+                        <text class="dg-s" x="50" y="120">up to five takes</text>
+                        <path class="dg-flow" d="M36 41H18V177M36 103H18V177M18 177h9m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="36" y="152" width="268" height="50" rx="8"/>
+                        <text class="dg-p" x="50" y="173">auto-align</text>
+                        <text class="dg-s" x="50" y="191">to the sample</text>
+                        <path class="dg-flow" d="M170 202v12m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="226" width="268" height="50" rx="8"/>
+                        <text class="dg-p" x="50" y="247">level-match</text>
+                        <text class="dg-s" x="50" y="265">integrated LUFS &#183; polarity</text>
+                        <path class="dg-flow" d="M170 276v12m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="300" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="324">A &#8722; X</text>
+                        <text class="dg-s dg-s--a" x="50" y="342">the residual</text>
+                    </svg>
+                    <figcaption><strong>How the residual is made.</strong> Takes align to the sample and match by integrated LUFS before the subtraction, so only what changed survives it.</figcaption>
+                </figure>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Polarity matters for the subtraction.</strong> Each slot has a <strong>ϕ</strong> toggle that flips polarity, useful for catching a wiring error, and for diff work where flipping one signal is what makes the residual sit closer to zero. The diff slot recomputes automatically (80&nbsp;ms debounced) whenever nudge, gain, polarity, or level-match changes, so the residual always reflects your current alignment. It has no live measurement of its own, switching to a diff slot clears the live loudness and stereo displays, because the diff buffer plays pre-computed.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Or overlay instead of subtract.</strong> The <strong>Waveform A overlay</strong> toggle draws slot A's waveform as a ghost behind whichever slot is active, a direct visual A/B at the sample level without leaving the active version. And the <strong>Compare metrics</strong> popover puts every loaded slot side by side in one table: integrated LUFS, true peak, sample peak, LRA, DR, speech stats. Read the numbers and hear the residual, from the same comparison.</p>
             </div>

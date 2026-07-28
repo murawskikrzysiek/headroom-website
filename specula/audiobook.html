@@ -126,6 +126,74 @@
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Clean the speech map, split the chapters, score everything, export.</p>
             </div>
             <div>
+                
+                <figure class="diagram" style="margin: 0 0 26px;">
+                    <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 196" role="img" aria-label="The chapter pass: the book is split at silences into chapters, each chapter is scored against the ACX gates and the book median, and the flagged chapter is fixed with Level chapters.">
+                        <rect class="dg-box" x="10" y="20" width="130" height="50" rx="9"/>
+                        <text class="dg-t" x="24" y="44">book.wav</text>
+                        <text class="dg-s" x="24" y="62">the master</text>
+                        <path class="dg-flow" d="M140 45h22m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="170" y="20" width="150" height="50" rx="8"/>
+                        <text class="dg-p" x="184" y="41">Detect</text>
+                        <text class="dg-s" x="184" y="59">split at silences</text>
+                        <path class="dg-flow" d="M320 45h22m-5 -5 6 5-6 5"/>
+                        <rect class="dg-group" x="350" y="16" width="240" height="58" rx="8"/>
+                        <rect class="dg-box" x="358" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="374" y="49" text-anchor="middle">01</text>
+                        <rect class="dg-box" x="396" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="412" y="49" text-anchor="middle">02</text>
+                        <rect class="dg-box" x="434" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="450" y="49" text-anchor="middle">03</text>
+                        <rect class="dg-box dg-box--accent" x="472" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s dg-s--a" x="488" y="49" text-anchor="middle">04</text>
+                        <rect class="dg-box" x="510" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="526" y="49" text-anchor="middle">05</text>
+                        <rect class="dg-box" x="548" y="30" width="32" height="30" rx="5"/>
+                        <text class="dg-s" x="564" y="49" text-anchor="middle">06</text>
+                        <path class="dg-flow" d="M470 74V96H46V149h10m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="60" y="116" width="280" height="66" rx="9"/>
+                        <text class="dg-p" x="74" y="138">scored per chapter</text>
+                        <text class="dg-s" x="74" y="156">RMS &#8722;23 to &#8722;18 &#183; TP &#8804; &#8722;3 dBTP</text>
+                        <text class="dg-s" x="74" y="172">floor &#8804; &#8722;60 dB &#183; drift &#177;2 LU</text>
+                        <path class="dg-flow" d="M340 149h16m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="370" y="116" width="220" height="66" rx="9"/>
+                        <text class="dg-t" x="384" y="140">chapter 04 flagged</text>
+                        <text class="dg-s dg-s--a" x="384" y="158">Level chapters brings it back</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 414" role="img" aria-label="The chapter pass: the book is split at silences into chapters, each chapter is scored against the ACX gates and the book median, and the flagged chapter is fixed with Level chapters.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="40">book.wav</text>
+                        <text class="dg-s" x="50" y="58">the master</text>
+                        <path class="dg-flow" d="M170 66v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="94" width="268" height="50" rx="8"/>
+                        <text class="dg-p" x="50" y="115">Detect</text>
+                        <text class="dg-s" x="50" y="133">split at silences</text>
+                        <path class="dg-flow" d="M170 144v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-group" x="36" y="172" width="268" height="56" rx="8"/>
+                        <rect class="dg-box" x="44" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="61" y="204" text-anchor="middle">01</text>
+                        <rect class="dg-box" x="87" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="104" y="204" text-anchor="middle">02</text>
+                        <rect class="dg-box" x="130" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="147" y="204" text-anchor="middle">03</text>
+                        <rect class="dg-box dg-box--accent" x="173" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s dg-s--a" x="190" y="204" text-anchor="middle">04</text>
+                        <rect class="dg-box" x="216" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="233" y="204" text-anchor="middle">05</text>
+                        <rect class="dg-box" x="259" y="186" width="34" height="28" rx="5"/>
+                        <text class="dg-s" x="276" y="204" text-anchor="middle">06</text>
+                        <path class="dg-flow" d="M170 228v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="256" width="268" height="66" rx="9"/>
+                        <text class="dg-p" x="50" y="278">scored per chapter</text>
+                        <text class="dg-s" x="50" y="296">RMS &#8722;23 to &#8722;18 &#183; TP &#8804; &#8722;3 dBTP</text>
+                        <text class="dg-s" x="50" y="312">floor &#8804; &#8722;60 dB &#183; drift &#177;2 LU</text>
+                        <path class="dg-flow" d="M170 322v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="350" width="268" height="50" rx="9"/>
+                        <text class="dg-t" x="50" y="374">chapter 04 flagged</text>
+                        <text class="dg-s dg-s--a" x="50" y="392">Level chapters brings it back</text>
+                    </svg>
+                    <figcaption><strong>The chapter pass.</strong> Detect cuts the book at silences; every chapter is scored against the ACX gates and the book median, and the flagged one is one Level chapters move from passing.</figcaption>
+                </figure>
                 <div class="feature-row"><div class="feature-row__k">1 · Load &amp; clean speech</div><div class="feature-row__v">Drop the file; Silero's neural VAD marks every speech block on load. If a breath, a page turn, or a music bed got mislabelled, fix it in <strong>Dialogue mode</strong> (<kbd>⌘4</kbd>): drag a region, mark <kbd>I</kbd> / <kbd>O</kbd>, split with <kbd>S</kbd>, so the noise floor and speech metrics measure the right samples. Edits auto-save to a <code>.dlg.json</code> sidecar and re-apply next time you open the file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Split into chapters</div><div class="feature-row__v"><strong>Chapter mode</strong> (<kbd>⌘3</kbd>) → <strong>Detect</strong> splits the file at silences (default 2 s under −55 dB) into a chapter ribbon. Drag any boundary to correct it, click one and <strong>Remove</strong> to merge two chapters, rename slots, or import a hand-made layout as a JSON sidecar.</div></div>
                 <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse Loudness</strong> runs a full pass per chapter: RMS, integrated LUFS, true peak, sample peak, noise floor, LRA, max momentary / short-term, speech-gated LUFS, speech %. Each chapter is flagged against the three ACX gates (RMS, true peak, noise floor) <em>and</em> against the book's own median (default ±2 LU on the integrated LUFS).</div></div>

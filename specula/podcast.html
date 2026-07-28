@@ -110,6 +110,56 @@
                 <p class="prose-lead" style="margin-top: 22px;"><strong>An integrated LUFS reading over the entire episode mixes the talking with everything that isn't talking.</strong> A loud cold-open music bed, a sponsor stinger, a long quiet pause, they all land in the same average, so the file can read on-target while the actual voice sits a couple of LU off where a listener hears it. Specula computes loudness <em>only</em> over the speech blocks, so the number you check against Apple Podcasts or Spotify Podcasts is the dialogue, not the dialogue blended with the bed.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The same separation matters at the quiet end. The room-tone <strong>noise floor</strong> between phrases is invisible on a whole-file loudness meter and inaudible on headphones, but it's measured over every non-speech sample here, so a noisy capture shows up as a number before it ships.</p>
 
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 196" role="img" aria-label="One episode timeline with music, speech, and pauses: whole-file LUFS averages everything, while the dialog-gated number is metered only on the speech blocks.">
+                        <text class="dg-l" x="14" y="16">Episode</text>
+                        <rect class="dg-box dg-box--accent" x="400" y="8" width="10" height="10" rx="2"/>
+                        <text class="dg-s" x="416" y="17">speech</text>
+                        <rect class="dg-box" x="470" y="8" width="10" height="10" rx="2"/>
+                        <text class="dg-s" x="486" y="17">music &#183; pause</text>
+                        <rect class="dg-group" x="10" y="26" width="580" height="44" rx="8"/>
+                        <rect class="dg-box" x="18" y="33" width="110" height="30" rx="5"/>
+                        <text class="dg-s" x="73" y="52" text-anchor="middle">music</text>
+                        <rect class="dg-box dg-box--accent" x="134" y="33" width="150" height="30" rx="5"/>
+                        <text class="dg-s dg-s--a" x="209" y="52" text-anchor="middle">speech</text>
+                        <rect class="dg-box" x="290" y="33" width="40" height="30" rx="5"/>
+                        <rect class="dg-box dg-box--accent" x="336" y="33" width="168" height="30" rx="5"/>
+                        <text class="dg-s dg-s--a" x="420" y="52" text-anchor="middle">speech</text>
+                        <rect class="dg-box" x="510" y="33" width="72" height="30" rx="5"/>
+                        <text class="dg-s" x="546" y="52" text-anchor="middle">bed</text>
+                        <path class="dg-flow" d="M170 70v43m-5 -6 5 6 5-6"/>
+                        <path class="dg-flow dg-flow--accent" d="M440 70v43m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="60" y="120" width="220" height="58" rx="9"/>
+                        <text class="dg-p" x="74" y="142">whole-file LUFS</text>
+                        <text class="dg-s" x="74" y="160">the bed drags the average</text>
+                        <rect class="dg-box dg-box--accent" x="330" y="120" width="220" height="58" rx="9"/>
+                        <text class="dg-t" x="344" y="143">dialog-gated LKFS</text>
+                        <text class="dg-s dg-s--a" x="344" y="161">metered on speech only</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 284" role="img" aria-label="One episode timeline with music, speech, and pauses: whole-file LUFS averages everything, while the dialog-gated number is metered only on the speech blocks.">
+                        <text class="dg-l" x="14" y="16">Episode</text>
+                        <rect class="dg-group" x="10" y="24" width="320" height="40" rx="8"/>
+                        <rect class="dg-box" x="16" y="31" width="58" height="26" rx="5"/>
+                        <rect class="dg-box dg-box--accent" x="78" y="31" width="82" height="26" rx="5"/>
+                        <rect class="dg-box" x="164" y="31" width="20" height="26" rx="5"/>
+                        <rect class="dg-box dg-box--accent" x="188" y="31" width="90" height="26" rx="5"/>
+                        <rect class="dg-box" x="282" y="31" width="42" height="26" rx="5"/>
+                        <path class="dg-flow" d="M170 64v16M170 80v15m-5 -6 5 6 5-6"/>
+                        <path class="dg-flow" d="M170 80H18V213h9m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="36" y="104" width="268" height="54" rx="9"/>
+                        <text class="dg-p" x="50" y="126">whole-file LUFS</text>
+                        <text class="dg-s" x="50" y="144">the bed drags the average</text>
+                        <rect class="dg-box dg-box--accent" x="36" y="186" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="209">dialog-gated LKFS</text>
+                        <text class="dg-s dg-s--a" x="50" y="227">metered on speech only</text>
+                        <rect class="dg-box dg-box--accent" x="36" y="258" width="10" height="10" rx="2"/>
+                        <text class="dg-s" x="52" y="267">speech</text>
+                        <rect class="dg-box" x="140" y="258" width="10" height="10" rx="2"/>
+                        <text class="dg-s" x="156" y="267">music &#183; pause</text>
+                    </svg>
+                    <figcaption><strong>What the gate keeps.</strong> Whole-file LUFS averages the bed and the pauses in with the voice; the dialog-gated number meters only the blocks Silero marked as speech, and that's the figure the platforms judge.</figcaption>
+                </figure>
+
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
                     <div class="std-row"><span class="std-row__tag">Apple Podcasts</span><span class="std-row__desc">−16 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
                     <div class="std-row"><span class="std-row__tag">Spotify Podcasts</span><span class="std-row__desc">−14 LKFS, dialog-gated, true peak at or below −1 dBTP.</span></div>
