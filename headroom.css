@@ -328,8 +328,10 @@ figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto;
 .shot figcaption { padding: 10px 14px 12px; font-size: 0.74rem; line-height: 1.5;
   color: var(--text-3); border-top: 1px solid var(--border); }
 .shot figcaption strong { color: var(--text-2); font-weight: 600; }
-.shot--narrow { max-width: 320px; margin-inline: auto; }
-.shot--mid    { max-width: 640px; margin-inline: auto; }
+/* figure-qualified so the margin-inline beats figure.shot's margin: 0 reset
+   (0,1,1 vs 0,1,1, later wins) - otherwise narrow/mid cards pin to the left */
+figure.shot--narrow { max-width: 320px; margin-inline: auto; }
+figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 .shots--tight { padding: 8px 0 28px; }
 
 .section { padding: 36px 0; }
