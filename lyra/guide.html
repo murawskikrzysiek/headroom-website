@@ -419,7 +419,15 @@
             th, td { padding: 8px 10px 8px 0; }
             .screenshot-row { grid-template-columns: 1fr; }
         }
-    </style>
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
 <style id="hr-rework">
   .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
   .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }

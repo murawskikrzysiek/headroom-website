@@ -338,7 +338,15 @@
             .nav-links a { font-size: 0.74rem; }
             .nav-contact { display: none; }
         }
-    </style>
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>

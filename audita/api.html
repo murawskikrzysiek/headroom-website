@@ -504,7 +504,15 @@
             .meta-key { padding-top: 10px; }
             .meta-key:first-child { padding-top: 0; }
         }
-    </style>
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+</style>
     <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
 <style id="hr-rework">
   .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
