@@ -19,9 +19,6 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,400&family=Inter+Tight:wght@400..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../headroom.css">
 
     <script type="application/ld+json">
@@ -47,7 +44,7 @@
 
 <div class="glow glow--center"></div>
 
-<div class="container">
+<div class="container nav-shell">
     <nav class="nav">
         <a href="/" class="brand">
             <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
@@ -59,8 +56,10 @@
             <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
         </div>
     </nav>
+</div>
 
-    <header class="app-hero">
+<div class="container">
+        <header class="app-hero">
         <div class="app-hero__iconwrap">
             <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
         </div>
@@ -107,6 +106,49 @@
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">An HDR deliverable carries its meaning in container metadata. The color tags declare which primaries, transfer, matrix, and range the pixels are coded in; the mastering display volume (SMPTE ST 2086) records the display the grade was made on; MaxCLL and MaxFALL summarize how bright the content gets. Players and QC tools read those boxes, not your intent. When one is missing or wrong, the pixels get interpreted under the wrong assumptions, the QC report flags the file, and the delivery comes back.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The pixels themselves are fine. A wrong tag is a labeling error, yet the usual fix is a full re-encode: hours of render time and a generation of quality spent to change a few dozen bytes of metadata. Videre edits those bytes directly. The video and audio data are not touched, and the output is checked against the original before the save succeeds.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide diagram__wide--s" viewBox="0 0 600 200" role="img" aria-label="The retag flow: a master with PQ pixels tagged bt709 renders flat because players trust the tag; Retag bit-splices the correct colour boxes into a new file and the render is correct everywhere.">
+                        <rect class="dg-box" x="10" y="20" width="170" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="44">master.mp4</text>
+                        <text class="dg-s" x="24" y="62">PQ pixels &#183; colr bt709</text>
+                        <path class="dg-flow" d="M180 50h20m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="215" y="20" width="180" height="60" rx="9"/>
+                        <text class="dg-p" x="229" y="44">players trust the tag</text>
+                        <text class="dg-s" x="229" y="62">renders flat, everywhere</text>
+                        <path class="dg-flow" d="M395 50h20m-5 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="430" y="20" width="160" height="60" rx="9"/>
+                        <text class="dg-t" x="444" y="44">Retag</text>
+                        <text class="dg-s dg-s--a" x="444" y="62">colr &#8594; bt2020-pq</text>
+                        <path class="dg-flow" d="M510 80v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="430" y="106" width="160" height="60" rx="9"/>
+                        <text class="dg-t" x="444" y="130">fixed.mp4</text>
+                        <text class="dg-s" x="444" y="148">QuickTime agrees</text>
+                        <text class="dg-s" x="10" y="130">the pixels never change:</text>
+                        <text class="dg-s" x="10" y="147">colr is bit-spliced into a new file,</text>
+                        <text class="dg-s" x="10" y="164">the rest is byte-identical</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 372" role="img" aria-label="The retag flow: a master with PQ pixels tagged bt709 renders flat because players trust the tag; Retag bit-splices the correct colour boxes into a new file and the render is correct everywhere.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="40">master.mp4</text>
+                        <text class="dg-s" x="50" y="58">PQ pixels &#183; colr bt709</text>
+                        <path class="dg-flow" d="M170 70v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="96" width="268" height="54" rx="9"/>
+                        <text class="dg-p" x="50" y="120">players trust the tag</text>
+                        <text class="dg-s" x="50" y="138">renders flat, everywhere</text>
+                        <path class="dg-flow" d="M170 150v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="176" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="200">Retag</text>
+                        <text class="dg-s dg-s--a" x="50" y="218">colr &#8594; bt2020-pq &#183; bit-splice</text>
+                        <path class="dg-flow" d="M170 230v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="256" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="280">fixed.mp4</text>
+                        <text class="dg-s" x="50" y="298">QuickTime agrees</text>
+                        <text class="dg-s" x="36" y="336">the pixels never change: colr is</text>
+                        <text class="dg-s" x="36" y="352">bit-spliced, the rest is byte-identical</text>
+                    </svg>
+                    <figcaption><strong>What Retag changes.</strong> Only the container's colour boxes: the fix is bit-spliced into a new file, the encoded pixels are byte-identical, and the output is verified against the original before the save succeeds.</figcaption>
+                </figure>
             </div>
         </div>
     </section>
@@ -115,7 +157,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The workflow</p>
+                <p class="label">The repair, step by step</p>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Bounce email to redelivery in four steps. No render queue involved.</p>
             </div>
             <div>
