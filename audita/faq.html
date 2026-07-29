@@ -391,6 +391,16 @@
   @media (prefers-reduced-motion: reduce) {
     ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
       animation: none !important; } }
+
+  html { overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  code { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    nav:not(.toc) { padding: 10px 14px; }
+    .nav-links { gap: 14px; }
+    .nav-link, .nav-back, .nav-links a { font-size: 0.8rem; white-space: nowrap; }
+    .brand { font-size: 0.95rem; gap: 8px; }
+    .brand-mark { width: 26px; height: 26px; }
+  }
 </style>
     <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b17689e9a2d3478cb704287beb955f48&quot;}"></script><!-- End Cloudflare Web Analytics -->
 <style id="hr-rework">
