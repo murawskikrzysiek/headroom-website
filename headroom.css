@@ -64,6 +64,11 @@ html { scroll-padding-top: 84px; overflow-x: clip;
   -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
+  /* positioned + clipped so the absolutely-positioned .glow blobs are contained
+     and clipped HERE - on iOS, root-level clip alone still leaves the layout
+     viewport wide enough to pan into. clip (not hidden) keeps sticky working. */
+  position: relative;
+  overflow-x: clip;
   font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
