@@ -9,6 +9,14 @@
     <lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0000</lastBuildDate>
 
     <item>
+      <title>Specula 1.1: spectral editing, fix what you measure</title>
+      <link>https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</guid>
+      <pubDate>Wed, 29 Jul 2026 09:00:00 +0000</pubDate>
+      <category>Release</category>
+      <description>Specula 1.1 adds spectral editing on the analysis spectrogram, Record mode with live BS.1770 meters, an Audio Unit chain in Edit mode, and a signal generator. Free update for existing licenses.</description>
+    </item>
+    <item>
       <title>Why streaming TV is measured on the dialogue, not the mix</title>
       <link>https://headroomstudio.dev/blog/dialogue-gated-loudness.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/dialogue-gated-loudness.html</guid>

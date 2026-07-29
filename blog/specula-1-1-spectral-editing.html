@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Specula 1.1: spectral editing, fix what you measure - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html">
+  <meta name="description" content="Specula 1.1 adds spectral editing on the analysis spectrogram, Record mode with live BS.1770 meters, an Audio Unit chain in Edit mode, and a signal generator. Free update.">
+  <meta property="og:title" content="Specula 1.1: spectral editing, fix what you measure">
+  <meta property="og:description" content="Select a hum, a cough, or a chair squeak on the spectrogram and take it out - plus Record mode, AU plugin hosting, and a signal generator. Free update for existing licenses.">
+  <meta property="og:image" content="https://headroomstudio.dev/specula/specula-spectral-lasso.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Specula 1.1: spectral editing, fix what you measure">
+  <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-spectral-lasso.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="article-header">
+        <p class="article-eyebrow">Release</p>
+        <h1>Specula 1.1: spectral editing, fix what you measure</h1>
+        <p class="article-subtitle">Four new surfaces: spectral repair on the same spectrogram you diagnose on, recording through the analyzer's meters, an Audio Unit chain in Edit mode, and a test-signal generator.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>29 July 2026</span>
+            <span class="dot"></span>
+            <span>5 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>Specula 1.1 is out, with four new surfaces. The one to start with is spectral editing. Specula has always been the app you open to see what is wrong with a file, and in 1.1 you fix it on the same spectrogram, without a round-trip to a separate restoration app.</p>
+
+        <h2>Spectral editing (&#8984;5)</h2>
+
+        <p>Spectral mode turns the main canvas into a full-resolution, zoomable spectrogram, the same view you already read to find a problem. A hum sits as a steady horizontal line, a cough or a chair squeak as a vertical smear, a phone buzz as a stack of harmonics. Select it directly: a rectangle for a clean time-frequency box, a lasso for a freehand shape, a brush to paint over something that drifts, or a wand that grabs the connected shape from a single click.</p>
+
+        <p>Then choose what happens to the selection. <strong>Attenuate</strong> turns it down and leaves the rest of the sound intact. <strong>Erase</strong> takes it down to the surrounding noise floor. <strong>Repair</strong> bridges across it from the clean audio on both sides, so a click or a dropped pen is filled in rather than left as a hole. Solo plays only what you selected and Result plays the span with the edit applied, so you audition the fix before you commit, and every edit is a single Undo on the same stack as the rest of Edit mode.</p>
+
+        <p>It works on any channel count, per channel above stereo. A squeak in the left surround of a 5.1 bed comes out of Ls alone, the other five untouched. All of it is non-destructive and saves to a new file, and because it happens on the analysis surface you are working next to the meters that flagged the problem in the first place. This is the repair you would normally export to a dedicated restoration tool to do. In 1.1 it is one selection inside Specula.</p>
+
+        <h2>Record mode (&#8984;6)</h2>
+
+        <p>Record mode records from any input device straight onto the analysis surface, and it is the only mode that works with nothing loaded. The meters run the whole time, momentary loudness to BS.1770, true peak, and per-channel level, live while armed and while rolling. Armed but not yet rolling it reads the noise floor, which is the ACX room-tone check, run before the take: you confirm the floor sits under <strong>-60 dB RMS</strong> while there is still time to fix the room.</p>
+
+        <p>A take lands as <strong>New</strong> (it becomes the loaded file), <strong>Append</strong> (it continues from the end, for pickups onto an hour-long episode), <strong>Insert</strong> (it drops in at the playhead and pushes the rest later), or <strong>Punch</strong> (it records over existing audio, and with a selection it replaces it, so you re-read a flubbed word and the file closes around it). Every join is an adjustable equal-power crossfade and a single Undo, To Compare sends a finished take to a Compare slot for a level-matched A/B, and recording streams to disk, so take length is bounded by the drive, not memory.</p>
+
+        <h2>An Audio Unit chain in Edit mode</h2>
+
+        <p>Edit mode now hosts any AU effect installed on the Mac, chained in order and tuned by ear while the file plays. The analysis tap sits after the chain, so every live meter (LUFS, true peak, FFT, spectrogram, phase) shows the processed sound as you turn knobs. <strong>Render</strong> bakes the chain in through fresh, latency-compensated instances as an ordinary undoable edit, and <strong>Render to Compare Slot</strong> loads the processed version next to the original to measure the difference. Plugins run out of process by default, so a third-party crash can't take the app down.</p>
+
+        <h2>The Signal Generator (&#8984;G)</h2>
+
+        <p>The generator builds test signals from scratch: band-limited sine, square, sawtooth, and triangle tones, white, pink, and brown noise, a single impulse, and linear or log sweeps. Sources stack when they overlap and sequence when they follow one another, per channel, and the result writes to WAV, AIFF, or CAF with a live waveform and spectrum preview. The same generator is on the command line as <code>specula generate</code> for scripted test-file batches.</p>
+
+        <h2>Also in 1.1</h2>
+
+        <ul>
+            <li>The left info panel collapses (&#8984;I), so the analysis views get the full window width.</li>
+            <li>A long-file performance batch: hours-long files load without gigabytes of temporary memory, waveform zoom and pan stay smooth at every level, and whole-file loudness measurement no longer slows quadratically with length.</li>
+            <li>Loudness-accuracy fixes, including K-weighting that now matches the ITU-R BS.1770-4 coefficients exactly (expect readings about 0.04 LU higher than 1.0) and LRA that excludes ramp-up windows.</li>
+            <li>The app now asks before quitting or opening a file over unsaved work.</li>
+        </ul>
+
+        <div class="kicker">
+            <p>Specula 1.1 is a free update for existing licenses: <strong>Check for Updates</strong> inside the app, or download at <a href="/specula/">headroomstudio.dev/specula</a>. New licenses are <strong>$49</strong> through July 31, then $99. <a href="/specula/releases.html#v1.1">Full release notes &#8594;</a></p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="acx-noise-floor.html"><span>The noise floor problem - why audiobooks get rejected on the quiet parts</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="per-chapter-loudness.html"><span>The one loud chapter - per-chapter loudness for audiobook delivery</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
