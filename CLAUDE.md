@@ -98,6 +98,7 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern
 6. Include the full favicon set (`favicon.ico` 48x48, svg, 32, 16, apple-touch) in `<head>`
 7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics). Currently on all 41 pages — keep it at 100%.
+8. **If the app breaks a studio-wide positioning line, sweep them all.** The site currently says "audio" / "sound" in: homepage `<title>` + meta/og descriptions, the hero sub-line ("people who work in sound"), the About paragraph ("macOS tools for audio work"), `og-headroom.png` and the social headers ("Precision audio tools for macOS" - regenerate via `gen_app_banners/`, one command each). **Videre (video) is the known future case** - when it ships, these all need a wording pass; candidate direction: "Precision tools for macOS" or "sound and picture".
 
 ## Analytics
 
