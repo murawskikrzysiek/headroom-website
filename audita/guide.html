@@ -684,7 +684,7 @@
         <p class="prose">Visible while a session is running (auto-started by a DAW or manually started). Shows the DAW name, elapsed time, running average dBA and peak dBA / dBC, and the dose accrued during this session only. The peak counters (<code>≥115 dBA</code>, <code>≥135 dBC</code>) appear as red badges when the corresponding EU thresholds have been exceeded.</p>
 
         <h3>Live dBA and dBC</h3>
-        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display; dose accumulation uses the unsmoothed per-tick value internally. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
+        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display only; dose, Leq, and session statistics use the energy average of each 100 ms measurement interval, so every sample contributes its actual acoustic energy and short bursts are counted at full weight. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
 
         <h3>Monitoring Discipline gauge</h3>
         <p class="prose">When Monitoring Discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring Discipline</a> for the full mechanic.</p>
@@ -894,7 +894,7 @@
     <section class="guide-section" id="sessions">
         <h2>8. Sessions &amp; DAW detection <a href="#sessions" class="anchor">#</a></h2>
 
-        <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 60 seconds.</p>
+        <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 10 seconds for the session chart.</p>
 
         <h3>How sessions start and end</h3>
         <ul>
@@ -927,7 +927,7 @@
             <tr><td>140 dBC</td><td class="wrap-ok">Absolute ceiling</td><td class="wrap-ok">No exposure permitted - immediate damage risk</td></tr>
         </tbody></table>
 
-        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Peak counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
+        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Every audio buffer feeds peak detection, and the counters count exceedance events: one count when the level first crosses a threshold, re-armed once it falls about 2 dB below it again. A sustained loud passage is one event; a snare hit every half second counts every hit. Counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
 
         <h3>Conservative dose mode</h3>
         <p class="prose">Standard dose calculation uses A-weighted levels only. For bass-heavy work (sub-bass mixing, kick tracking, live sound with subwoofers), <strong>Settings → Safety → Conservative dose mode</strong> uses <code>max(dBA, dBC)</code> for dose accumulation. Each tick, whichever weighting gives the higher reading is used. For mid-range content (speech, acoustic instruments), dBA ≈ dBC and behaviour is unchanged. There is no formal NIOSH or OSHA standard for this approach - it's a maximum-protection option.</p>
