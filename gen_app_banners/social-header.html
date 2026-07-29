@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Social profile header (X + Mastodon, both 1500x500).
+     Render: headless Chrome, window-size 1500,500, force-device-scale-factor 2
+     -> 3000x1000 PNG. Uses the live site CSS so the header always matches the
+     current brand (SF system type, ink palette, waveform band, glow).
+     Safe area: both platforms overlap a circular avatar over the bottom-left,
+     and X may crop the outer edges on some clients - keep the lockup centered
+     and clear of the lower-left quarter. -->
+<link rel="stylesheet" href="../headroom.css">
+<style>
+  html, body { overflow: hidden; }
+  body { width: 1500px; height: 500px; position: relative; background: var(--bg); }
+  .hdr-glow-l { position: absolute; top: -140px; left: 190px; width: 720px; height: 720px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(124,132,246,0.13) 0%, transparent 65%); }
+  .hdr-glow-r { position: absolute; top: -60px; right: 120px; width: 520px; height: 520px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(62,207,124,0.05) 0%, transparent 65%); }
+  .hdr-wave { position: absolute; left: 0; right: 0; bottom: 44px; height: 170px; }
+  .hdr-wave canvas { width: 100%; height: 100%; display: block; }
+  .hdr-lockup { position: absolute; top: 132px; left: 0; right: 0;
+    display: flex; flex-direction: column; align-items: center; z-index: 2; }
+  .hdr-brand { display: flex; align-items: center; gap: 26px; }
+  .hdr-mark { width: 92px; height: 92px; color: var(--brand-mark); }
+  .hdr-word { font-family: var(--font-display); font-size: 76px; font-weight: 650;
+    letter-spacing: -0.022em; color: var(--brand-mark); }
+  .hdr-word span { font-weight: 500; color: #7c7c8a; }
+  .hdr-sub { margin-top: 10px; font-family: var(--font-mono); font-size: 15px; font-weight: 600;
+    letter-spacing: 0.42em; text-transform: uppercase; color: var(--text-3); text-indent: 0.42em; }
+  .hdr-tag { margin-top: 22px; font-size: 21px; color: var(--text-2); letter-spacing: 0.01em; }
+</style>
+</head>
+<body>
+<div class="hdr-glow-l"></div>
+<div class="hdr-glow-r"></div>
+<div class="hdr-lockup">
+  <div class="hdr-brand">
+    <svg class="hdr-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+    <div class="hdr-word">Head<span>room</span></div>
+  </div>
+  <div class="hdr-sub">Studio</div>
+  <div class="hdr-tag">Precision audio tools for macOS</div>
+</div>
+<div class="hdr-wave waveform"><canvas></canvas></div>
+<script src="../waveform.js"></script>
+</body>
+</html>

@@ -126,3 +126,22 @@ as fractions of the logical height — change once, both 1200×630 and
 
 The 2× retina factor is the last argument to `render()`. Bump it to 3 if
 you need 3× output for App Store screenshots etc.
+
+## Social profile headers (X + Mastodon)
+
+`social-header.html` is an HTML template (not node-canvas) - it links the live
+`headroom.css` and `waveform.js`, so the header always matches the current
+brand. Render with headless Chrome; both platforms take 1500x500:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless=new --hide-scrollbars --window-size=1500,500 \
+  --force-device-scale-factor=2 \
+  --screenshot=../social/headroom-header-x.png \
+  "file://$PWD/social-header.html"
+```
+
+Outputs land in the repo-root `social/` directory, next to the avatars from `generate-brand-assets.mjs` - gitignored, regeneratable, upload-once artifacts. Each waveform render is unique (random
+traces) - re-render until you like the wave. Keep files under 2 MB for
+Mastodon. The lockup stays centered and clear of the bottom-left quarter,
+where both platforms overlap the circular avatar.
