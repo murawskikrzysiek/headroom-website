@@ -31,13 +31,13 @@
         <!-- ============================================================
              VERSION 1.2 IS NOT READY TO PUBLISH.
 
-             Three values below are placeholders and MUST be replaced at
-             the cut, or Sparkle will offer users a download that fails:
+             One value below is still a placeholder and MUST be replaced
+             at the cut, or Sparkle will offer users a broken item:
                - pubDate            (the real ship date)
-               - sparkle:edSignature (run `sign_update Specula-1.2.dmg`)
-               - length             (the DMG's size in bytes)
-             DO NOT MERGE THIS BRANCH until all three are real. While the
-             PR stays open the live feed is untouched.
+             edSignature and length are real (sign_update output for
+             Specula-1.2.dmg, 2026-08-03). DO NOT MERGE THIS BRANCH until
+             pubDate is real and the DMG is uploaded to R2. While the PR
+             stays open the live feed is untouched.
              ============================================================ -->
         <item>
             <title>Version 1.2</title>
@@ -49,8 +49,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-1.2.dmg"
-                sparkle:edSignature="PLACEHOLDER - RUN sign_update ON THE DMG"
-                length="PLACEHOLDER - DMG SIZE IN BYTES"
+                sparkle:edSignature="9KcLjmD7sNtdF5qkFg+RbYdbOcvRTxo/ENb1jPPkXSFvu6k5lyHPM46IC0er4fUMjEybQ7nutDdh67YDTd0qDw=="
+                length="16796116"
                 type="application/octet-stream" />
         </item>
 
