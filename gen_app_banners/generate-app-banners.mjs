@@ -63,7 +63,9 @@ const APPS = [
     slug: 'specula',
     name: 'Specula',
     icon: join(ICONS_DIR, 'specula/icon.png'),
-    subtitle: 'Pro audio analysis: loudness, FFT, compare & edit',
+    subtitle: 'Pro audio analysis & repair for macOS',
+    // Optional: rendered as a wrapped accent line under the subtitle.
+    features: 'EBU R128 loudness · custom targets · speech-gated LUFS · spectral editing · 6-file compare · record · signal generator · CLI',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
 ];
@@ -116,6 +118,7 @@ async function render(logicalW, logicalH, app, scale = 2) {
   const iconSize    = Math.round(logicalH * 0.28);
   const nameFont    = Math.round(logicalH * 0.155);
   const subFont     = Math.round(logicalH * 0.045);
+  const featFont    = Math.round(logicalH * 0.030);
   const taglineFont = Math.round(logicalH * 0.028);
 
   // Measure widths
@@ -124,12 +127,36 @@ async function render(logicalW, logicalH, app, scale = 2) {
   ctx.font = `400 ${subFont}px ${FONT_STACK}`;
   const subWidth = ctx.measureText(app.subtitle).width;
 
-  // Layout (centered horizontal lockup)
-  const textBlockWidth = Math.max(nameWidth, subWidth);
+  // Optional feature line: split on the " · " separators and greedily wrap
+  // so no line exceeds ~half the canvas. Wrapping happens before layout so
+  // the widest wrapped line participates in centering the lockup.
+  let featLines = [];
+  if (app.features) {
+    ctx.font = `400 ${featFont}px ${FONT_STACK}`;
+    const maxLineW = logicalW * 0.52;
+    let line = '';
+    for (const token of app.features.split(' · ')) {
+      const candidate = line ? `${line} · ${token}` : token;
+      if (line && ctx.measureText(candidate).width > maxLineW) {
+        featLines.push(line);
+        line = token;
+      } else {
+        line = candidate;
+      }
+    }
+    if (line) featLines.push(line);
+  }
+  const featWidth = featLines.length
+    ? Math.max(...featLines.map((l) => ctx.measureText(l).width))
+    : 0;
+
+  // Layout (centered horizontal lockup; nudged up when a feature block adds
+  // height below the subtitle)
+  const textBlockWidth = Math.max(nameWidth, subWidth, featWidth);
   const gap = Math.round(logicalH * 0.06);
   const totalWidth = iconSize + gap + textBlockWidth;
   const startX = Math.round((logicalW - totalWidth) / 2);
-  const centerY = Math.round(logicalH * 0.48);
+  const centerY = Math.round(logicalH * (featLines.length ? 0.44 : 0.48));
 
   // Icon with soft drop shadow.
   //
@@ -195,6 +222,17 @@ async function render(logicalW, logicalH, app, scale = 2) {
   ctx.fillStyle = 'rgba(180,178,220,0.78)';
   const subY = underlineY + Math.round(subFont * 1.6);
   ctx.fillText(app.subtitle, textX, subY);
+
+  // Feature lines (accent-tinted, dimmer than the subtitle)
+  if (featLines.length) {
+    ctx.font = `400 ${featFont}px ${FONT_STACK}`;
+    ctx.fillStyle = 'rgba(157,155,232,0.68)';
+    let featY = subY + Math.round(featFont * 0.6);
+    for (const line of featLines) {
+      featY += Math.round(featFont * 1.55);
+      ctx.fillText(line, textX, featY);
+    }
+  }
 
   // Footer tagline
   ctx.font = `400 ${taglineFont}px ${FONT_STACK}`;
