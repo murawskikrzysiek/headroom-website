@@ -35,7 +35,8 @@
   <url><loc>https://headroomstudio.dev/specula/privacy.html</loc><lastmod>2026-06-26</lastmod><priority>0.4</priority></url>
 
   <!-- Blog -->
-  <url><loc>https://headroomstudio.dev/blog/</loc><lastmod>2026-06-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://headroomstudio.dev/blog/</loc><lastmod>2026-08-03</lastmod><priority>0.8</priority></url>
+  <url><loc>https://headroomstudio.dev/blog/specula-1-2-custom-loudness-targets-raw-pcm.html</loc><lastmod>2026-08-03</lastmod><priority>0.6</priority></url>
   <url>
     <loc>https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</loc>
   </url>

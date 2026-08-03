@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Specula 1.2: custom loudness targets and raw PCM import - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/specula-1-2-custom-loudness-targets-raw-pcm.html">
+  <meta name="description" content="Specula 1.2 adds custom loudness targets - your delivery spec as a first-class compliance target - and raw PCM import for headerless audio, plus a readability pass. Free update.">
+  <meta property="og:title" content="Specula 1.2: custom loudness targets and raw PCM import">
+  <meta property="og:description" content="The delivery spec a client sends you, entered once and treated like a built-in target. Plus headerless PCM under a declared format, in the app and on the CLI. Free update for existing licenses.">
+  <meta property="og:image" content="https://headroomstudio.dev/specula/specula-custom-target-editor.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Specula 1.2: custom loudness targets and raw PCM import">
+  <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-custom-target-editor.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="article-header">
+        <p class="article-eyebrow">Release</p>
+        <h1>Specula 1.2: custom loudness targets and raw PCM import</h1>
+        <p class="article-subtitle">The delivery spec a client sends you, entered once and treated like a built-in target. Plus headerless audio under a declared format, and a readability pass across the main window.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>3 August 2026</span>
+            <span class="dot"></span>
+            <span>4 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>Specula 1.2 is out, and the headline is custom loudness targets: the delivery spec a client sends you, entered once, treated exactly like a built-in target.</p>
+
+        <h2>Your spec as a target</h2>
+
+        <p>Delivery specs rarely land on a platform preset. A house spec reads &ldquo;integrated -18 LUFS, tolerance 1 LU, true peak under -1 dBTP&rdquo;, and until now the workflow was picking the nearest built-in target and doing the remaining arithmetic in your head every time the badge updated. In 1.2, <strong>Settings &#8594; Targets &#8594; Custom targets</strong> holds the spec itself: a name, the mode it belongs to, the measurement source (integrated, dialog-gated, or un-weighted RMS), the reference level, the tolerance band, and the true-peak ceiling. The saved target joins its mode's list and gets the full treatment: the verdict badge, the hover breakdown showing which number missed and by how much, Match to audition at the target level, Normalize to target to commit, and a row in the report exports, so the PDF that goes back to the client carries a verdict against their own numbers.</p>
+
+        <p>The measurement source is the field that earns its keep. Broadcast and music specs judge integrated LUFS, VOD houses judge dialog-gated, and audiobook delivery is un-weighted RMS. A custom target names its source explicitly, so the number being checked is the number the spec is written in.</p>
+
+        <h2>Raw PCM import</h2>
+
+        <p>Raw PCM import is for a different desk: the one with a decoder under test on it. Specula now opens headerless audio: a <code>.pcm</code> or <code>.raw</code> dump from a codec, an I2S capture, a <code>.bin</code> of samples from a test harness. Declare the format and the whole analysis stack applies: loudness, true peak, FFT, spectrogram, compare, edit, reports. The declaration covers sample rate, channel count, sample format from 8-bit unsigned to 64-bit float including packed 24-bit, byte order, interleaved or planar, and an optional header skip. The import sheet does the tedious part: it checks that the file size divides into whole frames, ranks the byte formats that fit by decoding a few seconds of each and scoring the result, and previews the decoded waveform with playback before you commit.</p>
+
+        <p>The one thing it never guesses is the sample rate. Nothing in a headerless file can reveal it, and a wrong rate corrupts every number without producing an error. Declarations are remembered per file, can be saved as named presets, and are recorded in every report, since the numbers from a raw file ride on the declaration.</p>
+
+        <p>The same import runs on the command line: <code>specula analyze dump.pcm --raw-rate 48000 --raw-channels 2 --raw-format s24le</code>, with the same flags on <code>report</code> and <code>edit</code>, and <code>--raw-preset</code> for saved presets. A decoder regression script goes from dump to JSON without the app open.</p>
+
+        <h2>The readability pass</h2>
+
+        <p>1.2 also carries a readability pass. <strong>Settings &#8594; Layout &#8594; Text size</strong> scales the text across the main window to Default, Large, or Extra Large, the faintest info-panel labels are brighter across the board, and the system Increase Contrast setting lifts them further. The live Momentary and Short-term readouts are readable again: at the 10 Hz update rate the rolling-digit animation was re-triggered before it could finish, which blurred both numbers permanently. The digits now repaint plainly by default, with a refresh-rate picker (10 Hz default, since EBU Tech 3341 requires at least that for a live short-term meter; 5 and 2 Hz for easier reading) and a separate Rolling digits toggle. Display only, on both counts: measurements are unchanged.</p>
+
+        <h2>Also in 1.2</h2>
+
+        <ul>
+            <li>Clicking outside a text field commits it, the same as pressing Return.</li>
+            <li>Double-click resets the waveform time zoom, the amplitude zoom, and the FFT range.</li>
+            <li>Spectral mode gets per-axis zoom reset: &#8984;0 for both axes, &#8679;&#8984;0 for time alone, &#8997;&#8984;0 for frequency alone, plus a small canvas button per zoomed axis.</li>
+            <li>The Live / Offline analysis switch moved to its own Analysis section in the sidebar, between Mode and Channels, where it is visible instead of buried in a section header.</li>
+            <li>Three fixes: the spectrogram draws short files solid all the way to the end, loudness curves stay drawn at high zoom, and the Spectral-mode tooltips sit on the controls they describe.</li>
+        </ul>
+
+        <div class="kicker">
+            <p>Specula 1.2 is a free update for existing licenses: <strong>Check for Updates</strong> inside the app, or download at <a href="/specula/">headroomstudio.dev/specula</a>. New licenses are <strong>$99.99</strong>, one time, with a 7-day trial. <a href="/specula/releases.html#v1.2">Full release notes &#8594;</a></p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV is measured on the dialogue, not the mix</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="specula-1-1-spectral-editing.html"><span>Specula 1.1: spectral editing, fix what you measure</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
