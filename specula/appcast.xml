@@ -28,21 +28,10 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- ============================================================
-             VERSION 1.2 IS NOT READY TO PUBLISH.
-
-             One value below is still a placeholder and MUST be replaced
-             at the cut, or Sparkle will offer users a broken item:
-               - pubDate            (the real ship date)
-             edSignature and length are real (sign_update output for
-             Specula-1.2.dmg, 2026-08-03). DO NOT MERGE THIS BRANCH until
-             pubDate is real and the DMG is uploaded to R2. While the PR
-             stays open the live feed is untouched.
-             ============================================================ -->
         <item>
             <title>Version 1.2</title>
             <description>Custom loudness targets: Settings, Targets, Custom targets holds your own delivery specs, a name, a mode, a measurement source (integrated, dialog-gated, or un-weighted RMS), a reference level, a tolerance band, and a true-peak ceiling; a custom target joins its mode's list and works everywhere a built-in target does, verdict badge, hover breakdown, Match, Normalize to target, and the report exports, so mastering to a house spec like -18 LUFS plus or minus 1 under -1 dBTP is a first-class target instead of mental math against the nearest platform preset. Open raw PCM: Specula opens headerless audio, a .pcm or .raw dump from a decoder under test, an I2S capture, a .bin of samples from a test harness; open the file through any path and declare the format, sample rate, channels, sample format from 8-bit unsigned to 64-bit float including packed 24-bit, byte order, interleaved or planar, an optional header skip, and the whole analysis stack applies, loudness, true peak, FFT, spectrogram, compare, edit, reports. The import sheet checks that the file size divides into whole frames, ranks the byte formats that fit by decoding a few seconds of each and scoring the result, and previews the decoded waveform with playback before you commit; the one thing it never guesses is the sample rate, because nothing in a headerless file can reveal it and a wrong rate corrupts every number without an error. Declarations are remembered per file and can be saved as named presets, the declared format stays visible in the info panel and is recorded in every report, and the command line takes the same declaration through --raw-rate, --raw-channels, and --raw-format on analyze, report, and edit. Plus a readability pass: Text size scales the whole main window to Default, Large, or Extra Large and the info panel honors the system Increase Contrast setting, the live Momentary and Short-term readouts are readable again with a refresh-rate picker and a separate rolling-digits toggle, clicking outside a text field commits it, double-click resets the waveform, amplitude, and FFT zooms, Spectral mode gains a zoom reset on both axes, and the Live / Offline analysis switch moves into its own sidebar section. Fixes: the spectrogram draws short files solid all the way to the end, loudness curves stay drawn at high zoom, and Spectral mode tooltips appear on the controls they describe.</description>
-            <pubDate>PLACEHOLDER - REAL SHIP DATE REQUIRED</pubDate>
+            <pubDate>Mon, 03 Aug 2026 12:00:00 +0000</pubDate>
             <sparkle:version>4</sparkle:version>
             <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
