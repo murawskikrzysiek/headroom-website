@@ -31,7 +31,7 @@
         "description": "Pro audio analysis for macOS. EBU R128 loudness, speech-gated LUFS, FFT and spectrogram, six-master compare with residuals, non-destructive editing, spectral repair, recording, and a signal generator.",
         "url": "https://headroomstudio.dev/specula/",
         "image": "https://headroomstudio.dev/specula/og.png",
-        "offers": { "@type": "Offer", "price": "49", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+        "offers": { "@type": "Offer", "price": "99.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
         "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
     }
     </script>
@@ -61,7 +61,7 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Version 1.1</p>
+            <p class="eyebrow">Version 1.2</p>
             <h1 class="display">Specula</h1>
             <p class="app-hero__desc">
                 Audio analysis and repair for macOS. Load a file and see what's in it: LUFS and true peak against the streaming and broadcast targets, speech-gated dialog levels, the spectrum, and the phase between channels. Compare up to six masters, level-matched and sample-aligned, down to the A−B residual. Then fix what you find: trim and normalize, paint a cough out of the spectrogram, punch in a corrected line, or run your Audio Unit chain with the meters live.
@@ -78,13 +78,9 @@
                 <span class="badge">Record mode</span>
                 <span class="badge">Signal generator</span>
             </div>
-            <div style="margin-top:24px; padding:15px 20px; border:1px solid rgba(124,132,246,0.4); border-radius:14px; background:linear-gradient(135deg, rgba(124,132,246,0.18), rgba(62,207,124,0.07)); display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-                <span style="font-size:0.64rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:#061a0e; background:var(--green); padding:5px 10px; border-radius:7px; white-space:nowrap;">Launch offer</span>
-                <span style="font-size:1.02rem; line-height:1.35; color:var(--text-2);"><strong style="font-size:1.55rem; color:var(--green); font-weight:700; letter-spacing:-0.01em;">$49</strong> <s style="color:var(--text-3); margin:0 5px; font-weight:500;">$99</s> <span style="color:var(--text);">save $50.</span> Intro price through <strong style="color:var(--text); font-weight:600;">July 31</strong>.</span>
-            </div>
             <div class="app-hero__cta">
-                <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-1.1.dmg"><span>↓</span>Download free trial</a>
-                <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/f8ee8e8b-ea3a-4dca-bf7c-b90c30c96ade?embed=1">Buy <s>$99</s> $49</a>
+                <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-1.2.dmg"><span>↓</span>Download free trial</a>
+                <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/f8ee8e8b-ea3a-4dca-bf7c-b90c30c96ade?embed=1">Buy $99.99</a>
             </div>
             <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
             <div class="app-hero__doclinks">
@@ -196,40 +192,30 @@
         </div>
     </section>
 
-    <!-- New in 1.1 -->
+    <!-- New in 1.2 -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">New in 1.1</p>
+            <p class="label">New in 1.2</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    1.1 adds the authoring half: record takes, repair the spectrogram, build test signals, run your plugins against live meters.
+                    1.2 opens two doors: your own delivery spec as a first-class compliance target, and audio that arrives with no header at all.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;"><strong>Record mode</strong> (⌘6) captures from any input device straight into the app: a new take, an append, an insert at the playhead, or a tape-style punch over the flubbed word. Live meters run while armed, including a noise-floor readout that turns orange when the room sits above the −60 dB that spoken-word specs like ACX require. Takes stream to disk and open for analysis at Stop. <a href="guide.html#record">Record mode guide →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Spectral mode</strong> (⌘5) turns the canvas into a zoomable spectrogram where you select regions in time and frequency, with a rectangle, a lasso, a brush, or a wand, and attenuate, erase, or repair just those. Audition the span, solo the selection, or hear the result before committing. Multichannel beds edit channel by channel. <a href="repair.html">Spectral repair workflow →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;">The <strong>Signal Generator</strong> (⌘G) builds test files from modules: band-limited tones, white, pink, and brown noise, impulses, and sweeps, stacked or sequenced per channel, written as WAV, AIFF, or CAF, with a live waveform and spectrum preview. The same generator runs on the command line as <code>specula generate</code>. <a href="guide.html#generator">Signal Generator guide →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;">Edit mode now hosts an <strong>Audio Unit chain</strong>. Tune your installed effects by ear while every meter tracks the processed sound, then <strong>Render</strong> bakes the chain in as an undoable, latency-compensated edit, or render to a Compare slot and A/B against the source with real numbers. <a href="guide.html#edit">Plugin chain guide →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;">1.1 also brings a hideable info panel (⌘I), a speed and memory pass for long files, and loudness-accuracy fixes. The <a href="releases.html">release notes</a> have the full list.</p>
+                <p class="prose-lead" style="margin-top: 22px;"><strong>Custom loudness targets</strong> put a house spec next to the platform presets. Give it a name, a mode, a measurement source (integrated, dialog-gated, or un-weighted RMS), a reference level, a tolerance band, and a true-peak ceiling. It then works everywhere a built-in target does: the verdict badge, the hover breakdown, Match, Normalize to target, and the report exports. Delivering at -18 LUFS ±1 under -1 dBTP stops being mental math against the nearest streaming preset. <a href="guide.html#loudness-targets">Loudness targets guide →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Raw PCM import</strong> opens headerless audio: a dump from a decoder under test, an I2S capture, a <code>.bin</code> of samples from a test harness. Declare the sample rate, channels, sample format, byte order, and layout, and the whole analysis stack applies. The sheet checks the file size divides into whole frames, ranks the byte formats that fit by decoding a few seconds of each, and previews the result with playback before you commit. It never guesses the sample rate, because nothing in a headerless file can reveal it and a wrong rate corrupts every number without an error. The same declaration works on the command line. <a href="guide.html#open-raw-pcm-headerless-audio">Raw PCM guide →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;">1.2 also brings a readability pass: <strong>Text size</strong> scales the whole main window, the info panel honors the system Increase Contrast setting, and the live Momentary and Short-term readouts get a refresh-rate picker and a separate rolling-digits toggle. Plus zoom resets across the waveform, FFT, and Spectral canvas, and fixes to short-file spectrograms and high-zoom loudness curves. The <a href="releases.html">release notes</a> have the full list.</p>
             </div>
         </div>
     </section>
 
-    <!-- New in 1.1 shots -->
+    <!-- New in 1.2 shots -->
     <section class="shots shots--tight">
         <figure class="shot">
-            <img src="specula-record-armed.png" alt="Specula's Record mode armed: the red record toolbar with input device, layout, and source pickers, the New / Append / Insert / Punch target, live momentary loudness and true peak meters, per-channel level bars, and the noise-floor readout." loading="lazy" decoding="async">
-            <figcaption><strong>Record mode.</strong> Arm, watch the meters and the noise floor, record; the take opens for analysis at Stop.</figcaption>
+            <img src="specula-custom-target-editor.png" alt="Specula's New Custom Target sheet: fields for name, mode, measurement source, reference level in LKFS, tolerance in LU, and true-peak ceiling in dBTP, above a sentence spelling out the pass condition the verdict will use." loading="lazy" decoding="async">
+            <figcaption><strong>Custom loudness targets.</strong> A reference, a tolerance, and a ceiling; the sheet spells out the pass condition before you save it.</figcaption>
         </figure>
         <figure class="shot">
-            <img src="specula-spectral-lasso.png" alt="Specula's Spectral mode with a stereo file in the stacked Both view: a lasso selection drawn around a blemish in one channel's spectrogram, under the time ruler and waveform strip, with a frequency scale on the right and the violet spectral toolbar showing the four selection tools." loading="lazy" decoding="async">
-            <figcaption><strong>Spectral mode.</strong> A lasso around the blemish; the fix lands only inside the selection.</figcaption>
-        </figure>
-        <figure class="shot">
-            <img src="specula-plugin-chain.png" alt="Specula's Edit mode with a plugin chain row under the toolbar: two Audio Unit effect chips loaded, each with bypass, reorder, window, and remove controls, and the meters reflecting the processed sound." loading="lazy" decoding="async">
-            <figcaption><strong>Audio Units in Edit mode.</strong> Two effects loaded, meters reading the chain's output; Render commits it to the file or a Compare slot.</figcaption>
-        </figure>
-        <figure class="shot">
-            <img src="specula-signal-generator.png" alt="Specula's Signal Generator window: a Sine module and a Silence module in the module list, output format controls for sample rate, bit depth, and container, and a live waveform and spectrum preview with peak, RMS, and loudness readouts." loading="lazy" decoding="async">
-            <figcaption><strong>Signal Generator.</strong> Stack and sequence tones, noise, impulses, and sweeps per channel, preview live, then write the file.</figcaption>
+            <img src="specula-raw-import.png" alt="Specula's Open as Raw PCM sheet for a headerless file: sample rate, channels, sample format, byte order, interleaved or planar layout, header skip and trailing tolerance, a green frame count and duration, a Rank likely formats button, and a decoded waveform preview with a plausibility score." loading="lazy" decoding="async">
+            <figcaption><strong>Raw PCM import.</strong> Declare the format, watch the frame count and the preview agree, then open. The sample rate is never guessed.</figcaption>
         </figure>
     </section>
 
@@ -445,6 +431,12 @@
                 <div class="feature-row"><div class="feature-row__k">Edit mode (⌘1)</div><div class="feature-row__v">Trim, cut with crossfade joins, insert silence, gain, fades, phase invert, DC removal, channel swap or split to mono files. Normalize to a peak or LUFS target with a 5 ms lookahead limiter enforced against the oversampled inter-sample peak; <strong>Limit TP</strong> caps a true-peak overage on its own; <strong>Level Dialogue</strong> pulls room tone down between phrases. Normalize and Limit TP respect a time selection. 16-level undo; always saves a new file.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Chapter mode (⌘3)</div><div class="feature-row__v"><strong>Detect</strong> finds the silences and cuts the file into a chapter ribbon; <strong>Analyse Loudness</strong> runs the full metric set per chapter and flags every gate miss: the three ACX limits plus drift off the book's median. <strong>Level chapters</strong> brings every chapter to a common RMS or LUFS in one move. The chapter table lands in the PDF report with the same red-cell signalling.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Dialogue mode (⌘4)</div><div class="feature-row__v">Hand-correct what the VAD got wrong: drag, resize, split, add, and delete speech regions, with <kbd>I</kbd>/<kbd>O</kbd> marking and 50-step undo. The overlay tint says where regions came from: teal fresh from Silero, amber once you've edited, blue when loaded from a sidecar. Edits persist in a versioned <code>.dlg.json</code> sidecar and feed straight into the speech-gated loudness path.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Spectral mode (⌘5)</div><div class="feature-row__v">The canvas becomes a full-resolution, zoomable spectrogram where you select regions in time and frequency with a rectangle, a lasso, a brush, or a wand that grows across the connected region at a similar level. <strong>Attenuate</strong>, <strong>Erase</strong> to the surrounding noise floor, or <strong>Repair</strong> by bridging from the clean audio either side. Solo the selection or hear the result before committing. Any channel count; multichannel beds edit one channel at a time. <a href="repair.html">Spectral repair workflow →</a></div></div>
+                <div class="feature-row"><div class="feature-row__k">Record mode (⌘6)</div><div class="feature-row__v">Captures from any input device straight into the app, and it is the one mode that works with nothing loaded. A new take, an append, an insert at the playhead, or a tape-style punch over the flubbed word, every join smoothed by an adjustable equal-power crossfade and each landing a single Undo away. Live meters run while armed, including a noise-floor readout for spoken-word specs. Takes stream to disk and open for analysis at Stop.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Audio Unit chain</div><div class="feature-row__v">Edit mode hosts your installed AUv2 and AUv3 effects. Chain several, tune them by ear while every meter tracks the processed sound, then <strong>Render</strong> bakes the chain in as an undoable, latency-compensated edit, or renders to a Compare slot to A/B against the source with real numbers. Plugins run out of process by default, so a third-party crash can't take the app down.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Signal generator (⌘G)</div><div class="feature-row__v">Builds test files from modules: band-limited tones, white, pink, and brown noise, impulses, and linear or logarithmic sweeps, stacked or sequenced per channel, with per-module fades, level sweeps, and burst gating. Writes WAV, AIFF, or CAF at 16 or 24-bit integer or 32-bit float, with a live waveform and spectrum preview. Also on the command line as <code>specula generate</code>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Custom loudness targets</div><div class="feature-row__v">Your own delivery spec as a compliance target: a name, a mode, a measurement source (integrated, dialog-gated, or un-weighted RMS), a reference level, a tolerance band, and a true-peak ceiling. It joins its mode's list and works everywhere a built-in target does, including Match, Normalize to target, and the report exports.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Raw PCM input</div><div class="feature-row__v">Headerless audio under a format you declare: sample rate, channels, sample format from 8-bit unsigned to 64-bit float including packed 24-bit, byte order, interleaved or planar, an optional header skip. The import sheet ranks the byte formats that fit and previews the decode; the sample rate is never guessed. Declarations are remembered per file and savable as presets, and the same flags work on <code>analyze</code>, <code>report</code>, and <code>edit</code>.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Channel routing</div><div class="feature-row__v">A dedicated Output window (<kbd>⌥⌘O</kbd>) with an N→M matrix, per-route gain and polarity, and mixdown presets following ITU-R BS.775-3 and Dolby PLII. Metering reads PRE (the raw file) or POST (after routing), so you can verify a channel order or audition a downmix. <strong>Render to File…</strong> writes only the routed outputs, never over the source.</div></div>
                 <div class="feature-row"><div class="feature-row__k">JSON &amp; PDF reports</div><div class="feature-row__v"><kbd>⇧⌘E</kbd> writes JSON, <kbd>⌥⌘E</kbd> writes PDF, both populated with the full metric grid the moment a file has loaded. The JSON schema is stable for archival and CI, and each loudness-target row carries an inline verdict object so a script can branch on pass/fail.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Format support</div><div class="feature-row__v">WAV, AIFF, FLAC, CAF, MP3, AAC, and anything else AVFoundation decodes. Mono and stereo through 3.0, quad, 5.1, 7.1, and arbitrary n-channel layouts.</div></div>
@@ -598,7 +590,7 @@
                 <p class="prose-lead" style="margin-top: 14px;">Take the long way through the user guide if you're new to loudness gating, or skim the keyboard reference if you just want to drive it.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html" class="btn btn-primary">Open user guide →</a>
-                    <a href="https://releases.headroomstudio.dev/Specula-1.1.dmg" class="btn btn-outline"><span>↓</span>Download free trial</a>
+                    <a href="https://releases.headroomstudio.dev/Specula-1.2.dmg" class="btn btn-outline"><span>↓</span>Download free trial</a>
                 </div>
             </div>
         </div>

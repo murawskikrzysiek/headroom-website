@@ -6,8 +6,16 @@
     <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 27 Jun 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 17:30:00 +0000</lastBuildDate>
 
+    <item>
+      <title>Specula 1.2: custom loudness targets and raw PCM import</title>
+      <link>https://headroomstudio.dev/blog/specula-1-2-custom-loudness-targets-raw-pcm.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/specula-1-2-custom-loudness-targets-raw-pcm.html</guid>
+      <pubDate>Mon, 03 Aug 2026 17:30:00 +0000</pubDate>
+      <category>Release</category>
+      <description>Specula 1.2 adds custom loudness targets - your delivery spec as a first-class compliance target - and raw PCM import for headerless audio under a declared format, in the app and on the CLI. Free update for existing licenses.</description>
+    </item>
     <item>
       <title>Specula 1.1: spectral editing, fix what you measure</title>
       <link>https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</link>
