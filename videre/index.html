@@ -284,7 +284,8 @@
         <div class="section__grid">
             <p class="label">Automation</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Five subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, built on the same engine as the app, so scripted QC gets identical numbers. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Six subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>verify</code>, built on the same engine as the app, so scripted QC gets identical numbers. <code>videre verify</code> runs the delivery checks and exits nonzero on a failure, so a pipeline can gate an upload. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Finder</div><div class="feature-row__v">Three Shortcuts actions: Inspect Video File and Compare Video Files return the JSON reports, Verify Video File returns a pass/fail verdict a Shortcut can branch on. In Finder, right-click two renders to compare them in Videre, or one file to write its inspect report to Downloads.</div></div>
             </div>
         </div>
     </section>
