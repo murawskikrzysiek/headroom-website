@@ -4,9 +4,11 @@
 User-agent: *
 Allow: /
 
-# Sparkle appcasts are for the apps, not for search engines
-Disallow: /lyra/appcast.xml
-Disallow: /audita/appcast.xml
+# Sparkle appcasts are for the apps, not for search engines.
+# Wildcard covers every app folder, present and future - the per-app list this
+# replaced had drifted (specula and auris were never added). Sparkle itself
+# ignores robots.txt, so blocking these does not affect in-app updates.
+Disallow: /*/appcast.xml
 
 # Unlisted screenshot assets (forum posts etc.) — hotlinkable but not indexed
 Disallow: /assets/screens/
