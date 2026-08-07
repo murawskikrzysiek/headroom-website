@@ -602,7 +602,7 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
             <li><strong>Legalize</strong> clamps or soft-knees levels beyond a threshold. The domain matches the problem: code values (defaults prefill the video-range legal bounds at the file's bit depth), a nits ceiling resolved through the active transfer (a 100-nit limit on 10-bit PQ video lands exactly on code 509), or converted RGB for 4:4:4 sources. Only samples beyond the threshold are written; everything legal stays byte-identical.</li>
             <li><strong>Channel ops</strong>: swap Cb/Cr (the classic swapped-chroma defect; the vectorscope confirms the fix), neutralize a plane (chroma to center, luma to black), invert or copy a plane.</li>
             <li><strong>Range bake</strong> rescales every code between video and full range: the real fix for double-range files, which reinterpreting cannot touch. The picture looks identical under the new declaration, and a second bake in the same direction is refused.</li>
-            <li><strong>Pixel poke and rect patch</strong>: set exact component codes at a pixel, or fill a region with codes or a nits-defined value. With the Patch row open, <strong>click a pixel</strong> or <strong>drag a region</strong> directly on the image - a picked pixel prefills its own codes, so a poke starts from what is there (<kbd>⇧</kbd>-drag selects a region at any time, row open or not). Poking Y at one pixel changes exactly one byte of the output.</li>
+            <li><strong>Pixel poke and rect patch</strong>: set exact component codes, adjust them by a signed amount, or fill with a nits-defined value. With the Patch row open, <strong>click a pixel</strong> or <strong>drag a region</strong> on the image; <kbd>⇧</kbd>-click / <kbd>⇧</kbd>-drag adds to the selection and <kbd>⌥</kbd>-click / <kbd>⌥</kbd>-drag removes from it, so the selection can be any shape. <kbd>⇧</kbd>-arrow grows the selection one pixel in that direction, <kbd>⇧⌥</kbd>-arrow moves the whole selection (plain arrows keep stepping frames), and <kbd>Esc</kbd> clears it. A single picked pixel prefills its own codes, so a poke starts from what is there. Values are absolute by default; a leading <strong>+</strong> or <strong>−</strong> makes them relative, so <code>-3</code> lowers every selected sample by 3 (clamped at the code limits) instead of setting it to a fixed value. Poking Y at one pixel changes exactly one byte of the output.</li>
         </ul>
         <p class="prose">Operations take a scope where it makes sense: this frame, the marked selection, or every frame.</p>
 
@@ -610,6 +610,9 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
             <img src="guide-edit-vectorscope.png" alt="A swapped-chroma frame with the Swap Cb/Cr op applied: the fixed image and the vectorscope rotated back into place." loading="lazy" decoding="async">
             <figcaption><strong>The swapped-chroma fix.</strong> Swap Cb/Cr in the stack; the vectorscope lands back where it should.</figcaption>
         </figure>
+
+        <h3>Comparing the edit with the source</h3>
+        <p class="prose"><strong>Compare</strong> (<kbd>⇧⌘C</kbd>) bakes the stack to a temporary file and opens it as B against the untouched source, landing in Compare mode with the difference view up: what lights up is exactly what the edit changed, and <strong>Analyze</strong> (<kbd>⇧⌘R</kbd>) puts numbers on it. The edit stack survives the trip - <kbd>⌘3</kbd> returns to it. Available while the edit keeps the frame count (a cut changes the timeline, so the two clips would no longer line up).</p>
 
         <h3>Export and verify</h3>
         <p class="prose"><strong>Export…</strong> (<kbd>⇧⌘E</kbd>) bakes the stack to a <strong>new</strong> file: <code>.y4m</code> (which carries the format tag, rational frame rate, and range), or headerless raw for anything else. Every export is verified before success is reported: the written file is re-read with the same reader that would open it, and every frame is compared byte-for-byte against an independently recomputed reference. Anything off is discarded - and replacing an existing file can never destroy it on a failed export. Sources the y4m container cannot carry directly (NV12/P010-class decoder output, packed 4:2:2) are repacked losslessly to their planar equivalent; code values never change, only the byte arrangement.</p>
@@ -786,8 +789,14 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
                 <tr><td><kbd>I</kbd> / <kbd>O</kbd></td><td class="wrap-ok">Mark selection in / out (Edit mode)</td></tr>
                 <tr><td><kbd>⌫</kbd></td><td class="wrap-ok">Remove selected frames (Edit mode)</td></tr>
                 <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo edit op (Edit mode)</td></tr>
+                <tr><td><kbd>⇧⌘C</kbd></td><td class="wrap-ok">Compare the edit with the source (Edit mode)</td></tr>
                 <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export edited (Edit mode)</td></tr>
-                <tr><td><kbd>⇧</kbd>-drag</td><td class="wrap-ok">Pick a patch region on the image (Edit mode)</td></tr>
+                <tr><td>click / drag</td><td class="wrap-ok">Pick a pixel or region (Edit mode, Patch row)</td></tr>
+                <tr><td><kbd>⇧</kbd>-click / <kbd>⇧</kbd>-drag</td><td class="wrap-ok">Add to the pixel selection (Edit mode)</td></tr>
+                <tr><td><kbd>⌥</kbd>-click / <kbd>⌥</kbd>-drag</td><td class="wrap-ok">Remove from the pixel selection (Edit mode)</td></tr>
+                <tr><td><kbd>⇧</kbd>-arrows</td><td class="wrap-ok">Extend the pixel selection (Edit mode)</td></tr>
+                <tr><td><kbd>⇧⌥</kbd>-arrows</td><td class="wrap-ok">Move the pixel selection (Edit mode)</td></tr>
+                <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the pixel selection (Edit mode)</td></tr>
                 <tr><td><kbd>⌥⌘C</kbd> / <kbd>⇧⌘S</kbd></td><td class="wrap-ok">Copy frame / save frame as PNG</td></tr>
                 <tr><td><kbd>⇧⌘M</kbd></td><td class="wrap-ok">Repair metadata</td></tr>
                 <tr><td><kbd>⌃1</kbd> … <kbd>⌃9</kbd>, <kbd>⌃0</kbd></td><td class="wrap-ok">Toggle analyzers (see <a href="#scopes">section 6</a>)</td></tr>
