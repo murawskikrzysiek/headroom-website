@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videre - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/videre/guide.html">
-    <meta name="description" content="Complete user reference for Videre - opening raw and encoded video, interpretation, HDR display, every scope, the bitstream and container inspectors, metadata repair, compare metrics, ICtCp tools, carriage stress, the CLI, and the Shortcuts and Finder Services automation.">
+    <meta name="description" content="Complete user reference for Videre - opening raw and encoded video, interpretation, HDR display, every scope, the bitstream and container inspectors, metadata repair, compare metrics, edit mode, ICtCp tools, carriage stress, the CLI, and the Shortcuts and Finder Services automation.">
     <meta property="og:title" content="Videre User Guide">
     <meta property="og:description" content="Complete reference for Videre - every feature, every keyboard shortcut.">
     <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
@@ -303,7 +303,7 @@
     <header class="page-header" id="top">
         <p class="page-eyebrow">Videre · User guide</p>
         <h1>Videre, end to end.</h1>
-        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, repair, and compare: the complete reference for the 1.0 builds.</p>
+        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, repair, edit, and compare: the complete reference for the 1.0 builds.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents" data-guide-toc>
@@ -318,11 +318,12 @@
             <li><a href="#inspectors">7 · Bitstream &amp; container</a></li>
             <li><a href="#repair">8 · Metadata repair</a></li>
             <li><a href="#compare">9 · Compare and metrics</a></li>
-            <li><a href="#ictcp">10 · ICtCp tools</a></li>
-            <li><a href="#cli">11 · Command-line tool</a></li>
-            <li><a href="#automation">12 · Shortcuts &amp; Finder Services</a></li>
-            <li><a href="#shortcuts">13 · Keyboard reference</a></li>
-            <li><a href="#validation">14 · Cross-validation</a></li>
+            <li><a href="#edit">10 · Edit mode</a></li>
+            <li><a href="#ictcp">11 · ICtCp tools</a></li>
+            <li><a href="#cli">12 · Command-line tool</a></li>
+            <li><a href="#automation">13 · Shortcuts &amp; Finder Services</a></li>
+            <li><a href="#shortcuts">14 · Keyboard reference</a></li>
+            <li><a href="#validation">15 · Cross-validation</a></li>
         </ul>
     </nav>
 
@@ -394,13 +395,14 @@
     <section class="guide-section" id="display">
         <h2>4 · Display and navigation<a class="anchor" href="#display">#</a></h2>
         <ul>
+            <li><strong>Modes</strong>: the app works in one of three modes: <strong>Inspect</strong> (<kbd>⌘1</kbd>, the default), <strong>Compare</strong> (<kbd>⌘2</kbd>, <a href="#compare">section 9</a>), and <strong>Edit</strong> (<kbd>⌘3</kbd>, <a href="#edit">section 10</a>). Switch from the Mode menu or the selector in the transport bar; pressing the active mode's shortcut returns to Inspect. Compare and Edit need an open file.</li>
             <li><strong>Transport</strong>: <kbd>Space</kbd> plays and pauses at source rate, <kbd>←</kbd>/<kbd>→</kbd> step one frame, <kbd>⌘←</kbd>/<kbd>⌘→</kbd> jump to the first and last frame. The counter accepts a typed frame number. Playback follows each frame's own duration from the container, so a variable-frame-rate file (an iPhone low-light capture, a screen recording) plays with its true cadence; the transport and the File section then read <strong>VFR</strong> with the measured average rate, and the tooltip gives the duration range. Decode order paces at the nominal rate (coded layout, not a temporal timeline).</li>
             <li><strong>Frame order</strong>: a <strong>Display / Decode</strong> switch in the transport bar, shown for encoded sources and enabled when the two orders actually differ. Display is the true temporal timeline. Decode makes the whole app walk the CODED order instead: stepping, playback, the counter, the jump field, and the scrubber all follow how the frames are laid out in the stream, so you can watch reference frames arrive before the frames that depend on them. The order comes from the file's composition times, and when a remux has written flat timestamps over a reordered stream (a real defect: such files play visibly shuffled in every player that trusts the container), the display order is derived from the stream's own picture order counts instead, so Videre plays the true order even though the container lies. The switch hides while a comparison is open (two files can have different structures). The current frame stays put when switching, and exports always act on the frame shown.</li>
-            <li><strong>Zoom</strong>: <kbd>⌘+</kbd> / <kbd>⌘−</kbd>, <kbd>⌘0</kbd> fits the window, <kbd>⌘1</kbd> shows actual size. At 8× and beyond a pixel grid draws. The status bar shows the zoom (100% is one image pixel per point, orange while zoomed); double-click the readout to fit the window.</li>
+            <li><strong>Zoom</strong>: <kbd>⌘+</kbd> / <kbd>⌘−</kbd>, <kbd>⌘0</kbd> fits the window, <kbd>⌥⌘1</kbd> shows actual size. At 8× and beyond a pixel grid draws. The status bar shows the zoom (100% is one image pixel per point, orange while zoomed); double-click the readout to fit the window.</li>
             <li><strong>Text size</strong> (Settings › Layout): scales the info panel, the pixel-readout strip, the scope panels, the transport readouts (counter, jump field, fps), and every mode selector and scope toggle to Default, Large, or Extra Large, including scopes popped out into their own windows; the faintest labels also honor the system Increase Contrast setting. The same tab chooses which scopes open with a session's first file and switches the Liquid Glass chrome. Analysis holds the untagged-SDR tone response choice (<a href="#interpretation">section 3</a>). Acknowledgements holds the open-source license text.</li>
             <li><strong>Readout</strong>: hover any pixel for its raw code values and converted RGB; HDR interpretations add the luminance in nits.</li>
             <li><strong>Loupe</strong> (<kbd>M</kbd>): a magnifier following the cursor, rendered through the exact readout conversion.</li>
-            <li><strong>Channel isolation</strong> (Display › Channel): Y, Cb, Cr, R, G, B, alpha as grayscale; the ICtCp components I, Ct, Cp; and an ICtCp composite. See <a href="#ictcp">section 10</a>.</li>
+            <li><strong>Channel isolation</strong> (Display › Channel): Y, Cb, Cr, R, G, B, alpha as grayscale; the ICtCp components I, Ct, Cp; and an ICtCp composite. See <a href="#ictcp">section 11</a>.</li>
             <li><strong>Smooth chroma</strong> (Display menu): siting-aware bilinear chroma upsampling for display. Default is nearest: no filtering between the data and your eyes.</li>
             <li><strong>Rotation</strong>: <kbd>⌘R</kbd> / <kbd>⌥⌘R</kbd> rotate the view in 90° steps; container rotation metadata is applied automatically. Rotation is display-only and never changes the stored pixels or the measurements.</li>
             <li><strong>Copy Frame</strong> (<kbd>⌥⌘C</kbd>) and <strong>Save Frame As PNG</strong> (<kbd>⇧⌘S</kbd>) export the current frame through the display conversion.</li>
@@ -462,7 +464,7 @@
         <h3>Gamut (⌃1)</h3>
         <p class="prose">CIE 1931 chromaticity with the frame's pixel density cloud, the active space's gamut triangle, and out-of-gamut / outside-P3 stats. Hover the diagram and matching pixels highlight in the image; hover the image and a marker shows that pixel on the diagram.</p>
         <p class="prose">The <strong>3D</strong> mode plots chromaticity against luminance in nits: a rotatable point cloud with gamut-volume outlines, a Display P3 reference, selectable height scales (linear / log / PQ), and a MaxCLL reference plane. Drag to orbit, scroll to zoom.</p>
-        <p class="prose">The <strong>ICtCp border</strong> row is covered in <a href="#ictcp">section 10</a>.</p>
+        <p class="prose">The <strong>ICtCp border</strong> row is covered in <a href="#ictcp">section 11</a>.</p>
 
         <figure class="shot">
             <img src="guide-gamut-3d.png" alt="Videre's 3D gamut cloud: chromaticity against nits with gamut-volume outlines and the MaxCLL plane." loading="lazy" decoding="async">
@@ -480,7 +482,7 @@
 
         <h3>QC checks (⌃6)</h3>
         <p class="prose">A whole-clip pass: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information. The per-frame SI / TI graph opens as a timeline strip when the pass finishes.</p>
-        <p class="prose">For MP4/MOV files the panel also runs the <strong>delivery checks</strong>, the same six checks as <code>videre verify</code> (section 11) with the same severities: color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. Each row shows pass, warn, fail, or skip with a one-line reason.</p>
+        <p class="prose">For MP4/MOV files the panel also runs the <strong>delivery checks</strong>, the same six checks as <code>videre verify</code> (section 12) with the same severities: color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. Each row shows pass, warn, fail, or skip with a one-line reason.</p>
 
         <h3>Dolby Vision (⌃7)</h3>
         <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels, trims, active area, source primaries, and target-display blocks. The per-frame L1 graph is a timeline strip, toggled from the panel. Videre inspects the metadata; it does not compose an output image.</p>
@@ -568,7 +570,7 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
 
     <section class="guide-section" id="compare">
         <h2>9 · Compare and metrics<a class="anchor" href="#compare">#</a></h2>
-        <p class="prose">Open a second file with <kbd>⇧⌘O</kbd> (or drag it onto the compare control). Each side converts under its own interpretation, so cross-format and cross-transfer comparisons are well-defined.</p>
+        <p class="prose">Compare is a mode (<kbd>⌘2</kbd>). Open a second file with <kbd>⇧⌘O</kbd> (or drag it onto the compare control) and the app enters it; the compare controls sit in the mode's toolbar under the seek row. Each side converts under its own interpretation, so cross-format and cross-transfer comparisons are well-defined. Switching to another mode keeps the session loaded but inactive; <kbd>⌘2</kbd> brings it back exactly as it was, and Close Comparison discards it from any mode.</p>
         <ul>
             <li><strong>Views</strong>: side-by-side, flip (<kbd>X</kbd> swaps A/B), wipe with a draggable divider, and difference with channel, heatmap, and binary styles.</li>
             <li><strong>Temporal offset</strong> lines up clips that start on different frames.</li>
@@ -583,8 +585,43 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
 
     <hr class="divider">
 
+    <section class="guide-section" id="edit">
+        <h2>10 · Edit mode<a class="anchor" href="#edit">#</a></h2>
+        <p class="prose">Edit mode (<kbd>⌘3</kbd>) is surgical, measurable repair of raw video: a scope finds the defect, an edit fixes exactly that finding, and the same scopes prove the result. It is not a grading tool - every operation writes exact code values, and the original file is never touched.</p>
+        <p class="prose">Edits collect in a <strong>stack</strong> shown in the toolbar under the seek row. The viewer, the pixel readout, the loupe, and every scope show the frame <strong>through the stack</strong>, so the Levels panel that flagged super-white reads zero after the legalize that fixed it. Undo (<kbd>⌘Z</kbd>) removes the last operation, redo (<kbd>⇧⌘Z</kbd>) restores it; nothing is written until you export. Opening a new file starts a fresh stack.</p>
+        <p class="prose">Encoded files (MP4/MOV) open in Edit mode too: the decoded frames are the working material, and export stays raw/y4m - repair here, then hand the frames to the encoder of your choice.</p>
+
+        <figure class="shot">
+            <img src="guide-edit-stack.png" alt="Videre's Edit mode: the edit stack in the toolbar under the seek row, amber in and out marks on the seek bar, and the Levels panel reading the frame through the stack." loading="lazy" decoding="async">
+            <figcaption><strong>The edit stack.</strong> Every scope reads the frame through it; nothing is written until export.</figcaption>
+        </figure>
+
+        <h3>The operations</h3>
+        <ul>
+            <li><strong>Cut, trim, subclip</strong>: mark a range with <kbd>I</kbd> and <kbd>O</kbd> (amber marks on the seek bar), then Remove Selected Frames (<kbd>⌫</kbd>), Trim to Selection, or Export Selection as Subclip (which bakes the range to a new file without touching the stack). In Edit mode the transport walks the edited timeline: the counter and scrubber reflect the cuts.</li>
+            <li><strong>Legalize</strong> clamps or soft-knees levels beyond a threshold. The domain matches the problem: code values (defaults prefill the video-range legal bounds at the file's bit depth), a nits ceiling resolved through the active transfer (a 100-nit limit on 10-bit PQ video lands exactly on code 509), or converted RGB for 4:4:4 sources. Only samples beyond the threshold are written; everything legal stays byte-identical.</li>
+            <li><strong>Channel ops</strong>: swap Cb/Cr (the classic swapped-chroma defect; the vectorscope confirms the fix), neutralize a plane (chroma to center, luma to black), invert or copy a plane.</li>
+            <li><strong>Range bake</strong> rescales every code between video and full range: the real fix for double-range files, which reinterpreting cannot touch. The picture looks identical under the new declaration, and a second bake in the same direction is refused.</li>
+            <li><strong>Pixel poke and rect patch</strong>: set exact component codes at a pixel (prefilled from the pixel under the cursor), or fill a region with codes or a nits-defined value. <kbd>⇧</kbd>-drag on the image picks the region. Poking Y at one pixel changes exactly one byte of the output.</li>
+        </ul>
+        <p class="prose">Operations take a scope where it makes sense: this frame, the marked selection, or every frame.</p>
+
+        <figure class="shot">
+            <img src="guide-edit-vectorscope.png" alt="A swapped-chroma frame with the Swap Cb/Cr op applied: the fixed image and the vectorscope rotated back into place." loading="lazy" decoding="async">
+            <figcaption><strong>The swapped-chroma fix.</strong> Swap Cb/Cr in the stack; the vectorscope lands back where it should.</figcaption>
+        </figure>
+
+        <h3>Export and verify</h3>
+        <p class="prose"><strong>Export…</strong> (<kbd>⇧⌘E</kbd>) bakes the stack to a <strong>new</strong> file: <code>.y4m</code> (which carries the format tag, rational frame rate, and range), or headerless raw for anything else. Every export is verified before success is reported: the written file is re-read with the same reader that would open it, and every frame is compared byte-for-byte against an independently recomputed reference. Anything off is discarded - and replacing an existing file can never destroy it on a failed export. Sources the y4m container cannot carry directly (NV12/P010-class decoder output, packed 4:2:2) are repacked losslessly to their planar equivalent; code values never change, only the byte arrangement.</p>
+
+        <h3>Recipes</h3>
+        <p class="prose">Save Recipe writes the stack as a small JSON document; <code>videre edit clip.mp4 --ops recipe.json -o healed.y4m</code> replays it byte-identically from the command line - batch repair across a folder of captures, or a shareable fix attached to a bug report. Load Recipe replaces the current stack. A recipe from a newer version of the app, or one whose ranges don't fit the open file, is refused whole rather than half-applied.</p>
+    </section>
+
+    <hr class="divider">
+
     <section class="guide-section" id="ictcp">
-        <h2>10 · ICtCp tools<a class="anchor" href="#ictcp">#</a></h2>
+        <h2>11 · ICtCp tools<a class="anchor" href="#ictcp">#</a></h2>
         <p class="prose">ICtCp (ITU-R BT.2100) is the color representation modern HDR pipelines measure in: I carries PQ-coded intensity, Ct the blue-yellow axis, Cp the red-green axis. Only a curved solid inside the I/Ct/Cp box maps back to real RGB; distance to its surface is a color's headroom against further processing. Videre reads that space three ways.</p>
         <p class="prose">All thresholds are in <strong>ΔE ITP</strong> units (BT.2124), scaled so 1 equals one just-noticeable difference under critical viewing. Rule of thumb: below 1 nobody sees it, 2 to 3 is noticeable side by side, above 3 is plainly visible, 10+ is gross. Real content in motion tolerates several JND.</p>
 
@@ -692,14 +729,16 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
     <hr class="divider">
 
     <section class="guide-section" id="cli">
-        <h2>11 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
-        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Six subcommands on the same engine as the app:</p>
+        <h2>12 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
+        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Seven subcommands on the same engine as the app:</p>
         <pre><code>videre inspect  file.mp4              # format, interpretation, metadata → JSON
 videre compare  ref.y4m dist.mp4      # PSNR / SSIM / MS-SSIM / VMAF / ΔE → JSON
 videre bitstream file.hevc --frames   # parameter sets / SEI / RPUs + GOP stats → JSON
 videre container file.mp4             # ISO box tree → JSON
 videre retag    in.mp4 -o out.mp4 …   # repair signalling, verified
+videre edit     in.mp4 -o out.y4m …   # bake an edit recipe, verified
 videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code></pre>
+        <p class="prose"><code>videre edit</code> replays a recipe saved from Edit mode (<code>--ops recipe.json</code>) or, with no recipe, does a verified passthrough - y4m to raw and back, or an MP4/MOV decoded out to raw frames. Output is raw or y4m only, routed by the output extension. Exit codes match <code>retag</code>: 0 ok, 1 error, 2 usage, 3 the written file failed verification (and was not kept).</p>
         <p class="prose"><code>videre verify</code> is the delivery gate: it runs six checks (color agreement between the container and the coded stream, declared against measured MaxCLL/MaxFALL, mastering display consistency across carriers, chroma siting, edit list sanity, system-decoder openability) and exits nonzero when one fails, so a pipeline can block a bad file before upload. Warnings pass by default; <code>--strict</code> fails them, and <code>--fail-on</code> / <code>--warn-on</code> tune single checks. Exit codes: 0 clean, 1 a check failed, 2 usage, 3 the analysis could not run, so a script can tell a bad deliverable from a broken gate. <code>--json</code> gives the same verdicts with the measured numbers included.</p>
         <p class="prose">Raw inputs take a spec: <code>--raw 1920x1080:i420:video:bt709</code> on <code>inspect</code>, <code>--raw-a</code> / <code>--raw-b</code> on <code>compare</code>. A preset saved in the app's parameter sheet works anywhere a spec does: <code>--raw-a preset:mezz</code> carries the full declaration, including strides and color.</p>
         <p class="prose">Reports use a stable, versioned schema, so scripted QC can pin against it.</p>
@@ -708,7 +747,7 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
     <hr class="divider">
 
     <section class="guide-section" id="automation">
-        <h2>12 · Shortcuts and Finder Services<a class="anchor" href="#automation">#</a></h2>
+        <h2>13 · Shortcuts and Finder Services<a class="anchor" href="#automation">#</a></h2>
         <p class="prose">Shortcuts and Finder reach the same engine as the app and the command line.</p>
         <p class="prose"><strong>Shortcuts</strong> (the macOS Shortcuts app) gets three actions:</p>
         <ul>
@@ -716,7 +755,7 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
             <li><strong>Compare Video Files</strong>: the full compare report as a JSON file (PSNR, SSIM, MS-SSIM, VMAF, CAMBI, delta E per frame plus aggregates). The first path is A, the reference; an offset shifts B.</li>
             <li><strong>Verify Video File</strong>: the delivery checks, returned as a chainable verdict: Passed (true/false), per-severity counts, and the report text, so a Shortcut can branch ("if Passed is false, move the file to rejects"). Strict promotes warnings to failures, matching <code>videre verify --strict</code>.</li>
         </ul>
-        <p class="prose">Paths are text parameters, so they bind to the clipboard, Ask for Text, or any text variable; plain, tilde, <code>file://</code>, and quoted paths all resolve. The JSON files carry the same versioned schema as the command line (<a href="#cli">section 11</a>), and untagged SDR files read under the BT.1886 default regardless of the app's Analysis setting, so a Shortcut produces the same numbers on every machine.</p>
+        <p class="prose">Paths are text parameters, so they bind to the clipboard, Ask for Text, or any text variable; plain, tilde, <code>file://</code>, and quoted paths all resolve. The JSON files carry the same versioned schema as the command line (<a href="#cli">section 12</a>), and untagged SDR files read under the BT.1886 default regardless of the app's Analysis setting, so a Shortcut produces the same numbers on every machine.</p>
         <p class="prose"><strong>Finder Services</strong> (right-click a video file › Services):</p>
         <ul>
             <li><strong>Compare in Videre</strong>: select exactly two renders; they open as a compare session with the first file as A, the reference.</li>
@@ -728,21 +767,27 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
     <hr class="divider">
 
     <section class="guide-section" id="shortcuts">
-        <h2>13 · Keyboard reference<a class="anchor" href="#shortcuts">#</a></h2>
+        <h2>14 · Keyboard reference<a class="anchor" href="#shortcuts">#</a></h2>
         <table>
             <thead><tr><th>Keys</th><th>Action</th></tr></thead>
             <tbody>
                 <tr><td><kbd>⌘O</kbd> / <kbd>⇧⌘O</kbd></td><td class="wrap-ok">Open / open comparison file</td></tr>
+                <tr><td><kbd>⌘1</kbd> / <kbd>⌘2</kbd> / <kbd>⌘3</kbd></td><td class="wrap-ok">Inspect / Compare / Edit mode</td></tr>
                 <tr><td><kbd>⌘F</kbd></td><td class="wrap-ok">Reinterpret raw file</td></tr>
                 <tr><td><kbd>⌘I</kbd></td><td class="wrap-ok">Info panel</td></tr>
                 <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play / pause</td></tr>
                 <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td class="wrap-ok">Step one frame</td></tr>
                 <tr><td><kbd>⌘←</kbd> / <kbd>⌘→</kbd></td><td class="wrap-ok">First / last frame</td></tr>
-                <tr><td><kbd>⌘+</kbd> / <kbd>⌘−</kbd> / <kbd>⌘0</kbd> / <kbd>⌘1</kbd></td><td class="wrap-ok">Zoom in / out / fit / actual size</td></tr>
+                <tr><td><kbd>⌘+</kbd> / <kbd>⌘−</kbd> / <kbd>⌘0</kbd> / <kbd>⌥⌘1</kbd></td><td class="wrap-ok">Zoom in / out / fit / actual size</td></tr>
                 <tr><td><kbd>M</kbd></td><td class="wrap-ok">Loupe</td></tr>
                 <tr><td><kbd>⌘R</kbd> / <kbd>⌥⌘R</kbd></td><td class="wrap-ok">Rotate clockwise / counterclockwise</td></tr>
                 <tr><td><kbd>X</kbd></td><td class="wrap-ok">Toggle A/B</td></tr>
                 <tr><td><kbd>⇧⌘R</kbd></td><td class="wrap-ok">Analyze (compare metrics)</td></tr>
+                <tr><td><kbd>I</kbd> / <kbd>O</kbd></td><td class="wrap-ok">Mark selection in / out (Edit mode)</td></tr>
+                <tr><td><kbd>⌫</kbd></td><td class="wrap-ok">Remove selected frames (Edit mode)</td></tr>
+                <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo edit op (Edit mode)</td></tr>
+                <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export edited (Edit mode)</td></tr>
+                <tr><td><kbd>⇧</kbd>-drag</td><td class="wrap-ok">Pick a patch region on the image (Edit mode)</td></tr>
                 <tr><td><kbd>⌥⌘C</kbd> / <kbd>⇧⌘S</kbd></td><td class="wrap-ok">Copy frame / save frame as PNG</td></tr>
                 <tr><td><kbd>⇧⌘M</kbd></td><td class="wrap-ok">Repair metadata</td></tr>
                 <tr><td><kbd>⌃1</kbd> … <kbd>⌃9</kbd>, <kbd>⌃0</kbd></td><td class="wrap-ok">Toggle analyzers (see <a href="#scopes">section 6</a>)</td></tr>
@@ -754,7 +799,7 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
     <hr class="divider">
 
     <section class="guide-section" id="validation">
-        <h2>14 · Cross-validation<a class="anchor" href="#validation">#</a></h2>
+        <h2>15 · Cross-validation<a class="anchor" href="#validation">#</a></h2>
         <p class="prose">Videre's numbers are pinned to external references, not to itself: PSNR matches ffmpeg's psnr filter to the printed precision; VMAF and CAMBI are gated against the reference vmaf CLI; Dolby Vision RPU decoding is cross-validated against dovi_tool-generated bitstreams; HDR10+ against hdr10plus_tool; container decoding against GPAC's mp4box and heif-info; bitstream parsing against ffprobe, mediainfo, and known encodes from x264, x265, and SVT-AV1. Color math anchors (BT.601/709/2020, BT.2100 PQ and HLG, BT.2124, CIEDE2000) are pinned to published test values, and the display shader is tested per-pixel against the CPU reference.</p>
         <p class="prose">Two documented deviations, stated rather than hidden: SSIM follows the canonical Wang 2004 definition, which reads a few 10⁻⁴ from ffmpeg's x264-derived variant; and the HLG display preview applies the system gamma per channel while readout and measurements use the luminance-correct form.</p>
     </section>
