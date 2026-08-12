@@ -24,8 +24,9 @@ headroom-website/
 ├── faq-search.js           # Live search + category chips on the FAQ pages
 ├── newsletter.js           # Subscribe form → first-party Cloudflare Worker proxy
 ├── activity-feed.js        # "Recent" feed built from appcast.xml files + blog index
-├── sitemap.xml             # Maintained BY HAND - add new pages
-├── robots.txt              # Disallows appcasts + /assets/screens/
+├── sitemap.xml             # Maintained BY HAND - add new pages (see Sitemap and robots)
+├── tools/check-sitemap.sh  # Verifies sitemap.xml matches the pages on disk
+├── robots.txt              # Disallows appcasts (wildcard) + /assets/screens/
 ├── CNAME                   # headroomstudio.dev
 ├── favicon.ico / favicon-{16,32,48}x*.png / apple-touch-icon.png / headroom-mark*.svg
 ├── og-headroom.png         # OG image for homepage (1200×630)
@@ -94,11 +95,31 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 1. Create `your-app/` mirroring an existing app folder (index, faq, privacy, releases, appcast.xml, icon, og)
 2. Add the app row to the homepage grid and, if it should appear in the feed, to the `data-feed-apps` list
 3. Generate the OG image + thumbnail with `gen_app_banners/`
-4. Add every new page to `sitemap.xml` (hand-maintained)
+4. Add every new page to `sitemap.xml` (hand-maintained) and run `./tools/check-sitemap.sh` (see Sitemap and robots)
 5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern
 6. Include the full favicon set (`favicon.ico` 48x48, svg, 32, 16, apple-touch) in `<head>`
 7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics). Currently on all 41 pages — keep it at 100%.
 8. **If the app breaks a studio-wide positioning line, sweep them all.** The site currently says "audio" / "sound" in: homepage `<title>` + meta/og descriptions, the hero sub-line ("people who work in sound"), the About paragraph ("macOS tools for audio work"), `og-headroom.png` and the social headers ("Precision audio tools for macOS" - regenerate via `gen_app_banners/`, one command each). **Videre (video) is the known future case** - when it ships, these all need a wording pass; candidate direction: "Precision tools for macOS" or "sound and picture".
+
+## Sitemap and robots
+
+`sitemap.xml` is hand-maintained. **Any PR that adds, renames, or removes a page updates it in the same PR.** This is the step that historically gets forgotten (`specula/repair.html` shipped 2026-08-01 and sat unlisted until 2026-08-05).
+
+Run the checker before opening the PR:
+
+```bash
+./tools/check-sitemap.sh
+```
+
+It diffs the sitemap against the `.html` files on disk in both directions and validates the XML. Exits non-zero on a mismatch, so it also works as a pre-push hook or CI step.
+
+- **`lastmod` tracks the last content change, not site-wide restyles.** A design or nav sweep that touches every page is not a reason to bump every date; Google discounts `lastmod` it finds unreliable.
+- **`priority` convention:** home 1.0, app landing 0.9, guide/API 0.7, workflow + FAQ + releases 0.6, blog posts 0.6, blog index 0.8, privacy 0.4.
+- **Deliberate exclusions** (keep the `EXCLUDE` list in the script and the header comment in `sitemap.xml` in sync): `404.html`, `auris/*`, `blog/pairing-auris-and-lyra.html`, `gen_app_banners/*`.
+
+**robots.txt** blocks appcasts with one wildcard, `Disallow: /*/appcast.xml`, so a new app is covered the day it ships. The rule it replaced enumerated Lyra and Audita only and had already drifted past Specula and Auris. Wildcards are standard (RFC 9309), and Sparkle ignores robots.txt entirely, so blocking the feeds never affects in-app updates.
+
+**Keeping a page out of the index means `noindex`, not `Disallow`.** The two do different jobs: `Disallow` stops the crawl, and a page that is never crawled is a page whose `noindex` is never read, so an already-indexed URL can linger. All four `auris/` pages carry `<meta name="robots" content="noindex,follow">` and are deliberately left crawlable for exactly that reason. Never add `Disallow: /auris/`. `Disallow` is the right tool only for non-HTML files that cannot carry a meta tag (the appcasts, `assets/screens/`), since GitHub Pages cannot set an `X-Robots-Tag` header.
 
 ## Analytics
 

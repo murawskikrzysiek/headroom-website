@@ -578,6 +578,28 @@
 
         <p class="prose"><strong>Opening files always starts a clean comparison.</strong> If two files were already in compare, opening a single new file replaces the whole set; opening three new files replaces the whole set with those three. To <strong>append</strong> to the current comparison without starting fresh, use <strong>File → Add Files to Compare…</strong> (<kbd>⇧⌘O</kbd>) or the Compare button in the file dock.</p>
 
+        <h3 id="open-raw-pcm-headerless-audio">Open raw PCM (headerless audio)</h3>
+        <p class="prose">A decoder under test emits raw samples. A logic analyzer dumps an I2S capture. A test harness writes a bare array of floats. None of these files carry a header, so nothing in them says how to read them. When a file can't be read as a known audio format (any extension, through every open path above), Specula asks for the format instead of refusing the file. Declare it once and Specula treats it like any other audio file from there: measure it, compare it, edit it, report on it.</p>
+
+        <p class="prose">The import sheet declares:</p>
+        <ul>
+            <li><strong>Sample rate.</strong> Typed or picked from the common rates. Specula never guesses this field: no byte pattern reveals a rate, and a wrong one silently shifts every measurement (K-weighting, true peak, FFT frequencies).</li>
+            <li><strong>Channels</strong> and <strong>layout</strong>: interleaved (channels alternate sample by sample) or planar (each channel one contiguous block). Multichannel counts are read in SMPTE order (L R C LFE Ls Rs …).</li>
+            <li><strong>Sample format</strong>: 8-bit unsigned, 16-bit and 32-bit integer, packed 24-bit, 24-bit in a 32-bit container, 32-bit and 64-bit float, each in either byte order. Formats whose sizes don't divide the file into whole frames are marked in the picker. Float samples above ±1.0 come through unclamped, so true peak sees them.</li>
+            <li><strong>Header skip</strong> ignores a foreign header's bytes before the first sample. <strong>Tolerate trailing</strong> allows up to N leftover bytes after the last whole frame (a truncated dump); anything beyond that is refused rather than decoded as a torn final frame.</li>
+        </ul>
+
+        <p class="prose"><strong>Rank likely formats</strong> decodes a few seconds under every byte format that fits and scores each by how much the result behaves like audio; the top candidates apply with a click. Ranking covers the byte axes only; the rate stays yours to declare. The preview draws the decoded waveform, shows the same plausibility score for the current declaration, and plays a few seconds. A wrong declaration is unmistakable: wrong byte order is full-scale noise, a wrong channel count combs the waveform.</p>
+
+        <p class="prose">After a raw file opens:</p>
+        <ul>
+            <li>The declaration is <strong>remembered per file</strong>, so reopening it (or adding it to Compare) never re-asks. <strong>File → Reinterpret Raw Format…</strong> reopens the sheet for the loaded file with the current declaration filled in.</li>
+            <li><strong>Presets</strong> save a declaration under a name for reuse in the sheet and on the command line (<code>--raw-preset</code>).</li>
+            <li>The info panel shows the declaration in the File section's <strong>Declared</strong> row, and every report (JSON, HTML, PDF, CSV) records it. Every number from a raw file assumes the declaration, so a report that leaves it out is useless as a QC record.</li>
+        </ul>
+
+        <p class="prose">Saving from Edit mode writes a normal WAV or CAF, as always: the declaration applies to reading only.</p>
+
         <h3>Transport</h3>
         <table>
             <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play / pause</td></tr>
@@ -631,14 +653,14 @@
             <li><strong>Scroll</strong> (mouse wheel or two-finger swipe) → horizontal zoom. Specula keeps the cursor pixel anchored as you zoom.</li>
             <li><kbd>⇧</kbd>-scroll → pan / scroll horizontally.</li>
             <li><kbd>⌥</kbd>-scroll → amplitude (vertical) zoom.</li>
-            <li>The control strip below the waveform also has <strong>−/+ zoom</strong> buttons, a <strong>fit</strong> button (back to full width), and a separate <strong>amplitude</strong> zoom control, so you can zoom without a scroll wheel. The small <strong>?</strong> button there opens this gesture legend in-app.</li>
+            <li>The control strip below the waveform also has <strong>−/+ zoom</strong> buttons, a <strong>fit</strong> button (back to full width), and a separate <strong>amplitude</strong> zoom control, so you can zoom without a scroll wheel. <strong>Double-click the zoom readout</strong> (the "fit" / "2.2x" label) to fit the whole file, and <strong>double-click the amplitude readout</strong> to return to 1×. The small <strong>?</strong> button there opens this gesture legend in-app.</li>
         </ul>
 
         <h3>Ruler</h3>
         <p class="prose">A time ruler runs above the waveform. Click the ruler-mode toggle in the waveform control strip to swap between <strong>Time</strong> (HH:MM:SS.mmm) and <strong>Samples</strong> (frame count). Useful when you need to align two takes by sample.</p>
 
         <h3>Vertical / amplitude zoom</h3>
-        <p class="prose">The control strip below the waveform has an amplitude zoom control (−/+ buttons) - useful for inspecting low-level detail without it being lost in the noise floor. Default is 1× (full ±0 dBFS range).</p>
+        <p class="prose">The control strip below the waveform has an amplitude zoom control (−/+ buttons) - useful for inspecting low-level detail without it being lost in the noise floor. Default is 1× (full ±0 dBFS range); double-click the readout between the buttons to return to it.</p>
 
         <h3>Clip detection</h3>
         <p class="prose">During load, Specula scans every channel for sample values ≥ ±1.0. Each detected clip region is highlighted in red on the waveform and counted in the Channel Info sidebar.</p>
@@ -660,6 +682,8 @@
         <h2>4. Selection &amp; selection analysis <a href="#selection" class="anchor">#</a></h2>
 
         <p class="prose">A selection is a <code>[start..end]</code> range on the waveform. Selections drive offline analysis, edit-mode operations, and loop playback.</p>
+
+        <p class="prose">Typed values commit on Return or when you click anywhere outside the field, which holds for every text field in the app: the IN / OUT / LEN selection fields, violation thresholds, chapter names, routing gain cells, and popover parameters. Leaving a field also hands the keyboard back to the app, so single-key shortcuts work again straight away.</p>
 
         <table>
             <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear selection (waveform + FFT)</td></tr>
@@ -740,7 +764,7 @@
         </figure>
 
         <h3>Live vs Offline loudness display</h3>
-        <p class="prose">The Loudness section in the sidebar has a <code>[Live] [Offline]</code> segmented control at the top. <strong>Live</strong> shows the real-time measurement updating during playback. <strong>Offline</strong> shows the whole-file results from the load-time analysis pass, populated immediately after the file finishes loading; running <kbd>⌘Return</kbd> on a selection narrows the same metrics to that selection.</p>
+        <p class="prose">The sidebar's <strong>Analysis</strong> section, between Mode and Channels, holds a full-width <code>[Live] [Offline]</code> switch that selects the analysis source for the whole main view: the Loudness section below it and the spectrogram both follow it. <strong>Live</strong> shows the real-time measurement updating during playback. <strong>Offline</strong> shows the whole-file results from the load-time analysis pass, populated immediately after the file finishes loading; running <kbd>⌘Return</kbd> on a selection narrows the same metrics to that selection.</p>
         <p class="prose">The same rows appear in both modes from the chosen source: Integrated, LRA, Speech-Gated, Speech %, Momentary / Short-term (labelled <strong>Max Momentary / Max Short-term</strong> in Offline since they're whole-file or whole-selection maxima rather than instantaneous), True Peak, Sample Peak, Loudness Targets. Offline adds Time range, Dynamic Range, Headroom, Noise Floor (Podcast mode), and per-channel Peak / RMS / Crest / DC below. The choice persists across launches. Live measurement keeps running in the background regardless of mode.</p>
 
         <h3>Mode (Music / Podcast / VOD / Broadcast)</h3>
@@ -766,6 +790,8 @@
             <tr><td>VOD</td><td class="wrap-ok">Compliance: green dot or <strong>FAIL L</strong> / <strong>FAIL TP</strong> against the dialog-gated band</td><td class="wrap-ok">Dialog-gated LUFS</td></tr>
             <tr><td>Broadcast</td><td class="wrap-ok">Compliance against the integrated band and the true-peak ceiling</td><td class="wrap-ok">Integrated LUFS</td></tr>
         </table>
+
+        <p class="prose"><strong>Custom targets.</strong> Settings → Targets → Custom targets holds your own delivery specs: give a spec a name, a mode, a measurement source (integrated, dialog-gated, or un-weighted RMS, with the mode's natural source pre-selected), a reference level, a tolerance band, and a true-peak ceiling. A custom target joins its mode's tick list and works everywhere a built-in target does: the verdict badge, the hover breakdown, Match, Normalize to target, and the report exports. Custom targets are compliance targets; the penalty model describes how a specific platform's normalizer behaves, which is not something a house spec defines. A typical use: a client delivers to -18 LUFS ±1 under -1 dBTP, so that becomes a custom Podcast target sitting next to Apple Podcasts in the list.</p>
 
         <p class="prose"><strong>Music targets</strong> report the gain the platform will apply rather than a hard verdict. A mix at −10 LUFS reads "Spotify −4 dB" (the platform will turn it down 4 dB to hit its −14 LUFS reference). A quiet mix at −18 LUFS reads "+4 dB" on symmetric platforms, "as-is" on asymmetric ones (see below). The dot is green when the gain is within ±1.5 dB of zero, yellow within ±4 dB, orange beyond. A separate triangle warns when the true peak breaches the platform's ceiling.</p>
 
@@ -1021,7 +1047,7 @@
     <section class="guide-section" id="fft">
         <h2>9. FFT spectrum <a href="#fft" class="anchor">#</a></h2>
 
-        <p class="prose">Real-time logarithmic-frequency spectrum from 20 Hz - 20 kHz. Toggle with <kbd>⌃4</kbd>.</p>
+        <p class="prose">Real-time logarithmic-frequency spectrum from 20 Hz - 20 kHz. Toggle with <kbd>⌃4</kbd>. Scroll to zoom the frequency axis around the cursor; <strong>double-click the spectrum</strong> (or click the reset button that appears in the control strip) to restore the full range.</p>
 
         <figure class="shot">
             <img src="specula-fft.png" alt="FFT spectrum with a hover readout showing frequency, magnitude in dB, and the nearest note." loading="lazy" decoding="async">
@@ -1076,6 +1102,8 @@
         <h2>10. Spectrogram <a href="#spectrogram" class="anchor">#</a></h2>
 
         <p class="prose">Rolling time-frequency display. Toggle with <kbd>⌃3</kbd>. All settings live in <strong>Settings → Spectrogram</strong>.</p>
+
+        <p class="prose">The spectrogram follows the <code>[Live] [Offline]</code> switch in the sidebar's Analysis section, the same source switch the Loudness section uses. <strong>Live</strong> paints columns as the file plays. <strong>Offline</strong> shows the whole-file (or whole-selection) spectrogram produced by Analyse (<kbd>⌘Return</kbd>), or built automatically at load, so it is there before you press play.</p>
 
         <figure class="shot">
             <img src="specula-spectrogram.png" alt="Spectrogram of a music track with the Inferno colormap on a log frequency scale." loading="lazy" decoding="async">
@@ -1466,6 +1494,8 @@
         <h3>The canvas</h3>
         <p class="prose">The spectrogram is computed from the file at full resolution as you navigate; it uses the same color map and frequency scale (log or mel) as the analysis spectrogram. A time ruler runs along the top (click it to seek), a frequency scale with gridlines runs along the right edge of each channel row, and a small waveform strip below the ruler can be toggled from the toolbar. The strip is the transport surface: click it to place the playhead, or hold and drag to scrub, since clicks on the canvas itself are selection tools. Scroll to zoom time around the cursor (pinch works too), <kbd>⌥</kbd>-scroll to zoom frequency around the cursor, <kbd>⇧</kbd>-scroll to pan. The readout under the cursor shows time, frequency, and level. For stereo files a channel switch in the toolbar shows the left channel, the right, or <strong>Both</strong> stacked, so you can see each channel's spectrogram on its own and spot content that lives in only one side. Files with more channels show one channel at a time: pick it from the toolbar's channel menu, labelled with the file's layout (L, R, C, LFE, Ls, Rs, and so on).</p>
 
+        <p class="prose">To get back out, <kbd>⌘0</kbd> returns both axes to the whole file across the full frequency range. <kbd>⇧⌘0</kbd> fits time alone and <kbd>⌥⌘0</kbd> restores the frequency range alone, so you can fit the whole file while the view stays on a 3 kHz band. Each axis also gets a small button in the top right corner of the canvas, shown while that axis is zoomed.</p>
+
         <h3>Selecting</h3>
         <p class="prose">Four tools, one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for straight time and frequency ranges, <strong>Lasso</strong> (<kbd>L</kbd>) for free shapes, <strong>Brush</strong> (<kbd>B</kbd>) for painting over curved traces like a bird chirp or a whistle, and <strong>Wand</strong> (<kbd>W</kbd>) for shape matching: click a spot and the selection grows across the connected region at a similar level, or drag to sweep the wand along a blemish, seeding as it goes. Two sliders shape it, and adjusting either re-tunes the last stroke live: the dB tolerance sets how far below the clicked level the selection may grow, and the time reach caps how far from the click it may spread, so a click on a hum line grabs the local stretch instead of the whole file. With the rectangle and lasso, plain dragging starts a new selection; hold <kbd>⇧</kbd> to add to it, <kbd>⌥</kbd> to subtract from it. The brush and wand paint: every stroke adds to the selection, and an <kbd>⌥</kbd>-stroke removes. The brush size slider (or <kbd>⇧[</kbd> and <kbd>⇧]</kbd>; bare <kbd>[</kbd> and <kbd>]</kbd> keep stepping the playback rate) sets the brush; on the log frequency axis the brush covers what it visually covers, wider in tone terms at the top than the bottom. <kbd>Esc</kbd> clears the selection.</p>
 
@@ -1789,6 +1819,21 @@ specula report book.wav --mode podcast --format csv --out chapters.csv # per-cha
 specula report mix.wav --mode broadcast --no-curve                    # drop the loudness curve for smaller batch output</code></pre>
         <p class="prose"><code>--format</code> selects the output shape: <code>json</code> (default), <code>html</code>, <code>pdf</code>, or <code>csv</code>. PDF requires <code>--out</code> (binary data on stdout isn't useful), and the receipt printed to stdout on success carries the written byte count + mode so a pipeline can confirm the file landed. <code>csv</code> emits the per-chapter metrics table when the file has chapters, otherwise a flat metric,value table of the file-level numbers. <code>--mode</code> selects which loudness-target catalog drives the evaluation: <code>music</code>, <code>podcast</code>, <code>vod</code>, <code>broadcast</code>. <code>--no-curve</code> omits the per-100 ms loudness curve when the receipt only needs the summary numbers. <code>--no-vad</code> skips Silero speech detection (the speech-gated fields read <code>-inf</code>) and <code>--no-stereo</code> skips the correlation pass, both for faster unattended batches.</p>
 
+        <h3 id="raw-pcm-input">Raw PCM input (<code>--raw-*</code>)</h3>
+        <p class="prose"><code>analyze</code>, <code>report</code>, and <code>edit</code> accept headerless raw PCM when you declare the format (see <a href="#open-raw-pcm-headerless-audio">Open raw PCM</a>):</p>
+        <pre><code>specula analyze dump.pcm --raw-rate 48000 --raw-channels 2 --raw-format s24le
+specula report capture.bin --raw-rate 96000 --raw-channels 1 --raw-format f32le --format pdf --out capture.pdf
+specula edit take.raw --raw-rate 48000 --raw-channels 2 --raw-format s16le --gain=-3 --out take-quiet.wav
+specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
+        <ul>
+            <li><code>--raw-rate</code>, <code>--raw-channels</code>, and <code>--raw-format</code> are all required for a raw input. There is no default rate: a silently assumed one would corrupt every measurement without an error.</li>
+            <li><code>--raw-format</code> tokens: <code>u8</code>, <code>s16le</code>, <code>s16be</code>, <code>s24le</code>, <code>s24be</code> (packed 3-byte), <code>s24_32le</code>, <code>s24_32be</code> (24-bit low-aligned in a 32-bit container), <code>s32le</code>, <code>s32be</code>, <code>f32le</code>, <code>f32be</code>, <code>f64le</code>, <code>f64be</code>.</li>
+            <li><code>--raw-skip N</code> ignores N header bytes. <code>--raw-tolerance N</code> allows N trailing bytes after the last whole frame. <code>--raw-planar</code> reads each channel as one contiguous block instead of interleaved.</li>
+            <li><code>--raw-preset NAME</code> uses a preset saved in the app's import sheet; any other <code>--raw-*</code> flag refines it.</li>
+            <li>A size that doesn't divide into whole frames is an error, not a truncated decode.</li>
+            <li>The JSON report's <code>file</code> block records the full declaration under <code>rawFormat</code>.</li>
+        </ul>
+
         <h3>Output format</h3>
         <p class="prose">Every subcommand emits pretty-printed JSON with sorted keys, so diffs across runs stay deterministic. Non-finite floats (silence → <code>-∞</code>) render as <code>"-inf"</code> strings rather than blowing up the encoder.</p>
 
@@ -1876,6 +1921,10 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
             <li>Waveform · Loudness Curve · Spectrogram · FFT / Phase · Stereo Width.</li>
         </ul>
         <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
+
+        <p class="prose"><strong>Text size</strong> scales the text across the main window: the info panel (file details, channel meter labels, every loudness readout), the module control strips (the waveform's channel chips, zoom and amplitude clusters, the IN / OUT / LEN selection fields, the loudness-curve, FFT, and stereo-width strips), the transport bar (timecode display, Analyse, Generate, the mode selector), the segmented switches, and the axis labels. Default, Large, or Extra Large. The info panel also honors the system <strong>Increase Contrast</strong> setting (System Settings → Accessibility → Display) by rendering its dimmed labels brighter, and its faintest labels were brightened across the board.</p>
+
+        <p class="prose"><strong>Loudness readout</strong> sets how often the live Momentary, Short-term, and Integrated numbers repaint: <strong>10 Hz (EBU Tech 3341)</strong>, the default, or 5 Hz and 2 Hz for easier reading. All three sit above the 1 Hz the standard asks of integrated, and 10 Hz is the minimum the standard requires of a live short-term meter. A separate <strong>Rolling digits</strong> toggle controls the digit animation on its own. Both settings are display-only: no measurement changes.</p>
 
         <p class="prose"><strong>Liquid Glass chrome</strong> (macOS 26+ only). On macOS 26 the transport bar, file dock, info panel, seek bar, and section-toggle strip use the system Liquid Glass material so they feel native alongside Finder, Safari, and other macOS 26 apps. Default on. Turn off in <strong>Settings → Layout → Appearance</strong> for solid dark chrome, useful when recording screenshots or screencasts where the depth-aware refraction would change with whatever's underneath the window, or simply if you prefer the flat look. The toggle is hidden on macOS 14-25 (Liquid Glass isn't available there; chrome stays solid regardless).</p>
 
@@ -2013,6 +2062,9 @@ specula report mix.wav --mode broadcast --no-curve                    # drop the
         <table>
             <tr><td><kbd>R</kbd> / <kbd>L</kbd> / <kbd>B</kbd> / <kbd>W</kbd></td><td class="wrap-ok">Rectangle / Lasso / Brush / Wand selection tool</td></tr>
             <tr><td><kbd>⇧[</kbd> / <kbd>⇧]</kbd></td><td class="wrap-ok">Brush size down / up (bare <kbd>[</kbd> / <kbd>]</kbd> step the playback rate, as everywhere)</td></tr>
+            <tr><td><kbd>⌘0</kbd></td><td class="wrap-ok">Reset zoom on both axes</td></tr>
+            <tr><td><kbd>⇧⌘0</kbd></td><td class="wrap-ok">Fit the whole file in view (time axis only)</td></tr>
+            <tr><td><kbd>⌥⌘0</kbd></td><td class="wrap-ok">Show the full frequency range (frequency axis only)</td></tr>
             <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play the selection's span (play / pause without one)</td></tr>
             <tr><td><kbd>⇧Space</kbd></td><td class="wrap-ok">Solo the selection (play only what is selected)</td></tr>
             <tr><td><kbd>⌥Space</kbd></td><td class="wrap-ok">Result preview (play the span with the selection removed)</td></tr>
