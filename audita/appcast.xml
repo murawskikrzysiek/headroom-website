@@ -26,13 +26,14 @@
         <language>en</language>
 
         <!--
-          v1.4 DRAFT - do not merge to main until the DMG is built, notarised,
-          uploaded to R2, and signed. Before publishing, replace:
-            edSignature  →  output of sign_update Audita.dmg
-            length       →  wc -c < Audita.dmg
-            pubDate      →  the actual publish time
+          v1.4 DRAFT - one field left to fill before this can merge:
+            edSignature  →  .build/artifacts/sparkle/Sparkle/bin/sign_update Audita-1.4.dmg
+          Verified 2026-08-12: length 9896071 matches the local DMG (stat -f%z) and
+          the bytes R2 serves; the served object's MD5 equals its ETag,
+          6ea45bae5460551d0b1a306aa5774c7b. pubDate is set for a 13 Aug publish -
+          adjust if that slips.
           Sparkle refuses an item whose signature does not match the enclosure,
-          so a wrong placeholder fails closed (no update offered) rather than
+          so the placeholder fails closed (no update offered) rather than
           shipping something unverified.
         -->
         <item>
@@ -45,7 +46,7 @@
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.4.dmg"
                 sparkle:edSignature="REPLACE_WITH_SIGNATURE_AT_RELEASE"
-                length="0"
+                length="9896071"
                 type="application/octet-stream" />
         </item>
 
