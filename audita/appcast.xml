@@ -25,6 +25,30 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
+        <!--
+          v1.4 DRAFT - do not merge to main until the DMG is built, notarised,
+          uploaded to R2, and signed. Before publishing, replace:
+            edSignature  →  output of sign_update Audita.dmg
+            length       →  wc -c < Audita.dmg
+            pubDate      →  the actual publish time
+          Sparkle refuses an item whose signature does not match the enclosure,
+          so a wrong placeholder fails closed (no update offered) rather than
+          shipping something unverified.
+        -->
+        <item>
+            <title>Version 1.4 - Calibration files, UMIK-1 support, calibration health</title>
+            <pubDate>Thu, 13 Aug 2026 14:00:00 +0000</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.4.dmg"
+                sparkle:edSignature="REPLACE_WITH_SIGNATURE_AT_RELEASE"
+                length="0"
+                type="application/octet-stream" />
+        </item>
+
         <item>
             <title>Version 1.3 - Widgets</title>
             <pubDate>Mon, 01 Jun 2026 14:00:00 +0000</pubDate>
