@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita FAQ - SPL Calibration, NIOSH Dose &amp; macOS Setup</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/faq.html">
-    <meta name="description" content="Common questions about Audita: calibrating your monitor chain to dB SPL, NIOSH hearing dose explained, supported interfaces, talkback channels, sessions.">
+    <meta name="description" content="Common questions about Audita: calibrating your monitor chain to dB SPL, importing measurement-mic calibration files, UMIK-1 absolute SPL, NIOSH hearing dose explained, supported interfaces, sessions.">
     <meta property="og:title" content="Audita FAQ">
     <meta property="og:description" content="Common questions about Audita: calibration, NIOSH hearing dose, supported interfaces, sessions.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
@@ -530,6 +530,11 @@
                 <p class="faq-a">Select your preferred input in <strong>Settings → Audio</strong>. Audita remembers the selection by device UID, so it reconnects to the right mic automatically even after unplugging and replugging.</p>
             </div>
 
+            <div class="faq-item">
+                <p class="faq-q">Does Audita connect to the internet?</p>
+                <p class="faq-a">Three times, all of them on your initiative or on a schedule you can turn off: license validation with Lemon Squeezy, update checks against the Audita appcast, and the UMIK-1 calibration download when you type a serial number and press the button. Nothing else leaves your Mac. Audio is analysed in real time and never recorded, and no measurement, session, or dose figure is ever uploaded. <a href="privacy.html">Full privacy policy →</a></p>
+            </div>
+
         </div>
     </section>
 
@@ -549,6 +554,45 @@
                 <p class="faq-q">How do I calibrate the frequency response?</p>
                 <p class="faq-a">Place the measurement mic at your listening position, then run <strong>Settings → Audio → Step 1 → Measure</strong>. Audita plays pink noise for ~4 seconds, captures the spectral shape, and derives a corrective FIR filter automatically. <a href="guide.html#calibration">Full walkthrough in the guide →</a></p>
                 <p class="faq-a">A dedicated measurement mic (Behringer ECM8000, Superlux ECM999) gives the most accurate results. The built-in MacBook mic still benefits from correction but varies a lot between units.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">My mic came with a calibration file. Can Audita use it?</p>
+                <p class="faq-a">Yes. <strong>Settings → Audio → Step 1 → Import Calibration File</strong> reads REW-style <code>.cal</code>, <code>.txt</code>, and <code>.frd</code> files, which is what miniDSP, Dayton, and most measurement-mic vendors ship. Audita shows what it found (data points, frequency span, serial number, sensitivity figure), then inverts the curve, limits it to ±9 dB, and applies it ahead of the A and C weighting filters. That replaces the pink-noise measurement.</p>
+                <p class="faq-a">The two paths describe different things. The manufacturer curve is anechoic data for the microphone alone, so it corrects the capsule. The pink-noise measurement captures your room, monitors, and mic together. Both are valid; the file is the better description of the microphone. A file-based correction also re-designs itself when your device runs at a different sample rate, where a measured one is only valid at the rate it was measured at.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">I have a miniDSP UMIK-1. What's the fastest way to calibrate?</p>
+                <p class="faq-a">Plug it in and select it as the input. Step 1 then leads with the download: type the serial printed on the mic body (without the dash the label prints), pick the 0 degree variant if the mic points at your monitors, and Audita fetches that unit's factory file and opens the import sheet. Tick <strong>Set level calibration from the file</strong> and both Step 1 and Step 2 are done.</p>
+                <p class="faq-a">This works because the UMIK-1 is a USB mic with fixed gain: the <code>Sens Factor</code> line in its file maps digital level to real dB SPL with nothing left to measure. Expect the offset to sit well above the 94 dB default; that is correct. The conversion has been checked against the NIOSH SLM app. Keep the input volume at 100% for maximum headroom - if it sits lower, Audita adds the shortfall back in real time and shows the compensation.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does that work with a UMIK-2, or an ECM8000 through my interface?</p>
+                <p class="faq-a">For frequency correction, yes: any of those cal files import the same way. For the absolute level, no. The automatic conversion is calibrated for the UMIK-1, so on a UMIK-2 set the level with Step 2. An analog mic runs through your interface's preamp, and the file has no way to know what gain you used, so Step 2 stays the level procedure there too.</p>
+                <p class="faq-a">Some analog files carry a <code>Sensitivity X dBFS</code> header, the level the mic produced at 94 dB SPL at whatever gain the file was measured at. Audita can use it as a starting point (off by default, and the sheet says why), but cross-check it against Step 2.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What does the calibration health card tell me?</p>
+                <p class="faq-a">It sits at the top of <strong>Settings → Audio</strong> and answers three questions: where your level calibration came from and which device it belongs to, whether the mic correction is really active (a measured correction can be silently bypassed when the engine runs at a different sample rate), and when the rig last passed a self-check. The same state appears as one line in the menu bar popover. A stale or broken calibration shows an orange warning instead of looking identical to a healthy one.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What is the rig self-check?</p>
+                <p class="faq-a"><strong>Settings → Audio → Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the measured-versus-expected delta with a pass or fail against your calibration tolerance. Set the monitor to the calibrated knob position first; the card shows your note. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you before the noise starts.</p>
+                <p class="faq-a">A check verifies one chain: this mic into these monitors. Switch either end and the verification line reads unverified until you check that path too, and switching back to a rig you already verified reads verified again without re-running. Results age out after 90 days.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why did my mic correction turn itself off after updating to 1.4?</p>
+                <p class="faq-a">The filter Step 1 derived was built from the wrong segment of the impulse response, so what got applied never matched the curve Settings displayed. The construction is fixed in 1.4 and now regression-tested against the displayed curve, but the filters stored by earlier versions cannot be salvaged, so they are disabled and Settings asks for one new <strong>Measure</strong> run. Your original measurement was valid; the stored filter was not. If your mic has a calibration file, importing it also clears the request.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">My dose readings are higher since 1.4. Did something break?</p>
+                <p class="faq-a">The opposite. Dose used to accumulate from a display-smoothed level; it now uses the energy average of every sample captured between ticks, so loud transients contribute their real energy. Steady tones read the same as before. Real programme material with level swings was under-counted by roughly 20 to 35%, so a busier session now reads higher, and correct. Your calibration is unaffected, and past sessions keep the numbers they were recorded with.</p>
             </div>
 
             <div class="faq-item">

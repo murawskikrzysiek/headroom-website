@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/guide.html">
-    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration, Monitoring Discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
+    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration including cal-file import and the UMIK-1, the rig self-check, Monitoring Discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
     <meta property="og:title" content="Audita User Guide">
     <meta property="og:description" content="Complete reference for Audita - menu bar SPL readout, calibration, Monitoring Discipline, floating panel, Lyra pairing, troubleshooting.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
@@ -684,13 +684,16 @@
         <p class="prose">Visible while a session is running (auto-started by a DAW or manually started). Shows the DAW name, elapsed time, running average dBA and peak dBA / dBC, and the dose accrued during this session only. The peak counters (<code>≥115 dBA</code>, <code>≥135 dBC</code>) appear as red badges when the corresponding EU thresholds have been exceeded.</p>
 
         <h3>Live dBA and dBC</h3>
-        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display; dose accumulation uses the unsmoothed per-tick value internally. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
+        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display only; dose, Leq, and session statistics use the energy average of each 100 ms measurement interval, so every sample contributes its actual acoustic energy and short bursts are counted at full weight. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
 
         <h3>Monitoring Discipline gauge</h3>
         <p class="prose">When Monitoring Discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring Discipline</a> for the full mechanic.</p>
 
         <h3>Today's dose</h3>
         <p class="prose">The cumulative NIOSH dose percentage for the current calendar day, color-coded by zone (green / yellow / orange / red). Below it, peak counters for today's <code>≥135 dBC</code> and <code>≥115 dBA</code> events when non-zero. The dose resets at midnight.</p>
+
+        <h3>Calibration status line</h3>
+        <p class="prose">A single line above the footer summarises the same state as the health card in <a href="#calibration">Settings → Audio</a>: whether your level calibration, mic correction, and last self-check are all in order for the devices currently selected, or which of them needs attention. It also carries the input-volume compensation indicator when a UMIK calibration is active and the mic's volume control sits below 100%.</p>
 
         <h3>Footer: pin and history</h3>
         <p class="prose">Two buttons at the bottom:</p>
@@ -745,14 +748,27 @@
     <section class="guide-section" id="calibration">
         <h2>6. Calibration <a href="#calibration" class="anchor">#</a></h2>
 
-        <p class="prose">Audita's measurement chain is only as accurate as its calibration. <strong>Settings → Audio</strong> presents calibration as a numbered 3-step journey because the steps depend on each other: Step 2 only matters if Step 1 has flattened the mic, and Step 3 only matters if Steps 1 and 2 have made the broadband level reliable.</p>
+        <p class="prose">Audita's measurement chain is only as accurate as its calibration. <strong>Settings → Audio</strong> opens with a calibration health card and then presents calibration as a numbered 3-step journey, because the steps depend on each other: Step 2 only matters if Step 1 has flattened the mic, and Step 3 only matters if Steps 1 and 2 have made the broadband level reliable.</p>
 
-        <img src="images/screenshots/settings-audio-three-steps.png" alt="The Settings Audio tab showing the three-step calibration layout: mic frequency response, level offset, and reference monitor level" class="screenshot-full">
+        <img src="images/screenshots/settings-audio-calibration-health.png" alt="The top of the Settings Audio tab: the Calibration Health card with three status rows for level, mic correction, and verification, the Run Self-Check button, and the row naming the saved profile currently in use" class="screenshot-full">
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>TL;DR.</strong> Run Step 1 once per mic. Run Step 2 every time you move the mic or change the gain. Run Step 3 once per pair of monitors.</p>
+            <p><strong>TL;DR.</strong> Run Step 1 once per mic, or import that mic's calibration file instead. Run Step 2 every time you move the mic or change the gain - unless a UMIK-1 file set the level, which makes it a cross-check rather than a procedure. Run Step 3 once per output device.</p>
         </div>
+
+        <h3>Calibration health at a glance</h3>
+        <p class="prose">The card at the top of the Audio tab answers three questions before you touch a slider:</p>
+
+        <ul>
+            <li><strong>Level.</strong> Where the offset came from - a factory calibration file, a file's sensitivity header, or your own hand-set number - and whether it belongs to the input you currently have selected.</li>
+            <li><strong>Mic correction.</strong> Whether a correction is active, which source it came from, and whether the audio engine's current sample rate is bypassing a measured correction (a measured filter is only valid at the rate it was measured at; a correction from a calibration file re-designs itself instead).</li>
+            <li><strong>Verification.</strong> When this mic-and-monitor pair last passed a self-check, or that it has not been checked yet.</li>
+        </ul>
+
+        <p class="prose">Each line carries its own tint, and the card takes the worst of the three, so a stale or silently bypassed calibration does not look identical to a healthy one. The menu bar popover carries the same state as a single summary line above its footer.</p>
+
+        <p class="prose">Below the card are the input and output device pickers and the free-text <strong>Mic Location</strong> field. Use the location field to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"); it is stored alongside the calibration so you can reproduce or cross-check it weeks later.</p>
 
         <h3>Step 1 - Mic frequency response correction (optional)</h3>
         <p class="prose">Most desk-mounted measurement mics, talkback channels on audio interfaces, and onboard laptop mics have non-flat frequency responses that bias dBA readings by 1-5 dB depending on programme content. Step 1 measures your mic's actual frequency response with pink noise and an FFT, then derives a corrective FIR filter that flattens the input chain before the A and C weighting filters run.</p>
@@ -767,6 +783,57 @@
 
         <p class="prose"><strong>Re-run when:</strong> you change the measurement mic, move it to a meaningfully different position, or change room treatment in the listening area.</p>
 
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>Coming from an earlier version?</strong> Corrections measured before 1.4 are disabled on first launch and Settings asks for one new <strong>Measure</strong> run. The filter those versions stored was derived from the wrong segment of the impulse response, so it never matched the curve Settings displayed. The measurement itself was fine; the stored filter was not. Importing a calibration file clears the request just as well.</p>
+        </div>
+
+        <h3>Import the manufacturer's calibration file</h3>
+
+        <img src="images/screenshots/settings-audio-step1-calibration-file.png" alt="Step 1 in the Settings Audio tab with a calibration file imported: the file name, serial number and date, the correction curve it produced, the UMIK-1 serial-number download field with 0 and 90 degree options, and the Measure Response and Import Calibration File buttons below" class="screenshot-full">
+
+        <p class="prose">Most measurement mics ship with a calibration file: a text file of frequency and gain pairs describing that exact unit's deviation from flat. Audita reads the REW-style formats (<code>.cal</code>, <code>.txt</code>, <code>.frd</code>) that miniDSP, Dayton, and most vendors publish. If you have one, you can skip the pink noise measurement.</p>
+
+        <ol>
+            <li><strong>Settings → Audio → Step 1 → Import Calibration File.</strong></li>
+            <li>Pick the file. Audita shows what it found: the number of data points, the frequency span, the serial number, and, for USB mics, the sensitivity figure.</li>
+            <li>Click <strong>Apply</strong>. The correction is derived from the manufacturer curve, limited to ±9 dB, and enabled.</li>
+        </ol>
+
+        <p class="prose">The two paths describe different things, and both are valid. The manufacturer curve is anechoic data for the microphone alone, so it corrects the capsule without folding in your room and monitors. The pink noise measurement captures the combined room, monitor, and mic response. The file is the better description of the microphone itself, and it survives a sample-rate change: a file-based correction re-designs itself for whatever rate the device runs at.</p>
+
+        <p class="prose">miniDSP ships two files per serial number: <strong>0 degree</strong> for a mic pointing at the monitors and <strong>90 degree</strong> for a mic pointing up (grazing incidence). Import the one matching how yours is mounted. Audita flags 90 degree files so you can check.</p>
+
+        <p class="prose">After importing, Step 1 names the file and serial number it is using, so the number on screen is always attributable. Settings also notes on Step 2 when the offset came from a file; moving the slider by hand returns to manual calibration.</p>
+
+        <h3>UMIK-1: absolute SPL straight from the file</h3>
+        <p class="prose">A UMIK cal file's header carries a per-unit sensitivity line (<code>Sens Factor</code>). The UMIK-1 is a USB mic with fixed internal gain, so that number maps digital level to real dB SPL directly, with nothing left to measure. When a UMIK-1 is the selected input, the import sheet offers <strong>Set level calibration from the file</strong>: Audita sets the Step 2 offset from the sensitivity figure and records where it came from. The conversion accounts for the digital gain miniDSP's figure assumes but macOS never engages, and it has been checked against the NIOSH SLM app.</p>
+
+        <p class="prose">Three conditions apply, all handled in the sheet:</p>
+
+        <ul>
+            <li><strong>The input device must be the UMIK itself.</strong> Through an audio interface the preamp gain is unknown, so an analog mic's file corrects frequency response only.</li>
+            <li><strong>The mic must be selected by name in the input picker.</strong> With the picker on System Default the sheet asks you to select it first - one click when a UMIK-1 is connected. A level set from a file always belongs to one specific device.</li>
+            <li><strong>Input volume.</strong> The sensitivity is defined at full input volume, so the sheet offers a one-click <em>Set to 100%</em>. If the control sits lower anyway, Audita adds the shortfall back in real time and shows the compensation in Settings and the menu bar. 100% still gives the most headroom.</li>
+        </ul>
+
+        <p class="prose">Expect the resulting offset to sit well above the 94 dB default. That is correct: it encodes the mic's absolute USB sensitivity rather than a pistonphone reference. To verify, play pink noise and compare Audita against the NIOSH SLM app at the listening position; they should agree within about 2 dB.</p>
+
+        <p class="prose">UMIK-2 files import the same way for frequency correction, but the automatic level conversion is calibrated for the UMIK-1, so set the level with Step 2 there.</p>
+
+        <h3>Download a UMIK-1 file by serial number</h3>
+        <p class="prose">With a UMIK-1 connected, Step 1 leads with the download instead of the measurement. Type the serial printed on the mic body, pick the 0 or 90 degree variant, and Audita fetches the factory calibration for that exact unit and opens the same import sheet.</p>
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p>The label prints the serial with a dash; type it without. This download is the only time Audita connects to minidsp.com, it sends nothing but the serial and the variant you picked, and it is the app's only outbound request besides license validation and update checks. See the <a href="privacy.html">privacy policy</a>.</p>
+        </div>
+
+        <h3>Analog mics through an interface</h3>
+        <p class="prose">An ECM8000, EMM-6, or similar analog measurement mic takes its frequency correction from the cal file exactly like a USB mic. The level offset still comes from Step 2, because the file cannot know what gain your preamp was set to.</p>
+
+        <p class="prose">Some analog files carry a <code>Sensitivity -12.34 dBFS</code> line: the level the mic produced at 94 dB SPL at whatever interface gain was used when the file was made. Audita can use it as the level reference, off by default, and both the import sheet and Settings say what it depends on. It holds only while your gain matches that measurement state, and the file cannot tell you what that state was. Treat it as a starting point and cross-check with Step 2.</p>
+
         <h3>Step 2 - Level offset (the main one)</h3>
         <p class="prose">This is the single number that maps <code>20·log₁₀(digital RMS)</code> to real-world dB SPL. The default 94 dB matches the IEC 60942 pistonphone standard - a calibrator that produces a 1 kHz tone at exactly 94 dB SPL. If you have a pistonphone, place it on the mic and adjust the offset until the live reading shows 94 dBA. For everyone else, calibrate against an iPhone running the free <strong>NIOSH SLM</strong> app (independently validated to ±2 dB):</p>
 
@@ -779,7 +846,12 @@
             <li>Repeat until both meters agree to within 1-2 dB. Click <strong>Stop Pink Noise</strong> when you're done.</li>
         </ol>
 
-        <p class="prose">Right under the offset slider is a free-text <strong>Mic Location</strong> field. Use it to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"). It's stored alongside the offset so you can reproduce or cross-check the calibration weeks later.</p>
+        <img src="images/screenshots/settings-audio-step2-file-offset.png" alt="Step 2 in the Settings Audio tab: the calibration offset slider reading 125.6 dB, with a green row noting that the value was set from the microphone's factory calibration file, its serial number, and its Sens Factor" class="screenshot-full">
+
+        <div class="note">
+            <span class="note-icon">ⓘ</span>
+            <p><strong>UMIK-1 owner?</strong> If you applied the sensitivity figure when importing the cal file, this step is already done: the card below the slider says so and names the Sens Factor it came from. The procedure above is for every other mic, or for cross-checking. Moving the slider by hand replaces the factory number with a manual one.</p>
+        </div>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
@@ -795,7 +867,7 @@
             <li><strong>Settings → Audio → Step 3 → Run Calibration Wizard.</strong></li>
             <li>Pink noise starts playing through the selected output device. The live SPL is shown alongside your target dBA (set in <strong>Settings → Reference</strong>, defaulting to 79 dBA / K-14).</li>
             <li>Adjust your physical monitor controller until the live SPL matches the target. Take your time - this is the moment that defines what "K-14" means on your rig.</li>
-            <li>Click <strong>Capture</strong>. Pink noise stops; the position is held so you can verify it before saving.</li>
+            <li>Click <strong>Capture position</strong>. Pink noise stops; the measured value is held so you can check it before saving.</li>
             <li>Type a short note describing the controller position (e.g. <em>"Apollo knob at 11 o'clock, monitors L+R at 0 dB on the desk panel"</em>).</li>
             <li>Click <strong>Save</strong>. The record is persisted; the card shows a green checkmark.</li>
         </ol>
@@ -804,10 +876,32 @@
 
         <p class="prose"><strong>Re-run when:</strong> you switched monitor pairs or selected a different output device, you moved a knob and forgot to put it back, you changed monitor placement or room treatment, or you added/removed a hardware level pad.</p>
 
-        <h3>Calibration profiles</h3>
-        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with its own measurement mic, second room - saving a <strong>named profile</strong> that captures Step 1 (FIR) + Step 2 (offset) lets you switch between them in one click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker. The active profile name is shown in the menu bar popover.</p>
+        <h3>The rig self-check</h3>
+        <p class="prose">Steps 1 to 3 make the chain accurate on the day you run them. <strong>Run Self-Check</strong> tells you whether it still is. Audita plays pink noise through the selected output at your calibrated reference, measures it back through the mic for a few seconds, and compares the result with what it measured when you captured Step 3.</p>
 
-        <p class="prose">Step 3 records aren't part of profiles - they're keyed by output device UID, so the current output determines which Step 3 target applies. A profile only carries the mic (Step 1) and the level offset (Step 2).</p>
+        <ol>
+            <li>Set your monitor controller to the calibrated position. The card shows the note you typed in Step 3. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you so the level is right before the noise starts.</li>
+            <li>Click <strong>Run Self-Check</strong>. Pink noise plays while the measurement settles.</li>
+            <li>Audita reports the measured level, the expected level, and the delta, with a pass or fail against the tolerance band you calibrated with (±2 / ±3 / ±5 dB).</li>
+        </ol>
+
+        <p class="prose">A failed check means something in the chain moved: the knob, the mic position, the preamp gain, the input device, or the room. Every run is logged with a timestamp and feeds the verification line on the health card. Checks age out after 90 days, the same interval as the Step 3 staleness hint.</p>
+
+        <p class="prose">A check verifies <strong>one chain</strong>: this mic into these monitors. Switch either end and the verification line reads unverified, because nothing on the new path has been measured. Each pair keeps its own result, so switching back to a rig you already verified reads verified again without re-running.</p>
+
+        <h3>Calibration profiles</h3>
+        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with its own measurement mic, second room - saving a <strong>named profile</strong> lets you restore one in a click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker.</p>
+
+        <p class="prose">A profile is your <strong>microphone's</strong> calibration: the Step 1 correction, the Step 2 offset, and the calibration file behind them. All three describe the input chain, so none of them changes when you switch monitors. The output-dependent parts live elsewhere: the Step 3 reference level is stored per output device, and a self-check result belongs to the input and output pair it measured. So switching monitors keeps your mic calibration and asks for a fresh verification.</p>
+
+        <h3>Audita offers the profile back</h3>
+        <p class="prose">Select a microphone you have saved a profile for and Settings → Audio shows a row above Step 1 offering it: <strong>Apply</strong> when a single profile fits, <strong>Choose…</strong> when several do. Nothing is applied without you asking, and <strong>Dismiss</strong> hides the offer for that mic until you next launch Audita.</p>
+
+        <p class="prose">Each profile records where it was captured, so the row and the chooser can say "saved 11 Aug on UMIK-1 into Apollo Twin X" when you are deciding which one you want. That is there to help you recognise the sitting a profile came from; it does not restrict when the profile applies. Profiles saved before Audita recorded outputs, including anything imported from Auris, show no output.</p>
+
+        <p class="prose">When a saved profile is already in effect, the same row names it - <em>Using saved profile: Desk, Apollo 40%</em> - with where and when it was captured. So the calibration on screen is always attributable, whether you just applied it or it was already loaded.</p>
+
+        <p class="prose">A profile saved while a calibration file was setting your level carries that file's proof with it: file name, serial, and Sens Factor. Apply it with the same microphone selected and the level returns as factory calibration, so the health card and Step 2 read exactly as they did after the import. Apply it with a different mic selected and only the number is restored, as a manual offset: a UMIK's factory figure is a claim about that one microphone and says nothing about another.</p>
     </section>
 
     <hr class="divider">
@@ -894,7 +988,7 @@
     <section class="guide-section" id="sessions">
         <h2>8. Sessions &amp; DAW detection <a href="#sessions" class="anchor">#</a></h2>
 
-        <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 60 seconds.</p>
+        <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 10 seconds for the session chart.</p>
 
         <h3>How sessions start and end</h3>
         <ul>
@@ -927,7 +1021,7 @@
             <tr><td>140 dBC</td><td class="wrap-ok">Absolute ceiling</td><td class="wrap-ok">No exposure permitted - immediate damage risk</td></tr>
         </tbody></table>
 
-        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Peak counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
+        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Every audio buffer feeds peak detection, and the counters count exceedance events: one count when the level first crosses a threshold, re-armed once it falls about 2 dB below it again. A sustained loud passage is one event; a snare hit every half second counts every hit. Counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
 
         <h3>Conservative dose mode</h3>
         <p class="prose">Standard dose calculation uses A-weighted levels only. For bass-heavy work (sub-bass mixing, kick tracking, live sound with subwoofers), <strong>Settings → Safety → Conservative dose mode</strong> uses <code>max(dBA, dBC)</code> for dose accumulation. Each tick, whichever weighting gives the higher reading is used. For mid-range content (speech, acoustic instruments), dBA ≈ dBC and behaviour is unchanged. There is no formal NIOSH or OSHA standard for this approach - it's a maximum-protection option.</p>
@@ -1153,10 +1247,21 @@
         </ol>
 
         <h3>Readings are wildly off (off by 20+ dB)</h3>
-        <p class="prose">Audita measures relative to the digital full-scale level of your microphone. Without Step 2 calibration, the displayed dB is not in real-world SPL - it's a digital level offset by the default 94 dB pistonphone constant. Run <a href="#calibration">Step 2</a> against an iPhone running NIOSH SLM to map the digital scale to real-world dB SPL.</p>
+        <p class="prose">Audita measures relative to the digital full-scale level of your microphone. Without Step 2 calibration, the displayed dB is not in real-world SPL - it's a digital level offset by the default 94 dB pistonphone constant. Run <a href="#calibration">Step 2</a> against an iPhone running NIOSH SLM to map the digital scale to real-world dB SPL. On a UMIK-1, importing the mic's calibration file with <em>Set level calibration from the file</em> does the same job in one step.</p>
+
+        <p class="prose">If the offset was set from a UMIK file and readings still look low, check the health card first: it names the device the level belongs to, so a mic swap or a switch to System Default shows up there. Then check the input volume - Audita compensates for a lowered control automatically and says when it is doing so, but a value it cannot read is a value it cannot correct.</p>
 
         <h3>dBA and dBC differ by &gt; 10 dB on broadband content</h3>
         <p class="prose">On broadband pink noise, dBA and dBC should be within ~3 dB. A larger gap means your mic has significant low-frequency response that A-weighting alone underreports. Run <a href="#calibration">Step 1</a> to flatten the mic, then re-verify against pink noise. If the gap persists after Step 1, the mic itself may be the issue (check the cable, preamp, and gain staging).</p>
+
+        <h3>Settings says the mic correction is bypassed at this sample rate</h3>
+        <p class="prose">A measured correction is a filter designed for the rate the audio device was running at when you measured it. Start the engine at a different rate and the filter cannot be applied, so the health card reports it as bypassed. Either set the device back to the rate you measured at (Audio MIDI Setup), re-run <strong>Measure</strong> at the current rate, or import the mic's calibration file - a file-based correction re-designs itself for whatever rate the device runs at.</p>
+
+        <h3>The UMIK-1 download can't find my serial</h3>
+        <p class="prose">The label prints the serial with a dash; type it without. If the number is right and the download still fails, minidsp.com may not have a file for that unit; download it from their site in a browser and use <strong>Import Calibration File</strong> instead.</p>
+
+        <h3>The self-check fails but the level sounds right</h3>
+        <p class="prose">The check compares what the mic hears now against what it heard when you captured Step 3, so any change on either side of the chain shows up as a delta: the monitor knob (set it to the position in your Step 3 note first), the mic's position, the preamp gain, a different input or output device, or room changes. Work through <a href="#calibration">Steps 1 to 3</a> in order, then re-run. If the level really is where it should be and only the mic moved, re-running Step 2 and Step 3 is the fix.</p>
 
         <h3>On-target % stays at "-"</h3>
         <p class="prose">The metric is suppressed until at least 30 seconds of non-silent monitoring time has been recorded. If you've been monitoring for longer and it still says "-", check that the dBA is above the silent floor (50 dBA, or target − 30 dBA, whichever is higher).</p>

@@ -42,14 +42,14 @@
     <header class="doc-header">
     <p class="eyebrow">Audita</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: May 2026</p>
+    <p class="doc-header__meta">Last updated: August 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics, no crash reporting, and no telemetry. The app reaches the network only for license validation and auto-update checks; each is described below.</p>
+    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics, no crash reporting, and no telemetry. The app reaches the network for three things only: license validation, auto-update checks, and a microphone calibration file you ask it to download. Each is described below.</p>
   </section>
 
   <section class="priv-section">
@@ -76,6 +76,12 @@
   <section class="priv-section">
     <h2>Automation surfaces</h2>
     <p>Audita ships an <code>audita://</code> URL scheme and a bundle of App Intents for Shortcuts, Siri, and Focus filters. These are local automation surfaces. URL responses use <code>x-callback-url</code>, which sends the response payload to a URL <em>you</em> supply. Audita does not contact any remote service through these surfaces; if your callback URL points to a third party, that's your choice and that party's policy then applies. The intents and URL scheme are read-and-toggle only: they cannot change calibration, license state, or A/C-weighting coefficients.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Microphone calibration downloads</h2>
+    <p>Step 1 of the calibration flow can fetch a miniDSP UMIK-1's factory calibration file from <strong>minidsp.com</strong>. The request happens only when you type a serial number and press the download button, and it carries only that serial number and the 0 or 90 degree variant you picked. Nothing about your Mac, your measurements, or your license is sent, and no account is involved. The downloaded file is stored locally with the calibration profile it creates.</p>
+    <p>Importing a calibration file you already have on disk is entirely local. Apart from license validation, auto-update checks, and this one download, Audita makes no outbound connections.</p>
   </section>
 
   <section class="priv-section">
