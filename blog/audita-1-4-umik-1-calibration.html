@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Audita 1.4: absolute SPL from a UMIK-1 serial number - Headroom</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html">
-  <meta name="description" content="Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Plus the 30 dB detour that got the conversion right, a calibration health card, a rig self-check, and three measurement fixes.">
+  <meta name="description" content="Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Plus the 30 dB detour that got the conversion right, live input-volume compensation, a calibration health card, and a rig self-check.">
   <meta property="og:title" content="Audita 1.4: absolute SPL from a UMIK-1 serial number">
-  <meta property="og:description" content="Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, a health card, a rig self-check, and three measurement fixes.">
+  <meta property="og:description" content="Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, a calibration health card, and a rig self-check that measures the whole chain.">
   <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
@@ -39,13 +39,13 @@
     <header class="article-header">
         <p class="article-eyebrow">Release</p>
         <h1>Audita 1.4: absolute SPL from a UMIK-1 serial number</h1>
-        <p class="article-subtitle">Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, a calibration health card, a rig self-check, and three measurement fixes worth reading.</p>
+        <p class="article-subtitle">Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, live input-volume compensation, and a health card and self-check that say whether the chain still holds.</p>
         <div class="article-meta">
             <span>Krzysiek</span>
             <span class="dot"></span>
             <span>12 August 2026</span>
             <span class="dot"></span>
-            <span>6 min read</span>
+            <span>5 min read</span>
         </div>
     </header>
 </div>
@@ -106,17 +106,7 @@
 
         <p><strong>Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the delta with a pass or fail against your own tolerance band. A result belongs to the pair it measured, this mic into these monitors, so swapping either end reads as unverified until you check that path too, and switching back to a rig you already verified reads verified again. Results age out after 90 days.</p>
 
-        <h2>Three measurement fixes, and one of them changes your numbers</h2>
-
-        <p>1.4 also carries the results of a math audit I ran against my own measurement chain. None of these came in as user reports, which is precisely why they are worth writing down.</p>
-
-        <ul>
-            <li><strong>Dose was under-counted on dynamic material.</strong> The accumulator was being fed the same exponentially smoothed value the display uses, so level swings averaged themselves away before they reached the arithmetic. It now uses the energy average of every sample in each 100 ms interval. Steady tones read as before; real programme material was low by roughly 20 to 35%. If your dose reads higher after updating, that is the fix, not a regression.</li>
-            <li><strong>Impulse counters missed short peaks and inflated sustained ones.</strong> About four in five audio buffers were never examined, so a dropped headphone often left no trace, while a long loud passage counted ten times a second. Every buffer now feeds detection, and the counters count events: one per excursion, re-armed 2 dB below the threshold.</li>
-            <li><strong>The mic-correction filter did not match the curve it displayed.</strong> The FIR was built from the wrong segment of the impulse response, so the applied filter typically gutted the mid and high band while the curve on screen looked fine. The construction is fixed and regression-tested against the displayed curve, but the filters older versions stored cannot be salvaged: they are disabled on first launch and Settings asks for one new <strong>Measure</strong> run. Importing your mic's calibration file clears that request too.</li>
-        </ul>
-
-        <p>The last one is the one to act on. If you had mic correction switched on before 1.4, re-measure or import the file, then run the self-check and you will know where you stand.</p>
+        <p>Put the three together and calibration stops being something you did once in June and half remember. The file says which capsule the numbers came from, the card says whether that still applies to the devices in front of you, and the self-check answers it with pink noise instead of an opinion.</p>
 
         <div class="kicker">
             <p>Audita 1.4 is a free update for existing licenses: <strong>Check for Updates</strong> in the menu, or download at <a href="/audita/">headroomstudio.dev/audita</a>. New licenses are <strong>$19.99</strong>, one time, with a 7-day trial, macOS 14 or later. <a href="/audita/releases.html#v1.4">Full release notes &#8594;</a></p>

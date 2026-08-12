@@ -14,7 +14,7 @@
       <guid isPermaLink="true">https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html</guid>
       <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
       <category>Release</category>
-      <description>Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Includes the 30 dB detour that got the conversion right, a calibration health card, a rig self-check, and three measurement fixes.</description>
+      <description>Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Includes the 30 dB detour that got the conversion right, live input-volume compensation, a calibration health card, and a rig self-check.</description>
     </item>
     <item>
       <title>Specula 1.2: custom loudness targets and raw PCM import</title>
