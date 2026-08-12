@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audita 1.4: absolute SPL from a UMIK-1 serial number - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html">
+  <meta name="description" content="Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Plus the 30 dB detour that got the conversion right, live input-volume compensation, a calibration health card, and a rig self-check.">
+  <meta property="og:title" content="Audita 1.4: absolute SPL from a UMIK-1 serial number">
+  <meta property="og:description" content="Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, a calibration health card, and a rig self-check that measures the whole chain.">
+  <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audita 1.4: absolute SPL from a UMIK-1 serial number">
+  <meta name="twitter:image" content="https://headroomstudio.dev/audita/og.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="article-header">
+        <p class="article-eyebrow">Release</p>
+        <h1>Audita 1.4: absolute SPL from a UMIK-1 serial number</h1>
+        <p class="article-subtitle">Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, live input-volume compensation, and a health card and self-check that say whether the chain still holds.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>12 August 2026</span>
+            <span class="dot"></span>
+            <span>5 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>Audita 1.4 is out. The part worth a post is what happens when the microphone you plug in is a <strong>miniDSP UMIK-1</strong>: you type the serial number printed on its body, and a few seconds later the app is measuring in real dB SPL.</p>
+
+        <h2>Why the UMIK-1 makes that possible</h2>
+
+        <p>Most measurement microphones ship with a calibration curve for the <em>model</em>. The UMIK-1 ships with one for the <em>unit</em>. miniDSP measures each microphone that leaves the building and publishes that file against its serial number, in two incidence variants: 0 degree for a capsule pointed at the source, 90 degree for grazing incidence with the mic pointing up.</p>
+
+        <p>None of that sounds thrilling until you try to write software against it. Then it is the whole game. I can ask a user for one serial number and get back the response of the exact capsule sitting on their desk, rather than a curve describing the average of a production run.</p>
+
+        <p>The second thing the UMIK-1 gets right is the gain. It is a USB microphone with fixed internal gain, so there is no preamp knob between the capsule and the numbers. That makes the sensitivity figure in its calibration file a stable claim about <em>level</em>, not only about tone. An analog measurement mic can tell my software its frequency response through the same kind of file; it cannot tell me what the person at the desk did with the gain trim, and level calibration lives or dies on exactly that.</p>
+
+        <p>It is an inexpensive microphone with a serial-numbered measurement behind it, and it is the reason a menu-bar app can make an absolute-SPL claim with a straight face.</p>
+
+        <h2>Type the serial, skip the meter</h2>
+
+        <p>With a UMIK-1 selected as the input, <strong>Settings &#8594; Audio &#8594; Step 1</strong> leads with the download. Type the serial (the label prints it with a dash, type it without), pick 0 or 90 degree, and Audita fetches the factory file for that unit, shows what it found (data points, frequency span, serial, sensitivity), and applies the curve as the mic correction: inverted, limited to &#177;9 dB, and running ahead of the A and C weighting filters.</p>
+
+        <p>The same sheet offers <strong>Set level calibration from the file</strong>. Tick it and the level offset comes from the sensitivity figure too, which means the whole calibration is done in one pass, with no SPL meter in the loop. For every other microphone, that step is still a cross-check against an iPhone running the free NIOSH Sound Level Meter app: play noise, compare the two readings, nudge the offset until they agree. It works, it is what I have recommended since 1.0, and it is still the answer for an ECM8000. It is simply not something a UMIK owner needs to do any more.</p>
+
+        <figure class="figure">
+            <img src="../audita/images/screenshots/settings-audio-step1-calibration-file.png" alt="Audita's Step 1 card with a UMIK-1 calibration file imported: the file name, serial and date, the correction curve it produced, and the serial-number download field with 0 and 90 degree options">
+            <figcaption>Step 1 after an import. The curve on screen is the one being applied, the card names the file and serial it came from, and the download field stays available for the next mic.</figcaption>
+        </figure>
+
+        <h2>The 30 dB detour</h2>
+
+        <p>The sensitivity figure is one line in the file header: <code>Sens Factor =-1.5520dB, SERNO: 7191053</code>. The obvious reading is the pistonphone convention that the rest of the app already used, where 94 dB SPL is the reference: offset equals 94 minus the figure. I wired that up, played pink noise, and Audita read about 30 dB below the reference meter.</p>
+
+        <p>The figure is not referenced to 94 dB. miniDSP defines it at 100 dB SPL with the 24 dB of digital gain their Windows-side workflow engages, and macOS never applies that gain. So the conversion is <code>124 &#8722; Sens Factor</code>: a file reading -1.55 dB becomes an offset of 125.6 dB, which looks alarming next to the 94 dB default right up until you know why it is 30 dB away from it.</p>
+
+        <p>I did not want to ship arithmetic I had reasoned my way into, so it went to hardware: a UMIK-1 at the listening position, pink noise, the NIOSH SLM app as the reference, the two meters agreeing inside about 2 dB. The constant, the clamp, and the codec are pinned in the test suite now, together with the two failure signatures I earned along the way: roughly 24 dB low means the digital-gain term was dropped, roughly 30 dB low means the 94 dB convention crept back in.</p>
+
+        <p>Applying it is fenced accordingly. The absolute level only lands when a UMIK-1 is the selected input <em>by name</em>, because a level claim belongs to one specific device, and never under a System Default input picker. UMIK-2 files import the same way for frequency correction, but the level conversion is calibrated for the UMIK-1, so on a UMIK-2 the offset comes from the cross-check.</p>
+
+        <h2>The input slider is part of the calibration</h2>
+
+        <p>macOS treats a USB microphone's input volume as a user control, and a sensitivity figure is only true at the position it was defined at, which is full volume. That is a real trap: one drag of a slider in System Settings and an absolute meter is quietly wrong.</p>
+
+        <p>Audita watches the control instead of trusting it. With a UMIK calibration active it adds the shortfall back in real time, so readings stay absolute at any slider position, and it says so in Settings and in the menu bar popover whenever it is compensating. Full volume still gives the most headroom, and the import sheet offers a one-click way back to it.</p>
+
+        <h2>Every other measurement mic</h2>
+
+        <p>Cal-file import is not UMIK-only. Audita reads the REW-style <code>.cal</code>, <code>.txt</code> and <code>.frd</code> files that miniDSP, Dayton and most measurement-mic vendors ship, so an ECM8000 or an EMM-6 through an interface gets its frequency correction from the manufacturer's curve instead of a pink-noise sweep of your room. Some analog files carry a <code>Sensitivity</code> figure in dBFS as well; Audita can use it as a level reference, off by default, with the cross-check as the arbiter, because that figure is tied to whatever preamp gain the file was measured at and the file cannot tell you what that was.</p>
+
+        <p>One quiet advantage of the file path: a correction derived from a published curve re-designs itself when your interface changes sample rate. A correction measured with pink noise is only valid at the rate it was measured at, and 1.4 now says so on screen instead of leaving it bypassed in silence.</p>
+
+        <h2>Knowing whether you are still calibrated</h2>
+
+        <p>Calibration is not a state you reach, it is a state you drift out of. So <strong>Settings &#8594; Audio</strong> now opens with three status lines: where the level offset came from and whether it belongs to the input you have selected, whether the mic correction is genuinely active, and when this rig last passed a self-check. The menu bar popover carries the same summary in one line.</p>
+
+        <p><strong>Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the delta with a pass or fail against your own tolerance band. A result belongs to the pair it measured, this mic into these monitors, so swapping either end reads as unverified until you check that path too, and switching back to a rig you already verified reads verified again. Results age out after 90 days.</p>
+
+        <p>Put the three together and calibration stops being something you did once in June and half remember. The file says which capsule the numbers came from, the card says whether that still applies to the devices in front of you, and the self-check answers it with pink noise instead of an opinion.</p>
+
+        <div class="kicker">
+            <p>Audita 1.4 is a free update for existing licenses: <strong>Check for Updates</strong> in the menu, or download at <a href="/audita/">headroomstudio.dev/audita</a>. New licenses are <strong>$19.99</strong>, one time, with a 7-day trial, macOS 14 or later. <a href="/audita/releases.html#v1.4">Full release notes &#8594;</a></p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="calibrated-monitoring.html"><span>The case for calibrated studio monitoring</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="pairing-audita-and-lyra.html"><span>Pairing Audita + Lyra: calibrate once, recall forever</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/audita/">Audita</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
