@@ -6,8 +6,16 @@
     <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 03 Aug 2026 17:30:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 09:00:00 +0000</lastBuildDate>
 
+    <item>
+      <title>Audita 1.4: absolute SPL from a UMIK-1 serial number</title>
+      <link>https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Release</category>
+      <description>Audita 1.4 reads measurement-mic calibration files, and on a miniDSP UMIK-1 it takes absolute SPL straight from the factory file you fetch by serial number. Includes the 30 dB detour that got the conversion right, a calibration health card, a rig self-check, and three measurement fixes.</description>
+    </item>
     <item>
       <title>Specula 1.2: custom loudness targets and raw PCM import</title>
       <link>https://headroomstudio.dev/blog/specula-1-2-custom-loudness-targets-raw-pcm.html</link>
