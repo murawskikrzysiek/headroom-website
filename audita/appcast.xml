@@ -26,15 +26,13 @@
         <language>en</language>
 
         <!--
-          v1.4 DRAFT - one field left to fill before this can merge:
-            edSignature  →  .build/artifacts/sparkle/Sparkle/bin/sign_update Audita-1.4.dmg
-          Verified 2026-08-12: length 9896071 matches the local DMG (stat -f%z) and
-          the bytes R2 serves; the served object's MD5 equals its ETag,
-          6ea45bae5460551d0b1a306aa5774c7b. pubDate is set for a 13 Aug publish -
-          adjust if that slips.
-          Sparkle refuses an item whose signature does not match the enclosure,
-          so the placeholder fails closed (no update offered) rather than
-          shipping something unverified.
+          v1.4 verified 2026-08-12, complete:
+            edSignature  Ed25519-verified against Audita-1.4.dmg and the
+                         SUPublicEDKey shipped in Info.plist
+            length       9896071, matching the local DMG and the bytes R2
+                         serves (served MD5 equals its ETag,
+                         6ea45bae5460551d0b1a306aa5774c7b)
+          pubDate is set for a 13 Aug publish - adjust if that slips.
         -->
         <item>
             <title>Version 1.4 - Calibration files, UMIK-1 support, calibration health</title>
@@ -45,7 +43,7 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.4.dmg"
-                sparkle:edSignature="REPLACE_WITH_SIGNATURE_AT_RELEASE"
+                sparkle:edSignature="gDAk8KVc8lTgMjpDSYWNg6R1d9XICsO8LSeqa0Pl6u+3Jw4NEMUZIjPm+BiKM3VcR1pr1hXR+OmV40+6uDQlCQ=="
                 length="9896071"
                 type="application/octet-stream" />
         </item>
