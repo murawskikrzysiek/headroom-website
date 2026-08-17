@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Videre decodes video: the path from file to pixel on macOS</title>
+    <link rel="canonical" href="https://headroomstudio.dev/videre/decoding.html">
+    <meta name="description" content="One decode at native bit depth, explicit interpretation, and a measurement path that reads the decoded codes themselves. What happens between a video file and the number Videre shows you.">
+    <meta property="og:title" content="How Videre decodes video">
+    <meta property="og:description" content="One decode at native bit depth, explicit interpretation, and every readout, scope, and metric reading the decoded codes themselves. The path from file to pixel.">
+    <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Videre decodes video">
+    <meta name="twitter:description" content="One decode at native bit depth, explicit interpretation, and a measurement path that reads the decoded codes themselves.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "How Videre decodes video",
+        "description": "One decode at native bit depth, explicit interpretation, and a measurement path that reads the decoded codes themselves. What happens between a video file and the number Videre shows you.",
+        "url": "https://headroomstudio.dev/videre/decoding.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Videre",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication"
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container nav-shell">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Videre</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
+        </div>
+        <div>
+            <h1>The decode path</h1>
+            <p class="app-hero__desc">
+                What happens between the file and the number on screen. One decode at the stream's own bit depth, an interpretation you can see and change, and a measurement path that reads the decoded codes themselves.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge">Native bit depth</span>
+                <span class="badge">Explicit interpretation</span>
+                <span class="badge">Codes, not previews</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html">Read the user guide</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">one-time purchase · macOS 14+</p>
+        </div>
+    </header>
+
+    <!-- One decode -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">One decode</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Videre decodes once, at the stream's own depth: a 10-bit HEVC file becomes 10-bit planes, a 12-bit raw dump is read as 12-bit codes, and nothing passes through an 8-bit intermediate on the way in. MP4 and MOV decode through the system decoder in the codec's native format; files with in-band parameter sets (hev1 / avc3) decode through Videre's own decode path. Raw and y4m are read exactly as the bytes declare, with a parameter sheet for headerless files.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The decoded frame is one set of stored code values, and everything in the app reads that same frame. The picture, the pixel readout, the loupe, every scope, and every compare metric look at identical data. There is no second decode that could disagree with the first.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 260" role="img" aria-label="Videre's decode path: the file decodes once at native depth into stored codes; the measurement path reads the codes directly, while the display path converts through the interpretation on the GPU and renders SDR to an 8-bit surface or PQ and HLG to a 16-bit float surface via EDR.">
+                        <rect class="dg-box" x="10" y="100" width="150" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="125">the file</text>
+                        <text class="dg-s" x="24" y="143">MP4/MOV &#183; y4m &#183; raw</text>
+                        <path class="dg-flow" d="M160 130h28m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="196" y="100" width="150" height="60" rx="9"/>
+                        <text class="dg-t" x="210" y="125">decode</text>
+                        <text class="dg-s" x="210" y="143">at native depth</text>
+                        <path class="dg-flow" d="M346 130h28m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="382" y="100" width="150" height="60" rx="9"/>
+                        <text class="dg-t" x="396" y="125">stored codes</text>
+                        <text class="dg-s dg-s--a" x="396" y="143">10-bit = 0..1023</text>
+                        <path class="dg-flow" d="M532 115c30 0 30 -65 40 -65m-7 -5 7 5-7 5"/>
+                        <path class="dg-flow" d="M532 145c30 0 30 65 40 65m-7 -5 7 5-7 5"/>
+                        <rect class="dg-box" x="578" y="20" width="114" height="60" rx="9"/>
+                        <text class="dg-t" x="590" y="45">measure</text>
+                        <text class="dg-s" x="590" y="63">reads codes</text>
+                        <rect class="dg-box" x="578" y="180" width="114" height="60" rx="9"/>
+                        <text class="dg-t" x="590" y="205">display</text>
+                        <text class="dg-s" x="590" y="223">converts codes</text>
+                        <text class="dg-s" x="10" y="30">readout &#183; loupe &#183; scopes &#183; PSNR / SSIM / &#916;E:</text>
+                        <text class="dg-s" x="10" y="47">every number is a code the file contains</text>
+                        <text class="dg-s" x="10" y="215">matrix &#183; range &#183; transfer, then float math</text>
+                        <text class="dg-s" x="10" y="232">on the GPU, no re-quantizing in between</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 470" role="img" aria-label="Videre's decode path: the file decodes once at native depth into stored codes; the measurement path reads the codes directly, while the display path converts through the interpretation on the GPU and renders SDR to an 8-bit surface or PQ and HLG to a 16-bit float surface via EDR.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="40">the file</text>
+                        <text class="dg-s" x="50" y="58">MP4/MOV &#183; y4m &#183; raw</text>
+                        <path class="dg-flow" d="M170 72v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="96" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="120">decode</text>
+                        <text class="dg-s" x="50" y="138">at native depth</text>
+                        <path class="dg-flow" d="M170 152v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="176" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="200">stored codes</text>
+                        <text class="dg-s dg-s--a" x="50" y="218">10-bit = 0..1023</text>
+                        <path class="dg-flow" d="M100 232v24m-5 -6 5 6 5-6"/>
+                        <path class="dg-flow" d="M240 232v128m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="20" y="264" width="160" height="74" rx="9"/>
+                        <text class="dg-t" x="34" y="288">measure</text>
+                        <text class="dg-s" x="34" y="306">readout &#183; scopes</text>
+                        <text class="dg-s" x="34" y="323">read codes</text>
+                        <rect class="dg-box" x="160" y="368" width="160" height="74" rx="9"/>
+                        <text class="dg-t" x="174" y="392">display</text>
+                        <text class="dg-s" x="174" y="410">interpretation,</text>
+                        <text class="dg-s" x="174" y="427">then float math</text>
+                    </svg>
+                    <figcaption><strong>The decode path.</strong> One decode, at the stream's own depth, into one set of stored codes. Measurement reads the codes directly; the display converts them through the interpretation you set.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interpretation -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Interpretation</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Between codes and colors sits the interpretation: which matrix (BT.601 / 709 / 2020), which range (video or full), which transfer (sRGB, gamma 2.2, gamma 2.4, PQ, HLG). Videre keeps it explicit and live. The pills in the transport bar show what is applied; flip one and the frame re-renders, with an amber marker whenever your choice diverges from what the file declares. The conversion math is one implementation shared by the display shader and the pixel readout, so the picture and the numbers cannot drift apart.</p>
+                <p class="prose-lead" style="margin-top: 14px;">In a compare session each side converts under its own interpretation. A BT.601 master against a BT.709 encode is a well-defined comparison, not an undefined one, and the &#916;E metric measures exactly that difference.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bit depth to the glass -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Bit depth, stage by stage</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Where a 10-bit sample keeps its depth, and the one place it does not. The GPU receives deep sources as 16-bit textures carrying the exact code values and does all conversion in floating point. What reaches the glass depends on the transfer: PQ and HLG render to a 16-bit float surface that macOS composites through EDR, at the full depth a capable display offers. SDR renders to an 8-bit surface, so a subtle 10-bit SDR gradient can show 8-bit steps on the canvas that are not in the file. The measurement path is unaffected either way: every measurement surface still reports the 10-bit codes.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 240" role="img" aria-label="Bit depth by stage: a 10-bit code value 581 stays 581 through decode and the 16-bit texture; float math on the GPU; PQ and HLG reach the screen through a 16-bit float EDR surface, SDR through an 8-bit surface; the readout reports 581 in every case.">
+                        <rect class="dg-box" x="10" y="20" width="130" height="56" rx="9"/>
+                        <text class="dg-t" x="24" y="44">file</text>
+                        <text class="dg-s" x="24" y="62">Y = 581 of 1023</text>
+                        <path class="dg-flow" d="M140 48h24m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="172" y="20" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="186" y="44">decoded plane</text>
+                        <text class="dg-s" x="186" y="62">still 581</text>
+                        <path class="dg-flow" d="M322 48h24m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="354" y="20" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="368" y="44">GPU math</text>
+                        <text class="dg-s" x="368" y="62">floating point</text>
+                        <path class="dg-flow" d="M504 40c30 0 30 -8 52 -8m-7 -5 7 5-7 5"/>
+                        <path class="dg-flow" d="M504 60c30 0 30 40 52 40m-7 -5 7 5-7 5"/>
+                        <rect class="dg-box dg-box--accent" x="562" y="8" width="130" height="52" rx="9"/>
+                        <text class="dg-t" x="576" y="30">PQ / HLG</text>
+                        <text class="dg-s dg-s--a" x="576" y="47">16-bit float &#183; EDR</text>
+                        <rect class="dg-box" x="562" y="76" width="130" height="52" rx="9"/>
+                        <text class="dg-t" x="576" y="98">SDR</text>
+                        <text class="dg-s" x="576" y="115">8-bit surface</text>
+                        <path class="dg-flow" d="M85 76v66m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="10" y="150" width="330" height="56" rx="9"/>
+                        <text class="dg-t" x="24" y="174">the readout still says 581</text>
+                        <text class="dg-s dg-s--a" x="24" y="192">measurement never leaves the code domain</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 520" role="img" aria-label="Bit depth by stage: a 10-bit code value 581 stays 581 through decode and the 16-bit texture; float math on the GPU; PQ and HLG reach the screen through a 16-bit float EDR surface, SDR through an 8-bit surface; the readout reports 581 in every case.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="40">file</text>
+                        <text class="dg-s" x="50" y="58">Y = 581 of 1023</text>
+                        <path class="dg-flow" d="M170 70v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="90" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="114">decoded plane</text>
+                        <text class="dg-s" x="50" y="132">still 581</text>
+                        <path class="dg-flow" d="M170 144v14m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="164" width="268" height="54" rx="9"/>
+                        <text class="dg-t" x="50" y="188">GPU math</text>
+                        <text class="dg-s" x="50" y="206">floating point</text>
+                        <path class="dg-flow" d="M100 218v18m-5 -6 5 6 5-6"/>
+                        <path class="dg-flow" d="M240 218v18m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="20" y="242" width="150" height="70" rx="9"/>
+                        <text class="dg-t" x="34" y="266">PQ / HLG</text>
+                        <text class="dg-s dg-s--a" x="34" y="284">16-bit float</text>
+                        <text class="dg-s dg-s--a" x="34" y="301">via EDR</text>
+                        <rect class="dg-box" x="186" y="242" width="134" height="70" rx="9"/>
+                        <text class="dg-t" x="200" y="266">SDR</text>
+                        <text class="dg-s" x="200" y="284">8-bit surface</text>
+                        <path class="dg-flow" d="M170 312v22m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="342" width="268" height="70" rx="9"/>
+                        <text class="dg-t" x="50" y="366">the readout still says 581</text>
+                        <text class="dg-s dg-s--a" x="50" y="384">measurement never leaves</text>
+                        <text class="dg-s dg-s--a" x="50" y="401">the code domain</text>
+                    </svg>
+                    <figcaption><strong>Bit depth, stage by stage.</strong> A 10-bit code keeps its value through decode and GPU math. PQ and HLG reach the screen at full depth through EDR; SDR reaches it through an 8-bit surface. The readout reports the code either way.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stage table -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Depth by stage</p>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">In the file</div><div class="feature-row__v">Whatever the stream declares: 8-, 10-, 12-, or 16-bit raw and y4m; encoded streams at their coded depth.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Decoded planes</div><div class="feature-row__v">The declared depth, unchanged. A 10-bit source decodes to 10-bit code values.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Readout, loupe, scopes</div><div class="feature-row__v">The decoded codes at file depth. A 10-bit pixel reads as 0 to 1023; the loupe magnifies from the same codes the readout reports.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Compare metrics</div><div class="feature-row__v">PSNR and SSIM on the code values; &#916;E through each side's own interpretation in floating point. Cross-validated against the reference implementations.</div></div>
+                <div class="feature-row"><div class="feature-row__k">HDR canvas (PQ / HLG)</div><div class="feature-row__v">A 16-bit float surface composited through EDR: full depth to a capable display, with real headroom above SDR white.</div></div>
+                <div class="feature-row"><div class="feature-row__k">SDR canvas</div><div class="feature-row__v">An 8-bit surface. Deep SDR content displays through it; the numbers on every measurement surface stay at file depth.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Exports</div><div class="feature-row__v">Raw and y4m at the chosen output format and depth, every frame verified against a freshly opened source before the file is kept.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered" style="text-align: center;">
+        <p class="label" style="margin-bottom: 14px;">Go deeper</p>
+        <p style="font-size: 0.9rem; color: var(--text-2); max-width: 520px; margin: 0 auto 22px; line-height: 1.6;">The user guide covers the parameter sheet, the interpretation controls, the scopes, and the compare session in detail.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a class="btn btn-primary" href="guide.html">Read the user guide</a>
+            <a class="btn btn-secondary" href="index.html">About Videre</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Videre</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>
