@@ -358,6 +358,7 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
   color: var(--accent-soft); background: rgba(124,132,246,0.14); padding: 3px 9px; border-radius: 5px;
   text-align: center; white-space: nowrap; }
 .std-row__desc { font-size: 0.86rem; color: var(--text-2); line-height: 1.5; }
+.std-row__desc a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
 
 .prose-lead { font-size: 0.95rem; color: var(--text-2); line-height: 1.8; max-width: 640px; }
 .prose-lead strong { color: var(--text); font-weight: 600; }
