@@ -496,8 +496,18 @@
         <h3>Dolby Vision (⌃7)</h3>
         <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels, trims, active area, source primaries, and target-display blocks. The per-frame L1 graph is a timeline strip, toggled from the panel. Videre inspects the metadata; it does not compose an output image.</p>
 
+        <figure class="shot shot--narrow">
+            <img src="guide-dolby.png" alt="Videre's Dolby Vision panel: RPU count and CM version, L1 min/avg/max in nits, L6 light levels, and content type." loading="lazy" decoding="async">
+            <figcaption><strong>The Dolby Vision readout.</strong> Per-frame RPU metadata, decoded and graphed.</figcaption>
+        </figure>
+
         <h3>HDR10+ (⌃8)</h3>
         <p class="prose">ST 2094-40 per-scene metadata with a tone-curve knee readout. The per-frame MaxSCL / average graph is a timeline strip, toggled from the panel.</p>
+
+        <figure class="shot shot--narrow">
+            <img src="guide-hdr10plus.png" alt="Videre's HDR10+ panel: frames with metadata, target display, MaxSCL per component in nits, percentiles, and the tone-curve knee." loading="lazy" decoding="async">
+            <figcaption><strong>The HDR10+ readout.</strong> ST 2094-40 metadata in nits, knee and anchors included.</figcaption>
+        </figure>
     </section>
 
     <hr class="divider">
@@ -714,8 +724,8 @@ videre retag good.mp4 -o broken.mp4 --box stsd.entry_count=7 --ack-nonconforming
         <p class="prose">The region tool shares its selection with Edit mode. Measure a suspicious area, press <kbd>⌘1</kbd>, and the selection is already there for the repair.</p>
 
         <figure class="shot">
-            <img src="guide-measure.png" alt="Videre's Measure mode: a region on the frame with per-channel statistics in the toolbar and a line profile chart underneath." loading="lazy" decoding="async">
-            <figcaption><strong>Measure mode.</strong> Region statistics and a line profile; the numbers always belong to something you can see.</figcaption>
+            <img src="guide-measure.png" alt="Videre's Measure mode: a region on the frame with per-channel statistics in the toolbar and the region's own histograms underneath." loading="lazy" decoding="async">
+            <figcaption><strong>Measure mode.</strong> Region statistics and the region's own histograms; the numbers always belong to something you can see. Footage: Big Buck Bunny (CC) Blender Foundation.</figcaption>
         </figure>
     </section>
 
@@ -969,7 +979,7 @@ videre scenes clip.mp4 --ffmpeg-command out.mp4</code></pre>
 
         <figure class="shot">
             <img src="guide-border-flag.png" alt="The ICtCp border check: cyan flags on saturated pixels with the gamut panel stat row." loading="lazy" decoding="async">
-            <figcaption><strong>The border check.</strong> The stat counts; the overlay locates. Footage: Sintel (CC) Blender Foundation.</figcaption>
+            <figcaption><strong>The border check.</strong> The stat counts; the overlay locates. Footage: Big Buck Bunny (CC) Blender Foundation.</figcaption>
         </figure>
         <figure class="shot">
             <img src="guide-stress.png" alt="The carriage stress scope: damage heatmap with seams at color boundaries and the config pills." loading="lazy" decoding="async">
