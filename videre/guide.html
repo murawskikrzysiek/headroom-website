@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videre - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/videre/guide.html">
-    <meta name="description" content="Complete user reference for Videre - opening raw and encoded video, interpretation, HDR display, every scope, the bitstream and container inspectors, metadata repair, compare metrics, edit mode, ICtCp tools, carriage stress, the CLI, and the Shortcuts and Finder Services automation.">
+    <meta name="description" content="Complete user reference for Videre - opening raw and encoded video, interpretation, HDR display, every scope, the bitstream and container inspectors, Metadata mode, compare metrics, Edit, Measure, Conform and Scenes modes, ICtCp tools, carriage stress, the CLI, and the Shortcuts and Finder Services automation.">
     <meta property="og:title" content="Videre User Guide">
     <meta property="og:description" content="Complete reference for Videre - every feature, every keyboard shortcut.">
     <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
@@ -303,7 +303,7 @@
     <header class="page-header" id="top">
         <p class="page-eyebrow">Videre · User guide</p>
         <h1>Videre, end to end.</h1>
-        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, repair, edit, and compare: the complete reference for the 1.0 builds.</p>
+        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, and the six modes - edit, compare, measure, conform, scenes, and metadata repair: the complete reference for the 1.0 builds.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents" data-guide-toc>
@@ -316,9 +316,12 @@
             <li><a href="#hdr">5 · HDR display</a></li>
             <li><a href="#scopes">6 · Scopes</a></li>
             <li><a href="#inspectors">7 · Bitstream &amp; container</a></li>
-            <li><a href="#repair">8 · Metadata repair</a></li>
+            <li><a href="#repair">8 · Metadata mode</a></li>
             <li><a href="#compare">9 · Compare and metrics</a></li>
             <li><a href="#edit">10 · Edit mode</a></li>
+            <li><a href="#measure">10a · Measure mode</a></li>
+            <li><a href="#conform">10b · Conform mode</a></li>
+            <li><a href="#scenes">10c · Scenes mode</a></li>
             <li><a href="#ictcp">11 · ICtCp tools</a></li>
             <li><a href="#cli">12 · Command-line tool</a></li>
             <li><a href="#automation">13 · Shortcuts &amp; Finder Services</a></li>
@@ -395,14 +398,16 @@
     <section class="guide-section" id="display">
         <h2>4 · Display and navigation<a class="anchor" href="#display">#</a></h2>
         <ul>
-            <li><strong>Modes</strong>: inspecting is the default, and two modes sit on top of it: <strong>Edit</strong> (<kbd>⌘1</kbd>, <a href="#edit">section 10</a>) and <strong>Compare</strong> (<kbd>⌘2</kbd>, <a href="#compare">section 9</a>). Switch from the Mode menu or the selector in the transport bar; pressing the active mode's shortcut again leaves it and returns to plain inspection. Both need an open file.</li>
-            <li><strong>Transport</strong>: <kbd>Space</kbd> plays and pauses at source rate, <kbd>←</kbd>/<kbd>→</kbd> step one frame, <kbd>⌘←</kbd>/<kbd>⌘→</kbd> jump to the first and last frame. The counter accepts a typed frame number. Playback follows each frame's own duration from the container, so a variable-frame-rate file (an iPhone low-light capture, a screen recording) plays with its true cadence; the transport and the File section then read <strong>VFR</strong> with the measured average rate, and the tooltip gives the duration range. Decode order paces at the nominal rate (coded layout, not a temporal timeline).</li>
+            <li><strong>Modes</strong>: inspecting is the default, and six modes sit on top of it: <strong>Edit</strong> (<kbd>⌘1</kbd>, <a href="#edit">section 10</a>), <strong>Compare</strong> (<kbd>⌘2</kbd>, <a href="#compare">section 9</a>), <strong>Measure</strong> (<kbd>⌘3</kbd>, <a href="#measure">section 10a</a>), <strong>Conform</strong> (<kbd>⌘4</kbd>, <a href="#conform">section 10b</a>), <strong>Scenes</strong> (<kbd>⌘5</kbd>, <a href="#scenes">section 10c</a>), and <strong>Metadata</strong> (<kbd>⌘6</kbd>, <a href="#repair">section 8</a>). Switch from the Mode menu or the selector in the transport bar; pressing the active mode's shortcut again leaves it and returns to plain inspection. Every mode needs an open file.</li>
+            <li><strong>Transport</strong>: <kbd>Space</kbd> plays and pauses at source rate, <kbd>←</kbd>/<kbd>→</kbd> step one frame, <kbd>⌘←</kbd>/<kbd>⌘→</kbd> jump to the first and last frame. The counter shows timecode and frame number together, one above the other; click it to flip which is prominent (the ruler's TC / fr chip is the same switch). <kbd>⌘J</kbd> focuses the jump field, which accepts a typed frame number. Playback follows each frame's own duration from the container, so a variable-frame-rate file (an iPhone low-light capture, a screen recording) plays with its true cadence; the transport and the File section then read <strong>VFR</strong> with the measured average rate, and the tooltip gives the duration range. Decode order paces at the nominal rate (coded layout, not a temporal timeline). Playback holds real time: when a frame cannot be presented inside its own duration (a heavy 4K HDR master on a busy machine), late frames are dropped rather than stretching the clip into slow motion, and an orange <strong>→ N</strong> readout beside the rate shows the presented rate while it happens. Every frame is still decoded and stepping is exact. Settings › Playback can flip this to present every frame instead - the walk you want when hunting a single-frame glitch by eye - at the price of running slower than real time. Open scope panels refresh a few times a second while the video runs, so heavy analysis never drags playback down; the moment you pause or step, every scope measures the exact frame on screen at full precision.</li>
+            <li><strong>Loop playback</strong> (<kbd>⌘L</kbd>, or the repeat button in the transport): play wraps at the end instead of stopping. <kbd>⌥I</kbd> / <kbd>⌥O</kbd> mark a loop in and out point at the playhead, <kbd>⌥⌘L</kbd> clears the range, and <kbd>⌘</kbd>-dragging on the time ruler paints one directly (a plain <kbd>⌘</kbd>-click clears it). The range draws as a teal band on the ruler. With a range set, play enters it: starting from outside repositions the playhead to the in point.</li>
+            <li><strong>Hold Play Start</strong> (Frame menu, sticky): stopping returns the playhead to where play started, and so does reaching the end - the review habit from audio editors, for watching the same join twice. Off, the playhead stays where playback stopped.</li>
             <li><strong>Frame order</strong>: a <strong>Display / Decode</strong> switch in the transport bar, shown for encoded sources and enabled when the two orders actually differ. Display is the true temporal timeline. Decode makes the whole app walk the CODED order instead: stepping, playback, the counter, the jump field, and the scrubber all follow how the frames are laid out in the stream, so you can watch reference frames arrive before the frames that depend on them. The order comes from the file's composition times, and when a remux has written flat timestamps over a reordered stream (a real defect: such files play visibly shuffled in every player that trusts the container), the display order is derived from the stream's own picture order counts instead, so Videre plays the true order even though the container lies. The switch hides while a comparison is open (two files can have different structures). The current frame stays put when switching, and exports always act on the frame shown.</li>
             <li><strong>Zoom</strong>: <kbd>⌘+</kbd> / <kbd>⌘−</kbd>, <kbd>⌘0</kbd> fits the window, <kbd>⌥⌘1</kbd> shows actual size. At 8× and beyond a pixel grid draws. The status bar shows the zoom (100% is one image pixel per point, orange while zoomed); double-click the readout to fit the window.</li>
             <li><strong>Text size</strong> (Settings › Layout): scales the info panel, the pixel-readout strip, the scope panels, the transport readouts (counter, jump field, fps), and every mode selector and scope toggle to Default, Large, or Extra Large, including scopes popped out into their own windows; the faintest labels also honor the system Increase Contrast setting. The same tab chooses which scopes open with a session's first file and switches the Liquid Glass chrome. Analysis holds the untagged-SDR tone response choice (<a href="#interpretation">section 3</a>). Acknowledgements holds the open-source license text.</li>
             <li><strong>Readout</strong>: hover any pixel for its raw code values and converted RGB; HDR interpretations add the luminance in nits.</li>
-            <li><strong>Loupe</strong> (<kbd>M</kbd>): a magnifier following the cursor, rendered through the exact readout conversion.</li>
-            <li><strong>Channel isolation</strong> (Display › Channel): Y, Cb, Cr, R, G, B, alpha as grayscale; the ICtCp components I, Ct, Cp; and an ICtCp composite. See <a href="#ictcp">section 11</a>.</li>
+            <li><strong>Loupe</strong> (<kbd>M</kbd>): a magnifier following the cursor, rendered through the exact readout conversion. It magnifies what is on screen, so a rotated clip magnifies the rotated picture. Settings › Layout chooses where it sits: centered on the cursor (the crosshair pixel stays under the mouse, like a lens) or beside it.</li>
+            <li><strong>Channel isolation</strong> (Display › Channel): Y, Cb, Cr, R, G, B, alpha as grayscale; the ICtCp components I, Ct, Cp; and an ICtCp composite. <kbd>V</kbd> / <kbd>⇧V</kbd> cycle through the classic set (All, Y, Cb, Cr, R, G, B); the ICtCp views are picked from the menu. See <a href="#ictcp">section 11</a>.</li>
             <li><strong>Smooth chroma</strong> (Display menu): siting-aware bilinear chroma upsampling for display. Default is nearest: no filtering between the data and your eyes.</li>
             <li><strong>Rotation</strong>: <kbd>⌘R</kbd> / <kbd>⌥⌘R</kbd> rotate the view in 90° steps; container rotation metadata is applied automatically. Rotation is display-only and never changes the stored pixels or the measurements.</li>
             <li><strong>Copy Frame</strong> (<kbd>⌥⌘C</kbd>) and <strong>Save Frame As PNG</strong> (<kbd>⇧⌘S</kbd>) export the current frame through the display conversion.</li>
@@ -416,9 +421,9 @@
         <p class="prose">PQ and HLG interpretations render through the display's extended dynamic range. The info panel gains a <strong>Display</strong> section:</p>
         <ul>
             <li><strong>Headroom</strong> shows the display's current EDR multiple. Content brighter than it clips on screen (not in the numbers).</li>
-            <li><strong>Exposure</strong>: ±6 EV display-only gain for reading into highlights or shadows. Never affects readout or measurements.</li>
-            <li><strong>tone map</strong>: a preview that scales 1,000 nits to SDR white; a plain exposure scale, not a look.</li>
-            <li><strong>clipping</strong>: highlights pixels brighter than the display can show.</li>
+            <li><strong>Exposure</strong>: ±6 EV display-only gain for reading into highlights or shadows. <kbd>[</kbd> and <kbd>]</kbd> nudge it by half a stop, <kbd>\</kbd> resets it. Never affects readout or measurements.</li>
+            <li><strong>tone map</strong> (<kbd>T</kbd>): a preview that scales 1,000 nits to SDR white; a plain exposure scale, not a look.</li>
+            <li><strong>clipping</strong> (<kbd>C</kbd>): highlights pixels brighter than the display can show.</li>
         </ul>
 
         <h3>The Environment section</h3>
@@ -458,7 +463,7 @@
                 <tr><td><kbd>⌃0</kbd></td><td class="wrap-ok">Carriage stress</td></tr>
             </tbody>
         </table>
-        <p class="prose"><kbd>⌃⌥</kbd> + the same number extracts the analyzer into its own resizable window; press again to close it. A popped-out scope stays live even with its inspector section hidden.</p>
+        <p class="prose"><kbd>⌃⌥</kbd> + the same number extracts the analyzer into its own resizable window; press again to close it. A popped-out scope stays live even with its inspector section hidden. <kbd>⌥⌘I</kbd> hides the whole inspector and brings it back with the same scopes open.</p>
         <p class="prose"><strong>Timeline strips.</strong> Every time-aligned graph runs as a full-width strip under the viewer rather than inside its panel: light levels, Dolby Vision L1, HDR10+ brightness, QC SI / TI, and the GOP / bitrate chart (section 7). Each strip shares the playhead with the seek bar, dragging it scrubs the viewer, and several strips stack. Panels keep the readouts plus a toggle row for their strip; the on-demand measurements (light levels, QC) open theirs when the pass finishes. A strip closes from its x button or the panel row.</p>
 
         <h3>Gamut (⌃1)</h3>
@@ -477,12 +482,16 @@
         <h3>Waveform (⌃3) and Vectorscope (⌃4)</h3>
         <p class="prose">Luma and per-channel waveform; chroma vectorscope.</p>
 
+        <h3>The clip analysis (⇧⌘A)</h3>
+        <p class="prose">Whole-clip measurements come from one analysis: <strong>Analyze</strong> (<kbd>⇧⌘A</kbd>, the transport-bar button, or a panel's Analyze button) decodes every frame once and fills the light levels, the QC checks, and the Scenes shot list together. <strong>Find Scenes</strong> in <kbd>⌘5</kbd> runs the same analysis. When the interpretation changes afterwards, every panel that reads the analysis shows the same notice, and the notice carries its own <strong>Analyze again</strong> button - one re-run refreshes them all. Opening a different file clears them all.</p>
+        <p class="prose"><strong>Analyze new files on open</strong> (Settings › Analysis, off by default) runs the analysis as soon as a file opens, so the panels are filled by the time you look. A size guard skips files over a limit you pick, and a running analysis cancels from any of its progress bars.</p>
+
         <h3>Light levels (⌃5)</h3>
-        <p class="prose">Measured MaxCLL and MaxFALL over the clip, side by side with the values the file declares. Results are tracked for staleness (a re-measure is offered when the interpretation changes). The per-frame nits graph (max and average, with the declared CLL as a dashed rule) opens as a timeline strip when the measurement finishes.</p>
+        <p class="prose">Measured MaxCLL and MaxFALL over the clip, side by side with the values the file declares. The per-frame nits graph (max and average, with the declared CLL as a dashed rule) opens as a timeline strip when the analysis finishes.</p>
 
         <h3>QC checks (⌃6)</h3>
-        <p class="prose">A whole-clip pass: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information. The per-frame SI / TI graph opens as a timeline strip when the pass finishes.</p>
-        <p class="prose">For MP4/MOV files the panel also runs the <strong>delivery checks</strong>, the same six checks as <code>videre verify</code> (section 12) with the same severities: color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. Each row shows pass, warn, fail, or skip with a one-line reason.</p>
+        <p class="prose">From the same analysis: black frames, freeze runs (mean-absolute-difference based, matching the common detector conventions), letterbox bounds, and ITU-T P.910 SI / TI spatial and temporal information. The per-frame SI / TI graph opens as a timeline strip when the analysis finishes.</p>
+        <p class="prose">File-level delivery checks live in Conform mode's File integrity section (<a href="#conform">section 10b</a>); the QC panel is the content instrument.</p>
 
         <h3>Dolby Vision (⌃7)</h3>
         <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels, trims, active area, source primaries, and target-display blocks. The per-frame L1 graph is a timeline strip, toggled from the panel. Videre inspects the metadata; it does not compose an output image.</p>
@@ -521,14 +530,16 @@
     <hr class="divider">
 
     <section class="guide-section" id="repair">
-        <h2>8 · Metadata repair (⇧⌘M)<a class="anchor" href="#repair">#</a></h2>
-        <p class="prose"><strong>File → Repair Metadata…</strong> fixes color and HDR signalling on an MP4/MOV without re-encoding, in both places it lives: the container boxes (the tags a demuxer reads) and the coded stream itself (the signalling a decoder reads, which wins in most players). The everyday save: a deliverable bounced for a wrong or missing color tag, and a re-encode would cost hours and a generation.</p>
-        <p class="prose">Color signalling lives in two layers, and they can disagree. When they do, the sheet opens with a banner showing both values. Every fix has a scope control: container, bitstream, or both. Both is the default, so the layers always agree after a repair.</p>
-        <p class="prose">The fix catalog:</p>
+        <h2>8 · Metadata mode (⌘6)<a class="anchor" href="#repair">#</a></h2>
+        <p class="prose">Metadata mode fixes color and HDR signalling on an MP4/MOV without re-encoding, in both places it lives: the container boxes (the tags a demuxer reads) and the coded stream itself (the signalling a decoder reads, which wins in most players). The everyday save: a deliverable bounced for a wrong or missing color tag, and a re-encode would cost hours and a generation.</p>
+        <p class="prose">Enter with <kbd>⌘6</kbd> (or <kbd>⇧⌘M</kbd>). The mode pairs with the Bitstream / Container view (<kbd>⌃9</kbd>), which opens with it: the view shows what the file says, the mode's toolbar holds the fixes. Files the engine cannot edit - encrypted, HEIF stills, audio-only, or sources with no container at all - say so in the toolbar instead of offering dead controls; raw elementary streams are edited through <code>videre retag</code> on the command line.</p>
+        <p class="prose">Edits <strong>stage first and write once</strong>. Each staged edit appears in the plan (the count on the toolbar opens the list: delete one, or Revert All), <kbd>⌘Z</kbd>/<kbd>⇧⌘Z</kbd> walk every staging, deletion, and revert, and the ⌃9 trees show each staged value inline next to the file's current one with an EDITED badge - current on the left, staged on the right, in every layer the fix writes. The plan keeps one entry per field: staging a color fix twice, or a guided color fix on top of a hand-edited <code>colour_primaries</code>, replaces the earlier entry rather than queueing two answers to one question. <strong>Write Metadata Copy…</strong> then writes the whole plan to one new, verified file; nothing touches the original at any point, staged or written.</p>
+        <p class="prose">Color signalling lives in two layers, and they can disagree. When they do, the Color row shows both values. Every fix has a scope control: container, bitstream, or both. Both is the default, so the layers always agree after a repair.</p>
+        <p class="prose">The guided fixes (toolbar buttons, each opening its option row - configure the fix, then the row's own <strong>Stage</strong> button commits it, one undo step per row). Set values open prefilled with what the file declares - the coded stream's own messages first, the container box as fallback - so declaring, say, a corrected MaxCLL starts from the current declaration, not from zero:</p>
         <ul>
             <li><strong>Color description</strong>: keep, set, or remove. Presets fill the common targets (BT.709, BT.2020 PQ, BT.2020 HLG); the fields accept any H.273 code point, so unusual tags are not a dead end. Removing deletes the colr box; the coded stream has no removable color block, so its code points are set to unspecified (2/2/2), the bitstream's way of saying "not signalled".</li>
-            <li><strong>Chroma siting</strong>: left, center, or top-left. This lives only in the coded stream (plain MP4 has no box for it). AV1 cannot express center siting, and the sheet says so instead of writing a wrong value.</li>
-            <li><strong>Content light level</strong> (MaxCLL/MaxFALL) and <strong>mastering display</strong> (SMPTE ST 2086): set or remove, in the container box and the coded stream's own messages. Mastering display values are entered in raw carriage units, the same integers x265's <code>master-display</code> string uses; the sheet shows the derived chromaticities and cd/m² beside them.</li>
+            <li><strong>Chroma siting</strong> (the <strong>Chromaloc</strong> row, x265/ffmpeg's name for it): left, center, or top-left. This lives only in the coded stream (plain MP4 has no box for it). AV1 cannot express center siting, and the write refuses instead of writing a wrong value.</li>
+            <li><strong>Content light level</strong> (MaxCLL/MaxFALL) and <strong>mastering display</strong> (SMPTE ST 2086): set or remove, in the container box and the coded stream's own messages. Mastering display values are entered in raw carriage units, the same integers x265's <code>master-display</code> string uses; the row shows the derived chromaticities and cd/m² beside them.</li>
             <li><strong>HLG compatibility</strong>: adds the alternative-transfer-characteristics signal (18, HLG), with a checkbox for the broadcast pattern that also sets the transfer to 14 so legacy receivers see SDR.</li>
             <li><strong>Sample aspect ratio</strong>: fix a wrong declared pixel shape in both layers. Under container or both scope the <code>pasp</code> box and the track's display width are written from the same value as the coded stream's aspect ratio, so players that read either agree.</li>
             <li><strong>Frame rate signalling</strong>: fix a wrong declared rate in the coded stream. The fix repairs the signalling only; the real container timing is untouched, so it never retimes the video.</li>
@@ -543,8 +554,16 @@
             <li>Edits apply to every video track; the command line has a <code>--track</code> flag for multi-track files.</li>
         </ul>
 
-        <h3>Expert edits in the bitstream inspector</h3>
-        <p class="prose">The Bitstream panel (<kbd>⌃9</kbd>) can edit, not just read. Fields with self-contained semantics show a pencil: the color code points, range, chroma siting, aspect ratio, and timing. Editing one writes a new, verified file with every copy of the field updated. The level field is editable behind an explicit acknowledgement, because it changes what devices will accept the file, and every copy (parameter sets and the configuration record) is rewritten together. Structural fields (dimensions, profile, parameter-set IDs, anything that shapes how the rest of the stream parses) stay read-only; the tooltip explains why for each. Right-clicking a unit offers the message operations: edit the serializable message types in place (mastering display, content light level, alternative transfer characteristics, ambient viewing environment) prefilled with the decoded values, add a new message, or remove one (HDR10+ or Dolby Vision metadata by provider, or a specific message type). Setting a message replaces every existing copy and writes it on every keyframe, so a stream never carries two disagreeing versions. The panel header's Repair button (also in every unit's context menu) opens the guided repair sheet directly, for the fixes that go beyond a single field: anything the stream is missing entirely, such as an absent chroma siting, has no row in the tree to edit, and the guided fix inserts it.</p>
+        <h3>The field editor (click a field in the tree)</h3>
+        <p class="prose">In Metadata mode the ⌃9 tree is the selection source: click any field and it loads into the toolbar's field editor with its current value. Fields with self-contained semantics - the color code points, range, chroma siting, aspect ratio, and timing - take a new value and stage it; at write time every copy of the field (in-band parameter sets and the configuration record) is updated together. The level field stages only behind an explicit acknowledgement, because it changes what devices will accept the file. Structural fields (dimensions, profile, parameter-set IDs, anything that shapes how the rest of the stream parses) stay read-only, and selecting one states the specific reason instead of just refusing.</p>
+        <p class="prose">Click a unit's header row and the toolbar offers its message operations: edit the serializable message types (mastering display, content light level, alternative transfer characteristics, ambient viewing environment) prefilled with the decoded values, add a new message, or remove one (HDR10+ or Dolby Vision metadata by provider, or a specific message type). Setting a message replaces every existing copy and lands on every keyframe, so a stream never carries two disagreeing versions.</p>
+        <p class="prose">The Container tree is a selection source too, in three classes. The boxes a guided fix writes - <code>colr</code>, <code>clli</code>, <code>mdcv</code>, <code>pasp</code>, and <code>elst</code> - carry a small tag marker, and clicking one of their fields opens the guided-fix row that writes that box, prefilled from the file (container tags are written whole, so there is no per-field editor for them). Boxes with directly editable fields - <code>mvhd</code>, <code>mdhd</code>, <code>tkhd</code>, <code>ftyp</code>, and the sample-table headers - carry a pencil marker, and clicking a field there loads the container field editor, in two tiers:</p>
+        <ul>
+            <li><strong>Repair fields</strong> (movie and media creation times, the media language) stage plainly and write with the full repair promise.</li>
+            <li><strong>Everything else the editor covers is test authoring</strong>: a deliberate way to make non-conforming files for player and pipeline testing - a sample count that lies, a timescale that cannot be real, a wrong brand. These stage only behind an explicit acknowledgement, and the write verifies the splice alone: the changed bytes are exactly the requested fields and everything else is byte-identical, but the file is <strong>not</strong> asserted to conform or play, and the save panel (<code>-authored</code>), the result line, and the op list (AUTHOR) all say so.</li>
+        </ul>
+        <p class="prose">Before any field is staged, its byte location is proven against the parser's own reading of the file; a field the editor cannot prove refuses rather than guessing. Everything unmarked is the container's own bookkeeping (offsets, sizes, table contents): the writers recompute it, and clicking such a field says so.</p>
+        <p class="prose">The guided fixes cover what the tree cannot: anything the stream is missing entirely, such as an absent chroma siting, has no row to click, and the guided fix inserts it.</p>
 
         <h3>The command line</h3>
         <p class="prose">Same engine, plus raw elementary streams (.h264/.h265/.ivf), which the app does not open:</p>
@@ -557,12 +576,14 @@ videre retag hdr.mp4 -o hdr10.mp4 --strip-dynamic-hdr
 videre retag odd.mp4 -o fixed.mp4 --edit chroma_sample_loc_type_top_field=2
 videre retag inband.mp4 -o compatible.mp4 --make-compatible
 videre retag upload.mp4 -o streamable.mp4 --faststart
-videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
-        <p class="prose"><code>videre retag --help</code> lists everything: the fix flags (<code>--chromaloc</code>, <code>--sar</code>, <code>--fps</code>, <code>--hlg-compat</code>, <code>--strip-dynamic-hdr</code>, <code>--make-compatible</code>, <code>--faststart</code>, <code>--fix-edit-list</code>), the remove flags, <code>--scope container|bitstream|both</code>, the expert flags (<code>--edit FIELD=VALUE</code>, <code>--remove-sei</code>, <code>--ack-level-change</code> for level changes), and <code>--json</code> for a machine-readable summary. The file-level operations run on their own pass; combining them with edits that rewrite samples is refused. Run them as two passes instead.</p>
+videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list
+videre retag wrong-lang.mp4 -o fixed.mp4 --box mdhd.language=pol
+videre retag good.mp4 -o broken.mp4 --box stsd.entry_count=7 --ack-nonconforming</code></pre>
+        <p class="prose"><code>videre retag --help</code> lists everything: the fix flags (<code>--chromaloc</code>, <code>--sar</code>, <code>--fps</code>, <code>--hlg-compat</code>, <code>--strip-dynamic-hdr</code>, <code>--make-compatible</code>, <code>--faststart</code>, <code>--fix-edit-list</code>), the remove flags, <code>--scope container|bitstream|both</code>, the expert flags (<code>--edit FIELD=VALUE</code>, <code>--remove-sei</code>, <code>--ack-level-change</code> for level changes), the container field edits (<code>--box BOX.FIELD=VALUE</code>, with <code>--ack-nonconforming</code> for the test-authoring fields; the JSON summary carries <code>conformance_asserted</code> so a pipeline can tell a repair from a deliberately broken test file), and <code>--json</code> for a machine-readable summary. The file-level operations and <code>--box</code> each run on their own pass; combining them with other edits is refused. Run them as two passes instead.</p>
 
         <figure class="shot">
-            <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet: color, chroma siting, light level, mastering display, and HLG compatibility fixes with per-fix scope controls, pre-filled with the file's current values." loading="lazy" decoding="async">
-            <figcaption><strong>The repair sheet.</strong> Pre-filled with what both layers carry now; every fix scoped to container, bitstream, or both.</figcaption>
+            <img src="videre-metadata-mode.png" alt="Videre's Metadata mode: the guided-fix toolbar over the container tree, with staged values shown inline next to the file's current ones and the op list counting the plan." loading="lazy" decoding="async">
+            <figcaption><strong>Metadata mode.</strong> Stage fixes against what the file declares; one verified write for the whole plan.</figcaption>
         </figure>
     </section>
 
@@ -573,8 +594,9 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
         <p class="prose">Compare is a mode (<kbd>⌘2</kbd>). Open a second file with <kbd>⇧⌘O</kbd> (or drag it onto the compare control) and the app enters it; the compare controls sit in the mode's toolbar under the seek row. Each side converts under its own interpretation, so cross-format and cross-transfer comparisons are well-defined. Switching to another mode keeps the session loaded but inactive; <kbd>⌘2</kbd> brings it back exactly as it was, and Close Comparison discards it from any mode.</p>
         <ul>
             <li><strong>Views</strong>: side-by-side, flip (<kbd>X</kbd> swaps A/B), wipe with a draggable divider, and difference with channel, heatmap, and binary styles.</li>
-            <li><strong>Temporal offset</strong> lines up clips that start on different frames.</li>
-            <li><strong>Analyze</strong> (<kbd>⇧⌘R</kbd>) runs the metrics over the sequence: <strong>PSNR</strong> (matching the ffmpeg filter's conventions exactly), <strong>SSIM</strong> and <strong>MS-SSIM</strong> (canonical definitions), <strong>VMAF</strong> and <strong>CAMBI</strong> (Netflix's libvmaf), <strong>ΔE2000</strong>, and <strong>ΔE ITP</strong> (BT.2124). Per-frame chart, sequence aggregates, a jump-to-worst-frame button, and JSON / CSV export with a frozen schema.</li>
+            <li><strong>Temporal offset</strong> lines up clips that start on different frames. <kbd>⌥↑</kbd> / <kbd>⌥↓</kbd> nudge it, <kbd>⌥⌘0</kbd> resets it. Measured frames are kept per offset, so checking another alignment and coming back costs nothing.</li>
+            <li><strong>Run Metrics</strong> (<kbd>⇧⌘R</kbd>) measures the sequence: <strong>PSNR</strong> (matching the ffmpeg filter's conventions exactly), <strong>SSIM</strong> and <strong>MS-SSIM</strong> (canonical definitions), <strong>VMAF</strong> and <strong>CAMBI</strong> (Netflix's libvmaf), <strong>ΔE2000</strong>, and <strong>ΔE ITP</strong> (BT.2124). Per-frame chart, sequence aggregates, a jump-to-worst-frame button, and JSON / CSV export with a frozen schema. The run is progressive: each frame's numbers land in the panel the moment they are measured, and the frame you are looking at is measured next rather than waiting its turn in file order. Cancelling keeps everything measured so far, and a later run picks up where it left off instead of recomputing. VMAF and CAMBI compare frames in sequence by definition, so they appear when a full pass completes.</li>
+            <li><strong>Measure Frame</strong> measures just the pair in front of you, and the sticky <strong>Auto</strong> toggle measures every frame you step to; both feed the same per-frame store the full run fills. The chart draws lines only between consecutively measured frames, so isolated measurements read as points, and the aggregates belong to a completed run.</li>
         </ul>
 
         <figure class="shot">
@@ -589,6 +611,9 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
         <h2>10 · Edit mode<a class="anchor" href="#edit">#</a></h2>
         <p class="prose">Edit mode (<kbd>⌘1</kbd>) is surgical, measurable repair of raw video: a scope finds the defect, an edit fixes exactly that finding, and the same scopes prove the result. It is not a grading tool - every operation writes exact code values, and the original file is never touched.</p>
         <p class="prose">Edits collect in a <strong>stack</strong> shown in the toolbar under the seek row. The toolbar's <strong>Legalize</strong>, <strong>Channels</strong>, and <strong>Patch</strong> buttons each open a persistent options row beneath it - set the parameters there and Add to Stack; the row stays open for the next operation. The viewer, the pixel readout, the loupe, and every scope show the frame <strong>through the stack</strong>, so the Levels panel that flagged super-white reads zero after the legalize that fixed it. Undo (<kbd>⌘Z</kbd>) removes the last operation, redo (<kbd>⇧⌘Z</kbd>) restores it; nothing is written until you export. Opening a new file starts a fresh stack.</p>
+        <p class="prose">Click the op count in the toolbar for the <strong>op list</strong>: every operation in order, with its own label ("Legalize luma 16-235, frames 3-9"). Drag a row to reorder, click the trash to delete one, and use the checkbox to <strong>disable</strong> an operation. A disabled op keeps its place in the stack and changes nothing, which isolates what one operation did to the picture. Disabled ops are saved with the recipe and stay disabled when the command line replays it.</p>
+        <p class="prose">Each row also shows <strong>what the op changed on the current frame</strong>: samples touched per channel, and the largest code delta. "no change" means exactly that, and it is the useful case as often as not: a legalize over a frame that was already legal writes nothing, and the column is where you see it. An op scoped to other frames reads no change here; step to a frame it covers and the numbers appear. The census is for the frame in front of you, not the clip. For whole-clip totals use <code>videre edit --report</code>.</p>
+        <p class="prose">Reordering re-checks the whole stack. Frame ranges address the timeline as it stands at that point, so moving a cut ahead of an operation scoped to frames the cut removes is refused, naming the operation that no longer fits, rather than quietly editing different frames.</p>
         <p class="prose">Encoded files (MP4/MOV) open in Edit mode too: the decoded frames are the working material, and export stays raw/y4m - repair here, then hand the frames to the encoder of your choice.</p>
 
         <figure class="shot">
@@ -598,7 +623,7 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
 
         <h3>The operations</h3>
         <ul>
-            <li><strong>Cut, trim, subclip</strong>: mark a range with <kbd>I</kbd> and <kbd>O</kbd> (amber marks on the seek bar), then Remove Selected Frames (<kbd>⌫</kbd>), Trim to Selection, or Export Selection as Subclip (which bakes the range to a new file without touching the stack). In Edit mode the transport walks the edited timeline: the counter and scrubber reflect the cuts.</li>
+            <li><strong>Cut, trim, subclip</strong>: mark a range with <kbd>I</kbd> and <kbd>O</kbd> (amber marks on the seek bar), or paint one on the time ruler with <kbd>⌥</kbd>-drag (an <kbd>⌥</kbd>-click clears it; <kbd>⌥⌘</kbd>-drag paints the loop range and the selection together, for looping exactly what you marked). Then Remove Selected Frames (<kbd>⌫</kbd>), Trim to Selection, or Export Selection as Subclip (which bakes the range to a new file without touching the stack). In Edit mode the transport walks the edited timeline: the counter and scrubber reflect the cuts.</li>
             <li><strong>Legalize</strong> clamps or soft-knees levels beyond a threshold. The domain matches the problem: code values (defaults prefill the video-range legal bounds at the file's bit depth), a nits ceiling resolved through the active transfer (a 100-nit limit on 10-bit PQ video lands exactly on code 509), or converted RGB for 4:4:4 sources. Only samples beyond the threshold are written; everything legal stays byte-identical.</li>
             <li><strong>Channel ops</strong>: swap Cb/Cr (the classic swapped-chroma defect; the vectorscope confirms the fix), neutralize a plane (chroma to center, luma to black), invert or copy a plane.</li>
             <li><strong>Range bake</strong> rescales every code between video and full range: the real fix for double-range files, which reinterpreting cannot touch. The picture looks identical under the new declaration, and a second bake in the same direction is refused.</li>
@@ -611,20 +636,237 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
             <figcaption><strong>The swapped-chroma fix.</strong> Swap Cb/Cr in the stack; the vectorscope lands back where it should.</figcaption>
         </figure>
 
+        <h3>Geometry: crop, pad, rotate, flip</h3>
+        <p class="prose">The <strong>Geometry</strong> row bakes geometry into the stored pixels. Rotation elsewhere in Videre is a display setting; here the samples actually move, so the exported file is the right way up in every player.</p>
+        <ul>
+            <li><strong>Crop</strong>: how much comes off each edge. <strong>Symmetric</strong> mirrors each edge onto its opposite, so typing 10 in Top also takes 10 off the Bottom; switch it off to trim one side. <strong>From Selection</strong> and <strong>Active Picture</strong> fill the four numbers for you.</li>
+            <li><strong>Pad</strong>: how much goes on each edge, filled with the declared range's black and neutral chroma. Symmetric works the same way.</li>
+            <li><strong>Rotate</strong>: 90, 180, or 270 degrees. 90 and 270 swap the frame's dimensions.</li>
+            <li><strong>Flip</strong>: horizontal or vertical mirror.</li>
+        </ul>
+        <p class="prose">These are whole-clip operations. A raw or y4m file has one frame size, so there is no per-frame scope to choose.</p>
+        <p class="prose">On subsampled footage (4:2:0, 4:2:2) the crop origin and the pad offset have to land on the chroma grid. An odd inset is snapped rather than refused, and the readout says <strong>snapped to the chroma grid</strong> when that happened, so the numbers you typed and the file you get never disagree silently. A 90 degree rotation of 4:2:2 is refused outright: its rotated chroma grid has no representable layout, and the message points at converting to 4:4:4 in the Output row first. Four 90 degree rotations return the original bytes.</p>
+        <p class="prose">Geometry threads through the rest of the stack. An operation added after a crop addresses the <strong>cropped</strong> frame, and one that pointed at pixels the crop removed is refused, naming the operation, instead of landing somewhere else.</p>
+
+        <h3>Repairing damage</h3>
+        <p class="prose">The <strong>Repair</strong> row interpolates over damage instead of setting codes:</p>
+        <ul>
+            <li><strong>Selection</strong>: the selected pixels are filled from their unselected neighbours. <strong>Bilinear</strong> interpolates between the nearest good samples on each axis, which covers a single dead pixel, a dropped line, and a cluster with one rule. <strong>Median</strong> takes the middle of the good neighbours, so one bright neighbour does not drag the result up; that is the one for isolated hot pixels.</li>
+            <li><strong>Lines</strong>: name rows and columns (1-based, comma separated) and each is interpolated between the good lines bounding it. The classic capture glitch, without having to select it.</li>
+            <li><strong>Frame</strong>: replace the current frame's pixels with the previous frame, the next frame, or the average of both. The clip length never changes.</li>
+        </ul>
+        <p class="prose">Three rules hold across all of it. A repair reads <strong>only unselected samples</strong>, so a cluster of dead pixels cannot fill itself with its own damage. A defect touching the frame border uses the neighbours that <strong>exist</strong> on one side rather than mirroring, because a mirror invents data. And on subsampled footage a chroma sample is interpolated only when <strong>every</strong> pixel it covers is selected: one dead luma pixel does not license rewriting the chroma its healthy neighbours share.</p>
+        <p class="prose">If there is nothing good left to read from (every row selected, the whole frame selected), the repair is refused rather than leaving the file unchanged and reporting success.</p>
+
+        <h3>Selecting by measurement</h3>
+        <p class="prose">The <strong>Select</strong> row builds the pixel selection from a measurement instead of the mouse, which is how a scope's finding becomes the edit that fixes it. Pick a criterion, then <strong>Count</strong> to see how many pixels it covers on the current frame before anything changes, then <strong>Select</strong>, <strong>Add</strong>, or <strong>Subtract</strong> (the same three verbs the mouse has).</p>
+        <ul>
+            <li><strong>Out of range</strong>: sub-black and super-white samples. This selects exactly the samples the Levels panel counts, so the number you saw there is the number you get here.</li>
+            <li><strong>Out of gamut</strong>: pixels whose converted RGB leaves 0 to 1. Exactly the pixels a legalize in the RGB domain would rewrite. 4:4:4 only, because subsampled chroma is shared between pixels.</li>
+            <li><strong>ICtCp border</strong>: pixels within a JND threshold of the RGB volume's edge, the gamut panel's border flag evaluated per pixel. This one probes every pixel, so it is the slow criterion; Count first.</li>
+            <li><strong>Carriage damage</strong>: pixels the carriage stress scope's current configuration damages by more than a ΔE ITP threshold, read from the same per-pixel numbers the heatmap draws.</li>
+            <li><strong>Differs from B</strong>: pixels differing from compare slot B by more than N codes on any channel.</li>
+            <li><strong>Active picture</strong>: the picture inside the detected letterbox bounds.</li>
+        </ul>
+        <p class="prose">A criterion that cannot run on the open file says why rather than selecting nothing: an empty selection would read as "nothing wrong here". The criterion measures the frame <strong>as the stack has edited it so far</strong>, so selecting out-of-range after a legalize finds what the legalize missed.</p>
+
         <h3>Working space and output format</h3>
         <p class="prose">The <strong>Output</strong> row holds two choices that shape everything else.</p>
         <p class="prose"><strong>Work in</strong> decides where the operations run. <strong>Native</strong> keeps the file's own layout: samples you did not edit come out byte-identical, which is what makes the whole mode surgical, but subsampled chroma limits per-pixel color work (an isolated pixel on 4:2:0 shares its chroma with three neighbors). <strong>RGB 4:4:4</strong> converts the frame first, so color edits are exact per pixel; the cost is that the conversion touches every pixel, and the byte-identity guarantee goes with it.</p>
         <p class="prose"><strong>Write as</strong> decides the file's pixel format, whatever the source was: planar, semi-planar, or RGB, at any supported bit depth, with an optional range change. Chroma is resampled at the file's own siting, and bit depth is scaled by the rule that keeps that range's anchors exact (video range holds 16 and 235; full range holds 0 and maximum). Leave both alone and nothing is converted at all. Packed layouts (YUYV, UYVY, v210) are read but not yet written; the picker says so instead of quietly writing the planar equivalent.</p>
-        <p class="prose">The row's right-hand readout always names what the file will be, or says <strong>no conversion</strong> when the export is the plain surgical path.</p>
+        <p class="prose"><strong>Scale</strong> sets the output resolution. It is an output setting, not a stack operation: it applies after everything else, so no operation's pixel coordinates move. Filters:</p>
+        <ul>
+            <li><strong>Area (box)</strong> averages the source footprint. The default, and the right answer for a downscale: a 2× area downscale lands on the exact block means, matching ffmpeg's swscale. Plain bilinear downscaling aliases.</li>
+            <li><strong>Nearest</strong> point-samples, for looking at scaling artifacts rather than avoiding them.</li>
+            <li><strong>Bilinear</strong>, <strong>Bicubic (Catmull-Rom)</strong>, and <strong>Lanczos-3</strong> for upscales and for matching another tool's output.</li>
+        </ul>
+        <p class="prose"><strong>Keep aspect</strong> fits the picture inside the target and pads the remainder with the declared range's black and neutral chroma. With it off you get the exact dimensions, so a stretch is possible but only as the explicit choice. A target equal to the source resolution writes the file untouched: the scaling stage is never entered.</p>
+        <p class="prose">Scaling runs in 4:4:4, after chroma is upsampled and before it is subsampled again. Scaling subsampled chroma directly compounds siting error, and the conversion pipeline already has a 4:4:4 stage for exactly this reason.</p>
+        <p class="prose">The row's right-hand readout always names what the file will be, format and frame size, or says <strong>no conversion</strong> when the export is the plain surgical path.</p>
 
         <h3>Comparing the edit with the source</h3>
-        <p class="prose"><strong>Compare</strong> (<kbd>⇧⌘C</kbd>) bakes the stack to a temporary file and opens it as B against the untouched source, landing in Compare mode with the difference view up: what lights up is exactly what the edit changed, and <strong>Analyze</strong> (<kbd>⇧⌘R</kbd>) puts numbers on it. The edit stack survives the trip - <kbd>⌘1</kbd> returns to it. Available while the edit keeps the frame count (a cut changes the timeline, so the two clips would no longer line up).</p>
+        <p class="prose"><strong>Compare</strong> (<kbd>⇧⌘C</kbd>) bakes the stack to a temporary file and opens it as B against the untouched source, landing in Compare mode with the difference view up: what lights up is exactly what the edit changed, and <strong>Run Metrics</strong> (<kbd>⇧⌘R</kbd>) puts numbers on it. The edit stack survives the trip - <kbd>⌘1</kbd> returns to it. Available while the edit keeps the frame count (a cut changes the timeline, so the two clips would no longer line up).</p>
 
         <h3>Export and verify</h3>
         <p class="prose"><strong>Export…</strong> (<kbd>⇧⌘E</kbd>) bakes the stack to a <strong>new</strong> file: <code>.y4m</code> (which carries the format tag, rational frame rate, and range), or headerless raw for anything else. Every export is verified before success is reported: the written file is re-read with the same reader that would open it, and every frame is compared byte-for-byte against an independently recomputed reference. Anything off is discarded - and replacing an existing file can never destroy it on a failed export. Sources the y4m container cannot carry directly (NV12/P010-class decoder output, packed 4:2:2) are repacked losslessly to their planar equivalent; code values never change, only the byte arrangement.</p>
 
         <h3>Recipes</h3>
         <p class="prose">Save Recipe writes the stack as a small JSON document; <code>videre edit clip.mp4 --ops recipe.json -o healed.y4m</code> replays it byte-identically from the command line - batch repair across a folder of captures, or a shareable fix attached to a bug report. Load Recipe replaces the current stack. A recipe from a newer version of the app, or one whose ranges don't fit the open file, is refused whole rather than half-applied.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="measure">
+        <h2>10a · Measure mode (⌘3)<a class="anchor" href="#measure">#</a></h2>
+        <p class="prose">Measure mode (<kbd>⌘3</kbd>) reads the part of the frame you point at. The scopes in <a href="#scopes">section 6</a> read whole frames; this is the complement, and it does not edit anything.</p>
+        <ul>
+            <li><strong>Region</strong>: drag a rectangle on the image, or build any shape with <kbd>⇧</kbd>-drag to add and <kbd>⌥</kbd>-drag to remove. The toolbar reports min, max, mean, and standard deviation per channel, plus the region's mean color and its luminance in nits. With a comparison loaded, slot B's mean and the difference come with it. The min and max are buttons: click one and the canvas centers on the exact pixel that produced it, zoomed in enough to see it.</li>
+            <li><strong>Select menu</strong>: canned regions - the whole frame, a centered patch at half the frame's dimensions, the active picture inside detected letterbox bars, or the bars themselves. Measuring the bars on a frame that has none is refused rather than reporting an empty region as a result.</li>
+            <li><strong>Histogram</strong>: the region's own per-channel histogram. Select the whole frame and it matches the Levels panel bin for bin.</li>
+            <li><strong>Line</strong>: drag a line and the chart underneath plots code values along it, one series per channel. This is how ringing, banding, and gradient behaviour become visible; a whole-frame histogram shows none of them. A plain <strong>click</strong> profiles the whole row under the cursor and <kbd>⌥</kbd>-click the column - the fastest way to read a suspect scanline. On PQ and HLG interpretations a <strong>Codes / Nits</strong> control switches the chart to luminance.</li>
+            <li><strong>Ruler</strong>: drag between two points for pixel distance, signed deltas, and the angle in degrees (measured from the horizontal, positive downward, because image y grows downward). Holding <kbd>⇧</kbd> snaps a line or ruler drag to horizontal, vertical, or 45°.</li>
+            <li><strong>Scan Region</strong>: pins the current region and measures it on every frame of the clip - per-frame mean, deviation, and nits as a chart, a fixed window watched over time (a logo area, a suspect corner). Changing the selection or the interpretation clears the trace, because a trace of a different region would read as this one's.</li>
+            <li><strong>Use as Crop</strong> hands the region to Edit mode as a crop operation, snapped outward to the chroma grid, with the selection carried along.</li>
+        </ul>
+        <p class="prose">The line and the ruler draw on the image with their endpoints marked and the reading at the midpoint, so the numbers in the toolbar always belong to something you can see.</p>
+        <p class="prose"><strong>Copy</strong> puts the readout on the clipboard as text or JSON, so a measurement can go straight into a bug report. <kbd>Esc</kbd> clears the region, line, or ruler, the same key that clears a selection anywhere else.</p>
+        <p class="prose">Sampling is nearest, never interpolated, and the codes come from the same reader the status strip uses. Measure a whole frame and the numbers match the Levels panel exactly. Positions past the frame edge are dropped from a line profile rather than clamped, because a clamped sample repeats the edge value and would read as real data.</p>
+        <p class="prose">The region tool shares its selection with Edit mode. Measure a suspicious area, press <kbd>⌘1</kbd>, and the selection is already there for the repair.</p>
+
+        <figure class="shot">
+            <img src="guide-measure.png" alt="Videre's Measure mode: a region on the frame with per-channel statistics in the toolbar and a line profile chart underneath." loading="lazy" decoding="async">
+            <figcaption><strong>Measure mode.</strong> Region statistics and a line profile; the numbers always belong to something you can see.</figcaption>
+        </figure>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="conform">
+        <h2>10b · Conform mode (⌘4)<a class="anchor" href="#conform">#</a></h2>
+        <p class="prose">Conform mode (<kbd>⌘4</kbd>) turns a delivery spec into a checklist you can act on. Pick the spec; Videre checks the file against it and lists one row per requirement: pixel format, resolution, frame rate, range, matrix, transfer, light levels, legal levels.</p>
+        <p class="prose">Each failing row carries the fix that would resolve it, and the button applies it to the surface that actually performs it:</p>
+        <ul>
+            <li><strong>Tags only</strong> for matrix and transfer. No pixels move. On an MP4/MOV the fix <strong>stages</strong> onto the Metadata plan - a real tag write, reviewable in ⌘6's op list and written as one verified copy - and the row shows a <strong>Staged</strong> label rather than turning green: the file has not changed yet, and the row says so honestly until the written copy is opened. On raw and y4m sources, which have no container to write, the fix adjusts the viewing interpretation and the row passes immediately.</li>
+            <li><strong>An edit-stack operation</strong> where pixels have to change: the range fix rescales every code (a re-tag would declare the file fixed while it still looked wrong), and the legal-levels fix clamps to the legal bounds.</li>
+            <li><strong>An output setting</strong> for pixel format and resolution.</li>
+        </ul>
+        <p class="prose">The table re-checks itself as you work, so a row whose fix changed the model confirms it immediately. <strong>Fix All</strong> applies everything on offer (already-staged tag fixes are skipped); <strong>Export…</strong> writes the conformed copy with the usual frame-by-frame verify.</p>
+        <p class="prose">Requirements the spec does not state read <strong>SKIP</strong>, never a quiet pass, and so do requirements whose measurement has not run: legal levels are judged on the worst frame of the whole clip, so until the clip analysis has run the row skips with an <strong>Analyze</strong> button inline rather than guessing from one frame. With the analysis in hand, a missing MaxCLL declaration offers its fix directly: the measured values, declared through Metadata mode (⌘6), entered with the light-level fix prefilled - stage it and Write Metadata Copy. Rows Videre cannot fix say so and why: a frame-rate mismatch needs retiming, which changes which frames exist, and a measurement over the spec's limit needs a clamp before a declaration.</p>
+        <p class="prose">Below the spec table, MP4/MOV files get a <strong>File integrity</strong> section: the same six checks as <code>videre verify</code> (<a href="#cli">section 12</a>) with the same severities - color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. These are properties of the file, true whatever spec is picked, so they run once per file when you enter the mode. The light-level row states the interpretation it measured under (the file's own tags); the ⌃5 panel measures under the interpretation you are looking at, and when the two disagree, each says which question it answered.</p>
+        <p class="prose">Presets ship for HDR10 master, Rec.709 SDR deliverable, and a mezzanine profile. Specs you save yourself appear in the same picker; a saved spec cannot take a preset's name, so <code>hdr10</code> always means the same thing.</p>
+
+        <figure class="shot">
+            <img src="guide-conform.png" alt="Videre's Conform mode: a delivery-spec checklist with pass, fail, and skip rows, inline fix buttons, and the File integrity section below." loading="lazy" decoding="async">
+            <figcaption><strong>Conform mode.</strong> One row per requirement; every failing row carries the fix that resolves it.</figcaption>
+        </figure>
+
+        <h3>On the command line</h3>
+        <pre><code>videre conform master.mp4 --spec hdr10
+videre conform master.mp4 --spec rec709 --fix -o deliverable.y4m</code></pre>
+        <p class="prose">The check-only form exits nonzero when the file does not meet the spec, so a pipeline can block a bad deliverable before upload (0 conforms, 4 does not, which is distinct from the verification-failed code the writers use). With <code>--fix</code> the offered fixes are applied, the copy is written and verified, and then <strong>re-checked against the spec</strong>: the report describes the file that came out, not the one that went in.</p>
+        <p class="prose">By default the command decodes the clip once and measures it, so legal levels are judged on the worst frame of the whole file; a clip that is clean on its first frame and illegal afterwards does not pass. <code>--no-measure</code> skips that pass, and the measured rows report skip instead of a verdict. With <code>--fix</code>, the written copy is measured under the same rule.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="scenes">
+        <h2>10c · Scenes mode (⌘5)<a class="anchor" href="#scenes">#</a></h2>
+        <p class="prose">Scenes mode (<kbd>⌘5</kbd>) groups the clip into shots. <strong>Find Scenes</strong> runs the same whole-clip analysis as <strong>Analyze</strong> (<kbd>⇧⌘A</kbd>), measuring every frame against the one before it in one pass over the file, and the shot list appears underneath: in point, out point, length, how the shot begins, and the difference score at that boundary. Click a row to jump there; <kbd>⌥→</kbd> and <kbd>⌥←</kbd> step between cuts.</p>
+        <p class="prose">The measurement happens once. Everything to the right of the scan button regroups the same measurements without reading the file again, so you can try a setting and see the answer immediately:</p>
+        <ul>
+            <li><strong>Sensitivity</strong> sets how different a frame has to be to count as a cut.</li>
+            <li><strong>Adaptive</strong> compares each frame against its neighbours rather than against a fixed number, so a handheld shot or a fast pan does not read as a run of cuts.</li>
+            <li><strong>Min length</strong> stops a busy passage from being chopped into shots too short to be real.</li>
+        </ul>
+        <p class="prose">The strip under the viewer draws the per-frame difference with the current threshold across it and a tick at every cut, so a setting that is too high or too low is visible rather than inferred. The same ticks appear on the seek bar.</p>
+
+        <figure class="shot">
+            <img src="guide-scenes.png" alt="Videre's Scenes mode: the shot filmstrip and list with per-shot statistics, the difference-score strip with cut ticks under the viewer." loading="lazy" decoding="async">
+            <figcaption><strong>Scenes mode.</strong> One scan; every control to the right regroups the same measurements. Footage: Big Buck Bunny (CC) Blender Foundation.</figcaption>
+        </figure>
+
+        <h3>How a shot is labelled</h3>
+        <p class="prose">The label describes how the shot <strong>begins</strong>:</p>
+        <ul>
+            <li><strong>Cut</strong>, a single-frame jump in content.</li>
+            <li><strong>To black</strong> and <strong>From black</strong>, the segment where the picture is black and the shot that follows it. A black gap is its own segment, which is what a delivery usually wants to see.</li>
+            <li><strong>Gradual</strong>, a sustained run of elevated difference. That covers dissolves, wipes and fast camera movement. Videre does not distinguish between them.</li>
+        </ul>
+        <p class="prose">Frames Videre could not measure are counted under the list and are never treated as cuts.</p>
+
+        <h3>What each shot measures</h3>
+        <p class="prose">The same pass that finds the cuts measures the frames, so every shot carries its own numbers:</p>
+        <ul>
+            <li><strong>Peak</strong> and <strong>Avg</strong>, the shot's MaxCLL and MaxFALL in nits: the highest single pixel, and the highest frame average.</li>
+            <li><strong>SI / TI</strong>, spatial and temporal complexity per ITU-T P.910. High numbers are where an encoder spends its bits.</li>
+            <li><strong>Illegal</strong>, the worst single frame's fraction of samples outside video range. This is the worst frame rather than the shot's average, because one badly clipped frame is the defect and an average hides it. Sources with no video-range concept, full-range and RGB, show a dash rather than 0%.</li>
+            <li><strong>Conform</strong>, this shot's own measurements against the delivery spec picked in ⌘4: shot light levels, legal levels, and flash risk. A red ✕ counts failing checks and the tooltip names them; ✓ means every measured check passes; a dash means nothing was measured for this shot. The report says which shots are the problem and leaves the rest passing.</li>
+        </ul>
+        <p class="prose">A dash always means "not measured", never "zero".</p>
+
+        <h3>Two checks that need the cuts</h3>
+        <p class="prose">Once Videre knows where the shots are, it can check two things nothing else on the Mac checks.</p>
+        <p class="prose"><strong>Cuts against keyframes.</strong> A cut that does not land on a keyframe costs bitrate at the boundary and stops the file segmenting cleanly for HLS and DASH. The badge says how many cuts are mid-GOP, and the tooltip says how many keyframes carry no cut, which is bitrate spent on nothing. Raw and y4m have no keyframes, so the check is skipped with that reason rather than reported as a failure.</p>
+        <p class="prose"><strong>Cuts against dynamic metadata.</strong> Dolby Vision and HDR10+ are graded per shot. Two things go wrong when the metadata disagrees with the picture: a cut with no metadata refresh carries the previous shot's trim into the new one, and a metadata refresh with no cut is a mid-shot jump in the tone map, which is the effect people describe as the picture breathing. Videre reports both directions, allowing one frame of slop, because authoring tools routinely place the refresh on the frame either side of the cut.</p>
+        <p class="prose">The two formats are not equally knowable, and the tooltip says which you are looking at. Dolby Vision carries a scene-refresh flag in every frame's RPU, so those boundaries are read from the stream. HDR10+ has no scene identifier at all, so Videre infers a boundary from a change in the tone-mapping knee, the target display, or a large step in peak level. Treat the HDR10+ result as a pointer, not a verdict.</p>
+        <p class="prose">Neither check offers a fix. A mid-GOP cut needs a re-encode and a metadata mismatch needs regrading, and neither is something Videre should pretend to do from an inspector.</p>
+
+        <h3>Flash risk</h3>
+        <p class="prose">The same pass measures photosensitivity risk, following the shape broadcast guidance uses (ITU-R BT.1702): a flash is a pair of opposing transitions of at least 20 cd/m² over more than a quarter of the picture, where the darker of the two states is below 160 cd/m², and more than three flashes in any one second is the threshold. Saturated red transitions are counted separately, because deep red provokes a response at levels plain brightness does not. Shots containing a flagged range are marked in the list.</p>
+        <p class="prose">The window slides: four flashes that straddle a second boundary are still four flashes in one second.</p>
+        <p class="prose">SDR carries no absolute light levels, so the check assumes a reference display and the tooltip says which. PQ and HLG are assessed against their own levels.</p>
+        <div class="note"><span class="note-icon">ⓘ</span><p><strong>This is an indicator, not a certified test.</strong> The certified Harding test is a licensed product, and the part of the guidance covering regular spatial patterns, stripes and gratings, is not implemented here. A clean result is a reason to keep working, not a clearance.</p></div>
+
+        <h3>Correcting the shot list</h3>
+        <p class="prose"><kbd>⌘B</kbd> puts a cut at the playhead and <kbd>⇧⌘B</kbd> removes the one there, merging that shot into the one before it. The scissors buttons in the toolbar do the same.</p>
+        <p class="prose">Your corrections survive everything else. Change the sensitivity and the cuts you placed stay exactly where they are while the detected ones move around them. A cut you place is never removed by the minimum-length setting, and it never removes a detected cut near it: the two kinds of boundary do not compete. Remove a cut that the detector is not currently finding and nothing happens now, but the removal comes back into effect if you lower the threshold far enough to find it again, so dragging the sensitivity is never quietly destructive.</p>
+        <p class="prose">Manual boundaries are labelled <strong>Manual</strong> and drawn in a different color from found ones, and the summary row counts them, so a shot list always says which boundaries a person decided. <strong>Reset</strong> hands the whole thing back to the detector.</p>
+
+        <h3>Looking at shots</h3>
+        <p class="prose">A filmstrip of shot heads sits above the list. Click one to jump there. The pictures fill in as they decode, and re-grouping keeps every picture whose shot still starts on the same frame.</p>
+        <p class="prose"><strong>Loop shot</strong> keeps playback inside whichever shot the playhead is in, which is what you want while judging a single shot's grade or motion.</p>
+
+        <h3>Sending a shot somewhere else</h3>
+        <p class="prose">Right-click a row in the shot list for <strong>Keep Only This Shot</strong> and <strong>Remove This Shot</strong>. Both push an operation onto the edit stack and switch to Edit mode, where the usual verified export applies. The range is mapped through the edited timeline rather than the source numbering, so a shot pushed after an earlier trim still removes the frames you pointed at. If an earlier operation already removed everything the shot covered, Videre says so instead of acting on the nearest frames it can find.</p>
+        <p class="prose"><strong>Export This Shot…</strong> writes that shot on its own without touching the edit stack, so looking at one shot does not change the edit you are building.</p>
+
+        <h3>Planning keyframes for a delivery</h3>
+        <p class="prose">Once the cuts are known, Videre can work out which frames should be keyframes for a delivery, and hand that to an encoder.</p>
+        <p class="prose">The reason this is not simply "a keyframe at every cut": a streaming segment has to <em>start</em> with a keyframe, so segment boundaries usually have to fall on a fixed cadence. A segment may <em>contain</em> more keyframes, though, which is why the default mode puts keyframes on the cadence <strong>and</strong> on every cut. The cuts cost a little bitrate and the segment boundaries stay even, which is what a fixed-duration DASH template needs. The other modes are cadence only, cuts only, and a cadence that shifts onto a nearby cut when there is one in reach, which compresses better but makes segment durations uneven, so it needs a segment timeline instead of a template. Videre tells you which of the two you have produced.</p>
+        <p class="prose">The <strong>GOP Plan Report</strong> lists the segments and their durations, and names every cut that did not get a keyframe with the reason, which is usually that it sat closer to the previous keyframe than the minimum GOP allows.</p>
+        <p class="prose">Export the plan as an ffmpeg <code>force_key_frames</code> argument (seconds, or the frame expression, which is exact where the seconds form can round at 29.97), an x264 or x265 qpfile, frame numbers, or timecodes.</p>
+
+        <h3>Exporting</h3>
+        <p class="prose"><strong>File › Export…</strong> (<kbd>⌥⌘E</kbd>) opens the export window. It works for any open file in any mode, and offers two destinations. Every export path in the app lands here: <kbd>⇧⌘E</kbd>, the transport and Edit toolbar buttons, and Export Selection as Subclip are all this window.</p>
+        <p class="prose"><strong>Raw / y4m</strong> writes the file itself: choose a pixel format, a range and a working space, and Videre converts and verifies every frame against a freshly opened source before replacing anything. Choose a <code>.y4m</code> extension for a header, any other extension for headerless raw. If the edit stack has operations on it, they apply, and the window says how many. A <strong>Scope</strong> control writes everything or just the Edit selection between the I and O marks; Export Selection as Subclip arrives with Selection pre-picked. The ffmpeg destination always encodes the whole timeline.</p>
+        <p class="prose"><strong>ffmpeg</strong> hands the job over instead, with the encoder, the settings, the command, and the result.</p>
+        <p class="prose"><strong>Use scenes as keyframes</strong> forces a keyframe at every detected cut, on top of the cadence. It needs the clip analysis (⇧⌘A, or Find Scenes in ⌘5) and says so when there is not one; with it off the command is a plain cadence encode.</p>
+        <p class="prose">Pick an encoder and the command below it changes. Choose an output, set quality or a bitrate, and the command changes again. <strong>Copy</strong> takes it, <strong>Run</strong> runs it.</p>
+        <p class="prose">The command is editable. Type in it and it stops regenerating, so a change you make is never silently overwritten; <strong>Reset</strong> hands it back. Videre tokenizes what you wrote and runs it directly, never through a shell, so a semicolon in the field is an argument rather than a second command. The one thing it will not do is launch a different binary: use <strong>Encoders… → Choose ffmpeg…</strong> to change which ffmpeg runs.</p>
+        <p class="prose">After a run, Videre reads the keyframes out of the file it just made and says whether they match the plan. That check is the reason editing is safe to offer: Videre cannot promise a command you rewrote still follows the plan, but it can tell you afterwards whether it did.</p>
+        <p class="prose">Videre does not encode and does not ship an encoder. It looks for an ffmpeg already on your Mac, on your PATH or in the usual Homebrew locations. If there is not one, the command is still yours to copy.</p>
+        <p class="prose">The encoder's own scene detection is turned off in the command, because the whole point is that the plan decides where the keyframes go. Audio is copied rather than re-encoded.</p>
+
+        <figure class="shot">
+            <img src="guide-export.png" alt="Videre's export window: the ffmpeg destination with the encoder picker, the keyframe plan, and the editable command." loading="lazy" decoding="async">
+            <figcaption><strong>The export window.</strong> The command is visible, editable, and checked after it runs.</figcaption>
+        </figure>
+
+        <h3>Which encoders you can use</h3>
+        <p class="prose"><strong>Encoders…</strong> in that window lists what your ffmpeg has, and what Videre knows about each one:</p>
+        <ul>
+            <li><strong>Verified</strong>: Videre has a tested set of arguments for it and has checked that keyframes land where the plan says.</li>
+            <li><strong>Generic</strong>: available, but Videre has no tested arguments for it, so it gets the keyframe positions and the GOP size and nothing else. Its own scene detection, GOP closure and quality stay at its defaults.</li>
+            <li><strong>All-intra</strong>: every frame is a keyframe, so there is no GOP to plan.</li>
+            <li><strong>Not in this build</strong>: Videre would know how to drive it, your ffmpeg does not have it. That row is there so "why can I not pick rav1e" has an answer.</li>
+        </ul>
+        <p class="prose"><strong>Verify</strong> on any row encodes a short test clip with a known keyframe plan and reads the result back, so the claim is about your build rather than about Videre's table.</p>
+
+        <h3>Chapters, markers and timelines</h3>
+        <p class="prose">The <strong>Export</strong> menu writes the shot list as chapters (FFMETADATA, which ffmpeg can mux straight into a file, or WebVTT), as markers (a CSV that Resolve and Premiere import), as YouTube chapters for a description box, or as an OpenTimelineIO timeline with one clip per shot.</p>
+        <p class="prose">Titles say what Videre knows: the shot number and how it begins. It does not invent descriptions of what is in the picture.</p>
+        <p class="prose">Conform mode gains two requirements that need the clip analysis: every cut on a keyframe, and a flash-rate ceiling. Until an analysis has run they report as skipped with an inline Analyze button, never as a pass. Neither offers a fix, for the reasons above.</p>
+
+        <h3>On the command line</h3>
+        <pre><code>videre scenes clip.mp4
+videre scenes clip.mp4 --threshold 20 --min-length 12 --json
+videre scenes clip.mp4 --edl > shots.edl
+
+videre scenes clip.mp4 --markers ffmetadata > chapters.txt
+videre scenes clip.mp4 --otio > clip.otio
+videre scenes clip.mp4 --keyframes ffmpeg-expr
+videre scenes clip.mp4 --gop-plan --segment-seconds 4
+videre scenes clip.mp4 --ffmpeg-command out.mp4</code></pre>
+        <p class="prose">The same engine as the mode, with <code>--json</code>, <code>--csv</code>, <code>--edl</code> (CMX3600), <code>--otio</code> and <code>--markers</code> outputs. <code>--luma-only</code> scores the luma plane alone, which reproduces ffmpeg's <code>scdet</code> number exactly, including the equal-brightness cuts it cannot see. <code>--drop-frame</code> is honoured at 29.97 and 59.94 and ignored elsewhere, since drop-frame numbering does not exist at other rates.</p>
+        <p class="prose"><code>--keyframes</code> and <code>--gop-plan</code> produce the keyframe plan, controlled by <code>--gop-mode</code> (<code>cadence</code>, <code>cuts</code>, <code>cadence+cuts</code>, <code>snap</code>), <code>--segment-seconds</code> or <code>--keyint</code>, <code>--snap-tolerance</code>, <code>--min-gop</code> and <code>--max-gop</code>. <code>--ffmpeg-command out.mp4</code> prints the ffmpeg command that would encode with that structure. The command-line tool prints it and stops; running it is your call.</p>
+        <p class="prose">Pick one output at a time: each produces a whole document, so two would mean two file formats in one stream.</p>
+        <p class="prose">The command reports rather than gates, so it never exits nonzero because of what it found: 0 means the report was produced, 2 is a usage error, and 3 means the analysis could not run. Use <code>conform</code> when a pipeline needs to block a file.</p>
+
+        <h3>Timecode</h3>
+        <p class="prose">Timecode follows the file's frame rate. At 29.97 and 59.94 the <strong>Drop-frame</strong> switch appears and is on by default, because that is what those deliverables number in; the semicolon before the frames field is what marks it, as SMPTE does. At any other rate drop-frame does not exist and the switch is not offered. On a variable-rate file timecode counts against the declared rate, so it is nominal.</p>
+
+        <h3>Difference scores</h3>
+        <p class="prose">The score is the mean absolute difference between the two frames, scaled so a full-scale change reads 100. Videre measures all three planes by default. This matters: two shots can have the same brightness and completely different color, and a luma-only measurement scores that real cut at zero. The luma-only figure is kept alongside, and it matches <code>ffmpeg</code>'s <code>scdet</code> filter exactly, so a disputed result can be checked against the tool most pipelines already run.</p>
     </section>
 
     <hr class="divider">
@@ -739,15 +981,17 @@ videre retag remuxed.mp4 -o repaired.mp4 --fix-edit-list</code></pre>
 
     <section class="guide-section" id="cli">
         <h2>12 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
-        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Seven subcommands on the same engine as the app:</p>
+        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Nine subcommands on the same engine as the app:</p>
         <pre><code>videre inspect  file.mp4              # format, interpretation, metadata → JSON
 videre compare  ref.y4m dist.mp4      # PSNR / SSIM / MS-SSIM / VMAF / ΔE → JSON
 videre bitstream file.hevc --frames   # parameter sets / SEI / RPUs + GOP stats → JSON
 videre container file.mp4             # ISO box tree → JSON
 videre retag    in.mp4 -o out.mp4 …   # repair signalling, verified
 videre edit     in.mp4 -o out.y4m …   # bake an edit recipe, verified
-videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code></pre>
-        <p class="prose"><code>videre edit</code> replays a recipe saved from Edit mode (<code>--ops recipe.json</code>) or, with no recipe, does a verified passthrough - y4m to raw and back, or an MP4/MOV decoded out to raw frames. Output is raw or y4m only, routed by the output extension. <code>--out-format</code>, <code>--out-range</code>, <code>--chroma-filter</code>, and <code>--working-space</code> are the command line's half of the Output row, so a format conversion scripts the same way it clicks. Exit codes match <code>retag</code>: 0 ok, 1 error, 2 usage, 3 the written file failed verification (and was not kept).</p>
+videre verify   master.mp4 --strict   # delivery checks, exit code for CI
+videre conform  master.mp4 --spec …   # check against a delivery spec, exit code for CI
+videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, exports</code></pre>
+        <p class="prose"><code>videre edit</code> replays a recipe saved from Edit mode (<code>--ops recipe.json</code>) or, with no recipe, does a verified passthrough - y4m to raw and back, or an MP4/MOV decoded out to raw frames. Output is raw or y4m only, routed by the output extension. <code>--out-format</code>, <code>--out-range</code>, <code>--chroma-filter</code>, and <code>--working-space</code> are the command line's half of the Output row, so a format conversion scripts the same way it clicks. <code>--report</code> adds the per-operation census over the whole clip (samples touched per channel, largest code delta, one line or one JSON entry per operation in the recipe), which is how a batch run proves which repair did the work; it is opt-in because counting costs a pass over every sample. Exit codes match <code>retag</code>: 0 ok, 1 error, 2 usage, 3 the written file failed verification (and was not kept).</p>
         <p class="prose"><code>videre verify</code> is the delivery gate: it runs six checks (color agreement between the container and the coded stream, declared against measured MaxCLL/MaxFALL, mastering display consistency across carriers, chroma siting, edit list sanity, system-decoder openability) and exits nonzero when one fails, so a pipeline can block a bad file before upload. Warnings pass by default; <code>--strict</code> fails them, and <code>--fail-on</code> / <code>--warn-on</code> tune single checks. Exit codes: 0 clean, 1 a check failed, 2 usage, 3 the analysis could not run, so a script can tell a bad deliverable from a broken gate. <code>--json</code> gives the same verdicts with the measured numbers included.</p>
         <p class="prose">Raw inputs take a spec: <code>--raw 1920x1080:i420:video:bt709</code> on <code>inspect</code>, <code>--raw-a</code> / <code>--raw-b</code> on <code>compare</code>. A preset saved in the app's parameter sheet works anywhere a spec does: <code>--raw-a preset:mezz</code> carries the full declaration, including strides and color.</p>
         <p class="prose">Reports use a stable, versioned schema, so scripted QC can pin against it.</p>
@@ -781,30 +1025,45 @@ videre verify   master.mp4 --strict   # delivery checks, exit code for CI</code>
             <thead><tr><th>Keys</th><th>Action</th></tr></thead>
             <tbody>
                 <tr><td><kbd>⌘O</kbd> / <kbd>⇧⌘O</kbd></td><td class="wrap-ok">Open / open comparison file</td></tr>
-                <tr><td><kbd>⌘1</kbd> / <kbd>⌘2</kbd></td><td class="wrap-ok">Edit / Compare mode (press again to leave)</td></tr>
+                <tr><td><kbd>⌘1</kbd> … <kbd>⌘6</kbd></td><td class="wrap-ok">Edit / Compare / Measure / Conform / Scenes / Metadata mode (press again to leave)</td></tr>
                 <tr><td><kbd>⌘F</kbd></td><td class="wrap-ok">Reinterpret raw file</td></tr>
                 <tr><td><kbd>⌘I</kbd></td><td class="wrap-ok">Info panel</td></tr>
                 <tr><td><kbd>Space</kbd></td><td class="wrap-ok">Play / pause</td></tr>
                 <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td class="wrap-ok">Step one frame</td></tr>
                 <tr><td><kbd>⌘←</kbd> / <kbd>⌘→</kbd></td><td class="wrap-ok">First / last frame</td></tr>
+                <tr><td><kbd>⌘J</kbd></td><td class="wrap-ok">Focus the jump field</td></tr>
+                <tr><td><kbd>⌘L</kbd></td><td class="wrap-ok">Loop playback</td></tr>
+                <tr><td><kbd>⌥I</kbd> / <kbd>⌥O</kbd> / <kbd>⌥⌘L</kbd></td><td class="wrap-ok">Loop in / out at the playhead / clear the loop range</td></tr>
+                <tr><td><kbd>⌘</kbd>-drag on the ruler</td><td class="wrap-ok">Paint the loop range (<kbd>⌘</kbd>-click clears)</td></tr>
+                <tr><td><kbd>⌥</kbd>-drag on the ruler</td><td class="wrap-ok">Paint the Edit selection (Edit mode; <kbd>⌥⌘</kbd>-drag paints both)</td></tr>
                 <tr><td><kbd>⌘+</kbd> / <kbd>⌘−</kbd> / <kbd>⌘0</kbd> / <kbd>⌥⌘1</kbd></td><td class="wrap-ok">Zoom in / out / fit / actual size</td></tr>
                 <tr><td><kbd>M</kbd></td><td class="wrap-ok">Loupe</td></tr>
+                <tr><td><kbd>V</kbd> / <kbd>⇧V</kbd></td><td class="wrap-ok">Next / previous display channel</td></tr>
+                <tr><td><kbd>T</kbd> / <kbd>C</kbd></td><td class="wrap-ok">Tone map to SDR / clipping highlight (HDR)</td></tr>
+                <tr><td><kbd>[</kbd> / <kbd>]</kbd> / <kbd>\</kbd></td><td class="wrap-ok">Display exposure −0.5 EV / +0.5 EV / reset (HDR)</td></tr>
+                <tr><td><kbd>⌥⌘I</kbd></td><td class="wrap-ok">Show / hide the scopes inspector</td></tr>
                 <tr><td><kbd>⌘R</kbd> / <kbd>⌥⌘R</kbd></td><td class="wrap-ok">Rotate clockwise / counterclockwise</td></tr>
                 <tr><td><kbd>X</kbd></td><td class="wrap-ok">Toggle A/B</td></tr>
-                <tr><td><kbd>⇧⌘R</kbd></td><td class="wrap-ok">Analyze (compare metrics)</td></tr>
+                <tr><td><kbd>⇧⌘A</kbd></td><td class="wrap-ok">Analyze the whole clip</td></tr>
+                <tr><td><kbd>⇧⌘R</kbd></td><td class="wrap-ok">Run Metrics (compare)</td></tr>
+                <tr><td><kbd>⌥↑</kbd> / <kbd>⌥↓</kbd> / <kbd>⌥⌘0</kbd></td><td class="wrap-ok">Nudge / reset the compare offset</td></tr>
+                <tr><td><kbd>⌥⌘E</kbd></td><td class="wrap-ok">Export window</td></tr>
                 <tr><td><kbd>I</kbd> / <kbd>O</kbd></td><td class="wrap-ok">Mark selection in / out (Edit mode)</td></tr>
                 <tr><td><kbd>⌫</kbd></td><td class="wrap-ok">Remove selected frames (Edit mode)</td></tr>
                 <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo edit op (Edit mode)</td></tr>
                 <tr><td><kbd>⇧⌘C</kbd></td><td class="wrap-ok">Compare the edit with the source (Edit mode)</td></tr>
-                <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export edited (Edit mode)</td></tr>
+                <tr><td><kbd>⇧⌘E</kbd></td><td class="wrap-ok">Export (opens the export window)</td></tr>
                 <tr><td>click / drag</td><td class="wrap-ok">Pick a pixel or region (Edit mode, Patch row)</td></tr>
                 <tr><td><kbd>⇧</kbd>-click / <kbd>⇧</kbd>-drag</td><td class="wrap-ok">Add to the pixel selection (Edit mode)</td></tr>
                 <tr><td><kbd>⌥</kbd>-click / <kbd>⌥</kbd>-drag</td><td class="wrap-ok">Remove from the pixel selection (Edit mode)</td></tr>
                 <tr><td><kbd>⇧</kbd>-arrows</td><td class="wrap-ok">Extend the pixel selection (Edit mode)</td></tr>
                 <tr><td><kbd>⇧⌥</kbd>-arrows</td><td class="wrap-ok">Move the pixel selection (Edit mode)</td></tr>
-                <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the pixel selection (Edit mode)</td></tr>
+                <tr><td><kbd>⌥←</kbd> / <kbd>⌥→</kbd></td><td class="wrap-ok">Previous / next cut (Scenes mode)</td></tr>
+                <tr><td><kbd>⌘B</kbd> / <kbd>⇧⌘B</kbd></td><td class="wrap-ok">Add / remove a cut at the playhead (Scenes mode)</td></tr>
+                <tr><td><kbd>⇧⌘L</kbd></td><td class="wrap-ok">Loop the current shot (Scenes mode)</td></tr>
+                <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the selection (any mode: the pixel selection, and a Measure line or ruler)</td></tr>
                 <tr><td><kbd>⌥⌘C</kbd> / <kbd>⇧⌘S</kbd></td><td class="wrap-ok">Copy frame / save frame as PNG</td></tr>
-                <tr><td><kbd>⇧⌘M</kbd></td><td class="wrap-ok">Repair metadata</td></tr>
+                <tr><td><kbd>⇧⌘M</kbd></td><td class="wrap-ok">Metadata mode (alias of <kbd>⌘6</kbd>)</td></tr>
                 <tr><td><kbd>⌃1</kbd> … <kbd>⌃9</kbd>, <kbd>⌃0</kbd></td><td class="wrap-ok">Toggle analyzers (see <a href="#scopes">section 6</a>)</td></tr>
                 <tr><td><kbd>⌃⌥1</kbd> … <kbd>⌃⌥9</kbd>, <kbd>⌃⌥0</kbd></td><td class="wrap-ok">Pop analyzer out to its own window</td></tr>
             </tbody>

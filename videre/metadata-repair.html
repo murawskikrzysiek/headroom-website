@@ -67,7 +67,7 @@
             <p class="eyebrow">Workflow · Metadata repair</p>
             <h1 class="display">Fix the tags. Keep the pixels.</h1>
             <p class="app-hero__desc">
-                A graded HDR deliverable bounces QC over a wrong or missing color tag, and the pixels were never the problem. Videre rewrites the color tags, the mastering display volume, and the content light level of an MP4 or MOV without re-encoding: read what the file actually carries, repair it from a pre-filled sheet or one command, and save a copy whose video and audio are verified byte-identical before the save succeeds.
+                A graded HDR deliverable bounces QC over a wrong or missing color tag, and the pixels were never the problem. Videre rewrites the color tags, the mastering display volume, and the content light level of an MP4 or MOV without re-encoding: read what the file actually carries, stage the fixes in Metadata mode or one command, and write a copy whose video and audio are verified byte-identical before the save succeeds.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -91,8 +91,8 @@
 
     <section class="shots shots--tight">
         <figure class="shot">
-            <img src="videre-repair-sheet.png" alt="Videre's Repair Metadata sheet on an HDR file: color tag, mastering display, and content light level sections pre-filled with the file's current values, preset buttons above." loading="lazy" decoding="async">
-            <figcaption><strong>The repair sheet.</strong> Opens pre-filled with what the file carries now, so what you change is exactly the delta. Footage: Tears of Steel (CC) Blender Foundation.</figcaption>
+            <img src="videre-metadata-mode.png" alt="Videre's Metadata mode on an HDR file: the guided-fix toolbar over the container tree, staged values shown next to the file's current ones." loading="lazy" decoding="async">
+            <figcaption><strong>Metadata mode.</strong> The fixes open pre-filled with what the file carries now, so what you change is exactly the delta. Footage: Tears of Steel (CC) Blender Foundation.</figcaption>
         </figure>
     </section>
 
@@ -162,8 +162,8 @@
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Diagnose what the file says</div><div class="feature-row__v">Open the deliverable. The metadata readout in the info panel (<kbd>⌘I</kbd>) shows the declared tags; the container inspector (<kbd>⌃9</kbd>, Container mode) shows the boxes themselves, <code>colr</code>, <code>mdcv</code>, and <code>clli</code>, with every field decoded. The bitstream inspector reads the color signalling inside the coded stream too, so a container problem and a bitstream problem are distinguishable before you pick the fix.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Repair from the pre-filled sheet</div><div class="feature-row__v"><strong>File → Repair Metadata…</strong> (<kbd>⇧⌘M</kbd>) opens pre-filled with the file's current tags. Each of the three sections can be kept as is, set to new values, or removed outright. Presets fill BT.709, BT.2020 PQ (HDR10), and BT.2020 HLG; the fields accept any H.273 code point, so an unusual tag is not a dead end. Mastering display values are entered in the raw integers x265's <code>master-display</code> string uses, with the derived chromaticities and cd/m² shown beside them.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Let the write prove itself</div><div class="feature-row__v">The original file is never modified; the repaired copy goes to a new file. Before the save succeeds, the output must pass three checks: the video and audio data byte-identical to the source, the requested tags reading back exactly, and the file re-opening. If any check fails, the output is deleted and the error names the reason. There is no state where a half-repaired file looks done.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Stage the fixes in Metadata mode</div><div class="feature-row__v"><strong>Metadata mode</strong> (<kbd>⌘6</kbd>) puts the guided fixes in the toolbar, each opening pre-filled with the file's current tags. Keep, set, or remove each one; presets fill BT.709, BT.2020 PQ (HDR10), and BT.2020 HLG, and the fields accept any H.273 code point, so an unusual tag is not a dead end. Mastering display values are entered in the raw integers x265's <code>master-display</code> string uses, with the derived chromaticities and cd/m² shown beside them. Staged values render inline in the container and bitstream trees next to the current ones, so the whole plan is reviewable before anything is written. The same toolbar holds the rest of the fix catalog - chroma siting, aspect ratio, HLG compatibility, stripping dynamic HDR metadata, QuickTime compatibility, fast start, edit-list repair - listed in full in the <a href="guide.html#repair">guide</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Let the write prove itself</div><div class="feature-row__v"><strong>Write Metadata Copy…</strong> writes the whole plan at once. The original file is never modified; the repaired copy goes to a new file. Before the save succeeds, the output must pass three checks: the video and audio data byte-identical to the source, the requested tags reading back exactly, and the file re-opening. If any check fails, the output is deleted and the error names the reason. There is no state where a half-repaired file looks done.</div></div>
                 <div class="feature-row"><div class="feature-row__k">4 · Redeliver, or script it</div><div class="feature-row__v">For one file, save and send. For a pipeline, the same engine runs from the command line: <code>videre retag</code> takes the presets, an x265-style <code>master-display</code> string, and per-track selection, so the fix drops into the script that already packages the deliverable. Minutes instead of a re-render.</div></div>
             </div>
         </div>
@@ -213,7 +213,7 @@
         <div class="section__grid">
             <p class="label">Fix the label, keep the master</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">A bounced deliverable does not have to go back through the render queue. Read what the file carries, correct the tags from the sheet or the command line, and send an output whose pixels are the ones you graded, verified byte for byte. The full reference, including every field and preset, is in the <a href="guide.html#repair">user guide</a>.</p>
+                <p class="prose-lead">A bounced deliverable does not have to go back through the render queue. Read what the file carries, correct the tags in Metadata mode or from the command line, and send an output whose pixels are the ones you graded, verified byte for byte. The full reference, including every fix and preset, is in the <a href="guide.html#repair">user guide</a>.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
                     <a href="guide.html#repair" class="btn btn-primary">Read the guide section →</a>
                     <a href="index.html" class="btn btn-outline">Back to Videre</a>

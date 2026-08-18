@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videre - Video Inspection &amp; Analysis for macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/videre/">
-    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, and compare encodes with PSNR, SSIM, VMAF.">
+    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, compare encodes with PSNR, SSIM, VMAF, repair metadata without re-encoding, edit and verify raw video, detect scenes, and check delivery specs.">
     <meta property="og:title" content="Videre">
     <meta property="og:description" content="See what's actually in the frame. Raw and encoded video, HDR-correct display, scopes, metadata, bitstream, and compare metrics.">
     <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
@@ -63,7 +63,7 @@
             <p class="eyebrow">In development</p>
             <h1 class="display">Videre</h1>
             <p class="app-hero__desc">
-                A native macOS inspector for people who work on video, not just with it. Open a raw YUV dump with no header or an encoded file, display it color-correctly in SDR and HDR, read every scope and every metadata block down to the bitstream fields, and compare two encodes with the metrics that decide codec shootouts.
+                A native macOS inspector for people who work on video, not just with it. Open a raw YUV dump with no header or an encoded file, display it color-correctly in SDR and HDR, read every scope and every metadata block down to the bitstream fields, and compare two encodes with the metrics that decide codec shootouts. Then act on what you found: repair the metadata without re-encoding, fix defective pixels with verified surgical edits, split the clip into shots, and check the file against a delivery spec.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -107,6 +107,7 @@
                 <p class="prose-lead" style="margin-top: 22px;">A raw YUV dump has no header; nothing in the file says 1920&times;1080, 10-bit, BT.709. And tagged files lie: a BT.601 clip marked BT.709 looks almost right, which is worse than wrong. Videre opens headerless files through a parameter sheet with a size guesser and filename hints, and every file, tagged or not, gets live interpretation controls: matrix, range, and transfer are pills you flip while the frame re-renders, with an amber marker whenever your choice diverges from what the file declares.</p>
                 <p class="prose-lead" style="margin-top: 14px;">"Encoder A looks better" is not a result. Videre loads two sources into an A/B session with side-by-side, flip, wipe, and difference views, a temporal offset for misaligned clips, and per-frame PSNR, SSIM, MS-SSIM, VMAF, CAMBI, and &Delta;E metrics with a graph and a jump-to-worst-frame button. The numbers cross-validate against the reference implementations, so they hold up in a report.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Dolby Vision RPUs, HDR10+ scene metadata, VUI color tags, container boxes: a player consumes them silently or ignores them. Videre reads them out, per frame, searchable by field name, and exports them as JSON. When a clip looks wrong on one TV and fine on another, the answer is usually in a block nobody rendered visible.</p>
+                <p class="prose-lead" style="margin-top: 14px;">And when the file itself is the problem, Videre writes: wrong tags are repaired without re-encoding, defective pixels are patched with exact code values, and every write goes to a new file that must pass verification before the save succeeds. The original is never modified, on any path.</p>
             </div>
         </div>
     </section>
@@ -173,6 +174,24 @@
         </div>
     </section>
 
+    <!-- Modes -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Six modes</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Inspecting is the default. Each mode adds one job on top of it, on ⌘1 through ⌘6, and they share every scope and the one decoded frame.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Edit (⌘1)</div><div class="feature-row__v">Surgical, measurable repair of raw video: legalize levels in codes, nits, or RGB, swap or neutralize planes, bake a range conversion, patch pixels with exact values, interpolate over dead pixels and dropped lines, crop / pad / rotate, cut and trim. Ops stack non-destructively, every scope reads through the stack, and the export verifies every frame byte-for-byte. Recipes replay from the command line.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Compare (⌘2)</div><div class="feature-row__v">The A/B session: side-by-side, flip, wipe, and difference views, a temporal offset, and per-frame metrics. Detailed below.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Measure (⌘3)</div><div class="feature-row__v">Reads the part of the frame you point at: region statistics with jump-to-min/max, line profiles in codes or nits, a pixel ruler, a region histogram, and Scan Region to watch one window across every frame of the clip. Copy takes any readout as text or JSON.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Conform (⌘4)</div><div class="feature-row__v">A delivery spec becomes a checklist: one row per requirement, each failing row carrying the fix that resolves it, on the surface that actually performs it - a staged tag write, an edit-stack operation, or an output setting. Unmeasured rows skip honestly instead of passing quietly. HDR10, Rec.709, and mezzanine presets ship; your own specs sit beside them.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Scenes (⌘5)</div><div class="feature-row__v">One pass groups the clip into shots with per-shot light levels, complexity, legal levels, and flash-risk indication; cuts check against keyframes and against Dolby Vision / HDR10+ boundaries. The cut list becomes a keyframe plan, chapters, markers, an EDL, or OpenTimelineIO - or drives an ffmpeg encode from the export window.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Metadata (⌘6)</div><div class="feature-row__v">Fix color and HDR signalling in both layers - container boxes and the coded stream - without re-encoding. Fixes stage into a reviewable plan and write once, verified. The fix catalog is further down this page.</div></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Built for your workflow -->
     <section class="section section--bordered">
         <div class="apps-head"><p class="label">Built for your workflow</p></div>
@@ -199,7 +218,7 @@
             <div>
                 <div class="feature-row"><div class="feature-row__k">Raw / headerless</div><div class="feature-row__v">Planar YUV at 8, 10, 12, and 16 bit in 4:2:0 / 4:2:2 / 4:4:4, semi-planar NV12/NV21/P010 class, packed YUYV / UYVY / v210, grayscale, and RGB orders. Custom resolutions and per-plane strides. A size guesser ranks candidate geometries from the file size; filename hints (1920x1080, p010, bt709 in the name) pre-fill the sheet.</div></div>
                 <div class="feature-row"><div class="feature-row__k">y4m</div><div class="feature-row__v">YUV4MPEG2 streams including 10-bit variants, with header tags mapped to interpretation and chroma siting.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Encoded</div><div class="feature-row__v">MP4 / MOV / QuickTime through the system decoder: HEVC, H.264, ProRes, with frame-exact random access and edit-list handling. Files with in-band parameter sets (hev1 / avc3) decode through Videre's own VideoToolbox path.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Encoded</div><div class="feature-row__v">MP4 / MOV / QuickTime through the system decoder: HEVC, H.264, ProRes, and AV1 where the Mac's decoder carries it, with frame-exact random access and edit-list handling. Files with in-band parameter sets (hev1 / avc3) decode through Videre's own VideoToolbox path.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Reinterpret</div><div class="feature-row__v">&#8984;F re-opens the current file with different parameters, keeping frame position and zoom. Wrong guess costs nothing.</div></div>
             </div>
         </div>
@@ -213,6 +232,7 @@
                 <div class="feature-row"><div class="feature-row__k">Color-managed viewer</div><div class="feature-row__v">BT.601 / 709 / 2020 matrices, video and full range, sRGB / gamma 2.2 / gamma 2.4 / PQ / HLG transfer, chroma siting. Conversion math is one implementation shared by the display shader, the pixel readout, and every scope, so what you see and what you measure never disagree.</div></div>
                 <div class="feature-row"><div class="feature-row__k">HDR on EDR displays</div><div class="feature-row__v">PQ and HLG render through the display's extended dynamic range headroom. A Display section shows the current EDR headroom, a &plusmn;6 EV display-only exposure control, a 1,000-nit tone-map preview, and a clipping highlight for content brighter than the display can show.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Pixel-level inspection</div><div class="feature-row__v">Zoom to a pixel grid, hover for code values and converted RGB, nits readout on HDR content, a magnifier loupe, channel isolation (Y, Cb, Cr, R, G, B, alpha, and ICtCp components), rotation metadata honored, copy or save any frame as PNG.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Transport</div><div class="feature-row__v">Real-time playback that follows each frame's own duration, so variable-frame-rate files play with their true cadence; a timecode-and-frames counter; loop playback with a paintable range; and a Display / Decode order switch that walks the whole app through the coded frame order, reference frames first.</div></div>
             </div>
         </div>
     </section>
@@ -231,7 +251,7 @@
                 <div class="feature-row"><div class="feature-row__k">Waveform &amp; vectorscope</div><div class="feature-row__v">Luma and per-channel waveform, chroma vectorscope.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Levels</div><div class="feature-row__v">Per-channel histograms with min / max / mean and sub-black / super-white percentages.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Light levels</div><div class="feature-row__v">Measured MaxCLL / MaxFALL against the declared values, with staleness tracking and re-measure.</div></div>
-                <div class="feature-row"><div class="feature-row__k">QC checks</div><div class="feature-row__v">Black frames, freeze runs, letterbox bounds, and ITU-T P.910 SI / TI over the whole clip.</div></div>
+                <div class="feature-row"><div class="feature-row__k">QC checks</div><div class="feature-row__v">Black frames, freeze runs, letterbox bounds, and ITU-T P.910 SI / TI over the whole clip. One Analyze pass (⇧⌘A) fills the light levels, the QC checks, and the Scenes shot list together, and every panel that reads it flags staleness with the same re-run notice.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Dolby Vision</div><div class="feature-row__v">Per-frame RPU metadata decoded across CM v2.9 and v4.0: L1 dynamic levels, trims, active area, source primaries, target displays. Videre inspects the metadata; it does not compose.</div></div>
                 <div class="feature-row"><div class="feature-row__k">HDR10+</div><div class="feature-row__v">ST 2094-40 per-scene metadata with a per-frame MaxSCL graph and tone-curve knee readout.</div></div>
             </div>
@@ -262,8 +282,8 @@
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The one thing Videre writes: the tags. The pixels stay untouched. <a href="metadata-repair.html" style="color: var(--accent);">See the workflow →</a></p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">Repair Metadata (⇧⌘M)</div><div class="feature-row__v">Rewrites the color tags (primaries, transfer, matrix, range), the SMPTE ST 2086 mastering display volume, and the MaxCLL / MaxFALL content light level of an MP4/MOV without re-encoding. The sheet opens pre-filled with the file's current tags; keep, set, or remove each section, with BT.709 / BT.2020 PQ (HDR10) / BT.2020 HLG presets and any H.273 code point accepted.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Verified writes</div><div class="feature-row__v">The original file is never modified. The repaired copy goes to a new file, and the save succeeds only after the output passes verification: video and audio data byte-identical to the source, tags reading back exactly, file re-opening.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Metadata mode (⌘6)</div><div class="feature-row__v">Rewrites the color tags (primaries, transfer, matrix, range), the SMPTE ST 2086 mastering display volume, and the MaxCLL / MaxFALL content light level of an MP4/MOV without re-encoding - in the container boxes, the coded stream's own signalling, or both, so the two layers agree after a repair. Fixes open pre-filled with the file's current tags, with BT.709 / BT.2020 PQ (HDR10) / BT.2020 HLG presets and any H.273 code point accepted. The catalog goes on: chroma siting, aspect ratio, HLG compatibility, stripping dynamic HDR metadata, QuickTime compatibility for in-band files, fast start, edit-list repair, and per-field expert edits down to the parameter sets.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Staged, then verified</div><div class="feature-row__v">Edits stage into a reviewable plan first - staged values render inline next to the file's current ones, with full undo. Write Metadata Copy writes the whole plan to a new file; the original is never modified, and the save succeeds only after the output passes verification: video and audio data byte-identical to the source, tags reading back exactly, file re-opening.</div></div>
                 <div class="feature-row"><div class="feature-row__k"><code>videre retag</code></div><div class="feature-row__v">The same repair from a script: presets, an x265-style <code>master-display</code> string, MaxCLL / MaxFALL, remove flags, and per-track selection.</div></div>
             </div>
         </div>
@@ -279,6 +299,7 @@
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">Load a reference and a distorted version, even in different pixel formats or transfers; each side converts under its own interpretation. View them side-by-side, flip on a key, wipe with a draggable divider, or as a difference image with channel, heatmap, and binary styles. A temporal offset control lines up clips that don't start on the same frame.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Metrics run per frame with a chart, sequence aggregates, and a jump-to-worst-frame button: <strong>PSNR</strong> (matching the ffmpeg filter's conventions exactly), <strong>SSIM</strong> and <strong>MS-SSIM</strong> (the canonical definitions), <strong>VMAF</strong> and <strong>CAMBI</strong> (Netflix's libvmaf, statically linked), and <strong>&Delta;E2000</strong> / <strong>&Delta;E ITP</strong> color difference. Results export as JSON and CSV with a frozen report schema.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The run is progressive: numbers land in the panel frame by frame, the frame on screen is measured first, and cancelling keeps everything measured so far. Measure Frame takes just the pair in front of you, and an Auto toggle measures every frame you step to - scrubbing through a suspect region fills in its chart as you go.</p>
             </div>
         </div>
     </section>
@@ -288,7 +309,7 @@
         <div class="section__grid">
             <p class="label">Automation</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Six subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>verify</code>, built on the same engine as the app, so scripted QC gets identical numbers. <code>videre verify</code> runs the delivery checks and exits nonzero on a failure, so a pipeline can gate an upload. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Nine subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>edit</code>, <code>verify</code>, <code>conform</code>, <code>scenes</code>, built on the same engine as the app, so scripted QC gets identical numbers. <code>videre verify</code> runs the delivery checks and <code>videre conform</code> gates against a spec, each exiting nonzero on a failure, so a pipeline can block an upload. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Finder</div><div class="feature-row__v">Three Shortcuts actions: Inspect Video File and Compare Video Files return the JSON reports, Verify Video File returns a pass/fail verdict a Shortcut can branch on. In Finder, right-click two renders to compare them in Videre, or one file to write its inspect report to Downloads.</div></div>
             </div>
         </div>
