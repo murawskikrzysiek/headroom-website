@@ -73,6 +73,8 @@ const APPS = [
     name: 'Videre',
     icon: join(ICONS_DIR, 'videre/icon.png'),
     subtitle: 'Raw & encoded video inspection for macOS',
+    // Tokens split on " · " and wrapped; never use that separator inside one.
+    features: 'raw YUV & y4m · PQ & HLG on EDR · scopes & 3D gamut · Dolby Vision & HDR10+ · bitstream inspector · metadata repair · non-destructive edits · PSNR / SSIM / VMAF · CLI',
     tagline: 'Headroom Studio · Precision tools for macOS',
   },
 ];
