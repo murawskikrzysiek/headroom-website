@@ -72,7 +72,7 @@ const APPS = [
     slug: 'videre',
     name: 'Videre',
     icon: join(ICONS_DIR, 'videre/icon.png'),
-    subtitle: 'Raw & encoded video inspection: HDR, scopes, metrics',
+    subtitle: 'Raw & encoded video inspection for macOS',
     tagline: 'Headroom Studio · Precision tools for macOS',
   },
 ];
@@ -124,15 +124,31 @@ async function render(logicalW, logicalH, app, scale = 2) {
   // Sizing (all in logical units, relative to height)
   const iconSize    = Math.round(logicalH * 0.28);
   const nameFont    = Math.round(logicalH * 0.155);
-  const subFont     = Math.round(logicalH * 0.045);
+  let   subFont     = Math.round(logicalH * 0.045);
   const featFont    = Math.round(logicalH * 0.030);
   const taglineFont = Math.round(logicalH * 0.028);
+  const gap         = Math.round(logicalH * 0.06);
 
   // Measure widths
   ctx.font = `600 ${nameFont}px ${FONT_STACK}`;
   const nameWidth = ctx.measureText(app.name).width;
-  ctx.font = `400 ${subFont}px ${FONT_STACK}`;
-  const subWidth = ctx.measureText(app.subtitle).width;
+
+  // Fit guard. Every size above is a fraction of the canvas HEIGHT, but the
+  // lockup (icon + gap + text) is bounded by WIDTH, and the 4:3 thumbnail has
+  // far less width per point of type than the 1.9:1 OG image. Without this a
+  // long subtitle makes totalWidth exceed the canvas, startX goes negative,
+  // and the render silently clips: icon cut off on the left, subtitle running
+  // off the right. Shrink the subtitle until the row fits, down to a floor.
+  const maxLockupW = logicalW * 0.9;
+  const minSubFont = Math.round(logicalH * 0.030);
+  let subWidth;
+  for (;;) {
+    ctx.font = `400 ${subFont}px ${FONT_STACK}`;
+    subWidth = ctx.measureText(app.subtitle).width;
+    if (iconSize + gap + Math.max(nameWidth, subWidth) <= maxLockupW) break;
+    if (subFont <= minSubFont) break;
+    subFont -= 1;
+  }
 
   // Optional feature line: split on the " · " separators and greedily wrap
   // so no line exceeds ~half the canvas. Wrapping happens before layout so
@@ -160,7 +176,6 @@ async function render(logicalW, logicalH, app, scale = 2) {
   // Layout (centered horizontal lockup; nudged up when a feature block adds
   // height below the subtitle)
   const textBlockWidth = Math.max(nameWidth, subWidth, featWidth);
-  const gap = Math.round(logicalH * 0.06);
   const totalWidth = iconSize + gap + textBlockWidth;
   const startX = Math.round((logicalW - totalWidth) / 2);
   const centerY = Math.round(logicalH * (featLines.length ? 0.44 : 0.48));
