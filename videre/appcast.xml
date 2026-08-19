@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sparkle appcast feed for Videre.
+  Hosted at https://headroomstudio.dev/videre/appcast.xml
+
+  Videre's Info.plist already points SUFeedURL here, so this file must resolve
+  even before the first release: an empty channel is a valid feed and Sparkle
+  reads it as "no update available". Do not delete it.
+
+  Update this file when shipping a new release. Each <item> needs:
+    - <title>            Short release name (e.g. "Version 1.0")
+    - <description>      Release summary (plain prose, no markup)
+    - <pubDate>          RFC 822 date
+    - <sparkle:version>  Build number (CFBundleVersion)
+    - <sparkle:shortVersionString>  User-facing version (CFBundleShortVersionString)
+    - <sparkle:minimumSystemVersion>  Minimum macOS version (14.0)
+    - <sparkle:releaseNotesLink>  https://headroomstudio.dev/videre/releases.html
+    - <enclosure>        URL to .dmg, length in bytes, type, sparkle:edSignature
+
+  Sign each release DMG with the EdDSA private key (paired with the
+  SUPublicEDKey in Info.plist, shared across the Headroom apps) using
+  Sparkle's `sign_update` tool:
+
+      sign_update Videre-1.0.dmg
+
+  Paste the resulting `sparkle:edSignature` value into the enclosure attribute,
+  and set `length` to the DMG's exact size in bytes. See specula/appcast.xml or
+  audita/appcast.xml for working examples.
+
+  Template for the first item, to uncomment and fill at release:
+
+        <item>
+            <title>Version 1.0</title>
+            <description>First public release.</description>
+            <pubDate>FILL RFC 822 DATE</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/videre/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Videre-1.0.dmg"
+                sparkle:edSignature="FILL FROM sign_update"
+                length="FILL BYTES"
+                type="application/octet-stream" />
+        </item>
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Videre</title>
+        <link>https://headroomstudio.dev/videre/appcast.xml</link>
+        <description>Videre update feed</description>
+        <language>en</language>
+    </channel>
+</rss>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Videre Privacy Policy - Video Stays on Your Mac</title>
+  <link rel="canonical" href="https://headroomstudio.dev/videre/privacy.html">
+  <meta name="description" content="Videre inspects video entirely locally - no upload, no telemetry. Read the Headroom Studio privacy policy for Videre.">
+  <meta property="og:title" content="Videre Privacy Policy">
+  <meta property="og:description" content="Videre inspects video entirely locally. No upload, no telemetry.">
+  <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Videre Privacy Policy">
+  <meta name="twitter:description" content="Videre inspects video entirely locally. No upload, no telemetry.">
+  <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <style>
+    .priv-section { padding-bottom: 40px; }
+    .priv-section h2 { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em; }
+    .priv-section p, .priv-section li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; max-width: 720px; }
+    .priv-section p + p { margin-top: 10px; }
+    .priv-section strong { color: var(--text); font-weight: 600; }
+    .priv-section a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
+    .priv-section ol { padding-left: 22px; margin-top: 8px; list-style: decimal; }
+    .priv-section .pathline { margin-top: 8px; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--text-3); background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); word-break: break-all; max-width: 720px; }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="./" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>Videre</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="doc-header">
+    <p class="eyebrow">Videre</p>
+    <h1 class="display">Privacy Policy</h1>
+    <p class="doc-header__meta">Last updated: August 2026</p>
+  </header>
+
+  <hr class="rule" style="margin-bottom: 48px;">
+
+  <section class="priv-section">
+    <h2>Overview</h2>
+    <p>Videre is a local macOS application. It does not transmit, upload, or share any video data, file content, metadata, or measurement results. All decoding, analysis, and comparison happens on-device. There is no telemetry and no analytics.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Video file access</h2>
+    <p>Videre opens files you select via the standard macOS file picker, drag-and-drop, or a path on the command line. Encoded files are decoded frame by frame as you play or step; container structure is read by memory-mapping the file, so a multi-gigabyte source opens without being copied anywhere. Raw and headerless files are read directly from the bytes on disk under the parameters you declare. Nothing is uploaded, and no index or copy of your footage is kept after the app closes.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>What Videre writes</h2>
+    <p>Videre writes only where you ask it to. Metadata repair and edit exports produce a <strong>new</strong> file at the location you choose, and the file you opened is never modified on any path. Reports (JSON and CSV), saved frames (PNG), and scene exports go to the destination you pick in the save dialog.</p>
+    <p>Two paths write without a save dialog, both to locations you can inspect: the Finder Service that inspects a file writes its JSON report to your <strong>Downloads</strong> folder, and named raw-parameter presets and custom conform specs are stored in Videre's own folder in your user Library.</p>
+    <p class="pathline">~/Library/Application Support/Videre/</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Preferences and settings</h2>
+    <p>Your settings - layout and text size, default-visible scopes, the untagged-SDR tone response, analysis behavior, and update preferences - are stored locally on your Mac in standard macOS preferences and are never transmitted.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Encoding with ffmpeg</h2>
+    <p>Exporting an encode from Scenes mode runs the <strong>ffmpeg</strong> binary already installed on your Mac. Videre builds the command, shows it to you in full, and runs it locally as a normal process; it does not bundle, download, or update ffmpeg, and the encode reads and writes only the files named in that command. If ffmpeg is not installed, the export offers the other destinations instead.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>License activation and validation</h2>
+    <p>When you activate a license, or when Videre validates it, the app contacts Lemon Squeezy's licensing API at <code>api.lemonsqueezy.com</code>. The only data sent is your license key and a per-device instance ID generated for the activation. No video, no file contents, no metadata, and no personal data are transmitted. Your footage never leaves your Mac. Deactivating a license from Settings releases that device. During the trial, before any license is entered, the app makes no such calls, and an activated license keeps working offline for up to 30 days between checks.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Auto-update checks</h2>
+    <p>Videre uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/videre/appcast.xml</code> to check for new versions. This request carries only the standard details of an HTTPS request; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. You can disable automatic checks in the app's settings.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Purchases</h2>
+    <p>When you purchase Videre, payment is processed by an external payment provider. That provider's privacy policy applies to the transaction. Headroom does not receive or store your payment details.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Contact</h2>
+    <p>If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="guide.html">User Guide</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>

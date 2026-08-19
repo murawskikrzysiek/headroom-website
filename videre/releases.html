@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Videre Release Notes - Version History &amp; Changelog</title>
+  <link rel="canonical" href="https://headroomstudio.dev/videre/releases.html">
+  <meta name="description" content="Version history for Videre, the raw and encoded video inspector for macOS.">
+  <meta property="og:title" content="Videre Release Notes">
+  <meta property="og:description" content="Version history for Videre, the macOS video inspector: raw and encoded sources, HDR display, scopes, metadata and compare metrics.">
+  <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Videre Release Notes">
+  <meta name="twitter:description" content="Version history for Videre, the macOS video inspector: raw and encoded sources, HDR display, scopes, metadata and compare metrics.">
+  <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Self-contained for Sparkle's update window - embedded styles, no external deps, no animation. -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0a0a0d; --border:#1e1e2a; --border-soft:#1a1a24; --text:#eeeef6;
+      --text-2:#c8c8d8; --text-3:#72727f; --text-4:#4a4a64; --accent:#7c84f6; --green:#3ecf7c; --red:#f67c7c; --blue:#7c9af6; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 14px; line-height: 1.6; background: var(--bg); color: var(--text);
+      padding: 28px 24px 48px; max-width: 580px; margin: 0 auto; -webkit-font-smoothing: antialiased; }
+    .back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: var(--accent); text-decoration: none; }
+    .app-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .app-icon { width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0; overflow: hidden; }
+    .app-icon img { width: 100%; height: 100%; display: block; }
+    .app-name { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+    .app-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    .prenote { padding: 14px 16px; background: #14141e; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 12.5px; color: #9c9cb8; line-height: 1.55; margin-bottom: 28px; }
+    .prenote strong { color: var(--text-2); }
+    .release { margin-bottom: 28px; }
+    .release + .release { padding-top: 18px; border-top: 1px solid var(--border-soft); }
+    .release-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+    .version { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: -0.2px; }
+    .date { font-size: 12px; color: var(--text-3); }
+    .badge-soon { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      background: rgba(124,132,246,0.16); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-left: auto; }
+    .changes { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .changes li { display: flex; align-items: flex-start; gap: 10px; color: var(--text-2); font-size: 13px; line-height: 1.55; }
+    .tag { flex-shrink: 0; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      padding: 2px 6px; border-radius: 4px; margin-top: 2px; min-width: 38px; text-align: center;
+      font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; }
+    .tag-new  { background: rgba(62,207,124,0.12);  color: var(--green); }
+    .tag-fix  { background: rgba(246,124,124,0.12);  color: var(--red); }
+    .tag-impr { background: rgba(124,154,246,0.14); color: var(--blue); }
+    code { font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; font-size: 12px;
+      background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; color: #d6d6f0; }
+    a { color: var(--accent); text-decoration: none; }
+    strong { color: var(--text); font-weight: 600; } em { color: var(--text); font-style: normal; font-weight: 500; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-size: 11px; color: var(--text-4); text-align: center; }
+    footer a { color: var(--accent); }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+  <a class="back" href="./">← Back to Videre</a>
+
+  <header class="app-header">
+    <div class="app-icon"><img src="icon.png" alt="Videre"></div>
+    <div>
+      <div class="app-name">Videre</div>
+      <div class="app-sub">Raw &amp; encoded video inspection for macOS</div>
+    </div>
+  </header>
+
+  <div class="prenote">
+    <strong>Videre 1.0 has not shipped yet.</strong> This page lists what the first release contains. It gains its
+    release date and download link when 1.0 is cut. Requires macOS 14 or later.
+  </div>
+
+  <section class="release" id="v1.0">
+    <div class="release-header"><span class="version">Version 1.0</span><span class="badge-soon">In development</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>Opens raw video that carries no header.</strong> Planar YUV at 8, 10, 12 and 16 bit in 4:2:0 / 4:2:2 / 4:4:4, semi-planar NV12 / NV21 / P010, packed YUYV / UYVY / v210, grayscale, and RGB orders, at custom resolutions with per-plane strides. A size guesser ranks candidate geometries from the file size, filename hints prefill the sheet, and a live decode preview shows what a declaration produces before you commit to it. Candidate interpretations are scored by neighbour correlation and ranked, declarations save as named presets shared with the command line, and <code>⌘F</code> reopens the current file under different parameters while keeping frame position and zoom.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Encoded files and y4m.</strong> MP4 / MOV / QuickTime through the system decoder: HEVC, H.264, ProRes, and AV1 where the Mac's decoder carries it, with frame-exact random access and edit-list handling. Files that carry their parameter sets in-band decode through Videre's own path. YUV4MPEG2 streams open including the 10-bit variants, with header tags mapped to interpretation and chroma siting.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Color-managed display, SDR and HDR.</strong> BT.601 / 709 / 2020 matrices, video and full range, sRGB / gamma 2.2 / gamma 2.4 / PQ / HLG transfer, and chroma siting. One conversion implementation feeds the display shader, the pixel readout, and every scope, so the image on screen and the numbers beside it come from the same math. PQ and HLG render through the display's extended dynamic range headroom, with a headroom readout, a ±6 EV display-only exposure control, a 1,000-nit tone-map preview, and a clipping highlight for content brighter than the display can show.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Live interpretation controls.</strong> Matrix, range, and transfer are pills you flip while the frame re-renders, and an amber marker appears whenever your choice diverges from what the file declares. Tagged and headerless sources get the same controls.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Ten analyzers.</strong> Gamut (CIE 1931 chromaticity plus a rotatable 3D cloud plotting chromaticity against nits, with an ICtCp border check), levels, waveform, vectorscope, light levels measured against the values the file declares, QC checks (black frames, freeze runs, letterbox bounds, ITU-T P.910 SI / TI), Dolby Vision RPU metadata decoded across CM v2.9 and v4.0, HDR10+ ST 2094-40, and a carriage stress scope that scores the per-pixel damage a given chroma format, bit depth, and filter would cause. Each toggles on a control-number shortcut, stacks in the inspector, and pops out to its own window. Time-aligned graphs run as full-width strips under the viewer, sharing the playhead with the seek bar.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Bitstream and container inspector.</strong> Header-level parsing of H.264, H.265, and AV1: parameter sets in full, SEI and metadata OBUs, slice and frame headers, grouped into per-frame access units that follow the playhead. Field names are the exact spec syntax-element names, and a field search runs over the whole stream. The ISO base media box tree (MP4 / MOV / HEIF) is memory-mapped, so a multi-gigabyte file opens instantly, and a GOP view charts frame size by frame type. Stepping frames with change-highlight on renders any field that differs from the previous frame in amber with its old value. The full parse exports as JSON.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Metadata mode (<code>⌘6</code>) repairs tags without re-encoding.</strong> Rewrites the color tags, the SMPTE ST 2086 mastering display volume, and the MaxCLL / MaxFALL content light level of an MP4 / MOV in the container boxes, the coded stream's own signalling, or both, so the two layers agree afterwards. Fixes stage into a reviewable plan with staged values shown inline against the file's current ones, and write to a new file that must pass verification before the save succeeds: video and audio byte-identical to the source, tags reading back exactly, the file re-opening. The catalog covers chroma siting, aspect ratio, HLG compatibility, stripping dynamic HDR metadata, QuickTime compatibility for in-band files, fast start, edit-list repair, and per-field expert edits down to the parameter sets. The file you opened is never modified.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Edit mode (<code>⌘1</code>) for measurable repair.</strong> A non-destructive operation stack: legalize levels in codes, nits, or RGB, swap or neutralize planes, bake a range conversion, patch pixels with exact values, interpolate over dead pixels and dropped lines, crop, pad, rotate, flip, cut, trim, and subclip. Every scope reads the frame through the stack, each operation reports what it actually changed, and a measurement can become the selection the next operation acts on. Work in the file's own layout or in RGB 4:4:4, scale to a target resolution on export, compare the edit against the source with real metrics before it ships, and replay the whole recipe from the command line. The export verifies every frame byte for byte.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Compare mode (<code>⌘2</code>) with cross-validated metrics.</strong> Load a reference and a distorted version, even in different pixel formats or transfers, and view them side-by-side, flipped on a key, wiped with a draggable divider, or as a difference image with channel, heatmap, and binary styles. A temporal offset lines up clips that do not start on the same frame. Per-frame PSNR, SSIM, MS-SSIM, VMAF, CAMBI, ΔE2000, and ΔE ITP come with a chart, sequence aggregates, and a jump-to-worst-frame button. The run is progressive: the frame on screen measures first, numbers land frame by frame, and cancelling keeps everything measured so far.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Measure, Conform, and Scenes modes.</strong> <em>Measure</em> (<code>⌘3</code>) reads the part of the frame you point at: region statistics with jump-to-min/max, line profiles in codes or nits, a pixel ruler, a region histogram, and Scan Region to watch one window across every frame. <em>Conform</em> (<code>⌘4</code>) turns a delivery spec into a checklist, one row per requirement, each failing row carrying the fix that resolves it on the surface that performs it, and rows it cannot measure are marked skipped rather than passed; HDR10, Rec.709, and mezzanine presets ship, and your own specs sit beside them. <em>Scenes</em> (<code>⌘5</code>) groups the clip into shots with per-shot light levels, complexity, legal levels, and flash-risk indication, checks cuts against keyframes and against Dolby Vision and HDR10+ boundaries, and exports the shot list as a keyframe plan, chapters, markers, an EDL, or OpenTimelineIO.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Scriptable, with the same engine behind it.</strong> A <code>videre</code> command-line tool with nine subcommands (<code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>edit</code>, <code>verify</code>, <code>conform</code>, <code>scenes</code>) built on the same code as the app, so scripted QC gets identical numbers. <code>verify</code> and <code>conform</code> exit nonzero on a failure, so a pipeline can block an upload, and JSON reports carry a stable, versioned schema. Three Shortcuts actions and Finder Services cover inspect and compare from the desktop. The tool installs from a menu item in the app.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Numbers pinned to external references.</strong> PSNR matches <code>ffmpeg</code>'s psnr filter to the printed precision on average, min, and max. VMAF and CAMBI are gated against Netflix's reference <code>vmaf</code> CLI built from the same release. HDR10+ parsing is checked against <code>hdr10plus_tool</code> fixtures, and the renderer carries golden-image tests against a CPU reference.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="./">Videre</a> &nbsp;·&nbsp; <a href="guide.html">User Guide</a> &nbsp;·&nbsp;
+    <a href="metadata-repair.html">Metadata repair</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a> &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+  </footer>
+
+</body>
+</html>
