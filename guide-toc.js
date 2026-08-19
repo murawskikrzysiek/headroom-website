@@ -1,16 +1,24 @@
 /* guide-toc.js - sidebar TOC upgrades for the long-form guide pages.
-   Wants: nav.toc[data-guide-toc] holding .toc-list li > a[href^="#"], each href
+   Wants: nav.toc[data-guide-toc] holding .toc-list > li > a[href^="#"], each href
    resolving to a section.guide-section on the page. The page's own CSS decides
    the layout (sticky left rail >=1100px, static Contents card below that - see
    the #hr-rework style block in the guide).
 
-   Adds, at runtime (no-JS keeps the plain Contents card):
-   - a search field: filters the TOC live. Section titles and h3 subheads match
+   Sub-entries come from one of two places, per section:
+   - the page ships a static <ul class="toc-sub"> inside the <li> (Videre's guide
+     numbers its subheads 6.1, 6.2 ... and lists them). Those nodes are owned by
+     the page: search filters them, it never rebuilds them.
+   - otherwise they are derived from the section's h3s and appear only while a
+     search is running. This is what the other guides and the API pages do.
+
+   Adds, at runtime (no-JS keeps the plain Contents list, sub-entries included):
+   - a search field: filters the TOC live. Section titles and subheads match
      fuzzily (characters in order, so "spcrl" finds "Spectral"); section body
-     text matches on plain substring. Matching h3s appear nested under their
+     text matches on plain substring. Matching subheads stay listed under their
      section for deep jumps. Enter jumps to the first hit, Esc clears.
    - scroll-spy: the section under the reading line gets .is-current on its
-     TOC link, and the rail auto-scrolls to keep it visible. */
+     TOC link, as does the subhead within it, and the rail auto-scrolls to keep
+     the current link visible. */
 (function () {
   function norm(s) { return s.toLowerCase().replace(/\s+/g, ' ').trim(); }
 
@@ -41,20 +49,42 @@
     list.classList.add('toc-list'); /* API pages use a bare <ul>; tag it so the shared CSS applies */
 
     /* ---- index ---- */
+    /* top-level rows only: a static .toc-sub carries <li>s whose hrefs resolve to
+       h3s, and those must not be indexed as sections of their own */
     var entries = [];
-    Array.prototype.forEach.call(list.querySelectorAll('li'), function (li) {
+    Array.prototype.forEach.call(list.children, function (li) {
+      if (li.tagName !== 'LI') return;
       var link = li.querySelector('a[href^="#"]');
       if (!link) return;
       var sec = document.getElementById(link.getAttribute('href').slice(1));
       if (!sec) return;
-      var h3s = [];
-      Array.prototype.forEach.call(sec.querySelectorAll('h3'), function (h3, i) {
-        if (!h3.id) h3.id = sec.id + '--h3-' + i;
-        h3s.push({ id: h3.id, title: h3.textContent.trim() });
-      });
+
+      var staticSub = li.querySelector('.toc-sub');
+      var subs = [];
+      if (staticSub) {
+        Array.prototype.forEach.call(staticSub.querySelectorAll('li'), function (subLi) {
+          var a = subLi.querySelector('a[href^="#"]');
+          if (!a) return;
+          subs.push({
+            li: subLi, link: a, raw: a.textContent, title: a.textContent,
+            id: a.getAttribute('href').slice(1),
+            target: document.getElementById(a.getAttribute('href').slice(1))
+          });
+        });
+      } else {
+        Array.prototype.forEach.call(sec.querySelectorAll('h3'), function (h3, i) {
+          if (!h3.id) h3.id = sec.id + '--h3-' + i;
+          subs.push({
+            li: null, link: null, raw: h3.textContent.trim(), title: h3.textContent.trim(),
+            id: h3.id, target: h3
+          });
+        });
+      }
+
       entries.push({
         li: li, link: link, sec: sec, raw: link.textContent,
-        title: norm(link.textContent), text: norm(sec.textContent), h3s: h3s
+        title: norm(link.textContent), text: norm(sec.textContent),
+        subs: subs, staticSub: staticSub
       });
     });
     if (!entries.length) return;
@@ -75,12 +105,24 @@
     var clear = box.querySelector('.toc-search__clear');
     var count = box.querySelector('.toc-search__count');
 
+    /* drop a generated sub-list; a static one is the page's, so only unhide it */
+    function restoreSubs(e) {
+      if (e.staticSub) {
+        e.subs.forEach(function (s) {
+          s.li.classList.remove('gt-hidden');
+          s.link.textContent = s.raw;
+        });
+        return;
+      }
+      var gen = e.li.querySelector('.toc-sub');
+      if (gen) gen.remove();
+    }
+
     function reset() {
       entries.forEach(function (e) {
         e.li.classList.remove('gt-hidden');
         e.link.textContent = e.raw;
-        var sub = e.li.querySelector('.toc-sub');
-        if (sub) sub.remove();
+        restoreSubs(e);
       });
       count.textContent = '';
       clear.style.display = 'none';
@@ -91,23 +133,37 @@
       if (!q) { reset(); return; }
       var shown = 0;
       entries.forEach(function (e) {
-        var sub = e.li.querySelector('.toc-sub');
-        if (sub) sub.remove();
+        if (!e.staticSub) {
+          var stale = e.li.querySelector('.toc-sub');
+          if (stale) stale.remove();
+        }
         var titleHit = e.title.indexOf(q) >= 0 || fuzzy(q, e.title);
-        var h3Hits = e.h3s.filter(function (h) {
+        var subHits = e.subs.filter(function (h) {
           var t = norm(h.title);
           return t.indexOf(q) >= 0 || fuzzy(q, t);
         });
         var bodyHit = e.text.indexOf(q) >= 0;
-        var hit = titleHit || bodyHit || h3Hits.length > 0;
+        var hit = titleHit || bodyHit || subHits.length > 0;
         e.li.classList.toggle('gt-hidden', !hit);
-        if (!hit) { e.link.textContent = e.raw; return; }
+        if (!hit) { e.link.textContent = e.raw; restoreSubs(e); return; }
         shown++;
         highlight(e.link, e.raw, q);
-        if (h3Hits.length) {
+
+        if (e.staticSub) {
+          /* subhead hits narrow the list to themselves; a hit on the section
+             title keeps its whole chapter list up as that section's contents;
+             a body-text-only hit lists the section alone */
+          var showAll = subHits.length === 0 && titleHit;
+          e.subs.forEach(function (s) {
+            var on = showAll || subHits.indexOf(s) >= 0;
+            s.li.classList.toggle('gt-hidden', !on);
+            if (on) highlight(s.link, s.raw, q);
+            else s.link.textContent = s.raw;
+          });
+        } else if (subHits.length) {
           var ul = document.createElement('ul');
           ul.className = 'toc-sub';
-          h3Hits.forEach(function (h) {
+          subHits.forEach(function (h) {
             var li = document.createElement('li');
             var a = document.createElement('a');
             a.href = '#' + h.id;
@@ -133,19 +189,34 @@
     });
 
     /* ---- scroll-spy ---- */
+    /* one flat list in document order: section, then its own subheads, then the
+       next section. Static sub-entries have a link to light up; derived ones
+       do not exist until a search builds them, so they are skipped. */
+    var targets = [];
+    entries.forEach(function (e) {
+      targets.push({ el: e.sec, link: e.link, parent: null });
+      e.subs.forEach(function (s) {
+        if (s.link && s.target) targets.push({ el: s.target, link: s.link, parent: e.link });
+      });
+    });
+
     var current = null;
     function spy() {
       var line = 110; /* reading line: below the sticky nav */
       var best = null;
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].sec.getBoundingClientRect().top <= line) best = entries[i];
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].el.getBoundingClientRect().top <= line) best = targets[i];
         else break;
       }
       if (best === current) return;
-      if (current) current.link.classList.remove('is-current');
+      if (current) {
+        current.link.classList.remove('is-current');
+        if (current.parent) current.parent.classList.remove('is-current');
+      }
       current = best;
       if (!current) return;
       current.link.classList.add('is-current');
+      if (current.parent) current.parent.classList.add('is-current');
       /* keep the current link visible inside the rail (only if it scrolls) */
       if (toc.scrollHeight > toc.clientHeight) {
         var lt = current.link.offsetTop;
