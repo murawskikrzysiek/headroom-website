@@ -320,7 +320,7 @@
     <header class="page-header" id="top">
         <p class="page-eyebrow">Videre · User guide</p>
         <h1>Videre, end to end.</h1>
-        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, and the six modes - edit, compare, measure, conform, scenes, and metadata repair: the complete reference for the 1.0 builds.</p>
+        <p class="page-lede">Raw and encoded sources, color-managed display, scopes, metadata, the signal generator, and the six modes - edit, compare, measure, conform, scenes, and metadata repair: the complete reference for the 1.0 builds.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
     <nav class="toc" aria-label="Table of contents" data-guide-toc>
@@ -410,10 +410,19 @@
                     <li><a href="#ictcp-carriage-stress">14.3 · Carriage stress</a></li>
                 </ul>
             </li>
-            <li><a href="#cli">15 · Command-line tool</a></li>
-            <li><a href="#automation">16 · Shortcuts &amp; Finder Services</a></li>
-            <li><a href="#shortcuts">17 · Keyboard reference</a></li>
-            <li><a href="#validation">18 · Cross-validation</a></li>
+            <li><a href="#generator">15 · Signal generator</a>
+                <ul class="toc-sub">
+                    <li><a href="#generator-what-it-makes">15.1 · What it makes</a></li>
+                    <li><a href="#generator-chroma-siting">15.2 · Chroma siting</a></li>
+                    <li><a href="#generator-presets">15.3 · Presets</a></li>
+                    <li><a href="#generator-writing-the-file">15.4 · Writing the file</a></li>
+                    <li><a href="#generator-from-the-command-line">15.5 · From the command line</a></li>
+                </ul>
+            </li>
+            <li><a href="#cli">16 · Command-line tool</a></li>
+            <li><a href="#automation">17 · Shortcuts &amp; Finder Services</a></li>
+            <li><a href="#shortcuts">18 · Keyboard reference</a></li>
+            <li><a href="#validation">19 · Cross-validation</a></li>
         </ul>
     </nav>
 
@@ -429,6 +438,7 @@
             <li>Step frames with <kbd>←</kbd>/<kbd>→</kbd>, play with <kbd>Space</kbd>, zoom with <kbd>⌘+</kbd>/<kbd>⌘−</kbd>, hover for per-pixel values.</li>
             <li>Toggle analyzers with <kbd>⌃1</kbd> through <kbd>⌃0</kbd>; pop any of them into its own window with <kbd>⌃⌥</kbd> and the same number.</li>
         </ol>
+        <p class="prose">No file to hand? <kbd>⌘G</kbd> writes one: the signal generator makes bars, ramps, PLUGE, PQ stairs and temporal fixtures with nothing open (<a href="#generator">section 15</a>).</p>
     </section>
 
     <hr class="divider">
@@ -862,7 +872,7 @@ videre retag good.mp4 -o broken.mp4 --box stsd.entry_count=7 --ack-nonconforming
         </ul>
         <p class="prose">The table re-checks itself as you work, so a row whose fix changed the model confirms it immediately. <strong>Fix All</strong> applies everything on offer (already-staged tag fixes are skipped); <strong>Export…</strong> writes the conformed copy with the usual frame-by-frame verify.</p>
         <p class="prose">Requirements the spec does not state read <strong>SKIP</strong>, never a quiet pass, and so do requirements whose measurement has not run: legal levels are judged on the worst frame of the whole clip, so until the clip analysis has run the row skips with an <strong>Analyze</strong> button inline rather than guessing from one frame. With the analysis in hand, a missing MaxCLL declaration offers its fix directly: the measured values, declared through Metadata mode (⌘6), entered with the light-level fix prefilled - stage it and Write Metadata Copy. Rows Videre cannot fix say so and why: a frame-rate mismatch needs retiming, which changes which frames exist, and a measurement over the spec's limit needs a clamp before a declaration.</p>
-        <p class="prose">Below the spec table, MP4/MOV files get a <strong>File integrity</strong> section: the same six checks as <code>videre verify</code> (<a href="#cli">section 15</a>) with the same severities - color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. These are properties of the file, true whatever spec is picked, so they run once per file when you enter the mode. The light-level row states the interpretation it measured under (the file's own tags); the ⌃5 panel measures under the interpretation you are looking at, and when the two disagree, each says which question it answered.</p>
+        <p class="prose">Below the spec table, MP4/MOV files get a <strong>File integrity</strong> section: the same six checks as <code>videre verify</code> (<a href="#cli">section 16</a>) with the same severities - color agreement between the container and the coded stream, declared against measured light levels, mastering display consistency, chroma siting, edit list sanity, and whether the file opens on the system decoder. These are properties of the file, true whatever spec is picked, so they run once per file when you enter the mode. The light-level row states the interpretation it measured under (the file's own tags); the ⌃5 panel measures under the interpretation you are looking at, and when the two disagree, each says which question it answered.</p>
         <p class="prose">Presets ship for HDR10 master, Rec.709 SDR deliverable, and a mezzanine profile. Specs you save yourself appear in the same picker; a saved spec cannot take a preset's name, so <code>hdr10</code> always means the same thing.</p>
 
         <figure class="shot">
@@ -1109,10 +1119,66 @@ videre scenes clip.mp4 --ffmpeg-command out.mp4</code></pre>
 
     <hr class="divider">
 
+    <section class="guide-section" id="generator">
+        <h2>15 · Signal generator<a class="anchor" href="#generator">#</a></h2>
+        <p class="prose"><strong>File › Signal Generator…</strong> (<kbd>⌘G</kbd>), the Generate chip beside the mode bar, or the Generate a test signal tile in the empty window. The generator writes a synthetic test clip to a new raw or y4m file. Nothing needs to be open first.</p>
+        <p class="prose"><strong>Pattern reference</strong>, bottom right of the generator window, opens <a href="test-signals.html">the pattern catalogue</a>: every pattern with a picture, what it exposes, and what to read off it. This section covers the window; that page is the per-pattern reference.</p>
+
+        <h3 id="generator-what-it-makes">15.1 · What it makes<a class="anchor" href="#generator-what-it-makes">#</a></h3>
+        <p class="prose">Pick a pattern, a format and an interpretation, and the generator computes the codes for that exact combination. A color bar is its standard R'G'B' definition encoded through the matrix, range and bit depth you chose, so 75% white lands on 721 at 10-bit narrow range and 2884 at 12-bit. HDR levels go through the same PQ and HLG math the scopes and the edit surface use, so a 1000-nit stair tread and a 1000-nit legalize ceiling agree.</p>
+        <p class="prose">The catalogue:</p>
+        <table>
+            <thead><tr><th>Group</th><th>Patterns</th></tr></thead>
+            <tbody>
+                <tr><td>Color</td><td class="wrap-ok">Solid field (by code, R'G'B', or CIE xy plus nits), color bars, HDR bars, a 24-patch ColorChecker-style chart, conversion probe patches labelled with the codes they should carry</td></tr>
+                <tr><td>Gradients</td><td class="wrap-ok">Ramp (any channel set, any code window, optional staircase), bit-depth ramp</td></tr>
+                <tr><td>Levels</td><td class="wrap-ok">PLUGE, range checker</td></tr>
+                <tr><td>Gamut</td><td class="wrap-ok">Gamut edge sweep, narrow-gamut content inside a wide container, out-of-gamut marker pairs</td></tr>
+                <tr><td>Resolution</td><td class="wrap-ok">Zone plate, gratings, checkerboard, chroma-siting probe, grid and graticule</td></tr>
+                <tr><td>HDR</td><td class="wrap-ok">PQ stairs, luminance window, HDR grey ramp</td></tr>
+                <tr><td>Temporal</td><td class="wrap-ok">Motion, cadence, drop detector, flash sequence, noise field</td></tr>
+            </tbody>
+        </table>
+        <p class="prose">Overlays compose onto any of them: a frame counter (with a machine-readable block strip and optional timecode), a text label, a 1-pixel border with lettered corner boxes, and a centre cross. Add several segments and the clip becomes a scene-cut test: Scenes mode finds the boundaries where the segments meet.</p>
+        <p class="prose">The counter and the label each carry their own <strong>Position</strong>: top left, top right, bottom left, bottom right, or centre. Set them per segment in the Overlays card, or from the command line with <code>--counter-position</code> and <code>--label-position</code>. An overlay that would not fit the frame is refused rather than drawn clipped, which is why a large scale on a small frame reports an error instead of a truncated mark.</p>
+
+        <h3 id="generator-chroma-siting">15.2 · Chroma siting<a class="anchor" href="#generator-chroma-siting">#</a></h3>
+        <p class="prose">Each plane is rendered at its own sample position. On 4:2:0 the chroma samples are computed where the chosen siting says they sit, not filtered down from a 4:4:4 picture, so a file carries chroma that matches what it declares. The chroma-siting probe makes this visible: its color edges sit a quarter pixel from the luma markers beside them, which is the position that separates the three sitings. Under the wrong siting the color edge lands half a chroma sample away from the luma marker beside it.</p>
+
+        <h3 id="generator-presets">15.3 · Presets<a class="anchor" href="#generator-presets">#</a></h3>
+        <p class="prose">The Presets menu holds fourteen starting points, including SMPTE-style bars at 1080p, BT.2111-style bars in HLG and in PQ at UHD, a PQ stairs ladder, PLUGE, a range checker, a drop detector at 60p, a zone plate, a chroma-siting probe, a five-shot demo clip, and a flash-risk fixture. The command line takes the same names.</p>
+
+        <h3 id="generator-writing-the-file">15.4 · Writing the file<a class="anchor" href="#generator-writing-the-file">#</a></h3>
+        <p class="prose"><strong>Generate…</strong> asks where to put the file and writes it. y4m is the default because it carries its own format, dimensions, frame rate and range, so it re-opens without the parameter sheet. Raw is available for everything, and required for RGB formats, which y4m has no tag for. Videre refuses to write a y4m whose header cannot declare the chroma siting you chose: only the 8-bit 4:2:0 tags spell siting out, so above that the file would re-open claiming left siting whatever it holds. Write raw instead, or accept the mislabelling explicitly.</p>
+        <p class="prose">Every written frame is read back off disk and byte-compared against a freshly rendered reference before the command reports success. That check proves the bytes landed intact. It cannot tell you the pattern was the one you wanted, and the readout says so.</p>
+        <p class="prose">A run reports where it is by frame, in two passes: it writes every frame, then re-reads and checks every frame. "Verifying frame 12 of 30" means the file is already written and Videre is checking it. <strong>Cancel</strong> stops at the next frame; the temporary file goes with it, and anything already at the destination is left exactly as it was.</p>
+        <p class="prose"><strong>Preview in Videre</strong> writes the current spec to a temporary file and opens it, so the scopes measure the real thing rather than the window's thumbnail. The preview thumbnail is a plausibility check: it is capped at 384 pixels wide and applies no transfer.</p>
+        <p class="prose">After a write, <strong>Reveal in Finder</strong> and <strong>Open in Videre</strong> appear beside the receipt.</p>
+        <p class="prose">Two things worth knowing about opening a generated file. Opening any file while an edit stack is in progress discards that stack, here as everywhere else in Videre. And opening re-checks the licence, so an expired trial stops there.</p>
+
+        <h3 id="generator-from-the-command-line">15.5 · From the command line<a class="anchor" href="#generator-from-the-command-line">#</a></h3>
+        <pre><code>videre generate -o bars.y4m --pattern bars --size 1920x1080 \
+    --format yuv422p10 --fps 25 --frames 250 --matrix bt709
+
+videre generate -o hdr.y4m --preset hdr-bars-pq-uhd --json
+
+videre generate -o clip.y4m --spec-file spec.json</code></pre>
+        <p class="prose"><code>--list-patterns</code> prints the catalogue with a line on what each pattern is for; <code>--list-presets</code> prints the presets. <code>--param key=value</code> sets a pattern's own fields, using the same names the window's controls carry and the same names a spec file uses. <code>--spec-file</code> takes a full specification, which is the way to compose several segments.</p>
+        <p class="prose">The same specification always produces the same bytes. Two runs of one command give byte-identical files, and the <code>--json</code> receipt carries the specification that made the file, so feeding a saved receipt back through <code>--spec-file</code> reproduces it exactly.</p>
+
+        <figure class="shot">
+            <img src="videre-generator.png" alt="The Signal Generator window: preview, segments, pattern and overlay cards on the left, format, interpretation and output on the right." loading="lazy" decoding="async">
+            <figcaption><strong>The signal generator.</strong> Color bars at 1080p25, 4:2:2 10-bit, BT.709 video range, left siting, with the frame counter overlay on. Generate… writes the file and verifies every frame.</figcaption>
+        </figure>
+    </section>
+
+    <hr class="divider">
+
     <section class="guide-section" id="cli">
-        <h2>15 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
-        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Nine subcommands on the same engine as the app:</p>
-        <pre><code>videre inspect  file.mp4              # format, interpretation, metadata → JSON
+        <h2>16 · Command-line tool<a class="anchor" href="#cli">#</a></h2>
+        <p class="prose"><strong>Videre → Install Command-Line Tool…</strong> links the bundled <code>videre</code> binary into <code>/usr/local/bin</code>. Ten subcommands on the same engine as the app:</p>
+        <pre><code>videre generate -o bars.y4m --pattern bars …  # write a synthetic test clip, verified
+videre inspect  file.mp4              # format, interpretation, metadata → JSON
 videre compare  ref.y4m dist.mp4      # PSNR / SSIM / MS-SSIM / VMAF / ΔE → JSON
 videre bitstream file.hevc --frames   # parameter sets / SEI / RPUs + GOP stats → JSON
 videre container file.mp4             # ISO box tree → JSON
@@ -1130,7 +1196,7 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
     <hr class="divider">
 
     <section class="guide-section" id="automation">
-        <h2>16 · Shortcuts and Finder Services<a class="anchor" href="#automation">#</a></h2>
+        <h2>17 · Shortcuts and Finder Services<a class="anchor" href="#automation">#</a></h2>
         <p class="prose">Shortcuts and Finder reach the same engine as the app and the command line.</p>
         <p class="prose"><strong>Shortcuts</strong> (the macOS Shortcuts app) gets three actions:</p>
         <ul>
@@ -1138,7 +1204,7 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
             <li><strong>Compare Video Files</strong>: the full compare report as a JSON file (PSNR, SSIM, MS-SSIM, VMAF, CAMBI, delta E per frame plus aggregates). The first path is A, the reference; an offset shifts B.</li>
             <li><strong>Verify Video File</strong>: the delivery checks, returned as a chainable verdict: Passed (true/false), per-severity counts, and the report text, so a Shortcut can branch ("if Passed is false, move the file to rejects"). Strict promotes warnings to failures, matching <code>videre verify --strict</code>.</li>
         </ul>
-        <p class="prose">Paths are text parameters, so they bind to the clipboard, Ask for Text, or any text variable; plain, tilde, <code>file://</code>, and quoted paths all resolve. The JSON files carry the same versioned schema as the command line (<a href="#cli">section 15</a>), and untagged SDR files read under the BT.1886 default regardless of the app's Analysis setting, so a Shortcut produces the same numbers on every machine.</p>
+        <p class="prose">Paths are text parameters, so they bind to the clipboard, Ask for Text, or any text variable; plain, tilde, <code>file://</code>, and quoted paths all resolve. The JSON files carry the same versioned schema as the command line (<a href="#cli">section 16</a>), and untagged SDR files read under the BT.1886 default regardless of the app's Analysis setting, so a Shortcut produces the same numbers on every machine.</p>
         <p class="prose"><strong>Finder Services</strong> (right-click a video file › Services):</p>
         <ul>
             <li><strong>Compare in Videre</strong>: select exactly two renders; they open as a compare session with the first file as A, the reference.</li>
@@ -1150,11 +1216,12 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
     <hr class="divider">
 
     <section class="guide-section" id="shortcuts">
-        <h2>17 · Keyboard reference<a class="anchor" href="#shortcuts">#</a></h2>
+        <h2>18 · Keyboard reference<a class="anchor" href="#shortcuts">#</a></h2>
         <table>
             <thead><tr><th>Keys</th><th>Action</th></tr></thead>
             <tbody>
                 <tr><td><kbd>⌘O</kbd> / <kbd>⇧⌘O</kbd></td><td class="wrap-ok">Open / open comparison file</td></tr>
+                <tr><td><kbd>⌘G</kbd></td><td class="wrap-ok">Signal generator</td></tr>
                 <tr><td><kbd>⌘1</kbd> … <kbd>⌘6</kbd></td><td class="wrap-ok">Edit / Compare / Measure / Conform / Scenes / Metadata mode (press again to leave)</td></tr>
                 <tr><td><kbd>⌘F</kbd></td><td class="wrap-ok">Reinterpret raw file</td></tr>
                 <tr><td><kbd>⌘I</kbd></td><td class="wrap-ok">Info panel</td></tr>
@@ -1203,7 +1270,7 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
     <hr class="divider">
 
     <section class="guide-section" id="validation">
-        <h2>18 · Cross-validation<a class="anchor" href="#validation">#</a></h2>
+        <h2>19 · Cross-validation<a class="anchor" href="#validation">#</a></h2>
         <p class="prose">Videre's numbers are pinned to external references, not to itself: PSNR matches <a href="https://ffmpeg.org/">ffmpeg</a>'s psnr filter to the printed precision; VMAF and CAMBI are gated against the reference <a href="https://github.com/Netflix/vmaf">vmaf</a> CLI; Dolby Vision RPU decoding is cross-validated against <a href="https://github.com/quietvoid/dovi_tool">dovi_tool</a>-generated bitstreams; HDR10+ against <a href="https://github.com/quietvoid/hdr10plus_tool">hdr10plus_tool</a>; container decoding against <a href="https://gpac.io/">GPAC</a>'s mp4box and <a href="https://github.com/strukturag/libheif">libheif</a>'s heif-info; bitstream parsing against ffprobe, <a href="https://mediaarea.net/MediaInfo">MediaInfo</a>, and known encodes from <a href="https://www.videolan.org/developers/x264.html">x264</a>, <a href="https://www.videolan.org/developers/x265.html">x265</a>, and <a href="https://gitlab.com/AOMediaCodec/SVT-AV1">SVT-AV1</a>. Color math anchors (BT.601/709/2020, BT.2100 PQ and HLG, BT.2124, CIEDE2000) are pinned to published test values, and the display shader is tested per-pixel against the CPU reference.</p>
         <p class="prose">Two documented deviations, stated rather than hidden: SSIM follows the canonical Wang 2004 definition, which reads a few 10⁻⁴ from ffmpeg's x264-derived variant; and the HLG display preview applies the system gamma per channel while readout and measurements use the luminance-correct form.</p>
         <p class="prose">Of these, only libvmaf ships inside the app (statically linked, BSD+Patent); its license text is under Settings › Acknowledgements. The rest are development-time references, and ffmpeg encodes run through whatever ffmpeg is already on your Mac.</p>

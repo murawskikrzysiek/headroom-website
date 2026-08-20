@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test signals in Videre: patterns computed for the format under test</title>
+    <link rel="canonical" href="https://headroomstudio.dev/videre/test-signals.html">
+    <meta name="description" content="Videre generates test material whose correct answer is known: 25 patterns computed for the exact format, matrix, range, depth and chroma siting you are testing, written to raw or y4m and verified frame by frame.">
+    <meta property="og:title" content="Test signals in Videre">
+    <meta property="og:description" content="Patterns computed for the format under test, written to raw or y4m, verified frame by frame, and reproducible from a spec file. Material whose right answer you already know.">
+    <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test signals in Videre">
+    <meta name="twitter:description" content="Patterns computed for the format under test, written to raw or y4m, verified frame by frame, and reproducible from a spec file.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Test signals in Videre",
+        "description": "Videre generates test material whose correct answer is known: 25 patterns computed for the exact format, matrix, range, depth and chroma siting you are testing, written to raw or y4m and verified frame by frame.",
+        "url": "https://headroomstudio.dev/videre/test-signals.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Videre",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication"
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container nav-shell">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Videre</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
+        </div>
+        <div>
+            <h1>Test signals</h1>
+            <p class="app-hero__desc">
+                Videre computes test material for the exact format under test: 25 patterns evaluated at each plane's own sample position, quantized once, written to raw or y4m, and read back off disk before the write reports success. The expected value at every sample is known in advance, which is what makes the measurement at the far end diagnostic.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge">25 patterns</span>
+                <span class="badge">Per-plane chroma</span>
+                <span class="badge">Verified write</span>
+                <span class="badge">Byte-reproducible</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#generator">Read the user guide</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">one-time purchase · macOS 14+</p>
+        </div>
+    </header>
+
+    <!-- Known answers -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Known answers</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A measurement needs a reference whose value is known independently of the thing being measured, and footage does not provide one: any difference you find could have been in the source. A pattern does, because its codes follow from the format it was authored for. 75% white in BT.709 video range is Y 721 at 10-bit and 2884 at 12-bit. Read 940 back and the chain applied a range conversion; read a lower value with the steps collapsed and something re-quantized; read 721 with Cb or Cr off 512 and the matrix moved. <a href="#catalogue">The full catalogue is at the end of this page</a>.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Videre ships no folder of pattern files. Each pattern is computed for the format, matrix, range, bit depth and chroma siting in the spec, through the same color and transfer math the scopes measure with. Patterns author in one of three value domains and quantize exactly once: code domain where exactness is the point (ramps, PLUGE, the range checker, overlays), R'G'B' signal through the active matrix (bars, charts, gamut patterns, zone plate), and nits through the PQ or HLG transfer (stairs, luminance windows, HDR ramps). Nothing stores a YCbCr table, and the nits path is the same closed form the edit surface's legalize ceiling uses, so a 1000-nit tread and a 1000-nit ceiling cannot disagree.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 250" role="img" aria-label="How a generated clip is made: a specification feeds a renderer that evaluates each plane at its own sample position, values quantize once, then the file is written and every frame is read back and compared; the finished clip opens in Videre as an ordinary source.">
+                        <rect class="dg-box" x="10" y="95" width="150" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="120">the spec</text>
+                        <text class="dg-s" x="24" y="138">pattern &#183; format</text>
+                        <path class="dg-flow" d="M160 125h28m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="196" y="95" width="176" height="60" rx="9"/>
+                        <text class="dg-t" x="210" y="120">render</text>
+                        <text class="dg-s" x="210" y="138">per plane, at its site</text>
+                        <path class="dg-flow" d="M372 125h28m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="408" y="95" width="150" height="60" rx="9"/>
+                        <text class="dg-t" x="422" y="120">quantize</text>
+                        <text class="dg-s dg-s--a" x="422" y="138">once, at the end</text>
+                        <path class="dg-flow" d="M558 125c14 0 14 -65 22 -65m-7 -5 7 5-7 5"/>
+                        <rect class="dg-box" x="586" y="30" width="106" height="60" rx="9"/>
+                        <text class="dg-t" x="598" y="55">write</text>
+                        <text class="dg-s" x="598" y="73">raw / y4m</text>
+                        <path class="dg-flow" d="M639 90v62m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="586" y="160" width="106" height="60" rx="9"/>
+                        <text class="dg-t" x="598" y="185">re-read</text>
+                        <text class="dg-s" x="598" y="203">byte-compare</text>
+                        <text class="dg-s" x="10" y="35">every value computed for the format you picked:</text>
+                        <text class="dg-s" x="10" y="52">matrix, range, depth and siting together</text>
+                        <text class="dg-s" x="10" y="205">the finished clip opens in Videre as an</text>
+                        <text class="dg-s" x="10" y="222">ordinary source: scopes, compare, conform</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 500" role="img" aria-label="How a generated clip is made: a specification feeds a renderer that evaluates each plane at its own sample position, values quantize once, then the file is written and every frame is read back and compared; the finished clip opens in Videre as an ordinary source.">
+                        <rect class="dg-box" x="36" y="16" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="40">the spec</text>
+                        <text class="dg-s" x="50" y="58">pattern &#183; format</text>
+                        <path class="dg-flow" d="M170 72v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="96" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="120">render</text>
+                        <text class="dg-s" x="50" y="138">per plane, at its site</text>
+                        <path class="dg-flow" d="M170 152v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="176" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="200">quantize</text>
+                        <text class="dg-s dg-s--a" x="50" y="218">once, at the end</text>
+                        <path class="dg-flow" d="M170 232v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="256" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="280">write</text>
+                        <text class="dg-s" x="50" y="298">raw / y4m</text>
+                        <path class="dg-flow" d="M170 312v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="336" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="360">re-read</text>
+                        <text class="dg-s" x="50" y="378">byte-compare</text>
+                        <path class="dg-flow" d="M170 392v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="416" width="268" height="56" rx="9"/>
+                        <text class="dg-t" x="50" y="440">open in Videre</text>
+                        <text class="dg-s" x="50" y="458">scopes &#183; compare &#183; conform</text>
+                    </svg>
+                    <figcaption><strong>From spec to clip.</strong> The specification is rendered plane by plane, quantized once, written, and read back frame by frame before the write reports success. The finished file is an ordinary source in Videre.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chroma siting -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Chroma at its own position</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A 4:2:0 file declares where its chroma samples sit: left, centre, or top-left. Videre renders each plane by evaluating the pattern at that plane's own sample position, so the chroma a file carries is the chroma its siting tag claims. The alternative, authoring at 4:4:4 and filtering down, writes a correct-looking declaration over chroma that landed somewhere else.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The chroma-siting probe is the pattern that makes this readable. Its color edges sit a quarter pixel from the luma markers beside them, which is the offset that separates the three sitings. Open the file under the wrong one and the color edge lands half a chroma sample away from its luma marker: visible at pixel zoom, and measurable in the readout.</p>
+                <div class="callout" style="margin-top: 20px;">
+                    <span style="opacity:0.5;">&#9432;</span>
+                    <p>The y4m header only spells chroma siting out for 8-bit 4:2:0. Above that, Videre refuses to write a y4m that would re-open claiming a siting it does not carry: write raw instead, or accept the mislabelling explicitly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verified write -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">What the verification proves</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Every written frame is read back off the finished file and byte-compared against a freshly rendered reference before the write reports success. A run says where it is by frame in two passes, so "Verifying frame 12 of 30" means the file is written and Videre is checking it. Cancel stops at the next frame, the temporary file goes with it, and anything already at the destination is left exactly as it was.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Both sides of that comparison run the same engine, so the check is about write integrity: it proves the bytes landed intact. It cannot tell you the pattern was the one you meant, and the readout says so in as many words.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reproducible -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">Reproducible</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The same specification always produces the same bytes.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">Fourteen presets</div><div class="feature-row__v">SMPTE-style bars at 1080p, BT.2111-style bars in HLG and in PQ at UHD, a PQ stairs ladder, PLUGE, a range checker, a drop detector at 60p, a motion fixture, a zone plate, a chroma-siting probe, a ColorChecker chart, a graticule, a five-shot demo clip, and a flash-risk fixture. Each one is a starting point, not a lock: change anything and generate.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre generate</code></div><div class="feature-row__v">The same engine from the command line: <code>--preset</code> takes the preset names, <code>--pattern</code> plus <code>--param key=value</code> takes the same fields the window's controls carry, and <code>--spec-file</code> takes a full specification, which is how a clip with several segments is composed. <code>--list-patterns</code> and <code>--list-presets</code> print the catalogue with a line on what each one is for.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Receipts round-trip</div><div class="feature-row__v"><code>--json</code> writes a receipt carrying the complete specification that made the file, and feeding that receipt back through <code>--spec-file</code> reproduces the file byte for byte. Pattern names and preset names are frozen strings, so a pipeline that pins one keeps working.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Exit codes for CI</div><div class="feature-row__v">0 when the file was written and verified, 2 on a usage or spec error with nothing written, 3 when the written file failed verification, in which case it is deleted rather than kept.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back into Videre -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Straight back in</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A generated clip is a source like any other. Open it and every scope reads it, compare it against the encode that came back and the metrics run, check it against a delivery spec in Conform mode. Preview in Videre writes the current specification to a temporary file and opens that, so the scopes measure the real thing rather than the generator window's thumbnail, which is capped at 384 pixels wide and applies no transfer.</p>
+                <p class="prose-lead" style="margin-top: 14px;">y4m is the default output because it carries its own format, dimensions, frame rate and range, so it re-opens without going through the parameter sheet. Raw is available for everything, and required for RGB formats, which y4m has no tag for.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="videre-generator.png" alt="The Signal Generator window with the SMPTE bars preset: preview, segments, pattern and overlay cards on the left, format, interpretation and output on the right." loading="lazy" decoding="async">
+            <figcaption><strong>The generator window.</strong> Pattern, format, interpretation, output, and the segments that make up the clip. The readout under Output states what the file will be before anything is written.</figcaption>
+        </figure>
+        <figure class="shot">
+            <img src="videre-generated-scopes.png" alt="A generated color bar clip open in Videre with the waveform and vectorscope panels reading it, and the pixel readout showing Y 721." loading="lazy" decoding="async">
+            <figcaption><strong>Measured by the app that wrote it.</strong> The generated clip opens as an ordinary source. The 75% white bar reads Y 721, which is what BT.709 video range at 10-bit says it should be.</figcaption>
+        </figure>
+    </section>
+
+    <!-- Pattern catalogue -->
+    <section class="section section--bordered" id="catalogue">
+        <div class="apps-head"><p class="label">Pattern catalogue</p></div>
+        <p style="font-size: 0.78rem; color: var(--text-3); margin: 6px 0 22px; line-height: 1.55; max-width: 660px;">Twenty-five patterns, each with a fault it is built to expose. The thumbnails are the generator's own preview render, which applies no transfer, so the PQ and HLG patterns read dark here; the written file is color-managed when it opens. Names in the margin are what <code>--pattern</code> takes.</p>
+        <div class="patcat">
+            <p class="patcat__group">Colour</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-solid-field.png" alt="Solid field test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Solid field<code>solidField</code></p>
+                    <p class="patcat__body">One colour over the whole frame, stated as codes, as R'G'B' signal, or as CIE xy plus a luminance in nits. Codes are written exactly; signal encodes through the active matrix and range; chromaticity goes xy and nits to XYZ, to container RGB, through the transfer, to codes.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The reference for anything that measures an average: MaxFALL, region statistics, display uniformity. Set it by chromaticity when the question is what a colour measures as, by code when the question is what an exact code does.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-bars.png" alt="Colour bars test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Colour bars<code>bars</code></p>
+                    <p class="patcat__body">Seven bars in standard order at a stated amplitude, 75% by default, each one its standard R'G'B' definition encoded through the active matrix, range and depth. The three-row layout adds the castellation row and RP 219's half-width 40% grey bars at both ends of the main row.</p>
+                    <p class="patcat__body"><strong>Read:</strong> 75% white is code 721 at 10-bit narrow range and 2884 at 12-bit. On a vectorscope the six chroma bars land in their graticule boxes: rotation is a matrix mismatch, a radius error is a range or amplitude mismatch. A luma-only fault leaves the white and grey bars wrong while the chroma bars stay put.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-hdr-bars.png" alt="HDR bars test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">HDR bars<code>hdrBars</code></p>
+                    <p class="patcat__body">BT.2111-style bars inside a PQ or HLG container, with a 0 to 100% step wedge beneath them and a bottom row carrying the narrow-range data limits, black, the BT.814 PLUGE levels and full white. Markers show where diffuse white (BT.2408, 203 cd/m&sup2;) and the nominal peak fall on the wedge.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The 203 cd/m&sup2; marker is where 100% SDR white maps inside the container. If a conversion or a tone-mapper moves diffuse white off that step, everything graded against it moves too. The bottom row is where a chain that clips at the data limits shows itself.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-colorchecker.png" alt="ColorChecker chart test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">ColorChecker chart<code>colorChecker</code></p>
+                    <p class="patcat__body">24 patches from published xyY under D65, taken through the chromaticity path rather than a stored RGB table, so the chart re-derives for whatever container it is written into. Under PQ or HLG the white patch can be pinned to a chosen nits level with the rest scaling from it.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Measure patches with the region statistics and compare against the published xyY; &Delta;E per patch is the number to report. The patch set is fixed and the derivation is stated, so results are comparable across containers, depths and machines.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-conversion-probe.png" alt="Conversion probe test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Conversion probe<code>conversionProbe</code></p>
+                    <p class="patcat__body">Known R'G'B' patches with the codes they should carry drawn into the patch: BLACK Y 64 Cb 512 Cr 512, RED Y 294 Cb 337 Cr 960, and so on for BT.709 video range at 10-bit.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Hover a patch and compare the readout against its own label. They agree when the file is being interpreted as declared and separate the moment anything in the chain assumes otherwise. The expected answer travels with the picture, so a screenshot from someone else's machine is enough to diagnose their chain.</p>
+                </div>
+            </div>
+            <p class="patcat__group">Gradients</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-ramp.png" alt="Ramp test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Ramp<code>ramp</code></p>
+                    <p class="patcat__body">A linear ramp over any channel set and any code window, optionally quantized into a stated number of equal steps.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Contouring and dither behaviour. The continuous form shows what an 8-bit intermediate does to a 10-bit gradient; the staircase form gives exact step edges whose position and width can be measured rather than judged.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-bit-depth-ramp.png" alt="Bit-depth ramp test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Bit-depth ramp<code>bitDepthRamp</code></p>
+                    <p class="patcat__body">Strips that step by one LSB at 8, 10 and 12 bit, each labelled with its depth.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The strip matching the file's depth should show discrete steps. A 10-bit strip that goes flat while the 8-bit strip still steps means something truncated to 8 bits regardless of what the container declares.</p>
+                </div>
+            </div>
+            <p class="patcat__group">Levels</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-pluge.png" alt="PLUGE test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">PLUGE<code>pluge</code></p>
+                    <p class="patcat__body">Sub-black and above-black bars around the video-range black anchor. The levels are tabled from BT.814 rather than derived: black at 64, bars at 48 and 80 in 10-bit narrow range, scaled by 2^(depth&minus;10) so one spec means the same physical level at every depth. A white reference block sits in the same frame.</p>
+                    <p class="patcat__body"><strong>Read:</strong> With black level correct the above-black bars are visible and the sub-black bars are not. Both visible means black is lifted; neither means it is crushed. The white block keeps a top-end reference in frame so both ends can be judged in one pass.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-range-checker.png" alt="Range checker test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Range checker<code>rangeChecker</code></p>
+                    <p class="patcat__body">A patchwork of exact boundary codes with each code printed on its own patch. Video range at 10-bit derives 0, 4, 64, 512, 940, 960, 1019 and 1023: the container extremes, the BT.2100 narrow-range data limits, video black and white, mid grey and chroma maximum.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The video/full detector. Read correctly, 64 is black and 940 is white with 0 and 1019 still distinct from them. Under a range mismatch those anchors stop behaving and the extremes clip together. Every patch carries its own code, so one still frame states which interpretation is in force.</p>
+                </div>
+            </div>
+            <p class="patcat__group">Gamut</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-gamut-sweep.png" alt="Gamut edge sweep test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Gamut edge sweep<code>gamutSweep</code></p>
+                    <p class="patcat__body">A hue sweep along the surface of the RGB cube, saturation 1 by construction (one channel at zero, one at the row value), rows stepping the value from top to bottom. Optionally expressed in a different gamut from the container, through invert(container RGB&rarr;XYZ) composed with content RGB&rarr;XYZ.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Every sample starts on the gamut boundary, so any inward movement is the chain's: desaturation, hue rotation or clipping. In cross-gamut mode the cloud on the gamut scope should sit inside the content primaries' outline rather than filling the container's.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-container-content.png" alt="Container vs content test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Container vs content<code>containerContent</code></p>
+                    <p class="patcat__body">Narrow-gamut content authored inside a wide container: one half at the content primaries, the other pushed a stated fraction of the way toward the container primary.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Whether a conversion re-mapped primaries or only re-tagged them. If both halves come through a claimed gamut conversion unchanged, nothing was mapped and only the tag moved.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-out-of-gamut.png" alt="Out-of-gamut markers test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Out-of-gamut markers<code>outOfGamutMarkers</code></p>
+                    <p class="patcat__body">Patch pairs straddling a gamut boundary by a stated margin, 5% inside and 5% outside by default.</p>
+                    <p class="patcat__body"><strong>Read:</strong> A gamut-mapping stage should move the outside patch and leave the inside one alone. The pair gives a signed result instead of an impression, and the margin is part of the spec, so the same test repeats at other distances from the boundary.</p>
+                </div>
+            </div>
+            <p class="patcat__group">Resolution and sampling</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-zone-plate.png" alt="Zone plate test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Zone plate<code>zonePlate</code></p>
+                    <p class="patcat__body">cos(k&middot;r&sup2;), with the peak instantaneous frequency reached at the far corner and stated as a fraction of Nyquist. The closed form is the pattern's own oracle.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Aliasing and reconstruction. A clean resampler keeps concentric rings; a poor one adds moir&eacute; rosettes and structure along the axes. Anything on screen that is not a ring came from the chain, not from the source.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-gratings.png" alt="Gratings test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Gratings<code>gratings</code></p>
+                    <p class="patcat__body">Bands at several frequencies, per channel set, each labelled with its fraction of Nyquist. Cosine rather than sine: sin(2&pi;&middot;0.5&middot;x) is zero at every integer x, so a sine grating at Nyquist samples to flat grey, while cosine gives the &plusmn;amplitude alternation the band should carry.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The band where contrast collapses is the effective bandwidth of the chain. Author the chroma channel set and the high bands drop out on a subsampled path while luma survives, which separates a chroma-filter problem from a scaler problem.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-checkerboard.png" alt="Checkerboard test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Checkerboard<code>checkerboard</code></p>
+                    <p class="patcat__body">Squares of period 1 to n pixels. Period 1 is the Nyquist checker.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The 1-pixel checker is the worst case for any resampler: if it returns as flat grey, the chain is filtering rather than passing. Larger periods give a controlled edge density for compression and deblocking work.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-siting-probe.png" alt="Chroma-siting probe test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Chroma-siting probe<code>sitingProbe</code></p>
+                    <p class="patcat__body">Isolated chroma edges authored a quarter pixel off the nominal band boundary, each with a full-resolution luma marker on the boundary beside it. That quarter-pixel phase puts the edge exactly between the two candidate 4:2:0 phases, co-sited at 2j and centred at 2j+0.5, so the two sitings sample opposite sides of it and the stored plane genuinely differs. An impulse mode places one chroma sample per period instead of an edge.</p>
+                    <p class="patcat__body"><strong>Read:</strong> At pixel zoom the colour edge should sit on its luma marker. Under the wrong siting it separates by half a chroma sample. An edge aligned to an even pixel would be byte-identical under either siting, which is why this one is deliberately off-grid.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-grid.png" alt="Grid / graticule test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Grid / graticule<code>grid</code></p>
+                    <p class="patcat__body">A pitch grid with safe-area rectangles, circles, a 1-pixel border and lettered corner boxes A to D.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Crop, pad, shift and aspect. A missing corner letter names the edge that went. Circles going elliptical means the aspect changed. A border that is no longer one pixel means a resample; a border gone entirely means an overscan crop.</p>
+                </div>
+            </div>
+            <p class="patcat__group">HDR</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-pq-stairs.png" alt="PQ stairs test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">PQ stairs<code>pqStairs</code></p>
+                    <p class="patcat__body">Decade steps from 0.001 to 10,000 nits through the PQ or HLG curve, with optional geometric sub-steps, each tread labelled with its level. The pattern is refused under an SDR transfer rather than clamped, because a file that says 1000 nits and carries 100 is the failure this exists to avoid.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Measure a tread and compare it with its label. The ladder runs the same closed form as the edit surface's legalize ceiling, so a 1000-nit tread and a 1000-nit ceiling agree by construction and any disagreement is downstream. The bottom decades show where the display or the chain stops resolving steps.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-luminance-window.png" alt="Luminance window test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Luminance window<code>luminanceWindow</code></p>
+                    <p class="patcat__body">A window of stated area at a stated luminance on black, 10% at 1000 nits by default, labelled in frame.</p>
+                    <p class="patcat__body"><strong>Read:</strong> The standard display-measurement fixture: sustained versus peak output, automatic brightness limiting, and whether a tone-mapper's result tracks the requested level. Change the area and a display that limits will read a different level for the same request.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-hdr-grey-ramp.png" alt="HDR grey ramp test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">HDR grey ramp<code>hdrGrayRamp</code></p>
+                    <p class="patcat__body">The nits domain as a grey ramp with tick labels, geometrically spaced by default.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Continuity across the decades and where a tone curve puts its knee. Banding that follows code steps is a depth or container matter; a break at the same nits value on every pass is the tone-mapper.</p>
+                </div>
+            </div>
+            <p class="patcat__group">Temporal</p>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-motion.png" alt="Motion test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Motion<code>motion</code></p>
+                    <p class="patcat__body">A bar at a constant pixels-per-frame velocity, wrapping at the frame edge so velocity stays continuous across the seam. Integer velocities keep every leading edge on a pixel boundary.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Judder, frame-rate conversion and interpolation. Expected position at frame f is offset + velocity&middot;f, modulo the span, so a stutter is a measured pixel offset rather than an impression, and an interpolated frame shows as a smeared edge sitting between two exact positions.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-cadence.png" alt="Cadence test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Cadence<code>cadence</code></p>
+                    <p class="patcat__body">A/B frame alternation under a repeat structure: [1,1] for 1:1, [3,2] for 3:2 pulldown. Each phase carries a block whose position identifies it, so a single still frame says which phase it belongs to.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Whether a chain preserved the cadence or re-timed it. Stepping frames, the phase block should march in the declared structure; a stage that claims to remove pulldown should collapse the alternation rather than shift it.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-drop-detector.png" alt="Drop detector test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Drop detector<code>dropDetector</code></p>
+                    <p class="patcat__body">A gray-code frame id in a block strip, optionally with the frame number printed beneath it. Gray coding means a single misread block shifts the answer by one frame instead of by a power of two. The strip's geometry function is shared with the decoder, and blocks are sampled at their centres, so a lightly degraded or resampled frame still reads back.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Decode the strip frame by frame after a transcode. Missing ids are drops, repeated ids are duplicates, and both come out as exact frame indices. This is the pattern for the question "did we lose frames", as opposed to "does it look smooth".</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-flash.png" alt="Flash sequence test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Flash sequence<code>flash</code></p>
+                    <p class="patcat__body">Alternating luminance flashes at a chosen rate over a centred band covering a stated fraction of the picture, authored in nits, with a saturated-red mode for the separately-counted red-flash class. One flash is a full low to high to low pair of opposing transitions, which is what the flash-risk analysis counts.</p>
+                    <p class="patcat__body"><strong>Read:</strong> A fixture with a known rate and area to check a flash-risk indicator against. The surround holds at the low level, so the "more than 25% of the picture" limb of the criterion is authored rather than assumed. The indicator in Scenes mode is an indicator, not a certified Harding test.</p>
+                </div>
+            </div>
+            <div class="patcat__item">
+                <figure class="shot patcat__shot"><img src="signal-noise.png" alt="Noise field test pattern rendered by Videre's signal generator." loading="lazy" decoding="async"></figure>
+                <div>
+                    <p class="patcat__name">Noise field<code>noise</code></p>
+                    <p class="patcat__body">Per-frame seeded uniform noise, drawn from SplitMix64 over the seed, the segment index, the local frame and the pixel position. Local frame rather than timeline frame, so inserting a segment ahead of this one does not shift its noise.</p>
+                    <p class="patcat__body"><strong>Read:</strong> Incompressible input: bitrate peaks here and a denoiser's effect is unmistakable. It doubles as the null test for anything claiming to be lossless, since the same spec regenerates the exact bytes to compare against.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered" style="text-align: center;">
+        <p class="label" style="margin-bottom: 14px;">The full reference</p>
+        <p style="font-size: 0.9rem; color: var(--text-2); max-width: 520px; margin: 0 auto 22px; line-height: 1.6;">Section 15 of the user guide covers the generator window, the pattern parameters, the presets, and the command line.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a class="btn btn-primary" href="guide.html#generator">Read the user guide</a>
+            <a class="btn btn-secondary" href="index.html">About Videre</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Videre</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+        <p class="footer__legal">Dolby, Dolby Vision, and the double-D symbol are trademarks of Dolby Laboratories Licensing Corporation. HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by either organization.</p>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videre - Video Inspection &amp; Analysis for macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/videre/">
-    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, compare encodes with PSNR, SSIM, VMAF, repair metadata without re-encoding, edit and verify raw video, detect scenes, and check delivery specs.">
+    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, compare encodes with PSNR, SSIM, VMAF, repair metadata without re-encoding, edit and verify raw video, generate test signals, detect scenes, and check delivery specs.">
     <meta property="og:title" content="Videre">
-    <meta property="og:description" content="See what's actually in the frame. Raw and encoded video, HDR-correct display, scopes, metadata, bitstream, and compare metrics.">
+    <meta property="og:description" content="See what's actually in the frame. Raw and encoded video, HDR-correct display, scopes, metadata, bitstream, compare metrics, and a test-signal generator.">
     <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -28,7 +28,7 @@
         "name": "Videre",
         "operatingSystem": "macOS 14.0 or later",
         "applicationCategory": "MultimediaApplication",
-        "description": "Native macOS video inspector - raw and encoded sources, color-managed SDR and HDR display, scopes, Dolby Vision and HDR10+ metadata, bitstream and container inspection, and compare metrics.",
+        "description": "Native macOS video inspector - raw and encoded sources, color-managed SDR and HDR display, scopes, Dolby Vision and HDR10+ metadata, bitstream and container inspection, compare metrics, and a test-signal generator.",
         "url": "https://headroomstudio.dev/videre/",
         "image": "https://headroomstudio.dev/videre/og.png",
         "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
@@ -63,7 +63,7 @@
             <p class="eyebrow">In development</p>
             <h1 class="display">Videre</h1>
             <p class="app-hero__desc">
-                A native macOS inspector for people who work on video, not just with it. Open a raw YUV dump with no header or an encoded file, display it color-correctly in SDR and HDR, read every scope and every metadata block down to the bitstream fields, and compare two encodes with the metrics that decide codec shootouts. Then act on what you found: repair the metadata without re-encoding, fix defective pixels with verified surgical edits, split the clip into shots, and check the file against a delivery spec.
+                A native macOS inspector for people who work on video, not just with it. Open a raw YUV dump with no header or an encoded file, display it color-correctly in SDR and HDR, read every scope and every metadata block down to the bitstream fields, and compare two encodes with the metrics that decide codec shootouts. Then act on what you found: repair the metadata without re-encoding, fix defective pixels with verified surgical edits, split the clip into shots, and check the file against a delivery spec. And when a measurement needs material with a known answer, ⌘G writes it: 25 patterns computed for the exact format, matrix, range and depth you are checking.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -75,6 +75,7 @@
                 <span class="badge">Bitstream inspector</span>
                 <span class="badge">Metadata repair</span>
                 <span class="badge">Non-destructive editing</span>
+                <span class="badge">Test-signal generator</span>
                 <span class="badge">Delivery specs</span>
                 <span class="badge">Scriptable CLI</span>
             </div>
@@ -173,7 +174,7 @@
                         <text class="dg-t" x="50" y="462">JSON &#183; CSV &#183; CLI</text>
                         <text class="dg-s" x="50" y="480">frozen report schema</text>
                     </svg>
-                    <figcaption><strong>The signal path.</strong> A source decodes once through the interpretation you set; the view, the scopes, the metadata readout, the bitstream view, and the compare metrics all read that same frame, in the window or from <code>videre-cli</code>.</figcaption>
+                    <figcaption><strong>The signal path.</strong> A source decodes once through the interpretation you set; the view, the scopes, the metadata readout, the bitstream view, and the compare metrics all read that same frame, in the window or from <code>videre-cli</code>. A generated test clip enters the path at the same point a file does.</figcaption>
                 </figure>
             </div>
         </div>
@@ -201,7 +202,7 @@
     <section class="section section--bordered">
         <div class="apps-head"><p class="label">Built for your workflow</p></div>
         <p style="font-size: 0.78rem; color: var(--text-3); margin: 6px 0 22px; line-height: 1.55; max-width: 620px;">Job-shaped paths through the same engine.</p>
-        <div class="tiles tiles--4">
+        <div class="tiles tiles--3">
             <a class="tile" href="metadata-repair.html">
                 <div class="tile__glyph">⌗</div><h4>Metadata repair</h4>
                 <p>Fix wrong or missing color and HDR tags on an MP4/MOV without re-encoding. The output is verified byte-identical before the save succeeds.</p><span class="tile__arrow">→</span>
@@ -209,6 +210,10 @@
             <a class="tile" href="decoding.html">
                 <div class="tile__glyph">⋙</div><h4>The decode path</h4>
                 <p>One decode at native bit depth, explicit interpretation, and a measurement path that reads the decoded codes themselves. File to pixel, stage by stage.</p><span class="tile__arrow">→</span>
+            </a>
+            <a class="tile" href="test-signals.html">
+                <div class="tile__glyph">▦</div><h4>Test signals</h4>
+                <p>Patterns computed for the exact format under test, written to raw or y4m and verified frame by frame. The full catalogue, with what each pattern exposes and what to read off it.</p><span class="tile__arrow">→</span>
             </a>
         </div>
     </section>
@@ -284,7 +289,7 @@
         <div class="section__grid">
             <div>
                 <p class="label">Metadata repair</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The one thing Videre writes: the tags. The pixels stay untouched. <a href="metadata-repair.html" style="color: var(--accent);">See the workflow →</a></p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Repair without re-encoding: the tags change, the pixels stay untouched. <a href="metadata-repair.html" style="color: var(--accent);">See the workflow →</a></p>
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">Metadata mode (⌘6)</div><div class="feature-row__v">Rewrites the color tags (primaries, transfer, matrix, range), the SMPTE ST 2086 mastering display volume, and the MaxCLL / MaxFALL content light level of an MP4/MOV without re-encoding - in the container boxes, the coded stream's own signalling, or both, so the two layers agree after a repair. Fixes open pre-filled with the file's current tags, with BT.709 / BT.2020 PQ (HDR10) / BT.2020 HLG presets and any H.273 code point accepted. The catalog goes on: chroma siting, aspect ratio, HLG compatibility, stripping dynamic HDR metadata, QuickTime compatibility for in-band files, fast start, edit-list repair, and per-field expert edits down to the parameter sets.</div></div>
@@ -309,12 +314,33 @@
         </div>
     </section>
 
+    <!-- Signal generator -->
+    <section class="section section--bordered" id="generator">
+        <div class="section__grid">
+            <p class="label">Signal generator</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    <span style="white-space: nowrap;">⌘G</span> writes the clip you measure against: patterns computed for the format under test, carrying codes you know before the file goes anywhere.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">25 patterns: color bars, HDR bars, a 24-patch ColorChecker-style chart, conversion probes labelled with the codes they should carry, ramps and bit-depth ramps, PLUGE, a range checker, gamut sweeps and out-of-gamut marker pairs, zone plates, gratings, checkerboards, a chroma-siting probe, graticules, PQ stairs, luminance windows, HDR grey ramps, and a temporal set covering motion, cadence, drop detection, flash sequences and noise. Overlays compose on top: a frame counter with a machine-readable strip, text labels, a 1-pixel border with lettered corners, and a centre cross. Several segments in one clip make a scene-cut test with boundaries you already know, and Scenes mode reads them back. <a href="test-signals.html" style="color: var(--accent);">See the workflow →</a></p>
+                <div style="margin-top: 22px;">
+                    <div class="feature-row"><div class="feature-row__k">Computed, not stored</div><div class="feature-row__v">Every value is computed for the format, matrix, range, bit depth and chroma siting you picked, through the same color and transfer math the scopes measure with. 75% white lands on 721 at 10-bit narrow range and 2884 at 12-bit, and a 1000-nit stair tread agrees with a 1000-nit legalize ceiling.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Chroma where the file says it is</div><div class="feature-row__v">Each plane is rendered at its own sample position, so 4:2:0 chroma sits where the declared siting puts it instead of being filtered down from a 4:4:4 picture. The chroma-siting probe makes the quarter-pixel offset visible, and that offset is what separates the three sitings.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Verified on the way out</div><div class="feature-row__v">Output is raw or y4m. Every written frame is read back off disk and byte-compared against a freshly rendered reference before the write reports success, and the readout states what that proves: the bytes landed intact, not that the pattern was the one you meant.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Reproducible</div><div class="feature-row__v">The same specification always produces the same bytes, so two runs a month apart are byte-identical. The JSON receipt carries the specification that made the file: feed a saved receipt back and you get that file again.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Fourteen presets, and <code>videre generate</code></div><div class="feature-row__v">SMPTE-style bars, BT.2111-style bars in HLG and PQ at UHD, a PQ stairs ladder, PLUGE, a range checker, a drop detector at 60p, a zone plate, a siting probe, a five-shot demo clip, a flash-risk fixture. The command line takes the same preset names, the same pattern parameters, or a full spec file, so a fixture regenerates in CI.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Straight back into Videre</div><div class="feature-row__v">A generated clip is a source like any other: every scope, compare with metrics, and the conform check read it. Preview in Videre writes the current spec to a temporary file and opens it, so the scopes measure the real thing rather than the window's thumbnail.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CLI -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Automation</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Nine subcommands: <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>edit</code>, <code>verify</code>, <code>conform</code>, <code>scenes</code>, built on the same engine as the app, so scripted QC gets identical numbers. <code>videre verify</code> runs the delivery checks and <code>videre conform</code> gates against a spec, each exiting nonzero on a failure, so a pipeline can block an upload. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
+                <div class="feature-row"><div class="feature-row__k"><code>videre</code> CLI</div><div class="feature-row__v">Ten subcommands: <code>generate</code>, <code>inspect</code>, <code>compare</code>, <code>bitstream</code>, <code>container</code>, <code>retag</code>, <code>edit</code>, <code>verify</code>, <code>conform</code>, <code>scenes</code>, built on the same engine as the app, so scripted QC gets identical numbers. <code>videre verify</code> runs the delivery checks and <code>videre conform</code> gates against a spec, each exiting nonzero on a failure, so a pipeline can block an upload. JSON reports with a stable, versioned schema. Ships inside the app bundle with an Install Command-Line Tool menu item.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Finder</div><div class="feature-row__v">Three Shortcuts actions: Inspect Video File and Compare Video Files return the JSON reports, Verify Video File returns a pass/fail verdict a Shortcut can branch on. In Finder, right-click two renders to compare them in Videre, or one file to write its inspect report to Downloads.</div></div>
             </div>
         </div>

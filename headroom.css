@@ -442,6 +442,31 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
   letter-spacing: 0.12em; }
 .dg-u { font-family: var(--font-mono); font-size: 11px; fill: var(--accent-soft); }
 
+/* Pattern catalogue (videre/test-signals.html). A reference list, not a
+   feature list: one row per test pattern, thumbnail left, what it is and
+   what to read off it on the right. Thumbnails are the generator's own
+   preview render, so they carry no transfer - HDR patterns read dark by
+   design. §17 stacks the row at 720px. */
+.patcat { display: grid; gap: 10px; }
+.patcat__group { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-soft);
+  margin: 22px 0 2px; }
+.patcat__group:first-child { margin-top: 0; }
+.patcat__item { display: grid; grid-template-columns: 300px 1fr; gap: 18px;
+  padding: 14px; border: 1px solid var(--border); border-radius: 12px;
+  background: var(--bg-card); }
+.patcat__shot { margin: 0; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: #000; align-self: start; }
+.patcat__shot img { width: 100%; height: auto; display: block; }
+.patcat__name { font-size: 0.92rem; font-weight: 650; color: var(--text);
+  letter-spacing: -0.01em; }
+.patcat__name code { font-family: var(--font-mono); font-size: 0.76rem; font-weight: 500;
+  color: var(--text-4); margin-left: 8px; }
+.patcat__body { font-size: 0.82rem; color: var(--text-2); line-height: 1.65; margin-top: 6px; }
+.patcat__body + .patcat__body { margin-top: 8px; }
+.patcat__body strong { color: var(--accent-soft); font-weight: 600; }
+.patcat__body code { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text); }
+
 /* Live loudness meter demo (specula/index.html + specula/meter-demo.js).
    The figure ships with a baked final state - full SVG curves + readout
    values - so it reads complete without JS; meter-demo.js replays it live.
@@ -582,6 +607,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 /* ── 17. Responsive ──────────────────────────────────────────────────────── */
 @media (max-width: 820px) {
   .statband { grid-template-columns: 1fr 1fr; }
+  .patcat__item { grid-template-columns: 240px 1fr; gap: 14px; }
   .section__grid { grid-template-columns: 1fr; gap: 16px; }
   .newsletter { grid-template-columns: 1fr; gap: 24px; }
   .tiles--4, .tiles--3 { grid-template-columns: 1fr 1fr; }
@@ -600,6 +626,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .tiles--4, .tiles--3 { grid-template-columns: 1fr; }
   .diagram__wide { display: none; }
   .diagram__tall { display: block; }
+  .patcat__item { grid-template-columns: 1fr; gap: 12px; }
   .mdemo__readouts { grid-template-columns: 1fr 1fr; }
   .app-row__icon { width: 48px; height: 48px; border-radius: 11px; }
   .nav { padding: 10px 14px; }
