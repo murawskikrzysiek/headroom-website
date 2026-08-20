@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading a video signal: matrix, range and transfer, explained practically</title>
+    <link rel="canonical" href="https://headroomstudio.dev/videre/reading-video.html">
+    <meta name="description" content="A video file stores integers. Matrix, range and transfer decide what they mean. What each one does, what a wrong one looks like on screen, and how to check with numbers instead of opinion.">
+    <meta property="og:title" content="Reading a video signal">
+    <meta property="og:description" content="Codes, not colors. What matrix, range and transfer actually do, what each one looks like when it is wrong, and how to prove it on a test signal.">
+    <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reading a video signal">
+    <meta name="twitter:description" content="Codes, not colors. What matrix, range and transfer actually do, and how to prove it on a test signal.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/videre/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Reading a video signal",
+        "description": "A video file stores integers. Matrix, range and transfer decide what they mean. What each one does, what a wrong one looks like, and how to check with numbers instead of opinion.",
+        "url": "https://headroomstudio.dev/videre/reading-video.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Videre",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication"
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container nav-shell">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Videre</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Videre app icon">
+        </div>
+        <div>
+            <h1>Reading a video signal</h1>
+            <p class="app-hero__desc">
+                A video file stores integers. Matrix, range and transfer decide what those integers mean, and none of them are stored in every format. What each one does, what a wrong one looks like on screen, and how to settle it with numbers instead of opinion.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge">Codes, not colors</span>
+                <span class="badge">Numbers you can check</span>
+                <span class="badge">Test-signal recipes</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="index.html">About Videre</a>
+                <a class="btn btn-secondary" href="test-signals.html">Test signals</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">a primer for anyone working with video files</p>
+        </div>
+    </header>
+
+    <!-- Codes, not colors -->
+    <section class="section section--bordered" id="codes">
+        <div class="section__grid">
+            <p class="label">Codes, not colors</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Open an uncompressed video file and what is on disk is a grid of integers, three per pixel at most and often fewer. There is no red in there, no brightness in nits, no white point. Those appear only when something declares how the integers should be read.</p>
+                <p class="prose-lead">Three declarations carry nearly all of that meaning, and the same three names appear twice in a working day, in opposite roles. When a camera, an encoder or a signal generator writes a file, they are <strong>constructive</strong>: they decide which integers get written. When a player or an inspector opens that file, they are <strong>declarative</strong>: they decide what the integers are taken to mean.</p>
+
+                <div style="margin-top: 22px;">
+                    <div class="feature-row"><div class="feature-row__k">Matrix</div><div class="feature-row__v">How the three numbers split into brightness and two color differences. BT.601, BT.709, BT.2020.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Range</div><div class="feature-row__v">Which integers count as black and white. Video range keeps room above and below; full range uses everything.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Transfer</div><div class="feature-row__v">How much light each value stands for. The SDR curves, PQ, HLG.</div></div>
+                </div>
+
+                <div class="callout">
+                    <p><strong>The rule everything else follows from.</strong> Changing matrix, range or transfer in a viewer never rewrites a byte. It changes every derived quantity: the RGB readout, the nits figure, the waveform, the vectorscope, gamut statistics, quality metrics, legality checks. The codes sit still and the meaning moves.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The pipeline -->
+    <section class="section section--bordered" id="pipeline">
+        <div class="section__grid">
+            <p class="label">The pipeline</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">The order is not the one most people guess. Light is converted to a signal first, by the transfer function, and only then split into luma and chroma by the matrix. That is why the components are written R'G'B' with a prime: they are already non-linear when the matrix touches them.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 300" role="img" aria-label="Writing a file runs transfer, then matrix, then range, into codes. Reading it runs the same three stages backwards out of the file.">
+                        <text class="dg-l" x="20" y="24">WRITING</text>
+                        <text class="dg-s" x="20" y="44">from light</text>
+                        <rect class="dg-box" x="20" y="56" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="34" y="80">Transfer</text>
+                        <text class="dg-s" x="34" y="98">light to signal</text>
+                        <path class="dg-flow" d="M170 84h20m-6 -5 6 5-6 5"/>
+                        <text class="dg-s" x="180" y="50" text-anchor="middle">R'G'B'</text>
+                        <rect class="dg-box" x="190" y="56" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="204" y="80">Matrix</text>
+                        <text class="dg-s" x="204" y="98">luma weights</text>
+                        <path class="dg-flow" d="M340 84h20m-6 -5 6 5-6 5"/>
+                        <text class="dg-s" x="350" y="50" text-anchor="middle">Y'CbCr</text>
+                        <rect class="dg-box" x="360" y="56" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="374" y="80">Range</text>
+                        <text class="dg-s" x="374" y="98">scale, quantize</text>
+                        <path class="dg-flow" d="M510 84h20m-6 -5 6 5-6 5"/>
+                        <text class="dg-s" x="520" y="50" text-anchor="middle">codes</text>
+
+                        <rect class="dg-box dg-box--accent" x="530" y="56" width="150" height="188" rx="9"/>
+                        <text class="dg-t" x="544" y="130">the file</text>
+                        <text class="dg-s dg-s--a" x="544" y="152">integers only</text>
+                        <text class="dg-s dg-s--a" x="544" y="170">plus tags, maybe</text>
+
+                        <text class="dg-l" x="20" y="284">READING</text>
+                        <text class="dg-s" x="20" y="264">to a picture</text>
+                        <rect class="dg-box" x="20" y="188" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="34" y="212">Transfer</text>
+                        <text class="dg-s" x="34" y="230">signal to light</text>
+                        <path class="dg-flow" d="M190 216h-20m6 -5-6 5 6 5"/>
+                        <text class="dg-s" x="180" y="180" text-anchor="middle">R'G'B'</text>
+                        <rect class="dg-box" x="190" y="188" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="204" y="212">Matrix</text>
+                        <text class="dg-s" x="204" y="230">the inverse</text>
+                        <path class="dg-flow" d="M360 216h-20m6 -5-6 5 6 5"/>
+                        <text class="dg-s" x="350" y="180" text-anchor="middle">Y'CbCr</text>
+                        <rect class="dg-box" x="360" y="188" width="150" height="56" rx="9"/>
+                        <text class="dg-t" x="374" y="212">Range</text>
+                        <text class="dg-s" x="374" y="230">offset, stretch</text>
+                        <path class="dg-flow" d="M530 216h-20m6 -5-6 5 6 5"/>
+                        <text class="dg-s" x="498" y="180" text-anchor="middle">codes</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 640" role="img" aria-label="Writing a file runs transfer, then matrix, then range, into codes. Reading it runs the same three stages backwards out of the file.">
+                        <text class="dg-l" x="36" y="20">WRITING</text>
+                        <rect class="dg-box" x="36" y="32" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="54">Transfer</text>
+                        <text class="dg-s" x="50" y="72">light to signal</text>
+                        <path class="dg-flow" d="M170 84v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="100">R'G'B'</text>
+                        <rect class="dg-box" x="36" y="112" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="134">Matrix</text>
+                        <text class="dg-s" x="50" y="152">luma weights</text>
+                        <path class="dg-flow" d="M170 164v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="180">Y'CbCr</text>
+                        <rect class="dg-box" x="36" y="192" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="214">Range</text>
+                        <text class="dg-s" x="50" y="232">scale, quantize</text>
+                        <path class="dg-flow" d="M170 244v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="260">codes</text>
+
+                        <rect class="dg-box dg-box--accent" x="36" y="272" width="268" height="70" rx="9"/>
+                        <text class="dg-t" x="50" y="300">the file</text>
+                        <text class="dg-s dg-s--a" x="50" y="322">integers, plus tags, maybe</text>
+
+                        <path class="dg-flow" d="M170 342v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="358">codes</text>
+                        <text class="dg-l" x="36" y="388">READING</text>
+                        <rect class="dg-box" x="36" y="396" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="418">Range</text>
+                        <text class="dg-s" x="50" y="436">offset, stretch</text>
+                        <path class="dg-flow" d="M170 448v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="464">Y'CbCr</text>
+                        <rect class="dg-box" x="36" y="476" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="498">Matrix</text>
+                        <text class="dg-s" x="50" y="516">the inverse</text>
+                        <path class="dg-flow" d="M170 528v22m-5 -6 5 6 5-6"/>
+                        <text class="dg-s" x="182" y="544">R'G'B'</text>
+                        <rect class="dg-box" x="36" y="556" width="268" height="52" rx="9"/>
+                        <text class="dg-t" x="50" y="578">Transfer</text>
+                        <text class="dg-s" x="50" y="596">signal to light</text>
+                        <text class="dg-s" x="36" y="628">to a picture</text>
+                    </svg>
+                    <figcaption><strong>The three stages are a mirror.</strong> Match the reading side to the writing side and the value you authored comes back, give or take quantization. Set them differently and you are looking at a deliberate misinterpretation, which is a legitimate diagnostic and the reason test-signal generators exist. Chroma subsampling sits between the range stage and the file.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bit depth -->
+    <section class="section section--bordered" id="bit-depth">
+        <div class="section__grid">
+            <p class="label">Codes and the 0 to 255 habit</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A pixel probe in a 10-bit file typically shows something like <code>Y 1023 Cb 512 Cr 512 &rarr; RGB 255 255 255</code>. Those numbers live at different stages and are not two views of the same thing.</p>
+                <p class="prose-lead"><strong>Y, Cb and Cr are the file</strong>, read straight from the plane bytes at the format's own depth, 0 to 1023 for 10-bit, with nothing applied. <strong>RGB is a derived signal on a legacy scale</strong>: the decode produces R'G'B' normalized 0 to 1, and the readout multiplies by 255 because that is the scale everyone reads at a glance. It is a display convention, not the file's precision.</p>
+                <p class="prose-lead">The decode also clamps to 0 and 1, and that is where information disappears. At 10-bit video range the luma white point is 940, so every code from 940 to 1023 produces a signal at or above 1.0 and shows the same <code>255</code>. Codes 1019 and 1023 are visibly different signals and an identical RGB triple. Measure in codes; use RGB for intuition, not for judgement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Matrix -->
+    <section class="section section--bordered" id="matrix">
+        <div class="section__grid">
+            <p class="label">Matrix</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Video does not store R, G and B. It stores one brightness channel and two color differences, so the color channels can be sampled at lower resolution without an obvious penalty. Luma is a weighted sum of the three primaries, and those weights are the matrix. The three standards disagree about them, and that disagreement is the entire practical content of the setting.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 210" role="img" aria-label="Luma weights for BT.601, BT.709 and BT.2020, and the luma code each produces for a pure blue bar at 8-bit video range: 41, 32 and 29.">
+                        <text class="dg-l" x="110" y="16">SHARE OF LUMA</text>
+                        <text class="dg-l" x="600" y="16">BLUE BAR</text>
+
+                        <text class="dg-t" x="10" y="40">BT.601</text>
+                        <rect x="110" y="24" width="137.5" height="22" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="247.5" y="24" width="270" height="22" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="517.5" y="24" width="52.5" height="22" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="110" y="62">R .299 &#183; G .587 &#183; B .114</text>
+                        <text class="dg-p" x="600" y="40">Y 41</text>
+
+                        <text class="dg-t" x="10" y="100">BT.709</text>
+                        <rect x="110" y="84" width="97.8" height="22" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="207.8" y="84" width="329" height="22" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="536.8" y="84" width="33.2" height="22" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="110" y="122">R .2126 &#183; G .7152 &#183; B .0722</text>
+                        <text class="dg-p" x="600" y="100">Y 32</text>
+
+                        <text class="dg-t" x="10" y="160">BT.2020</text>
+                        <rect x="110" y="144" width="120.8" height="22" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="230.8" y="144" width="311.9" height="22" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="542.7" y="144" width="27.3" height="22" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="110" y="182">R .2627 &#183; G .6780 &#183; B .0593</text>
+                        <text class="dg-p" x="600" y="160">Y 29</text>
+
+                        <text class="dg-s" x="600" y="182">8-bit, video</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 300" role="img" aria-label="Luma weights for BT.601, BT.709 and BT.2020, and the luma code each produces for a pure blue bar at 8-bit video range: 41, 32 and 29.">
+                        <text class="dg-t" x="20" y="28">BT.601</text>
+                        <text class="dg-p" x="250" y="28">Y 41</text>
+                        <rect x="20" y="38" width="89.7" height="20" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="109.7" y="38" width="176.1" height="20" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="285.8" y="38" width="34.2" height="20" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="20" y="76">R .299 &#183; G .587 &#183; B .114</text>
+
+                        <text class="dg-t" x="20" y="128">BT.709</text>
+                        <text class="dg-p" x="250" y="128">Y 32</text>
+                        <rect x="20" y="138" width="63.8" height="20" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="83.8" y="138" width="214.6" height="20" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="298.4" y="138" width="21.6" height="20" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="20" y="176">R .2126 &#183; G .7152 &#183; B .0722</text>
+
+                        <text class="dg-t" x="20" y="228">BT.2020</text>
+                        <text class="dg-p" x="250" y="228">Y 29</text>
+                        <rect x="20" y="238" width="78.8" height="20" rx="3" style="fill:var(--red);opacity:0.85"/>
+                        <rect x="98.8" y="238" width="203.4" height="20" rx="0" style="fill:var(--green);opacity:0.85"/>
+                        <rect x="302.2" y="238" width="17.8" height="20" rx="3" style="fill:var(--accent);opacity:0.85"/>
+                        <text class="dg-s" x="20" y="276">R .2627 &#183; G .6780 &#183; B .0593</text>
+                    </svg>
+                    <figcaption><strong>Green dominates luma in every standard</strong>, and blue's share shrinks as the standards move to wider gamuts. Feed the same pure blue into each and a different luma code comes out: 41, 32, 29 at 8-bit video range. Cr moves too, to 110, 118 and 119, while Cb pins at 240 in all three.</figcaption>
+                </figure>
+
+                <p class="prose-lead" style="margin-top: 22px;"><strong>Greys are immune.</strong> Neutral means Cb and Cr sit at the centre code, which decodes neutral under every matrix, so a grey ramp is byte-for-byte the same file whichever matrix authored it. The error shows only on saturated color, as a hue and brightness shift worst on red and blue. On a vectorscope the color targets sit rotated off their boxes rather than randomly scattered.</p>
+
+                <div class="callout">
+                    <p><strong>Why the mistake is common.</strong> Nothing about a 1920&#215;1080 file makes it BT.709. Software guesses from resolution, SD to BT.601, HD to BT.709, UHD to BT.2020, and the guess is right often enough that the wrong cases are hard to spot. A file carrying no tag gets whatever its reader assumes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Range -->
+    <section class="section section--bordered" id="range">
+        <div class="section__grid">
+            <p class="label">Range</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">In video range, black sits above the bottom of the number space and white below the top. At 8-bit that is 16 and 235 for luma, 16 to 240 for chroma; at 10-bit multiply by four, so black 64, white 940, chroma 64 to 960. Full range uses everything.</p>
+                <p class="prose-lead">The reserved space is not waste. Filtering and resampling overshoot, and a signal clipping at the boundary would fold those overshoots back into the picture as hard artefacts; footroom and headroom give them somewhere to live. SDI also reserves the outermost codes as sync words, 0 to 3 and 1020 to 1023 at 10-bit, so they cannot carry picture at all.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 190" role="img" aria-label="The 10-bit code space divided two ways: video range occupies 64 to 940 with footroom and headroom either side, full range occupies 0 to 1023.">
+                        <line x1="60" y1="44" x2="620" y2="44" style="stroke:var(--text-4);stroke-width:1.2"/>
+                        <text class="dg-s" x="60" y="32" text-anchor="middle">0</text>
+                        <text class="dg-s" x="340" y="32" text-anchor="middle">512</text>
+                        <text class="dg-s" x="620" y="32" text-anchor="middle">1023</text>
+                        <text class="dg-s" x="620" y="16" text-anchor="end">10-bit code</text>
+                        <rect x="60" y="38" width="2.2" height="12" style="fill:var(--red)"/>
+                        <rect x="617.8" y="38" width="2.2" height="12" style="fill:var(--red)"/>
+                        <text class="dg-s" x="60" y="16" style="fill:var(--red)">codes 0 to 3 and 1020 to 1023 reserved for SDI sync</text>
+
+                        <rect class="dg-box dg-box--accent" x="95" y="70" width="479.6" height="34" rx="6"/>
+                        <text class="dg-t" x="334" y="92" text-anchor="middle">video range &#183; 64 to 940</text>
+                        <text class="dg-s" x="77" y="120" text-anchor="middle">footroom</text>
+                        <text class="dg-s" x="597" y="120" text-anchor="middle">headroom</text>
+                        <line x1="95" y1="104" x2="95" y2="112" style="stroke:var(--text-4);stroke-width:1"/>
+                        <line x1="574.6" y1="104" x2="574.6" y2="112" style="stroke:var(--text-4);stroke-width:1"/>
+
+                        <rect class="dg-box" x="60" y="136" width="560" height="34" rx="6"/>
+                        <text class="dg-t" x="340" y="158" text-anchor="middle">full range &#183; 0 to 1023</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 420" role="img" aria-label="The 10-bit code space divided two ways: video range occupies 64 to 940 with footroom and headroom either side, full range occupies 0 to 1023.">
+                        <line x1="70" y1="40" x2="70" y2="380" style="stroke:var(--text-4);stroke-width:1.2"/>
+                        <text class="dg-s" x="60" y="44" text-anchor="end">1023</text>
+                        <text class="dg-s" x="60" y="72" text-anchor="end">940</text>
+                        <text class="dg-s" x="60" y="214" text-anchor="end">512</text>
+                        <text class="dg-s" x="60" y="362" text-anchor="end">64</text>
+                        <text class="dg-s" x="60" y="384" text-anchor="end">0</text>
+                        <line x1="66" y1="67.5" x2="74" y2="67.5" style="stroke:var(--text-4);stroke-width:1"/>
+                        <line x1="66" y1="358.7" x2="74" y2="358.7" style="stroke:var(--text-4);stroke-width:1"/>
+
+                        <text class="dg-l" x="100" y="24">VIDEO</text>
+                        <rect class="dg-box dg-box--accent" x="100" y="67.5" width="90" height="291.2" rx="6"/>
+                        <text class="dg-s dg-s--a" x="145" y="200" text-anchor="middle">64 to 940</text>
+
+                        <text class="dg-l" x="210" y="24">FULL</text>
+                        <rect class="dg-box" x="210" y="40" width="90" height="340" rx="6"/>
+                        <text class="dg-s" x="255" y="200" text-anchor="middle">0 to 1023</text>
+
+                        <text class="dg-s" x="100" y="400" style="fill:var(--red)">outermost codes: SDI sync</text>
+                    </svg>
+                    <figcaption><strong>The same number space, divided two ways.</strong> Video range keeps 64 codes of footroom and 83 of headroom; full range spends everything on picture. Both are correct, and the file has to say which one it is.</figcaption>
+                </figure>
+
+                <div class="callout">
+                    <p><strong>Legal is not the same as present.</strong> A video-range file can hold codes outside 64 to 940, legitimately. PLUGE bars sit deliberately below black so a monitor's brightness control has a reference to disappear against; a 10-bit PLUGE in video range writes 48, 56, 72 and 80 around the 64 floor, per BT.814. A range checker writes 0 and 1023 on purpose, because a chart covering only the legal window would check nothing. The range is the coordinate system a pattern maps its levels into, not a filter applied to the finished picture.</p>
+                </div>
+
+                <p class="prose-lead" style="margin-top: 22px;">When the reading is wrong, the two directions are not symmetrical. One washes the picture out and is fully reversible. The other crushes and clips, and destroys distinctions.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 280" role="img" aria-label="Six 10-bit codes mapped onto one 0 to 255 output scale under a video-range reading and a full-range reading. The video reading piles three codes onto 255 and two onto 0.">
+                        <text class="dg-l" x="20" y="24">CODES IN THE FILE</text>
+                        <line x1="110" y1="56" x2="650" y2="56" style="stroke:var(--text-3);stroke-width:1.4"/>
+                        <g style="fill:var(--text-2)">
+                            <circle cx="110" cy="56" r="3.4"/><circle cx="143.8" cy="56" r="3.4"/><circle cx="379.7" cy="56" r="3.4"/><circle cx="606.2" cy="56" r="3.4"/><circle cx="647.9" cy="56" r="3.4"/><circle cx="650" cy="56" r="3.4"/>
+                        </g>
+                        <text class="dg-s" x="110" y="44" text-anchor="middle">0</text>
+                        <text class="dg-s" x="143.8" y="44" text-anchor="middle">64</text>
+                        <text class="dg-s" x="379.7" y="44" text-anchor="middle">511</text>
+                        <text class="dg-s" x="594" y="44" text-anchor="middle">940</text>
+                        <text class="dg-s" x="640" y="28" text-anchor="middle">1019</text>
+                        <text class="dg-s" x="678" y="44" text-anchor="middle">1023</text>
+
+                        <g class="dg-flow" style="stroke:var(--accent-soft);opacity:0.8">
+                            <path d="M110 62V150"/><path d="M143.8 62L110 150"/><path d="M379.7 62L385.5 150"/><path d="M606.2 62L650 150"/><path d="M647.9 62L650 150"/><path d="M650 62V150"/>
+                        </g>
+                        <text class="dg-l" x="20" y="142" style="fill:var(--accent-soft)">READ AS VIDEO</text>
+                        <line x1="110" y1="156" x2="650" y2="156" style="stroke:var(--accent);stroke-width:1.4"/>
+                        <g style="fill:var(--accent)"><circle cx="110" cy="156" r="3.4"/><circle cx="385.5" cy="156" r="3.4"/><circle cx="650" cy="156" r="4.6"/></g>
+                        <text class="dg-s dg-s--a" x="110" y="174" text-anchor="middle">0</text>
+                        <text class="dg-s dg-s--a" x="385.5" y="174" text-anchor="middle">130</text>
+                        <text class="dg-s dg-s--a" x="650" y="174" text-anchor="middle">255</text>
+                        <text class="dg-s" x="176" y="174" style="fill:var(--red)">0 and 64 collapse together</text>
+                        <text class="dg-s" x="650" y="192" text-anchor="end" style="fill:var(--red)">940, 1019 and 1023 all land here</text>
+
+                        <g class="dg-flow dg-dash" style="stroke:var(--green);opacity:0.32">
+                            <path d="M110 62V226"/><path d="M143.8 62V226"/><path d="M379.7 62V226"/><path d="M606.2 62V226"/><path d="M647.9 62V226"/><path d="M650 62V226"/>
+                        </g>
+                        <text class="dg-l" x="20" y="218" style="fill:var(--green)">READ AS FULL</text>
+                        <line x1="110" y1="232" x2="650" y2="232" style="stroke:var(--green);stroke-width:1.4"/>
+                        <g style="fill:var(--green)"><circle cx="110" cy="232" r="3.4"/><circle cx="143.8" cy="232" r="3.4"/><circle cx="379.7" cy="232" r="3.4"/><circle cx="606.2" cy="232" r="3.4"/><circle cx="647.9" cy="232" r="3.4"/><circle cx="650" cy="232" r="3.4"/></g>
+                        <text class="dg-s" x="110" y="250" text-anchor="middle" style="fill:var(--green)">0</text>
+                        <text class="dg-s" x="143.8" y="250" text-anchor="middle" style="fill:var(--green)">16</text>
+                        <text class="dg-s" x="379.7" y="250" text-anchor="middle" style="fill:var(--green)">127</text>
+                        <text class="dg-s" x="600" y="250" text-anchor="middle" style="fill:var(--green)">234</text>
+                        <text class="dg-s" x="645" y="266" text-anchor="middle" style="fill:var(--green)">254</text>
+                        <text class="dg-s" x="678" y="250" text-anchor="middle" style="fill:var(--green)">255</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 340" role="img" aria-label="Six 10-bit codes mapped onto one 0 to 255 output scale under a video-range reading and a full-range reading. The video reading piles three codes onto 255 and two onto 0.">
+                        <text class="dg-l" x="20" y="20">CODES</text>
+                        <line x1="76" y1="52" x2="310" y2="52" style="stroke:var(--text-3);stroke-width:1.4"/>
+                        <g style="fill:var(--text-2)"><circle cx="76" cy="52" r="3"/><circle cx="90.6" cy="52" r="3"/><circle cx="192.9" cy="52" r="3"/><circle cx="291" cy="52" r="3"/><circle cx="309.1" cy="52" r="3"/><circle cx="310" cy="52" r="3"/></g>
+                        <text class="dg-s" x="76" y="42" text-anchor="middle">0</text>
+                        <text class="dg-s" x="192.9" y="42" text-anchor="middle">511</text>
+                        <text class="dg-s" x="280" y="42" text-anchor="middle">940</text>
+                        <text class="dg-s" x="318" y="28" text-anchor="middle">1023</text>
+
+                        <g class="dg-flow" style="stroke:var(--accent-soft);opacity:0.8">
+                            <path d="M76 58V172"/><path d="M90.6 58L76 172"/><path d="M192.9 58L195.4 172"/><path d="M291 58L310 172"/><path d="M309.1 58L310 172"/><path d="M310 58V172"/>
+                        </g>
+                        <text class="dg-l" x="18" y="182" style="fill:var(--accent-soft)">AS VIDEO</text>
+                        <line x1="76" y1="178" x2="310" y2="178" style="stroke:var(--accent);stroke-width:1.4"/>
+                        <g style="fill:var(--accent)"><circle cx="76" cy="178" r="3"/><circle cx="195.4" cy="178" r="3"/><circle cx="310" cy="178" r="4.4"/></g>
+                        <text class="dg-s dg-s--a" x="76" y="196" text-anchor="middle">0</text>
+                        <text class="dg-s dg-s--a" x="195.4" y="196" text-anchor="middle">130</text>
+                        <text class="dg-s dg-s--a" x="306" y="196" text-anchor="middle">255</text>
+                        <text class="dg-s" x="76" y="214" style="fill:var(--red)">three codes clip to 255</text>
+
+                        <g class="dg-flow dg-dash" style="stroke:var(--green);opacity:0.32">
+                            <path d="M76 58V272"/><path d="M90.6 58V272"/><path d="M192.9 58V272"/><path d="M291 58V272"/><path d="M309.1 58V272"/><path d="M310 58V272"/>
+                        </g>
+                        <text class="dg-l" x="18" y="282" style="fill:var(--green)">AS FULL</text>
+                        <line x1="76" y1="278" x2="310" y2="278" style="stroke:var(--green);stroke-width:1.4"/>
+                        <g style="fill:var(--green)"><circle cx="76" cy="278" r="3"/><circle cx="90.6" cy="278" r="3"/><circle cx="192.9" cy="278" r="3"/><circle cx="291" cy="278" r="3"/><circle cx="309.1" cy="278" r="3"/><circle cx="310" cy="278" r="3"/></g>
+                        <text class="dg-s" x="76" y="296" text-anchor="middle" style="fill:var(--green)">0</text>
+                        <text class="dg-s" x="90.6" y="310" text-anchor="middle" style="fill:var(--green)">16</text>
+                        <text class="dg-s" x="192.9" y="296" text-anchor="middle" style="fill:var(--green)">127</text>
+                        <text class="dg-s" x="285" y="296" text-anchor="middle" style="fill:var(--green)">234</text>
+                        <text class="dg-s" x="76" y="330" style="fill:var(--green)">nothing clips, everything separates</text>
+                    </svg>
+                    <figcaption><strong>Six codes, two readings, one output scale.</strong> The full-range reading is a straight pass-through, which is why its connectors are vertical. The video-range reading shifts, stretches and clips: three distinct codes arrive at 255 and can no longer be told apart, and everything from 0 to 64 arrives at 0.</figcaption>
+                </figure>
+
+                <div class="term" style="margin-top: 22px;">
+                    <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">10-bit luma, decoded both ways</span></div>
+                    <pre><span class="c">code    R' as video    RGB     R' as full    RGB    what it is</span>
+   0      -0.0731        0        0.0000       0     full-range black
+  64       0.0000        0        0.0626      16     video-range black
+ 255       0.2180       56        0.2493      64     quarter scale
+ 511       0.5103      130        0.4995     127     mid scale
+ 940       1.0000      255        0.9189     234     video-range white
+1019       1.0902      255        0.9961     254     highest legal SDI code
+1023       1.0947      255        1.0000     255     full-range white</pre>
+                </div>
+
+                <p class="prose-lead" style="margin-top: 18px;">Chroma is scaled as well as clipped, because its span is 896 codes in video range against 1023 in full. Read video-range chroma as full and saturation drops to about 88 percent of what was intended; read full-range chroma as video and it is pushed to about 114 percent, with the tips clipping. Greys are unaffected either way, since the centre code is the same in both.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transfer -->
+    <section class="section section--bordered" id="transfer">
+        <div class="section__grid">
+            <p class="label">Transfer</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">The transfer function is the only one of the three that talks about the physical world. It maps a signal value to a luminance, and the three families in use answer that question very differently. <strong>The SDR curves</strong> (sRGB, gamma 2.2, gamma 2.4 for BT.1886) are relative: full scale means diffuse white, conventionally 100 nits on a reference display. <strong>PQ</strong> (SMPTE ST 2084, the HDR10 curve) is absolute: a code means a specific number of nits, from 0 to 10 000, whether or not any display can produce it. <strong>HLG</strong> (BT.2100) is scene-referred: full scale means the display's peak, and the luminance comes from a system gamma applied at display time, quoted here against a 1000-nit nominal peak.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 320" role="img" aria-label="Luminance against signal value for PQ, HLG and gamma 2.4 on a logarithmic nits axis. At half scale they claim 92, 51 and 19 nits; at full scale 10000, 1000 and 100.">
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="70" y1="40" x2="660" y2="40"/><line x1="70" y1="78.3" x2="660" y2="78.3"/><line x1="70" y1="155" x2="660" y2="155"/><line x1="70" y1="193.3" x2="660" y2="193.3"/><line x1="70" y1="231.7" x2="660" y2="231.7"/>
+                        </g>
+                        <line x1="70" y1="116.7" x2="660" y2="116.7" style="stroke:var(--border-hover);stroke-width:1;stroke-dasharray:3 5"/>
+                        <line x1="70" y1="270" x2="660" y2="270" style="stroke:var(--text-4);stroke-width:1.2"/>
+                        <line x1="70" y1="40" x2="70" y2="270" style="stroke:var(--text-4);stroke-width:1.2"/>
+
+                        <g class="dg-s" text-anchor="end">
+                            <text x="62" y="44">10000</text><text x="62" y="82">1000</text><text x="62" y="120">100</text><text x="62" y="159">10</text><text x="62" y="197">1</text><text x="62" y="235">0.1</text><text x="62" y="274">0.01</text>
+                        </g>
+                        <text class="dg-l" x="12" y="30">NITS</text>
+                        <g class="dg-s" text-anchor="middle">
+                            <text x="70" y="288">0.00</text><text x="217.5" y="288">0.25</text><text x="365" y="288">0.50</text><text x="512.5" y="288">0.75</text><text x="660" y="288">1.00</text>
+                        </g>
+                        <text class="dg-s" x="365" y="308" text-anchor="middle">signal value, after range is removed</text>
+                        <text class="dg-s" x="78" y="110">SDR diffuse white, 100 nits</text>
+
+                        <polyline style="fill:none;stroke:var(--accent);stroke-width:2" points="70.0,270.0 77.4,270.0 84.8,264.9 92.1,250.8 99.5,240.2 106.9,231.6 114.2,224.2 121.6,217.8 129.0,212.1 136.4,206.8 143.8,202.0 151.1,197.5 158.5,193.3 165.9,189.3 173.2,185.6 180.6,182.0 188.0,178.6 195.4,175.3 202.8,172.1 210.1,169.0 217.5,166.0 224.9,163.1 232.2,160.3 239.6,157.6 247.0,154.9 254.4,152.3 261.8,149.8 269.1,147.3 276.5,144.8 283.9,142.4 291.2,140.0 298.6,137.7 306.0,135.4 313.4,133.1 320.8,130.9 328.1,128.7 335.5,126.5 342.9,124.4 350.2,122.2 357.6,120.1 365.0,118.0 372.4,115.9 379.8,113.9 387.1,111.8 394.5,109.8 401.9,107.8 409.2,105.8 416.6,103.8 424.0,101.8 431.4,99.8 438.8,97.9 446.1,95.9 453.5,94.0 460.9,92.0 468.2,90.1 475.6,88.2 483.0,86.3 490.4,84.3 497.8,82.4 505.1,80.5 512.5,78.6 519.9,76.7 527.2,74.8 534.6,72.9 542.0,71.0 549.4,69.1 556.8,67.2 564.1,65.3 571.5,63.3 578.9,61.4 586.2,59.5 593.6,57.6 601.0,55.7 608.4,53.7 615.8,51.8 623.1,49.8 630.5,47.9 637.9,45.9 645.2,44.0 652.6,42.0 660.0,40.0"/>
+                        <polyline style="fill:none;stroke:var(--green);stroke-width:2" points="70.0,270.0 77.4,270.0 84.8,247.7 92.1,231.5 99.5,220.0 106.9,211.1 114.2,203.8 121.6,197.6 129.0,192.3 136.4,187.6 143.8,183.4 151.1,179.6 158.5,176.1 165.9,172.9 173.2,169.9 180.6,167.2 188.0,164.6 195.4,162.2 202.8,159.9 210.1,157.7 217.5,155.7 224.9,153.7 232.2,151.9 239.6,150.1 247.0,148.4 254.4,146.8 261.8,145.2 269.1,143.7 276.5,142.2 283.9,140.8 291.2,139.5 298.6,138.2 306.0,136.9 313.4,135.7 320.8,134.5 328.1,133.3 335.5,132.2 342.9,131.1 350.2,130.0 357.6,129.0 365.0,128.0 372.4,127.0 379.8,125.9 387.1,124.9 394.5,123.8 401.9,122.7 409.2,121.6 416.6,120.5 424.0,119.4 431.4,118.3 438.8,117.1 446.1,115.9 453.5,114.7 460.9,113.5 468.2,112.3 475.6,111.1 483.0,109.9 490.4,108.6 497.8,107.4 505.1,106.1 512.5,104.9 519.9,103.6 527.2,102.3 534.6,101.0 542.0,99.7 549.4,98.4 556.8,97.1 564.1,95.8 571.5,94.5 578.9,93.2 586.2,91.8 593.6,90.5 601.0,89.2 608.4,87.8 615.8,86.5 623.1,85.1 630.5,83.8 637.9,82.4 645.2,81.1 652.6,79.7 660.0,78.3"/>
+                        <polyline style="fill:none;stroke:var(--text-3);stroke-width:2;stroke-dasharray:5 4" points="70.0,270.0 77.4,270.0 84.8,264.1 92.1,247.9 99.5,236.4 106.9,227.4 114.2,220.2 121.6,214.0 129.0,208.7 136.4,204.0 143.8,199.8 151.1,195.9 158.5,192.5 165.9,189.3 173.2,186.3 180.6,183.6 188.0,181.0 195.4,178.5 202.8,176.3 210.1,174.1 217.5,172.1 224.9,170.1 232.2,168.2 239.6,166.5 247.0,164.8 254.4,163.1 261.8,161.6 269.1,160.1 276.5,158.6 283.9,157.2 291.2,155.9 298.6,154.5 306.0,153.3 313.4,152.0 320.8,150.9 328.1,149.7 335.5,148.6 342.9,147.5 350.2,146.4 357.6,145.4 365.0,144.4 372.4,143.4 379.8,142.4 387.1,141.5 394.5,140.6 401.9,139.7 409.2,138.8 416.6,137.9 424.0,137.1 431.4,136.3 438.8,135.4 446.1,134.7 453.5,133.9 460.9,133.1 468.2,132.4 475.6,131.6 483.0,130.9 490.4,130.2 497.8,129.5 505.1,128.8 512.5,128.2 519.9,127.5 527.2,126.9 534.6,126.2 542.0,125.6 549.4,125.0 556.8,124.4 564.1,123.8 571.5,123.2 578.9,122.6 586.2,122.0 593.6,121.4 601.0,120.9 608.4,120.3 615.8,119.8 623.1,119.2 630.5,118.7 637.9,118.2 645.2,117.7 652.6,117.2 660.0,116.7"/>
+
+                        <text class="dg-t" x="666" y="44" style="fill:var(--accent)">PQ</text>
+                        <text class="dg-t" x="666" y="82" style="fill:var(--green)">HLG</text>
+                        <text class="dg-s" x="666" y="128">2.4</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 340" role="img" aria-label="Luminance against signal value for PQ, HLG and gamma 2.4 on a logarithmic nits axis. At half scale they claim 92, 51 and 19 nits; at full scale 10000, 1000 and 100.">
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="54" y1="30" x2="320" y2="30"/><line x1="54" y1="68.7" x2="320" y2="68.7"/><line x1="54" y1="146" x2="320" y2="146"/><line x1="54" y1="184.7" x2="320" y2="184.7"/><line x1="54" y1="223.3" x2="320" y2="223.3"/>
+                        </g>
+                        <line x1="54" y1="107.3" x2="320" y2="107.3" style="stroke:var(--border-hover);stroke-width:1;stroke-dasharray:3 5"/>
+                        <line x1="54" y1="262" x2="320" y2="262" style="stroke:var(--text-4);stroke-width:1.2"/>
+                        <line x1="54" y1="30" x2="54" y2="262" style="stroke:var(--text-4);stroke-width:1.2"/>
+                        <g class="dg-s" text-anchor="end">
+                            <text x="48" y="34">10k</text><text x="48" y="72">1000</text><text x="48" y="111">100</text><text x="48" y="150">10</text><text x="48" y="188">1</text><text x="48" y="227">0.1</text><text x="48" y="266">.01</text>
+                        </g>
+                        <g class="dg-s" text-anchor="middle">
+                            <text x="54" y="280">0.00</text><text x="187" y="280">0.50</text><text x="320" y="280">1.00</text>
+                        </g>
+                        <text class="dg-s" x="187" y="300" text-anchor="middle">signal value</text>
+
+                        <polyline style="fill:none;stroke:var(--accent);stroke-width:2" points="54.0,262.0 58.4,262.0 62.9,246.8 67.3,231.9 71.7,220.6 76.2,211.4 80.6,203.6 85.0,196.6 89.5,190.4 93.9,184.6 98.3,179.4 102.8,174.4 107.2,169.8 111.6,165.4 116.1,161.2 120.5,157.1 124.9,153.3 129.4,149.5 133.8,145.9 138.2,142.4 142.7,139.0 147.1,135.7 151.5,132.5 156.0,129.3 160.4,126.2 164.8,123.2 169.3,120.2 173.7,117.3 178.1,114.4 182.6,111.5 187.0,108.7 191.4,105.9 195.9,103.1 200.3,100.4 204.7,97.7 209.2,95.0 213.6,92.4 218.0,89.7 222.5,87.1 226.9,84.5 231.3,81.9 235.8,79.3 240.2,76.7 244.6,74.1 249.1,71.5 253.5,68.9 257.9,66.4 262.4,63.8 266.8,61.3 271.2,58.7 275.7,56.1 280.1,53.5 284.5,51.0 289.0,48.4 293.4,45.8 297.8,43.2 302.3,40.6 306.7,38.0 311.1,35.3 315.6,32.7 320.0,30.0"/>
+                        <polyline style="fill:none;stroke:var(--green);stroke-width:2" points="54.0,262.0 58.4,255.8 62.9,227.9 67.3,211.5 71.7,199.9 76.2,191.0 80.6,183.6 85.0,177.4 89.5,172.0 93.9,167.3 98.3,163.0 102.8,159.2 107.2,155.7 111.6,152.4 116.1,149.5 120.5,146.7 124.9,144.1 129.4,141.6 133.8,139.3 138.2,137.1 142.7,135.1 147.1,133.1 151.5,131.2 156.0,129.4 160.4,127.7 164.8,126.1 169.3,124.5 173.7,123.0 178.1,121.5 182.6,120.1 187.0,118.7 191.4,117.4 195.9,116.0 200.3,114.6 204.7,113.1 209.2,111.6 213.6,110.1 218.0,108.5 222.5,107.0 226.9,105.4 231.3,103.8 235.8,102.1 240.2,100.5 244.6,98.8 249.1,97.1 253.5,95.4 257.9,93.7 262.4,92.0 266.8,90.2 271.2,88.5 275.7,86.7 280.1,85.0 284.5,83.2 289.0,81.4 293.4,79.6 297.8,77.8 302.3,76.0 306.7,74.1 311.1,72.3 315.6,70.5 320.0,68.7"/>
+                        <polyline style="fill:none;stroke:var(--text-3);stroke-width:2;stroke-dasharray:5 4" points="54.0,262.0 58.4,262.0 62.9,244.4 67.3,228.1 71.7,216.5 76.2,207.5 80.6,200.1 85.0,193.9 89.5,188.5 93.9,183.8 98.3,179.5 102.8,175.7 107.2,172.2 111.6,169.0 116.1,166.0 120.5,163.2 124.9,160.6 129.4,158.2 133.8,155.9 138.2,153.7 142.7,151.6 147.1,149.6 151.5,147.8 156.0,146.0 160.4,144.3 164.8,142.6 169.3,141.0 173.7,139.5 178.1,138.0 182.6,136.6 187.0,135.3 191.4,133.9 195.9,132.7 200.3,131.4 204.7,130.2 209.2,129.1 213.6,127.9 218.0,126.8 222.5,125.7 226.9,124.7 231.3,123.7 235.8,122.7 240.2,121.7 244.6,120.8 249.1,119.8 253.5,118.9 257.9,118.0 262.4,117.2 266.8,116.3 271.2,115.5 275.7,114.7 280.1,113.9 284.5,113.1 289.0,112.3 293.4,111.6 297.8,110.8 302.3,110.1 306.7,109.4 311.1,108.7 315.6,108.0 320.0,107.3"/>
+
+                        <text class="dg-t" x="66" y="46" style="fill:var(--accent)">PQ</text>
+                        <text class="dg-t" x="66" y="84" style="fill:var(--green)">HLG</text>
+                        <text class="dg-s" x="66" y="122">gamma 2.4</text>
+                        <text class="dg-s" x="316" y="322" text-anchor="end">SDR white = 100 nits</text>
+                    </svg>
+                    <figcaption><strong>The same signal value, three claims about light.</strong> At half scale, gamma 2.4 says 19 nits, HLG says 51, PQ says 92. At full scale they say 100, 1000 and 10 000. Nothing here touches a code: this is entirely a statement about what the codes were supposed to mean.</figcaption>
+                </figure>
+
+                <div class="term" style="margin-top: 22px;">
+                    <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">one 10-bit video-range code, three claims</span></div>
+                    <pre><span class="c">code    signal    gamma 2.4        HLG           PQ</span>
+ 255     0.218      2.6 nits     6.9 nits      3.2 nits
+ 511     0.510     19.9 nits      53 nits      102 nits
+ 767     0.803       59 nits     280 nits     1591 nits
+ 940     1.000      100 nits    1000 nits    10000 nits</pre>
+                </div>
+
+                <div class="callout">
+                    <p><strong>Why HDR test patterns can all look like the same white.</strong> A typical panel gives an app roughly twice SDR white of extended range, about 200 nits. Under PQ, code 511 is already 102 nits and code 767 is 1591, so everything from the mid-scale step upward is beyond what the panel can show and clips to the same white. The picture is not wrong, the display is out of room. The codes and the nits readout still tell the truth, which is the argument for trusting the meter over the monitor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chroma -->
+    <section class="section section--bordered" id="chroma">
+        <div class="section__grid">
+            <p class="label">Chroma subsampling and siting</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">Because luma carries most of the detail the eye resolves, the two color-difference channels are usually stored at lower resolution. 4:4:4 keeps everything, 4:2:2 halves chroma horizontally, 4:2:0 halves it in both directions, so a 4:2:0 chroma sample stands for a 2&#215;2 block of luma. That raises a question with no self-evident answer: where in the block does the chroma sample sit? Different standards answered differently, and the answer has to travel with the file or edges pick up a half-sample color shift.</p>
+
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 220" role="img" aria-label="4:2:0 chroma sample positions: left siting places the sample on the left luma column between rows, centre siting places it between columns and between rows.">
+                        <text class="dg-t" x="20" y="24">Left siting</text>
+                        <text class="dg-s" x="20" y="42">MPEG-2, H.264, HEVC default</text>
+                        <rect class="dg-box" x="40" y="56" width="224" height="112" rx="6"/>
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="96" y1="56" x2="96" y2="168"/><line x1="152" y1="56" x2="152" y2="168"/><line x1="208" y1="56" x2="208" y2="168"/><line x1="40" y1="112" x2="264" y2="112"/>
+                        </g>
+                        <g style="fill:var(--text-2)">
+                            <circle cx="68" cy="84" r="3.4"/><circle cx="124" cy="84" r="3.4"/><circle cx="180" cy="84" r="3.4"/><circle cx="236" cy="84" r="3.4"/>
+                            <circle cx="68" cy="140" r="3.4"/><circle cx="124" cy="140" r="3.4"/><circle cx="180" cy="140" r="3.4"/><circle cx="236" cy="140" r="3.4"/>
+                        </g>
+                        <g style="stroke:var(--accent);stroke-width:2">
+                            <path d="M61 105l14 14M75 105l-14 14"/><path d="M173 105l14 14M187 105l-14 14"/>
+                        </g>
+
+                        <text class="dg-t" x="400" y="24">Centre siting</text>
+                        <text class="dg-s" x="400" y="42">JPEG, MPEG-1</text>
+                        <rect class="dg-box" x="420" y="56" width="224" height="112" rx="6"/>
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="476" y1="56" x2="476" y2="168"/><line x1="532" y1="56" x2="532" y2="168"/><line x1="588" y1="56" x2="588" y2="168"/><line x1="420" y1="112" x2="644" y2="112"/>
+                        </g>
+                        <g style="fill:var(--text-2)">
+                            <circle cx="448" cy="84" r="3.4"/><circle cx="504" cy="84" r="3.4"/><circle cx="560" cy="84" r="3.4"/><circle cx="616" cy="84" r="3.4"/>
+                            <circle cx="448" cy="140" r="3.4"/><circle cx="504" cy="140" r="3.4"/><circle cx="560" cy="140" r="3.4"/><circle cx="616" cy="140" r="3.4"/>
+                        </g>
+                        <g style="stroke:var(--accent);stroke-width:2">
+                            <path d="M469 105l14 14M483 105l-14 14"/><path d="M581 105l14 14M595 105l-14 14"/>
+                        </g>
+
+                        <circle cx="46" cy="196" r="3.4" style="fill:var(--text-2)"/>
+                        <text class="dg-s" x="58" y="200">luma sample</text>
+                        <g style="stroke:var(--accent);stroke-width:2"><path d="M175 190l12 12M187 190l-12 12"/></g>
+                        <text class="dg-s" x="198" y="200">chroma sample, one per 2&#215;2 block</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 400" role="img" aria-label="4:2:0 chroma sample positions: left siting places the sample on the left luma column between rows, centre siting places it between columns and between rows.">
+                        <text class="dg-t" x="20" y="24">Left siting</text>
+                        <text class="dg-s" x="20" y="42">MPEG-2, H.264, HEVC</text>
+                        <rect class="dg-box" x="30" y="56" width="224" height="112" rx="6"/>
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="86" y1="56" x2="86" y2="168"/><line x1="142" y1="56" x2="142" y2="168"/><line x1="198" y1="56" x2="198" y2="168"/><line x1="30" y1="112" x2="254" y2="112"/>
+                        </g>
+                        <g style="fill:var(--text-2)">
+                            <circle cx="58" cy="84" r="3.4"/><circle cx="114" cy="84" r="3.4"/><circle cx="170" cy="84" r="3.4"/><circle cx="226" cy="84" r="3.4"/>
+                            <circle cx="58" cy="140" r="3.4"/><circle cx="114" cy="140" r="3.4"/><circle cx="170" cy="140" r="3.4"/><circle cx="226" cy="140" r="3.4"/>
+                        </g>
+                        <g style="stroke:var(--accent);stroke-width:2">
+                            <path d="M51 105l14 14M65 105l-14 14"/><path d="M163 105l14 14M177 105l-14 14"/>
+                        </g>
+
+                        <text class="dg-t" x="20" y="222">Centre siting</text>
+                        <text class="dg-s" x="20" y="240">JPEG, MPEG-1</text>
+                        <rect class="dg-box" x="30" y="254" width="224" height="112" rx="6"/>
+                        <g style="stroke:var(--border);stroke-width:1">
+                            <line x1="86" y1="254" x2="86" y2="366"/><line x1="142" y1="254" x2="142" y2="366"/><line x1="198" y1="254" x2="198" y2="366"/><line x1="30" y1="310" x2="254" y2="310"/>
+                        </g>
+                        <g style="fill:var(--text-2)">
+                            <circle cx="58" cy="282" r="3.4"/><circle cx="114" cy="282" r="3.4"/><circle cx="170" cy="282" r="3.4"/><circle cx="226" cy="282" r="3.4"/>
+                            <circle cx="58" cy="338" r="3.4"/><circle cx="114" cy="338" r="3.4"/><circle cx="170" cy="338" r="3.4"/><circle cx="226" cy="338" r="3.4"/>
+                        </g>
+                        <g style="stroke:var(--accent);stroke-width:2">
+                            <path d="M79 303l14 14M93 303l-14 14"/><path d="M191 303l14 14M205 303l-14 14"/>
+                        </g>
+
+                        <circle cx="272" cy="84" r="3.4" style="fill:var(--text-2)"/>
+                        <text class="dg-s" x="284" y="88">luma</text>
+                        <g style="stroke:var(--accent);stroke-width:2"><path d="M266 130l12 12M278 130l-12 12"/></g>
+                        <text class="dg-s" x="284" y="140">chroma</text>
+                    </svg>
+                    <figcaption><strong>Same eight luma samples, same two chroma samples, half a pixel apart.</strong> Flat color fields are identical either way, which is why the error hides: it appears only on color edges, as a faint one-sided fringe. Broadcast-lineage formats site chroma to the left, JPEG-lineage formats centre it.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- What the file carries -->
+    <section class="section section--bordered" id="carried">
+        <div class="section__grid">
+            <p class="label">What the file carries</p>
+            <div>
+                <p class="prose-lead" style="margin-bottom: 22px;">Given how much the three declarations change, you would expect every format to record them. Most raw and intermediate formats record almost none.</p>
+                <div class="feature-row"><div class="feature-row__k">Headerless raw</div><div class="feature-row__v">Nothing, not even dimensions or pixel format. Everything is supplied by whoever opens it, which is why a raw file needs a parameter sheet.</div></div>
+                <div class="feature-row"><div class="feature-row__k">y4m</div><div class="feature-row__v">Range rides in the XCOLORRANGE extension, and chroma siting only in the 8-bit 4:2:0 colorspace tags. No field exists for matrix or transfer, so a BT.2020 PQ clip written to y4m reopens as whatever the reader assumes.</div></div>
+                <div class="feature-row"><div class="feature-row__k">MP4 and MOV</div><div class="feature-row__v">The colr box carries primaries, transfer, matrix and a full-range flag, with chroma location alongside. This is the layer <a href="metadata-repair.html">metadata repair</a> fixes without re-encoding.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Coded bitstream</div><div class="feature-row__v">H.264 and HEVC VUI, AV1 color config. A second copy that can disagree with the container, written by different tools at different times, and players do not all resolve the conflict the same way. Checking that both layers agree is a real quality-control task.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Check it yourself -->
+    <section class="section section--bordered" id="check">
+        <div class="section__grid">
+            <p class="label">Check it yourself</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">None of this has to be taken on faith. A signal generator writes a file whose every code you chose, so you can predict the readout before you look at it. These use Videre's generator and pixel probe; the experiments work with any tool that authors exact codes and reports them back.</p>
+
+                <div class="term" style="margin-top: 22px;">
+                    <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">the matrix moves color, never grey</span></div>
+                    <pre><span class="p">$</span> videre generate -o a.y4m --pattern solidField \
+      --param mode=signalRGB --param red=0 --param green=0 --param blue=1 \
+      --format yuv444p10 --size 640x480 --frames 1 --matrix bt709 --range video
+<span class="p">$</span> videre generate -o b.y4m ... --matrix bt601
+<span class="p">$</span> cmp a.y4m b.y4m          <span class="c"># differs</span>
+
+<span class="p">$</span> videre generate -o c.y4m --pattern ramp --matrix bt709 ...
+<span class="p">$</span> videre generate -o d.y4m --pattern ramp --matrix bt601 ...
+<span class="p">$</span> cmp c.y4m d.y4m          <span class="c"># identical, byte for byte</span></pre>
+                </div>
+                <p class="prose-lead" style="margin-top: 14px;">Open the blue field and flip the viewer's matrix between BT.601 and BT.709. The Y, Cb, Cr readout does not move. The RGB readout does.</p>
+
+                <div class="term" style="margin-top: 22px;">
+                    <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">the range asymmetry, on one frame</span></div>
+                    <pre><span class="p">$</span> videre generate -o range.y4m --pattern rangeChecker \
+      --format yuv420p10 --size 1920x1080 --frames 1 --range full</pre>
+                </div>
+                <p class="prose-lead" style="margin-top: 14px;">A full-range checker writes the cells 0, 4, 255, 511, 767, 1019 and 1023. Toggle the viewer between Full and Video and watch the readout: the codes never move, and under Video the top two cells both report RGB 255, then separate into 254 and 255 under Full. Codes 0 and 4 are the mirror case at the bottom.</p>
+
+                <div class="term" style="margin-top: 22px;">
+                    <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">transfer changes the meaning, not the file</span></div>
+                    <pre><span class="p">$</span> videre generate -o pq.y4m --pattern pqStairs --transfer pq \
+      --format yuv420p10 --size 1920x1080 --frames 1</pre>
+                </div>
+                <p class="prose-lead" style="margin-top: 14px;">Hover a step with the viewer set to PQ and the nits figure lands at or just below the authored value, never above, because the nits-to-code quantization floors toward the legal side. Switch to HLG and the same code reports a different luminance. Switch to an SDR curve and the nits figure disappears, because a relative curve makes no absolute claim. The generator refuses to write a nits-defined pattern under an SDR transfer at all: a file claiming 1000 nits while carrying 100 is a lie the rest of the chain would believe.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The full pattern catalogue, with what each one exposes, is on the <a href="test-signals.html">test signals</a> page.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symptom to cause -->
+    <section class="section section--bordered" id="symptoms">
+        <div class="section__grid">
+            <p class="label">Symptom to cause</p>
+            <div>
+                <p class="prose-lead" style="margin-bottom: 22px;">Most color faults in a delivery chain are one of these, and each has a signature you can confirm with a probe rather than an opinion. The tell is usually what stays correct.</p>
+                <div class="feature-row"><div class="feature-row__k">Milky blacks</div><div class="feature-row__v">Dull whites, nothing clipped, greys lifted: video-range material read as full. Confirm it by probing black, which reads as code 64 but RGB 16.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Crushed shadows</div><div class="feature-row__v">Blown highlights, contrast too strong: full-range material read as video. Confirm it where distinct high codes all report RGB 255.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Hues drift</div><div class="feature-row__v">Worst on red and blue, brightness slightly off, greys still neutral: wrong matrix. On a vectorscope the targets sit rotated off their boxes.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Too dark or bright</div><div class="feature-row__v">Whole picture off, color relationships intact: wrong transfer. The nits readout disagrees with the authored value.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Edge fringes</div><div class="feature-row__v">A faint color fringe on one side of vertical edges only, flat fields fine: wrong chroma siting.</div></div>
+
+                <div class="callout">
+                    <p><strong>The habit worth building.</strong> When a picture looks wrong, read the codes first and the picture second. Codes are the only part of the chain that is not an opinion. Everything else, the RGB triple, the nits figure, the scopes, the way it looks on your monitor, is downstream of three declarations that may well be the thing that is wrong.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered" style="text-align: center;">
+        <p class="label" style="margin-bottom: 14px;">Go deeper</p>
+        <p style="font-size: 0.9rem; color: var(--text-2); max-width: 520px; margin: 0 auto 22px; line-height: 1.6;">Videre shows the codes, the interpretation and the derived numbers side by side, and generates the test signals to check them against.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a class="btn btn-primary" href="index.html">About Videre</a>
+            <a class="btn btn-secondary" href="decoding.html">The decode path</a>
+            <a class="btn btn-secondary" href="guide.html">User guide</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Videre</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+        <p class="footer__legal">Dolby, Dolby Vision, and the double-D symbol are trademarks of Dolby Laboratories Licensing Corporation. HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by either organization.</p>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>
