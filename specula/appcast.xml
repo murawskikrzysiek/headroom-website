@@ -34,7 +34,7 @@
              every installed copy offer an update that then fails to verify. -->
         <item>
             <title>Version 1.2.1</title>
-            <description>Icons only for the mode and view buttons: a new toggle under Settings, Layout drops the text from the mode buttons (Edit, Compare, Chapter, Dialogue, Spectral, Record), the Generate button, and the view toggles under them, leaving the icons. Hovering a button still names it and gives its shortcut, and the narrower bar fits more of the window before it wraps to a second row.</description>
+            <description>Icons only for the mode and view buttons: a toggle under Settings, Layout drops the text labels from the mode bar, the view toggles, and Generate. The mode buttons are Edit, Compare, Chapter, Dialogue, Spectral, and Record. Hovering any button still names it and gives its shortcut, and the narrower bar fits more of the window before it wraps to a second row.</description>
             <pubDate>REPLACE_WITH_RFC822_PUBDATE</pubDate>
             <sparkle:version>5</sparkle:version>
             <sparkle:shortVersionString>1.2.1</sparkle:shortVersionString>
