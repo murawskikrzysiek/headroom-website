@@ -1257,7 +1257,7 @@
         <p class="prose">The routing section has a <strong>List / Matrix</strong> toggle. Same data, two presentations.</p>
         <ul>
             <li><strong>List view</strong>: one row per output channel, with a source picker and a typeable dB gain field per route. Best for precise gain entry.</li>
-            <li><strong>Matrix view (default)</strong>: patch-bay grid. Rows are device outputs, columns are source channels. Background colour shows the topology at a glance (filled accent = routed, dim gray = unrouted). Each routed cell splits into three click zones from left to right: the <strong>on/off dot</strong> disables the route in one click; the <strong>ϕ glyph</strong> cycles the route's phase through 0°, +90°, −90° and 180° (the ±90° states are what Lt/Rt encoding uses; turns orange when active); the <strong>value</strong> is the typeable gain in dB. Press <kbd>Enter</kbd> to commit, <kbd>Esc</kbd> to cancel an edit. Drag vertically over a routed value to adjust (±0.25 dB per pixel). Click an unrouted cell to enable the route at unity (0 dB). Right-click any cell for the menu equivalents. A silent row or unused source column jumps out at first glance. Cell backgrounds use Liquid Glass on macOS 26 (the same opt-out toggle the rest of the chrome respects).</li>
+            <li><strong>Matrix view (default)</strong>: patch-bay grid. Rows are device outputs, columns are source channels. Background colour shows the topology at a glance (filled accent = routed, dim gray = unrouted). Each routed cell splits into three click zones from left to right: the <strong>on/off dot</strong> disables the route in one click; the <strong>ϕ glyph</strong> cycles the route's phase through 0°, +90°, −90° and 180° (the ±90° states are a broadband Hilbert shift, not a polarity flip; turns orange when active); the <strong>value</strong> is the typeable gain in dB. Press <kbd>Enter</kbd> to commit, <kbd>Esc</kbd> to cancel an edit. Drag vertically over a routed value to adjust (±0.25 dB per pixel). Click an unrouted cell to enable the route at unity (0 dB). Right-click any cell for the menu equivalents. A silent row or unused source column jumps out at first glance. Cell backgrounds use Liquid Glass on macOS 26 (the same opt-out toggle the rest of the chrome respects).</li>
         </ul>
         <p class="prose">Your preference persists across launches.</p>
 
@@ -1266,13 +1266,13 @@
         <ul>
             <li><strong>Default</strong> (any file/device): restores the 1:1 identity routing (source channel N to output channel N) for as many channels as both have. Use this to get back to a clean state after experimenting.</li>
             <li><strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R.</li>
-            <li><strong>5.1 downmix</strong> (file is 6 ch): Lo/Ro (ITU-R BS.775 / Dolby stereo downmix), Lt/Rt (Pro Logic II matrix encoding: same-side surround at &minus;1.2 dB, opposite-side surround at &minus;6.2 dB, both shifted 90&deg;), 5.1 to Mono.</li>
-            <li><strong>7.1 downmix</strong> (file is 8 ch): 7.1 to Lo/Ro, 7.1 to Lt/Rt (PLII, the same coefficients applied to both the side and back surround pairs), 7.1 to 5.1.</li>
+            <li><strong>5.1 downmix</strong> (file is 6 ch): Lo/Ro (ITU-R BS.775 stereo downmix), 5.1 to Mono.</li>
+            <li><strong>7.1 downmix</strong> (file is 8 ch): 7.1 to Lo/Ro, 7.1 to 5.1.</li>
             <li><strong>Test</strong> (file is 6 ch): Ls/Rs solo, C/LFE solo, for inspecting surround content in isolation.</li>
         </ul>
         <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted, so the preset fully replaces the routing.</p>
         <p class="prose">Lo/Ro follows the ITU-R BS.775 stereo downmix: the front channel, plus Center at &minus;3 dB, plus the same-side surround at &minus;3 dB. That &minus;3 dB is 1/sqrt(2), the equal-power gain for summing correlated channels.</p>
-        <p class="prose">Lt/Rt uses Dolby's published Pro Logic II coefficients: Center at &minus;3 dB, the same-side surround at &minus;1.2 dB, and the opposite-side surround at &minus;6.2 dB, with a 90&deg; shift on both surrounds. The shift is a broadband Hilbert transform rather than a polarity flip, because the 90&deg; relationship is what a Pro Logic II decoder reads to recover the surround image. Dolby publishes these coefficients and recommends the 90&deg; shift for any Lt/Rt fold-down: <a href="https://professionalsupport.dolby.com/s/article/How-do-the-5-1-and-Stereo-downmix-settings-work?language=en_US">How do the 5.1 and Stereo downmix settings work?</a></p>
+        <p class="prose">A matrix-encoded fold-down isn't a built-in preset, but the matrix has the parts to build one: set each route's gain, and use the &phi; control to put a route into +90&deg; or &minus;90&deg;. Those states are a true broadband Hilbert shift, not a polarity flip, so the quadrature relationship a matrix decoder reads is preserved. Save the result as a user preset to recall it.</p>
 
         <h3>Saved (user) presets</h3>
         <p class="prose">Above the built-in row is a <strong>Saved</strong> row for your own routings.</p>
@@ -1286,13 +1286,13 @@
 
 
         <h3>Per-route phase</h3>
-        <p class="prose">Phase is a per-source-slot setting, separate from gain, cycling through 0°, +90°, −90° and 180°. List view has a small <strong>ϕ</strong> button next to each source's gain knob; Matrix view has the dedicated <strong>ϕ</strong> click zone in every routed cell (orange glyph when active). The ±90° states are what Pro Logic II Lt/Rt encoding uses; 180° is a plain polarity flip, useful for quick A/B phase checks across any single route.</p>
+        <p class="prose">Phase is a per-source-slot setting, separate from gain, cycling through 0°, +90°, −90° and 180°. List view has a small <strong>ϕ</strong> button next to each source's gain knob; Matrix view has the dedicated <strong>ϕ</strong> click zone in every routed cell (orange glyph when active). The ±90° states are a true broadband Hilbert shift rather than a polarity flip; 180° is a plain polarity flip, useful for quick A/B phase checks across any single route.</p>
 
         <h3>Why it matters</h3>
         <p class="prose">A 5.1 master with the wrong channel order is a routing problem, not an EQ problem. Specula lets you reroute channels for playback without modifying the file, so you can verify L / R / C / LFE / Ls / Rs ordering against your monitor system. The preset library covers the common stereo and surround downmix workflows in one click; the matrix view makes any custom mapping obvious at a glance.</p>
 
         <h3>Render to File</h3>
-        <p class="prose">Once a downmix, reorder, or custom matrix is right, <strong>Render to File…</strong> (in the Routing section header) renders it to a new audio file, so the routing is a deliverable, not just an audition. Every per-route gain, phase, and Pro Logic II ±90° shift is applied exactly as it sounds on playback, computed offline.</p>
+        <p class="prose">Once a downmix, reorder, or custom matrix is right, <strong>Render to File…</strong> (in the Routing section header) renders it to a new audio file, so the routing is a deliverable, not just an audition. Every per-route gain, phase, and ±90° shift is applied exactly as it sounds on playback, computed offline.</p>
         <p class="prose"><strong>Only the outputs you've actually routed are written.</strong> A 5.1 → stereo downmix on an 8-channel device renders a 2-channel file, not eight channels padded with silence (outputs with no source are dropped). The result writes as a new file (WAV, or CAF when the output channel layout can't be stored in WAV order) and never overwrites the source.</p>
         <p class="prose">It bakes the <strong>routing only</strong>: the playback-side loudness match and the channel solo / mute are not baked, so the output is exactly what the matrix defines. To drop a channel from the bake, mute its route in the matrix (set its source to none) rather than relying on the monitor mute.</p>
 
@@ -2159,7 +2159,6 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
             <li><a href="./">Specula home</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
-        <p class="footer__legal">Dolby, Dolby Pro Logic, and the double-D symbol are trademarks of Dolby Laboratories Licensing Corporation. Specula is an independent product and is not affiliated with, endorsed by, or certified by Dolby Laboratories.</p>
     </footer>
 </div>
 
