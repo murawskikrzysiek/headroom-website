@@ -1272,7 +1272,7 @@
         </ul>
         <p class="prose">Applying a preset is destructive: it overwrites the routing for every output channel, including any custom gain you set. Outputs the preset doesn't address are muted, so the preset fully replaces the routing.</p>
         <p class="prose">Lo/Ro follows the ITU-R BS.775 stereo downmix: the front channel, plus Center at &minus;3 dB, plus the same-side surround at &minus;3 dB. That &minus;3 dB is 1/sqrt(2), the equal-power gain for summing correlated channels.</p>
-        <p class="prose">A matrix-encoded fold-down isn't a built-in preset, but the matrix has the parts to build one: set each route's gain, and use the &phi; control to put a route into +90&deg; or &minus;90&deg;. Those states are a true broadband Hilbert shift, not a polarity flip, so the quadrature relationship a matrix decoder reads is preserved. Save the result as a user preset to recall it.</p>
+        <p class="prose">Any fold-down the presets don't cover can be built by hand: set each route's gain, and use the &phi; control to put a route into +90&deg; or &minus;90&deg;. Those states are a true broadband Hilbert shift rather than a polarity flip, so a quadrature relationship survives the fold. Save the result as a user preset to recall it.</p>
 
         <h3>Saved (user) presets</h3>
         <p class="prose">Above the built-in row is a <strong>Saved</strong> row for your own routings.</p>
@@ -1926,6 +1926,8 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
         <p class="prose">Each section can still be toggled live with <kbd>⌃1</kbd>-<kbd>⌃5</kbd>.</p>
 
         <p class="prose"><strong>Text size</strong> scales the text across the main window: the info panel (file details, channel meter labels, every loudness readout), the module control strips (the waveform's channel chips, zoom and amplitude clusters, the IN / OUT / LEN selection fields, the loudness-curve, FFT, and stereo-width strips), the transport bar (timecode display, Analyse, Generate, the mode selector), the segmented switches, and the axis labels. Default, Large, or Extra Large. The info panel also honors the system <strong>Increase Contrast</strong> setting (System Settings → Accessibility → Display) by rendering its dimmed labels brighter, and its faintest labels were brightened across the board.</p>
+
+        <p class="prose"><strong>Icons only</strong> (Mode and view buttons) hides the text on the mode buttons (Edit, Compare, Chapter, Dialogue, Spectral, Record), the Generate button, and the view toggles under them, leaving the icons. Off by default. Hovering a button still shows its name and shortcut. The narrower bar fits more of the window before it wraps to a second row, which is what makes it worth having on a laptop screen or a half-width window.</p>
 
         <p class="prose"><strong>Loudness readout</strong> sets how often the live Momentary, Short-term, and Integrated numbers repaint: <strong>10 Hz (EBU Tech 3341)</strong>, the default, or 5 Hz and 2 Hz for easier reading. All three sit above the 1 Hz the standard asks of integrated, and 10 Hz is the minimum the standard requires of a live short-term meter. A separate <strong>Rolling digits</strong> toggle controls the digit animation on its own. Both settings are display-only: no measurement changes.</p>
 
