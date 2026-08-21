@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videre - Video Inspection &amp; Analysis for macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/videre/">
-    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, Dolby Vision and HDR10+ metadata, inspect the bitstream, compare encodes with PSNR, SSIM, VMAF, repair metadata without re-encoding, edit and verify raw video, generate test signals, detect scenes, and check delivery specs.">
+    <meta name="description" content="Native macOS video inspector. Open raw YUV or encoded files, display them color-correctly in SDR and HDR, read scopes, HDR10+ metadata, inspect the bitstream, compare encodes with PSNR, SSIM, VMAF, repair metadata without re-encoding, edit and verify raw video, generate test signals, detect scenes, and check delivery specs.">
     <meta property="og:title" content="Videre">
     <meta property="og:description" content="See what's actually in the frame. Raw and encoded video, HDR-correct display, scopes, metadata, bitstream, compare metrics, and a test-signal generator.">
     <meta property="og:image" content="https://headroomstudio.dev/videre/og.png">
@@ -28,7 +28,7 @@
         "name": "Videre",
         "operatingSystem": "macOS 14.0 or later",
         "applicationCategory": "MultimediaApplication",
-        "description": "Native macOS video inspector - raw and encoded sources, color-managed SDR and HDR display, scopes, Dolby Vision and HDR10+ metadata, bitstream and container inspection, compare metrics, and a test-signal generator.",
+        "description": "Native macOS video inspector - raw and encoded sources, color-managed SDR and HDR display, scopes, HDR10+ metadata, bitstream and container inspection, compare metrics, and a test-signal generator.",
         "url": "https://headroomstudio.dev/videre/",
         "image": "https://headroomstudio.dev/videre/og.png",
         "publisher": { "@type": "Organization", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" }
@@ -112,7 +112,7 @@
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">A raw YUV dump has no header; nothing in the file says 1920&times;1080, 10-bit, BT.709. And tagged files lie: a BT.601 clip marked BT.709 looks almost right, which is worse than wrong. Videre opens headerless files through a parameter sheet with a size guesser and filename hints, and every file, tagged or not, gets live interpretation controls: matrix, range, and transfer are pills you flip while the frame re-renders, with an amber marker whenever your choice diverges from what the file declares.</p>
                 <p class="prose-lead" style="margin-top: 14px;">"Encoder A looks better" is not a result. Videre loads two sources into an A/B session with side-by-side, flip, wipe, and difference views, a temporal offset for misaligned clips, and per-frame PSNR, SSIM, MS-SSIM, VMAF, CAMBI, and &Delta;E metrics with a graph and a jump-to-worst-frame button. The numbers cross-validate against the reference implementations, so they hold up in a report.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Dolby Vision RPUs, HDR10+ scene metadata, VUI color tags, container boxes: a player consumes them silently or ignores them. Videre reads them out, per frame, searchable by field name, and exports them as JSON. When a clip looks wrong on one TV and fine on another, the answer is usually in a block nobody rendered visible.</p>
+                <p class="prose-lead" style="margin-top: 14px;">HDR10+ scene metadata, VUI color tags, container boxes: a player consumes them silently or ignores them. Videre reads them out, per frame, searchable by field name, and exports them as JSON. When a clip looks wrong on one TV and fine on another, the answer is usually in a block nobody rendered visible.</p>
                 <p class="prose-lead" style="margin-top: 14px;">And when the file itself is the problem, Videre writes: wrong tags are repaired without re-encoding, defective pixels are patched with exact code values, and every write goes to a new file that must pass verification before the save succeeds. The original is never modified, on any path.</p>
             </div>
         </div>
@@ -192,7 +192,7 @@
                 <div class="feature-row"><div class="feature-row__k">Compare (⌘2)</div><div class="feature-row__v">The A/B session: side-by-side, flip, wipe, and difference views, a temporal offset, and per-frame metrics. Detailed below.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Measure (⌘3)</div><div class="feature-row__v">Reads the part of the frame you point at: region statistics with jump-to-min/max, line profiles in codes or nits, a pixel ruler, a region histogram, and Scan Region to watch one window across every frame of the clip. Copy takes any readout as text or JSON.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Conform (⌘4)</div><div class="feature-row__v">A delivery spec becomes a checklist: one row per requirement, each failing row carrying the fix that resolves it, on the surface that actually performs it - a staged tag write, an edit-stack operation, or an output setting. Unmeasured rows skip honestly instead of passing quietly. HDR10, Rec.709, and mezzanine presets ship; your own specs sit beside them.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Scenes (⌘5)</div><div class="feature-row__v">One pass groups the clip into shots with per-shot light levels, complexity, legal levels, and flash-risk indication; cuts check against keyframes and against Dolby Vision / HDR10+ boundaries. The cut list becomes a keyframe plan, chapters, markers, an EDL, or OpenTimelineIO - or drives an ffmpeg encode from the export window.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Scenes (⌘5)</div><div class="feature-row__v">One pass groups the clip into shots with per-shot light levels, complexity, legal levels, and flash-risk indication; cuts check against keyframes and against HDR10+ metadata boundaries. The cut list becomes a keyframe plan, chapters, markers, an EDL, or OpenTimelineIO - or drives an ffmpeg encode from the export window.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Metadata (⌘6)</div><div class="feature-row__v">Fix color and HDR signalling in both layers - container boxes and the coded stream - without re-encoding. Fixes stage into a reviewable plan and write once, verified. The fix catalog is further down this page.</div></div>
             </div>
         </div>
@@ -266,7 +266,6 @@
                 <div class="feature-row"><div class="feature-row__k">Levels</div><div class="feature-row__v">Per-channel histograms with min / max / mean and sub-black / super-white percentages.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Light levels</div><div class="feature-row__v">Measured MaxCLL / MaxFALL against the declared values, with staleness tracking and re-measure.</div></div>
                 <div class="feature-row"><div class="feature-row__k">QC checks</div><div class="feature-row__v">Black frames, freeze runs, letterbox bounds, and ITU-T P.910 SI / TI over the whole clip. One Analyze pass (⇧⌘A) fills the light levels, the QC checks, and the Scenes shot list together, and every panel that reads it flags staleness with the same re-run notice.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Dolby Vision</div><div class="feature-row__v">Per-frame RPU metadata decoded across CM v2.9 and v4.0: L1 dynamic levels, trims, active area, source primaries, target displays. Videre inspects the metadata; it does not compose.</div></div>
                 <div class="feature-row"><div class="feature-row__k">HDR10+</div><div class="feature-row__v">ST 2094-40 per-scene metadata with a per-frame MaxSCL graph and tone-curve knee readout.</div></div>
             </div>
         </div>
@@ -282,7 +281,7 @@
             <div>
                 <div class="feature-row"><div class="feature-row__k">Bitstream inspector</div><div class="feature-row__v">Header-level parsing of H.264, H.265, and AV1: parameter sets in full, SEI and metadata OBUs, slice and frame headers, grouped into per-frame access units that follow the playhead. Field names are the exact spec syntax-element names. Type a field name and search the whole stream for it.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Container inspector</div><div class="feature-row__v">The ISO base media box tree (MP4 / MOV / HEIF): sample tables, edit lists, color boxes, codec configuration records, HEIF item structure, encryption signalling, DASH indexes. Memory-mapped, so a multi-gigabyte file opens instantly.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Change tracking</div><div class="feature-row__v">Step frames with change-highlight on and any field that differs from the previous frame renders amber with its old value, so a drifting HDR10+ curve or a per-shot Dolby Vision trim is visible at a glance.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Change tracking</div><div class="feature-row__v">Step frames with change-highlight on and any field that differs from the previous frame renders amber with its old value, so a drifting HDR10+ tone curve or a mid-stream parameter-set change is visible at a glance.</div></div>
                 <div class="feature-row"><div class="feature-row__k">JSON export</div><div class="feature-row__v">The full parse, every frame, machine-readable.</div></div>
             </div>
         </div>
@@ -360,7 +359,6 @@
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <div class="std-row"><span class="std-row__tag">PSNR</span><span class="std-row__desc">Matches <a href="https://ffmpeg.org/"><code>ffmpeg</code></a>'s psnr filter to the printed precision: average, min, max.</span></div>
                 <div class="std-row"><span class="std-row__tag">VMAF · CAMBI</span><span class="std-row__desc">Gated against the <a href="https://github.com/Netflix/vmaf"><code>vmaf</code></a> reference CLI built from the same Netflix release.</span></div>
-                <div class="std-row"><span class="std-row__tag">Dolby Vision</span><span class="std-row__desc">RPU decode cross-validated against <a href="https://github.com/quietvoid/dovi_tool"><code>dovi_tool</code></a>-generated reference bitstreams, field by field.</span></div>
                 <div class="std-row"><span class="std-row__tag">HDR10+</span><span class="std-row__desc">ST 2094-40 parsing validated against <a href="https://github.com/quietvoid/hdr10plus_tool"><code>hdr10plus_tool</code></a> output.</span></div>
                 <div class="std-row"><span class="std-row__tag">Container</span><span class="std-row__desc">Box decoding compared field-for-field with <a href="https://gpac.io/">GPAC</a>'s <code>mp4box</code> and <a href="https://github.com/strukturag/libheif">libheif</a>'s <code>heif-info</code>.</span></div>
                 <div class="std-row"><span class="std-row__tag">Bitstream</span><span class="std-row__desc">Parameter-set parsing checked against <code>ffprobe</code>, <a href="https://mediaarea.net/MediaInfo"><code>mediainfo</code></a>, and known encodes from <a href="https://www.videolan.org/developers/x264.html">x264</a>, <a href="https://www.videolan.org/developers/x265.html">x265</a>, and <a href="https://gitlab.com/AOMediaCodec/SVT-AV1">SVT-AV1</a>.</span></div>
@@ -406,7 +404,7 @@
             <li><a href="mailto:hello@headroomstudio.dev?subject=Videre%20feedback">Send Feedback</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
-        <p class="footer__legal">Dolby, Dolby Vision, and the double-D symbol are trademarks of Dolby Laboratories Licensing Corporation. HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by either organization.</p>
+        <p class="footer__legal">HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by HDR10+ Technologies.</p>
     </footer>
 </div>
 

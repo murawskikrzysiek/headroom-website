@@ -349,8 +349,7 @@
                     <li><a href="#scopes-the-clip-analysis">6.4 · The clip analysis</a></li>
                     <li><a href="#scopes-light-levels">6.5 · Light levels</a></li>
                     <li><a href="#scopes-qc-checks">6.6 · QC checks</a></li>
-                    <li><a href="#scopes-dolby-vision">6.7 · Dolby Vision</a></li>
-                    <li><a href="#scopes-hdr10-plus">6.8 · HDR10+</a></li>
+                    <li><a href="#scopes-hdr10-plus">6.7 · HDR10+</a></li>
                 </ul>
             </li>
             <li><a href="#inspectors">7 · Bitstream &amp; container</a>
@@ -436,7 +435,7 @@
             <li>Open a file: <kbd>⌘O</kbd>, drag it onto the window, or pass a path on the command line. Encoded files (MP4 / MOV / QuickTime) and y4m open directly; headerless raw files go through the parameter sheet.</li>
             <li>Check the interpretation in the info panel (<kbd>⌘I</kbd>): Matrix, Range, and Transfer are live pills. Amber means your selection differs from what the file declares.</li>
             <li>Step frames with <kbd>←</kbd>/<kbd>→</kbd>, play with <kbd>Space</kbd>, zoom with <kbd>⌘+</kbd>/<kbd>⌘−</kbd>, hover for per-pixel values.</li>
-            <li>Toggle analyzers with <kbd>⌃1</kbd> through <kbd>⌃0</kbd>; pop any of them into its own window with <kbd>⌃⌥</kbd> and the same number.</li>
+            <li>Toggle analyzers with <kbd>⌃1</kbd> through <kbd>⌃9</kbd>; pop any of them into its own window with <kbd>⌃⌥</kbd> and the same number.</li>
         </ol>
         <p class="prose">No file to hand? <kbd>⌘G</kbd> writes one: the signal generator makes bars, ramps, PLUGE, PQ stairs and temporal fixtures with nothing open (<a href="#generator">section 15</a>).</p>
     </section>
@@ -554,15 +553,14 @@
                 <tr><td><kbd>⌃4</kbd></td><td class="wrap-ok">Vectorscope</td></tr>
                 <tr><td><kbd>⌃5</kbd></td><td class="wrap-ok">Light levels (MaxCLL / MaxFALL)</td></tr>
                 <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">QC checks</td></tr>
-                <tr><td><kbd>⌃7</kbd></td><td class="wrap-ok">Dolby Vision metadata (when present)</td></tr>
-                <tr><td><kbd>⌃8</kbd></td><td class="wrap-ok">HDR10+ metadata (when present)</td></tr>
-                <tr><td><kbd>⌃9</kbd></td><td class="wrap-ok">Bitstream / container inspector</td></tr>
-                <tr><td><kbd>⌃0</kbd></td><td class="wrap-ok">Carriage stress</td></tr>
+                <tr><td><kbd>⌃7</kbd></td><td class="wrap-ok">HDR10+ metadata (when present)</td></tr>
+                <tr><td><kbd>⌃8</kbd></td><td class="wrap-ok">Bitstream / container inspector</td></tr>
+                <tr><td><kbd>⌃9</kbd></td><td class="wrap-ok">Carriage stress</td></tr>
             </tbody>
         </table>
         <p class="prose">The last two rows are documented in sections of their own: the bitstream and container inspector in <a href="#inspectors">section 7</a>, and carriage stress in <a href="#ictcp-carriage-stress">section 14.3</a>, alongside the &Delta;E ITP scale its heatmap is measured on.</p>
         <p class="prose"><kbd>⌃⌥</kbd> + the same number extracts the analyzer into its own resizable window; press again to close it. A popped-out scope stays live even with its inspector section hidden. <kbd>⌥⌘I</kbd> hides the whole inspector and brings it back with the same scopes open.</p>
-        <p class="prose"><strong>Timeline strips.</strong> Every time-aligned graph runs as a full-width strip under the viewer rather than inside its panel: light levels, Dolby Vision L1, HDR10+ brightness, QC SI / TI, and the GOP / bitrate chart (section 7). Each strip shares the playhead with the seek bar, dragging it scrubs the viewer, and several strips stack. Panels keep the readouts plus a toggle row for their strip; the on-demand measurements (light levels, QC) open theirs when the pass finishes. A strip closes from its x button or the panel row.</p>
+        <p class="prose"><strong>Timeline strips.</strong> Every time-aligned graph runs as a full-width strip under the viewer rather than inside its panel: light levels, HDR10+ brightness, QC SI / TI, and the GOP / bitrate chart (section 7). Each strip shares the playhead with the seek bar, dragging it scrubs the viewer, and several strips stack. Panels keep the readouts plus a toggle row for their strip; the on-demand measurements (light levels, QC) open theirs when the pass finishes. A strip closes from its x button or the panel row.</p>
 
         <h3 id="scopes-gamut">6.1 · Gamut (⌃1)<a class="anchor" href="#scopes-gamut">#</a></h3>
         <p class="prose">CIE 1931 chromaticity with the frame's pixel density cloud, the active space's gamut triangle, and out-of-gamut / outside-P3 stats. Hover the diagram and matching pixels highlight in the image; hover the image and a marker shows that pixel on the diagram.</p>
@@ -623,15 +621,7 @@
             <figcaption><strong>QC checks.</strong> Letterbox, black frames and freeze runs over the whole clip, with P.910 SI and TI. Frame ranges list against a row when the pass finds any.</figcaption>
         </figure>
 
-        <h3 id="scopes-dolby-vision">6.7 · Dolby Vision (⌃7)<a class="anchor" href="#scopes-dolby-vision">#</a></h3>
-        <p class="prose">When a file carries Dolby Vision metadata, the scope opens automatically: configuration (profile and level) plus per-frame RPU metadata decoded across CM v2.9 and v4.0, including L1 dynamic levels, trims, active area, source primaries, and target-display blocks. The per-frame L1 graph is a timeline strip, toggled from the panel. Videre inspects the metadata; it does not compose an output image.</p>
-
-        <figure class="shot shot--narrow">
-            <img src="guide-dolby.png" alt="Videre's Dolby Vision panel: RPU count and CM version, L1 min/avg/max in nits, L6 light levels, and content type." loading="lazy" decoding="async">
-            <figcaption><strong>The Dolby Vision readout.</strong> Per-frame RPU metadata, decoded and graphed.</figcaption>
-        </figure>
-
-        <h3 id="scopes-hdr10-plus">6.8 · HDR10+ (⌃8)<a class="anchor" href="#scopes-hdr10-plus">#</a></h3>
+        <h3 id="scopes-hdr10-plus">6.7 · HDR10+ (⌃7)<a class="anchor" href="#scopes-hdr10-plus">#</a></h3>
         <p class="prose">ST 2094-40 per-scene metadata with a tone-curve knee readout. The per-frame MaxSCL / average graph is a timeline strip, toggled from the panel.</p>
 
         <figure class="shot shot--narrow">
@@ -643,10 +633,10 @@
     <hr class="divider">
 
     <section class="guide-section" id="inspectors">
-        <h2>7 · Bitstream and container inspector (⌃9)<a class="anchor" href="#inspectors">#</a></h2>
+        <h2>7 · Bitstream and container inspector (⌃8)<a class="anchor" href="#inspectors">#</a></h2>
 
         <h3 id="inspectors-bitstream">7.1 · Bitstream<a class="anchor" href="#inspectors-bitstream">#</a></h3>
-        <p class="prose">Header-level parsing of H.264, H.265, and AV1: parameter sets in full, SEI and metadata OBUs (including HDR metadata and per-frame Dolby Vision RPUs), and slice / frame headers, grouped into per-frame access units. The view follows the playhead and shows the current frame's units; JSON export keeps every frame.</p>
+        <p class="prose">Header-level parsing of H.264, H.265, and AV1: parameter sets in full, SEI and metadata OBUs (including HDR metadata), and slice / frame headers, grouped into per-frame access units. The view follows the playhead and shows the current frame's units; JSON export keeps every frame.</p>
         <ul>
             <li><strong>Field search</strong>: type a field name (<code>chroma</code> suggests <code>chroma_format_idc</code> and friends) and the tree filters to the units carrying it, unfolded to the match. Scope the search to the current frame or the whole stream.</li>
             <li><strong>Change highlight</strong>: step frames with the toggle on and any field that differs from the previous frame renders amber with its old value.</li>
@@ -654,7 +644,7 @@
         </ul>
 
         <figure class="shot">
-            <img src="guide-bitstream-search.png" alt="Videre's bitstream inspector: per-frame access units with a field search filtering the tree and a Dolby Vision RPU unfolded." loading="lazy" decoding="async">
+            <img src="guide-bitstream-search.png" alt="Videre's bitstream inspector: per-frame access units with a field search filtering the tree and a matching unit unfolded." loading="lazy" decoding="async">
             <figcaption><strong>Field search.</strong> Type a syntax-element name; the tree filters to units carrying it.</figcaption>
         </figure>
 
@@ -663,7 +653,7 @@
         <p class="prose">The strip carries the same <strong>Display / Decode</strong> switch as the transport bar (<a href="#display">section 4</a>); it is one app-wide setting, not a chart option. In decode order the chart shows the coded structure (reference frames as spikes with their dependent frames following), the playhead marker is the decode position, and a bar click lands exactly; in display order the bars line up with the playback timeline and clicks are exact there too. The switch appears when the stream actually reorders frames. The stats always use the decode-order definitions. This is a header-level view of stream structure; it makes no claims about encoding quality. The same numbers come from <code>videre bitstream file.mp4 --frames</code> as a <code>frames_summary</code> block in the JSON.</p>
 
         <h3 id="inspectors-container">7.3 · Container<a class="anchor" href="#inspectors-container">#</a></h3>
-        <p class="prose">For MP4 / MOV / HEIF sources the same scope gains a <strong>Container</strong> mode: the ISO base media box tree with decoded fields for the movie and track headers, edit lists, sample tables, color boxes (<code>colr</code>, <code>clli</code>, <code>mdcv</code>), codec configuration records, Dolby Vision configuration, HEIF item structure, encryption signalling, and DASH indexes. The file is memory-mapped, so multi-gigabyte files open instantly. The same field search works here.</p>
+        <p class="prose">For MP4 / MOV / HEIF sources the same scope gains a <strong>Container</strong> mode: the ISO base media box tree with decoded fields for the movie and track headers, edit lists, sample tables, color boxes (<code>colr</code>, <code>clli</code>, <code>mdcv</code>), codec configuration records, HEIF item structure, encryption signalling, and DASH indexes. The file is memory-mapped, so multi-gigabyte files open instantly. The same field search works here.</p>
         <p class="prose">Entropy-coded slice and tile data is out of scope; that is a decoder's job, and Videre is an inspector.</p>
     </section>
 
@@ -672,8 +662,8 @@
     <section class="guide-section" id="repair">
         <h2>8 · Metadata mode (⌘6)<a class="anchor" href="#repair">#</a></h2>
         <p class="prose">Metadata mode fixes color and HDR signalling on an MP4/MOV without re-encoding, in both places it lives: the container boxes (the tags a demuxer reads) and the coded stream itself (the signalling a decoder reads, which wins in most players). The everyday save: a deliverable bounced for a wrong or missing color tag, and a re-encode would cost hours and a generation.</p>
-        <p class="prose">Enter with <kbd>⌘6</kbd> (or <kbd>⇧⌘M</kbd>). The mode pairs with the Bitstream / Container view (<kbd>⌃9</kbd>), which opens with it: the view shows what the file says, the mode's toolbar holds the fixes. Files the engine cannot edit - encrypted, HEIF stills, audio-only, or sources with no container at all - say so in the toolbar instead of offering dead controls; raw elementary streams are edited through <code>videre retag</code> on the command line.</p>
-        <p class="prose">Edits <strong>stage first and write once</strong>. Each staged edit appears in the plan (the count on the toolbar opens the list: delete one, or Revert All), <kbd>⌘Z</kbd>/<kbd>⇧⌘Z</kbd> walk every staging, deletion, and revert, and the ⌃9 trees show each staged value inline next to the file's current one with an EDITED badge - current on the left, staged on the right, in every layer the fix writes. The plan keeps one entry per field: staging a color fix twice, or a guided color fix on top of a hand-edited <code>colour_primaries</code>, replaces the earlier entry rather than queueing two answers to one question. <strong>Write Metadata Copy…</strong> then writes the whole plan to one new, verified file; nothing touches the original at any point, staged or written.</p>
+        <p class="prose">Enter with <kbd>⌘6</kbd> (or <kbd>⇧⌘M</kbd>). The mode pairs with the Bitstream / Container view (<kbd>⌃8</kbd>), which opens with it: the view shows what the file says, the mode's toolbar holds the fixes. Files the engine cannot edit - encrypted, HEIF stills, audio-only, or sources with no container at all - say so in the toolbar instead of offering dead controls; raw elementary streams are edited through <code>videre retag</code> on the command line.</p>
+        <p class="prose">Edits <strong>stage first and write once</strong>. Each staged edit appears in the plan (the count on the toolbar opens the list: delete one, or Revert All), <kbd>⌘Z</kbd>/<kbd>⇧⌘Z</kbd> walk every staging, deletion, and revert, and the ⌃8 trees show each staged value inline next to the file's current one with an EDITED badge - current on the left, staged on the right, in every layer the fix writes. The plan keeps one entry per field: staging a color fix twice, or a guided color fix on top of a hand-edited <code>colour_primaries</code>, replaces the earlier entry rather than queueing two answers to one question. <strong>Write Metadata Copy…</strong> then writes the whole plan to one new, verified file; nothing touches the original at any point, staged or written.</p>
         <p class="prose">Color signalling lives in two layers, and they can disagree. When they do, the Color row shows both values. Every fix has a scope control: container, bitstream, or both. Both is the default, so the layers always agree after a repair.</p>
         <p class="prose">The guided fixes (toolbar buttons, each opening its option row - configure the fix, then the row's own <strong>Stage</strong> button commits it, one undo step per row). Set values open prefilled with what the file declares - the coded stream's own messages first, the container box as fallback - so declaring, say, a corrected MaxCLL starts from the current declaration, not from zero:</p>
         <ul>
@@ -683,7 +673,7 @@
             <li><strong>HLG compatibility</strong>: adds the alternative-transfer-characteristics signal (18, HLG), with a checkbox for the broadcast pattern that also sets the transfer to 14 so legacy receivers see SDR.</li>
             <li><strong>Sample aspect ratio</strong>: fix a wrong declared pixel shape in both layers. Under container or both scope the <code>pasp</code> box and the track's display width are written from the same value as the coded stream's aspect ratio, so players that read either agree.</li>
             <li><strong>Frame rate signalling</strong>: fix a wrong declared rate in the coded stream. The fix repairs the signalling only; the real container timing is untouched, so it never retimes the video.</li>
-            <li><strong>Strip dynamic HDR metadata</strong>: removes Dolby Vision RPUs and HDR10+ metadata from every carrier, including the Dolby Vision configuration box, for a plain HDR10 deliverable. Captions are never collateral: HDR metadata is matched by its registered provider, not by message type.</li>
+            <li><strong>Strip dynamic HDR metadata</strong>: removes HDR10+ metadata from every carrier it uses, for a plain HDR10 deliverable. Captions are never collateral: HDR metadata is matched by its registered provider, not by message type.</li>
             <li><strong>Make QuickTime-compatible</strong>: shown when the open file signals its decoder setup in-band (hev1 or avc3), a form QuickTime, Safari, and the system decoder refuse even though the video is valid. The fix moves the parameter sets into the configuration record (hvc1 or avc1) with the video untouched: every output frame is verified identical to the input, and the repaired file is proven to open on the system decoder before the save succeeds. Nothing else on macOS does this without a remux.</li>
             <li><strong>Fast start</strong>: moves the index (moov) before the media data so the file starts playing before it finishes downloading. Every chunk offset is repointed and every sample byte is verified at its new position.</li>
             <li><strong>Repair broken edit list</strong>: shown when the file carries a known remux defect, an edit list claiming exactly one second of pre-roll that stalls playback in players that honor it. The repair derives the real decoder delay from the file's own sample timing (never a constant) and verifies every frame decodes in order afterward.</li>
@@ -695,8 +685,8 @@
         </ul>
 
         <h3 id="repair-the-field-editor">8.1 · The field editor (click a field in the tree)<a class="anchor" href="#repair-the-field-editor">#</a></h3>
-        <p class="prose">In Metadata mode the ⌃9 tree is the selection source: click any field and it loads into the toolbar's field editor with its current value. Fields with self-contained semantics - the color code points, range, chroma siting, aspect ratio, and timing - take a new value and stage it; at write time every copy of the field (in-band parameter sets and the configuration record) is updated together. The level field stages only behind an explicit acknowledgement, because it changes what devices will accept the file. Structural fields (dimensions, profile, parameter-set IDs, anything that shapes how the rest of the stream parses) stay read-only, and selecting one states the specific reason instead of just refusing.</p>
-        <p class="prose">Click a unit's header row and the toolbar offers its message operations: edit the serializable message types (mastering display, content light level, alternative transfer characteristics, ambient viewing environment) prefilled with the decoded values, add a new message, or remove one (HDR10+ or Dolby Vision metadata by provider, or a specific message type). Setting a message replaces every existing copy and lands on every keyframe, so a stream never carries two disagreeing versions.</p>
+        <p class="prose">In Metadata mode the ⌃8 tree is the selection source: click any field and it loads into the toolbar's field editor with its current value. Fields with self-contained semantics - the color code points, range, chroma siting, aspect ratio, and timing - take a new value and stage it; at write time every copy of the field (in-band parameter sets and the configuration record) is updated together. The level field stages only behind an explicit acknowledgement, because it changes what devices will accept the file. Structural fields (dimensions, profile, parameter-set IDs, anything that shapes how the rest of the stream parses) stay read-only, and selecting one states the specific reason instead of just refusing.</p>
+        <p class="prose">Click a unit's header row and the toolbar offers its message operations: edit the serializable message types (mastering display, content light level, alternative transfer characteristics, ambient viewing environment) prefilled with the decoded values, add a new message, or remove one (HDR10+ metadata by provider, or a specific message type). Setting a message replaces every existing copy and lands on every keyframe, so a stream never carries two disagreeing versions.</p>
         <p class="prose">The Container tree is a selection source too, in three classes. The boxes a guided fix writes - <code>colr</code>, <code>clli</code>, <code>mdcv</code>, <code>pasp</code>, and <code>elst</code> - carry a small tag marker, and clicking one of their fields opens the guided-fix row that writes that box, prefilled from the file (container tags are written whole, so there is no per-field editor for them). Boxes with directly editable fields - <code>mvhd</code>, <code>mdhd</code>, <code>tkhd</code>, <code>ftyp</code>, and the sample-table headers - carry a pencil marker, and clicking a field there loads the container field editor, in two tiers:</p>
         <ul>
             <li><strong>Repair fields</strong> (movie and media creation times, the media language) stage plainly and write with the full repair promise.</li>
@@ -927,8 +917,8 @@ videre conform master.mp4 --spec rec709 --fix -o deliverable.y4m</code></pre>
         <h3 id="scenes-two-checks-that-need-the-cuts">13.3 · Two checks that need the cuts<a class="anchor" href="#scenes-two-checks-that-need-the-cuts">#</a></h3>
         <p class="prose">Once Videre knows where the shots are, it can check two things nothing else on the Mac checks.</p>
         <p class="prose"><strong>Cuts against keyframes.</strong> A cut that does not land on a keyframe costs bitrate at the boundary and stops the file segmenting cleanly for HLS and DASH. The badge says how many cuts are mid-GOP, and the tooltip says how many keyframes carry no cut, which is bitrate spent on nothing. Raw and y4m have no keyframes, so the check is skipped with that reason rather than reported as a failure.</p>
-        <p class="prose"><strong>Cuts against dynamic metadata.</strong> Dolby Vision and HDR10+ are graded per shot. Two things go wrong when the metadata disagrees with the picture: a cut with no metadata refresh carries the previous shot's trim into the new one, and a metadata refresh with no cut is a mid-shot jump in the tone map, which is the effect people describe as the picture breathing. Videre reports both directions, allowing one frame of slop, because authoring tools routinely place the refresh on the frame either side of the cut.</p>
-        <p class="prose">The two formats are not equally knowable, and the tooltip says which you are looking at. Dolby Vision carries a scene-refresh flag in every frame's RPU, so those boundaries are read from the stream. HDR10+ has no scene identifier at all, so Videre infers a boundary from a change in the tone-mapping knee, the target display, or a large step in peak level. Treat the HDR10+ result as a pointer, not a verdict.</p>
+        <p class="prose"><strong>Cuts against dynamic metadata.</strong> HDR10+ is graded per shot. Two things go wrong when the metadata disagrees with the picture: a cut with no metadata refresh carries the previous shot's tone mapping into the new one, and a metadata refresh with no cut is a mid-shot jump in the tone map, which is the effect people describe as the picture breathing. Videre reports both directions, allowing one frame of slop, because authoring tools routinely place the refresh on the frame either side of the cut.</p>
+        <p class="prose">HDR10+ carries no scene identifier, so a boundary is inferred from a change in the tone-mapping knee, the target display, or a large step in peak level, and the tooltip says so. Treat the result as a pointer, not a verdict.</p>
         <p class="prose">Neither check offers a fix. A mid-GOP cut needs a re-encode and a metadata mismatch needs regrading, and neither is something Videre should pretend to do from an inspector.</p>
 
         <h3 id="scenes-flash-risk">13.4 · Flash risk<a class="anchor" href="#scenes-flash-risk">#</a></h3>
@@ -1062,7 +1052,7 @@ videre scenes clip.mp4 --ffmpeg-command out.mp4</code></pre>
             <p class="demo-note">The tinted shape is every Ct/Cp value that is a real color at this pixel's intensity. The dot is the picked color; the dashed circle is its margin, the distance it can drift before it stops being representable. Colors here are treated as SDR signal graded at 100 nits; in the app, the interpretation decides.</p>
         </div>
 
-        <h3 id="ictcp-carriage-stress">14.3 · Carriage stress (⌃0)<a class="anchor" href="#ictcp-carriage-stress">#</a></h3>
+        <h3 id="ictcp-carriage-stress">14.3 · Carriage stress (⌃9)<a class="anchor" href="#ictcp-carriage-stress">#</a></h3>
         <p class="prose">Simulates a carriage on the current frame and scores the damage per pixel: convert → quantize → chroma-subsample → upsample → convert back → compare as ΔE ITP against the frame's own interpreted signal.</p>
         <table>
             <thead><tr><th>Control</th><th>Options</th><th>Decides</th></tr></thead>
@@ -1261,8 +1251,8 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
                 <tr><td><kbd>Esc</kbd></td><td class="wrap-ok">Clear the selection (any mode: the pixel selection, and a Measure line or ruler)</td></tr>
                 <tr><td><kbd>⌥⌘C</kbd> / <kbd>⇧⌘S</kbd></td><td class="wrap-ok">Copy frame / save frame as PNG</td></tr>
                 <tr><td><kbd>⇧⌘M</kbd></td><td class="wrap-ok">Metadata mode (alias of <kbd>⌘6</kbd>)</td></tr>
-                <tr><td><kbd>⌃1</kbd> … <kbd>⌃9</kbd>, <kbd>⌃0</kbd></td><td class="wrap-ok">Toggle analyzers (see <a href="#scopes">section 6</a>)</td></tr>
-                <tr><td><kbd>⌃⌥1</kbd> … <kbd>⌃⌥9</kbd>, <kbd>⌃⌥0</kbd></td><td class="wrap-ok">Pop analyzer out to its own window</td></tr>
+                <tr><td><kbd>⌃1</kbd> … <kbd>⌃9</kbd></td><td class="wrap-ok">Toggle analyzers (see <a href="#scopes">section 6</a>)</td></tr>
+                <tr><td><kbd>⌃⌥1</kbd> … <kbd>⌃⌥9</kbd></td><td class="wrap-ok">Pop analyzer out to its own window</td></tr>
             </tbody>
         </table>
     </section>
@@ -1271,7 +1261,7 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
 
     <section class="guide-section" id="validation">
         <h2>19 · Cross-validation<a class="anchor" href="#validation">#</a></h2>
-        <p class="prose">Videre's numbers are pinned to external references, not to itself: PSNR matches <a href="https://ffmpeg.org/">ffmpeg</a>'s psnr filter to the printed precision; VMAF and CAMBI are gated against the reference <a href="https://github.com/Netflix/vmaf">vmaf</a> CLI; Dolby Vision RPU decoding is cross-validated against <a href="https://github.com/quietvoid/dovi_tool">dovi_tool</a>-generated bitstreams; HDR10+ against <a href="https://github.com/quietvoid/hdr10plus_tool">hdr10plus_tool</a>; container decoding against <a href="https://gpac.io/">GPAC</a>'s mp4box and <a href="https://github.com/strukturag/libheif">libheif</a>'s heif-info; bitstream parsing against ffprobe, <a href="https://mediaarea.net/MediaInfo">MediaInfo</a>, and known encodes from <a href="https://www.videolan.org/developers/x264.html">x264</a>, <a href="https://www.videolan.org/developers/x265.html">x265</a>, and <a href="https://gitlab.com/AOMediaCodec/SVT-AV1">SVT-AV1</a>. Color math anchors (BT.601/709/2020, BT.2100 PQ and HLG, BT.2124, CIEDE2000) are pinned to published test values, and the display shader is tested per-pixel against the CPU reference.</p>
+        <p class="prose">Videre's numbers are pinned to external references, not to itself: PSNR matches <a href="https://ffmpeg.org/">ffmpeg</a>'s psnr filter to the printed precision; VMAF and CAMBI are gated against the reference <a href="https://github.com/Netflix/vmaf">vmaf</a> CLI; HDR10+ metadata parsing against <a href="https://github.com/quietvoid/hdr10plus_tool">hdr10plus_tool</a>; container decoding against <a href="https://gpac.io/">GPAC</a>'s mp4box and <a href="https://github.com/strukturag/libheif">libheif</a>'s heif-info; bitstream parsing against ffprobe, <a href="https://mediaarea.net/MediaInfo">MediaInfo</a>, and known encodes from <a href="https://www.videolan.org/developers/x264.html">x264</a>, <a href="https://www.videolan.org/developers/x265.html">x265</a>, and <a href="https://gitlab.com/AOMediaCodec/SVT-AV1">SVT-AV1</a>. Color math anchors (BT.601/709/2020, BT.2100 PQ and HLG, BT.2124, CIEDE2000) are pinned to published test values, and the display shader is tested per-pixel against the CPU reference.</p>
         <p class="prose">Two documented deviations, stated rather than hidden: SSIM follows the canonical Wang 2004 definition, which reads a few 10⁻⁴ from ffmpeg's x264-derived variant; and the HLG display preview applies the system gamma per channel while readout and measurements use the luminance-correct form.</p>
         <p class="prose">Of these, only libvmaf ships inside the app (statically linked, BSD+Patent); its license text is under Settings › Acknowledgements. The rest are development-time references, and ffmpeg encodes run through whatever ffmpeg is already on your Mac.</p>
     </section>
@@ -1291,7 +1281,7 @@ videre scenes   clip.mp4 --json       # shots, per-shot stats, keyframe plans, e
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
-        <p class="footer__legal">Dolby, Dolby Vision, and the double-D symbol are trademarks of Dolby Laboratories Licensing Corporation. HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by either organization.</p>
+        <p class="footer__legal">HDR10+ is a trademark of HDR10+ Technologies, LLC. Videre is an independent product and is not affiliated with, endorsed by, or certified by HDR10+ Technologies.</p>
     </footer>
 </div>
 
