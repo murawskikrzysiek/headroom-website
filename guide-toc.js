@@ -5,11 +5,11 @@
    the #hr-rework style block in the guide).
 
    Sub-entries come from one of two places, per section:
-   - the page ships a static <ul class="toc-sub"> inside the <li> (Videre's guide
-     numbers its subheads 6.1, 6.2 ... and lists them). Those nodes are owned by
+   - the page ships a static <ul class="toc-sub"> inside the <li>, which a guide
+     that numbers its subheads (6.1, 6.2 ...) does. Those nodes are owned by
      the page: search filters them, it never rebuilds them.
    - otherwise they are derived from the section's h3s and appear only while a
-     search is running. This is what the other guides and the API pages do.
+     search is running. This is what every current guide and API page does.
 
    Adds, at runtime (no-JS keeps the plain Contents list, sub-entries included):
    - a search field: filters the TOC live. Section titles and subheads match
