@@ -558,6 +558,10 @@
                     <div class="faq-acc__a"><p>Yes, in Spectral mode (⌘5): draw around the blemish on the zoomable spectrogram with the rectangle, lasso, brush, or wand, then <strong>Attenuate</strong>, <strong>Erase</strong>, or <strong>Repair</strong> it. Space, ⇧Space, and ⌥Space audition the span, the selection alone, and the result before you commit, and everything outside the selection stays untouched. See the <a href="repair.html">spectral repair workflow</a>.</p></div>
                 </details>
                 <details class="faq-acc">
+                    <summary>Can Specula save over the original file?</summary>
+                    <div class="faq-acc__a"><p>By default no: Save As (⇧⌘S) writes a new file and refuses the loaded file's path, so the source you opened stays as it was. Settings → Editing → <strong>Allow Save to overwrite the original file</strong> adds <strong>Save</strong> (⌘S), which replaces the loaded WAV, AIFF, or CAF with the edited audio and keeps its bit depth, sample rate, and channel layout. The new data is written to a temporary file and swapped in only once complete, so a failed save leaves the original untouched, and Specula asks before each overwrite until you tick "Don't ask again". Compressed files and raw PCM still save as a new file, and metadata chunks (BWF, iXML, cue points, markers) are not carried over. Details in the <a href="guide.html#save-and-discard">user guide</a>.</p></div>
+                </details>
+                <details class="faq-acc">
                     <summary>Does recorded audio stay on my Mac? Why the microphone permission?</summary>
                     <div class="faq-acc__a"><p>Record mode captures from your input device, so macOS shows its standard permission prompt on first entry (⌘6). Takes are written to your Mac and nowhere else; analysis runs on-device, and the app's only outbound connections (update checks, license validation) carry no audio. Unsaved takes sit in <code>~/Library/Application Support/Specula/Recordings</code> for seven days. See the <a href="privacy.html">privacy policy</a>.</p></div>
                 </details>
