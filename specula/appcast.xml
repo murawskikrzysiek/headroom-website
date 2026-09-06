@@ -28,8 +28,6 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- RELEASE-CUT TODO (v1.2.2): set pubDate to the ship date, run
-             sign_update on Specula-1.2.2.dmg and paste edSignature + length. -->
         <item>
             <title>Version 1.2.2</title>
             <description>Save over the original file: Settings, Editing, Allow Save to overwrite the original file (off by default) adds Save (Cmd-S) to the Edit menu and the Edit, Chapter, Dialogue, and Spectral toolbars. Save replaces the loaded WAV, AIFF, or CAF with the edited audio and keeps the file's own bit depth, sample rate, and channel layout. The new data is written to a temporary file and swapped in only once complete, so a failed save leaves the original untouched. Specula asks before each overwrite, with a Don't ask again checkbox. Compressed sources and raw PCM still save as a new file, and Save As (Shift-Cmd-S) keeps refusing the original path. On the command line, specula edit --in-place is the deliberate alternative to --out. Save rewrites the audio only: BWF, iXML, cue, and marker chunks are not carried over. Fixed: in Spectral mode a plain click on the canvas left a one-cell selection behind and the spacebar auditioned only that cell's span; a click without a drag now clears the selection, and placing the playhead by hand makes the spacebar play from there until the selection changes.</description>
@@ -40,8 +38,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-1.2.2.dmg"
-                sparkle:edSignature="RELEASE-CUT-TODO-SIGNATURE"
-                length="0"
+                sparkle:edSignature="0NjPE3NgV25iZegv9j14uV4rYhiYWg/q2NDTQ23GjkS6esoG6BcRSl2W08L4Sct0OzDZxk3ilhlmZjXzWtydBQ=="
+                length="16849430"
                 type="application/octet-stream" />
         </item>
 
