@@ -68,6 +68,15 @@ const APPS = [
     features: 'EBU R128 loudness · custom targets · speech-gated LUFS · spectral editing · 6-file compare · record · signal generator · CLI',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
+  {
+    slug: 'luthia',
+    name: 'Luthia',
+    icon: join(ICONS_DIR, 'luthia/icon.png'),
+    subtitle: 'Guitar practice for Mac, iPad & iPhone',
+    // Tokens split on " · " and wrapped; never use that separator inside one.
+    features: 'millisecond timing against the click · Guitar Pro & MusicXML import · tab & staff editor · chord recognition · fretboard drills · weekly plan · iCloud sync',
+    tagline: 'Headroom Studio · Precision tools for musicians',
+  },
 ];
 
 // Inter Tight is required — node-canvas does NOT resolve system fonts via

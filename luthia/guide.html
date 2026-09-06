@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luthia - User Guide</title>
+    <link rel="canonical" href="https://headroomstudio.dev/luthia/guide.html">
+    <meta name="description" content="Complete user reference for Luthia - the window and the five modes, the metronome and tuner, Train and its millisecond timing, the Compose editor, Generate, Import and Export, Chords, Fretboard, Practice, Luthia Pro, iCloud sync, Settings and every keyboard shortcut.">
+    <meta property="og:title" content="Luthia User Guide">
+    <meta property="og:description" content="Complete reference for Luthia - every mode, every setting, every keyboard shortcut.">
+    <meta property="og:image" content="https://headroomstudio.dev/luthia/og.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Luthia User Guide">
+    <meta name="twitter:description" content="Complete reference for Luthia - every mode, every setting, every keyboard shortcut.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/luthia/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
+            --border-hover: #2a2a33;
+            --text:         #eeeef6;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.14);
+            --green:        #3ecf7c;
+            --code-bg:      rgba(255,255,255,0.04);
+            --flag-cyan:    #35d0d0;
+            --warn:         #e0a34c;
+            --bad:          #e06060;
+            --radius-card:  16px;
+            --radius-btn:   9px;
+            --radius-badge: 5px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+        nav:not(.toc) { display: flex; align-items: center;
+            justify-content: space-between; padding: 12px 18px;
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+            background: rgba(13,13,17,0.38);
+            -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
+        @media (prefers-reduced-transparency: reduce) {
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
+        .brand { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; color: var(--text);
+            text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+        .nav-back { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; font-weight: 500;
+            color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        .page-header { padding: 32px 0 24px; }
+        .page-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+        .page-header h1 { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            font-size: clamp(1.7rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: -0.035em;
+            line-height: 1.2; margin-bottom: 14px; }
+        .page-lede { font-size: 1rem; color: var(--text-2); line-height: 1.7; max-width: 600px; }
+
+        .toc { margin: 28px 0 8px; padding: 20px 22px; border: 1px solid var(--border);
+            border-radius: 12px; background: rgba(255,255,255,0.015); }
+        .toc-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+        .toc-list { columns: 2; column-gap: 24px; list-style: none; }
+        .toc-list > li { break-inside: avoid; margin-bottom: 6px; }
+        .toc-list a { font-size: 0.85rem; color: var(--text-2); text-decoration: none;
+            border-bottom: none; transition: color 0.18s; display: block; padding: 3px 0; }
+        .toc-list a:hover { color: var(--text); }
+
+        .divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+        section.guide-section { scroll-margin-top: 24px; padding-bottom: 8px; }
+        section.guide-section h2 { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text);
+            line-height: 1.3; margin-bottom: 14px; padding-top: 4px; }
+        section.guide-section h3 { font-size: 1.05rem; font-weight: 650; letter-spacing: -0.015em;
+            color: var(--text); line-height: 1.35; margin-top: 26px; margin-bottom: 10px;
+            scroll-margin-top: 24px; }
+
+        .prose { font-size: 0.9375rem; color: var(--text-2); line-height: 1.78; }
+        .prose + .prose { margin-top: 12px; }
+        .prose + ul, .prose + ol, ul + .prose, ol + .prose { margin-top: 12px; }
+        .prose + table, table + .prose { margin-top: 14px; }
+        .prose strong, ul strong, li strong, td strong { color: var(--text); font-weight: 600; }
+        .prose em, li em { color: var(--text); font-style: italic; }
+        .prose a, table a, li a { color: var(--accent); text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3); transition: color 0.18s; }
+        .prose a:hover, table a:hover, li a:hover { color: #a0aaff; }
+
+        ul, ol { color: var(--text-2); font-size: 0.9375rem; line-height: 1.75; padding-left: 20px; }
+        ul li, ol li { margin-bottom: 4px; }
+
+        code { background: var(--code-bg); padding: 1px 6px; border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em; color: #d6d6f0; }
+        kbd { display: inline-block; background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12); border-bottom-color: rgba(255,255,255,0.2);
+            border-radius: 4px; padding: 1px 7px; font-family: ui-monospace, SFMono-Regular, monospace;
+            font-size: 0.78em; color: var(--text); box-shadow: 0 1px 0 rgba(0,0,0,0.4); white-space: nowrap; }
+
+        table { width: 100%; border-collapse: collapse; margin: 14px 0 4px; font-size: 0.875rem; }
+        th, td { text-align: left; padding: 9px 14px 9px 0; border-bottom: 1px solid rgba(28, 28, 40, 0.6);
+            vertical-align: top; color: var(--text-2); line-height: 1.55; }
+        th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text-3); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+        td.wrap-ok { white-space: normal; color: var(--text-2); font-weight: 400; }
+
+        .note { margin: 20px 0; padding: 14px 18px; border-radius: 10px;
+            background: rgba(124, 132, 246, 0.06); border-left: 3px solid var(--accent);
+            display: flex; align-items: flex-start; gap: 10px; }
+        .note-icon { font-size: 0.875rem; flex-shrink: 0; margin-top: 2px; opacity: 0.7; color: var(--accent); }
+        .note p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; margin: 0; }
+
+        pre { margin: 14px 0; padding: 14px 18px; border-radius: 8px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); overflow-x: auto; }
+        pre code { background: transparent; padding: 0; font-size: 0.82rem; line-height: 1.6; color: #d6d6f0; }
+
+        .anchor { color: var(--text-3); text-decoration: none; margin-left: 8px; font-weight: 400;
+            transition: color 0.18s; opacity: 0; }
+        section.guide-section h2:hover .anchor,
+        section.guide-section h3:hover .anchor { opacity: 0.6; }
+        .anchor:hover { color: var(--accent) !important; opacity: 1 !important; }
+
+        footer { padding: 28px 0 52px; display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 12px; }
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+        .footer-links { display: flex; gap: 22px; list-style: none; padding: 0; }
+        .footer-links a { font-size: 0.8rem; color: var(--text-3); text-decoration: none; transition: color 0.18s; }
+        .footer-links a:hover { color: var(--text-2); }
+        .footer__legal { width: 100%; max-width: 560px; font-size: 0.78rem; color: var(--text-3);
+            line-height: 1.65; }
+
+        .back-to-top { display: inline-block; margin: 28px 0 0; font-size: 0.825rem; color: var(--text-2);
+            text-decoration: none; border-bottom: 1px solid rgba(124, 132, 246, 0.2); padding-bottom: 1px; }
+        .back-to-top:hover { color: var(--text); }
+
+        @media (max-width: 560px) {
+            .toc-list { columns: 1; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 8px 10px 8px 0; }
+        }
+
+        figure.shot { display: block; max-width: 540px; margin: 20px 0; border: 1px solid var(--border);
+            border-radius: 10px; overflow: hidden; background: var(--bg-card); }
+        figure.shot img { display: block; margin: 0 auto; max-width: 100%; max-height: 460px;
+            width: auto; height: auto; }
+        figure.shot figcaption { padding: 9px 13px 11px; font-size: 0.78rem; line-height: 1.5;
+            color: var(--text-2); border-top: 1px solid var(--border); }
+        figure.shot figcaption strong { color: var(--text); font-weight: 600; }
+
+        /* two panels read as one comparison: same frame, both gamut modes */
+        .shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+            max-width: 700px; align-items: start; }
+        .shot-pair figure.shot { max-width: none; margin: 0; }
+        .shot-pair figure.shot img { max-height: 560px; }
+        @media (max-width: 700px) { .shot-pair { grid-template-columns: 1fr; } }
+
+        .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
+            -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
+        .hr-waveform canvas { width:100%; height:100%; display:block; }
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+
+  html { overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { position: relative; overflow-x: clip; }
+  code { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    nav:not(.toc) { padding: 10px 14px; }
+    .nav-links { gap: 14px; }
+    .nav-link, .nav-back, .nav-links a { font-size: 0.8rem; white-space: nowrap; }
+    .brand { font-size: 0.95rem; gap: 8px; }
+    .brand-mark { width: 26px; height: 26px; }
+  }
+
+  @media (max-width: 640px) {
+    table { display: block; overflow-x: auto; }
+  }
+
+  /* TOC: static Contents card at the top by default (no floating); from 1100px up
+     it becomes a sticky left rail with scroll-spy + search (guide-toc.js). */
+  .doc-grid { display:block; }
+  .doc-grid .toc { display:block; }
+  @media (min-width: 1100px) {
+    /* the nav shell follows the widened guide grid so the pinned bar
+       spans the full page width (toc rail included) and sits flush above it */
+    .container.nav-shell { max-width: 1300px; }
+    .container.doc-grid { max-width: 1300px; display: grid;
+      grid-template-columns: 240px minmax(0, 1fr); column-gap: 48px;
+      grid-template-areas: "gheader gheader" "gwave gwave" "gtoc gmain"; align-items: start; }
+    .doc-grid > .page-header { grid-area: gheader; }
+    .doc-grid > .hr-waveform { grid-area: gwave; }
+    .doc-grid > .toc { grid-area: gtoc; position: sticky; top: 84px; margin: 28px 0 24px;
+      max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain;
+      padding: 14px 16px; scrollbar-width: thin; }
+    .doc-grid > .guide-main { grid-area: gmain; min-width: 0; }
+    .doc-grid .toc-list { columns: 1; }
+    .doc-grid .toc-list > li { margin-bottom: 2px; }
+    .doc-grid .toc-list > li > a { font-size: 0.8rem; line-height: 1.45; padding: 4px 0 4px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-list > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+    .doc-grid .toc-sub { margin: 1px 0 6px; padding-left: 12px; }
+    .doc-grid .toc-sub > li > a { font-size: 0.76rem; line-height: 1.4; padding: 3px 0 3px 10px;
+      border-left: 2px solid transparent; }
+    .doc-grid .toc-sub > li > a.is-current { color: var(--accent); border-left-color: var(--accent); }
+  }
+  /* search field inside the TOC (injected by guide-toc.js; styles live here so
+     the JS stays markup-only, same split as faq-search.js) */
+  .toc-search { display: flex; align-items: center; gap: 8px; margin: 0 0 12px;
+    padding: 0 10px; border: 1px solid var(--border); border-radius: 9px;
+    background: rgba(255,255,255,0.03); }
+  .toc-search svg { width: 14px; height: 14px; color: var(--text-3); fill: none; flex-shrink: 0; }
+  .toc-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 0.82rem; padding: 8px 0; }
+  .toc-search__count { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.66rem;
+    color: var(--text-3); white-space: nowrap; }
+  .toc-search__clear { display: none; background: transparent; border: none; cursor: pointer;
+    color: var(--text-3); font-size: 1.05rem; line-height: 1; padding: 0; }
+  .toc-search__clear:hover { color: var(--text); }
+  .toc-list li.gt-hidden { display: none; }
+  .toc-sub { list-style: none; margin: 2px 0 6px; padding: 0 0 0 14px; }
+  .toc-sub a { font-size: 0.78rem; color: var(--text-3); text-decoration: none;
+    border-bottom: none; display: block; padding: 2px 0; }
+  .toc-sub a:hover { color: var(--text); }
+  .toc-list mark, .toc-sub mark { background: rgba(124,132,246,0.24); color: var(--accent);
+    border-radius: 3px; padding: 0 1px; }
+</style>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="container nav-shell">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links"><span class="nav-link is-current">User Guide</span><a href="faq.html" class="nav-link">FAQ</a></div>
+        <a href="./" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"></path></svg>
+            Back to Luthia
+        </a>
+    </nav>
+</div>
+
+<div class="container doc-grid">
+    <header class="page-header" id="top">
+        <p class="page-eyebrow">Luthia · User guide</p>
+        <h1>Luthia, end to end.</h1>
+        <p class="page-lede">The window, the metronome and tuner, Train and its millisecond timing, the Compose editor, Generate, Import and Export, Chords, Fretboard, Practice, Luthia Pro, iCloud sync and every keyboard shortcut: the complete reference for the 1.0 builds on Mac, iPad and iPhone.</p>
+    </header><div class="hr-waveform waveform"><canvas></canvas></div>
+
+    <nav class="toc" aria-label="Table of contents" data-guide-toc>
+        <p class="toc-label">Contents</p>
+        <ul class="toc-list">
+            <li><a href="#quick-start">1 · Quick start</a></li>
+            <li><a href="#window">2 · The window</a></li>
+            <li><a href="#metronome">3 · Metronome and tuner</a>
+                <ul class="toc-sub">
+                    <li><a href="#metronome-metronome">3.1 · Metronome</a></li>
+                    <li><a href="#metronome-tuner">3.2 · Tuner</a></li>
+                </ul>
+            </li>
+            <li><a href="#input">4 · Input</a></li>
+            <li><a href="#train">5 · Train</a>
+                <ul class="toc-sub">
+                    <li><a href="#train-picking-an-exercise">5.1 · Picking an exercise</a></li>
+                    <li><a href="#train-preview">5.2 · Preview</a></li>
+                    <li><a href="#train-a-session">5.3 · A session</a></li>
+                    <li><a href="#train-what-the-score-shows">5.4 · What the score shows</a></li>
+                    <li><a href="#train-the-session-panel">5.5 · The session panel</a></li>
+                    <li><a href="#train-history">5.6 · History</a></li>
+                    <li><a href="#train-how-the-timing-works">5.7 · How the timing works</a></li>
+                </ul>
+            </li>
+            <li><a href="#compose">6 · Compose</a>
+                <ul class="toc-sub">
+                    <li><a href="#compose-the-library">6.1 · The library</a></li>
+                    <li><a href="#compose-the-editor">6.2 · The editor</a></li>
+                    <li><a href="#compose-structure">6.3 · Structure</a></li>
+                    <li><a href="#compose-techniques">6.4 · Techniques</a></li>
+                    <li><a href="#compose-on-iphone-and-ipad">6.5 · On iPhone and iPad</a></li>
+                    <li><a href="#compose-preview-and-train-this">6.6 · Preview and Train this</a></li>
+                </ul>
+            </li>
+            <li><a href="#generate">7 · Generate</a></li>
+            <li><a href="#import">8 · Import</a></li>
+            <li><a href="#export">9 · Export</a></li>
+            <li><a href="#chords">10 · Chords</a>
+                <ul class="toc-sub">
+                    <li><a href="#chords-library">10.1 · Library</a></li>
+                    <li><a href="#chords-live-chord-meter">10.2 · Live chord meter</a></li>
+                    <li><a href="#chords-chord-drill">10.3 · Chord drill</a></li>
+                    <li><a href="#chords-progressions">10.4 · Progressions</a></li>
+                </ul>
+            </li>
+            <li><a href="#fretboard">11 · Fretboard</a>
+                <ul class="toc-sub">
+                    <li><a href="#fretboard-map">11.1 · Map</a></li>
+                    <li><a href="#fretboard-drills">11.2 · Drills</a></li>
+                    <li><a href="#fretboard-progress">11.3 · Progress</a></li>
+                </ul>
+            </li>
+            <li><a href="#practice">12 · Practice</a>
+                <ul class="toc-sub">
+                    <li><a href="#practice-the-week">12.1 · The week</a></li>
+                    <li><a href="#practice-running-a-session">12.2 · Running a session</a></li>
+                    <li><a href="#practice-rebuild-week">12.3 · Rebuild week</a></li>
+                    <li><a href="#practice-change-block">12.4 · Change block</a></li>
+                    <li><a href="#practice-suggestions">12.5 · Suggestions</a></li>
+                </ul>
+            </li>
+            <li><a href="#pro">13 · Luthia Pro</a></li>
+            <li><a href="#sync">14 · iCloud sync</a></li>
+            <li><a href="#settings">15 · Settings</a></li>
+            <li><a href="#shortcuts">16 · Keyboard reference</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-main">
+
+    <hr class="divider">
+
+    <section class="guide-section" id="quick-start">
+        <h2>1 · Quick start<a class="anchor" href="#quick-start">#</a></h2>
+        <ol>
+            <li>Plug the guitar into an audio interface, or use the built-in microphone. Pick the input under <strong>Settings › Input</strong> (<kbd>⌘,</kbd> on the Mac, the ⋯ menu on iPhone and iPad).</li>
+            <li>Press <kbd>⌘L</kbd> (or the <strong>Listen</strong> chip in the transport bar). The level meter moves when you play.</li>
+            <li>Pick an exercise in <strong>Train</strong> (<kbd>⌘2</kbd>). The library opens with 32 built-ins: spider walks, chromatic climbs, picking bursts, legato trills, sweeps, strumming patterns, fingerstyle.</li>
+            <li>Press <kbd>⌘K</kbd> for the click, then <kbd>Space</kbd> to start a session. Play the exercise in a loop. Every note gets a number: how many milliseconds early or late it landed.</li>
+            <li>Stop with <kbd>Space</kbd>. The session panel shows the spread and the lead of the whole take, and every completed loop is a row in the history.</li>
+        </ol>
+        <p class="prose">The other four modes are one keystroke away: <strong>Compose</strong> (<kbd>⌘1</kbd>) to build or import an exercise, <strong>Chords</strong> (<kbd>⌘3</kbd>), <strong>Fretboard</strong> (<kbd>⌘4</kbd>) and <strong>Practice</strong> (<kbd>⌘5</kbd>).</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="window">
+        <h2>2 · The window<a class="anchor" href="#window">#</a></h2>
+        <p class="prose">Luthia is one window with five modes and two side panels. The same layout runs on the Mac and on the iPad; the iPhone runs a compact shell described at the end of this section.</p>
+        <ul>
+            <li><strong>Header, left</strong>: the metronome cluster. Beat dots, the BPM stepper, the time signature, <strong>Tap</strong> and <strong>Click</strong>.</li>
+            <li><strong>Header, centre</strong>: the mode selector. <strong>Compose</strong> (amber), <strong>Train</strong> (green), <strong>Chords</strong> (violet), <strong>Fretboard</strong> (rose), <strong>Practice</strong> (sky blue). <kbd>⌘1</kbd> to <kbd>⌘5</kbd>. Exactly one mode is active; Train is the default.</li>
+            <li><strong>Header, right</strong>: the practice pill (the running practice block, if one is on the clock) and the panel selector for the two side panels.</li>
+            <li><strong>Side panels</strong> (<kbd>⌘⇧M</kbd> metronome, <kbd>⌘⇧T</kbd> tuner): 320 points wide, to the right of the mode. A panel sits beside the mode and never changes it, the way scopes sit beside a waveform.</li>
+            <li><strong>Transport bar</strong> at the bottom: <strong>Listen</strong> and the live input meter. The input device is chosen in Settings.</li>
+            <li><kbd>Space</kbd> plays or stops whatever preview control is on screen: the exercise in Train, the sheet in Compose, the chord in Chords, the generator's or the importer's preview when their sheet is open. A sheet wins over the mode behind it. In Train, with the input listening, Space starts and stops the session instead.</li>
+            <li><kbd>Return</kbd> taps the tempo, except while a text field, the tab editor or a sheet has the keyboard.</li>
+            <li><kbd>⌘/</kbd> opens the keyboard-shortcuts sheet, <kbd>⌘,</kbd> Settings.</li>
+        </ul>
+
+        <h3 id="window-on-iphone">On iPhone<a class="anchor" href="#window-on-iphone">#</a></h3>
+        <p class="prose">The five modes are the tab bar, tinted to the mode. A one-line metronome strip sits above the mode: beat dots, the BPM (tap it for the metronome sheet), tap, click, the practice pill, the tuner, and a ⋯ menu with Settings and the shortcuts sheet. The transport strip (Listen, route, level meter) sits under the mode in portrait and inside the header in landscape. Side panels, Settings and the shortcuts sheet open as sheets. Nothing scrolls sideways: toolbars wrap, Compose's library and Chords' details become sheets, the drill and week sidebars stack. An iPad in Split View runs the same compact shell.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="metronome">
+        <h2>3 · Metronome and tuner<a class="anchor" href="#metronome">#</a></h2>
+
+        <h3 id="metronome-metronome">3.1 · Metronome<a class="anchor" href="#metronome-metronome">#</a></h3>
+        <p class="prose">The click plays through the same output as the previews and the chord strums.</p>
+        <ul>
+            <li><strong>Tempo</strong>: the stepper in the header, <kbd>⌘↑</kbd> / <kbd>⌘↓</kbd> for ±5 BPM, <kbd>⌘⌥↑</kbd> / <kbd>⌘⌥↓</kbd> for ±1, <strong>Tap</strong> or <kbd>Return</kbd> for tap tempo.</li>
+            <li><strong>Time signature</strong>: <kbd>⌘⇧[</kbd> / <kbd>⌘⇧]</kbd> step through the list.</li>
+            <li><strong>Subdivision</strong> (<kbd>⌘⇧D</kbd>): a softer tick between the beats. Off, eighths, triplets, sixteenths.</li>
+            <li><strong>Speed trainer</strong> (<kbd>⌘⇧R</kbd>, in the metronome panel): steps the tempo toward a target every N bars, or every N loops of a Train session. The step lands exactly on the bar line, and a Train session retimes its grid at the loop boundary so the numbers stay honest through the ramp.</li>
+            <li><strong>Gap trainer</strong> (<kbd>⌘⇧G</kbd>): mutes the click for N bars out of every M. The beat dots keep moving through the silence, so the display still shows where the beat is.</li>
+            <li>The metronome panel (<kbd>⌘⇧M</kbd>) has the big beat display and all of the above as controls.</li>
+        </ul>
+        <p class="prose">On iPhone and iPad the click keeps running through a screen lock, and the screen stays awake while the click runs, the input listens or a practice block is on the clock.</p>
+
+        <h3 id="metronome-tuner">3.2 · Tuner<a class="anchor" href="#metronome-tuner">#</a></h3>
+        <p class="prose">The tuner panel (<kbd>⌘⇧T</kbd>) listens on the input engine: note name, a cents needle from −50 to +50, the nearest string of the current tuning, and a reference A4 you can change. The <strong>Tuning</strong> menu holds presets for 6-, 7- and 8-string guitars and 4-, 5- and 6-string basses (standard, E♭, D, drop D, drop C, drop B, DADGAD, open G / D / E, and the extended and bass equivalents). The preset also drives the Fretboard map, so a 7-string or a bass sees its own neck.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="input">
+        <h2>4 · Input<a class="anchor" href="#input">#</a></h2>
+        <p class="prose">Luthia listens through one input at a time.</p>
+        <ul>
+            <li><strong>Device</strong>: Settings › Input lists the audio inputs the system sees. On the Mac that is any Core Audio device (an audio interface, the built-in microphone, an aggregate). On iPhone and iPad it is the built-in microphone, a wired headset, a USB or Lightning interface, or a Bluetooth microphone; the list refreshes when a route changes.</li>
+            <li><strong>Listen</strong> (<kbd>⌘L</kbd>) starts the input engine. The first time, the system asks for microphone permission; without it the meter stays at zero.</li>
+            <li>The <strong>level meter</strong> in the transport bar shows what the detectors see. The onset detector needs the pick to be the loudest thing in the signal, so a guitar through an interface gives cleaner numbers than a microphone in a room with the click playing out loud. Headphones fix the second case.</li>
+            <li>On iPhone and iPad the audio session runs in measurement mode, which keeps the system's automatic gain, echo cancellation and noise suppression out of the path between the guitar and the detectors.</li>
+        </ul>
+        <p class="prose">The same input feeds Train (timing), Chords (the live chord meter and the drill), Fretboard (the play channel of the drills) and the tuner. Whichever mode is open owns it; the tuner reads alongside.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="train">
+        <h2>5 · Train<a class="anchor" href="#train">#</a></h2>
+        <p class="prose">Train plays an exercise against the click and measures every note you play against where it should have landed. Raw timing, no grade.</p>
+
+        <h3 id="train-picking-an-exercise">5.1 · Picking an exercise<a class="anchor" href="#train-picking-an-exercise">#</a></h3>
+        <p class="prose">The exercise picker lists the built-ins by shelf (Basics, Warm-ups, Picking, Legato, Arpeggios &amp; Sweeps, Rhythm &amp; Strumming, Fingerstyle), then your own exercises by folder. An exercise you generated or imported and did not save shows up as an extra row, so a preview can be trained without saving it. <kbd>⌘[</kbd> / <kbd>⌘]</kbd> step through the list.</p>
+
+        <h3 id="train-preview">5.2 · Preview<a class="anchor" href="#train-preview">#</a></h3>
+        <p class="prose">The <strong>Preview</strong> button plays the exercise through the string synth at the current tempo. Click a note in the score and the button names that spot as bar:beat ("11:1", "3:2.5", "pickup:1"): the preview starts there, with the techniques leading into that note still sounding right. Click the note again, or <strong>From start</strong>, to clear it.</p>
+
+        <h3 id="train-a-session">5.3 · A session<a class="anchor" href="#train-a-session">#</a></h3>
+        <ol>
+            <li><strong>Listen</strong> must be on.</li>
+            <li><kbd>Space</kbd> (or <kbd>⌘R</kbd>, or <strong>Start session</strong>) starts the session and the click if it is not running.</li>
+            <li>Play the exercise in a loop. The count-in is yours: the session anchors to your first detected onset, and the loop starts on the nearest bar line.</li>
+            <li><kbd>Space</kbd> again stops the session, and the click with it.</li>
+        </ol>
+        <p class="prose">An exercise with repeats is played the way it is written: one loop is one full pass with every repeat played, and every pass of a repeated note folds into the same note's statistics.</p>
+
+        <h3 id="train-what-the-score-shows">5.4 · What the score shows<a class="anchor" href="#train-what-the-score-shows">#</a></h3>
+        <ul>
+            <li>A green <strong>playhead</strong> sweeps the system in time with the click. The page follows it per <strong>Settings › Notation › Scrolling</strong>: <strong>Down</strong> keeps the score in lines and scrolls the line being played into view; <strong>Sideways</strong> lays the score out as one continuous system and scrolls it under a fixed playhead. Down is the default on the Mac, Sideways on iPhone and iPad.</li>
+            <li>Under every note: the <strong>last</strong> deviation and the <strong>running average</strong> for that note, in milliseconds, negative for early, positive for late. Wrapped lines each carry their own row pair.</li>
+            <li>A note whose pitch did not match gets a pitch verdict. The check compares pitch classes, not octaves: a low string through a microphone reads its second harmonic, and a wrong octave is not the trainer's business.</li>
+        </ul>
+
+        <h3 id="train-the-session-panel">5.5 · The session panel<a class="anchor" href="#train-the-session-panel">#</a></h3>
+        <ul>
+            <li><strong>Spread</strong>: the standard deviation of the signed deviations across the whole session. This is the number practice changes.</li>
+            <li><strong>Tendency</strong>: the signed mean. Negative means you lead the click. Tens of milliseconds early is the human default; it is reported, not penalised.</li>
+            <li><strong>Loops · Spread ms · Lead</strong>: one row per completed loop. The bar is the loop's spread on a fixed 40 ms scale (green up to 12 ms, amber to 25, red beyond); the dot above it is the loop's lead, on the line for on the click, below for early; the bar's opacity is coverage, matched notes over expected ones.</li>
+        </ul>
+        <p class="prose">A loop is only finalised a beat or so after its last note, so a late last note still counts for its own loop.</p>
+
+        <h3 id="train-history">5.6 · History<a class="anchor" href="#train-history">#</a></h3>
+        <p class="prose">Every session that completed at least one loop is kept. The <strong>History</strong> panel folds the current exercise per day: sessions, time, loops, pooled spread and lead, pitch accuracy, with a pooled total in the header. The history syncs with the library (<a href="#sync">section 14</a>).</p>
+
+        <h3 id="train-how-the-timing-works">5.7 · How the timing works<a class="anchor" href="#train-how-the-timing-works">#</a></h3>
+        <p class="prose">Everything is measured on one clock. The click records where every scheduled beat lands on the output, plus the output latency, so the grid is where the beat was heard. The input tap stamps each buffer with the same clock, and an onset's time minus the input latency is when the string was struck. Onsets are found on a 12 dB/octave sharpened envelope (a pick's attack is a spike on it, a ringing low E is near silent), traced back to the start of the attack, and confirmed over a short window so a fretting finger touching the string before the pick, or the click bleeding through a microphone, is not counted as a note. Each onset is matched to the nearest free note of the loop within half the shortest note (200 ms at most), and a first note played a little early or late is matched into the next loop instead of being dropped. Pitch is read 30, 60 and 100 ms after the attack; the note is what it settled to.</p>
+        <p class="prose">Through the string synth, a take rendered a known amount late reads that late on every note within 2.5 ms between 80 and 200 BPM, with every pitch verdict right. That test runs on every build.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="compose">
+        <h2>6 · Compose<a class="anchor" href="#compose">#</a></h2>
+        <p class="prose">Compose is a tab and staff editor for building exercises, and the home of the library.</p>
+
+        <h3 id="compose-the-library">6.1 · The library<a class="anchor" href="#compose-the-library">#</a></h3>
+        <p class="prose">The sidebar lists the built-in shelves and your own exercises by folder. <strong>New</strong> starts a blank sheet, or edit a built-in and save it as your own. The context menu on a row renames, moves it to a folder, exports it or deletes it. Folders keep a course together; the folder field appears at import too.</p>
+
+        <h3 id="compose-the-editor">6.2 · The editor<a class="anchor" href="#compose-the-editor">#</a></h3>
+        <p class="prose">The score shows tab and staff in step; the same columns line up in both. Click a note to select it, drag to reorder, and use the keyboard for everything else:</p>
+        <table>
+            <thead><tr><th>Key</th><th>Does</th></tr></thead>
+            <tbody>
+                <tr><td>← →</td><td class="wrap-ok">Move the cursor; ⇧ extends the selection</td></tr>
+                <tr><td>↑ ↓</td><td class="wrap-ok">Tab: string. Staff: pitch of the active note</td></tr>
+                <tr><td>⇧↑ ⇧↓</td><td class="wrap-ok">Move the note across strings (tab); whole chord by pitch (staff)</td></tr>
+                <tr><td>0-9</td><td class="wrap-ok">Fret. On another string of the same note: adds a chord tone</td></tr>
+                <tr><td>A · ⇧A</td><td class="wrap-ok">Add a chord tone on the next free string above · below</td></tr>
+                <tr><td>⌥↑ ⌥↓</td><td class="wrap-ok">Step through the chord's notes</td></tr>
+                <tr><td>Tab · Return</td><td class="wrap-ok">Next note (adds one at the end)</td></tr>
+                <tr><td>⌫ · ⇧⌫</td><td class="wrap-ok">Delete the note · take one string out of a chord</td></tr>
+                <tr><td>R</td><td class="wrap-ok">Rest</td></tr>
+                <tr><td>+ · − · .</td><td class="wrap-ok">Longer · shorter · dotted</td></tr>
+                <tr><td>T</td><td class="wrap-ok">Triplet</td></tr>
+                <tr><td>H · P</td><td class="wrap-ok">Hammer-on · pull-off</td></tr>
+                <tr><td>S · B</td><td class="wrap-ok">Slide · bend (each cycles its presets)</td></tr>
+                <tr><td>V · M · X</td><td class="wrap-ok">Vibrato · palm mute · dead note</td></tr>
+                <tr><td>K · L · J</td><td class="wrap-ok">Staccato · slur · tie</td></tr>
+                <tr><td>⌘Z · ⌘Y</td><td class="wrap-ok">Undo · redo</td></tr>
+                <tr><td>⌘D · ⌘A</td><td class="wrap-ok">Duplicate · select all</td></tr>
+                <tr><td>⌘C ⌘X ⌘V</td><td class="wrap-ok">Copy · cut · paste</td></tr>
+            </tbody>
+        </table>
+        <p class="prose">A column of numbers is a chord. The cursor string is the active note of a chord: the staff rings it, arrows move it, and ⇧⌫ removes it. On the staff, ⌥-click a line or space to add a note at that pitch, spelled in the key and placed on a free string near the hand.</p>
+        <p class="prose">The palette under the score holds the same commands as chips, and a status line names the selected note as bar:beat.</p>
+
+        <h3 id="compose-structure">6.3 · Structure<a class="anchor" href="#compose-structure">#</a></h3>
+        <p class="prose">The details row above the score edits the exercise's name, description, time signature, <strong>key</strong> (or none), an opening <strong>pickup</strong> bar and the default <strong>BPM</strong>. Repeats are drawn with dotted barlines and played back as written, including nested spans. Rehearsal boxes and text remarks ride above the staff and follow their note through edits.</p>
+
+        <h3 id="compose-techniques">6.4 · Techniques<a class="anchor" href="#compose-techniques">#</a></h3>
+        <p class="prose">Every note can carry hammer-on, pull-off, slides (legato, shift, in from below or above, out down or up), bends (with the amount, "full" for a whole tone), vibrato, palm mute, let ring, dead note, staccato, a phrasing slur, or a tie from the previous note. All of them draw on the tab and the staff, and all of them play: the preview is a physically modelled string, so a hammer-on is the same string re-tuned, a pull-off is a weak pluck, a slide glides, a palm mute shortens the decay, a dead note is a thud. Chords strum low to high, and held strings ring on.</p>
+
+        <h3 id="compose-on-iphone-and-ipad">6.5 · On iPhone and iPad<a class="anchor" href="#compose-on-iphone-and-ipad">#</a></h3>
+        <p class="prose">The palette leaves the screen on a phone. Hold a note (or empty space) for half a second and a two-ring menu opens under your finger: the inner ring is the palette's five sections (Note, Duration, Rhythm, Pitch, Technique), sliding onto one fills the outer ring with its chips, and sliding onto a chip and letting go applies it. One gesture per edit. Swipe right on empty space to append a note on that string. A hardware keyboard on an iPad has every key in the table above.</p>
+
+        <h3 id="compose-preview-and-train-this">6.6 · Preview and Train this<a class="anchor" href="#compose-preview-and-train-this">#</a></h3>
+        <p class="prose"><kbd>Space</kbd> previews the sheet from the editor's cursor (<kbd>⎋</kbd> clears the start point). <strong>Train this</strong> takes the sheet, saved or not, to Train.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="generate">
+        <h2>7 · Generate<a class="anchor" href="#generate">#</a></h2>
+        <p class="prose"><kbd>⌘G</kbd> opens the generator with three tabs. Every result previews in the sheet, opens in Compose for editing, saves to the library, or goes straight to Train.</p>
+        <ul>
+            <li><strong>Scales</strong>: twelve scales (Ionian / major, Dorian, Phrygian, Lydian, Mixolydian, Aeolian / minor, Locrian, harmonic minor, melodic minor, major pentatonic, minor pentatonic, blues), every key. <strong>Fingering</strong>: five-fret boxes, one per scale degree, or three notes per string. <strong>Pattern</strong>: straight, in groups (3s, 4s), or in intervals (3rds, 4ths and up). <strong>Direction</strong>: up, down, both ways.</li>
+            <li><strong>Arpeggios</strong>: the same boxes over chord tones, every chord quality (major, minor, dominant 7, major 7, minor 7, sus2, sus4, diminished, augmented, diminished 7, half-diminished 7, power).</li>
+            <li><strong>Rhythm</strong>: the pyramid (quarters through sixteenths and back, with or without triplets), figures (eighths, offbeat eighths, gallop, reverse gallop, dotted pair, shuffle, tresillo, charleston, and more) over a number of bars, or a seeded random grid at a chosen density with beat one always sounding. Rhythm workouts are single-note exercises for the picking hand.</li>
+        </ul>
+        <p class="prose">The generator's boxes are the same boxes the Fretboard map draws under its <strong>Boxes</strong> overlay.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="import">
+        <h2>8 · Import<a class="anchor" href="#import">#</a></h2>
+        <p class="prose"><kbd>⌘I</kbd> opens the import sheet. Drop a file on it, or <strong>Choose file…</strong>.</p>
+        <ul>
+            <li><strong>Guitar Pro 7 and 8</strong> (.gp), <strong>Guitar Pro 3, 4 and 5</strong> (.gp3, .gp4, .gp5). Techniques, bends, ties, tempo changes and repeats are read.</li>
+            <li><strong>MusicXML</strong> (.musicxml, .mxl), from MuseScore, Guitar Pro, Dorico, Sibelius, Soundslice or anything else that writes it. A linked tab staff is folded into the notation part so the teacher's fingering wins and the slurs, staccatos and text survive.</li>
+            <li><strong>MuseScore</strong> (.mscz, .mscx), MuseScore 3 and 4 files directly.</li>
+            <li><strong>MIDI</strong> (formats 0 and 1), quantised to a grid you pick: eighths, sixteenths, sixteenth triplets.</li>
+            <li><strong>ASCII tab</strong> pasted as text: six-line systems, frets by column, and the usual markings (5h7, 7p5, 5/7, 7\5, 7b9, 5~, x). Rhythm is read from the spacing: the tightest gap between numbers is one note of the length you choose.</li>
+            <li><strong>Luthia files</strong> (.luthia), exported from another device or shared by someone else; these open verbatim.</li>
+        </ul>
+        <p class="prose">Files also open from the Finder, from Files, from AirDrop and from Open With; Luthia is registered for every format above.</p>
+        <p class="prose">After <strong>Parse</strong>, pick a track if the file has several, set the name, the folder (a course's files land together), and read <strong>What changed</strong>: a list of everything the import had to simplify. Unfingered notes get a string and fret from a search over the whole line that keeps the hand in position; source fingering is kept as written. A part written an octave up lands where it sounds, and the tempo is converted to the app's per-beat BPM.</p>
+        <p class="prose">Then <strong>Open in Compose</strong> to edit, <strong>Save to library</strong>, or <strong>Train now</strong> without saving.</p>
+        <p class="prose">Not supported: PDF, Guitar Pro 6 (.gpx; re-save as .gp in Guitar Pro 7 or 8), MuseScore 1.x (re-save in MuseScore 3 or 4). Still dropped on import, with a warning: harmonics, tapping, tremolo picking, trills and grace notes.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="export">
+        <h2>9 · Export<a class="anchor" href="#export">#</a></h2>
+        <p class="prose"><kbd>⌘E</kbd>, the <strong>Export</strong> chip, or a library row's context menu (built-ins included) exports the exercise in the editor, saved or not:</p>
+        <ul>
+            <li><strong>MusicXML</strong>: one part, two staves, treble 8vb and a six-line TAB staff with the same notes. Techniques go across as MusicXML writes them (hammer-on / pull-off / slide / slur pairs, ties, bends with pre-bend and release, vibrato, dead notes, palm mute and let ring brackets, staccato), plus key, pickup, repeats, rehearsal marks and tempo. Opens in MuseScore, Guitar Pro, Dorico, Sibelius and Soundslice with the fingering intact.</li>
+            <li><strong>Luthia file</strong>: the exercise exactly as stored, for another device or another person.</li>
+        </ul>
+        <p class="prose">The sheet lists anything the writer could not carry over before you save. Export is never gated.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="chords">
+        <h2>10 · Chords<a class="anchor" href="#chords">#</a></h2>
+
+        <h3 id="chords-library">10.1 · Library<a class="anchor" href="#chords-library">#</a></h3>
+        <p class="prose">Every chord quality in every key, as fretboard diagrams. Tap a chord to hear it strummed; <strong>Details</strong> shows it up close with the formula, the chord-function labels on the diagram (R, 3, ♭7 and so on), the strings it uses, and a <strong>Strum</strong> button. Each root and quality has at least two voicings: the curated open shape where one exists, and the movable root-6 and root-5 shapes anywhere on the neck.</p>
+
+        <h3 id="chords-live-chord-meter">10.2 · Live chord meter<a class="anchor" href="#chords-live-chord-meter">#</a></h3>
+        <p class="prose">With Listen on, the meter names what you are playing, out of all 144 chords. It reads the spectrum's peaks folded to twelve pitch classes and scores every candidate by how much of the sound it explains and how many of its tones are present, so G minor and G5, or C and Cmaj7, do not get confused. Augmented and diminished-seventh chords are symmetric by construction and tie with their inversions.</p>
+
+        <h3 id="chords-chord-drill">10.3 · Chord drill<a class="anchor" href="#chords-chord-drill">#</a></h3>
+        <p class="prose">Pick a <strong>pool</strong> (open majors, open minors, open majors and minors, open sevenths, E-shape barre chords, barre minors, and the rest), choose whether to <strong>show the diagram hint</strong>, and <strong>Start drill</strong>. A chord name comes up; play it; the app hears it and moves on. A hit needs the target to rank first in the pool at a confident score for two consecutive readings. <strong>Skip</strong> passes.</p>
+
+        <h3 id="chords-progressions">10.4 · Progressions<a class="anchor" href="#chords-progressions">#</a></h3>
+        <p class="prose">Built-in progressions (I - IV - V, I - V - vi - IV, vi - IV - I - V, the 50s doo-wop, ii7 - V7 - Imaj7, the 12-bar blues, the Andalusian cadence, minor pop, the Canon) in any <strong>key</strong>, with the chord boxes for that key and a <strong>Loop</strong> playback. <strong>Drill these chords</strong> turns the progression into a chord drill. <strong>New progression</strong> builds your own from a name, a list of chords and an optional note on where it shows up; they transpose like the built-ins.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="fretboard">
+        <h2>11 · Fretboard<a class="anchor" href="#fretboard">#</a></h2>
+
+        <h3 id="fretboard-map">11.1 · Map<a class="anchor" href="#fretboard-map">#</a></h3>
+        <p class="prose">The whole neck, in the tuning the tuner preset sets (7- and 8-string, bass, drop tunings). Choose an overlay:</p>
+        <ul>
+            <li><strong>Notes</strong>: every note name.</li>
+            <li><strong>Scale</strong>: a scale from a root, with the degrees.</li>
+            <li><strong>Chord</strong>: a chord's tones, with function labels.</li>
+            <li><strong>Intervals</strong>: every interval from a root.</li>
+            <li><strong>Octaves</strong>: the octave shapes of one note.</li>
+            <li><strong>Boxes</strong>: the generator's scale boxes or three-notes-per-string shapes, each position in its own colour, roots filled.</li>
+        </ul>
+        <p class="prose">Tap a spot to hear it. In every rooted overlay the tap <strong>re-roots the neck</strong>: the labels re-read from that note, the Root picker follows, and the legend beside the picker lists the notes with their distance from the root. <strong>Names on the neck</strong> shows all names, naturals only, or dots. The phone shows twelve frets.</p>
+
+        <h3 id="fretboard-drills">11.2 · Drills<a class="anchor" href="#fretboard-drills">#</a></h3>
+        <p class="prose">Six kinds, most in two directions:</p>
+        <table>
+            <thead><tr><th>Drill</th><th>Find task</th><th>Name task</th></tr></thead>
+            <tbody>
+                <tr><td>Notes</td><td class="wrap-ok">find a named note (or every octave of it)</td><td class="wrap-ok">name the dot</td></tr>
+                <tr><td>Intervals</td><td class="wrap-ok">find the note an interval away, same string / next string / anywhere</td><td class="wrap-ok">name the interval between two dots</td></tr>
+                <tr><td>Degrees</td><td class="wrap-ok">key and scale, optionally one box: find the ♭3</td><td class="wrap-ok">name the dot's degree</td></tr>
+                <tr><td>Chord tones</td><td class="wrap-ok">find the ♭7 of Am7</td><td class="wrap-ok">name the tone</td></tr>
+                <tr><td>Triads</td><td class="wrap-ok">close voicing on three adjacent strings, in a given inversion</td><td class="wrap-ok"></td></tr>
+                <tr><td>Staff</td><td class="wrap-ok">a note engraved on the staff: find it</td><td class="wrap-ok"></td></tr>
+            </tbody>
+        </table>
+        <p class="prose"><strong>Answer with</strong>: <strong>Play it</strong> (microphone; pitch and octave are checked, never the string), <strong>Tap it</strong> (the neck on screen; a tap always answers a find task, whatever the channel), or <strong>Name it</strong> (choice chips, for the name tasks). So every drill runs with no instrument in hand. <strong>Scope</strong> limits the strings and the fret range; <strong>Whole scope</strong> or a box. <strong>One prompt per bar of the click</strong> paces the drill off the metronome: an open prompt at the bar line is a miss.</p>
+        <p class="prose"><kbd>Space</kbd> starts the drill and moves to the next prompt (a skip while one is open). <strong>Reveal</strong> shows the answer and counts as a miss. Every prompt auto-advances after a hit. A wrong first answer is the miss the statistics see; the prompt stays open until answered.</p>
+
+        <h3 id="fretboard-progress">11.3 · Progress<a class="anchor" href="#fretboard-progress">#</a></h3>
+        <p class="prose"><strong>Accuracy by position</strong> is a heat map of the neck: first-try accuracy and response time per cell, tap a position for its numbers. <strong>By drill</strong> totals each kind. The drills sample weak positions more often, so the map steers the next prompt. <strong>Reset progress…</strong> starts the sampling over.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="practice">
+        <h2>12 · Practice<a class="anchor" href="#practice">#</a></h2>
+        <p class="prose">Practice turns the rest of the app into a week.</p>
+
+        <h3 id="practice-the-week">12.1 · The week<a class="anchor" href="#practice-the-week">#</a></h3>
+        <p class="prose">Seven days of timed blocks, each in an area: Warm-up, Rhythm, Scales, Arpeggios, Chords, Progressions, Fretboard, Repertoire. A block carries what it opens: a library exercise, a scale or arpeggio spec, a rhythm workout, a chord drill pool, a progression in a key, a fretboard drill, or a free note. Keys rotate by fourths through the week; under 45 minutes a day the scale / arpeggio and drill / progression pairs alternate across days so no block drops under ten minutes.</p>
+
+        <h3 id="practice-running-a-session">12.2 · Running a session<a class="anchor" href="#practice-running-a-session">#</a></h3>
+        <p class="prose"><strong>Start</strong> on a block opens the mode where it runs and starts the timer. The timer keeps running across modes; the practice pill in the header shows it, turns amber and plucks when the time is up. <strong>Done</strong> asks how it went: <strong>struggled</strong>, <strong>OK</strong>, <strong>solid</strong> (<kbd>⌘⇧1</kbd> / <kbd>2</kbd> / <kbd>3</kbd>). <strong>Skip</strong> (<kbd>⌘⇧S</kbd>) and <strong>Pause</strong> (<kbd>⌘⇧P</kbd>) do what they say; <kbd>⌘⇧N</kbd> starts the next block. The log keeps every block with its rating, and the header counts the streak and the week's minutes.</p>
+
+        <h3 id="practice-rebuild-week">12.3 · Rebuild week<a class="anchor" href="#practice-rebuild-week">#</a></h3>
+        <p class="prose"><strong>Rebuild week…</strong> proposes a new week from your preferences: minutes a day, practice days, a <strong>focus</strong> preset (Balanced, Technique, Chords &amp; songs, Rhythm &amp; reading) or a custom weight per area (Off / Light / Normal / Heavy), and per-area content pickers: which warm-up exercises, scales and keys, arpeggio qualities, drill pools, progressions, and which repertoire exercises or library folders. An empty picker keeps the built-in rotation. Rebuilding replaces the week's blocks; the log and the streak are kept.</p>
+
+        <h3 id="practice-change-block">12.4 · Change block<a class="anchor" href="#practice-change-block">#</a></h3>
+        <p class="prose">Any block can be pointed somewhere else: a different scale or key, a different pool, a specific library exercise for a Warm-up or Repertoire block (grouped by folder), a different length.</p>
+
+        <h3 id="practice-suggestions">12.5 · Suggestions<a class="anchor" href="#practice-suggestions">#</a></h3>
+        <p class="prose">After a few rated sessions the plan starts talking back: two <strong>struggled</strong> ratings in a row on a block propose −8 BPM (or −5 minutes), three <strong>solid</strong> propose the next position, +6 BPM or the next drill pool, and an area that went missing gets ten minutes on the lightest day. <strong>Apply</strong> or <strong>Dismiss</strong> each one.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="pro">
+        <h2>13 · Luthia Pro<a class="anchor" href="#pro">#</a></h2>
+        <p class="prose">Luthia is free, with one non-consumable in-app purchase, <strong>Luthia Pro</strong>. One purchase covers Mac, iPad and iPhone, with Family Sharing.</p>
+        <p class="prose">Every mode opens and every mechanic runs on the free tier: the microphone, the notation, the millisecond timing, all the import formats and export, iCloud sync. The free tier slices content:</p>
+        <table>
+            <thead><tr><th></th><th>Free</th><th>Pro</th></tr></thead>
+            <tbody>
+                <tr><td>Library</td><td class="wrap-ok">built-ins plus <strong>one exercise of your own</strong> at a time (composed, generated or imported); replace or delete it to make room; unsaved previews and Train runs are unlimited</td><td class="wrap-ok">unlimited, in folders</td></tr>
+                <tr><td>Generate</td><td class="wrap-ok">Ionian and minor pentatonic in boxes, straight; major arpeggios; the rhythm pyramid</td><td class="wrap-ok">every scale, three per string, group and interval patterns; every arpeggio quality; figures and random</td></tr>
+                <tr><td>Chords</td><td class="wrap-ok">the curated open shapes in every quality; the live meter identifies everything</td><td class="wrap-ok">every movable shape (drawn as an empty box with a lock until then)</td></tr>
+                <tr><td>Chord drill</td><td class="wrap-ok">the open-majors pool</td><td class="wrap-ok">every pool</td></tr>
+                <tr><td>Progressions</td><td class="wrap-ok">I - IV - V, I - V - vi - IV, the 12-bar blues, transposable</td><td class="wrap-ok">the other built-ins, and your own</td></tr>
+                <tr><td>Fretboard map</td><td class="wrap-ok">Notes and Scale overlays</td><td class="wrap-ok">chord tones, intervals, octaves, boxes</td></tr>
+                <tr><td>Fretboard drills</td><td class="wrap-ok">Notes, both tasks, frets 0 to 5</td><td class="wrap-ok">all six kinds, the whole neck, paced prompts</td></tr>
+                <tr><td>Practice</td><td class="wrap-ok">the default week, timer, log, streak</td><td class="wrap-ok">Rebuild week, Change block, suggestions</td></tr>
+            </tbody>
+        </table>
+        <p class="prose">Limits cap adding, never reading: whatever the library already holds stays usable, trainable and editable. Locked items stay visible in the pickers with a lock and open the purchase sheet when tapped; the selection does not move. <strong>Settings › Luthia Pro</strong> shows the status, <strong>Unlock…</strong> and <strong>Restore Purchase</strong>; a purchase made on one device reaches the others through the App Store.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="sync">
+        <h2>14 · iCloud sync<a class="anchor" href="#sync">#</a></h2>
+        <p class="prose">The library syncs through iCloud Drive to every device on the same Apple Account: custom exercises, custom progressions, the practice plan and log, fretboard progress and Train history. Each record is its own file, so two devices only collide when they edit the same exercise between syncs, and then the newer edit wins. Per-device data (fretboard progress, the practice log, Train history) is merged, so an offline session on the iPad counts once it reconnects.</p>
+        <p class="prose"><strong>Settings › iCloud › Sync with iCloud</strong> is on by default when the device is signed in. Turning it off leaves a full local copy; turning it back on merges local edits in. Signed out of iCloud, the library is local. Nothing is visible in the iCloud Drive folder, and nothing reaches the studio.</p>
+        <p class="prose">Not synced, on purpose: sound, the input device, the tuner preset, the drill setup, map settings and notation settings. Those stay per device.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="settings">
+        <h2>15 · Settings<a class="anchor" href="#settings">#</a></h2>
+        <p class="prose"><kbd>⌘,</kbd> on the Mac, the ⋯ menu on iPhone and iPad.</p>
+        <ul>
+            <li><strong>Input</strong>: the device, with a refresh button.</li>
+            <li><strong>Notation</strong>: <strong>Bar numbers</strong> on every bar (the default) or at line starts; <strong>Scrolling</strong> Down or Sideways for the Train score.</li>
+            <li><strong>Sound</strong>: the preview <strong>instrument</strong>, acoustic or electric, the electric <strong>drive</strong>, and an audition button. Applies to chord strums and exercise previews; the click is unaffected.</li>
+            <li><strong>Luthia Pro</strong>: status, Unlock…, Restore Purchase.</li>
+            <li><strong>iCloud</strong>: Sync with iCloud.</li>
+        </ul>
+    </section>
+
+    <hr class="divider">
+
+    <section class="guide-section" id="shortcuts">
+        <h2>16 · Keyboard reference<a class="anchor" href="#shortcuts">#</a></h2>
+        <table>
+            <thead><tr><th>Keys</th><th>Does</th></tr></thead>
+            <tbody>
+                <tr><td>⌘1 … ⌘5</td><td class="wrap-ok">Compose · Train · Chords · Fretboard · Practice</td></tr>
+                <tr><td>⌘⇧M · ⌘⇧T</td><td class="wrap-ok">Metronome panel · tuner panel</td></tr>
+                <tr><td>Space</td><td class="wrap-ok">Play / stop the preview on screen; in Train with Listen on, start / stop the session</td></tr>
+                <tr><td>⌘/ · ⌘,</td><td class="wrap-ok">Shortcuts sheet · Settings</td></tr>
+                <tr><td>⌘K</td><td class="wrap-ok">Click on / off</td></tr>
+                <tr><td>Return · ⌘⇧K</td><td class="wrap-ok">Tap tempo</td></tr>
+                <tr><td>⌘↑ ⌘↓ · ⌘⌥↑ ⌘⌥↓</td><td class="wrap-ok">Tempo ±5 · ±1</td></tr>
+                <tr><td>⌘⇧D</td><td class="wrap-ok">Next subdivision</td></tr>
+                <tr><td>⌘⇧[ ⌘⇧]</td><td class="wrap-ok">Previous / next time signature</td></tr>
+                <tr><td>⌘⇧R · ⌘⇧G</td><td class="wrap-ok">Speed trainer · gap trainer</td></tr>
+                <tr><td>⌘L</td><td class="wrap-ok">Start / stop listening</td></tr>
+                <tr><td>⌘R</td><td class="wrap-ok">Start / stop a session</td></tr>
+                <tr><td>⌘[ ⌘]</td><td class="wrap-ok">Previous / next exercise</td></tr>
+                <tr><td>⌘N · ⌘S</td><td class="wrap-ok">New exercise · save</td></tr>
+                <tr><td>⌘I · ⌘E · ⌘G</td><td class="wrap-ok">Import… · Export… · Generate…</td></tr>
+                <tr><td>⌘⇧N · ⌘⇧P · ⌘⇧S</td><td class="wrap-ok">Practice: next block · pause / resume · skip</td></tr>
+                <tr><td>⌘⇧1 ⌘⇧2 ⌘⇧3</td><td class="wrap-ok">Practice: done, struggled · OK · solid</td></tr>
+            </tbody>
+        </table>
+        <p class="prose">The tab editor's keys are in <a href="#compose">section 6.2</a>. Fretboard: Space starts the drill or moves to the next prompt, and on the Map plucks the picked spot.</p>
+    </section>
+
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+    <footer>
+        <span class="footer-copy">© 2026 Headroom Studio</span>
+        <ul class="footer-links">
+            <li><a href="./">Luthia</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="releases.html">Release notes</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
+        </ul>
+        <p class="footer__legal">Guitar Pro is a trademark of Arobas Music. MuseScore is a trademark of MuseScore BVBA. Luthia is an independent product and is not affiliated with, endorsed by, or certified by either.</p>
+    </footer>
+
+    </div>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../guide-toc.js"></script>
+</body>
+</html>

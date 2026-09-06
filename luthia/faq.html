@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luthia FAQ - Inputs, Timing Numbers, Import Formats, Pro &amp; Sync</title>
+    <link rel="canonical" href="https://headroomstudio.dev/luthia/faq.html">
+    <meta name="description" content="Common questions about Luthia: which input to use, what the millisecond numbers and spread and lead mean, Guitar Pro and MusicXML import, what is free and what Luthia Pro adds, iCloud sync, and troubleshooting.">
+    <meta property="og:title" content="Luthia FAQ">
+    <meta property="og:description" content="Inputs, what the timing numbers mean, import formats, free and Pro, iCloud sync.">
+    <meta property="og:image" content="https://headroomstudio.dev/luthia/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Luthia FAQ">
+    <meta name="twitter:description" content="Inputs, what the timing numbers mean, import formats, free and Pro, iCloud sync.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/luthia/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #0a0a0d;
+            --bg-card:      #101013;
+            --border:       #1c1c22;
+            --text:         #eeeef6;
+            --text-2:       #72727f;
+            --text-3:       #3b3b47;
+            --accent:       #7c84f6;
+            --accent-dim:   rgba(124, 132, 246, 0.10);
+            --radius-btn:   9px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── Nav ─── */
+
+        .nav-shell { position: sticky; top: 14px; z-index: 60; margin-block: 18px 14px; }
+
+        nav:not(.toc) { display: flex; align-items: center;
+
+            justify-content: space-between; padding: 12px 18px;
+
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.11);
+
+            background: rgba(13,13,17,0.38);
+
+            -webkit-backdrop-filter: blur(28px) saturate(2); backdrop-filter: blur(28px) saturate(2);
+
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 10px 34px rgba(0,0,0,0.4); }
+
+        @media (prefers-reduced-transparency: reduce) {
+
+            nav:not(.toc) { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg-card, #101013); } }
+
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark { width: 32px; height: 32px; color: #c8c6f0; }
+        .brand-word { font-weight: 600; color: #c8c6f0; }
+        .brand-word span { font-weight: 500; color: #7a78a8; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.18s; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-current { color: var(--text); font-weight: 600; }
+        nav .brand { margin-right: auto; }
+        nav .nav-back { margin-left: 22px; }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: 56px 0 48px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-desc {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            line-height: 1.7;
+        }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ─── FAQ groups ─── */
+
+        .faq-group {
+            padding-bottom: 52px;
+        }
+
+        .group-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 20px;
+        }
+
+        /* ─── FAQ items ─── */
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-q {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+
+        .faq-a {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.75;
+        }
+
+        .faq-a + .faq-a {
+            margin-top: 8px;
+        }
+
+        .faq-a strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .faq-a a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(124, 132, 246, 0.3);
+            transition: color 0.18s;
+        }
+
+        .faq-a a:hover { color: #a0aaff; }
+
+        /* faq-search.js injected UI - search box, category chips, empty state.
+           .chip is scoped to .chips so it never touches the inline mono .chip above. */
+        .faq-search { position: relative; background: rgba(255,255,255,0.025); border: 1px solid var(--border);
+            border-radius: 12px; padding: 0 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+        .faq-search svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--text-3); fill: none; }
+        .faq-search input { flex: 1; background: transparent; border: none; outline: none; color: var(--text);
+            font-family: inherit; font-size: 0.95rem; padding: 14px 0; }
+        .faq-search__count { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 0.7rem; color: var(--text-3); white-space: nowrap; }
+        .faq-search__clear { background: transparent; border: none; cursor: pointer; color: var(--text-3);
+            font-size: 1.2rem; line-height: 1; padding: 0; transition: color 0.18s; }
+        .faq-search__clear:hover { color: var(--text); }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips .chip { display: inline-block; font-size: 0.78rem; font-weight: 500; font-family: inherit;
+            padding: 6px 12px; border-radius: 100px; cursor: pointer; background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.10); color: var(--text-3); white-space: nowrap;
+            -webkit-backdrop-filter: blur(14px) saturate(1.7); backdrop-filter: blur(14px) saturate(1.7);
+            transition: background 0.18s, color 0.18s, border-color 0.18s; }
+        .chips .chip:hover { color: var(--text-2); }
+        .chips .chip.is-active { background: rgba(124,132,246,0.14); border-color: rgba(124,132,246,0.30); color: var(--accent); }
+        .faq-item mark { background: rgba(124,132,246,0.24); color: var(--accent); padding: 0 2px; border-radius: 3px; }
+        .faq-empty { padding: 40px 20px; text-align: center; border: 1px dashed var(--border); border-radius: 14px;
+            background: rgba(124,132,246,0.03); }
+
+        /* ─── Steps list ─── */
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .step-num {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-dim);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            letter-spacing: 0.02em;
+        }
+
+        /* ─── Notice box ─── */
+
+        .notice {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notice-icon {
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 3px;
+            opacity: 0.45;
+        }
+
+        .notice p {
+            font-size: 0.8rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        /* ─── Footer ─── */
+
+        footer {
+            padding: 28px 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy { font-size: 0.8125rem; color: var(--text-3); }
+
+        .footer-links { display: flex; gap: 22px; list-style: none; }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 560px) {
+            .hero { padding: 40px 0 36px; }
+        }
+    
+  /* modern text + navigation polish (mirrors headroom.css) */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+      animation: none !important; } }
+
+  html { overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { position: relative; overflow-x: clip; }
+  code { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    nav:not(.toc) { padding: 10px 14px; }
+    .nav-links { gap: 14px; }
+    .nav-link, .nav-back, .nav-links a { font-size: 0.8rem; white-space: nowrap; }
+    .brand { font-size: 0.95rem; gap: 8px; }
+    .brand-mark { width: 26px; height: 26px; }
+  }
+</style>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+<style id="hr-rework">
+  .page-header h1, .hero h1 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif !important; letter-spacing:-0.022em; }
+  .guide-section h2, .section h2 { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; letter-spacing:-0.02em; }
+  .hr-waveform { width:100%; height:96px; position:relative; overflow:hidden; margin:14px 0 8px;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,#000 25%,#000 75%,transparent 100%); }
+  .hr-waveform canvas { width:100%; height:100%; display:block; }
+  /* Sticky side TOC layout - applied without touching content */
+  .doc-grid { display:grid; grid-template-columns:210px 1fr; column-gap:48px; align-items:start; max-width:1060px; margin-left:auto; margin-right:auto; }
+  .doc-grid > .page-header, .doc-grid > .hr-waveform { grid-column:1 / -1; }
+  .doc-grid > .toc { grid-column:1; position:sticky; top:28px; align-self:start; max-height:calc(100vh - 56px); overflow:auto; margin:0; }
+  .doc-grid > .toc .toc-list { display:flex; flex-direction:column; gap:1px; }
+  .doc-grid > .divider, .doc-grid > .guide-section, .doc-grid > .section, .doc-grid > .back-to-top { grid-column:2; }
+  @media (max-width:820px){ .doc-grid{ display:block; max-width:none; } .doc-grid > .toc{ position:static; max-height:none; overflow:visible; margin-bottom:24px; } }
+</style></head>
+<body>
+
+<div class="container nav-shell">
+    <nav>
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"></rect><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"></rect><rect x="9" y="30" width="7" height="22" rx="3.5"></rect><rect x="18.5" y="20" width="6" height="32" rx="3"></rect><rect x="27" y="12" width="5" height="40" rx="2.5"></rect><rect x="34.5" y="8" width="4" height="44" rx="2"></rect><rect x="41" y="14" width="3.5" height="38" rx="1.75"></rect><rect x="47" y="24" width="3" height="28" rx="1.5"></rect><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"></rect></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links"><a href="guide.html" class="nav-link">User Guide</a><span class="nav-link is-current">FAQ</span></div>
+        <a href="./" class="nav-back">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2L4 7l5 5"></path>
+            </svg>
+            Back to Luthia
+        </a>
+    </nav>
+</div>
+
+<div class="container">
+    <section class="hero">
+        <p class="hero-eyebrow">Luthia</p>
+        <h1>Frequently Asked Questions</h1>
+        <p class="hero-desc">Not here? <a href="mailto:hello@headroomstudio.dev?subject=Luthia" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Send an email.</a></p>
+    </section><div class="hr-waveform waveform"><canvas></canvas></div>
+</div>
+
+<div class="container">
+    <hr class="divider">
+
+    <!-- ── Getting started ─────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Getting started</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What do I need to run Luthia?</p>
+                <p class="faq-a">A Mac on macOS 26, an iPad on iPadOS 26 or an iPhone on iOS 26, and something the app can hear the guitar through. On the Mac that is any Core Audio input: an audio interface, the built-in microphone, an aggregate device. On iPhone and iPad it is the built-in microphone, a wired headset, a USB or Lightning interface, or a Bluetooth microphone.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Do I need an audio interface, or does the built-in microphone work?</p>
+                <p class="faq-a">The microphone works for every mode. An interface gives cleaner timing numbers, because the onset detector looks for the pick's attack and a microphone in a room also hears the click, the chair and the fretting hand. With the microphone, headphones for the click keep it out of the measurement; the detector also discounts a click it hears through the mic, but a direct signal is simpler.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I use it without a guitar in hand?</p>
+                <p class="faq-a">Yes. Every fretboard drill has a name task answered from choice chips, and every find task can be answered by tapping the neck on screen. The chord library, the progressions, the editor, the generator, the import preview, the practice planner and the metronome do not need an input at all. What needs the instrument is what listens: Train, the chord drill, the live chord meter and the tuner.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Which guitars and tunings?</p>
+                <p class="faq-a">Six-, seven- and eight-string guitars and four-, five- and six-string basses. The tuning presets (standard, E♭, D, drop D / C / B, DADGAD, open G / D / E, and the extended-range and bass equivalents) sit in the tuner and drive the Fretboard map, so a 7-string or a bass sees its own neck. The exercise library and the generators are written for a six-string in standard tuning; a bass can still train any of them on its own strings.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Where do I start?</p>
+                <div class="steps">
+                    <div class="step"><span class="step-num">1</span>Pick the input under <strong>Settings › Input</strong> and press <strong>⌘L</strong> (Listen). The meter moves when you play.</div>
+                    <div class="step"><span class="step-num">2</span>In <strong>Train</strong> (⌘2) pick one of the built-ins. <em>Open E Pulse</em> is the simplest: one note on the beat.</div>
+                    <div class="step"><span class="step-num">3</span><strong>⌘K</strong> starts the click, <strong>Space</strong> starts the session. Play in a loop; every note gets its number.</div>
+                    <div class="step"><span class="step-num">4</span>Then import something of your own: <strong>Compose</strong> (⌘1) › <strong>Import</strong>, drop a Guitar Pro or MusicXML file, <strong>Train now</strong>.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Train & timing ─────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Train &amp; timing</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What does the number under each note mean?</p>
+                <p class="faq-a">How many milliseconds the note landed from where the click said it should: negative is early, positive is late. Two numbers per note: the last pass, and the running average over the session. There is no grade and no score; the numbers are the feedback.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What are spread and lead?</p>
+                <p class="faq-a"><strong>Spread</strong> is the standard deviation of the signed deviations: how scattered the notes are around wherever you tend to sit. <strong>Lead</strong> is the mean: how far ahead of, or behind, the click you sit on average. They are separated on purpose. Most people play a steady few tens of milliseconds ahead of a click, and that lead is not what practice changes; the scatter is. Each loop's row shows the spread as a bar on a fixed 40 ms scale (green to 12 ms, amber to 25, red beyond) and the lead as a dot, and the session panel shows the same two numbers over the whole take.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Every note reads early by roughly the same amount. Is that latency?</p>
+                <p class="faq-a">Probably not. The click and the input share one clock, the output latency is added to where each beat lands and the input latency is subtracted from each onset, so a constant offset from the device is already taken out. A constant lead of a few tens of milliseconds is the human default when playing to a click: it is reported as the lead and left alone. If the offset is large and the same on every note and every device, the input you selected may not be the one the guitar is on.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why is a note marked wrong when I played it?</p>
+                <p class="faq-a">The pitch is read 30, 60 and 100 ms after the attack and the note is what it settled to; the verdict needs the settled read to be confident and the read before it to agree, and it compares pitch classes, not octaves. A verdict still lands on a note that was fretted late (the pick came before the finger) or a note that the previous string was still ringing over. A microphone in a room makes both more likely than a direct signal.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">My first note of each loop was not counted.</p>
+                <p class="faq-a">It is: an onset that the current loop has no note for, played a little early or late around the loop boundary, is offered to the next loop and scored as its first note. A loop is only closed a beat or so after its last note, so a late last note still counts for its own loop. If a first note goes missing every time, it is usually a pick that was quieter than the note before it, which the level rule treats as a re-pick; the count-in is free, so an accented first note costs nothing.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does the click bleeding into the microphone break the timing?</p>
+                <p class="faq-a">Not on its own. What an attack may put into the detector's rise envelope is capped relative to the recent hops, so a click through a microphone sets no lasting bar, and each candidate onset is confirmed over a short window before it counts. A pick in the room still wins. With the built-in microphone and the click on speakers, headphones are still the cleaner setup.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How are chords timed?</p>
+                <p class="faq-a">A chord is one onset. The strum's first string is the attack the detector sees, so a chord exercise is timed the way a single-note one is. The chord's pitches are not checked note by note in Train; the Chords mode's meter and drill do that.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does the speed trainer mess up the numbers?</p>
+                <p class="faq-a">No. A ramp steps the tempo exactly on a bar line, or on a loop boundary when it counts loops, and the session's expected-note grid is refreshed from the click's own schedule on every onset, so the numbers stay correct through the change.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Import & export ────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Import &amp; export</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Which files can I import?</p>
+                <p class="faq-a">Guitar Pro 7 and 8 (.gp), Guitar Pro 3, 4 and 5 (.gp3, .gp4, .gp5), MusicXML (.musicxml, .mxl), MuseScore 3 and 4 (.mscz, .mscx), MIDI (formats 0 and 1), ASCII tab pasted as text, and Luthia files. Import is free in every format.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Guitar Pro 6 (.gpx) fails. PDF?</p>
+                <p class="faq-a">Guitar Pro 6's .gpx is not read; open it in Guitar Pro 7 or 8 and save as .gp, which imports in full. MuseScore 1.x files are the same story: save from MuseScore 3 or 4. PDF is not supported; a PDF of tab is a picture of tab, and a scan needs optical music recognition, which Luthia does not do.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What is the "What changed" list?</p>
+                <p class="faq-a">Everything the import had to simplify to fit the exercise model: a technique that is not carried (harmonics, tapping, tremolo picking, trills, grace notes), a tied chord that could not merge, a second voice, repeat endings that were read but are not shown. Nothing is dropped silently, and the list appears before you save, next to a preview you can play and train.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">The import changed my fingering.</p>
+                <p class="faq-a">Fingering written in the source is kept as written; it also anchors the search that fingers the notes around it. Only notes with no string and fret in the file get one, from a pass over the whole line that keeps the hand in position and favours open strings. In a MuseScore or MusicXML file the fingering usually lives on the linked tab staff, which the importer folds into the notation part, so export the score with its tab staff rather than notation alone.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I get an exercise back out?</p>
+                <p class="faq-a">Yes, any of them, built-ins included. <strong>⌘E</strong>, the Export chip or a library row's context menu writes MusicXML (a notation staff and a TAB staff, every technique) for MuseScore, Guitar Pro, Dorico, Sibelius or Soundslice, or a Luthia file that opens verbatim on another device or for another person. Export is never gated.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Do course files open straight from Files, Mail or AirDrop?</p>
+                <p class="faq-a">Yes. Luthia is registered for every format above, so Open With, a share sheet or a drop on the window lands in the import sheet with the file parsed. The folder field puts a course's files together in the library (a Pro feature; on the free tier the file still imports and trains).</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Free & Pro ─────────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Free &amp; Pro</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What is free?</p>
+                <p class="faq-a">Every mode and every mechanic: the microphone, the notation, the millisecond timing, the metronome and tuner, every import format, export and iCloud sync. The 32 built-in exercises. One exercise of your own at a time, composed, generated or imported; the major and minor pentatonic scales in boxes, major arpeggios and the rhythm pyramid in the generator; the open chord shapes in every quality, the open-majors drill and three progressions; the Notes and Scale overlays on the map and the Notes drill to fret 5; the default practice week with its timer, log and streak.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What does Luthia Pro add?</p>
+                <p class="faq-a">An unlimited library in folders; all twelve scales, three-notes-per-string fingering and the group and interval patterns; every arpeggio quality, rhythm figures and random grids; every movable chord shape, every drill pool, every progression and your own; chord tones, intervals, octaves and boxes on the map; all six fretboard drills across the whole neck, paced by the click; and the practice planner's Rebuild week, block editing and suggestions. One purchase, $19.99, no subscription.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does one purchase cover Mac, iPad and iPhone?</p>
+                <p class="faq-a">Yes. Luthia is one App Store app for all three, so the purchase is one purchase, and Family Sharing is on. <strong>Settings › Luthia Pro › Restore Purchase</strong> picks it up on a device where it has not appeared yet.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Is there a trial?</p>
+                <p class="faq-a">The free tier is the trial, with no time limit. Everything that listens, measures and edits runs free, so the question of whether the timing works with your setup is answered before any purchase. Locked items stay visible in the pickers with a lock, so it is clear what Pro would add.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What happens to my exercises if the purchase goes away?</p>
+                <p class="faq-a">Nothing. Limits cap adding, never reading: whatever the library already holds stays usable, trainable and editable after a refund, or on a device that has not restored the purchase yet while a Pro library syncs onto it. The free tier's one-exercise slot only applies to saving a new one.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why the App Store, when the other Headroom apps are sold directly?</p>
+                <p class="faq-a">Because Luthia runs on the iPhone and the iPad as well as the Mac, and a universal purchase across the three only exists on the App Store. Lyra, Audita and Specula are Mac-only and stay direct.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── iCloud & data ──────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">iCloud &amp; data</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">What syncs?</p>
+                <p class="faq-a">Your exercises, custom progressions, the practice plan and log, fretboard progress and Train history, through iCloud Drive on your own Apple Account. Sound, the input device, the tuner preset, the drill setup, map settings and notation settings stay per device. The raw audio Train keeps of recent sessions stays on the device it was recorded on.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Two devices edited the same exercise. Which one wins?</p>
+                <p class="faq-a">The newer edit. Each exercise is its own file, so two devices only collide when they change the same one between syncs. The practice log, fretboard progress and Train history are kept per device and merged on read, so those never collide: an offline session on the iPad counts once it reconnects.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can I turn sync off?</p>
+                <p class="faq-a"><strong>Settings › iCloud › Sync with iCloud</strong>. Off leaves a full local copy on the device; on again merges local edits back in. Signed out of iCloud, the library is local until you sign in.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">I do not see a Luthia folder in iCloud Drive.</p>
+                <p class="faq-a">Correct. The library lives in the app's own iCloud container, which iCloud Drive does not show. Export writes a file anywhere you like if you want one in a folder.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does anything reach Headroom Studio?</p>
+                <p class="faq-a">No. Luthia has no accounts and no telemetry, and there is no studio server for it to reach. The only network paths are Apple's: iCloud for sync and the App Store for the purchase. <a href="privacy.html">Privacy policy</a>.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Troubleshooting ────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Troubleshooting</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Listen is on but the meter stays at zero.</p>
+                <p class="faq-a">Check that microphone permission was granted (System Settings › Privacy &amp; Security › Microphone on the Mac; Settings › Privacy &amp; Security › Microphone on iPhone and iPad). Without it the system delivers silence rather than an error. Then check that <strong>Settings › Input</strong> points at the device the guitar is plugged into; the refresh button re-reads the list after a hot-plug.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">The tuner reads a note when nothing is playing.</p>
+                <p class="faq-a">The tuner gates on level and confidence, but a hum or a fan on a sensitive microphone can clear the gate. Pick a direct input, or move away from the noise. A reading disappears as soon as a real note is played.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Return does not tap the tempo on my iPad keyboard.</p>
+                <p class="faq-a">Known gap in the 1.0 builds: Return as tap tempo is wired on the Mac only. Tap in the header, or ⌘⇧K, taps the tempo on the iPad; the editor keys and Space for play and stop do work on the hardware keyboard.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">The iPad shows the iPhone layout.</p>
+                <p class="faq-a">In Split View or Slide Over the app runs its compact shell, the same one as the iPhone. Full screen brings the Mac layout back.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Something else?</p>
+                <p class="faq-a"><a href="mailto:hello@headroomstudio.dev?subject=Luthia">hello@headroomstudio.dev</a>. A description of the input and, for a timing question, the exercise and the tempo are the two things that speed up an answer.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-copy">© 2026 Headroom Studio</span>
+        <ul class="footer-links">
+            <li><a href="./">Luthia</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="releases.html">Release notes</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="mailto:hello@headroomstudio.dev">Contact</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../faq-search.js"></script>
+</body>
+</html>

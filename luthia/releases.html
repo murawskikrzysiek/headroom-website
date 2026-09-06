@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luthia Release Notes - Version History &amp; Changelog</title>
+  <link rel="canonical" href="https://headroomstudio.dev/luthia/releases.html">
+  <meta name="description" content="Version history for Luthia, the guitar practice suite for Mac, iPad and iPhone.">
+  <meta property="og:title" content="Luthia Release Notes">
+  <meta property="og:description" content="Version history for Luthia, the guitar practice suite for Mac, iPad and iPhone: millisecond timing against the click, Guitar Pro and MusicXML import, chords, fretboard drills, a weekly plan.">
+  <meta property="og:image" content="https://headroomstudio.dev/luthia/og.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Luthia Release Notes">
+  <meta name="twitter:description" content="Version history for Luthia, the guitar practice suite for Mac, iPad and iPhone.">
+  <meta name="twitter:image" content="https://headroomstudio.dev/luthia/og.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Self-contained like the other release pages: embedded styles, no external deps, no animation. -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0a0a0d; --border:#1e1e2a; --border-soft:#1a1a24; --text:#eeeef6;
+      --text-2:#c8c8d8; --text-3:#72727f; --text-4:#4a4a64; --accent:#7c84f6; --green:#3ecf7c; --red:#f67c7c; --blue:#7c9af6; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 14px; line-height: 1.6; background: var(--bg); color: var(--text);
+      padding: 28px 24px 48px; max-width: 580px; margin: 0 auto; -webkit-font-smoothing: antialiased; }
+    .back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: var(--accent); text-decoration: none; }
+    .app-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .app-icon { width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0; overflow: hidden; }
+    .app-icon img { width: 100%; height: 100%; display: block; }
+    .app-name { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+    .app-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    .prenote { padding: 14px 16px; background: #14141e; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 12.5px; color: #9c9cb8; line-height: 1.55; margin-bottom: 28px; }
+    .prenote strong { color: var(--text-2); }
+    .release { margin-bottom: 28px; }
+    .release + .release { padding-top: 18px; border-top: 1px solid var(--border-soft); }
+    .release-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+    .version { font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: -0.2px; }
+    .date { font-size: 12px; color: var(--text-3); }
+    .badge-soon { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      background: rgba(124,132,246,0.16); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-left: auto; }
+    .changes { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .changes li { display: flex; align-items: flex-start; gap: 10px; color: var(--text-2); font-size: 13px; line-height: 1.55; }
+    .tag { flex-shrink: 0; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      padding: 2px 6px; border-radius: 4px; margin-top: 2px; min-width: 38px; text-align: center;
+      font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; }
+    .tag-new  { background: rgba(62,207,124,0.12);  color: var(--green); }
+    .tag-fix  { background: rgba(246,124,124,0.12);  color: var(--red); }
+    .tag-impr { background: rgba(124,154,246,0.14); color: var(--blue); }
+    code { font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace; font-size: 12px;
+      background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; color: #d6d6f0; }
+    a { color: var(--accent); text-decoration: none; }
+    strong { color: var(--text); font-weight: 600; } em { color: var(--text); font-style: normal; font-weight: 500; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-size: 11px; color: var(--text-4); text-align: center; }
+    footer a { color: var(--accent); }
+    .footer__legal { max-width: 560px; margin: 10px auto 0; line-height: 1.55; }
+  </style>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+  <a class="back" href="./">← Back to Luthia</a>
+
+  <header class="app-header">
+    <div class="app-icon"><img src="icon.png" alt="Luthia"></div>
+    <div>
+      <div class="app-name">Luthia</div>
+      <div class="app-sub">Guitar practice for Mac, iPad and iPhone</div>
+    </div>
+  </header>
+
+  <div class="prenote">
+    <strong>Luthia 1.0 has not shipped yet.</strong> This page lists what the first release contains. It gains its
+    release date and App Store link when 1.0 is out. Updates arrive through the App Store. Requires macOS 26, iPadOS 26 or iOS 26.
+  </div>
+
+  <section class="release" id="v1.0">
+    <div class="release-header"><span class="version">Version 1.0</span><span class="badge-soon">In development</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>Train: millisecond timing against the click.</strong> Play an exercise in a loop with the metronome running and every note gets its deviation in milliseconds, last and running average, printed under the note. The session panel reports the spread (the scatter of the deviations) and the lead (how far ahead of the click you sit), and every completed loop is a row: spread as a bar on a 40 ms scale, lead as a dot, coverage as opacity. Wrong notes get a pitch verdict. A green playhead sweeps the score, which follows in lines or as one sideways system. Sessions bank into a per-day history with pooled statistics. The count-in is free, repeats are played as written, and a speed-trainer ramp keeps the grid exact.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Compose: a tab and staff editor.</strong> Keyboard-first: digits for frets, a column of digits for a chord, +/− for duration, dots, triplets, rests, copy and paste, undo. Techniques on every note (hammer-on, pull-off, slides, bends, vibrato, palm mute, let ring, dead notes, staccato, slurs, ties), drawn on tab and staff and played as such through a physically modelled string, acoustic or electric. Key signatures, pickup bars, repeats, rehearsal marks and text. On iPhone and iPad a hold opens a two-ring touch wheel that carries the whole palette in one gesture.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>A library of 32 built-in exercises</strong> on seven shelves: Basics, Warm-ups (spider walks, chromatic climbs, string skipping), Picking, Legato, Arpeggios &amp; Sweeps, Rhythm &amp; Strumming, Fingerstyle. Your own exercises sit beside them, in folders.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Import from a teacher's material.</strong> Guitar Pro 7 and 8 (.gp), Guitar Pro 3 to 5, MusicXML (.musicxml, .mxl), MuseScore 3 and 4 (.mscz, .mscx), MIDI, ASCII tab pasted as text, and Luthia files. Techniques, ties, key, pickup, repeats, markings and tempo come across; a linked tab staff is folded into the notation part so the written fingering wins; unfingered notes get a fingering that keeps the hand in position. Every simplification is listed before you save, and a preview can be trained without saving.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Export to MusicXML or a Luthia file.</strong> MusicXML writes a notation staff and a TAB staff with every technique, for MuseScore, Guitar Pro, Dorico, Sibelius and Soundslice. Luthia files open verbatim on another device. Any exercise exports, built-ins included.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Generate.</strong> Twelve scales in five-fret boxes or three notes per string, straight, in groups or in intervals, up, down or both ways; arpeggios over every chord quality; rhythm workouts (the pyramid, figures, seeded random grids).</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Chords.</strong> Every quality in every key as diagrams with strum playback and chord-function labels; a live chord meter that names what is being played out of all 144 chords; a flashcard drill that prompts a chord, listens and moves on; progressions, built-in and your own, in any key, with looped playback and a drill made from their chords.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Fretboard.</strong> A map of the whole neck in the tuner's tuning (6-, 7- and 8-string guitars, 4- to 6-string basses) with overlays for notes, a scale, a chord's tones, intervals, octaves and the generator's boxes; tap a note and the neck re-roots. Six drills (notes, intervals, degrees, chord tones, triads, staff reading) answered by playing, by tapping the neck or from name chips, paced by the click if you like, with a per-position heat map that steers the next prompt.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Practice.</strong> A weekly plan of timed blocks across eight areas, built from minutes a day, practice days and a focus; a session timer that opens each block where it runs and keeps counting across modes; a log with three-level ratings, streak and weekly minutes; a rebuild sheet with per-area weights and content pickers; suggestions that adjust tempo, position and pool from how the week went.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Metronome and tuner.</strong> Subdivisions, tap tempo, a speed trainer in bars or in Train loops, a gap trainer; a tuner with a cents needle, nearest-string readout, reference A4 and tuning presets that also drive the fretboard.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Mac, iPad and iPhone from one app.</strong> The Mac layout on the iPad; a compact shell on the iPhone with the modes in the tab bar. The click keeps running through a screen lock.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>iCloud sync.</strong> Exercises, progressions, the plan and log, fretboard progress and Train history follow the Apple Account across devices; per-device logs merge, and an edit collision goes to the newer version. Off in Settings if you prefer one device.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Free, with Luthia Pro.</strong> Every mode and every mechanic run free; Pro opens the content library and the planner. One purchase for Mac, iPad and iPhone, with Family Sharing.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="./">Luthia</a> &nbsp;·&nbsp; <a href="guide.html">User Guide</a> &nbsp;·&nbsp;
+    <a href="faq.html">FAQ</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a> &nbsp;·&nbsp;
+    <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>
+    <p class="footer__legal">Guitar Pro is a trademark of Arobas Music. MuseScore is a trademark of MuseScore BVBA. Luthia is an independent product and is not affiliated with, endorsed by, or certified by either.</p>
+  </footer>
+
+</body>
+</html>

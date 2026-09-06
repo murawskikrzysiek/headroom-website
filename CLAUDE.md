@@ -35,6 +35,8 @@ headroom-website/
 ├── audita/                 #   releases, appcast.xml, icon.png, og.png, screenshots
 ├── specula/                #   (+ 9 use-case pages specula/{mastering,compare,...}.html
 │                           #    + meter-demo.js, the live-meter demo for specula/index.html)
+├── luthia/                 # App Store app: index, faq, guide, privacy, releases, icon, og.
+│                           #   No appcast (updates go through the App Store).
 ├── auris/                  # Frozen post-rename stubs - redirect to audita/
 │
 ├── blog/                   # index.html, blog.css, feed.xml (RSS), one HTML per post
@@ -44,6 +46,8 @@ headroom-website/
 ```
 
 **Videre is not on `main`.** Its pages live on the `feat/videre-page` branch and stay off the live site until launch: the whole `videre/` folder, its sitemap rows, the `.patcat` pattern-catalogue styles in `headroom.css`, its `gen_app_banners` entry. Work on them on that branch; merge it into `main` on release day, and run the positioning sweep in the Rules section when you do.
+
+**Luthia is not on `main` either.** Its pages live on the `feat/luthia-page` branch until the App Store release: the whole `luthia/` folder, its sitemap rows, its homepage row (status `In development`, price `Free · Pro $19.99`), its `gen_app_banners` entry. Luthia ships through the App Store, so it has **no appcast, no DMG, no Sparkle and no Lemon Squeezy**: `releases.html` is the human-readable history only, the hero's CTA becomes the App Store badge + link on release day, and `activity-feed.js` cannot read release rows for it (keep it out of `data-feed-apps`; a homepage feed row for a Luthia release is hand-written). Merge the branch on release day and run the positioning sweep: Luthia is the first app on iPadOS and iOS and the first for musicians rather than audio engineers, so the homepage hero sub-line, the About paragraph and the social headers all need the wording pass the Videre note describes.
 
 ## Styling
 
@@ -73,7 +77,7 @@ Each file's header comment documents its container contract — read it before w
 
 ## Guides mirror app repos
 
-- `lyra/guide.html` mirrors `Lyra/USER-GUIDE.md`; `specula/guide.html` mirrors `Specula/USER-GUIDE.md`. **Edit the markdown in the app repo, then re-mirror.** The md sources use em-dashes; the mirror step converts them to spaced hyphens — preserve that. The masthead (h1/lede) is website furniture, not in the md — edit it HTML-side.
+- `lyra/guide.html` mirrors `Lyra/USER-GUIDE.md`; `specula/guide.html` mirrors `Specula/USER-GUIDE.md`. `luthia/guide.html` mirrors `Luthia/USER-GUIDE.md` (numbered subheads with a static `.toc-sub` rail, the Videre pattern on `feat/videre-page`). **Edit the markdown in the app repo, then re-mirror.** The md sources use em-dashes; the mirror step converts them to spaced hyphens — preserve that. The masthead (h1/lede) is website furniture, not in the md — edit it HTML-side.
 - `audita/guide.html` has **no markdown source** — edit the HTML directly.
 
 ## Releases and appcasts
@@ -95,6 +99,7 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 ## Adding a new app
 
 1. Create `your-app/` mirroring an existing app folder (index, faq, privacy, releases, appcast.xml, icon, og)
+   - An App Store app (Luthia) skips `appcast.xml`; its hero CTA is the App Store badge, its privacy page covers iCloud sync and the in-app purchase instead of Lemon Squeezy and Sparkle, and it needs iPadOS / iOS badges where the Mac-only apps have one.
 2. Add the app row to the homepage grid and, if it should appear in the feed, to the `data-feed-apps` list
 3. Generate the OG image + thumbnail with `gen_app_banners/`
 4. Add every new page to `sitemap.xml` (hand-maintained) and run `./tools/check-sitemap.sh` (see Sitemap and robots)
