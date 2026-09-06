@@ -1390,7 +1390,7 @@
     <section class="guide-section" id="edit">
         <h2>16. Edit mode <a href="#edit" class="anchor">#</a></h2>
 
-        <p class="prose">Non-destructive editing. Always saves as a <strong>new file</strong> - never overwrites the original.</p>
+        <p class="prose">Non-destructive editing. By default it saves as a <strong>new file</strong> and never overwrites the original; an opt-in <strong>Save</strong> (<kbd>⌘S</kbd>) that writes over the loaded file is described under <a href="#save-and-discard">Save and Discard</a>.</p>
 
         <p class="prose">Edit, Chapter, Dialogue, Spectral, and Record share <strong>one editing session</strong>: the edited audio, the undo history, and the unsaved-changes state follow you across all five modes, so a workflow that moves between them is continuous and a single Save at the end writes everything. Switching modes never discards edits; loading a different file, or <strong>Discard Edits</strong>, is what clears the session. Multi-file Compare is separate: entering it from unsaved edits prompts to Save or Discard first.</p>
 
@@ -1450,11 +1450,13 @@
         <h3>Undo</h3>
         <p class="prose"><kbd>⌘Z</kbd> steps back through the session's edits, including edits applied from Chapter mode (Level chapters), the Level Dialogue pass, <a href="#spectral">Spectral mode</a> operations, and takes landed from <a href="#record">Record mode</a> (each Append, Insert, or Punch landing is one undo step), since the modes share one undo history. <kbd>⇧⌘Z</kbd> redoes. Undo is disk-backed (each level is a temp file, not a second copy in RAM), so deep history doesn't multiply memory. In Dialogue mode, <kbd>⌘Z</kbd> targets region edits (a separate 50-step history); audio-buffer undo is reached from Edit, Chapter, or Spectral.</p>
 
-        <h3>Save and Discard</h3>
-        <p class="prose"><kbd>⇧⌘S</kbd> opens a save panel. Specula writes the current audio to a new file (it never overwrites the source). Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
-        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, Dialogue, Spectral, and Record alike, because those five modes share one editing session.</p>
+        <h3 id="save-and-discard">Save and Discard</h3>
+        <p class="prose"><kbd>⇧⌘S</kbd> (Save As) opens a save panel. Specula writes the current audio to a new file and refuses the loaded file's own path. Format defaults to WAV at the file's native bit depth and sample rate. Saving makes the written file the working document in place: your chapters, dialogue regions, and playhead stay put, and you stay in the mode you were in.</p>
+        <p class="prose"><strong>Save (<kbd>⌘S</kbd>) writes over the loaded file</strong> once you turn on <strong>Settings → Editing → Allow Save to overwrite the original file</strong> (off by default). It then appears in the Edit menu and next to Save As in the Edit, Chapter, Dialogue, and Spectral toolbars. Save keeps the file's own format: a 16-bit WAV stays a 16-bit WAV, with its sample rate and channel layout, and a trimmed file simply gets shorter. The edited audio is written to a temporary file next to the original and swapped in only once it's complete, so a failed save (disk full, a locked file) leaves the original untouched. Specula asks before each overwrite; tick <strong>Don't ask again</strong> in that dialog, or use <strong>Settings → Editing → Ask before overwriting</strong>, to change that. Once written, the original is gone: Undo and Discard Edits reach back only to that save.</p>
+        <p class="prose">Save is offered for WAV, AIFF, and CAF sources. A compressed file (MP3, AAC, FLAC), a raw PCM file, or a recorded take still in the takes folder can't be rewritten in place, so those go through Save As (the Save button says why when you hover it). With the setting off there is no Save command and <kbd>⌘S</kbd> does nothing, which is the pre-1.2.2 behaviour.</p>
+        <p class="prose"><strong>Discard Edits</strong> (Edit menu) reverts the buffer to the last saved version in one step, the explicit counterpart to Save. Save, Save As, Discard, and the unsaved-changes dot are reachable from Edit, Chapter, Dialogue, Spectral, and Record alike, because those five modes share one editing session.</p>
 
-        <p class="prose"><strong>Quitting or opening over unsaved work asks first.</strong> <kbd>⌘Q</kbd> with unsaved edits prompts to save them, quit without saving, or cancel. If a take is still recording, Specula asks before stopping it, and if the loaded audio is a recorded take that hasn't been saved out of the takes folder, it offers Save Take As… before quitting. Opening a new file runs the same checks, whatever the path: the picker, a drop, the Dock, Open With, or Open Recent.</p>
+        <p class="prose"><strong>Quitting or opening over unsaved work asks first.</strong> <kbd>⌘Q</kbd> with unsaved edits prompts to save them (over the file when Save is allowed for it, otherwise as a new file), quit without saving, or cancel. If a take is still recording, Specula asks before stopping it, and if the loaded audio is a recorded take that hasn't been saved out of the takes folder, it offers Save Take As… before quitting. Opening a new file runs the same checks, whatever the path: the picker, a drop, the Dock, Open With, or Open Recent.</p>
 
         <h3>Edit toolbar</h3>
         <p class="prose">While in edit mode, a horizontal toolbar appears below the transport. Operations with parameters (Cut, Silence, Gain, Fade, Normalize, Limit TP, Level Dialogue) open small popovers - set the parameters, click Apply. The Limit TP popover takes a ceiling in <code>dBTP</code> with presets at -2 / -1 / -0.5 / -0.1. The Cut popover takes the crossfade length (default 10 ms, 0 for a hard cut). The Level Dialogue popover sets the duck amount, an optional <strong>Lift dialogue to target</strong> with a target and true-peak ceiling.</p>
@@ -1730,7 +1732,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
             <tr><td><kbd>⌃⌘E</kbd></td><td class="wrap-ok">Export Diff Audio</td><td class="wrap-ok"><code>*.wav</code> - the active slot's cached A − slot residual buffer (compare mode only). Same output as the Export Diff button next to the Listen to Diff toggle.</td></tr>
         </table>
 
-        <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export - the menu item swaps based on context.</p>
+        <p class="prose">In edit mode, <kbd>⇧⌘S</kbd> is "Save Edited Audio As", not the JSON export - the menu item swaps based on context. <kbd>⌘S</kbd> is Save (over the loaded file) only when Settings → Editing allows it.</p>
 
         <h3>Report contents</h3>
         <p class="prose">The <strong>Settings → Report</strong> tab decides what's included:</p>
@@ -1781,10 +1783,11 @@ specula compare master-v1.wav master-v2.wav --no-vad   # skip Silero on both fil
         <p class="prose"><code>--out-diff &lt;PATH&gt;</code> additionally writes the <strong>A − gainB·B residual</strong> to that path as a Float32 WAV (paired with <code>--match-loudness</code> to net out pure level differences before subtracting). The compare JSON gains a <code>residual</code> block carrying the residual's peak / RMS / applied gain so a script can branch on the residual energy without re-loading the file. Sample rate + channel count must match between A and B - the diff refuses structural mismatches rather than silently resampling.</p>
 
         <h3><code>specula edit &lt;FILE&gt; --out &lt;OUT&gt; …</code></h3>
-        <p class="prose">Applies edit operations and writes the result to <code>--out</code> (<code>-o</code> for short). <code>--out</code> is required and <strong>must not resolve to the same path as the input</strong> - Specula never writes in place, the same contract the app's Save As enforces.</p>
+        <p class="prose">Applies edit operations and writes the result to <code>--out</code> (<code>-o</code> for short). <code>--out</code> <strong>must not resolve to the same path as the input</strong>, the same contract the app's Save As enforces. To write over the source deliberately, pass <code>--in-place</code> instead of <code>--out</code>: the app's opt-in Save on the command line. It works for WAV, AIFF, and CAF, keeps the file's own bit depth and channel layout, and writes atomically (a temporary sibling is swapped in once complete), so a failure leaves the source untouched. Raw PCM inputs can't be rewritten in place.</p>
         <pre><code>specula edit mix.wav --out mix-norm.wav --normalize-lufs=-14 --lufs-ceiling=-1
 specula edit mix.wav --out mix-trimmed.wav --trim 5.0:30.5
-specula edit mix.wav --out mix-louder.wav --gain 3</code></pre>
+specula edit mix.wav --out mix-louder.wav --gain 3
+specula edit mix.wav --in-place --dc-remove</code></pre>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
@@ -1911,12 +1914,15 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
     <section class="guide-section" id="settings">
         <h2>23. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>⌘,</kbd>. Nine tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Updates · License · Acknowledgements.</p>
+        <p class="prose">Open with <kbd>⌘,</kbd>. Eleven tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Editing · Plugins · Updates · License · Acknowledgements.</p>
 
         <figure class="shot shot--mid">
             <img src="specula-settings-spectrogram.png" alt="Settings Spectrogram tab with colormap, frequency scale, and floor and ceiling sliders." loading="lazy" decoding="async">
             <figcaption><strong>Settings.</strong> Colormap, frequency scale, and dB range for the spectrogram.</figcaption>
         </figure>
+
+        <h3>Editing</h3>
+        <p class="prose"><strong>Allow Save to overwrite the original file</strong> (off by default) adds <strong>Save</strong> (<kbd>⌘S</kbd>) to the Edit menu and the mode toolbars. Save replaces the loaded WAV, AIFF, or CAF with the edited audio, keeping the file's own bit depth, sample rate, and channel layout, through a temporary file that is swapped in only once complete. <strong>Ask before overwriting</strong> (on by default) shows a confirmation before each overwrite; the dialog's "Don't ask again" checkbox turns it off, and this toggle turns it back on. Save As (<kbd>⇧⌘S</kbd>) is unaffected: it always writes a new file. See <a href="#save-and-discard">Save and Discard</a>.</p>
 
         <h3>Layout</h3>
         <p class="prose">Defaults for which sections show on launch:</p>
@@ -2038,7 +2044,8 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
         <p class="prose">These operate only in Edit mode (so they don't shadow the transport keys) and are listed in the <strong>Edit menu</strong>. The first group needs a selection; the playhead group acts at the cursor. Defaults: Cut uses a 10 ms equal-power crossfade; the fade keys use the equal-power curve.</p>
         <table>
             <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td class="wrap-ok">Undo / redo last edit</td></tr>
-            <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio (new file)</td></tr>
+            <tr><td><kbd>⌘S</kbd></td><td class="wrap-ok">Save over the loaded file (Settings → Editing, off by default)</td></tr>
+            <tr><td><kbd>⇧⌘S</kbd></td><td class="wrap-ok">Save edited audio as a new file</td></tr>
             <tr><td><kbd>⌫</kbd></td><td class="wrap-ok">Cut (remove and crossfade-join) - selection</td></tr>
             <tr><td><kbd>⌥⌫</kbd></td><td class="wrap-ok">Silence selection (replace, keep length) - selection</td></tr>
             <tr><td><kbd>⌘T</kbd></td><td class="wrap-ok">Trim to selection (keep it, discard the rest) - selection</td></tr>

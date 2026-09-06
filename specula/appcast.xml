@@ -28,6 +28,23 @@
         <description>Specula update feed</description>
         <language>en</language>
 
+        <!-- RELEASE-CUT TODO (v1.2.2): set pubDate to the ship date, run
+             sign_update on Specula-1.2.2.dmg and paste edSignature + length. -->
+        <item>
+            <title>Version 1.2.2</title>
+            <description>Save over the original file: a new toggle under Settings, Editing, off by default, adds Save (Cmd-S) to the Edit menu and the Edit, Chapter, Dialogue, and Spectral toolbars. Save replaces the loaded WAV, AIFF, or CAF with the edited audio and keeps the file's own bit depth, sample rate, and channel layout, so a 16-bit master stays 16-bit. The new data is written to a temporary file next to the original and swapped in only once it is complete, so a failed save leaves the original exactly as it was. Specula asks before each overwrite, with a Don't ask again checkbox. Compressed sources and raw PCM still save as a new file, and Save As (Shift-Cmd-S) keeps refusing the original path either way. On the command line, specula edit gains --in-place as the deliberate alternative to --out.</description>
+            <pubDate>Sun, 06 Sep 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.2.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-1.2.2.dmg"
+                sparkle:edSignature="RELEASE-CUT-TODO-SIGNATURE"
+                length="0"
+                type="application/octet-stream" />
+        </item>
+
         <item>
             <title>Version 1.2.1</title>
             <description>Icons only for the mode and view buttons: a toggle under Settings, Layout drops the text labels from the mode bar, the view toggles, and Generate. The mode buttons are Edit, Compare, Chapter, Dialogue, Spectral, and Record. Hovering any button still names it and gives its shortcut, and the narrower bar fits more of the window before it wraps to a second row.</description>

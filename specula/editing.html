@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file</title>
+    <title>Specula for Editing &amp; Repair: non-destructive fixes on macOS, saved as a new file by default</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/editing.html">
-    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target, host Audio Unit effects, and take a cough or a squeak out on the spectrogram. Keyboard-driven, saved as a new file.">
+    <meta name="description" content="Make the small fix without a DAW. Trim, cut and crossfade-join, fade, gain, level dialogue, normalize to a LUFS target, host Audio Unit effects, and take a cough or a squeak out on the spectrogram. Keyboard-driven, saved as a new file by default, or over the original once you allow it.">
     <meta property="og:title" content="Specula for Editing &amp; Repair">
-    <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and always saves a new file.">
+    <meta property="og:description" content="A trim, a fade, a LUFS normalize, without round-tripping a DAW and without risking the master. Specula edits non-destructively and saves a new file by default; overwriting the original is an opt-in.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Editing &amp; Repair">
-    <meta name="twitter:description" content="Non-destructive editing on macOS: trim, fade, gain, normalize to LUFS with a true-peak limiter, Limit TP, spectral repair. Always saves as a new file.">
+    <meta name="twitter:description" content="Non-destructive editing on macOS: trim, fade, gain, normalize to LUFS with a true-peak limiter, Limit TP, spectral repair. Saves as a new file by default; overwriting the original is an opt-in.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -26,7 +26,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Specula for Editing & Repair",
-        "description": "Non-destructive editing on macOS: trim, fade, gain, invert phase, normalize to a peak or LUFS target with a 4× oversampled true-peak limiter, Limit TP, remove DC, swap channels, split to mono, and spectral editing (attenuate, erase, or repair a time-frequency selection). 16-level undo/redo; always saves as a new file.",
+        "description": "Non-destructive editing on macOS: trim, fade, gain, invert phase, normalize to a peak or LUFS target with a 4× oversampled true-peak limiter, Limit TP, remove DC, swap channels, split to mono, and spectral editing (attenuate, erase, or repair a time-frequency selection). 16-level undo/redo; saves as a new file by default, or over the original once you allow it.",
         "url": "https://headroomstudio.dev/specula/editing.html",
         "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
         "about": {
@@ -68,7 +68,7 @@
             <p class="eyebrow">Workflow · Editing</p>
             <h1 class="display">The small fix, without booting a DAW.</h1>
             <p class="app-hero__desc">
-                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. A cough painted out of a piano chord on the spectrogram. Specula's Edit mode runs jobs this size on the loaded buffer, with keyboard shortcuts and 16 levels of undo/redo, then writes the result to a <strong>new file</strong>. The original on disk is never touched.
+                A trim. A cut out of the middle. A fade. A LUFS normalize before upload. A cough painted out of a piano chord on the spectrogram. Specula's Edit mode runs jobs this size on the loaded buffer, with keyboard shortcuts and 16 levels of undo/redo, then writes the result to a <strong>new file</strong>. The original on disk is never touched unless you turn on the Save-over-original option in Settings.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -110,7 +110,7 @@
                     The fix is thirty seconds of work. Opening a DAW to do it isn't.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">You loaded the file to check the numbers and now you can see the one thing that needs fixing: a few seconds of room tone to trim off the head, a fade to clean up the tail, a normalize to the LUFS target the delivery wants. Round-tripping that through a DAW means a new project, an import, a bounce, and a settings dialog for each. Doing it by hand on the master means there's nothing to fall back to if you get the gain wrong.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Specula does the small jobs where the file already is. Two rules keep it safe: edits are undoable (up to 16 levels of undo/redo), and saving always produces a <strong>new file</strong>. Specula has no in-place overwrite, so the source you loaded stays exactly as it was on disk.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Specula does the small jobs where the file already is. Two rules keep it safe: edits are undoable (up to 16 levels of undo/redo), and saving produces a <strong>new file</strong> by default, so the source you loaded stays exactly as it was on disk. If you'd rather edit a working file in place, Settings → Editing adds a plain Save (<kbd>⌘S</kbd>) that writes over it, keeps its bit depth and layout, and swaps the new data in only once it's fully written.</p>
             </div>
         </div>
     </section>
@@ -120,12 +120,12 @@
         <div class="section__grid">
             <div>
                 <p class="label">Three steps, no project</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Enter the mode, run the operation, save a new file.</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Enter the mode, run the operation, save.</p>
             </div>
             <div>
                 <div class="feature-row"><div class="feature-row__k">1 · Enter Edit mode</div><div class="feature-row__v"><kbd>⌘1</kbd> toggles Edit mode; the waveform shows an amber <strong>EDIT</strong> badge while it's active. Edit is <strong>mutually exclusive with Compare</strong>. The Compare controls are disabled while you're editing, and Edit is unavailable when more than one compare slot is loaded. A toolbar appears below the transport; operations that take parameters (cut, silence, gain, fade, normalize, Level Dialogue) open a small popover where you set the values and click Apply. The single-key edits are also listed in the <strong>Edit menu</strong> so the shortcuts are always visible.</div></div>
                 <div class="feature-row"><div class="feature-row__k">2 · Apply an operation</div><div class="feature-row__v">Each operation runs on the current selection or the whole file. <strong>Trim</strong> crops to the selection (<kbd>⌘T</kbd>); <strong>Cut</strong> (<kbd>⌫</kbd>) does the opposite, removing the selection and joining the sides with an equal-power crossfade, the move for taking a too-long pause or a flubbed line out of the middle. <strong>Add Silence</strong> inserts at the playhead with no selection (say 500 ms for a video sync), or before / after / replacing a selection (in seconds or samples); <strong>Change Level</strong> applies linear gain in dB (<kbd>⌃↑</kbd> / <kbd>⌃↓</kbd> for ±1 dB on a selection); <strong>Invert Phase</strong> multiplies by −1; <strong>Fade</strong> offers linear, logarithmic, and equal-power curves in and out (six total). <strong>Normalize Peak</strong> targets a dBFS value; <strong>Normalize LUFS</strong> targets a LUFS value with a ceiling, auto-applying a 5 ms-lookahead true-peak limiter when it raises loudness; both <strong>Normalize and Limit TP respect a time selection</strong>, so you can fix one hot section without re-rendering the whole file (with no selection they run on the whole file, and the popover states which). You can also reach Normalize straight from a loudness target: integrated and dialog-gated rows in the Loudness Targets panel carry a <strong>Normalize</strong> button (the up-to-line icon beside Match) that opens Edit mode with the popover pre-filled to that target, stating its <strong>Basis</strong> (Integrated LUFS or Dialog-gated LKFS) and its <code>dBTP</code> ceiling; a target whose true peak breaches its ceiling shows a one-click <strong>Limit TP</strong> button the same way; only the ACX RMS target has no Normalize button. <strong>Limit TP</strong> caps inter-sample peaks at a <code>dBTP</code> ceiling on its own. <strong>Level Dialogue</strong> ducks the room tone between speech regions and optionally lifts the dialogue to a target in one pass (the spoken-word leveler, covered below). <strong>Remove DC Offset</strong> subtracts each channel's mean; <strong>Swap Channels</strong> does a stereo L↔R swap; <strong>Split to Mono</strong> writes N mono WAV files, one per channel, to a folder you pick.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Undo, or save a new file</div><div class="feature-row__v"><kbd>⌘Z</kbd> restores the buffer captured before the last edit, and <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is <strong>16-level</strong>: each edit pushes a snapshot, so you can step back through up to 16 operations. History is disk-backed (only the current buffer stays in RAM), so deep undo doesn't balloon memory. When the result is right, <kbd>⇧⌘S</kbd> opens a save panel and writes the current buffer to a new file, WAV at the file's native bit depth and sample rate by default.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Undo, or save</div><div class="feature-row__v"><kbd>⌘Z</kbd> restores the buffer captured before the last edit, and <kbd>⇧⌘Z</kbd> redoes it. Undo/redo is <strong>16-level</strong>: each edit pushes a snapshot, so you can step back through up to 16 operations. History is disk-backed (only the current buffer stays in RAM), so deep undo doesn't balloon memory. When the result is right, <kbd>⇧⌘S</kbd> opens a save panel and writes the current buffer to a new file, WAV at the file's native bit depth and sample rate by default. Turn on <strong>Allow Save to overwrite the original file</strong> under Settings → Editing and <kbd>⌘S</kbd> writes over the loaded WAV, AIFF, or CAF instead, keeping its format; Specula asks first, and a failed write leaves the original untouched.</div></div>
             </div>
         </div>
     </section>
