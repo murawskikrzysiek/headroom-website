@@ -71,6 +71,15 @@
     </div>
   </header>
 
+  <section class="release" id="v1.2.3">
+    <div class="release-header"><span class="version">Version 1.2.3</span><span class="date">September 2026</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-fix">Fix</span><span><strong>Save keeps the file's container.</strong> Saving over a WAV whose name ended in upper-case <code>.WAV</code> (as some field recorders write it), or in <code>.wave</code> or <code>.bwf</code>, wrote a CAF file under that name. The audio inside was intact, but software that checks the RIFF header refused the file. <code>.AIF</code> and <code>.AIFF</code> names were affected the same way, as was <code>specula edit --out</code> given such a name. Every file Specula writes now states its container explicitly, and Save reads the container from the file's header rather than its name, so a WAV stays a WAV and an AIFF stays an AIFF. Broadcast Wave, RF64, BW64, and Wave64 sources are rewritten in their own container as well. On the command line, <code>--out</code> refuses a destination whose extension names no container Specula writes instead of producing a CAF under that name. A file that 1.2.2 already converted still holds all of its audio: open it and use Save As to write it out as a WAV.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Save As writes the source's bit depth.</strong> The guide has always said Save As writes a new file at the loaded file's native bit depth; it wrote 32-bit float. A 16-bit or 24-bit WAV, AIFF, or CAF now saves as a new file at that bit depth, the same rule Save follows. Sources with no fixed PCM encoding to keep (compressed audio, raw PCM, generated signals) still save as 32-bit float. The info panel's encoding readout no longer flips to 32-bit after the first edit.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>The info panel reads the file, not its name.</strong> The File section's Format row now comes from the file's header: a CAF renamed to <code>.wav</code> reads "CAF, named .wav" in orange, with the explanation on hover, and Save is refused up front for a file whose header isn't WAV, AIFF, or CAF, whatever its name. The Bit Depth row is now <strong>Encoding</strong> and shows the sample format inside the container (24-bit integer, 32-bit float, AAC) instead of a default number for compressed files. The Name row shows the full file name, extension included, and wraps rather than truncating; the file's path shows on hover. Reports and <code>specula analyze</code> carry the same header-derived format.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.2.2">
     <div class="release-header"><span class="version">Version 1.2.2</span><span class="date">September 2026</span></div>
     <ul class="changes">
