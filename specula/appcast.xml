@@ -28,20 +28,18 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- RELEASE-CUT TODO (v1.2.3): fill pubDate (ship date, RFC 822), sparkle:edSignature
-             (sign_update Specula-1.2.3.dmg) and length (stat -f%z Specula-1.2.3.dmg) before merging. -->
         <item>
             <title>Version 1.2.3</title>
             <description>Fixed: saving over a WAV whose name ended in upper-case .WAV (as some field recorders write it), or in .wave or .bwf, wrote a CAF file under that name. The audio inside was intact, but software that checks the RIFF header refused the file. .AIF and .AIFF names and specula edit --out were affected the same way. Every file Specula writes now states its container explicitly, and Save reads the container from the file's header rather than its name, so a WAV stays a WAV and an AIFF stays an AIFF. Broadcast Wave, RF64, BW64, and Wave64 sources are rewritten in their own container as well. A file that 1.2.2 already converted still holds all of its audio: open it and use Save As to write it out as a WAV. Also fixed: Save As writes a new file at the source's bit depth, as the guide has always said, instead of 32-bit float. Sources with no fixed PCM encoding (compressed audio, raw PCM, generated signals) still save as float. Changed: the info panel reads the file, not its name. Format comes from the file's header (a CAF renamed .wav reads "CAF, named .wav" in orange, with the explanation on hover), the Bit Depth row is now Encoding and shows the sample format inside the container (24-bit integer, 32-bit float, AAC), and the Name row shows the full file name with the path on hover.</description>
-            <pubDate>PUBDATE-PLACEHOLDER</pubDate>
+            <pubDate>Mon, 07 Sep 2026 12:00:00 +0000</pubDate>
             <sparkle:version>7</sparkle:version>
             <sparkle:shortVersionString>1.2.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-1.2.3.dmg"
-                sparkle:edSignature="EDSIGNATURE-PLACEHOLDER"
-                length="LENGTH-PLACEHOLDER"
+                sparkle:edSignature="sGA13pgvB/L5oyS0Jf+NwHNxgnRSJMoF4GhhrMeQfNai9b0SPXeArg1GP5QrA7xe2NPxeBLra1vGF5YvdVhyBA=="
+                length="16888644"
                 type="application/octet-stream" />
         </item>
 
