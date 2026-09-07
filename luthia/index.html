@@ -150,9 +150,61 @@
                     Per-note deviation in milliseconds, spread and lead for the session, a row per loop, all on one clock.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">Listen, click, Space. The count-in is yours: the session anchors to the first onset it hears and the loop starts on the nearest bar line. From then on every pick is matched to the note it was meant for and the deviation lands under that note on the score, last and running average, negative for early. A first note played a little early rolls into the next loop instead of being dropped, and an exercise with repeats is played as written, every pass of a repeated note folding into the same statistics.</p>
+                <figure class="diagram" style="margin-top: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 230" role="img" aria-label="Luthia's timing chain: the click's scheduled beats plus the output latency give the beat as it was heard; the guitar's input tap minus the input latency gives the pick as it was struck; both land on one clock, each onset is matched to the nearest free note, and the result is a signed number of milliseconds per note and a spread and lead per loop.">
+                        <rect class="dg-box" x="10" y="24" width="120" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="49">click</text>
+                        <text class="dg-s" x="24" y="68">the schedule</text>
+                        <rect class="dg-box" x="10" y="146" width="120" height="60" rx="9"/>
+                        <text class="dg-t" x="24" y="171">guitar</text>
+                        <text class="dg-s" x="24" y="190">input tap</text>
+                        <path class="dg-flow" d="M130 54h29m-6 -5 6 5-6 5M130 176h29m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="160" y="24" width="160" height="60" rx="9"/>
+                        <text class="dg-t" x="174" y="49">beat, as heard</text>
+                        <text class="dg-s" x="174" y="68">+ output latency</text>
+                        <rect class="dg-box" x="160" y="146" width="160" height="60" rx="9"/>
+                        <text class="dg-t" x="174" y="171">pick, as struck</text>
+                        <text class="dg-s" x="174" y="190">&#8722; input latency</text>
+                        <path class="dg-flow" d="M320 54H340V176H320"/>
+                        <path class="dg-flow" d="M340 115h19m-6 -5 6 5-6 5"/>
+                        <text class="dg-l" x="330" y="119" text-anchor="end">ONE CLOCK</text>
+                        <rect class="dg-box dg-box--accent" x="360" y="85" width="140" height="60" rx="9"/>
+                        <text class="dg-t" x="374" y="110">match</text>
+                        <text class="dg-s dg-s--a" x="374" y="129">nearest free note</text>
+                        <path class="dg-flow" d="M500 115h19m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="520" y="85" width="170" height="60" rx="9"/>
+                        <text class="dg-t" x="534" y="110">ms per note</text>
+                        <text class="dg-s" x="534" y="129">spread &#183; lead per loop</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 340" role="img" aria-label="Luthia's timing chain: the click's scheduled beats plus the output latency give the beat as it was heard; the guitar's input tap minus the input latency gives the pick as it was struck; both land on one clock, each onset is matched to the nearest free note, and the result is a signed number of milliseconds per note and a spread and lead per loop.">
+                        <rect class="dg-box" x="10" y="20" width="155" height="58" rx="9"/>
+                        <text class="dg-t" x="24" y="44">click</text>
+                        <text class="dg-s" x="24" y="62">the schedule</text>
+                        <rect class="dg-box" x="175" y="20" width="155" height="58" rx="9"/>
+                        <text class="dg-t" x="189" y="44">guitar</text>
+                        <text class="dg-s" x="189" y="62">input tap</text>
+                        <path class="dg-flow" d="M87 78v16m-5 -6 5 6 5-6M252 78v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="10" y="96" width="155" height="58" rx="9"/>
+                        <text class="dg-t" x="24" y="120">beat, as heard</text>
+                        <text class="dg-s" x="24" y="138">+ output latency</text>
+                        <rect class="dg-box" x="175" y="96" width="155" height="58" rx="9"/>
+                        <text class="dg-t" x="189" y="120">pick, as struck</text>
+                        <text class="dg-s" x="189" y="138">&#8722; input latency</text>
+                        <path class="dg-flow" d="M87 154V170H252V154"/>
+                        <path class="dg-flow" d="M170 170v16m-5 -6 5 6 5-6"/>
+                        <text class="dg-l" x="180" y="182">ONE CLOCK</text>
+                        <rect class="dg-box dg-box--accent" x="36" y="188" width="268" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="212">match</text>
+                        <text class="dg-s dg-s--a" x="50" y="230">nearest free note</text>
+                        <path class="dg-flow" d="M170 246v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="264" width="268" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="288">ms per note</text>
+                        <text class="dg-s" x="50" y="306">spread &#183; lead per loop</text>
+                    </svg>
+                    <figcaption><strong>The timing chain.</strong> The click records where each scheduled beat lands on the output, and the output latency turns that into when it was heard. The input tap stamps each buffer on the same clock, and the input latency turns an onset into when the string was struck. Each onset goes to the nearest free note within half the shortest note (200 ms at most), and the difference is the number under the note.</figcaption>
+                </figure>
                 <div style="margin-top: 22px;">
                     <div class="feature-row"><div class="feature-row__k">Spread and lead</div><div class="feature-row__v">Spread is the standard deviation of the signed deviations; lead is their mean. Each completed loop is a row: the spread as a bar on a fixed 40 ms scale (green to 12 ms, amber to 25, red beyond), the lead as a dot above the line for late and below for early, and coverage, matched notes over expected, as the bar's opacity.</div></div>
-                    <div class="feature-row"><div class="feature-row__k">One clock</div><div class="feature-row__v">The click records where each scheduled beat lands on the output, plus output latency. The input tap stamps each buffer on the same clock, minus input latency. Nothing is anchored to a guess about when the first note was heard.</div></div>
                     <div class="feature-row"><div class="feature-row__k">Finding the pick</div><div class="feature-row__v">A pick is found on a sharpened envelope where a ringing low E is near silent and an attack is a spike, traced back to where the attack began, and confirmed over a short window so a fretting finger landing before the pick, or the click bleeding into a microphone, is not counted as a note.</div></div>
                     <div class="feature-row"><div class="feature-row__k">Pitch verdicts</div><div class="feature-row__v">Pitch is read 30, 60 and 100 ms after the attack; the note is what it settled to. Verdicts compare pitch classes, so a low string reading its second harmonic through a microphone is not marked wrong.</div></div>
                     <div class="feature-row"><div class="feature-row__k">Score follow</div><div class="feature-row__v">A green playhead sweeps the system. The page scrolls in lines, or the score lays out as one continuous system that scrolls sideways under a fixed playhead. Click a note and Preview starts from there, with the techniques leading into it still sounding right.</div></div>
@@ -160,6 +212,73 @@
                     <div class="feature-row"><div class="feature-row__k">History</div><div class="feature-row__v">Every session that completed a loop is kept and folded per day: sessions, time, loops, pooled spread and lead, pitch accuracy. It syncs with the library.</div></div>
                     <div class="feature-row"><div class="feature-row__k">Pinned</div><div class="feature-row__v">Through the string synth, a take rendered a known amount late reads that late on every note within 2.5 ms between 80 and 200 BPM, with every pitch verdict right. Real microphone takes are replayed through the same chain in the test suite.</div></div>
                 </div>
+                <figure class="diagram" style="margin-top: 26px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 220" role="img" aria-label="What a loop shows: one bar of eighths with the expected onsets as dashed lines and the played onsets as solid ones, each played note labelled with its deviation in milliseconds (minus 14, plus 3, minus 22, plus 6, minus 9, minus 31, plus 2, minus 11), and the loop's readout below: a spread of 12.9 ms as a bar on a 40 ms scale and a lead of minus 9.5 ms as a dot left of the centre line.">
+                        <text class="dg-l" x="30" y="22">ONE BAR OF EIGHTHS</text>
+                        <text class="dg-l" x="660" y="22" text-anchor="end">DASHED EXPECTED &#183; SOLID PLAYED</text>
+                        <text class="dg-s" x="60" y="42" text-anchor="middle">1</text>
+                        <text class="dg-s" x="140" y="42" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="220" y="42" text-anchor="middle">2</text>
+                        <text class="dg-s" x="300" y="42" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="380" y="42" text-anchor="middle">3</text>
+                        <text class="dg-s" x="460" y="42" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="540" y="42" text-anchor="middle">4</text>
+                        <text class="dg-s" x="620" y="42" text-anchor="middle">&amp;</text>
+                        <path class="dg-flow dg-dash" d="M60 50V108 M140 50V108 M220 50V108 M300 50V108 M380 50V108 M460 50V108 M540 50V108 M620 50V108"/>
+                        <path class="dg-flow" d="M30 108H660"/>
+                        <path class="dg-flow dg-flow--accent" stroke-width="2.2" d="M43 58V108 M144 58V108 M194 58V108 M307 58V108 M369 58V108 M423 58V108 M542 58V108 M607 58V108"/>
+                        <text class="dg-u" x="43" y="128" text-anchor="middle">&#8722;14</text>
+                        <text class="dg-u" x="144" y="128" text-anchor="middle">+3</text>
+                        <text class="dg-u" x="194" y="128" text-anchor="middle">&#8722;22</text>
+                        <text class="dg-u" x="307" y="128" text-anchor="middle">+6</text>
+                        <text class="dg-u" x="369" y="128" text-anchor="middle">&#8722;9</text>
+                        <text class="dg-u" x="423" y="128" text-anchor="middle">&#8722;31</text>
+                        <text class="dg-u" x="542" y="128" text-anchor="middle">+2</text>
+                        <text class="dg-u" x="607" y="128" text-anchor="middle">&#8722;11</text>
+                        <text class="dg-l" x="30" y="172">LOOP 1 &#183; 8 OF 8 NOTES MATCHED</text>
+                        <text class="dg-s" x="30" y="197">spread</text>
+                        <rect class="dg-box" x="90" y="189" width="200" height="10" rx="5"/>
+                        <rect x="90" y="189" width="65" height="10" rx="5" fill="rgba(124,132,246,0.6)"/>
+                        <text class="dg-t" x="304" y="198">12.9 ms</text>
+                        <text class="dg-s" x="384" y="197">lead</text>
+                        <path class="dg-flow" d="M430 194H590M510 187V201"/>
+                        <circle cx="491" cy="194" r="4.5" fill="var(--accent)"/>
+                        <text class="dg-t" x="604" y="198">&#8722;9.5 ms</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 472" role="img" aria-label="What a loop shows: one bar of eighths with the expected onsets as dashed lines and the played onsets as solid ones, each played note labelled with its deviation in milliseconds (minus 14, plus 3, minus 22, plus 6, minus 9, minus 31, plus 2, minus 11), and the loop's readout below: a spread of 12.9 ms as a bar on a 40 ms scale and a lead of minus 9.5 ms as a dot left of the centre line.">
+                        <text class="dg-l" x="48" y="22">EXPECTED</text>
+                        <text class="dg-u" x="122" y="22">PLAYED</text>
+                        <text class="dg-s" x="24" y="48" text-anchor="middle">1</text>
+                        <text class="dg-s" x="24" y="92" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="24" y="136" text-anchor="middle">2</text>
+                        <text class="dg-s" x="24" y="180" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="24" y="224" text-anchor="middle">3</text>
+                        <text class="dg-s" x="24" y="268" text-anchor="middle">&amp;</text>
+                        <text class="dg-s" x="24" y="312" text-anchor="middle">4</text>
+                        <text class="dg-s" x="24" y="356" text-anchor="middle">&amp;</text>
+                        <path class="dg-flow dg-dash" d="M48 44H150 M48 88H150 M48 132H150 M48 176H150 M48 220H150 M48 264H150 M48 308H150 M48 352H150"/>
+                        <path class="dg-flow" d="M150 30V372"/>
+                        <path class="dg-flow dg-flow--accent" stroke-width="2.2" d="M60 30H150 M60 91H150 M60 110H150 M60 182H150 M60 211H150 M60 233H150 M60 310H150 M60 341H150"/>
+                        <text class="dg-u" x="166" y="34">&#8722;14</text>
+                        <text class="dg-u" x="166" y="95">+3</text>
+                        <text class="dg-u" x="166" y="114">&#8722;22</text>
+                        <text class="dg-u" x="166" y="186">+6</text>
+                        <text class="dg-u" x="166" y="215">&#8722;9</text>
+                        <text class="dg-u" x="166" y="237">&#8722;31</text>
+                        <text class="dg-u" x="166" y="314">+2</text>
+                        <text class="dg-u" x="166" y="345">&#8722;11</text>
+                        <text class="dg-l" x="30" y="406">LOOP 1 &#183; 8 OF 8 MATCHED</text>
+                        <text class="dg-s" x="30" y="428">spread</text>
+                        <rect class="dg-box" x="90" y="420" width="160" height="10" rx="5"/>
+                        <rect x="90" y="420" width="52" height="10" rx="5" fill="rgba(124,132,246,0.6)"/>
+                        <text class="dg-t" x="262" y="429">12.9 ms</text>
+                        <text class="dg-s" x="30" y="456">lead</text>
+                        <path class="dg-flow" d="M90 453H250M170 446V460"/>
+                        <circle cx="151" cy="453" r="4.5" fill="var(--accent)"/>
+                        <text class="dg-t" x="262" y="457">&#8722;9.5 ms</text>
+                    </svg>
+                    <figcaption><strong>What a loop shows.</strong> Eight notes, eight signed numbers. Their standard deviation is the <strong>spread</strong>, 12.9 ms here, drawn as a bar on a fixed 40 ms scale; their mean is the <strong>lead</strong>, 9.5 ms ahead of the click, drawn as a dot left of centre. The steady lead is the human default and stays where it is; the spread is what practice moves.</figcaption>
+                </figure>
             </div>
         </div>
     </section>
@@ -172,6 +291,73 @@
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The teacher's file is the exercise. Nothing is retyped.</p>
             </div>
             <div>
+                <figure class="diagram" style="margin-bottom: 22px;">
+                    <svg class="diagram__wide" viewBox="0 0 700 246" role="img" aria-label="Luthia's import path: Guitar Pro 3 to 8, MusicXML, MuseScore, MIDI and ASCII tab files all go through one import that folds a linked tab staff, fingers unfingered notes and lists what changed, into a library with folders, from which an exercise goes to Train, Compose or Practice, or exports as MusicXML or a Luthia file.">
+                        <rect class="dg-box" x="10" y="20" width="150" height="34" rx="8"/>
+                        <text class="dg-p" x="24" y="41">Guitar Pro 3-8</text>
+                        <rect class="dg-box" x="10" y="64" width="150" height="34" rx="8"/>
+                        <text class="dg-p" x="24" y="85">MusicXML &#183; .mxl</text>
+                        <rect class="dg-box" x="10" y="108" width="150" height="34" rx="8"/>
+                        <text class="dg-p" x="24" y="129">MuseScore .mscz</text>
+                        <rect class="dg-box" x="10" y="152" width="150" height="34" rx="8"/>
+                        <text class="dg-p" x="24" y="173">MIDI</text>
+                        <rect class="dg-box" x="10" y="196" width="150" height="34" rx="8"/>
+                        <text class="dg-p" x="24" y="217">ASCII tab &#183; text</text>
+                        <path class="dg-flow" d="M160 37H180M160 81H180M160 125H180M160 169H180M160 213H180M180 37V213"/>
+                        <path class="dg-flow" d="M180 125h19m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box dg-box--accent" x="205" y="95" width="190" height="60" rx="9"/>
+                        <text class="dg-t" x="219" y="120">import</text>
+                        <text class="dg-s dg-s--a" x="219" y="139">fingered &#183; what changed</text>
+                        <path class="dg-flow" d="M395 125h19m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="415" y="95" width="95" height="60" rx="9"/>
+                        <text class="dg-t" x="429" y="120">library</text>
+                        <text class="dg-s" x="429" y="139">folders</text>
+                        <path class="dg-flow" d="M510 125H525M525 37V200"/>
+                        <path class="dg-flow" d="M525 37h19m-6 -5 6 5-6 5M525 81h19m-6 -5 6 5-6 5M525 125h19m-6 -5 6 5-6 5M525 200h19m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="545" y="20" width="145" height="34" rx="8"/>
+                        <text class="dg-p" x="559" y="41">Train</text>
+                        <rect class="dg-box" x="545" y="64" width="145" height="34" rx="8"/>
+                        <text class="dg-p" x="559" y="85">Compose</text>
+                        <rect class="dg-box" x="545" y="108" width="145" height="34" rx="8"/>
+                        <text class="dg-p" x="559" y="129">Practice</text>
+                        <rect class="dg-box" x="545" y="170" width="145" height="60" rx="9"/>
+                        <text class="dg-t" x="559" y="195">export</text>
+                        <text class="dg-s" x="559" y="214">MusicXML &#183; .luthia</text>
+                    </svg>
+                    <svg class="diagram__tall" viewBox="0 0 340 620" role="img" aria-label="Luthia's import path: Guitar Pro 3 to 8, MusicXML, MuseScore, MIDI and ASCII tab files all go through one import that folds a linked tab staff, fingers unfingered notes and lists what changed, into a library with folders, from which an exercise goes to Train, Compose or Practice, or exports as MusicXML or a Luthia file.">
+                        <rect class="dg-box" x="36" y="20" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="41">Guitar Pro 3-8</text>
+                        <rect class="dg-box" x="36" y="64" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="85">MusicXML &#183; .mxl</text>
+                        <rect class="dg-box" x="36" y="108" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="129">MuseScore .mscz</text>
+                        <rect class="dg-box" x="36" y="152" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="173">MIDI</text>
+                        <rect class="dg-box" x="36" y="196" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="217">ASCII tab &#183; text</text>
+                        <path class="dg-flow" d="M306 37H322M306 81H322M306 125H322M306 169H322M306 213H322M322 37V240H170"/>
+                        <path class="dg-flow" d="M170 240v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box dg-box--accent" x="36" y="258" width="268" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="282">import</text>
+                        <text class="dg-s dg-s--a" x="50" y="300">fingered &#183; what changed</text>
+                        <path class="dg-flow" d="M170 316v16m-5 -6 5 6 5-6"/>
+                        <rect class="dg-box" x="36" y="334" width="268" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="358">library</text>
+                        <text class="dg-s" x="50" y="376">folders</text>
+                        <path class="dg-flow" d="M170 392V408H18V575"/>
+                        <path class="dg-flow" d="M18 431h9m-6 -5 6 5-6 5M18 475h9m-6 -5 6 5-6 5M18 519h9m-6 -5 6 5-6 5M18 575h9m-6 -5 6 5-6 5"/>
+                        <rect class="dg-box" x="36" y="414" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="435">Train</text>
+                        <rect class="dg-box" x="36" y="458" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="479">Compose</text>
+                        <rect class="dg-box" x="36" y="502" width="270" height="34" rx="8"/>
+                        <text class="dg-p" x="50" y="523">Practice</text>
+                        <rect class="dg-box" x="36" y="546" width="270" height="58" rx="9"/>
+                        <text class="dg-t" x="50" y="570">export</text>
+                        <text class="dg-s" x="50" y="588">MusicXML &#183; .luthia</text>
+                    </svg>
+                    <figcaption><strong>The teacher's file is the exercise.</strong> Every format goes through the same import: a linked tab staff is folded into the notation part, notes without a fingering get one that keeps the hand in position, and every simplification is listed before the file is saved. From the library an exercise trains, edits, lands in the practice week, or goes back out as MusicXML or a Luthia file, which opens verbatim on another device.</figcaption>
+                </figure>
                 <div class="feature-row"><div class="feature-row__k">Guitar Pro</div><div class="feature-row__v">Guitar Pro 7 and 8 (.gp) and Guitar Pro 3, 4 and 5 (.gp3 to .gp5). Techniques, bends, ties, tempo changes, key, pickup bars, repeats and section markers are read. Verified against MuseScore's own reading of real course files.</div></div>
                 <div class="feature-row"><div class="feature-row__k">MusicXML &amp; MuseScore</div><div class="feature-row__v">MusicXML (.musicxml, .mxl) from any notation app, and MuseScore 3 and 4 files (.mscz, .mscx) directly. A linked tab staff is folded into the notation part so the written fingering wins and the slurs, staccatos and text survive.</div></div>
                 <div class="feature-row"><div class="feature-row__k">MIDI &amp; ASCII tab</div><div class="feature-row__v">MIDI quantised to a grid you pick; ASCII tab pasted as text, with the usual markings (5h7, 7p5, 5/7, 7b9, 5~, x) and rhythm read from the spacing.</div></div>
