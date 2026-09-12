@@ -68,7 +68,7 @@
       <img class="app-hero__icon" src="icon.png" alt="Lyra app icon">
     </div>
     <div>
-      <p class="eyebrow">Version 1.7.1</p>
+      <p class="eyebrow">Version 1.8</p>
       <h1 class="display">Lyra</h1>
       <p class="app-hero__desc">
         F-key volume control for Universal Audio interfaces - with native Shortcuts, Spotlight, interactive widgets, Focus Filters, and a <code>lyra://</code> URL scheme to drive it from anywhere on macOS.
@@ -81,7 +81,7 @@
         <span class="badge">URL scheme</span>
       </div>
       <div class="app-hero__cta">
-        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.7.1.dmg"><span>↓</span>Download free trial</a>
+        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.8.dmg"><span>↓</span>Download free trial</a>
         <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1">Buy - $9.99</a>
         <span class="app-hero__meta">7-day trial · one-time purchase · macOS 12+</span>
       </div>
@@ -100,10 +100,10 @@
   <section class="shots">
     <div class="shot"><img src="lyra-hero.png" alt="Lyra at a glance - F10/F11/F12 shortcuts, three calibrated reference levels, and the lyra:// URL scheme"></div>
     <div class="shot"><img src="lyra-menu.png" alt="Lyra menu bar popover - device status, monitor slider, Reference Levels submenu"></div>
-    <div class="shot"><img src="lyra-hud.png" alt="macOS volume HUD after a Set Volume action - the standard monitor-level readout"></div>
-    <div class="shot"><img src="lyra-hud-ref.png" alt="Volume HUD labeled with the active Reference Level - slot name and calibrated dB SPL value"></div>
-    <div class="shot"><img src="lyra-hud-dim.png" alt="Volume HUD with DIM engaged - amber fill marks the dimmed level"></div>
-    <div class="shot"><img src="lyra-hud-mute.png" alt="Volume HUD with the monitor muted - speaker icon shows the mute state"></div>
+    <div class="shot"><img src="lyra-hud.png" alt="Lyra volume HUD on macOS 26 - the connected Apollo's name above a tick-marked level slider, in clear glass under the menu bar"></div>
+    <div class="shot"><img src="lyra-hud-ref.png" alt="Volume HUD after a Reference Level jump - the name line reads Mix - 85 dB SPL instead of the device name"></div>
+    <div class="shot"><img src="lyra-hud-dim.png" alt="Volume HUD with DIM engaged - the level slider fills amber"></div>
+    <div class="shot"><img src="lyra-hud-mute.png" alt="Volume HUD with the monitor muted - slashed speaker glyph and a dimmed slider"></div>
     <div class="shots-grid shots-grid--3">
       <div class="shot"><img src="lyra-spotlight-mute.png" alt="Spotlight result for Toggle Mute - Lyra App Shortcut returns the new mute state"></div>
       <div class="shot"><img src="lyra-spotlight-ref.png" alt="Spotlight result for Switch Reference Level - jumps to the chosen Lyra slot"></div>
@@ -156,13 +156,14 @@
         <div class="feature-row"><div class="feature-row__k">Keyboard</div><div class="feature-row__v">Volume, mute, DIM, and mono - all from the F-row. Shift halves the step.</div></div>
         <div class="feature-row"><div class="feature-row__k">Reference levels</div><div class="feature-row__v">Three named monitor presets (default Quiet / Mix / Loud), recalled with Ctrl+F10/F11/F12. Each can be calibrated against Audita.</div></div>
         <div class="feature-row"><div class="feature-row__k">Interactive widgets</div><div class="feature-row__v">Four widgets in the macOS widget gallery - Control Panel, Monitor Toggles, Volume, and Reference Levels. Each shows live state and reacts the instant you tap. Requires macOS 14+.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Settings window</div><div class="feature-row__v">A proper preferences window (Cmd+,) for the automation toggles, the volume HUD overlay, and the volume step size.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Settings window</div><div class="feature-row__v">A proper preferences window (Cmd+,) for the automation toggles, the volume HUD overlay and style, and the volume step size.</div></div>
         <div class="feature-row"><div class="feature-row__k">URL scheme</div><div class="feature-row__v">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code>lyra://</code> URLs.</div></div>
         <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Siri</div><div class="feature-row__v">Eleven first-class App Intents exposed to the macOS Shortcuts app. Pre-wired App Shortcuts surface in Spotlight without you building anything.</div></div>
         <div class="feature-row"><div class="feature-row__k">Focus Filter</div><div class="feature-row__v">Wire a reference level into a macOS Focus. The common setup: a Mixing Focus jumps Lyra to slot 2 and silences non-DAW notifications.</div></div>
         <div class="feature-row"><div class="feature-row__k">Audita pairing</div><div class="feature-row__v">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/">Audita</a>. After calibration, hit "Send to Lyra…" and the position lands in the slot of your choice - the HUD then reads e.g. "Mix - 85 dB SPL".</div></div>
         <div class="feature-row"><div class="feature-row__k">UA Mixer automations</div><div class="feature-row__v">Optionally auto-start UA Mixer Engine when Apollo wakes, and auto-quit the UA apps when it disconnects so they stop drawing power. Both opt-in, each with its own notification toggle.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Volume HUD</div><div class="feature-row__v">A subtle on-screen overlay shows the current level whenever you adjust volume - like macOS does for built-in audio. Jumping to a Reference Level labels the pill with the slot name.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Volume HUD</div><div class="feature-row__v">The on-screen pill matches the macOS volume control on macOS 26 and later: the connected Apollo's name above a tick-marked level slider, in clear glass that takes its colour from the wallpaper. A Reference Level jump puts the slot name on the name line. Settings can switch back to the compact single-row pill.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Pass F-Keys to macOS</div><div class="feature-row__v">A menu toggle hands F10 / F11 / F12 back to the system output device without quitting Lyra. The connection, menu and slider keep working. Off again on the next launch.</div></div>
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 12 or later).</div></div>
         <div class="feature-row"><div class="feature-row__k">Menu bar</div><div class="feature-row__v">Lives quietly in the menu bar. No dock icon, no windows, no UI to get in the way.</div></div>
         <div class="feature-row"><div class="feature-row__k">Non-invasive</div><div class="feature-row__v">Communicates directly with UA Mixer Engine. Console keeps running, your signal chain untouched, no drivers replaced or patched.</div></div>
@@ -237,6 +238,16 @@
       <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases →</a>
     </div>
     <div class="feed" data-feed data-feed-apps="lyra" data-feed-scope="lyra" data-feed-blog="/blog/" data-feed-limit="4">
+      <a class="feed-row" href="releases.html#v1.8">
+        <img class="feed-row__icon" src="icon.png" alt="">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.8</span></div>
+          <p class="feed-row__title">Lyra 1.8</p>
+          <p class="feed-row__summary">New app icon, a volume HUD that matches the macOS volume control, and a menu toggle that hands the F-keys back to macOS.</p>
+          <p class="feed-row__cta">Read release notes →</p>
+        </div>
+        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">Sep 2026</p></div>
+      </a>
       <a class="feed-row" href="releases.html#v1.7.1">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
@@ -245,7 +256,7 @@
           <p class="feed-row__summary">The volume HUD keeps its grey, glassy look on macOS 26 over any wallpaper, with a clear white glyph and level bar.</p>
           <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">21 Jun 2026</p></div>
+        <div class="feed-row__meta"><span class="feed-row__ago">Jun</span><p class="feed-row__date">21 Jun 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.7">
         <img class="feed-row__icon" src="icon.png" alt="">

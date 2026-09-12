@@ -403,7 +403,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Where do I find Lyra's settings?</p>
-                <p class="faq-a">As of v1.6, press <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code> with Lyra focused, or pick <strong>Settings…</strong> from the menu bar menu. The window has two sections - <strong>Automation</strong> (the v1.6 auto-start / auto-quit toggles, plus their notification sub-toggles) and <strong>General</strong> (HUD overlay on/off, volume step size). Both sections persist across launches and changes take effect immediately.</p>
+                <p class="faq-a">As of v1.6, press <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code> with Lyra focused, or pick <strong>Settings…</strong> from the menu bar menu. The window has two sections - <strong>Automation</strong> (the v1.6 auto-start / auto-quit toggles, plus their notification sub-toggles) and <strong>General</strong> (HUD overlay on/off, HUD style, volume step size). Both sections persist across launches and changes take effect immediately.</p>
                 <p class="faq-a">On v1.5 and earlier there's no in-app settings UI - those builds use sensible defaults and a couple of <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">defaults write</code> escape hatches. Update to v1.6 to flip toggles instead.</p>
             </div>
 
@@ -630,6 +630,11 @@
                 <p class="faq-q">The F-keys aren't working. What should I check?</p>
                 <p class="faq-a">First, confirm that Lyra has <strong>Accessibility permission</strong> in System Settings → Privacy &amp; Security → Accessibility - without it, the key intercept can't start. Next, check that your Apollo is connected and Mixer Engine is running; the Lyra menu should show <strong>"Connected: [device name]"</strong>. Lyra doesn't intercept the keys when Mixer Engine is unreachable, so the system keys behave normally until it connects.</p>
                 <p class="faq-a">Also worth checking: depending on your keyboard settings, you may need to hold <strong>Fn</strong> to trigger the F-keys. You can change this in System Settings → Keyboard → <strong>Function Keys</strong>.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Can the F-keys control the Mac's own output while Lyra is running?</p>
+                <p class="faq-a">Yes. <strong>Pass F-Keys to macOS</strong> in Lyra's menu hands F10 / F11 / F12 back to the system output device until you uncheck it. Lyra stays connected and the menu and slider keep working; only the keys are handed back. The toggle is off again on the next launch, so a Mac that starts with Lyra always starts with the Apollo on the keys.</p>
             </div>
 
             <div class="faq-item">

@@ -643,11 +643,14 @@
         <h3>Reference Levels submenu</h3>
         <p class="prose">Nine items: three <strong>jump</strong> actions (with their Ctrl+F-key shortcuts shown inline), three <strong>"Save current as…"</strong> actions, three <strong>"Rename…"</strong> actions. See <a href="#reference-levels">Reference Levels</a> for the full workflow.</p>
 
+        <h3>Pass F-Keys to macOS</h3>
+        <p class="prose">Toggle. While checked, F10 / F11 / F12 go to macOS and control the system output device, the way they would without Lyra. The connection, menu and slider keep working; only the keys are handed back. Useful when you want to adjust a different output for a moment, or to compare Lyra's volume pill with the system one side by side. Resets to off when Lyra relaunches.</p>
+
         <h3>Launch at Login</h3>
         <p class="prose">Toggle. Registers Lyra via SMAppService (macOS 13+). Reflects the live system state - if you flip it in System Settings, the checkmark in Lyra's menu follows.</p>
 
         <h3>Settings…</h3>
-        <p class="prose">Opens Lyra's <a href="#settings">Settings window</a> (also available via <kbd>Cmd+,</kbd>). Holds the v1.6 Automation toggles plus General prefs (HUD, volume step).</p>
+        <p class="prose">Opens Lyra's <a href="#settings">Settings window</a> (also available via <kbd>Cmd+,</kbd>). Holds the v1.6 Automation toggles plus General prefs (HUD on/off and style, volume step).</p>
 
         <h3>Check for Updates… / About Lyra / Quit</h3>
         <p class="prose">Sparkle update check, About window, and quit.</p>
@@ -675,6 +678,9 @@
             <tr><td><kbd>⌃F12</kbd></td><td class="wrap-ok">Jump to Reference Level slot 3</td></tr>
         </tbody></table>
 
+        <h3>Handing the keys back</h3>
+        <p class="prose"><em>Pass F-Keys to macOS</em> in the menu lets the three keys reach the system output device again until you uncheck it. Lyra also steps aside automatically whenever UA Mixer Engine is not reachable.</p>
+
         <h3>About the step size</h3>
         <p class="prose">Lyra uses a default step of 1/16 of full range (~6.25%). Shift halves it to ~3.125% for fine adjustments - the same pattern macOS uses for built-in volume keys.</p>
 
@@ -693,18 +699,22 @@
 
         <p class="prose">Whenever the monitor level changes - from F-keys, the menu slider, the Apollo's hardware knob, UA Console, or a <code>lyra://</code> URL - Lyra shows a small horizontal pill just below its menu bar icon.</p>
 
-        <p class="prose"><strong>Two modes:</strong></p>
+        <p class="prose"><strong>Two styles</strong> (macOS 26 and later; Settings → General → <em>HUD style</em>):</p>
         <ul>
-            <li><strong>Normal pill.</strong> Speaker icon, a level bar, and the percentage. Fades after a moment. Tinted amber when DIM is active.</li>
-            <li><strong>Labeled pill.</strong> When you jump to a Reference Level, the pill expands to fit the slot name (e.g. "Mix") or the calibrated label (e.g. "Mix - 85 dB SPL") and stays visible longer so you can read it. The label sticks for ~2.5 seconds and clears immediately if you turn the knob to a different position.</li>
+            <li><strong>System style</strong> (default). The same shape as the macOS volume control: a clear-glass capsule with the connected Apollo's name on the first line and a tick-marked level slider below it. The glass takes its colour from the wallpaper behind it, in Light and Dark mode alike. When you jump to a Reference Level, the name line shows the slot name (e.g. "Mix") or the calibrated label (e.g. "Mix - 85 dB SPL") instead of the device name and the pill stays up longer so you can read it. The label sticks for ~2.5 seconds and clears immediately if you turn the knob to a different position. While the pill is up, Lyra's menu bar icon is highlighted the way the Sound item is.</li>
+            <li><strong>Compact pill.</strong> The single-row pill from earlier versions: speaker glyph and level bar in dark glass, growing to fit a Reference Level name. On macOS 12 to 15 this is the only style.</li>
         </ul>
 
         <div class="screenshot-row">
-            <img src="lyra-hud.png" alt="The normal Volume HUD pill showing speaker icon, level bar, and percentage">
-            <img src="lyra-hud-ref.png" alt="The labeled Volume HUD pill expanded to show the active Reference Level name and calibrated dB SPL value">
+            <img src="lyra-hud.png" alt="The system-style Volume HUD in Dark mode - the connected Apollo's name above a tick-marked level slider">
+            <img src="lyra-hud-ref.png" alt="The system-style Volume HUD after a Reference Level jump - the name line reads Mix - 85 dB SPL">
+        </div>
+        <div class="screenshot-row">
+            <img src="lyra-hud-light.png" alt="The system-style Volume HUD in Light mode - clear glass taking its colour from a light wallpaper">
+            <img src="lyra-hud-dim.png" alt="The Volume HUD with DIM engaged - the level slider fills amber">
         </div>
 
-        <p class="prose">On macOS 26+ the pill is rendered in <strong>Liquid Glass</strong> the same way the native volume control is: a solid dark glass panel with a white speaker glyph and level bar. It reads as grey over a light desktop and darker over a dark one, staying a solid, legible pill over any wallpaper.</p>
+        <p class="prose">Both styles tint the level bar amber while DIM is active and dim it while muted.</p>
 
         <h3>Disabling the HUD</h3>
         <p class="prose">As of v1.6, the HUD has an in-app toggle in <strong><a href="#settings">Settings</a> → General → Show volume HUD overlay</strong>. Flip it off and the pill stops appearing immediately.</p>
@@ -988,7 +998,11 @@ open "lyra://mute/toggle"</code></pre>
 
         <h3>General</h3>
         <ul>
-            <li><strong>Show volume HUD overlay.</strong> The on-screen pill that appears next to the menu bar icon when the level changes. On by default. See <a href="#hud">Volume HUD</a>.</li>
+            <li><strong>Show volume HUD overlay.</strong> The on-screen pill that appears next to the menu bar icon when the level changes. On by default. See <a href="#hud">Volume HUD</a>.
+                <ul>
+                    <li><strong>HUD style</strong> (macOS 26 and later). <em>System style</em> matches the macOS volume control: device name above a tick-marked slider, in clear glass. <em>Compact pill</em> is the single-row pill from earlier versions. Takes effect on the next level change.</li>
+                </ul>
+            </li>
             <li><strong>Volume step.</strong> How much each F11/F12 press moves the monitor level. Default is about 3.1%; Shift halves it (the "fine" step). Range: ~1.6% to 12.5%.</li>
         </ul>
 

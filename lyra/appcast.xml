@@ -19,6 +19,20 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - UA Apollo keyboard volume control</description>
         <language>en</language>
+        <!-- release-cut: fill pubDate, edSignature and length before merging; item is a draft -->
+        <item>
+            <title>Version 1.8</title>
+            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>1.8</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Lyra-1.8.dmg"
+                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
+                length="RELEASE-CUT-LENGTH"
+                type="application/octet-stream" />
+        </item>
         <item>
             <title>Version 1.7.1</title>
             <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
