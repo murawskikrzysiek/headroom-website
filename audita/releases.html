@@ -67,8 +67,20 @@
     </div>
   </header>
 
+  <section class="release" id="v1.5">
+    <div class="release-header"><span class="version">Version 1.5</span><span class="date">September 2026</span><span class="badge-new">Latest</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>App icon</strong> - rebuilt in Icon Composer for macOS 27: layered glass, specular highlights, and separate fills for Light and Dark mode.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Liquid Glass windows</strong> - the Welcome and License windows sit on Liquid Glass on macOS 26 and later. On macOS 27 the glass responds to the pointer.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>VoiceOver reads the units</strong> - the current-level readouts in the menu bar window and the floating panel announce dBA and dBC in full on macOS 27 and later.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Explicitly selected input device on macOS 27</strong> - choosing an input device in Settings → Audio (anything other than System Default) measured nothing on macOS 27. The measurement tap was built at the previous route's sample rate; it now follows the selected device.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Input device that refuses the measurement tap</strong> - on macOS 27 such a device is reported as a failed start instead of quitting the app.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Styled disk image</strong> - the disk image opens on a Headroom-styled window: dark ground, the studio mark, and a drag-to-Applications cue.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.4">
-    <div class="release-header"><span class="version">Version 1.4</span><span class="date">August 2026</span><span class="badge-new">Latest</span></div>
+    <div class="release-header"><span class="version">Version 1.4</span><span class="date">August 2026</span></div>
     <ul class="changes">
       <li><span class="tag tag-new">New</span><span><strong>Import your microphone's calibration file.</strong> Settings → Audio → Step 1 → Import Calibration File reads REW-style <code>.cal</code>, <code>.txt</code>, and <code>.frd</code> files, the format miniDSP, Dayton, and most measurement-mic vendors ship. The manufacturer curve is inverted, limited to ±9 dB, and applied ahead of the A and C weighting filters, exactly like a measured correction. A file-based correction also re-designs itself when your audio device runs at a different sample rate, and Audita flags miniDSP's 90 degree files so you can check which variant matches how the mic is mounted.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>UMIK-1 owners get absolute SPL from the file.</strong> The per-serial calibration file carries a sensitivity figure (the <code>Sens Factor</code> line); because the mic is USB with fixed gain, that figure sets the level offset directly. Plug the mic in, import the file, and the Step 2 reference-meter procedure is not needed. The conversion has been checked against the NIOSH SLM reference app. Audita applies the absolute level only when a UMIK-1 is the selected input, verifies the input volume sits at maximum (where the sensitivity is defined) with a one-click fix, and records in Settings where the number came from. UMIK-2 files import for frequency correction; set the level with Step 2 there.</span></li>
