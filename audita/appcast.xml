@@ -25,6 +25,22 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
+        <!-- release-cut: 1.5 is a draft. Fill pubDate, edSignature and length
+             from the uploaded Audita-1.5.dmg before merging. -->
+        <item>
+            <title>Version 1.5 - Ready for macOS 27</title>
+            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.5.dmg"
+                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
+                length="RELEASE-CUT-LENGTH"
+                type="application/octet-stream" />
+        </item>
+
         <!--
           v1.4 verified 2026-08-12, complete:
             edSignature  Ed25519-verified against Audita-1.4.dmg and the
