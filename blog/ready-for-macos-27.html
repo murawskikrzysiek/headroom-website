@@ -63,24 +63,24 @@
 
         <p>Every app got a new icon, rebuilt in Icon Composer 27: layered glass, specular highlights, separate fills for Light and Dark mode. The design work was pleasant. The build work was the surprise.</p>
 
-        <p>An Icon Composer 27 file only compiles with the asset tool that ships in Xcode 27. Open the same project with Xcode 26.6 and the build stops with <code>attempt to insert nil object</code>, which is not the message you want at eleven at night. So Xcode 27 now lives next to 26.6 on every Mac here, and each app's Makefile checks which Xcode is selected: 27 or newer is used as is, otherwise the build reaches for <code>/Applications/Xcode-27.app</code>, and if neither exists it stops with a sentence saying why. One commit per app, and a rule I did not have before: the icon file decides the minimum Xcode, not the code.</p>
+        <p>An Icon Composer 27 file only compiles with the asset tool that ships in Xcode 27. Open the same project with Xcode 26.6 and the build stops with <code>attempt to insert nil object</code>, which says nothing about icons. So Xcode 27 now lives next to 26.6 on every Mac here, and each app's Makefile checks which Xcode is selected: 27 or newer is used as is, otherwise the build reaches for <code>/Applications/Xcode-27.app</code>, and if neither exists it stops with a sentence saying why. One commit per app, and a rule I did not have before: the icon file decides the minimum Xcode, not the code.</p>
 
         <h2>Lyra: a volume pill that matches the system's</h2>
 
-        <p>Lyra puts a volume overlay on screen when you press F11 or F12 for an Apollo. On macOS 26 the system's own volume control became a glass capsule, so Lyra's overlay looked like a visitor from 2024 next to it. Lyra 1.8 replaces it with a capsule of the same shape: the connected Apollo's name above a tick-marked level slider, tinted by the wallpaper behind it, in Light and Dark mode. Reference Level jumps show the slot name in the same place.</p>
+        <p>Lyra puts a volume overlay on screen when you press F11 or F12 for an Apollo. On macOS 26 the system's own volume control became a glass capsule, and Lyra's single-row pill stopped matching it. Lyra 1.8 replaces it with a capsule of the same shape: the connected Apollo's name above a tick-marked level slider, tinted by the wallpaper behind it, in Light and Dark mode. Reference Level jumps show the slot name in the same place.</p>
 
         <figure class="figure">
             <img src="../lyra/lyra-hud.png" alt="Lyra's volume overlay on macOS 27: a clear glass capsule with the Apollo's name above a tick-marked level slider, tinted by the wallpaper behind it">
             <figcaption>Lyra 1.8's overlay. The geometry was measured off the macOS 27 volume control at 2x; the material was matched by comparison, not by eye.</figcaption>
         </figure>
 
-        <p>The shape was measurement: 285 by 60 points, corner radius 24, 13 point semibold title, 10 points below the menu bar, screenshots at 2x with a ruler. The material was the fight. Apple's public glass view renders the same material as SwiftUI's glass, and its least frosted setting is still far more frosted than the pill the system draws. There is no public property for the blur.</p>
+        <p>The shape was measurement: 285 by 60 points, corner radius 24, 13 point semibold title, 10 points below the menu bar, all read off 2x screenshots of the system control. The material was the fight. Apple's public glass view renders the same material as SwiftUI's glass, and its least frosted setting is still far more frosted than the pill the system draws. There is no public property for the blur.</p>
 
         <p>What worked was going one layer down. The glass is a backdrop layer with a filter on it, and the filter's inputs can be set by key path once the view has drawn. I did not guess the values. A small harness compiles the real overlay source, shows it at the system pill's anchor, and captures both over an identical backdrop, in both appearances, and a script stacks the crops side by side. Everything I tried that looked plausible failed that comparison: a full-height refraction lens inverted the backdrop, so a window below the pill showed at its top; the colour bleed from the slider variant washed the interior lighter; a lifted face colour read too bright over the wallpaper. The system pill, it turned out, differs from public clear glass in exactly one value: the blur radius, 1.0 instead of 5.83. Everything else stays stock.</p>
 
         <p>One more trap: in Light mode the glass view re-renders its own backdrop several times a second, and every render installs a fresh stock filter. A one-off write lasted 50 to 250 milliseconds and the pill flickered between tuned and frosted on every key press. The fix observes the layer's filters and re-applies the value inside the same transaction. If any of this makes you nervous, the compact single-row pill from 1.7 is still there under Settings, and the tuning is guarded: if the filter is not the one expected, Lyra leaves the glass stock.</p>
 
-        <p>On macOS 27 the About and Settings windows also use interactive glass, the kind that responds to the pointer. That one is a public property and took a minute. Audita's Welcome and License windows got the same treatment.</p>
+        <p>On macOS 27 the About and Settings windows also use interactive glass, the kind that responds to the pointer. That one is a public property and one line. Audita's Welcome and License windows got the same treatment.</p>
 
         <h2>Audita: the input that measured nothing</h2>
 
