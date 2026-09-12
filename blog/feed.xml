@@ -6,8 +6,16 @@
     <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 12 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 09:00:00 +0000</lastBuildDate>
 
+    <item>
+      <title>macOS 27: new icons, real glass, and an input that measured nothing</title>
+      <link>https://headroomstudio.dev/blog/ready-for-macos-27.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/ready-for-macos-27.html</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 +0000</pubDate>
+      <category>Release</category>
+      <description>Lyra 1.8, Audita 1.5 and Specula [X.Y] are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.</description>
+    </item>
     <item>
       <title>Audita 1.4: absolute SPL from a UMIK-1 serial number</title>
       <link>https://headroomstudio.dev/blog/audita-1-4-umik-1-calibration.html</link>

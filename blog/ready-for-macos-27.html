@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>macOS 27: new icons, real glass, and an input that measured nothing - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/ready-for-macos-27.html">
+  <meta name="description" content="Lyra 1.8, Audita 1.5 and Specula are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.">
+  <meta property="og:title" content="macOS 27: new icons, real glass, and an input that measured nothing">
+  <meta property="og:description" content="Three apps updated for macOS 27, and the three things that took the time: layered icons, matching the system's glass, and a measurement tap refused by the new OS.">
+  <meta property="og:image" content="https://headroomstudio.dev/og-headroom.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="macOS 27: new icons, real glass, and an input that measured nothing">
+  <meta name="twitter:image" content="https://headroomstudio.dev/og-headroom.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="article-header">
+        <p class="article-eyebrow">Release</p>
+        <h1>macOS 27: new icons, real glass, and an input that measured nothing</h1>
+        <p class="article-subtitle">Lyra 1.8, Audita 1.5 and Specula [X.Y] ship today, built with Xcode 27. Most of the work was invisible. This is the part that was not: icons that need a second Xcode on the machine, a volume pill matched to the system's glass one value at a time, and a measurement microphone that went silent on 27 until the log said why.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>14 September 2026</span>
+            <span class="dot"></span>
+            <span>7 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <!-- DRAFT: Specula's version and its macOS 27 changes are placeholders ([X.Y], the Specula section) until that release is cut. -->
+
+        <p>macOS 27 is out today, and so are three updates: <a href="/lyra/">Lyra 1.8</a>, <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula [X.Y]</a>. All three are free for existing licenses and all three still run on the macOS versions they ran on last week. The point of this post is what the week before a new macOS looks like for a one-person studio, because it was not the week of polish I had planned.</p>
+
+        <h2>Icons: the SDK is not the whole toolchain</h2>
+
+        <p>Every app got a new icon, rebuilt in Icon Composer 27: layered glass, specular highlights, separate fills for Light and Dark mode. The design work was pleasant. The build work was the surprise.</p>
+
+        <p>An Icon Composer 27 file only compiles with the asset tool that ships in Xcode 27. Open the same project with Xcode 26.6 and the build stops with <code>attempt to insert nil object</code>, which is not the message you want at eleven at night. So Xcode 27 now lives next to 26.6 on every Mac here, and each app's Makefile checks which Xcode is selected: 27 or newer is used as is, otherwise the build reaches for <code>/Applications/Xcode-27.app</code>, and if neither exists it stops with a sentence saying why. One commit per app, and a rule I did not have before: the icon file decides the minimum Xcode, not the code.</p>
+
+        <h2>Lyra: a volume pill that matches the system's</h2>
+
+        <p>Lyra puts a volume overlay on screen when you press F11 or F12 for an Apollo. On macOS 26 the system's own volume control became a glass capsule, so Lyra's overlay looked like a visitor from 2024 next to it. Lyra 1.8 replaces it with a capsule of the same shape: the connected Apollo's name above a tick-marked level slider, tinted by the wallpaper behind it, in Light and Dark mode. Reference Level jumps show the slot name in the same place.</p>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-hud.png" alt="Lyra's volume overlay on macOS 27: a clear glass capsule with the Apollo's name above a tick-marked level slider, tinted by the wallpaper behind it">
+            <figcaption>Lyra 1.8's overlay. The geometry was measured off the macOS 27 volume control at 2x; the material was matched by comparison, not by eye.</figcaption>
+        </figure>
+
+        <p>The shape was measurement: 285 by 60 points, corner radius 24, 13 point semibold title, 10 points below the menu bar, screenshots at 2x with a ruler. The material was the fight. Apple's public glass view renders the same material as SwiftUI's glass, and its least frosted setting is still far more frosted than the pill the system draws. There is no public property for the blur.</p>
+
+        <p>What worked was going one layer down. The glass is a backdrop layer with a filter on it, and the filter's inputs can be set by key path once the view has drawn. I did not guess the values. A small harness compiles the real overlay source, shows it at the system pill's anchor, and captures both over an identical backdrop, in both appearances, and a script stacks the crops side by side. Everything I tried that looked plausible failed that comparison: a full-height refraction lens inverted the backdrop, so a window below the pill showed at its top; the colour bleed from the slider variant washed the interior lighter; a lifted face colour read too bright over the wallpaper. The system pill, it turned out, differs from public clear glass in exactly one value: the blur radius, 1.0 instead of 5.83. Everything else stays stock.</p>
+
+        <p>One more trap: in Light mode the glass view re-renders its own backdrop several times a second, and every render installs a fresh stock filter. A one-off write lasted 50 to 250 milliseconds and the pill flickered between tuned and frosted on every key press. The fix observes the layer's filters and re-applies the value inside the same transaction. If any of this makes you nervous, the compact single-row pill from 1.7 is still there under Settings, and the tuning is guarded: if the filter is not the one expected, Lyra leaves the glass stock.</p>
+
+        <p>On macOS 27 the About and Settings windows also use interactive glass, the kind that responds to the pointer. That one is a public property and took a minute. Audita's Welcome and License windows got the same treatment.</p>
+
+        <h2>Audita: the input that measured nothing</h2>
+
+        <p>This is the reason the post exists. Audita 1.5 was built, signed, and on the macOS 27 test Mac, and the first calibration attempt measured nothing. Not zero dB: nothing, as if the microphone had never been plugged in. The microphone was the Studio Display's, selected explicitly in Settings. Switch the picker to System Default, which on that Mac is the same microphone, and the meter came alive. Audita 1.4 behaved the same way on 27. On macOS 26, both selections had worked for months.</p>
+
+        <p>An app launched from Finder does not have a console, so the first change was making the capture path talk. Every step now writes a line to the unified log: which device was selected, the formats before and after routing, whether the device assignment took, the channel map, which tap went in, whether the engine started, and a check three seconds later of how many audio buffers actually arrived. On the test Mac the answer came back in eight lines. The one that mattered:</p>
+
+<pre><code>start: inputFormat(bus0)=44100 Hz x 1  outputFormat(bus0)=44100 Hz x 1  before routing
+setInputDevice: CurrentDevice set to 89; read back 89 (status 0)
+start: tap format 44100 Hz x 1 after routing; inputFormat(bus0)=48000 Hz x 1
+start: installAudioTap FAILED: Code=-10868 "Input HW format and tap format not matching"</code></pre>
+
+        <p>Audita selects an input device the way every macOS app that uses AVAudioEngine has to: read the input node so the hardware unit exists, assign the device to that unit, set a channel map so the chosen channel lands on the bus, then install a measurement tap in the node's output format. On macOS 26, assigning the device refreshed that output format. On 27 it does not. The node keeps reporting the previous route's 44.1 kHz while the hardware side already says 48 kHz, and the new OS checks the two against each other and refuses the tap. System Default never assigns a device, so it never hit the mismatch.</p>
+
+        <p>The fix is small once you can see it. The tap keeps the node's channel count, because the channel map still decides that, but takes its sample rate from the hardware format whenever the two disagree, and the weighting filters follow that rate. Where the formats agree, on 26 and earlier, nothing changes. The diagnostics stayed in. If Audita ever goes quiet on your machine, this command shows the capture path step by step:</p>
+
+<pre><code>/usr/bin/log show --predicate 'subsystem == "com.headroom.Audita"' --last 5m</code></pre>
+
+        <p>One aside for the developers reading. The old tap call raises an uncatchable exception on that mismatch; macOS 27 deprecates it in favour of a throwing variant that reports the same condition as an error. Audita uses the new one on 27, which is why the failure above is a log line and not a crash report. It is also why the bug was diagnosable at all.</p>
+
+        <h2>Specula</h2>
+
+        <!-- DRAFT: fill in after the Specula macOS 27 work. Known so far: new icon; the Record mode input tap uses the same recipe as Audita and gets the same sample-rate fix. -->
+        <p>Specula [X.Y] carries the new icon and is built with the same toolchain. Its Record mode selects an input device with the same recipe as Audita, so it gets the same fix: [confirm on the macOS 27 Mac and describe]. [Anything else that shipped in this version.]</p>
+
+        <h2>Small things</h2>
+
+        <p>All three disk images now open on a window that looks like this site: dark ground, the studio mark, the app icon and the Applications folder side by side, a caption. One generator renders the three backgrounds so they cannot drift apart. Finder draws the icon labels in black over any background picture, on every macOS version, and no setting changes that, so the caption carries the instruction.</p>
+
+        <p>Audita's current-level readouts now spell out the units for VoiceOver on macOS 27: "d B A", not a guess at a word. Lyra gets a menu toggle that hands F10, F11 and F12 back to macOS for a while without quitting. Neither took an afternoon. The glass and the microphone took the week.</p>
+
+        <div class="kicker">
+            <p>All three updates are free for existing licenses: <strong>Check for Updates</strong> in each app, or download from the app pages. <a href="/lyra/">Lyra 1.8</a> runs on macOS 12 or later ($9.99). <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula [X.Y]</a> run on macOS 14 or later ($19.99 and $99.99). One-time purchases, 7-day trials. Release notes: <a href="/lyra/releases.html#v1.8">Lyra</a>, <a href="/audita/releases.html#v1.5">Audita</a>, <a href="/specula/releases.html">Specula</a>.</p>
+        </div>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="wiring-lyra-into-mac-automation.html"><span>Wiring Lyra into every Mac automation surface</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="audita-1-4-umik-1-calibration.html"><span>Audita 1.4: absolute SPL from a UMIK-1 serial number</span><span class="arrow">&#8594;</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/audita/">Audita</a></li>
+      <li><a href="/specula/">Specula</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
