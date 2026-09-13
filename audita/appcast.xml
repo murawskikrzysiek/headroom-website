@@ -25,9 +25,10 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!-- release-cut: edSignature and length are from the DMG rebuilt
-             2026-09-13 with the panel-drag fix (PR #7). It must replace the
-             2026-09-12 Audita-1.5.dmg on R2; fill pubDate once it does. -->
+        <!-- release-cut: Audita-1.5.dmg must be rebuilt from main at or after
+             the DMG-icon fix (2026-09-13, 227d164); the 2026-09-13 rebuild for
+             the panel-drag fix still presents the old icon. Fill edSignature,
+             length, and pubDate from the rebuilt DMG. -->
         <item>
             <title>Version 1.5 - Ready for macOS 27</title>
             <pubDate>RELEASE-CUT-PUBDATE</pubDate>
@@ -37,8 +38,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.5.dmg"
-                sparkle:edSignature="8UtWE+Fd+fQNYF7vo0tBGGqFGZT5b1LqtTH+EFx43i+Ze2sBsVdB8LO2uwWHLe3/TBrl5BsxuJX0zcxxMustAQ=="
-                length="10040267"
+                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
+                length="RELEASE-CUT-LENGTH"
                 type="application/octet-stream" />
         </item>
 
