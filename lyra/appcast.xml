@@ -19,10 +19,9 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - UA Apollo keyboard volume control</description>
         <language>en</language>
-        <!-- release-cut: Lyra-1.8.dmg must be rebuilt from main at or after the
-             DMG-icon fix (2026-09-13, 72f9f3e); the DMG uploaded on 2026-09-12
-             presents the old icon. Fill edSignature, length, and pubDate from
-             the rebuilt DMG. -->
+        <!-- release-cut: edSignature and length are from Lyra-1.8.dmg rebuilt
+             2026-09-13 with the new icon and .VolumeIcon.icns (6,598,547
+             bytes). Fill pubDate at the cut. -->
         <item>
             <title>Version 1.8</title>
             <pubDate>RELEASE-CUT-PUBDATE</pubDate>
@@ -32,8 +31,8 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Lyra-1.8.dmg"
-                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
-                length="RELEASE-CUT-LENGTH"
+                sparkle:edSignature="g0zR4Lewl4HPFxegRcRWRJvraAj56JPUBEkr9Wy8ijKtY64GVCmWtOxic/2bG0OPNZ5e0NCXHshSz11fGPhMBQ=="
+                length="6598547"
                 type="application/octet-stream" />
         </item>
         <item>
