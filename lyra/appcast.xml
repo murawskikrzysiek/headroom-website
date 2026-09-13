@@ -21,7 +21,7 @@
         <language>en</language>
         <!-- release-cut: edSignature and length are from Lyra-1.8.dmg rebuilt
              2026-09-13 with the new icon and .VolumeIcon.icns (6,598,547
-             bytes). Fill pubDate at the cut. -->
+             bytes). pubDate set 2026-09-13. -->
         <item>
             <title>Version 1.8</title>
             <pubDate>Sun, 13 Sep 2026 12:00:00 +0000</pubDate>

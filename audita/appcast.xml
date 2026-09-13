@@ -27,7 +27,7 @@
 
         <!-- release-cut: edSignature and length are from Audita-1.5.dmg rebuilt
              2026-09-13 with the new icon and .VolumeIcon.icns (13,285,062
-             bytes). Fill pubDate at the cut. -->
+             bytes). pubDate set 2026-09-13. -->
         <item>
             <title>Version 1.5 - Ready for macOS 27</title>
             <pubDate>Sun, 13 Sep 2026 12:00:00 +0000</pubDate>
