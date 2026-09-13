@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>macOS 27: new icons, real glass, and an input that measured nothing - Headroom</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/ready-for-macos-27.html">
-  <meta name="description" content="Lyra 1.8, Audita 1.5 and Specula are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.">
+  <meta name="description" content="Lyra 1.8, Audita 1.5 and Specula 1.3 are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.">
   <meta property="og:title" content="macOS 27: new icons, real glass, and an input that measured nothing">
   <meta property="og:description" content="Three apps updated for macOS 27, and the three things that took the time: layered icons, matching the system's glass, and a measurement tap refused by the new OS.">
   <meta property="og:image" content="https://headroomstudio.dev/og-headroom.png">
@@ -39,13 +39,13 @@
     <header class="article-header">
         <p class="article-eyebrow">Release</p>
         <h1>macOS 27: new icons, real glass, and an input that measured nothing</h1>
-        <p class="article-subtitle">Lyra 1.8, Audita 1.5 and Specula [X.Y] ship today, built with Xcode 27. Most of the work was invisible. This is the part that was not: icons that need a second Xcode on the machine, a volume pill matched to the system's glass one value at a time, and a measurement microphone that went silent on 27 until the log said why.</p>
+        <p class="article-subtitle">Lyra 1.8, Audita 1.5 and Specula 1.3 ship today, built with Xcode 27. Most of the work was invisible. This is the part that was not: icons that need a second Xcode on the machine, a volume pill matched to the system's glass one value at a time, and a measurement microphone that went silent on 27 until the log said why.</p>
         <div class="article-meta">
             <span>Krzysiek</span>
             <span class="dot"></span>
             <span>14 September 2026</span>
             <span class="dot"></span>
-            <span>7 min read</span>
+            <span>8 min read</span>
         </div>
     </header>
 </div>
@@ -55,9 +55,7 @@
 <div class="container--read">
   <article class="article">
 
-        <!-- DRAFT: Specula's version and its macOS 27 changes are placeholders ([X.Y], the Specula section) until that release is cut. -->
-
-        <p>macOS 27 is out today, and so are three updates: <a href="/lyra/">Lyra 1.8</a>, <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula [X.Y]</a>. All three are free for existing licenses and all three still run on the macOS versions they ran on last week. The point of this post is what the week before a new macOS looks like for a one-person studio, because it was not the week of polish I had planned.</p>
+        <p>macOS 27 is out today, and so are three updates: <a href="/lyra/">Lyra 1.8</a>, <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula 1.3</a>. All three are free for existing licenses and all three still run on the macOS versions they ran on last week. The point of this post is what the week before a new macOS looks like for a one-person studio, because it was not the week of polish I had planned.</p>
 
         <h2>Icons: the SDK is not the whole toolchain</h2>
 
@@ -101,10 +99,13 @@ start: installAudioTap FAILED: Code=-10868 "Input HW format and tap format not m
 
         <p>One aside for the developers reading. The old tap call raises an uncatchable exception on that mismatch; macOS 27 deprecates it in favour of a throwing variant that reports the same condition as an error. Audita uses the new one on 27, which is why the failure above is a log line and not a crash report. It is also why the bug was diagnosable at all.</p>
 
-        <h2>Specula</h2>
+        <h2>Specula: the glass got lighter</h2>
 
-        <!-- DRAFT: fill in after the Specula macOS 27 work. Known so far: new icon; the Record mode input tap uses the same recipe as Audita and gets the same sample-rate fix. -->
-        <p>Specula [X.Y] carries the new icon and is built with the same toolchain. Its Record mode selects an input device with the same recipe as Audita, so it gets the same fix: [confirm on the macOS 27 Mac and describe]. [Anything else that shipped in this version.]</p>
+        <p><a href="/specula/">Specula 1.3</a> carries the new icon and the same Record mode fix. Its input tap is built with the recipe Audita uses, and on 27 it met the same stale sample rate: arming Record mode on a device whose rate differed from the previous route captured nothing. The tap now follows the device, and a device that refuses the tap is reported as a failed arm instead of a crash.</p>
+
+        <p>The rest of the list is what a new OS does to an interface tuned on the old one. Specula's chrome has sat on Liquid Glass since macOS 26: the toolbar buttons, the side panel, the floating Output Router and Per-Channel Statistics panels. On 27 the same material renders lighter. Measured over the app's window background, a toolbar button that read 27 on 26 reads 59 on 27, and the side panel went from 23 to 45. The whole app looked washed out. The obvious fix, tinting the glass black, makes it brighter: a tint is a luminous layer over the material, whatever its colour. What works is a translucent black fill between the material and the label. It scales the face linearly and leaves the rim highlight and the refraction alone. On 26 the fill is off and nothing changes; on 27 it brings every surface back to within a few values of where it was.</p>
+
+        <p>Then the small ones. The glass segmented controls are wider on 27, so the Fade, Add Silence and Normalize popovers wrapped their inline labels one letter per line; the labels moved above their controls. The Spectral toolbar's L / R / Both switch ran into the menu next to it for the same reason. And the two floating panels could not be dragged at all: macOS 27 stops honouring the window-background drag flag when the click lands in SwiftUI content, so the panels now carry their own drag gesture. Audita's pinned measurement panel had the same bug and the same fix.</p>
 
         <h2>Small things</h2>
 
@@ -113,7 +114,7 @@ start: installAudioTap FAILED: Code=-10868 "Input HW format and tap format not m
         <p>Audita's current-level readouts now spell out the units for VoiceOver on macOS 27: "d B A", not a guess at a word. Lyra gets a menu toggle that hands F10, F11 and F12 back to macOS for a while without quitting. Neither took an afternoon. The glass and the microphone took the week.</p>
 
         <div class="kicker">
-            <p>All three updates are free for existing licenses: <strong>Check for Updates</strong> in each app, or download from the app pages. <a href="/lyra/">Lyra 1.8</a> runs on macOS 12 or later ($9.99). <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula [X.Y]</a> run on macOS 14 or later ($19.99 and $99.99). One-time purchases, 7-day trials. Release notes: <a href="/lyra/releases.html#v1.8">Lyra</a>, <a href="/audita/releases.html#v1.5">Audita</a>, <a href="/specula/releases.html">Specula</a>.</p>
+            <p>All three updates are free for existing licenses: <strong>Check for Updates</strong> in each app, or download from the app pages. <a href="/lyra/">Lyra 1.8</a> runs on macOS 12 or later ($9.99). <a href="/audita/">Audita 1.5</a> and <a href="/specula/">Specula 1.3</a> run on macOS 14 or later ($19.99 and $99.99). One-time purchases, 7-day trials. Release notes: <a href="/lyra/releases.html#v1.8">Lyra</a>, <a href="/audita/releases.html#v1.5">Audita</a>, <a href="/specula/releases.html#v1.3">Specula</a>.</p>
         </div>
 
         <div class="related">

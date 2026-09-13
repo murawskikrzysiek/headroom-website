@@ -14,7 +14,7 @@
       <guid isPermaLink="true">https://headroomstudio.dev/blog/ready-for-macos-27.html</guid>
       <pubDate>Mon, 14 Sep 2026 09:00:00 +0000</pubDate>
       <category>Release</category>
-      <description>Lyra 1.8, Audita 1.5 and Specula [X.Y] are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.</description>
+      <description>Lyra 1.8, Audita 1.5 and Specula 1.3 are ready for macOS 27. What the update took: Icon Composer icons that need a second Xcode, a volume pill matched to the system's glass one blur value at a time, and an input device that went silent on 27 until the log said why.</description>
     </item>
     <item>
       <title>Audita 1.4: absolute SPL from a UMIK-1 serial number</title>
