@@ -30,7 +30,7 @@
              bytes). Fill pubDate at the cut. -->
         <item>
             <title>Version 1.5 - Ready for macOS 27</title>
-            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <pubDate>Sun, 13 Sep 2026 12:00:00 +0000</pubDate>
             <sparkle:version>6</sparkle:version>
             <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
