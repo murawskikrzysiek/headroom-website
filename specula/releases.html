@@ -71,6 +71,14 @@
     </div>
   </header>
 
+  <!-- release-cut: set the month in .date and drop the badge-soon when 1.4 ships. -->
+  <section class="release" id="v1.4">
+    <div class="release-header"><span class="version">Version 1.4</span><span class="date">Unreleased</span><span class="badge-soon">In review</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>Music module (<kbd>⌃7</kbd>).</strong> A seventh display section, on macOS 27, showing Apple's on-device music analysis of the loaded file: four stem lanes (vocal, drums, bass, other) with the spans where each is present and its activity over time, a beat and bar grid with the tempo, the song's sections, segments, and phrases, the key, and Apple's pace figure per section. Run it from View &rarr; Analyse Music or the module's Analyse button; it takes about 0.6 seconds per minute of audio. Settings &rarr; Analysis &rarr; <strong>Analyse music on load</strong> runs it after every file open. The sidebar's File section gains Key and Tempo rows, the JSON report carries the full result under <code>musicAnalysis</code> (absent until the analysis has run, so existing report diffs are unchanged), the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows. Everything in the module is Apple's analysis and is labelled as such; the loudness figures stay Specula's own BS.1770 measurement. On speech and other non-musical material the model finds no key, and the module then marks the tempo and structure rows as unreliable. Below macOS 27 the module and its menu items are absent.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.3">
     <div class="release-header"><span class="version">Version 1.3</span><span class="date">September 2026</span></div>
     <ul class="changes">

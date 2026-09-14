@@ -28,6 +28,25 @@
         <description>Specula update feed</description>
         <language>en</language>
 
+        <!-- DRAFT 1.4 item. Stays commented out until the release is cut. release-cut fills:
+             pubDate (RFC 822), enclosure length (bytes of Specula-1.4.dmg), sparkle:edSignature
+             (sign_update Specula-1.4.dmg), and confirms sparkle:version against CFBundleVersion.
+        <item>
+            <title>Version 1.4 - Music module</title>
+            <description>Music module (Ctrl-7), on macOS 27: Apple's on-device music analysis of the loaded file. Four stem lanes (vocal, drums, bass, other) with the spans where each is present and its activity over time, a beat and bar grid with the tempo, the song's sections, segments, and phrases, the key, and Apple's pace figure per section. Run it from View, Analyse Music or the module's Analyse button; about 0.6 seconds per minute of audio. Settings, Analysis, Analyse music on load runs it after every file open. The sidebar's File section gains Key and Tempo rows, the JSON report carries the full result under musicAnalysis (absent until the analysis has run, so existing report diffs are unchanged), the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows. Everything in the module is Apple's analysis and is labelled as such; the loudness figures stay Specula's own BS.1770 measurement. On speech and other non-musical material the model finds no key, and the module then marks the tempo and structure rows as unreliable. Below macOS 27 the module and its menu items are absent.</description>
+            <pubDate>PUBDATE_PLACEHOLDER</pubDate>
+            <sparkle:version>9</sparkle:version>
+            <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-1.4.dmg"
+                sparkle:edSignature="SIGNATURE_PLACEHOLDER"
+                length="LENGTH_PLACEHOLDER"
+                type="application/octet-stream" />
+        </item>
+        -->
+
         <!-- release-cut: edSignature and length are from Specula-1.3.dmg rebuilt
              2026-09-13 with the multi-rep volume icon (17,899,578 bytes). pubDate set 2026-09-13. -->
         <item>
