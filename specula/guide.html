@@ -662,6 +662,8 @@
         <h3>Ruler</h3>
         <p class="prose">A time ruler runs above the waveform. Click the ruler-mode toggle in the waveform control strip to swap between <strong>Time</strong> (HH:MM:SS.mmm) and <strong>Samples</strong> (frame count). Useful when you need to align two takes by sample.</p>
 
+        <p class="prose">On macOS 27, once the music analysis has run on a song, the ruler's mode button also offers <strong>bars</strong> (bar numbers, beats as ticks when zoomed in), and a band of the song's sections with their loudness sits under the ruler. See <a href="#music">Music analysis</a>.</p>
+
         <h3>Vertical / amplitude zoom</h3>
         <p class="prose">The control strip below the waveform has an amplitude zoom control (−/+ buttons) - useful for inspecting low-level detail without it being lost in the noise floor. Default is 1× (full ±0 dBFS range); double-click the readout between the buttons to return to it.</p>
 
@@ -1214,14 +1216,28 @@
     <section class="guide-section" id="music">
         <h2>12. Music analysis <a href="#music" class="anchor">#</a></h2>
 
-        <p class="prose"><strong>macOS 27 and later.</strong> The Music module (toggle with <kbd>⌃7</kbd>, focus with <kbd>⌃⌥7</kbd>) shows Apple's on-device music analysis of the loaded file, time-aligned to the waveform's zoom and scroll like the other sections. Nothing is uploaded; the analysis runs on the Mac.</p>
+        <p class="prose"><strong>macOS 27 and later.</strong> Specula reads a song's structure with Apple's on-device music analysis. Nothing is uploaded; the analysis runs on the Mac, in the background, and takes about 0.6 seconds per minute of audio (the first run after launch adds a few seconds while the model loads).</p>
+
+        <h3>When it runs</h3>
+        <p class="prose">When the sidebar's Mode is Music, the analysis runs after the file loads. Settings → Analysis → <strong>Run music analysis</strong> offers three settings: In Music mode (the default), Every file, and Never. <strong>View → Analyse Music</strong> runs it by hand at any time; the Music module's Analyse button does the same, and a progress bar with Cancel shows while it runs.</p>
+
+        <h3>What appears on the timeline</h3>
+        <p class="prose">Once the analysis has run on a song:</p>
+        <ul>
+            <li>The sidebar's File section shows the <strong>Key</strong> and <strong>Tempo</strong>.</li>
+            <li>A band under the waveform's ruler shows the song's <strong>sections</strong> (S1, S2, …) with each section's integrated LUFS, Specula's own BS.1770-4 measurement over that section. A reading in red sits outside the chapter deviation threshold (Settings → Targets → Chapter detection) from the song's median. Click a section to select it; then <kbd>⌘Return</kbd> analyses it or <kbd>Space</kbd> plays it.</li>
+            <li>The ruler's mode button (time / samples) gains a <strong>bars</strong> setting: bar numbers along the ruler, beats as small ticks when zoomed in. The IN / OUT / LEN fields stay in time.</li>
+            <li>The transport bar shows the <strong>bar and beat</strong> under the playhead next to the timecode.</li>
+            <li>A <strong>SNAP</strong> chip appears in the waveform's control strip (see Selecting and snapping).</li>
+            <li>The sidebar's Loudness section gains a <strong>Sections</strong> block (loudest section, quietest section, and their spread) and a <strong>Stem-Gated</strong> block (see below).</li>
+        </ul>
 
         <figure class="shot">
-            <img src="specula-music-module.png" alt="Specula's main window on a song with the Music module open under the waveform: labelled section bands, a beat and bar grid, a pace step line, and four stem lanes for Vocal, Drums, Bass, and Other, with Key and Tempo rows in the sidebar's File section." loading="lazy" decoding="async">
-            <figcaption><strong>Music module.</strong> Structure, beat grid, pace, and the four stem lanes, aligned to the waveform above; the key and tempo read in the header and in the sidebar.</figcaption>
+            <img src="specula-music-module.png" alt="Specula's main window on a song in Music mode after the analysis has run: Key and Tempo rows in the sidebar's File section, a band of section labels with their integrated LUFS under the waveform's ruler, the SNAP chip in the waveform's control strip, and the Music module open below with section bands, a beat and bar grid, a pace step line, and four stem lanes for Vocal, Drums, Bass, and Other." loading="lazy" decoding="async">
+            <figcaption><strong>A song in Music mode.</strong> Key and tempo in the sidebar, the section band with each section's loudness under the ruler, the SNAP chip in the control strip, and the Music module below with structure, beat grid, pace, and the four stem lanes.</figcaption>
         </figure>
 
-        <p class="prose">Run it from <strong>View → Analyse Music</strong> or the module's <strong>Analyse</strong> button. It takes about 0.6 seconds per minute of audio; the first run after launch adds a few seconds while the model loads. A progress bar shows how much of the file has been read, and <strong>Cancel</strong> stops the run. Settings → Analysis → <strong>Analyse music on load</strong> (off by default) runs it after every file open instead.</p>
+        <p class="prose">The <strong>Music module</strong> (toggle with <kbd>⌃7</kbd>, focus with <kbd>⌃⌥7</kbd>) holds the detail, time-aligned to the waveform's zoom and scroll. Click or drag anywhere on the module to place the playhead. Scroll over the module to zoom the time axis around the cursor, Shift-scroll to pan.</p>
 
         <h3>The module, top to bottom</h3>
         <ul>
@@ -1236,7 +1252,7 @@
             <figcaption><strong>Focused (<kbd>⌃⌥7</kbd>).</strong> The module alone at full height, where the beat ticks and the per-lane activity curves have the most room.</figcaption>
         </figure>
 
-        <p class="prose">The header reads the key, the tempo in BPM, the bar and section counts, and, during playback, the bar and beat under the playhead. Click anywhere on the module to seek. The sidebar's File section gains <strong>Key</strong> and <strong>Tempo</strong> rows once the analysis has run.</p>
+        <p class="prose">The header reads the key, the tempo in BPM, the bar and section counts, and, during playback, the bar and beat under the playhead. Click or drag anywhere on the module to place the playhead. Scroll over the module to zoom the time axis around the cursor, Shift-scroll to pan; the waveform and every other section follow, as they do for the loudness curve. The sidebar's File section gains <strong>Key</strong> and <strong>Tempo</strong> rows once the analysis has run.</p>
 
         <p class="prose">The vocabulary is exactly four stems. A trumpet, a synth pad, and a string section all land in Other.</p>
 
@@ -1244,7 +1260,7 @@
         <p class="prose">The model still returns a beat grid and a structure for speech, and they are not meaningful: on the same speech file two runs gave 84 and 101 BPM. It also finds no key on such material, so when no key is detected the module hides the beat and pace rows, dims the tempo, and marks the structure as unreliable. The stem lanes stay useful (speech lights the Vocal lane and nothing else).</p>
 
         <h3>Sections as chapters</h3>
-        <p class="prose">The <strong>Chapters</strong> button in the module header enters Chapter mode with one chapter per section, named Section 1, Section 2, and so on, tiling the whole file. Run <strong>Analyse Loudness</strong> there for integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median per section, and export the table as CSV or in the report. Chapter mode's toolbar has the same action as <strong>From Music</strong>, and the Chapter menu offers <strong>Chapters from Music Segments</strong> for the finer split. Sections shorter than a second fold into their neighbour. See <a href="#chapter">Chapter mode</a>.</p>
+        <p class="prose">For the full per-section table (integrated LUFS, true peak, RMS, LRA, deviation, CSV export), Chapter mode can take its chapters from the sections: <strong>From Music</strong> in the Chapter toolbar, or Chapter → Chapters from Music Sections / Segments. One chapter per section tiles the whole file (sections shorter than a second fold into their neighbour); run <strong>Analyse Loudness</strong> there. See <a href="#chapter">Chapter mode</a>.</p>
 
         <figure class="shot">
             <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
@@ -1252,7 +1268,7 @@
         </figure>
 
         <h3>Selecting and snapping</h3>
-        <p class="prose">Click a section band in the module to select that section on the waveform, then <kbd>⌘Return</kbd> analyses it or <kbd>Space</kbd> plays it. The <strong>Snap</strong> switch in the header (Off, Beat, Bar) moves selection edges and the module's playhead clicks to the nearest beat or bar; an edge sitting on the start or the end of the file stays there, and Spectral mode's own selection is untouched. Snap is only offered when the analysis found a key.</p>
+        <p class="prose">Click a section in the band under the ruler (or a section band in the Music module) to select that section on the waveform. The <strong>SNAP</strong> chip in the waveform's control strip appears when the analysis found a beat grid and starts at Beat for a song; click it to cycle Off, Beat, Bar. With snapping on, selection edges land on the nearest beat or bar; an edge sitting on the start or the end of the file stays there, Spectral mode's own selection is untouched, and the Music module's playhead clicks snap too. Snap is not offered when the analysis found no key.</p>
 
         <h3>Stem-gated loudness</h3>
         <p class="prose">After Analyse Music has run on a song, the sidebar's Loudness section shows a <strong>Stem-Gated</strong> block: integrated LUFS over the parts of the file where the vocal is present, over the bed without it, and the difference in LU (a positive vocal balance means the vocal sections run louder than the bed), then the same three readings for drums. These are Specula's own BS.1770-4 integrated measurement over the file's 100 ms blocks, gated by Apple's presence spans, so the vocal-present figure is exactly the Integrated reading you would get over those blocks alone. A side with less than 10 seconds of audio above the absolute gate shows "-", which is why a song with drums throughout has no "No drums" reading.</p>
@@ -1694,7 +1710,7 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
 
         <h3>Chapter ribbon (⌃6)</h3>
-        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll. Click a slot to select; double-click to seek the playhead to its start. Toggle the section's visibility with <kbd>⌃6</kbd> (independent of whether chapter mode is active).</p>
+        <p class="prose">The sixth section at the bottom of the window. Time-aligned to the waveform's zoom and scroll: scroll over the ribbon to zoom the time axis around the cursor, Shift-scroll to pan, and drag the divider under it to give the slots more height. Click a slot to select; double-click to seek the playhead to its start. The slot text follows Settings → Layout → Text size. Toggle the section's visibility with <kbd>⌃6</kbd> (independent of whether chapter mode is active).</p>
 
         <h3>In the report</h3>
         <p class="prose">When chapters exist on the file, the PDF / JSON report includes a <strong>Chapters</strong> section. The table carries every per-chapter metric the ribbon shows: RMS, integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary, max short-term, dialog LUFS, noise floor, and speech percentage. Cells fail-red on the same three ACX gates the ribbon uses (RMS outside [−23, −18] dB, TP &gt; −3 dBTP, NF &gt; −60 dB). The caption above the table documents all three gates and the configured deviation threshold so a producer reading the PDF can interpret it without opening the app.</p>
@@ -2019,7 +2035,7 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
         <h3>FFT / Analysis</h3>
         <ul>
             <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
-            <li><strong>Analyse music on load</strong> (macOS 27, off by default) - runs Apple's music analysis after every file open, so the Music module (<kbd>⌃7</kbd>) and the Key and Tempo rows fill in without View → Analyse Music. See <a href="#music">Music analysis</a>.</li>
+            <li><strong>Run music analysis</strong> (macOS 27) - In Music mode (default), Every file, or Never: when Apple's music analysis runs on its own after a file loads. See <a href="#music">Music analysis</a>.</li>
         </ul>
 
         <h3>Speech</h3>
