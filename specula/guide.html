@@ -1227,7 +1227,7 @@
         <ul>
             <li><strong>Structure</strong>: the song's sections as labelled bands (S1, S2, …), with segment and phrase boundaries as ticks along the bottom.</li>
             <li><strong>Beat grid</strong>: bar lines and beat ticks. At whole-file zoom on a long file the ticks thin out ("zoom in for beats"); zoom the waveform to see them.</li>
-            <li><strong>Pace</strong>: Apple's pace figure for each section, drawn as steps.</li>
+            <li><strong>Pace</strong>: how busy the music feels in each section, drawn as steps scaled to the song's busiest part. Apple defines it as a perceptual events-per-minute rate, independent of the tempo: a sparse breakdown in a fast song reads low, a full chorus at the same BPM reads high. In practice sections at the same tempo often step between a value and its double.</li>
             <li><strong>Four stem lanes</strong>: <strong>Vocal</strong>, <strong>Drums</strong>, <strong>Bass</strong>, and <strong>Other</strong>. The tinted spans mark where the stem is present; the filled curve is its activity from 0 to 1 over time. Each lane's label shows how much of the file the stem covers.</li>
         </ul>
 
@@ -1243,8 +1243,22 @@
         <h3>Speech and other non-musical material</h3>
         <p class="prose">The model still returns a beat grid and a structure for speech, and they are not meaningful: on the same speech file two runs gave 84 and 101 BPM. It also finds no key on such material, so when no key is detected the module hides the beat and pace rows, dims the tempo, and marks the structure as unreliable. The stem lanes stay useful (speech lights the Vocal lane and nothing else).</p>
 
+        <h3>Sections as chapters</h3>
+        <p class="prose">The <strong>Chapters</strong> button in the module header enters Chapter mode with one chapter per section, named Section 1, Section 2, and so on, tiling the whole file. Run <strong>Analyse Loudness</strong> there for integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median per section, and export the table as CSV or in the report. Chapter mode's toolbar has the same action as <strong>From Music</strong>, and the Chapter menu offers <strong>Chapters from Music Segments</strong> for the finer split. Sections shorter than a second fold into their neighbour. See <a href="#chapter">Chapter mode</a>.</p>
+
+        <figure class="shot">
+            <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
+            <figcaption><strong>Section loudness map.</strong> One chapter per section of the song; after Analyse Loudness every ribbon slot carries that section's integrated LUFS, true peak, RMS, LRA, and deviation from the song's median.</figcaption>
+        </figure>
+
+        <h3>Selecting and snapping</h3>
+        <p class="prose">Click a section band in the module to select that section on the waveform, then <kbd>⌘Return</kbd> analyses it or <kbd>Space</kbd> plays it. The <strong>Snap</strong> switch in the header (Off, Beat, Bar) moves selection edges and the module's playhead clicks to the nearest beat or bar; an edge sitting on the start or the end of the file stays there, and Spectral mode's own selection is untouched. Snap is only offered when the analysis found a key.</p>
+
+        <h3>Stem-gated loudness</h3>
+        <p class="prose">After Analyse Music has run on a song, the sidebar's Loudness section shows a <strong>Stem-Gated</strong> block: integrated LUFS over the parts of the file where the vocal is present, over the bed without it, and the difference in LU (a positive vocal balance means the vocal sections run louder than the bed), then the same three readings for drums. These are Specula's own BS.1770-4 integrated measurement over the file's 100 ms blocks, gated by Apple's presence spans, so the vocal-present figure is exactly the Integrated reading you would get over those blocks alone. A side with less than 10 seconds of audio above the absolute gate shows "-", which is why a song with drums throughout has no "No drums" reading.</p>
+
         <h3>Reports</h3>
-        <p class="prose">The JSON report carries the full result under <code>musicAnalysis</code> (stem spans and activity curves, beats, bars, tempo, sections, segments, phrases, key ranges, pace ranges, and a <code>source</code> line naming the analysis). The key is absent until the analysis has run, so reports from files you never analysed are unchanged. PDF and HTML reports get a Music summary; the CSV export gets Key and Tempo rows. Everything in the module and the report's Music block is Apple's analysis and is labelled as such. The loudness figures everywhere in Specula remain its own BS.1770-4 measurement; the model's loudness output is not used.</p>
+        <p class="prose">The JSON report carries the full result under <code>musicAnalysis</code> (stem spans and activity curves, beats, bars, tempo, sections, segments, phrases, key ranges, pace ranges, and a <code>source</code> line naming the analysis). The key is absent until the analysis has run, so reports from files you never analysed are unchanged. PDF and HTML reports get a Music summary; the CSV export gets Key and Tempo rows. The stem-gated readings travel as a separate <code>stemGatedLoudness</code> block in the JSON (Specula's measurement, kept apart from Apple's block), as a line in the Music summary, and as CSV rows. Everything in the module and the report's Music block is Apple's analysis and is labelled as such. The loudness figures everywhere in Specula remain its own BS.1770-4 measurement; the model's loudness output is not used.</p>
 
         <p class="prose">The results come from a closed model and can differ between macOS releases, and between sample rates of the same audio. Treat them as a map of the song, not as a measurement.</p>
 
@@ -1672,6 +1686,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <h3>Export / Import</h3>
         <p class="prose"><strong>Export…</strong> writes the current chapters (name + start + end) to a JSON sidecar. <strong>Import…</strong> loads one back, replacing the current chapter list. The exported JSON is plain Specula JSON; the importer also accepts a slimmer format with just <code>start</code> and <code>end</code> per entry, so you can hand-craft one.</p>
         <p class="prose"><strong>Export CSV…</strong> writes the per-chapter metrics table (RMS, integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary / short-term, dialog LUFS, noise floor, speech %) as a spreadsheet-ready CSV, for the producers who live in spreadsheets. Run <strong>Analyse Loudness</strong> first so the metric columns are populated.</p>
+
+        <h3>From Music (macOS 27)</h3>
+        <p class="prose"><strong>From Music</strong> replaces the chapters with one per section of the song, taken from the Music module's analysis (run View → Analyse Music first). The Chapter menu also offers <strong>Chapters from Music Segments</strong> for the finer split. Analyse Loudness then gives the per-section table. See <a href="#music">Music analysis</a>.</p>
 
         <h3>Recall</h3>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
