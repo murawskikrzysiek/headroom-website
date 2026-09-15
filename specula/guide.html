@@ -519,20 +519,21 @@
             <li><a href="#fft">9 · FFT spectrum</a></li>
             <li><a href="#spectrogram">10 · Spectrogram</a></li>
             <li><a href="#stereo">11 · M/S stereo width</a></li>
-            <li><a href="#phase">12 · Phase scope</a></li>
-            <li><a href="#level-meters">13 · RMS level meters</a></li>
-            <li><a href="#routing">14 · Channel routing &amp; monitor mode</a></li>
-            <li><a href="#compare">15 · Compare mode</a></li>
-            <li><a href="#edit">16 · Edit mode</a></li>
-            <li><a href="#spectral">17 · Spectral mode</a></li>
-            <li><a href="#chapter">18 · Chapter mode</a></li>
-            <li><a href="#record">19 · Record mode</a></li>
-            <li><a href="#generator">20 · Signal generator</a></li>
-            <li><a href="#export">21 · Export</a></li>
-            <li><a href="#cli">22 · Command-line tool (<code>specula</code>)</a></li>
-            <li><a href="#settings">23 · Settings</a></li>
-            <li><a href="#shortcuts">24 · Keyboard reference</a></li>
-            <li><a href="#standards">25 · Standards</a></li>
+            <li><a href="#music">12 · Music analysis</a></li>
+            <li><a href="#phase">13 · Phase scope</a></li>
+            <li><a href="#level-meters">14 · RMS level meters</a></li>
+            <li><a href="#routing">15 · Channel routing &amp; monitor mode</a></li>
+            <li><a href="#compare">16 · Compare mode</a></li>
+            <li><a href="#edit">17 · Edit mode</a></li>
+            <li><a href="#spectral">18 · Spectral mode</a></li>
+            <li><a href="#chapter">19 · Chapter mode</a></li>
+            <li><a href="#record">20 · Record mode</a></li>
+            <li><a href="#generator">21 · Signal generator</a></li>
+            <li><a href="#export">22 · Export</a></li>
+            <li><a href="#cli">23 · Command-line tool (<code>specula</code>)</a></li>
+            <li><a href="#settings">24 · Settings</a></li>
+            <li><a href="#shortcuts">25 · Keyboard reference</a></li>
+            <li><a href="#standards">26 · Standards</a></li>
         </ul>
     </nav>
 
@@ -1209,9 +1210,66 @@
 
     <hr class="divider">
 
-    <!-- ─────── 12. Phase scope ─────── -->
+    <!-- ─────── 12. Music analysis ─────── -->
+    <section class="guide-section" id="music">
+        <h2>12. Music analysis <a href="#music" class="anchor">#</a></h2>
+
+        <p class="prose"><strong>macOS 27 and later.</strong> The Music module (toggle with <kbd>⌃7</kbd>, focus with <kbd>⌃⌥7</kbd>) shows Apple's on-device music analysis of the loaded file, time-aligned to the waveform's zoom and scroll like the other sections. Nothing is uploaded; the analysis runs on the Mac.</p>
+
+        <figure class="shot">
+            <img src="specula-music-module.png" alt="Specula's main window on a song with the Music module open under the waveform: labelled section bands, a beat and bar grid, a pace step line, and four stem lanes for Vocal, Drums, Bass, and Other, with Key and Tempo rows in the sidebar's File section." loading="lazy" decoding="async">
+            <figcaption><strong>Music module.</strong> Structure, beat grid, pace, and the four stem lanes, aligned to the waveform above; the key and tempo read in the header and in the sidebar.</figcaption>
+        </figure>
+
+        <p class="prose">Run it from <strong>View → Analyse Music</strong> or the module's <strong>Analyse</strong> button. It takes about 0.6 seconds per minute of audio; the first run after launch adds a few seconds while the model loads. A progress bar shows how much of the file has been read, and <strong>Cancel</strong> stops the run. Settings → Analysis → <strong>Analyse music on load</strong> (off by default) runs it after every file open instead.</p>
+
+        <h3>The module, top to bottom</h3>
+        <ul>
+            <li><strong>Structure</strong>: the song's sections as labelled bands (S1, S2, …), with segment and phrase boundaries as ticks along the bottom.</li>
+            <li><strong>Beat grid</strong>: bar lines and beat ticks. At whole-file zoom on a long file the ticks thin out ("zoom in for beats"); zoom the waveform to see them.</li>
+            <li><strong>Pace</strong>: how busy the music feels in each section, drawn as steps scaled to the song's busiest part. Apple defines it as a perceptual events-per-minute rate, independent of the tempo: a sparse breakdown in a fast song reads low, a full chorus at the same BPM reads high. In practice sections at the same tempo often step between a value and its double.</li>
+            <li><strong>Four stem lanes</strong>: <strong>Vocal</strong>, <strong>Drums</strong>, <strong>Bass</strong>, and <strong>Other</strong>. The tinted spans mark where the stem is present; the filled curve is its activity from 0 to 1 over time. Each lane's label shows how much of the file the stem covers.</li>
+        </ul>
+
+        <figure class="shot">
+            <img src="specula-music-focus.png" alt="The Music module focused with ⌃⌥7, filling the window: section bands with segment and phrase ticks, the beat and bar grid, the pace steps, and the Vocal, Drums, Bass, and Other lanes with their presence spans and activity curves at full height." loading="lazy" decoding="async">
+            <figcaption><strong>Focused (<kbd>⌃⌥7</kbd>).</strong> The module alone at full height, where the beat ticks and the per-lane activity curves have the most room.</figcaption>
+        </figure>
+
+        <p class="prose">The header reads the key, the tempo in BPM, the bar and section counts, and, during playback, the bar and beat under the playhead. Click anywhere on the module to seek. The sidebar's File section gains <strong>Key</strong> and <strong>Tempo</strong> rows once the analysis has run.</p>
+
+        <p class="prose">The vocabulary is exactly four stems. A trumpet, a synth pad, and a string section all land in Other.</p>
+
+        <h3>Speech and other non-musical material</h3>
+        <p class="prose">The model still returns a beat grid and a structure for speech, and they are not meaningful: on the same speech file two runs gave 84 and 101 BPM. It also finds no key on such material, so when no key is detected the module hides the beat and pace rows, dims the tempo, and marks the structure as unreliable. The stem lanes stay useful (speech lights the Vocal lane and nothing else).</p>
+
+        <h3>Sections as chapters</h3>
+        <p class="prose">The <strong>Chapters</strong> button in the module header enters Chapter mode with one chapter per section, named Section 1, Section 2, and so on, tiling the whole file. Run <strong>Analyse Loudness</strong> there for integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median per section, and export the table as CSV or in the report. Chapter mode's toolbar has the same action as <strong>From Music</strong>, and the Chapter menu offers <strong>Chapters from Music Segments</strong> for the finer split. Sections shorter than a second fold into their neighbour. See <a href="#chapter">Chapter mode</a>.</p>
+
+        <figure class="shot">
+            <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
+            <figcaption><strong>Section loudness map.</strong> One chapter per section of the song; after Analyse Loudness every ribbon slot carries that section's integrated LUFS, true peak, RMS, LRA, and deviation from the song's median.</figcaption>
+        </figure>
+
+        <h3>Selecting and snapping</h3>
+        <p class="prose">Click a section band in the module to select that section on the waveform, then <kbd>⌘Return</kbd> analyses it or <kbd>Space</kbd> plays it. The <strong>Snap</strong> switch in the header (Off, Beat, Bar) moves selection edges and the module's playhead clicks to the nearest beat or bar; an edge sitting on the start or the end of the file stays there, and Spectral mode's own selection is untouched. Snap is only offered when the analysis found a key.</p>
+
+        <h3>Stem-gated loudness</h3>
+        <p class="prose">After Analyse Music has run on a song, the sidebar's Loudness section shows a <strong>Stem-Gated</strong> block: integrated LUFS over the parts of the file where the vocal is present, over the bed without it, and the difference in LU (a positive vocal balance means the vocal sections run louder than the bed), then the same three readings for drums. These are Specula's own BS.1770-4 integrated measurement over the file's 100 ms blocks, gated by Apple's presence spans, so the vocal-present figure is exactly the Integrated reading you would get over those blocks alone. A side with less than 10 seconds of audio above the absolute gate shows "-", which is why a song with drums throughout has no "No drums" reading.</p>
+
+        <h3>Reports</h3>
+        <p class="prose">The JSON report carries the full result under <code>musicAnalysis</code> (stem spans and activity curves, beats, bars, tempo, sections, segments, phrases, key ranges, pace ranges, and a <code>source</code> line naming the analysis). The key is absent until the analysis has run, so reports from files you never analysed are unchanged. PDF and HTML reports get a Music summary; the CSV export gets Key and Tempo rows. The stem-gated readings travel as a separate <code>stemGatedLoudness</code> block in the JSON (Specula's measurement, kept apart from Apple's block), as a line in the Music summary, and as CSV rows. Everything in the module and the report's Music block is Apple's analysis and is labelled as such. The loudness figures everywhere in Specula remain its own BS.1770-4 measurement; the model's loudness output is not used.</p>
+
+        <p class="prose">The results come from a closed model and can differ between macOS releases, and between sample rates of the same audio. Treat them as a map of the song, not as a measurement.</p>
+
+        <p class="prose">The module is not available below macOS 27: the toggle bar has no Music button, and the View menu items are disabled. The <code>specula</code> command-line tool does not run the analysis.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 13. Phase scope ─────── -->
     <section class="guide-section" id="phase">
-        <h2>12. Phase scope <a href="#phase" class="anchor">#</a></h2>
+        <h2>13. Phase scope <a href="#phase" class="anchor">#</a></h2>
 
         <p class="prose">Lissajous correlation meter - plots L on the X axis and R on the Y axis as a 2D scatter. Useful for catching out-of-phase content at a glance.</p>
         <ul>
@@ -1225,9 +1283,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 13. RMS level meters ─────── -->
+    <!-- ─────── 14. RMS level meters ─────── -->
     <section class="guide-section" id="level-meters">
-        <h2>13. RMS level meters <a href="#level-meters" class="anchor">#</a></h2>
+        <h2>14. RMS level meters <a href="#level-meters" class="anchor">#</a></h2>
 
         <p class="prose">Per-channel vertical bars in the Channels sidebar. Each bar shows:</p>
         <ul>
@@ -1240,9 +1298,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 14. Channel routing ─────── -->
+    <!-- ─────── 15. Channel routing ─────── -->
     <section class="guide-section" id="routing">
-        <h2>14. Channel routing &amp; monitor mode <a href="#routing" class="anchor">#</a></h2>
+        <h2>15. Channel routing &amp; monitor mode <a href="#routing" class="anchor">#</a></h2>
 
         <p class="prose">The <strong>Routing</strong> panel lives in the dedicated <strong>Output</strong> window (<strong>Window → Output Panel</strong>, <kbd>⌥⌘O</kbd>, or click the Output pill in the Transport bar). It is an N → M matrix that maps each input/source channel to one or more output channels with per-route gain trim. The Output window also holds the device selector, so the channel count the matrix targets and the device driving it are always co-located.</p>
 
@@ -1312,9 +1370,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 15. Compare mode ─────── -->
+    <!-- ─────── 16. Compare mode ─────── -->
     <section class="guide-section" id="compare">
-        <h2>15. Compare mode <a href="#compare" class="anchor">#</a></h2>
+        <h2>16. Compare mode <a href="#compare" class="anchor">#</a></h2>
 
         <p class="prose">Load up to <strong>6 files</strong> as slots A through F, switch between them instantly, level-match them by integrated LUFS, and compute sample-accurate residuals between any two.</p>
 
@@ -1386,9 +1444,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 16. Edit mode ─────── -->
+    <!-- ─────── 17. Edit mode ─────── -->
     <section class="guide-section" id="edit">
-        <h2>16. Edit mode <a href="#edit" class="anchor">#</a></h2>
+        <h2>17. Edit mode <a href="#edit" class="anchor">#</a></h2>
 
         <p class="prose">Non-destructive editing. By default it saves as a <strong>new file</strong> and never overwrites the original; an opt-in <strong>Save</strong> (<kbd>⌘S</kbd>) that writes over the loaded file is described under <a href="#save-and-discard">Save and Discard</a>.</p>
 
@@ -1485,9 +1543,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 17. Spectral mode ─────── -->
+    <!-- ─────── 18. Spectral mode ─────── -->
     <section class="guide-section" id="spectral">
-        <h2>17. Spectral mode <a href="#spectral" class="anchor">#</a></h2>
+        <h2>18. Spectral mode <a href="#spectral" class="anchor">#</a></h2>
 
         <p class="prose">See it, select it, take it out. Spectral mode (<kbd>⌘5</kbd>, or the <strong>Spectral</strong> button in the transport bar) turns the main canvas into a full resolution, zoomable spectrogram of the loaded file, where you select time and frequency regions and process just those. A cough inside a piano chord, a chair squeak under speech, a bite of mains hum: paint over the blemish and remove it, leaving everything around it untouched. Works on any channel count, from mono to surround beds; edits share Edit mode's undo history, unsaved-changes dot, and Save As.</p>
 
@@ -1531,9 +1589,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 18. Chapter mode ─────── -->
+    <!-- ─────── 19. Chapter mode ─────── -->
     <section class="guide-section" id="chapter">
-        <h2>18. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
+        <h2>19. Chapter mode <a href="#chapter" class="anchor">#</a></h2>
 
         <p class="prose">A dedicated mode for audiobooks and long-form podcasts. Specula segments the file at long silences, scores every chapter against the full ACX measurement set, and surfaces both the per-chapter ACX gates and each chapter's deviation from the book's own median. Mutually exclusive with the other five modes (Edit, Compare, Dialogue, Spectral, Record) so the workspace stays focused.</p>
 
@@ -1629,6 +1687,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
         <p class="prose"><strong>Export…</strong> writes the current chapters (name + start + end) to a JSON sidecar. <strong>Import…</strong> loads one back, replacing the current chapter list. The exported JSON is plain Specula JSON; the importer also accepts a slimmer format with just <code>start</code> and <code>end</code> per entry, so you can hand-craft one.</p>
         <p class="prose"><strong>Export CSV…</strong> writes the per-chapter metrics table (RMS, integrated LUFS, deviation from median, true peak, sample peak, LRA, max momentary / short-term, dialog LUFS, noise floor, speech %) as a spreadsheet-ready CSV, for the producers who live in spreadsheets. Run <strong>Analyse Loudness</strong> first so the metric columns are populated.</p>
 
+        <h3>From Music (macOS 27)</h3>
+        <p class="prose"><strong>From Music</strong> replaces the chapters with one per section of the song, taken from the Music module's analysis (run View → Analyse Music first). The Chapter menu also offers <strong>Chapters from Music Segments</strong> for the finer split. Analyse Loudness then gives the per-section table. See <a href="#music">Music analysis</a>.</p>
+
         <h3>Recall</h3>
         <p class="prose">When you load a file whose fingerprint (filename + duration + sample rate + channels) matches a prior chapter setup saved in <code>~/Library/Application Support/Specula/chapters/</code>, a <strong>Recall</strong> button appears in the toolbar. Click to restore the saved chapters. Toggle the prompt in Settings → Targets → Chapter detection.</p>
 
@@ -1641,9 +1702,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 19. Record mode ─────── -->
+    <!-- ─────── 20. Record mode ─────── -->
     <section class="guide-section" id="record">
-        <h2>19. Record mode <a href="#record" class="anchor">#</a></h2>
+        <h2>20. Record mode <a href="#record" class="anchor">#</a></h2>
 
         <p class="prose">Record straight into the app. Record mode (<kbd>⌘6</kbd>, the <strong>Record</strong> button in the transport bar, or the <strong>Record audio</strong> tile in the empty window) captures from any input device on your Mac: a new file when nothing is loaded, a continuation appended to the loaded file, an insert at the playhead that pushes the rest later, or a punch that records over existing audio. It is the one mode that works with no file open, because it is how a file gets created. The first time you enter it, macOS asks for microphone permission.</p>
 
@@ -1676,9 +1737,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 20. Signal generator ─────── -->
+    <!-- ─────── 21. Signal generator ─────── -->
     <section class="guide-section" id="generator">
-        <h2>20. Signal generator <a href="#generator" class="anchor">#</a></h2>
+        <h2>21. Signal generator <a href="#generator" class="anchor">#</a></h2>
 
         <p class="prose">Build test signals from scratch and write them to a file. The <strong>Signal Generator</strong> window (<kbd>⌘G</kbd>, the <strong>Generate</strong> button next to the mode selector, or <strong>View → Signal Generator</strong>) is a standalone builder: it synthesizes audio rather than measuring it, so it opens in its own window and needs nothing loaded. With no file open, the main window also offers a <strong>Generate a test signal</strong> tile beside the drop zone. The builder keeps its state, so a signal you were working on is still there after closing the window or relaunching the app.</p>
 
@@ -1721,9 +1782,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 21. Export ─────── -->
+    <!-- ─────── 22. Export ─────── -->
     <section class="guide-section" id="export">
-        <h2>21. Export <a href="#export" class="anchor">#</a></h2>
+        <h2>22. Export <a href="#export" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Key</th><th>Action</th><th>Output</th></tr>
@@ -1745,6 +1806,8 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
         <p class="prose">JSON is a stable, machine-readable schema. PDF is the same content rendered for human reading. For the audiobook and podcast producers who live in spreadsheets, <strong>Chapter mode → Export CSV…</strong> writes the per-chapter metrics table as a CSV (one row per chapter), and the CLI's <code>specula report &lt;file&gt; --format csv</code> does the same from the command line. See <a href="#chapter">Chapter mode</a>.</p>
 
+        <p class="prose">Once <strong>Analyse Music</strong> has run (macOS 27), the JSON report also carries the result under <code>musicAnalysis</code> and the PDF gets a Music summary; see <a href="#music">Music analysis</a>.</p>
+
         <p class="prose">The full-file report (no selection) carries integrated LUFS, true peak (4× oversampled dBTP), sample peak, LRA, Max Momentary, Max Short-Term, DR, speech-gated LUFS, speech %, stereo correlation, per-channel stats, and loudness-target verdicts - every metric the info panel shows.</p>
 
         <p class="prose">Each entry in <code>loudnessTargets.targets[]</code> in the JSON envelope carries an inline <code>verdict</code> object so a Shortcut, CLI pipeline, or batch QC script can branch on pass / fail without recomputing it against the target spec. Fields: <code>status</code> (<code>compliant</code> / <code>penalty</code> / <code>notCompliant</code> / <code>unavailable</code>), <code>actualLUFS</code>, plus <code>penaltyGainDB</code> / <code>penaltyApplies</code> / <code>truePeakClean</code> for streaming targets and <code>nonComplianceReason</code> / <code>nonComplianceActual</code> / <code>nonComplianceLimit</code> for hard-spec fails. The PDF and HTML reports render the same verdict as a status badge. Full field reference in <a href="#loudness">Loudness targets</a>.</p>
@@ -1752,9 +1815,9 @@ LRA 4.2 LU    Dlg -19.8 LUFS    Sp 87%</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 22. Command-line tool ─────── -->
+    <!-- ─────── 23. Command-line tool ─────── -->
     <section class="guide-section" id="cli">
-        <h2>22. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
+        <h2>23. Command-line tool (<code>specula</code>) <a href="#cli" class="anchor">#</a></h2>
 
         <p class="prose">For batch QC, shell scripts, and Shortcuts that walk a folder of files, Specula ships a CLI built on the same measurement engine the app uses. Same numbers, no window.</p>
 
@@ -1910,9 +1973,9 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 23. Settings ─────── -->
+    <!-- ─────── 24. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>23. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>24. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>⌘,</kbd>. Eleven tabs: Layout · Spectrogram · FFT / Analysis · Speech · Targets · Report · Editing · Plugins · Updates · License · Acknowledgements.</p>
 
@@ -1956,6 +2019,7 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
         <h3>FFT / Analysis</h3>
         <ul>
             <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
+            <li><strong>Analyse music on load</strong> (macOS 27, off by default) - runs Apple's music analysis after every file open, so the Music module (<kbd>⌃7</kbd>) and the Key and Tempo rows fill in without View → Analyse Music. See <a href="#music">Music analysis</a>.</li>
         </ul>
 
         <h3>Speech</h3>
@@ -1979,9 +2043,9 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 24. Keyboard reference ─────── -->
+    <!-- ─────── 25. Keyboard reference ─────── -->
     <section class="guide-section" id="shortcuts">
-        <h2>24. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
+        <h2>25. Complete keyboard reference <a href="#shortcuts" class="anchor">#</a></h2>
 
         <h3>File</h3>
         <table>
@@ -2120,6 +2184,7 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
             <tr><td><kbd>⌃4</kbd></td><td class="wrap-ok">Toggle FFT</td></tr>
             <tr><td><kbd>⌃5</kbd></td><td class="wrap-ok">Toggle Stereo Width</td></tr>
             <tr><td><kbd>⌃6</kbd></td><td class="wrap-ok">Toggle Chapter Ribbon</td></tr>
+            <tr><td><kbd>⌃7</kbd></td><td class="wrap-ok">Toggle Music (macOS 27)</td></tr>
         </table>
 
         <h3>View - focus one section (hide others / restore)</h3>
@@ -2129,14 +2194,16 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
             <tr><td><kbd>⌃⌥3</kbd></td><td class="wrap-ok">Focus Spectrogram</td></tr>
             <tr><td><kbd>⌃⌥4</kbd></td><td class="wrap-ok">Focus FFT</td></tr>
             <tr><td><kbd>⌃⌥5</kbd></td><td class="wrap-ok">Focus Stereo Width</td></tr>
+            <tr><td><kbd>⌃⌥6</kbd></td><td class="wrap-ok">Focus Chapter Ribbon</td></tr>
+            <tr><td><kbd>⌃⌥7</kbd></td><td class="wrap-ok">Focus Music (macOS 27)</td></tr>
         </table>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 25. Standards ─────── -->
+    <!-- ─────── 26. Standards ─────── -->
     <section class="guide-section" id="standards">
-        <h2>25. Standards <a href="#standards" class="anchor">#</a></h2>
+        <h2>26. Standards <a href="#standards" class="anchor">#</a></h2>
 
         <table>
             <tr><th>Standard</th><th>Where it appears</th></tr>
