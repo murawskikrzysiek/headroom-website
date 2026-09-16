@@ -25,6 +25,23 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
+        <!-- release-cut 2026-09-16: edSignature and length from sign_update on
+             Audita-1.5.1.dmg (13,286,518 bytes); pubDate set to the ship date. -->
+        <item>
+            <title>Version 1.5.1</title>
+            <description>Fixed: with the input device running at 88.2 kHz or higher, Audita measured nothing (reported on a Universal Audio Apollo at 96 kHz). Measurement now follows every rate the device offers, 44.1 through 192 kHz.</description>
+            <pubDate>Wed, 16 Sep 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.5.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.5.1.dmg"
+                sparkle:edSignature="q/Q3A2Zeztwdn9rYJKq+0JdElb8/Lo/wRoEV79bzgivdN4ew6oxQy0ew3pcUAmgDk4pKEuTG13OCcYJXsBN4CA=="
+                length="13286518"
+                type="application/octet-stream" />
+        </item>
+
         <!-- release-cut: edSignature and length are from Audita-1.5.dmg rebuilt
              2026-09-13 with the new icon and .VolumeIcon.icns (13,285,062
              bytes). pubDate set 2026-09-13. -->
