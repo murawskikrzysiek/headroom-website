@@ -1219,7 +1219,7 @@
         <p class="prose"><strong>macOS 27 and later.</strong> Specula reads a song's structure with Apple's on-device music analysis. Nothing is uploaded; the analysis runs on the Mac, in the background, and takes about 0.6 seconds per minute of audio (the first run after launch adds a few seconds while the model loads).</p>
 
         <h3>When it runs</h3>
-        <p class="prose">Any file up to 15 minutes is analysed after it loads, in every Mode; a song is rarely longer, and the pass is cheap enough that the analysis itself is the test for whether the file is a song. Longer files are analysed when the sidebar's Mode is Music. Settings → FFT / Analysis → <strong>Run music analysis</strong> offers three settings: Songs (the default, with the duration limit next to it), Every file, and Never. <strong>View → Analyse Music</strong> runs it by hand at any time; the Music module's Analyse button does the same, and a progress bar with Cancel shows while it runs.</p>
+        <p class="prose">Any file up to 15 minutes is analysed after it loads, in every Mode; a song is rarely longer, and the pass is cheap enough that the analysis itself is the test for whether the file is a song. Longer files are never analysed on their own, whatever the Mode. Settings → FFT / Analysis → <strong>Run music analysis</strong> offers three settings: Songs (the default, with the duration limit next to it), Every file, and Never. <strong>View → Analyse Music</strong> runs it by hand at any time; the Music module's Analyse button does the same, and a progress bar with Cancel shows while it runs.</p>
 
         <h3>Song detected</h3>
         <p class="prose">A key found means the file is a song. The Music module then opens on its own (Settings → FFT / Analysis → Show the Music module when a song is detected; hide it with <kbd>⌃7</kbd> and it stays hidden until the next analysis), and if the sidebar's Mode is not Music, a <strong>Song detected · switch to Music</strong> button under the Mode selector switches it. Nothing switches by itself: Music mode changes the loudness targets and verdicts. When no key is found, the timeline and the module stay as they were.</p>
@@ -2038,7 +2038,7 @@ specula analyze dump.pcm --raw-preset "Apollo capture"</code></pre>
         <h3>FFT / Analysis</h3>
         <ul>
             <li><strong>Window Function</strong> - Hann / Hamming / Blackman / Blackman-Harris / Flat Top, with a short description shown for the selected window.</li>
-            <li><strong>Run music analysis</strong> (macOS 27) - Songs (default; files up to a duration limit, 15 minutes unless changed, plus longer files in Music mode), Every file, or Never: when Apple's music analysis runs on its own after a file loads. <strong>Show the Music module when a song is detected</strong> opens the module when the analysis finds a key. See <a href="#music">Music analysis</a>.</li>
+            <li><strong>Run music analysis</strong> (macOS 27) - Songs (default; files up to a duration limit, 15 minutes unless changed, in every Mode), Every file, or Never: when Apple's music analysis runs on its own after a file loads. <strong>Show the Music module when a song is detected</strong> opens the module when the analysis finds a key. See <a href="#music">Music analysis</a>.</li>
         </ul>
 
         <h3>Speech</h3>
