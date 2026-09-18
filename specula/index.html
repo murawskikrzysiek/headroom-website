@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula - Audio Analysis &amp; Mastering Reference for macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/">
-    <meta name="description" content="Pro audio analysis for macOS. EBU R128 loudness, speech-gated LUFS, FFT and spectrogram, six-master compare with residuals, non-destructive editing, spectral repair, recording, and a signal generator.">
+    <meta name="description" content="Pro audio analysis for macOS. EBU R128 loudness, speech-gated LUFS, FFT and spectrogram, six-master compare with residuals, non-destructive editing, spectral repair, recording, a signal generator, and on macOS 27 music analysis: key and tempo, sections with their loudness, a bars ruler, beat snapping, and stems.">
     <meta property="og:title" content="Specula">
     <meta property="og:description" content="Audio analysis and repair for macOS: loudness to EBU R128, true peak, dialog levels, spectrum, and phase. Compare six masters down to the residual; edit, repair, record, and generate test signals.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -193,6 +193,40 @@
     </section>
 
     <!-- New in 1.2 -->
+    <!-- New in 1.4: Music analysis -->
+    <section class="section section--bordered" id="music">
+        <div class="section__grid">
+            <p class="label">New in 1.4</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    In Music mode a song opens with its key and tempo, its sections and their loudness under the ruler, a bars ruler, beat snapping, and the vocal measured against the bed in LU.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;"><strong>On the timeline.</strong> Apple's on-device music analysis runs in the background after the file loads, about 0.6 seconds per minute of audio. Once it has found a song, the sidebar's File section reads the key and the tempo, a band under the waveform's ruler shows the song's sections with each section's integrated LUFS (red when a section sits outside the chapter deviation threshold from the song's median), the ruler's mode button gains a bars setting, the transport reads the bar and beat under the playhead, and a <strong>SNAP</strong> chip in the control strip lands selection edges on the nearest beat or bar. A click on a section selects it.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Stem-gated loudness.</strong> The sidebar's Loudness section gains a Stem-Gated block: integrated LUFS over the blocks where the vocal is present, over the bed without it, and their difference in LU, then the same three readings for drums, all Specula's own BS.1770-4 integrated measurement gated by Apple's stem presence spans. A side with less than 10 seconds of audio reads "-". A Sections block next to it lists the loudest and quietest sections and their spread.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Music module (<kbd>⌃7</kbd>).</strong> The detail view. Four stem lanes, Vocal, Drums, Bass, and Other, mark where each stem is present and how active it is over time. Above them sit the beat and bar grid, the song's sections, segments, and phrases as labelled bands and ticks, and Apple's pace figure per section. Click or drag on the module to place the playhead; scroll zooms the time axis with the other sections. <a href="guide.html#music">Music analysis guide →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Section loudness map.</strong> Chapter mode takes its chapters from the song's sections, one per section tiling the whole file, and Analyse Loudness then reads integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median for every section, in the chapter report and CSV as well.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Any file up to 15 minutes (a limit you can change) is analysed after it loads, in any Mode, and longer files are left alone until you ask; Settings → FFT / Analysis → <strong>Run music analysis</strong> chooses Songs, Every file, or Never, and <strong>View → Analyse Music</strong> runs it by hand. A key found means the file is a song: the Music module opens on its own, and if the Mode is not Music the sidebar offers a one-click switch. Nothing is uploaded. The JSON report carries the full result under <code>musicAnalysis</code> and the stem-gated readings under <code>stemGatedLoudness</code>, the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The analysis is Apple's Music Understanding framework and is labelled as Apple's analysis throughout; the loudness figures stay Specula's own BS.1770-4 measurement. It needs macOS 27. On earlier systems the timeline stays as it is and the module and its menu items are absent; everything else in Specula runs on macOS 14 and later.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- New in 1.4 shots -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <img src="specula-music-module.png" alt="Specula's main window on a song in Music mode after the analysis has run: Key and Tempo rows in the sidebar's File section, a band of section labels with their integrated LUFS under the waveform's ruler, the SNAP chip in the waveform's control strip, and the Music module open below with section bands, a beat and bar grid, a pace step line, and four stem lanes for Vocal, Drums, Bass, and Other." loading="lazy" decoding="async">
+            <figcaption><strong>A song in Music mode.</strong> Key and tempo in the sidebar, the section band with each section's loudness under the ruler, the SNAP chip in the control strip, and the Music module below.</figcaption>
+        </figure>
+        <figure class="shot">
+            <img src="specula-music-focus.png" alt="The Music module focused with ⌃⌥7, filling the window: section bands with segment and phrase ticks, the beat and bar grid, the pace steps, and the Vocal, Drums, Bass, and Other lanes with their presence spans and activity curves at full height." loading="lazy" decoding="async">
+            <figcaption><strong>Focused (<kbd>⌃⌥7</kbd>).</strong> The module alone at full height, where the beat ticks and the per-lane activity curves have the most room.</figcaption>
+        </figure>
+        <figure class="shot">
+            <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
+            <figcaption><strong>Section loudness map.</strong> One chapter per section of the song; after Analyse Loudness every ribbon slot carries that section's integrated LUFS, true peak, RMS, LRA, and deviation from the song's median.</figcaption>
+        </figure>
+    </section>
+
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">New in 1.2</p>
@@ -427,6 +461,7 @@
                 <div class="feature-row"><div class="feature-row__k">FFT spectrum</div><div class="feature-row__v">Real-time logarithmic spectrum with five window functions (Hann / Hamming / Blackman / Blackman-Harris / Flat Top), each tuned for a different job. Hover anywhere on the curve to read frequency, level, and the closest musical note with cents deviation.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Spectrogram</div><div class="feature-row__v">Four perceptually-distinct colormaps (Inferno / Turbo / Plasma / Viridis), logarithmic or mel frequency scale, configurable dB range, and five overlap settings from ~47 to ~750 columns per second at 48 kHz. Live and Offline stores stay separate, so playback never overwrites an Analyse result. While paused, clicking the waveform recomputes the FFT for that position.</div></div>
                 <div class="feature-row"><div class="feature-row__k">M/S stereo &amp; phase</div><div class="feature-row__v">A correlation curve (−1 to +1) plus a Lissajous phase scope. Zone colour mode tints the curve by stereo character, from mono to out-of-phase, with a plain-English hover label.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Music analysis (macOS 27)</div><div class="feature-row__v">Apple's on-device music analysis of the loaded file, run in the background after a file loads. On the timeline: key and tempo in the sidebar, a band of the song's sections with each section's integrated LUFS under the ruler, a bars ruler, the bar and beat under the playhead, and a SNAP chip that lands selection edges on the nearest beat or bar. The Music module (⌃7) holds the detail: four stem lanes (Vocal, Drums, Bass, Other) with presence spans and activity over time, the beat and bar grid, sections, segments, and phrases, and Apple's pace figure per section. Chapter mode takes its chapters from the sections for a per-section loudness table, and a Stem-Gated block in the Loudness section reads integrated LUFS with the vocal present, without it, and the difference in LU. The JSON, PDF, HTML, and CSV reports carry it. Labelled as Apple's analysis throughout, while loudness stays Specula's own BS.1770-4 measurement. <a href="guide.html#music">Music analysis guide →</a></div></div>
                 <div class="feature-row"><div class="feature-row__k">Compare mode (⌘2)</div><div class="feature-row__v">Six slots (A-F), switched on bare 1-6 keys. One-click LUFS level matching, per-slot polarity invert, editable offset and gain fields, and two-pass cross-correlation auto-align that locks a slot to A at the exact sample. <strong>Listen to Diff</strong> (<kbd>D</kbd>) plays the cached A−X residual in place of the slot; <kbd>⌃⌘E</kbd> exports it to WAV.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Edit mode (⌘1)</div><div class="feature-row__v">Trim, cut with crossfade joins, insert silence, gain, fades, phase invert, DC removal, channel swap or split to mono files. Normalize to a peak or LUFS target with a 5 ms lookahead limiter enforced against the oversampled inter-sample peak; <strong>Limit TP</strong> caps a true-peak overage on its own; <strong>Level Dialogue</strong> pulls room tone down between phrases. Normalize and Limit TP respect a time selection. 16-level undo; saves a new file by default, with an opt-in Save that writes over the original and keeps its format.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Chapter mode (⌘3)</div><div class="feature-row__v"><strong>Detect</strong> finds the silences and cuts the file into a chapter ribbon; <strong>Analyse Loudness</strong> runs the full metric set per chapter and flags every gate miss: the three ACX limits plus drift off the book's median. <strong>Level chapters</strong> brings every chapter to a common RMS or LUFS in one move. The chapter table lands in the PDF report with the same red-cell signalling.</div></div>
@@ -498,7 +533,7 @@
         <div class="section__grid">
             <p class="label">Requirements</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k">macOS</div><div class="feature-row__v">Sonoma 14.0 or later.</div></div>
+                <div class="feature-row"><div class="feature-row__k">macOS</div><div class="feature-row__v">Sonoma 14.0 or later. Music analysis needs macOS 27.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Hardware</div><div class="feature-row__v">Any Mac that runs macOS 14. Apple Silicon recommended for large files; uses Apple's vDSP throughout.</div></div>
                 <div class="callout" style="margin-top: 20px;">
                     <span style="opacity:0.5;">ⓘ</span>
@@ -576,6 +611,18 @@
                 <details class="faq-acc">
                     <summary>Negative numbers like <code>--gain -3</code> get rejected by the CLI; why?</summary>
                     <div class="faq-acc__a"><p>A bare leading <code>-</code> parses as an option name, so pass any negative numeric in the <code>--option=value</code> form: <code>--gain=-3</code>, <code>--normalize-lufs=-14</code>. Positive values work either way.</p></div>
+                </details>
+                <details class="faq-acc">
+                    <summary>Why is there no Music button in my copy of Specula?</summary>
+                    <div class="faq-acc__a"><p>Music analysis needs macOS 27. It runs Apple's Music Understanding framework, which exists on macOS 27 and later only, so on earlier systems the toggle bar has no Music button, the View → Analyse Music items are disabled, and a song loads without the Key and Tempo rows, the section band under the ruler, the bars ruler, and the SNAP chip. Everything else in Specula runs on macOS 14 and later. The framework is Apple's and runs on the Mac; no audio is uploaded, and the <code>specula</code> command-line tool does not run it.</p></div>
+                </details>
+                <details class="faq-acc">
+                    <summary>What are the four stems, and why does a speech file read "unreliable"?</summary>
+                    <div class="faq-acc__a"><p>Apple's model separates the file into exactly four stems: <strong>Vocal</strong>, <strong>Drums</strong>, <strong>Bass</strong>, and <strong>Other</strong>. It is a stem split, not an instrument list, so a trumpet, a synth pad, and a string section all land in Other. On speech and other non-musical material the model still returns a beat grid and a structure, and they are not meaningful: on the same speech file two runs gave 84 and 101 BPM. It also finds no key on such material, so when no key is detected the module hides the beat and pace rows, dims the tempo, and marks the structure as unreliable. The stem lanes stay useful; speech lights the Vocal lane and nothing else. Details in the <a href="guide.html#music">Music analysis guide</a>.</p></div>
+                </details>
+                <details class="faq-acc">
+                    <summary>What does the vocal balance number mean?</summary>
+                    <div class="faq-acc__a"><p>The difference, in LU, between two integrated loudness readings: one over the file's blocks where Apple's analysis marks the vocal as present, one over the bed without it. Both are Specula's own BS.1770-4 integrated measurement over the file's 100 ms blocks, gated by the stem's presence spans, so the vocal-present figure is the Integrated reading over exactly those blocks. A positive balance means the vocal sections run louder than the bed. Either side needs at least 10 seconds of audio above the absolute gate, otherwise it reads "-"; a song with drums throughout has no "No drums" reading for that reason. The same three numbers exist for drums, and the JSON report carries all of them under <code>stemGatedLoudness</code>, kept apart from Apple's <code>musicAnalysis</code> block. Details in the <a href="guide.html#music">Music analysis guide</a>.</p></div>
                 </details>
                 <details class="faq-acc">
                     <summary>How do I report a bug or send feedback?</summary>
