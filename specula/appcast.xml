@@ -28,24 +28,22 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- DRAFT 1.4 item. Stays commented out until the release is cut. release-cut fills:
-             pubDate (RFC 822), enclosure length (bytes of Specula-1.4.dmg), sparkle:edSignature
-             (sign_update Specula-1.4.dmg), and confirms sparkle:version against CFBundleVersion.
+        <!-- release-cut: edSignature and length are from Specula-1.4.dmg built
+             2026-09-20 (18,311,656 bytes). pubDate set 2026-09-20. -->
         <item>
             <title>Version 1.4 - Music analysis</title>
             <description>Music analysis, on macOS 27: Specula reads a song's structure with Apple's on-device music analysis and puts it on the timeline. Any file up to 15 minutes (a limit you can change) is analysed in the background after it loads, in every Mode; longer files are left alone until you ask. The pass takes about 0.6 seconds per minute of audio. Settings, FFT / Analysis, Run music analysis can make it run for every file, or never, and View, Analyse Music runs it by hand. A key found means the file is a song, and the Music module opens on its own (a toggle in the same Settings section); if the Mode is not Music, the sidebar offers a one-click switch. Once the analysis has found a song: the sidebar's File section shows the Key and Tempo, a band under the waveform's ruler shows the song's sections with each section's integrated LUFS (red when it sits outside the chapter deviation threshold from the song's median), the ruler's mode button cycles to a bars ruler, the transport shows the bar and beat under the playhead, and the sidebar's Loudness section lists the loudest and quietest sections and their spread. Clicking a section in the band selects it. Everything comes from a closed model and is labelled as Apple's analysis; the loudness figures are Specula's own BS.1770-4 measurement. On speech and other non-musical material the model finds no key, and the timeline stays as it was. Below macOS 27 nothing changes. Music module (Ctrl-7): a seventh display section with the detail, four stem lanes (vocal, drums, bass, other) with the spans where each is present and its activity over time, the beat and bar grid, sections, segments, phrases, and Apple's pace figure per section. Click or drag on it to place the playhead; scroll to zoom the time axis with the other sections. The JSON report carries the full result under musicAnalysis (absent until the analysis has run), the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows. Section loudness map: Chapter mode can take its chapters from the song's sections (the Chapter toolbar's From Music, or Chapter, Chapters from Music Sections / Segments); one chapter per section tiles the whole file, and Analyse Loudness then reads integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median for every section, in the chapter report and CSV as well. Beat and bar snapping: a SNAP chip appears in the waveform's control strip when the analysis found a beat grid. It is on at beat resolution for a song; click cycles Off, Beat, Bar. Selection edges land on the nearest beat or bar; an edge at the start or end of the file stays put, and Spectral mode's selection is untouched. Chapter ribbon: scrolling over the chapter ribbon or the Music module zooms the time axis around the cursor and Shift-scroll pans, the same gestures as the loudness curve, with the waveform following; the ribbon has a resizable height and its slot text is larger and follows the Layout text size. Stem-gated loudness: once Analyse Music has run on a song, the sidebar's Loudness section gains a Stem-Gated block with integrated LUFS over the parts where the vocal is present, over the bed without it, and their difference in LU, plus the same three for drums. The numbers are Specula's own BS.1770-4 integrated measurement, gated by Apple's stem presence spans, so "vocal present" is the sidebar's Integrated over exactly those blocks; a side with less than 10 seconds of audio reads "-". The JSON report carries them under stemGatedLoudness, the PDF and HTML Music summary and the CSV export list them too.</description>
-            <pubDate>PUBDATE_PLACEHOLDER</pubDate>
+            <pubDate>Sun, 20 Sep 2026 12:00:00 +0000</pubDate>
             <sparkle:version>9</sparkle:version>
             <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-1.4.dmg"
-                sparkle:edSignature="SIGNATURE_PLACEHOLDER"
-                length="LENGTH_PLACEHOLDER"
+                sparkle:edSignature="V1yFdS8ep6VhSW4Ap9eCcBZnejgzn3EkmyiMPG+UtWwJ1hY9pI88lKqJFL+tYVQ26Hf4uQQrIDWlVymdUMfCDg=="
+                length="18311656"
                 type="application/octet-stream" />
         </item>
-        -->
 
         <!-- release-cut: edSignature and length are from Specula-1.3.dmg rebuilt
              2026-09-13 with the multi-rep volume icon (17,899,578 bytes). pubDate set 2026-09-13. -->
