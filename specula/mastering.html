@@ -151,6 +151,24 @@
         </div>
     </section>
 
+    <!-- Music analysis -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Section by section</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead"><strong>One number for the whole master hides the parts.</strong> A track that reads −10 LUFS integrated can still run a chorus 3 LU above its verses, or sit a vocal too far under the bed to survive a phone speaker. On macOS 27, Apple's Music Understanding framework reads the song's structure and its four stems, and Specula measures against them.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Per-section loudness.</strong> A band under the waveform's ruler carries each section's integrated LUFS, red where a section sits outside the deviation threshold from the song's own median, so a loud chorus or a buried intro shows on the timeline itself. Chapter mode takes its chapters from those sections for the full table: integrated LUFS, true peak, RMS, LRA, and deviation per section, in the PDF report and the CSV export. The sidebar lists the loudest section, the quietest, and their spread.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Vocal against the bed.</strong> The Stem-Gated block reads integrated LUFS over the blocks where the vocal is present, over the bed without it, and the difference in LU. The same three readings exist for drums. These are Specula's own BS.1770-4 integrated measurement, gated by Apple's stem presence spans, so the vocal-present figure is the Integrated reading over exactly those blocks.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Selecting in musical time.</strong> The ruler cycles to bar numbers, the transport reads the bar and beat under the playhead, and a SNAP chip lands selection edges on the nearest beat or bar, so a chorus measures over its own bars. Clicking a section in the band selects it.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The structure, the stems, the key, and the tempo are Apple's analysis and are labelled as such throughout. Every loudness figure stays Specula's own BS.1770-4 measurement. The analysis runs on the Mac and nothing is uploaded. It needs macOS 27; everything else on this page runs on macOS 14 and later. <a href="guide.html#music">Music analysis guide →</a></p>
+                <figure class="shot" style="margin-top: 22px;">
+                    <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
+                    <figcaption><strong>Section loudness map.</strong> One chapter per section of the song, each slot carrying that section's integrated LUFS, true peak, RMS, LRA, and deviation from the song's median.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">

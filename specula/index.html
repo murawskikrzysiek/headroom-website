@@ -192,20 +192,19 @@
         </div>
     </section>
 
-    <!-- New in 1.2 -->
     <!-- New in 1.4: Music analysis -->
     <section class="section section--bordered" id="music">
         <div class="section__grid">
             <p class="label">New in 1.4</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    In Music mode a song opens with its key and tempo, its sections and their loudness under the ruler, a bars ruler, beat snapping, and the vocal measured against the bed in LU.
+                    A song opens with its key and tempo, its sections and their loudness under the ruler, a bars ruler, beat snapping, and the vocal measured against the bed in LU.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;"><strong>On the timeline.</strong> Apple's on-device music analysis runs in the background after the file loads, about 0.6 seconds per minute of audio. Once it has found a song, the sidebar's File section reads the key and the tempo, a band under the waveform's ruler shows the song's sections with each section's integrated LUFS (red when a section sits outside the chapter deviation threshold from the song's median), the ruler's mode button gains a bars setting, the transport reads the bar and beat under the playhead, and a <strong>SNAP</strong> chip in the control strip lands selection edges on the nearest beat or bar. A click on a section selects it.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Stem-gated loudness.</strong> The sidebar's Loudness section gains a Stem-Gated block: integrated LUFS over the blocks where the vocal is present, over the bed without it, and their difference in LU, then the same three readings for drums, all Specula's own BS.1770-4 integrated measurement gated by Apple's stem presence spans. A side with less than 10 seconds of audio reads "-". A Sections block next to it lists the loudest and quietest sections and their spread.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Music module (<kbd>⌃7</kbd>).</strong> The detail view. Four stem lanes, Vocal, Drums, Bass, and Other, mark where each stem is present and how active it is over time. Above them sit the beat and bar grid, the song's sections, segments, and phrases as labelled bands and ticks, and Apple's pace figure per section. Click or drag on the module to place the playhead; scroll zooms the time axis with the other sections. <a href="guide.html#music">Music analysis guide →</a></p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Section loudness map.</strong> Chapter mode takes its chapters from the song's sections, one per section tiling the whole file, and Analyse Loudness then reads integrated LUFS, true peak, RMS, LRA, and the deviation from the song's median for every section, in the chapter report and CSV as well.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Any file up to 15 minutes (a limit you can change) is analysed after it loads, in any Mode, and longer files are left alone until you ask; Settings → FFT / Analysis → <strong>Run music analysis</strong> chooses Songs, Every file, or Never, and <strong>View → Analyse Music</strong> runs it by hand. A key found means the file is a song: the Music module opens on its own, and if the Mode is not Music the sidebar offers a one-click switch. Nothing is uploaded. The JSON report carries the full result under <code>musicAnalysis</code> and the stem-gated readings under <code>stemGatedLoudness</code>, the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Any file up to 15 minutes (a limit you can change) is analysed after it loads, in every Mode, and longer files are left alone until you ask; Settings → FFT / Analysis → <strong>Run music analysis</strong> chooses Songs, Every file, or Never, and <strong>View → Analyse Music</strong> runs it by hand. A key found means the file is a song: the Music module opens on its own, and if the Mode is not Music the sidebar offers a one-click switch. Nothing is uploaded. The JSON report carries the full result under <code>musicAnalysis</code> and the stem-gated readings under <code>stemGatedLoudness</code>, the PDF and HTML reports get a Music summary, and the CSV export gets Key and Tempo rows.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The analysis is Apple's Music Understanding framework and is labelled as Apple's analysis throughout; the loudness figures stay Specula's own BS.1770-4 measurement. It needs macOS 27. On earlier systems the timeline stays as it is and the module and its menu items are absent; everything else in Specula runs on macOS 14 and later.</p>
             </div>
         </div>
@@ -224,32 +223,6 @@
         <figure class="shot">
             <img src="specula-music-sections.png" alt="Specula in Chapter mode on a song after From Music and Analyse Loudness: the chapter ribbon holds one slot per section of the song, Section 1 onwards, each carrying its loudness readings, aligned under the Music module's section bands." loading="lazy" decoding="async">
             <figcaption><strong>Section loudness map.</strong> One chapter per section of the song; after Analyse Loudness every ribbon slot carries that section's integrated LUFS, true peak, RMS, LRA, and deviation from the song's median.</figcaption>
-        </figure>
-    </section>
-
-    <section class="section section--bordered">
-        <div class="section__grid">
-            <p class="label">New in 1.2</p>
-            <div style="max-width: 640px;">
-                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    1.2 opens two doors: your own delivery spec as a first-class compliance target, and audio that arrives with no header at all.
-                </p>
-                <p class="prose-lead" style="margin-top: 22px;"><strong>Custom loudness targets</strong> put a house spec next to the platform presets. Give it a name, a mode, a measurement source (integrated, dialog-gated, or un-weighted RMS), a reference level, a tolerance band, and a true-peak ceiling. It then works everywhere a built-in target does: the verdict badge, the hover breakdown, Match, Normalize to target, and the report exports. Delivering at -18 LUFS ±1 under -1 dBTP stops being mental math against the nearest streaming preset. <a href="guide.html#loudness-targets">Loudness targets guide →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Raw PCM import</strong> opens headerless audio: a dump from a decoder under test, an I2S capture, a <code>.bin</code> of samples from a test harness. Declare the sample rate, channels, sample format, byte order, and layout, and the whole analysis stack applies. The sheet checks the file size divides into whole frames, ranks the byte formats that fit by decoding a few seconds of each, and previews the result with playback before you commit. It never guesses the sample rate, because nothing in a headerless file can reveal it and a wrong rate corrupts every number without an error. The same declaration works on the command line. <a href="guide.html#open-raw-pcm-headerless-audio">Raw PCM guide →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;">1.2 also brings a readability pass: <strong>Text size</strong> scales the whole main window, the info panel honors the system Increase Contrast setting, and the live Momentary and Short-term readouts get a refresh-rate picker and a separate rolling-digits toggle. Plus zoom resets across the waveform, FFT, and Spectral canvas, and fixes to short-file spectrograms and high-zoom loudness curves. The <a href="releases.html">release notes</a> have the full list.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- New in 1.2 shots -->
-    <section class="shots shots--tight">
-        <figure class="shot">
-            <img src="specula-custom-target-editor.png" alt="Specula's New Custom Target sheet: fields for name, mode, measurement source, reference level in LKFS, tolerance in LU, and true-peak ceiling in dBTP, above a sentence spelling out the pass condition the verdict will use." loading="lazy" decoding="async">
-            <figcaption><strong>Custom loudness targets.</strong> A reference, a tolerance, and a ceiling; the sheet spells out the pass condition before you save it.</figcaption>
-        </figure>
-        <figure class="shot">
-            <img src="specula-raw-import.png" alt="Specula's Open as Raw PCM sheet for a headerless file: sample rate, channels, sample format, byte order, interleaved or planar layout, header skip and trailing tolerance, a green frame count and duration, a Rank likely formats button, and a decoded waveform preview with a plausibility score." loading="lazy" decoding="async">
-            <figcaption><strong>Raw PCM import.</strong> Declare the format, watch the frame count and the preview agree, then open. The sample rate is never guessed.</figcaption>
         </figure>
     </section>
 

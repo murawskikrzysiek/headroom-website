@@ -594,6 +594,11 @@
 
         <p class="prose"><strong>Rank likely formats</strong> decodes a few seconds under every byte format that fits and scores each by how much the result behaves like audio; the top candidates apply with a click. Ranking covers the byte axes only; the rate stays yours to declare. The preview draws the decoded waveform, shows the same plausibility score for the current declaration, and plays a few seconds. A wrong declaration is unmistakable: wrong byte order is full-scale noise, a wrong channel count combs the waveform.</p>
 
+        <figure class="shot">
+            <img src="specula-raw-import.png" alt="Specula's Open as Raw PCM sheet for a headerless file: sample rate, channels, sample format, byte order, interleaved or planar layout, header skip and trailing tolerance, a green frame count and duration, a Rank likely formats button, and a decoded waveform preview with a plausibility score." loading="lazy" decoding="async">
+            <figcaption><strong>Raw PCM import.</strong> Declare the format, watch the frame count and the preview agree, then open. The sample rate is never guessed.</figcaption>
+        </figure>
+
         <p class="prose">After a raw file opens:</p>
         <ul>
             <li>The declaration is <strong>remembered per file</strong>, so reopening it (or adding it to Compare) never re-asks. <strong>File → Reinterpret Raw Format…</strong> reopens the sheet for the loaded file with the current declaration filled in.</li>
