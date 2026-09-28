@@ -28,6 +28,24 @@
         <description>Specula update feed</description>
         <language>en</language>
 
+        <!-- release-cut: edSignature and length are from Specula-1.4.1.dmg rebuilt
+             2026-09-28 on main 7475948 (build 10, universal, notarized, carries both macOS 27
+             fixes), 18,328,872 bytes; R2 serves this file (ETag = its MD5). pubDate set 2026-09-28. -->
+        <item>
+            <title>Version 1.4.1</title>
+            <description>Fixed: files above about 4 GB once decoded (stereo beyond about 3 hours at 48 kHz, 5.1 beyond about an hour) made Specula quit on open, whether the file was WAV, RF64, Wave64, or CAF. On macOS 15 and later they now load and analyse when the decoded file fits in half the Mac's memory and each channel stays under about 4 GB (about 6 hours at 48 kHz). Anything larger, and any file above 4 GB on macOS 14, is reported as too large instead of quitting. Also fixed: on macOS 27, each Undo or Redo on a mono file could cut up to 1023 samples (about 21 ms at 48 kHz) off its end, clearing the chapters and any corrected dialogue regions; saving afterwards wrote the shorter file. Undo and Redo now restore the audio exactly. Also fixed: on macOS 27, pressing Play in Edit mode quit Specula when the output device had more than two channels, such as an Apple Studio Display's speakers, and the file was mono, or stereo sent to more than one pair of outputs in the Output panel. Improved: speech detection no longer needs its own full copy of the file, so opening a 4 hour stereo file peaks at about 8 GB instead of about 13 GB.</description>
+            <pubDate>Mon, 28 Sep 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>1.4.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-1.4.1.dmg"
+                sparkle:edSignature="nQurP5p2Y5m5zrFB6xHmNT2MdmJf0QKM3STUVe99TPjlihEUhgu08Vr5J1KxqB6hkBmx5df8gmLntAEIvwyhCA=="
+                length="18328872"
+                type="application/octet-stream" />
+        </item>
+
         <!-- release-cut: edSignature and length are from Specula-1.4.dmg rebuilt
              2026-09-20 on main 1a9b773 (the chapter channel-loudness fix),
              18,313,716 bytes. Build stays 9. pubDate set 2026-09-20. -->

@@ -71,7 +71,16 @@
     </div>
   </header>
 
-  <!-- release-cut: set the month in .date and drop the badge-soon when 1.4 ships. -->
+  <section class="release" id="v1.4.1">
+    <div class="release-header"><span class="version">Version 1.4.1</span><span class="date">September 2026</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-fix">Fix</span><span><strong>Very long files open.</strong> Files above about 4 GB once decoded (stereo beyond about 3 hours at 48 kHz, 5.1 beyond about an hour) made Specula quit on open, whether the file was WAV, RF64, Wave64, or CAF. On macOS 15 and later they now load and analyse when the decoded file fits in half the Mac's memory and each channel stays under about 4 GB (about 6 hours at 48 kHz). Anything larger, and any file above 4 GB on macOS 14, is reported as too large instead of quitting.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Undo and Redo keep the whole file.</strong> On macOS 27, each Undo or Redo on a mono file could cut up to 1023 samples (about 21 ms at 48 kHz) off its end, clearing the chapters and any corrected dialogue regions; saving afterwards wrote the shorter file. Undo and Redo now restore the audio exactly.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Edit mode plays on devices with more than two outputs.</strong> On macOS 27, pressing Play in Edit mode quit Specula when the output device had more than two channels, such as an Apple Studio Display's speakers, and the file was mono, or stereo sent to more than one pair of outputs in the Output panel.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Less memory while a file opens.</strong> Speech detection no longer needs its own full copy of the file, so opening a 4 hour stereo file peaks at about 8 GB instead of about 13 GB.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.4">
     <div class="release-header"><span class="version">Version 1.4</span><span class="date">September 2026</span></div>
     <ul class="changes">
