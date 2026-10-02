@@ -80,11 +80,34 @@
       return b;
     }
 
+    // Marks the query in the element's text only. A replace over the HTML
+    // would also match inside tags, so a search for "guide" rewrote
+    // href="guide.html" and broke the link.
     function highlight(el, q) {
       if (!el) return;
-      if (!q) { el.innerHTML = el._orig; return; }
-      var safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      el.innerHTML = el._orig.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
+      el.innerHTML = el._orig;
+      if (!q) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (node) {
+        var text = node.nodeValue;
+        var lower = text.toLowerCase();
+        var at = lower.indexOf(q);
+        if (at === -1) return;
+        var frag = document.createDocumentFragment();
+        var from = 0;
+        while (at !== -1) {
+          if (at > from) frag.appendChild(document.createTextNode(text.slice(from, at)));
+          var mark = document.createElement('mark');
+          mark.textContent = text.slice(at, at + q.length);
+          frag.appendChild(mark);
+          from = at + q.length;
+          at = lower.indexOf(q, from);
+        }
+        if (from < text.length) frag.appendChild(document.createTextNode(text.slice(from)));
+        node.parentNode.replaceChild(frag, node);
+      });
     }
 
     function apply() {
