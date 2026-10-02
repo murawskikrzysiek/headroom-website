@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specula for Songs: section loudness, bars and stems on macOS 27</title>
+    <link rel="canonical" href="https://headroomstudio.dev/specula/songs.html">
+    <meta name="description" content="On macOS 27, Apple's on-device music analysis reads a song's key, tempo, sections, bars and stems, and Specula measures each section's loudness and the vocal against the bed with its own BS.1770-4.">
+    <meta property="og:title" content="Specula for Songs">
+    <meta property="og:description" content="Each section's loudness under the ruler, the bars and beats, four stems and the vocal's loudness against the bed, measured with Specula's own BS.1770-4 on macOS 27.">
+    <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula for Songs">
+    <meta name="twitter:description" content="Song analysis on macOS 27: key, tempo, sections with their loudness, bars and beats, four stems, stem-gated loudness and sections as chapters.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Specula for Songs",
+        "description": "Song analysis on macOS 27: Apple's on-device music analysis for key, tempo, sections, bars and four stems, with Specula's own BS.1770-4 loudness per section, stem-gated loudness and sections as chapters.",
+        "url": "https://headroomstudio.dev/specula/songs.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Specula",
+            "softwareVersion": "2.0",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication",
+            "offers": { "@type": "Offer", "price": "99.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container nav-shell">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Specula</a>
+            <a href="guide.html">User Guide</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+        <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
+        </div>
+        <div>
+            <p class="eyebrow">Workflow · Songs</p>
+            <h1 class="display">The song's sections, each with its own loudness.</h1>
+            <p class="app-hero__desc">
+                On macOS 27, Apple's on-device music analysis reads a song's key and tempo, its sections, bars and beats, and its four stems: vocals, drums, bass and other. Specula measures against them with its own BS.1770-4: each section's loudness under the ruler, the vocal's loudness against the bed, and the sections as chapters for a table of per-section readings.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS 27</span>
+                <span class="badge">Key &amp; tempo</span>
+                <span class="badge">Section loudness</span>
+                <span class="badge">Bars &amp; beats</span>
+                <span class="badge">Four stems</span>
+                <span class="badge">Stem-gated loudness</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#music">Read the music guide</a>
+                <a class="btn btn-learn" href="index.html">All of Specula</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · music analysis on macOS 27, the rest on macOS 14+</p>
+            <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
+                <span class="taskstrip__label">Tasks</span>
+                <a class="chip" href="guide.html#inspect">Inspect <kbd>⌘1</kbd></a>
+                <a class="chip" href="guide.html#chapter">Chapters <kbd>⌘4</kbd></a>
+            </nav>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <!-- SHOT S14 (stand-in: the 1.4 music module) -->
+        <figure class="shot">
+            <img src="specula-music-module.png" alt="A song in Specula after the music analysis: the sidebar's Music group with key, tempo and sections, the section band under the bars ruler shaded by loudness, and the Stems view with vocals, drums, bass and other." loading="lazy" decoding="async">
+            <figcaption><strong>A song.</strong> Key and tempo, the sections with their loudness, the bars ruler and the stems.</figcaption>
+        </figure>
+    </section>
+
+    <!-- The problem -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">One number hides the parts</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    A track that reads −10 LUFS integrated can still run a chorus 3 LU above its verses.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">Or sit its vocal too far under the bed to survive a phone speaker. Apple's analysis finds the song's structure and its stems, and Specula measures each part with the same BS.1770-4 meter as the rest of the app, so a loud chorus or a buried intro shows on the timeline, and the vocal's level against the bed is a number.</p>
+
+                <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="std-row"><span class="std-row__tag">Key &amp; tempo</span><span class="std-row__desc">The key and the BPM in the sidebar's Music group, from Apple's analysis.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Sections</span><span class="std-row__desc">Each section's integrated LUFS in a band under the ruler, shaded from darker (quieter) to lighter (louder), with the loudest, the quietest and their spread in the sidebar.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Bars</span><span class="std-row__desc">A beat and bar grid: the ruler in bars, the bar and beat under the playhead, and selections that snap to a beat or a bar.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Stems</span><span class="std-row__desc">Vocals, drums, bass and other: where each plays and how active it is, in the Stems view.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Stem-gated</span><span class="std-row__desc">Integrated loudness over the blocks where the vocal is present and where it is not, and the difference in LU; the same for the drums.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The workflow -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">From file to sections</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The analysis runs on its own, the timeline shows what it found, the Chapters task turns it into a table.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">1 · Open the song</div><div class="feature-row__v">With the default setting, <strong>Automatically, except for speech</strong>, the analysis runs on its own after a file opens, for files up to 15 minutes that are not mostly speech; Analyze › Analyse Music runs it on any file, and Settings › Analysis also offers Only on request and Automatically, for every file. It takes about 0.6 seconds per minute of audio, plus a few seconds the first time after launch. When it finds a key, the file is a song: the sidebar's Music group opens, the ruler switches to bars for that file, the sections appear under the ruler, and the Stems view (<kbd>⌃7</kbd>) opens unless Settings › Analysis › Open the Stems view when a song is detected is off.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Read the sections</div><div class="feature-row__v">The band under the ruler names each section with its integrated LUFS, shaded from quieter to louder, and a click on a section selects it, so <kbd>⌘Return</kbd> measures it in a Selection card. The sidebar's Music group lists the loudest section, the quietest and their spread.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Work in bars</div><div class="feature-row__v">The ruler's unit menu holds Time, Samples and Bars (also View › Ruler Unit). The top bar reads the bar and beat under the playhead, and the <strong>Snap</strong> chip lands selection edges on the nearest beat or bar, or stays off.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · The vocal against the bed</div><div class="feature-row__v">The Music group's <strong>Stem-Gated</strong> rows read the integrated loudness over the blocks where the vocal is present, over the blocks where it is not, and the difference in LU, and the same for the drums, each side needing at least 10 seconds of audio.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5 · Sections as chapters</div><div class="feature-row__v">The Chapters task (<kbd>⌘4</kbd>) offers a song's sections when it opens on one. <strong>From Music</strong> in its bar, or Chapters › Chapters from Music Sections, makes one chapter per section, and Analyse fills the table with each section's integrated loudness, true peak, RMS and LRA and its deviation from the song's median.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6 · Into the report</div><div class="feature-row__v">The PDF and HTML report carry a music section with the key, the tempo and the sections, and the JSON report the analysis and the stem-gated loudness.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apple's and Specula's -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Whose numbers</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">The structure, the stems, the key and the tempo are Apple's analysis and are labelled so throughout. Every loudness figure is Specula's own BS.1770-4 measurement. The analysis runs on the Mac and nothing is uploaded. It needs macOS 27; everything else in Specula runs on macOS 14 and later.</p>
+                <p class="prose-lead" style="margin-top: 14px;">Under Podcast, Audiobook or Film and TV, a song gets a note under Deliver to, "Apple's music analysis found a key, so this looks like a song.", with a switch to Music streaming, where the delivery card also checks Apple Music's AAC encode and the mono fold-down. <a href="mastering.html">Mastering →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See it -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">On screen</p>
+            <div class="shots shots--tight" style="padding-bottom: 0;">
+                <!-- SHOT S35 (stand-in: 1.4 Chapter mode from music) -->
+                <figure class="shot">
+                    <img src="specula-music-sections.png" alt="The Chapters task on a song after From Music: one chapter per section on the chapter map, and the table with each section's loudness, true peak, RMS, LRA and deviation from the song's median." loading="lazy" decoding="async">
+                    <figcaption><strong>Sections as chapters.</strong> One chapter per section, each with its loudness and its deviation from the song's median.</figcaption>
+                </figure>
+                <!-- SHOT S36 (stand-in: 1.4 music focus) -->
+                <figure class="shot">
+                    <img src="specula-music-focus.png" alt="The Stems view maximized: vocals, drums, bass and other, each lane showing where the stem plays and how active it is." loading="lazy" decoding="async">
+                    <figcaption><strong>The Stems view.</strong> Vocals, drums, bass and other, where each plays and how active it is.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Part by part</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">On macOS 27 a song opens with its key, tempo and sections, each section carries its own loudness on the timeline, and the vocal's level against the bed is a reading in the sidebar.</p>
+                <div class="app-hero__cta" style="margin-top: 24px;">
+                    <a href="guide.html#music" class="btn btn-primary">Read the music guide →</a>
+                    <a href="index.html" class="btn btn-outline">Back to Specula</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Specula</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>
