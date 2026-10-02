@@ -397,8 +397,13 @@
         /* Screenshot figures (doc-sized, one per line; click to zoom via lightbox.js) */
         figure.shot { display: block; max-width: 540px; margin: 20px 0; border: 1px solid var(--border);
             border-radius: 10px; overflow: hidden; background: var(--bg-card); }
+        /* The box comes from the width and height attributes, so a lazy image
+           holds its place before it loads; object-fit keeps a picture that
+           max-height cuts down at its own shape, centred. With width: auto the
+           box was 0 by 0 until the image loaded, and images loading during a
+           contents jump pushed the section below the window. */
         figure.shot img { display: block; margin: 0 auto; max-width: 100%; max-height: 460px;
-            width: auto; height: auto; }
+            height: auto; object-fit: contain; }
         figure.shot figcaption { padding: 9px 13px 11px; font-size: 0.78rem; line-height: 1.5;
             color: var(--text-2); border-top: 1px solid var(--border); }
         figure.shot figcaption strong { color: var(--text); font-weight: 600; }

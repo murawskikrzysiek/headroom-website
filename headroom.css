@@ -322,7 +322,10 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card);
   transition: opacity var(--t-fast); }
 .shot:hover { opacity: 0.9; }
-.shot img { width: 100%; height: auto; display: block; }
+.shot img { display: block; }
+/* The plain galleries (Lyra, Audita) fill their cell. Figures size their
+   image from its width attribute instead (figure.shot img below). */
+div.shot img { width: 100%; height: auto; }
 /* A WebP in <picture> with its PNG as fallback (tools/webp.sh): the picture
    is a block box, so the image inside lays out as a bare img does. */
 .shot picture { display: block; }
@@ -332,8 +335,14 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 /* (they carry no figcaption and no size modifier).                              */
 figure.shot { margin: 0; display: flex; flex-direction: column; }
 /* Cap height so tall/portrait shots (sidebars, the PDF report) don't dominate;
-   landscape heroes still fill their width. Image is centered when capped. */
-figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto; margin: 0 auto; }
+   landscape heroes still fill their width. Image is centered when capped.
+   The width comes from the img's width attribute (capped to the column) and
+   the height from its aspect ratio, so a lazy image holds its box before it
+   loads: with width: auto it had none, loaded during an anchor's smooth
+   scroll and pushed the target 560 px down (the index page's Inspect chip).
+   When the height cap bites, contain keeps the picture's shape, centred in
+   the box. */
+figure.shot img { max-width: 100%; max-height: 560px; height: auto; margin: 0 auto; object-fit: contain; }
 .shot figcaption { padding: 10px 14px 12px; font-size: 0.74rem; line-height: 1.5;
   color: var(--text-3); border-top: 1px solid var(--border); }
 .shot figcaption strong { color: var(--text-2); font-weight: 600; }
