@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lyra FAQ - Apollo Volume Control on Mac, Setup &amp; Permissions</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/faq.html">
+    <!-- TODO(volt): title and description say Apollo; widen once Volt support is verified. -->
     <meta name="description" content="Common questions about Lyra: Accessibility permissions, supported Apollo models, UA Mixer Engine setup, hotkey customization, trial, and licensing.">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -499,6 +500,37 @@
         </div>
     </section>
 
+    <!-- ── ALT speakers ───────────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">ALT speakers</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">How do I turn on ALT speakers in Lyra?</p>
+                <p class="faq-a">Set up ALT outputs in UA Console under <strong>Settings → Hardware → ALT Count</strong>. Lyra picks up the change while it runs and its menu gains a <strong>Speakers</strong> section with Main, ALT 1 and, on Apollos that have it, ALT 2. Until ALT is on, the section reads <em>ALT speakers off</em> and shows the same hint. Interfaces without ALT outputs, such as the Apollo Solo and Arrow, don't show the section.</p>
+                <p class="faq-a">Switch from the menu, with <strong>Ctrl+Opt+1 / 2 / 3</strong> (Main / ALT 1 / ALT 2), or with <strong>Ctrl+Opt+§</strong> to step to the next pair (<strong>Ctrl+Opt+`</strong> on US keyboards). The same switch is in the URL scheme (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://alt/toggle</code>, <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://alt/set?speakers=1</code>), in Shortcuts (Switch Speakers, Cycle Speakers) and on the Monitor Toggles and Control Panel widgets. Switching in UA Console, or with the Apollo's front-panel ALT button where it has one, shows up in Lyra too.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What does the small 1 or 2 next to Lyra's menu bar icon mean?</p>
+                <p class="faq-a">An ALT pair is playing: <strong>1</strong> for ALT 1, <strong>2</strong> for ALT 2. On the Main speakers there is no numeral. The HUD and the menu name the pair as well, e.g. <em>Apollo Twin X · ALT 1</em>.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does each speaker pair get its own Reference Levels?</p>
+                <p class="faq-a">Yes. Main, ALT 1 and ALT 2 each keep three slots: <strong>Ctrl+F10 / F11 / F12</strong> for Main, <strong>Ctrl+Opt+F10 / F11 / F12</strong> for ALT 1, <strong>Ctrl+Opt+Shift+F10 / F11 / F12</strong> for ALT 2. Recalling another pair's slot switches to those speakers and sets the level in one step. When the new level is lower, Lyra lowers the level before switching; when it's higher, it switches first, so no pair plays above its own starting or target level. The HUD names an ALT slot with its pair, e.g. <em>Quiet · ALT 1</em>.</p>
+                <p class="faq-a"><em>Save current as…</em> and <em>Rename…</em> act on the pair playing now. Existing slots become the Main slots; ALT slots start at Quiet / Mix / Loud. A level sent from <a href="../audita/" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Audita</a> goes to the slots of the pair that was playing while Audita measured, so calibrate each pair on its own.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Why are Ctrl+Opt with § or a digit only taken while ALT is on?</p>
+                <p class="faq-a">A shortcut Lyra registers is taken from every other app. Lyra registers <strong>Ctrl+Opt+§</strong> and <strong>Ctrl+Opt+1 / 2 / 3</strong> only while ALT speakers are on in UA Console and the Mixer Engine is connected, and only for pairs that exist: with ALT 1 alone, Ctrl+Opt+3 stays free. Without ALT, those combinations reach whatever app you're in, and Ctrl+Opt+F10 to F12 recall the Main slots.</p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- ── Shortcuts, Siri & Focus ─────────────────────────────────────── -->
 
     <section class="faq-group">
@@ -507,7 +539,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with the macOS Shortcuts app?</p>
-                <p class="faq-a">Yes - as of v1.5, Lyra ships an <strong>App Intents</strong> bundle with eleven intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
+                <p class="faq-a">Yes - Lyra ships an <strong>App Intents</strong> bundle with thirteen intents covering state reads, monitor controls (set / adjust / mute / DIM / mono), speaker switching (Switch Speakers, Cycle Speakers), and reference-level recall (switch by slot or name, cycle, save). Search "Lyra" in Shortcuts to see them all. Every intent returns structured values, so you can extract specific fields in follow-up steps via <strong>Get Property of &lt;Lyra State&gt;</strong> - no URL parsing required.</p>
                 <p class="faq-a">The most-used intents are pre-wired as <strong>App Shortcuts</strong>, so they show up in Spotlight without you building anything first. Open Spotlight and type phrases like <em>"Toggle mute in Lyra"</em>, <em>"Switch reference level in Lyra"</em>, or <em>"What's the monitor level in Lyra?"</em>. Requires macOS 13 (Ventura) or later. On macOS 12, Lyra runs as usual and the Shortcuts surface is hidden.</p>
             </div>
 
@@ -545,7 +577,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra have widgets?</p>
-                <p class="faq-a">Yes - as of v1.6, Lyra ships four interactive desktop widgets. <strong>Control Panel</strong> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <strong>Monitor Toggles</strong> (medium) carries Mute / DIM / Mono; <strong>Volume</strong> (small or medium) steps the level up and down; <strong>Reference Levels</strong> (medium) jumps to slot 1, 2, or 3. Add them from <strong>Notification Centre → Edit Widgets</strong>, then search "Lyra".</p>
+                <p class="faq-a">Yes - as of v1.6, Lyra ships four interactive desktop widgets. <strong>Control Panel</strong> (large) puts volume, Mute / DIM / Mono, and the three reference slots in one tile; <strong>Monitor Toggles</strong> (medium) carries Mute / DIM / Mono; <strong>Volume</strong> (small or medium) steps the level up and down; <strong>Reference Levels</strong> (medium) jumps to slot 1, 2, or 3. Add them from <strong>Notification Centre → Edit Widgets</strong>, then search "Lyra". With ALT speakers on in UA Console, Monitor Toggles and Control Panel add a <strong>Speakers</strong> button that shows the pair playing and steps to the next one.</p>
                 <p class="faq-a">They show <strong>live state</strong> - Mute and Mono tiles fill with the accent colour when active, the current reference slot highlights, and the buttons dim when Lyra isn't connected - and react the instant you tap. Each tap fires a <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">lyra://</code> URL so the action runs in the menu bar app, which means Lyra needs to be running for the buttons to do anything. The widgets require <strong>macOS 14 (Sonoma) or later</strong>; on macOS 12 and 13 Lyra runs normally and the widget gallery entries are simply absent.</p>
             </div>
 
@@ -558,10 +590,27 @@
         <p class="group-label">Compatibility</p>
         <div class="faq-list">
 
+            <!-- TODO(volt): once Volt support is built and verified, retitle this "Which interfaces are supported?" and
+                 add the Volt models that were actually tested. No model list before the hardware pass. -->
             <div class="faq-item">
                 <p class="faq-q">Which Apollo interfaces are supported?</p>
                 <p class="faq-a">Lyra works with any Universal Audio Apollo Thunderbolt interface, including the Apollo Twin X, Apollo x4, x6, x8, x8p, x16, and the Arrow. If your interface uses UA Console and UA Mixer Engine, it will work with Lyra.</p>
             </div>
+
+            <!-- TODO(volt): FAQ stubs, unpublished until the Volt hardware pass. Write answers from what the hardware shows.
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra work with Universal Audio Volt?</p>
+                <p class="faq-a">TODO(volt): which Volt models, which controls (volume, mute, DIM, mono, ALT), any setup step.</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q">Can Lyra control an Apollo and a Volt connected at the same time?</p>
+                <p class="faq-a">TODO(volt): device choice in the menu and Settings, what happens when the chosen device disconnects, notifications. Only if device switching ships in 2.0.</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q">Do Reference Levels and Audita calibration work on a Volt?</p>
+                <p class="faq-a">TODO(volt): slots are kept per interface and speaker pair; confirm the Volt's level range and taper before promising calibrated recall.</p>
+            </div>
+            -->
 
             <div class="faq-item">
                 <p class="faq-q">Can Lyra control my headphone volume?</p>
