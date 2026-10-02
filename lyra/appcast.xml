@@ -19,6 +19,29 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - UA Apollo keyboard volume control</description>
         <language>en</language>
+        <!-- DRAFT Lyra 2.0 (branch feat/lyra-2.0). The item below is commented out
+             so this feed is unchanged if the branch merges before the cut: Sparkle
+             never sees an item with a missing DMG or a placeholder signature.
+             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822,
+             e.g. "Thu, 15 Oct 2026 12:00:00 +0000"), RELEASE-CUT-BUILD (the
+             CFBundleVersion of the signed build; 1.8 was 10), RELEASE-CUT-SIGNATURE
+             (sign_update on Lyra-2.0.dmg) and RELEASE-CUT-LENGTH (wc -c), confirm
+             minimumSystemVersion, then validate this file as XML.
+             TODO(volt): if Volt ships in 2.0, widen the channel description above.
+        <item>
+            <title>Version 2.0</title>
+            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <sparkle:version>RELEASE-CUT-BUILD</sparkle:version>
+            <sparkle:shortVersionString>2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Lyra-2.0.dmg"
+                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
+                length="RELEASE-CUT-LENGTH"
+                type="application/octet-stream" />
+        </item>
+        END DRAFT Lyra 2.0 -->
         <!-- release-cut: edSignature and length are from Lyra-1.8.dmg rebuilt
              2026-09-13 with the new icon and .VolumeIcon.icns (6,598,547
              bytes). pubDate set 2026-09-13. -->
