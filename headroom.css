@@ -666,6 +666,11 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .brand { font-size: 1rem; gap: 8px; }
   .brand-mark { width: 26px; height: 26px; }
 }
+/* Four nav links (Specula's pages: Specula, User Guide, FAQ, All apps)
+   overflowed a 390 px phone by 8 px at the 14 px gap. */
+@media (max-width: 420px) {
+  .nav-links { gap: 10px; }
+}
 
 /* ── Glass fallback ──────────────────────────────────────────────────────
    Solid surfaces when the user opts out of transparency. */
