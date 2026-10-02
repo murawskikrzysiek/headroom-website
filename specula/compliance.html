@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for streaming &amp; broadcast loudness compliance: pass delivery on macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/compliance.html">
-    <meta name="description" content="Verify a master against the delivery spec on macOS. A hard pass/fail per platform and standard: EBU R128, ATSC A/85, the −27 LKFS VOD band, plus a PDF receipt.">
+    <meta name="description" content="Check a master against every delivery spec on macOS: EBU R128, ATSC A/85, the −27 LKFS film and TV window. The failing criterion in a sentence, where it breaches, and a report.">
     <meta property="og:title" content="Specula for streaming &amp; broadcast compliance">
-    <meta property="og:description" content="A hard pass/fail per platform and standard before delivery, with the failing criterion named.">
+    <meta property="og:description" content="A pass or fail per delivery spec, judged on the whole file at load, with the failing criterion in a sentence and the breaches marked on the timeline.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for streaming &amp; broadcast compliance">
-    <meta name="twitter:description" content="Per-platform loudness pass/fail on macOS: EBU R128, ATSC A/85 (CALM), the −27 LKFS VOD band, and the named reason a delivery would fail.">
+    <meta name="twitter:description" content="Loudness compliance on macOS: EBU R128, ATSC A/85 (CALM), the −27 LKFS film and TV window, the reason a delivery would fail, and a report that says what it judged.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -26,12 +26,13 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Specula for streaming & broadcast compliance",
-        "description": "Per-platform loudness pass/fail on macOS: EBU R128, ATSC A/85, the −27 LKFS VOD band, and the named reason a delivery would fail.",
+        "description": "Loudness compliance on macOS: EBU R128, ATSC A/85, the −27 LKFS film and TV window, the failing criterion in a sentence, the breaches on the timeline and a PDF, HTML or JSON report.",
         "url": "https://headroomstudio.dev/specula/compliance.html",
         "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
         "about": {
             "@type": "SoftwareApplication",
             "name": "Specula",
+            "softwareVersion": "2.0",
             "operatingSystem": "macOS 14.0 or later",
             "applicationCategory": "MultimediaApplication",
             "offers": { "@type": "Offer", "price": "99.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
@@ -68,20 +69,27 @@
             <p class="eyebrow">Workflow · Compliance</p>
             <h1 class="display">Pass delivery the first time.</h1>
             <p class="app-hero__desc">
-                A delivery spec is a hard line, and the file either clears it or comes back. Specula checks a master against the platforms and standards you deliver to and returns a pass/fail per target with the failing criterion named. One offline pass covers every configured target at once, and the PDF export is the receipt that travels with the file.
+                A delivery spec is a hard line, and a file either clears it or comes back. Under Film and TV or Broadcast, the delivery card judges the whole file against every checked spec as soon as it has loaded, and says why one fails in a sentence, with the reading and the limit. The thresholds under the loudness graph mark where, and the PDF, HTML or JSON report states what the file was judged against.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
                 <span class="badge">EBU R128</span>
                 <span class="badge">ATSC A/85</span>
                 <span class="badge">22 targets</span>
-                <span class="badge">Dialog-gated</span>
+                <span class="badge">Dialogue-gated</span>
+                <span class="badge">Check a Folder</span>
             </div>
             <div class="app-hero__cta">
-                <a class="btn btn-primary" href="guide.html#loudness">Read the loudness guide</a>
+                <a class="btn btn-primary" href="guide.html#deliver-to">Read the delivery guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
             <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
+                <span class="taskstrip__label">Tasks</span>
+                <a class="chip" href="guide.html#inspect">Inspect <kbd>⌘1</kbd></a>
+                <a class="chip" href="guide.html#edit">Edit <kbd>⌘2</kbd></a>
+                <a class="chip" href="guide.html#check-a-folder">Check a Folder</a>
+            </nav>
         </div>
     </header>
 </div>
@@ -92,22 +100,22 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
+        <!-- SHOT S15 (stand-in: the 1.x violations) -->
         <figure class="shot">
-            <img src="specula-violations.png" alt="Specula marking momentary, short-term, and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with live breach counts (M 13, ST 11, TP 55) in the threshold strip." loading="lazy" decoding="async">
-            <figcaption><strong>Violations on the timeline.</strong> Set momentary, short-term, and true-peak thresholds and every 100 ms block that breaches one is lit, so a FAIL TP isn't just a verdict, it's a position you can seek to.</figcaption>
+            <img src="specula-violations.png" alt="Specula marking momentary, short-term and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async">
+            <figcaption><strong>Violations on the timeline.</strong> With M, ST and TP thresholds set, every 100 ms block over one is shaded, across the whole file as soon as it has been measured, so a failing true peak is a position to seek to.</figcaption>
         </figure>
     </section>
 
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">"Looks fine in the DAW" isn't a deliverable</p>
+            <p class="label">More than one number</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    A DAW meter tells you where the master sits. A delivery spec tells you whether it ships. Those aren't the same question.
+                    A delivery spec is a loudness window, a true-peak ceiling, and sometimes a short-term cap or a noise-floor limit.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Every platform and broadcaster publishes a target: an integrated or dialog-gated loudness band, a true-peak ceiling, sometimes a short-term cap or a noise-floor limit. Miss any one and the file bounces. The DAW's loudness meter shows the integrated number, but it won't tell you that EBU R128 S1 also caps max short-term, or that Netflix measures against dialogue rather than the full programme, or that your true peak reads fine on samples but breaches once you account for inter-sample peaks.</p>
-                <p class="prose-lead" style="margin-top: 14px;">A re-deliver costs days: the QC pass, the email, the re-export, the second QC pass. Specula turns the rejection condition into a number on screen before the file leaves your studio. It computes both the full-programme integrated LUFS and the dialog-gated reading in parallel, reads the 4× oversampled true peak, tracks max short-term and the noise floor, then checks every one against the spec and tells you which criterion failed and by how much.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Miss any one and the file bounces. EBU R128 S1 caps max short-term. Netflix measures loudness over dialogue, not the whole programme. A true peak that reads fine on the samples can go over once the peaks between them are counted. When a file opens, Specula measures the full-programme integrated loudness and the dialogue-gated loudness, the 4× oversampled true peak, max short-term and the noise floor in one pass, checks each against every checked spec, and names the criterion that fails and by how much.</p>
             </div>
         </div>
     </section>
@@ -116,14 +124,16 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Check all targets at once</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Pick the mode, run the pass, read the verdicts, export.</p>
+                <p class="label">Check every spec at once</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Deliver to the category, read the card, find the breaches, fix, export.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Pick a delivery mode</div><div class="feature-row__v">The Mode picker at the top of the info panel sets the analysis context: <strong>Music</strong>, <strong>Podcast</strong>, <strong>VOD</strong>, or <strong>Broadcast</strong>. Mode decides which targets sit next to the file and which metric rows appear. Configure up to four targets per mode in Settings → Targets, so the panel shows only the platforms you actually deliver to.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Run one offline pass</div><div class="feature-row__v"><kbd>⌘A</kbd> to select the whole file, <kbd>⌘Return</kbd> to run the full offline analysis. The live panel updates while a file plays, but a delivery verdict should be computed over the entire master, not a rolling estimate, the offline pass gives you the integrated, dialog-gated, true-peak, and short-term numbers the targets evaluate against.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Read the verdict, fix it in one click</div><div class="feature-row__v">Each target row shows a green dot when the loudness sits in the tolerance band <em>and</em> the true peak is at or below the ceiling. When it doesn't, the row names the reason: <strong>FAIL L</strong> (loudness outside the band), <strong>FAIL TP</strong> (loudness in band, true peak over the ceiling), <strong>FAIL S↑</strong> (max short-term over the spec's ceiling, used by EBU R128 S1), <strong>FAIL NF</strong> (noise floor over the spec's RMS ceiling, used by ACX). Loudness fails take precedence, so the primary reason always shows first. Hover a row for the per-criterion ✓/✗ breakdown. The two fixable fails carry a button right on the row: <strong>FAIL L</strong> shows <strong>Normalize</strong> and <strong>FAIL TP</strong> shows <strong>Limit TP</strong>, each opening Edit mode pre-filled to that target so you review and Apply instead of reading the spec and typing it in. <strong>FAIL S↑</strong> and <strong>FAIL NF</strong> stay flag-only, since no single move fixes a short-term spike or a noisy capture. Naming the reason is half the job; locating every breaching moment on the timeline is the next step, below.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Export the receipt</div><div class="feature-row__v"><kbd>⌥⌘E</kbd> writes the PDF, <kbd>⇧⌘E</kbd> writes JSON. The PDF's per-target card carries the same verdict the app shows, with the failing value printed inline (e.g. <code>Not compliant · S↑ (−15.0 LUFS)</code>) so a reviewer reads the result without hovering. The JSON's <code>loudnessTargets.targets[]</code> carries an inline <code>verdict</code> object: <code>status</code>, <code>actualLUFS</code>, and the non-compliance reason / limit, so a delivery pipeline can branch on pass/fail without recomputing.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1 · Deliver to Film and TV or Broadcast</div><div class="feature-row__v"><strong>Deliver to</strong>, over the delivery card, sets what the file is judged against: <strong>Film and TV</strong> (Netflix, Prime Video, Apple TV+, Disney+, Max) or <strong>Broadcast</strong> (EBU R128, its live and S1 short-form variants, ATSC A/85, ARIB TR-B32, OP-59), with up to four specs checked and one primary, the spec the verdict leads with. Its picker opens from the chip or with <kbd>⇧⌘D</kbd>. The sidebar shows the rows that fit: the Speech group appears when the file holds speech or the primary spec judges dialogue.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Read the verdicts</div><div class="feature-row__v">The card judges the whole file as soon as it has loaded, with no pass to run. The primary spec's verdict is a sentence that names the criterion: <strong>"Fails Netflix on dialogue loudness: −29.2 LKFS, 2.2 LU below −27 ±2."</strong>, or "Fails EBU R128 S1 (EU, short-form) on max short-term: −15.0 LUFS, over its −18 LUFS ceiling." The other checked specs follow one line each, and the readings take one set of colours, red where a spec fails. A file with no speech reads "No reading for Netflix: no speech was found." <kbd>⌘Return</kbd> on a selection fills a Selection card under the delivery card; the verdicts keep judging the whole file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Find the breaches</div><div class="feature-row__v">Set the <strong>M</strong>, <strong>ST</strong> and <strong>TP</strong> fields under the loudness graph to the spec's ceilings, and every 100 ms block over one is shaded on the waveform, with a count beside each field. The fields show LUFS and dBTP, start empty, and their tooltips name the primary spec's own limit, such as Netflix's −2 dBTP ceiling. More below.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Fix</div><div class="feature-row__v">The primary spec's fixes are buttons that say what they do, <strong>Normalize dialogue to −27 LKFS</strong> and <strong>Limit peaks to −2.0 dBTP</strong>, and every other checked spec has a Fix menu with its own. Each opens the Edit task (<kbd>⌘2</kbd>) with the panel filled in, and appears only where it changes something. Max short-term and the noise floor have no fix. Every edit is listed in the Edit task's History and undoable, and the file is measured again in the background, so the card judges the edited file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5 · Export the receipt</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports into one folder; <kbd>⇧⌘E</kbd> and <kbd>⌥⌘E</kbd> open the sheet with the JSON or the PDF ticked, and what the reports include is remembered for each category. The PDF and HTML report open with the category and its specs, "Judged against: Netflix (primary), Prime Video, Apple TV+, Max", print each spec's verdict with the failing value (<code>Not compliant · S↑ (−15.0 LUFS)</code>) and say what speech was measured with. The JSON carries a <code>delivery</code> block and a <code>verdict</code> per target in <code>loudnessTargets.targets[]</code> (<code>status</code>, <code>actualLUFS</code>, the reason and the limit), so a delivery pipeline can branch on pass or fail. Right after an edit, Export waits until the file has been measured.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6 · A season at a time</div><div class="feature-row__v">File › Check a Folder… checks every audio file in a folder against Deliver to: a row per file with its verdict, integrated loudness, true peak, LRA and Speech %, a report per file and a CSV of the rows, written into a new folder beside the checked one, never into it. <a href="automation.html">Batch and automation →</a></div></div>
             </div>
         </div>
     </section>
@@ -133,55 +143,59 @@
         <div class="section__grid">
             <div>
                 <p class="label">From verdict to location</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">A maximum number tells you the master breached, and by how much. It can't tell you which second of forty minutes. Specula marks every breach on the timeline.</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">A maximum says the master breached, and by how much. The marks say which second of forty minutes.</p>
             </div>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    A re-deliver note says "too loud." Specula says where: 2:14, 7:48, 31:02, and on which meter.
+                    A QC note says "too loud". The marks say where: 2:14, 7:48, 31:02, and on which meter.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Most tools hand you a single worst case: max momentary, max short-term, max true peak. That settles whether the file ships, but not the question you actually act on, which moment to touch. The usual answer is to reopen the master in a DAW with a meter up and scrub until the needle jumps. Specula turns the verdict into a map. Set the spec's ceilings in the loudness-curve strip and every 100 ms block that crosses one is shaded along the waveform, full height across every channel, so each overshoot is a place you click to.</p>
+                <p class="prose-lead" style="margin-top: 22px;">Max momentary, max short-term and max true peak settle whether the file ships, not which moment to touch. With the spec's ceilings set in the fields under the loudness graph, every 100 ms block that crosses one is shaded along the waveform, so each overshoot is a place to click to.</p>
 
-                <p class="prose-lead" style="margin-top: 14px;">Three ceilings, three time scales, each catching a failure the others miss:</p>
+                <p class="prose-lead" style="margin-top: 14px;">Three ceilings on three time scales, each catching a failure the others miss:</p>
 
                 <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px;">
-                    <div class="feature-row"><div class="feature-row__k">Momentary · 400 ms</div><div class="feature-row__v">The fast transient a slow meter sleeps through: a snare crack, a slammed door, a plosive, a music sting. Set the <strong>M threshold</strong> and every block over it is shaded.</div></div>
-                    <div class="feature-row"><div class="feature-row__k">Short-term · 3 s</div><div class="feature-row__v">The sustained stretch that rides too hot: a shouted line, a loud chorus, a music bed climbing under dialogue. EBU R128 S1 caps it for short-form; set the <strong>S threshold</strong> and every breaching span is marked.</div></div>
-                    <div class="feature-row"><div class="feature-row__k">True peak · inter-sample</div><div class="feature-row__v">The clip a sample meter never sees: peaks that surface only once the signal is reconstructed between samples. Set the <strong>TP threshold</strong> to the platform ceiling and every block whose 4× oversampled peak goes over is flagged.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Momentary · 400 ms</div><div class="feature-row__v">The fast transient a slow meter sleeps through: a snare crack, a slammed door, a plosive, a music sting. The <strong>M threshold</strong> shades every block over it.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">Short-term · 3 s</div><div class="feature-row__v">The sustained stretch that rides too hot: a shouted line, a loud chorus, a music bed climbing under dialogue. EBU R128 S1 caps it at −18 LUFS for short-form; the <strong>ST threshold</strong> marks every breaching span.</div></div>
+                    <div class="feature-row"><div class="feature-row__k">True peak · inter-sample</div><div class="feature-row__v">The clip a sample meter never sees: peaks that surface only once the signal is reconstructed between samples. The <strong>TP threshold</strong>, set to the spec's ceiling, flags every block whose 4× oversampled peak goes over.</div></div>
                 </div>
 
-                <p class="prose-lead" style="margin-top: 18px;">Each shades in its own colour, matched to the threshold field you set, and layers over the rest, so where two breaches overlap you still see both. The threshold field carries a running count, so you know how many there are before you start. And the marks arrive both ways: live, building as the file plays, and all at once from the offline pass (<kbd>⌘Return</kbd>). Stacked right above the waveform, the loudness curve plots momentary and short-term against that same threshold as a reference line, so you read how far over each breach goes, not only that it crossed.</p>
+                <p class="prose-lead" style="margin-top: 18px;">Each threshold shades in its own colour and layers over the others, so where two breaches overlap both show, and each field carries its count. The marks cover the whole file as soon as it has been measured. Above the waveform, the loudness graph plots momentary and short-term against the same thresholds, so each breach shows how far over it goes, not only that it crossed.</p>
 
-                <p class="prose-lead" style="margin-top: 14px;">That is the distance between a QC report and a fix. You seek to the one shouted line and ride it, or to the one transient and cap it, while the rest of a nearly-right master stays untouched.</p>
+                <p class="prose-lead" style="margin-top: 14px;">That is the distance between a QC report and a fix: the one shouted line to ride, the one transient to cap, while the rest of a nearly-right master stays as it is.</p>
             </div>
         </div>
     </section>
 
     <!-- Violations screenshots: waveform marks + loudness curve detail -->
     <section class="shots shots--tight">
+        <!-- SHOT S15 variant (stand-in: the 1.x stereo violations) -->
         <figure class="shot">
-            <img src="specula-violations-stereo.png" alt="A stereo master in Specula with momentary, short-term, and true-peak loudness violations shaded along the waveform and the loudness curve below, breach counts M 5, ST 4, TP 16 in the threshold strip." loading="lazy" decoding="async">
-            <figcaption><strong>The violation strip.</strong> It tallies how many blocks breach each threshold (here 5 momentary, 4 short-term, 16 true-peak); the shaded bands on the waveform are where they sit. Seek to each instead of re-scanning the file.</figcaption>
+            <img src="specula-violations-stereo.png" alt="A stereo master with momentary, short-term and true-peak violations shaded along the waveform, the loudness graph below it and the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async">
+            <figcaption><strong>The counts.</strong> How many blocks breach each threshold, and the shaded bands on the waveform where they sit.</figcaption>
         </figure>
+        <!-- SHOT S15 crop (stand-in: the 1.x loudness lane) -->
         <figure class="shot">
-            <img src="specula-loudness-curve.png" alt="Specula's loudness curve: the momentary and short-term curves rising against their dashed threshold lines, with the integrated level and the speech-gated reference shown alongside." loading="lazy" decoding="async">
-            <figcaption><strong>How far over, not just that it crossed.</strong> The momentary and short-term curves ride against their dashed threshold lines, so every breach shows its depth alongside its place.</figcaption>
+            <img src="specula-loudness-curve.png" alt="The loudness graph opened around the file and its target: the momentary and short-term curves against the dashed threshold lines, with the primary target's line and name." loading="lazy" decoding="async">
+            <figcaption><strong>How far over, not just that it crossed.</strong> The momentary and short-term curves against their threshold lines, with the primary target drawn as a dashed line with its name.</figcaption>
         </figure>
     </section>
 
-    <!-- The four modes and the catalog -->
+    <!-- The categories and the catalog -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The target catalog</p>
+            <p class="label">The specs</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>Music mode</strong> deals in gains, not verdicts: each row shows what that platform will do to the file at playback, and it's honest about the asymmetric ones (Apple Music, YouTube, Tidal turn loud tracks down but never boost quiet ones). <strong>Podcast mode</strong> mixes streaming penalties for Apple Podcasts and Spotify with the ACX audiobook spec.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>VOD and Broadcast modes are the hard pass/fail surface.</strong> VOD verifies against the −27 LKFS dialog-gated band shared by Netflix, Prime Video, Apple TV+, Disney+, and Max. Broadcast verifies EBU R128, R128 S1 short-form (which adds the max-short-term ceiling), ATSC A/85 / the CALM Act, ARIB TR-B32, and OP-59. Each target carries its own reference, tolerance band, and true-peak ceiling; the full catalog with every number is in the <a href="guide.html#loudness">user guide</a>.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Dialog-gated targets read the speech-gated path.</strong> Netflix and its VOD peers, ATSC A/85, and the streaming podcast targets all measure loudness over speech blocks only, classified by the Silero neural VAD on file load, so room tone and music beds don't skew the verdict. Their reference lines lead with <code>dialog ·</code> in the panel so you can see which measurement source is in play; a file with no detected speech reads "no speech" instead of a misleading number. If the VAD mislabels anything, correct it by hand in <a href="guide.html#speech-gated">Dialogue mode</a> and the corrected regions feed straight into the dialog-gated verdicts.</p>
+                <p class="prose-lead"><strong>Film and TV and Broadcast are the hard pass or fail.</strong> Film and TV judges dialogue loudness in the −27 LKFS window that Netflix, Prime Video, Apple TV+, Disney+ and Max share, with a −2 dBTP ceiling. Broadcast judges EBU R128, its live variant and R128 S1 short-form (which adds the max short-term ceiling), ATSC A/85 (the CALM Act), ARIB TR-B32 and OP-59. Each spec carries its own reference, tolerance and true-peak ceiling; every number is in the <a href="guide.html#deliver-to">user guide</a>.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Music streaming</strong> deals in gains: each platform's verdict says what it does to the file (<a href="mastering.html">mastering</a>). <strong>Podcast</strong> judges Apple Podcasts and Spotify (<a href="podcast.html">podcast</a>), and <strong>Audiobook</strong> leads with ACX, judged in ACX's own words (<a href="audiobook.html">audiobook</a>).</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Dialogue-gated specs read the speech-gated path.</strong> Netflix and its peers, ATSC A/85 and the podcast targets measure loudness over speech only, found by the Silero neural speech detector when the file opens, so room tone and music beds do not move the verdict. The picker lists them as "dialogue −27 ±2 LKFS", and the card's headline is the dialogue loudness. Where the detection is wrong, the <a href="guide.html#speech">Speech task</a> (<kbd>⌘5</kbd>) corrects the regions by hand, and the file is measured again, so the card, the fixes and the reports follow the corrections.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>A spec of your own</strong> joins its category as a custom target: a reference level, a tolerance, a true-peak ceiling, and an integrated, dialogue-gated or RMS measurement.</p>
 
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
-                    <div class="std-row"><span class="std-row__tag">Music</span><span class="std-row__desc">Spotify · Apple Music · YouTube · Tidal · Amazon · Deezer · SoundCloud · AES TD1008</span></div>
-                    <div class="std-row"><span class="std-row__tag">Podcast</span><span class="std-row__desc">Apple Podcasts · Spotify Podcasts · ACX</span></div>
-                    <div class="std-row"><span class="std-row__tag">VOD</span><span class="std-row__desc">Netflix · Prime · Apple TV+ · Disney+ · Max: all −27 LKFS dialog-gated</span></div>
-                    <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 S1 short-form · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span></div>
+                    <div class="std-row"><span class="std-row__tag">Music streaming</span><span class="std-row__desc">Spotify · Apple Music · YouTube · Tidal · Amazon Music · Deezer · SoundCloud · AES TD1008</span></div>
+                    <div class="std-row"><span class="std-row__tag">Podcast</span><span class="std-row__desc">Apple Podcasts · Spotify (Podcast) · ACX</span></div>
+                    <div class="std-row"><span class="std-row__tag">Audiobook</span><span class="std-row__desc">ACX leading, with Apple Podcasts and Spotify (Podcast)</span></div>
+                    <div class="std-row"><span class="std-row__tag">Film and TV</span><span class="std-row__desc">Netflix · Prime Video · Apple TV+ · Disney+ · Max, dialogue-gated at −27 LKFS</span></div>
+                    <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 live · R128 S1 short-form · ATSC A/85 (CALM) · ARIB TR-B32 · OP-59</span></div>
                 </div>
                 <a href="https://tech.ebu.ch/loudness" target="_blank" rel="noopener"
                    title="Specula implements EBU R 128 loudness metering (Tech 3341 / 3342) and normalisation. The EBU R 128 logo is © EBU, used per its rules of use."
@@ -198,17 +212,21 @@
         <div class="section__grid">
             <p class="label">Verdicts and receipts</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
+                <!-- SHOT S31 (stand-in: the 1.x VOD rows) -->
                 <figure class="shot shot--narrow">
-                    <img src="specula-targets-vod.png" alt="VOD mode loudness targets showing Netflix, Prime Video, Apple TV+ and Max all reading FAIL L for a file outside the dialog-gated window, with the true peak over its ceiling." loading="lazy" decoding="async">
-                    <figcaption><strong>Pass or fail, per platform.</strong> Each delivery spec reads its own verdict against dialog-gated loudness and the true-peak ceiling.</figcaption>
+                    <img src="specula-targets-vod.png" alt="The delivery card under Film and TV: Netflix's failing verdict in a sentence with the dialogue loudness and true peak, the Normalize dialogue and Limit peaks fixes, and the other platforms one line each." loading="lazy" decoding="async">
+                    <figcaption><strong>Pass or fail, per spec.</strong> The failing criterion in a sentence, the fixes by name, the other specs one line each.</figcaption>
                 </figure>
+                <!-- SHOT S19: the export sheet (no 1.x stand-in; add when captured)
                 <figure class="shot shot--narrow">
-                    <img src="specula-limit-tp.png" alt="A loudness target row whose true peak is over the ceiling, offering a one-click Limit TP fix next to the Normalize button." loading="lazy" decoding="async">
-                    <figcaption><strong>One-click fixes.</strong> A true-peak overage offers Limit TP; a loudness miss offers Normalize. Both are non-destructive and save a new file.</figcaption>
+                    <img src="specula-export-sheet.png" alt="The export sheet: the PDF, HTML and JSON reports ticked, the report contents for Film and TV, and the delivery category and specs the reports will state." loading="lazy" decoding="async">
+                    <figcaption><strong>One export sheet.</strong> The reports, the edited audio and the chapters CSV into one folder, with what the reports include remembered for the category.</figcaption>
                 </figure>
+                -->
+                <!-- SHOT S20 (stand-in: the 1.0 report) -->
                 <figure class="shot shot--mid">
-                    <img src="specula-report.png" alt="A Specula PDF report listing per-platform loudness verdicts, true peak, LRA and per-channel stats." loading="lazy" decoding="async">
-                    <figcaption><strong>A receipt to hand off.</strong> The per-platform verdicts export as PDF or JSON, ready to send with the delivery.</figcaption>
+                    <img src="specula-report.png" alt="A Specula PDF report: the delivery category and the specs it was judged against, per-spec verdicts, true peak, LRA and per-channel statistics." loading="lazy" decoding="async">
+                    <figcaption><strong>A receipt to hand off.</strong> What the file was judged against, every spec's verdict and the readings behind it, as PDF, HTML or JSON.</figcaption>
                 </figure>
             </div>
         </div>
@@ -219,9 +237,9 @@
         <div class="section__grid">
             <p class="label">Send the delivery with the receipt attached</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">A verdict you can act on: the failing row carries its one-click fix, and the passing file carries its receipt. What a gain can't repair, Specula names precisely, so the manual ride on a short-term spike or the re-capture of a noisy floor happens on your schedule, before anyone else's QC runs. <a href="editing.html">See the editing workflow →</a></p>
+                <p class="prose-lead">A failing spec names its criterion and offers its fix where a gain or a limiter can make one; a short-term spike is marked on the timeline, and a noise floor reads against its limit. The passing file leaves with a report that states what it was judged against. <a href="editing.html">The editing workflow →</a></p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#loudness" class="btn btn-primary">Read the loudness guide →</a>
+                    <a href="guide.html#deliver-to" class="btn btn-primary">Read the delivery guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -234,6 +252,7 @@
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="index.html">Specula</a></li>
             <li><a href="guide.html">User Guide</a></li>
+            <li><a href="faq.html">FAQ</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>

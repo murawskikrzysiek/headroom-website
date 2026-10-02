@@ -512,6 +512,11 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
   .taskstrip { position: sticky; top: 94px; }
   .taskblock { scroll-margin-top: 52px; }
 }
+/* A job page's strip: the tasks the job uses, each linking to its guide
+   section. It stays in the hero. */
+.taskstrip.taskstrip--page { position: static; margin: 20px 0 0; align-items: center; }
+.taskstrip__label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); margin-right: 4px; }
 .taskblock:first-of-type { border-top: none; }
 .taskblock__name { font-size: 1.15rem; font-weight: 650; color: var(--text); letter-spacing: -0.015em; }
 .taskblock__key { margin-top: 6px; }
