@@ -1371,7 +1371,7 @@
         <li><strong>Colormap</strong>: Inferno (high contrast, dark background, warm highlights), Turbo (full rainbow), Plasma (purple, magenta, yellow) or Viridis (perceptually uniform, blue, green, yellow). <strong>Glow</strong> adds a soft bloom around bright transients (0 for none).</li>
         <li><strong>Frequency scale</strong>: Log, or Mel, which gives more resolution in the vocal range (200 Hz to 4 kHz).</li>
         <li><strong>Window size</strong> (512 to 16384, default 4096): the time against frequency trade-off. At 48 kHz, 512 is about 11 ms and 4096 about 85 ms.</li>
-        <li><strong>Overlap</strong>: how many columns per second, which sets the smoothness of the time axis, not the resolution. A long file's spectrogram caps its column count whatever the overlap.</li>
+        <li><strong>Overlap</strong>: how many columns per second, which sets how much time detail a short file or a zoomed-in view shows, not the resolution. Between columns the spectrogram blends smoothly, as Spectral's canvas does. A long file's spectrogram caps its column count whatever the overlap.</li>
         </ul>
         <table>
         <thead>
