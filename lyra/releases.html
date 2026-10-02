@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lyra Release Notes - Version History &amp; Changelog</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/releases.html">
-  <meta name="description" content="Version history for Lyra, the Apollo volume control app for macOS. Features, fixes, and improvements from v1.0 to v1.8.">
+  <meta name="description" content="Version history for Lyra, the Apollo volume control app for macOS. Features, fixes, and improvements from v1.0 to v2.0.">
   <meta property="og:title" content="Lyra Release Notes">
   <meta property="og:description" content="Version history for Lyra, the Apollo volume control app for macOS.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
@@ -76,12 +76,32 @@
     <div class="app-icon"><img src="icon.png" alt="Lyra"></div>
     <div>
       <div class="app-name">Lyra</div>
+      <!-- TODO(volt): subtitle and the meta description say Apollo only; widen to the verified UA interfaces once Volt support ships. -->
       <div class="app-sub">Apollo keyboard volume control for macOS</div>
     </div>
   </header>
 
+  <!-- RELEASE-CUT: Lyra 2.0 draft from Lyra RELEASE-NOTES.md "## Unreleased (2.0)" (feat/volt-support).
+       At the cut: replace RELEASE-CUT-DATE with the month ("October 2026"), re-check against the locked notes,
+       resolve every TODO(volt) and TODO(pricing) below. -->
+  <section class="release" id="v2.0">
+    <div class="release-header"><span class="version">Version 2.0</span><span class="date">RELEASE-CUT-DATE</span><span class="badge-new">Latest</span></div>
+    <!-- TODO(pricing): Lyra 2.0 is intended as a free update for existing licenses. Not confirmed by Krzysiek;
+         once confirmed, add a plain line here, e.g. "Free update for every Lyra license." -->
+    <ul class="changes">
+      <!-- TODO(volt): Universal Audio Volt support goes here as the lead item once it is built and verified on the
+           hardware (detection, which controls work, device switching if it ships). No model list, no feature claims
+           until then. If Volt slips out of 2.0, delete this comment and retitle the release per Krzysiek. -->
+      <li><span class="tag tag-new">New</span><span><strong>ALT speakers</strong> - on Apollos with ALT monitor outputs, Lyra switches between Main, ALT 1 and ALT 2: from the Speakers section in the menu, with <kbd>⌃⌥1</kbd> / <kbd>⌃⌥2</kbd> / <kbd>⌃⌥3</kbd>, or with <kbd>⌃⌥§</kbd> to step to the next pair. The volume HUD and the menu show the active pair beside the interface name, and the menu bar icon carries a small 1 or 2 while an ALT pair is playing. If ALT is off in UA Console, the menu says where to turn it on.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Reference Levels for each speaker pair</strong> - Main, ALT 1 and ALT 2 each keep three slots: <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd> for Main, add <kbd>⌥</kbd> for ALT 1, add <kbd>⌥⇧</kbd> for ALT 2. Recalling a slot switches to its speakers and sets its level in one step, ordered so no pair plays above its own starting or target level. A level sent from Audita lands on the pair that was playing while it measured.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>ALT speakers in automation</strong> - in the URL scheme (<code>lyra://alt/toggle</code>, <code>lyra://alt/set</code>, and <code>speakers=</code> on the reference URLs), in Shortcuts (Switch Speakers, Cycle Speakers, and a Speakers option on the reference actions), and on the Monitor Toggles and Control Panel widgets. See the <a href="api.html#alt">API reference</a>.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Interface name</strong> - the HUD and the menu show the interface's own name, such as Apollo Twin X.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span>A Focus Filter that fires while Lyra is still connecting waits until Lyra has found the monitor output. On Apollos other than the Twin X, the jump could otherwise go to the wrong output.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.8">
-    <div class="release-header"><span class="version">Version 1.8</span><span class="date">September 2026</span><span class="badge-new">Latest</span></div>
+    <div class="release-header"><span class="version">Version 1.8</span><span class="date">September 2026</span></div>
     <ul class="changes">
       <li><span class="tag tag-new">New</span><span><strong>Ready for macOS 27.</strong> Lyra 1.8 is built with the macOS 27 SDK and runs on macOS 12 and later.</span></li>
       <li><span class="tag tag-new">New</span><span><strong>App icon</strong> - rebuilt in Icon Composer for macOS 27, with layered glass and specular highlights. Earlier macOS keeps a flat rendering of the same mark.</span></li>
