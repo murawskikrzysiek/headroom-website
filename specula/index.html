@@ -133,7 +133,36 @@
                     <div class="std-row"><span class="std-row__tag">Film and TV</span><span class="std-row__desc">Netflix · Prime Video · Apple TV+ · Disney+ · Max, dialogue-gated at −27 LKFS</span></div>
                     <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 live · R128 S1 short-form · ATSC A/85 · ARIB TR-B32 · OP-59</span></div>
                 </div>
-                <p class="prose-lead" style="margin-top: 18px;">A spec of your own joins its category as a custom target: a reference level, a tolerance, a true-peak ceiling, and integrated, dialogue-gated or RMS measurement. Every target's reference, tolerance and ceiling is listed in the <a href="guide.html#loudness">user guide</a>.</p>
+                <p class="prose-lead" style="margin-top: 18px;">A spec of your own joins its category as a custom target: a reference level, a tolerance, a true-peak ceiling, and integrated, dialogue-gated or RMS measurement. Every target's reference, tolerance and ceiling is listed in the <a href="guide.html#deliver-to">user guide</a>.</p>
+
+                <div class="vdemo" data-vdemo>
+                    <p class="vdemo__title">The delivery card for three sample files</p>
+                    <div class="vdemo__controls" data-vdemo-controls hidden></div>
+                    <div class="vdemo__card" data-vdemo-card aria-live="polite">
+                        <!-- verdict-demo:card -->
+                        <div class="vcard">
+                            <p class="vcard__chip">Deliver to Spotify · Music streaming</p>
+                            <div class="vcard__head">
+                                <p class="vcard__target">Spotify</p>
+                                <p class="vcard__ref">-14 LUFS · ≤ -1 dBTP</p>
+                            </div>
+                            <p class="vcard__verdict tone--warning">Spotify turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling.</p>
+                            <div class="vcard__readings">
+                                <p class="vcard__reading"><span class="vcard__rlabel">Integrated</span><span class="vcard__rvalue tone--warning">-8.7</span><span class="vcard__runit">LUFS</span></p>
+                                <p class="vcard__reading"><span class="vcard__rlabel">True peak</span><span class="vcard__rvalue tone--warning">0.4</span><span class="vcard__runit">dBTP</span></p>
+                            </div>
+                            <div class="vcard__fixes"><span class="vcard__fix">Limit peaks to -1.0 dBTP</span><span class="vcard__fix">Normalize to -14 LUFS</span><span class="vcard__fix">Hear at Spotify&#x27;s level</span></div>
+                            <p class="vcard__also-label">Also checked</p>
+                            <ul class="vcard__also">
+                                <li title="Apple Music turns this down by 7.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Apple Music</span><span class="vcard__also-short tone--warning">-7.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                                <li title="YouTube turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">YouTube</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                                <li title="Tidal turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Tidal</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                            </ul>
+                        </div>
+                        <!-- /verdict-demo:card -->
+                    </div>
+                    <p class="vdemo__note">The readings are typed in for the demo. The sentences and the fixes are the app's, made by its own code.</p>
+                </div>
             </div>
         </div>
         <!-- SHOT S02 and S03 (stand-ins: 1.x sidebar shots until the capture session) -->
@@ -651,6 +680,8 @@
 <script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 <script src="meter-demo.js"></script>
+<script src="verdict-demo-data.js"></script>
+<script src="verdict-demo.js"></script>
 <script src="task-strip.js"></script>
 </body>
 </html>

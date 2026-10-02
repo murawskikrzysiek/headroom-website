@@ -534,6 +534,53 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
   .taskstrip { position: sticky; top: 94px; }
   .taskblock { scroll-margin-top: 52px; }
 }
+/* The verdict demo (specula/index.html + verdict-demo.js): the app's delivery
+   card drawn for three sample files. The tone colours are the app card's,
+   scoped to the demo as product content; the site's chrome keeps one accent. */
+.vdemo { margin-top: 28px; padding: 20px 22px; border: 1px solid var(--border); border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+  --tone-good: #3ecf7c; --tone-caution: #e8c55a; --tone-warning: #f0a052; --tone-bad: #f67c7c;
+  --tone-neutral: var(--text-2); }
+.vdemo__title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); }
+.vdemo__controls { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.vdemo__row { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
+.vdemo__label { font-size: 0.74rem; color: var(--text-3); }
+.vdemo__card { margin-top: 18px; }
+.vdemo__note { margin-top: 14px; font-size: 0.74rem; color: var(--text-3); line-height: 1.55; }
+@media (max-width: 640px) { .vdemo__row { grid-template-columns: 1fr; gap: 6px; } }
+.vdemo .tone--good { --tone: var(--tone-good); color: var(--tone); }
+.vdemo .tone--caution { --tone: var(--tone-caution); color: var(--tone); }
+.vdemo .tone--warning { --tone: var(--tone-warning); color: var(--tone); }
+.vdemo .tone--bad { --tone: var(--tone-bad); color: var(--tone); }
+.vdemo .tone--neutral { --tone: var(--tone-neutral); color: var(--tone); }
+.vcard { max-width: 440px; padding: 14px 16px; border-radius: 10px; background: var(--bg);
+  border: 1px solid var(--border-hover); font-size: 0.82rem; color: var(--text-2); }
+.vcard__chip { display: inline-block; font-size: 0.72rem; color: var(--text); padding: 3px 10px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); }
+.vcard__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 12px;
+  flex-wrap: wrap; }
+.vcard__target { font-weight: 650; color: var(--text); }
+.vcard__ref { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3); }
+.vdemo .vcard__verdict { margin-top: 8px; line-height: 1.55; padding-left: 16px; position: relative; color: var(--text); }
+.vcard__verdict::before { content: ""; position: absolute; left: 0; top: 0.48em; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--tone, var(--text-3)); }
+.vcard__readings { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+.vcard__reading { display: flex; align-items: baseline; gap: 5px; }
+.vcard__rlabel, .vcard__runit { font-size: 0.7rem; color: var(--text-3); }
+.vcard__rvalue { font-family: var(--font-mono); font-weight: 600; }
+.vcard__fixes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.vcard__fix { font-size: 0.72rem; color: var(--text); padding: 4px 10px; border-radius: 7px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+.vcard__also-label { margin-top: 14px; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-3); }
+.vcard__also { list-style: none; margin-top: 6px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.vcard__also li { display: flex; align-items: baseline; gap: 10px; }
+.vcard__also-name { flex: 1; color: var(--text-2); }
+.vcard__also-short { font-family: var(--font-mono); font-size: 0.74rem; }
+.vcard__also-fix { font-size: 0.66rem; color: var(--text-3); border: 1px solid var(--border-hover); border-radius: 5px;
+  padding: 1px 6px; }
+
 /* A job page's strip: the tasks the job uses, each linking to its guide
    section. It stays in the hero. */
 .taskstrip.taskstrip--page { position: static; margin: 20px 0 0; align-items: center; }
