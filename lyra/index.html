@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lyra - Apollo monitor volume control for macOS</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/">
+  <!-- TODO(volt): title, meta/og/twitter descriptions and the JSON-LD description say Apollo only. Widen to the verified UA interfaces once Volt support is built and tested; no model list until then. -->
   <meta name="description" content="Lyra maps F10/F11/F12 to the monitor volume of a Universal Audio Apollo - with native Shortcuts, Spotlight, widgets, Focus Filters, and a lyra:// URL scheme. macOS, $9.99.">
 
   <meta property="og:title" content="Lyra - Apollo volume control for macOS">
@@ -31,7 +32,7 @@
     "name": "Lyra",
     "operatingSystem": "macOS 12.0 or later",
     "applicationCategory": "MultimediaApplication",
-    "softwareVersion": "1.6",
+    "softwareVersion": "2.0",
     "description": "F-key monitor volume control for Universal Audio Apollo interfaces, with native Shortcuts, Spotlight, widgets, Focus Filters, and a lyra:// URL scheme.",
     "url": "https://headroomstudio.dev/lyra/",
     "image": "https://headroomstudio.dev/lyra/og.png",
@@ -68,7 +69,8 @@
       <img class="app-hero__icon" src="icon.png" alt="Lyra app icon">
     </div>
     <div>
-      <p class="eyebrow">Version 1.8</p>
+      <!-- RELEASE-CUT: eyebrow and download link point at 2.0; Lyra-2.0.dmg must be on R2 before this merges. -->
+      <p class="eyebrow">Version 2.0</p>
       <h1 class="display">Lyra</h1>
       <p class="app-hero__desc">
         F-key volume control for Universal Audio interfaces - with native Shortcuts, Spotlight, interactive widgets, Focus Filters, and a <code>lyra://</code> URL scheme to drive it from anywhere on macOS.
@@ -76,12 +78,13 @@
       <div class="app-hero__badges">
         <span class="badge badge--macos">macOS</span>
         <span class="badge">UA Apollo</span>
+        <!-- TODO(volt): add a Volt badge (or one "Universal Audio" badge) once Volt support is verified. -->
         <span class="badge">Menu bar</span>
         <span class="badge">Shortcuts &amp; Widgets</span>
         <span class="badge">URL scheme</span>
       </div>
       <div class="app-hero__cta">
-        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.8.dmg"><span>↓</span>Download free trial</a>
+        <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-2.0.dmg"><span>↓</span>Download free trial</a>
         <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1">Buy - $9.99</a>
         <span class="app-hero__meta">7-day trial · one-time purchase · macOS 12+</span>
       </div>
@@ -99,6 +102,7 @@
   <!-- ── Screenshots ──────────────────────────────────────────────────── -->
   <section class="shots">
     <div class="shot"><picture><source srcset="lyra-hero.webp" type="image/webp"><img src="lyra-hero.png" width="1920" height="1080" alt="Lyra on the F-row - F10, F11 and F12 keycaps with F12 pressed, beside a lit monitor knob whose LED ring marks the Quiet, Mix and Loud reference levels on Control F10, F11 and F12, and the Apollo Twin X volume pill. Shift F10 for DIM, Option F10 for Mono, Shift F11 and F12 for half steps; automation through Shortcuts, Spotlight, widgets, Focus filters, Stream Deck and lyra:// URLs" decoding="async"></picture></div>
+    <!-- SCREENSHOT: lyra-menu (re-shoot for 2.0: Speakers section, "Connected: Apollo Twin X · ALT 1"; update the alt text with it) -->
     <div class="shot"><img src="lyra-menu.png" alt="Lyra menu bar popover - license and device status, monitor slider, Mute / DIM / Mono, Reference Levels submenu, Pass F-Keys to macOS and Launch at Login toggles"></div>
     <div class="shot"><img src="lyra-hud.png" alt="Lyra volume HUD on macOS 26 - the connected Apollo's name above a tick-marked level slider, in clear glass under the menu bar"></div>
     <div class="shot"><img src="lyra-hud-ref.png" alt="Volume HUD after a Reference Level jump - the name line reads Mix - 85 dB SPL instead of the device name"></div>
@@ -112,6 +116,21 @@
     <div class="shots-grid shots-grid--2">
       <div class="shot"><img src="lyra-shortcuts.png" alt="Built Shortcut chaining Lyra App Intents, alongside the Lyra action library in Shortcuts"></div>
       <div class="shot"><img src="lyra-focus.png" alt="System Settings Focus pane with the Lyra Focus Filter switching to Reference Slot 3"></div>
+    </div>
+  </section>
+
+  <!-- ── New in 2.0 ───────────────────────────────────────────────────── -->
+  <section class="section section--bordered" id="alt-speakers">
+    <div class="section__grid">
+      <p class="label">New in 2.0</p>
+      <div>
+        <!-- TODO(volt): Universal Audio Volt support leads this section once it is built and verified on the hardware. Keep Volt-specific details out until then. -->
+        <!-- TODO(pricing): "Free update for every Lyra license." goes here once Krzysiek confirms 2.0 is free for existing licenses. -->
+        <p class="prose-lead"><strong>ALT speakers.</strong> On Apollos with ALT monitor outputs, Lyra switches the monitor between Main, ALT 1 and ALT 2: from the Speakers section of the menu, with <kbd>⌃⌥1</kbd> / <kbd>⌃⌥2</kbd> / <kbd>⌃⌥3</kbd>, or one step at a time with <kbd>⌃⌥§</kbd>. The HUD and the menu name the pair playing, e.g. <em>Apollo Twin X · ALT 1</em>, and the menu bar icon carries a small 1 or 2.</p>
+        <p class="prose-lead"><strong>Reference Levels per pair.</strong> Main, ALT 1 and ALT 2 each keep three slots, on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, plus <kbd>⌥</kbd> for ALT 1 and <kbd>⌥⇧</kbd> for ALT 2. Recalling another pair's slot switches speakers and sets the level in one step. ALT switching is also in the <a href="api.html#alt">URL scheme</a>, in Shortcuts, and on the widgets.</p>
+        <!-- SCREENSHOT: lyra-hud-alt -->
+        <div class="callout"><p><strong>Turning ALT on.</strong> ALT outputs are set up in UA Console under Settings → Hardware → ALT Count. The Apollo Twin family has ALT 1; ALT 2 works on Apollos that have it. Details in the <a href="guide.html#alt-speakers">user guide</a>.</p></div>
+      </div>
     </div>
   </section>
 
@@ -154,14 +173,15 @@
       <p class="label">Features</p>
       <div>
         <div class="feature-row"><div class="feature-row__k">Keyboard</div><div class="feature-row__v">Volume, mute, DIM, and mono - all from the F-row. Shift halves the step.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Reference levels</div><div class="feature-row__v">Three named monitor presets (default Quiet / Mix / Loud), recalled with Ctrl+F10/F11/F12. Each can be calibrated against Audita.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Reference levels</div><div class="feature-row__v">Three named monitor presets (default Quiet / Mix / Loud), recalled with Ctrl+F10/F11/F12. Each can be calibrated against Audita. With ALT speakers on, each speaker pair keeps its own three.</div></div>
+        <div class="feature-row"><div class="feature-row__k">ALT speakers</div><div class="feature-row__v">Switch between Main, ALT 1 and ALT 2 on Apollos with ALT monitor outputs, from the menu, Ctrl+Opt+1/2/3, or Ctrl+Opt+§ to step through them. The HUD names the pair playing.</div></div>
         <div class="feature-row"><div class="feature-row__k">Interactive widgets</div><div class="feature-row__v">Four widgets in the macOS widget gallery - Control Panel, Monitor Toggles, Volume, and Reference Levels. Each shows live state and reacts the instant you tap. Requires macOS 14+.</div></div>
         <div class="feature-row"><div class="feature-row__k">Settings window</div><div class="feature-row__v">A proper preferences window (Cmd+,) for the automation toggles, the volume HUD overlay and style, and the volume step size.</div></div>
         <div class="feature-row"><div class="feature-row__k">URL scheme</div><div class="feature-row__v">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code>lyra://</code> URLs.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Siri</div><div class="feature-row__v">Eleven first-class App Intents exposed to the macOS Shortcuts app. Pre-wired App Shortcuts surface in Spotlight without you building anything.</div></div>
+        <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Siri</div><div class="feature-row__v">Thirteen first-class App Intents exposed to the macOS Shortcuts app. Pre-wired App Shortcuts surface in Spotlight without you building anything.</div></div>
         <div class="feature-row"><div class="feature-row__k">Focus Filter</div><div class="feature-row__v">Wire a reference level into a macOS Focus. The common setup: a Mixing Focus jumps Lyra to slot 2 and silences non-DAW notifications.</div></div>
         <div class="feature-row"><div class="feature-row__k">Audita pairing</div><div class="feature-row__v">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/">Audita</a>. After calibration, hit "Send to Lyra…" and the position lands in the slot of your choice - the HUD then reads e.g. "Mix - 85 dB SPL".</div></div>
-        <div class="feature-row"><div class="feature-row__k">UA Mixer automations</div><div class="feature-row__v">Optionally auto-start UA Mixer Engine when Apollo wakes, and auto-quit the UA apps when it disconnects so they stop drawing power. Both opt-in, each with its own notification toggle.</div></div>
+        <div class="feature-row"><!-- TODO(volt): "when Apollo wakes" / "when it disconnects": revisit once the Volt lifecycle is known. --><div class="feature-row__k">UA Mixer automations</div><div class="feature-row__v">Optionally auto-start UA Mixer Engine when Apollo wakes, and auto-quit the UA apps when it disconnects so they stop drawing power. Both opt-in, each with its own notification toggle.</div></div>
         <div class="feature-row"><div class="feature-row__k">Volume HUD</div><div class="feature-row__v">The on-screen pill matches the macOS volume control on macOS 26 and later: the connected Apollo's name above a tick-marked level slider, in clear glass that takes its colour from the wallpaper. A Reference Level jump puts the slot name on the name line. Settings can switch back to the compact single-row pill.</div></div>
         <div class="feature-row"><div class="feature-row__k">Pass F-Keys to macOS</div><div class="feature-row__v">A menu toggle hands F10 / F11 / F12 back to the system output device without quitting Lyra. The connection, menu and slider keep working. Off again on the next launch.</div></div>
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 12 or later).</div></div>
@@ -238,6 +258,17 @@
       <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases →</a>
     </div>
     <div class="feed" data-feed data-feed-apps="lyra" data-feed-scope="lyra" data-feed-blog="/blog/" data-feed-limit="4">
+      <!-- RELEASE-CUT: set the 2.0 feed date (activity-feed.js rebuilds this list from the appcast once the item is uncommented). -->
+      <a class="feed-row" href="releases.html#v2.0">
+        <img class="feed-row__icon" src="icon.png" alt="">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v2.0</span></div>
+          <p class="feed-row__title">Lyra 2.0</p>
+          <p class="feed-row__summary">ALT speakers: switch between Main, ALT 1 and ALT 2, with three Reference Levels for each pair.</p>
+          <p class="feed-row__cta">Read release notes →</p>
+        </div>
+        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">RELEASE-CUT-DATE</p></div>
+      </a>
       <a class="feed-row" href="releases.html#v1.8">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
@@ -246,7 +277,7 @@
           <p class="feed-row__summary">New app icon, a volume HUD that matches the macOS volume control, and a menu toggle that hands the F-keys back to macOS.</p>
           <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">Sep 2026</p></div>
+        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">13 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.7.1">
         <img class="feed-row__icon" src="icon.png" alt="">
@@ -300,7 +331,7 @@
           The UA Mixer Engine communicates via a TCP protocol on port 4710. Public documentation of this protocol exists in several open-source projects, including <a href="https://github.com/raduvarga/UA-Midi-Control" target="_blank" rel="noopener">UA MIDI Control</a> by Radu Varga. Our implementation was written independently from scratch.
         </p>
         <p class="prose-lead">
-          Lyra is an independent project and is not affiliated with, endorsed by, or supported by Universal Audio. Universal Audio, Apollo, and UA Mixer are trademarks of Universal Audio, Inc.
+          Lyra is an independent project and is not affiliated with, endorsed by, or supported by Universal Audio. Universal Audio, Apollo, and UA Mixer are trademarks of Universal Audio, Inc.<!-- TODO(volt): add Volt to this trademark list when Volt is named on the page. -->
         </p>
       </div>
     </div>
