@@ -1071,6 +1071,10 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
                     <td>Catch-all for an action endpoint that completed without throwing but didn't observably change state (e.g. UA accepted the value but rejected it silently). Rare.</td>
                 </tr>
                 <tr>
+                    <td><code>trial_expired</code></td>
+                    <td>The trial has ended and no license is active, so Lyra won't change the monitor. Activate a license (or start a test session) and try again.</td>
+                </tr>
+                <tr>
                     <td><code>unsupported</code></td>
                     <td>The interface lacks the feature. In 2.0: ALT speakers, when the interface has no ALT outputs or the requested pair is off in UA Console. The message says where to turn it on. New in 2.0.</td>
                 </tr>
