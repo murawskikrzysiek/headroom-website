@@ -375,6 +375,28 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 /* A heading line over its text, where the plain callout sets an icon beside it. */
 .callout--stack { flex-direction: column; gap: 0; }
 
+/* Before and after slider (specula/repair.html + specula/before-after.js).
+   Two captures of the same view stacked in one frame; a transparent range
+   input over them sets --ba, which clips the after image and places the
+   divider, so the arrow keys and VoiceOver work through the input. Without
+   JS the frame stays split at 50%. */
+.ba__frame { position: relative; --ba: 50%; touch-action: pan-y; }
+figure.shot .ba__frame img { width: 100%; max-height: none; margin: 0; }
+.ba__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--ba)); }
+figure.shot .ba__after img { height: 100%; object-fit: cover; }
+.ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none; }
+.ba__handle { position: absolute; top: 0; bottom: 0; left: var(--ba); width: 2px; margin-left: -1px;
+  background: var(--text); box-shadow: 0 0 0 1px rgba(0,0,0,0.45); pointer-events: none; }
+.ba__handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 26px; height: 26px;
+  margin: -13px 0 0 -13px; border-radius: 50%; background: rgba(12,12,16,0.78); border: 1.5px solid var(--text); }
+.ba__range:focus-visible ~ .ba__handle::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ba__tag { position: absolute; top: 10px; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text); background: rgba(10,10,14,0.66); padding: 3px 8px;
+  border-radius: 6px; pointer-events: none; }
+.ba__tag--before { left: 10px; }
+.ba__tag--after { right: 10px; }
+
 /* Marketing texture: stat band, terminal sample, compact spec grid, FAQ
    accordion. Added in the 2026-07 site rework to break the label|prose
    monotony on app pages. */

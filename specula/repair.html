@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Specula for Spectral Repair: select the blemish on the spectrogram, macOS</title>
     <link rel="canonical" href="https://headroomstudio.dev/specula/repair.html">
-    <meta name="description" content="Select a blemish on a full-resolution spectrogram, in a rectangle, lasso, brush, or wand, then attenuate, erase, or repair just that region. One-time purchase, included in Specula's price, no separate spectral-repair tier, no subscription.">
+    <meta name="description" content="Select a blemish on a full-resolution spectrogram with a rectangle, lasso, brush or wand, then attenuate, erase or repair just that region. Included in Specula's one-time purchase, no separate spectral-repair tier, no subscription.">
     <meta property="og:title" content="Specula for Spectral Repair">
-    <meta property="og:description" content="Select the blemish on a spectrogram, attenuate, erase, or repair it, leaving everything else untouched. Included in Specula's one-time purchase.">
+    <meta property="og:description" content="Select the blemish on a spectrogram and attenuate, erase or repair it, leaving everything else bit for bit. Included in Specula's one-time purchase.">
     <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Specula for Spectral Repair">
-    <meta name="twitter:description" content="Select a blemish on a spectrogram with a rectangle, lasso, brush, or wand, then attenuate, erase, or repair just that region. One-time purchase, no subscription.">
+    <meta name="twitter:description" content="Select a blemish on a spectrogram with a rectangle, lasso, brush or wand, then attenuate, erase or repair just that region. One-time purchase, no subscription.">
     <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -26,12 +26,13 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Specula for Spectral Repair",
-        "description": "Spectral mode: select a blemish in time and frequency on a full-resolution, zoomable spectrogram, with a rectangle, lasso, brush, or wand, then attenuate, erase, or repair just that selection. Every operation feathers its edges; everything outside the selection stays untouched, sample for sample. Shares Edit mode's undo history and always saves a new file.",
+        "description": "The Spectral task: select a blemish in time and frequency on a full-resolution, zoomable spectrogram with a rectangle, lasso, brush or wand, then attenuate, erase or repair just that selection. Every selected cell gets the full edit, the feather rolls off outside the selection, and everything else stays bit for bit. Spectral edits join the edit history.",
         "url": "https://headroomstudio.dev/specula/repair.html",
         "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
         "about": {
             "@type": "SoftwareApplication",
             "name": "Specula",
+            "softwareVersion": "2.0",
             "operatingSystem": "macOS 14.0 or later",
             "applicationCategory": "MultimediaApplication",
             "offers": { "@type": "Offer", "price": "99.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
@@ -68,7 +69,7 @@
             <p class="eyebrow">Workflow · Spectral repair</p>
             <h1 class="display">Take the cough out. Leave the chord.</h1>
             <p class="app-hero__desc">
-                A take is otherwise good except for one moment: a cough, a click, a chair squeak, a bite of hum. Re-recording isn't always possible: a client session that's over, a location interview, an archival recording with nothing left to re-record from. The specialized tools built for this exact job, select the blemish on a spectrogram and fix just that, are usually sold as a separate purchase or a subscription. Spectral mode does the same job inside the analyzer you already open to check the numbers.
+                A take is otherwise good except for one moment: a cough, a click, a chair squeak, a bite of hum. Re-recording is not always possible: a client session that is over, a location interview, an archival transfer with nothing left to record from. The specialized tools built for this exact job, select the blemish on a spectrogram and fix just that, are usually sold as a separate purchase or a subscription. The Spectral task does the same job inside the analyzer that checks the numbers.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -80,10 +81,14 @@
                 <span class="badge">7-day trial</span>
             </div>
             <div class="app-hero__cta">
-                <a class="btn btn-primary" href="guide.html#spectral">Read the spectral mode guide</a>
+                <a class="btn btn-primary" href="guide.html#spectral">Read the Spectral guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
             <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
+                <span class="taskstrip__label">Task</span>
+                <a class="chip" href="guide.html#spectral">Spectral <kbd>⌘6</kbd></a>
+            </nav>
         </div>
     </header>
 </div>
@@ -94,9 +99,10 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
+        <!-- SHOT S11 (stand-in: 1.x Spectral mode) -->
         <figure class="shot">
-            <img src="specula-spectral-lasso.png" alt="Specula's Spectral mode with a stereo file in the stacked Both view: a lasso selection drawn around a blemish in one channel's spectrogram, under the time ruler and waveform strip, with a frequency scale on the right and the violet spectral toolbar showing the four selection tools." loading="lazy" decoding="async">
-            <figcaption><strong>Spectral mode.</strong> Select the blemish on the spectrogram, then attenuate, erase, or repair just that.</figcaption>
+            <img src="specula-spectral-lasso.png" alt="Specula's Spectral task: a selection around a blemish with a white outline and the rest of the canvas dimmed, the tool palette on the canvas's left edge, the operation panel in the sidebar, and the Floor and Ceiling knobs in the task bar." loading="lazy" decoding="async">
+            <figcaption><strong>The Spectral task.</strong> Select the blemish on the spectrogram, then attenuate, erase or repair just that.</figcaption>
         </figure>
     </section>
 
@@ -108,8 +114,8 @@
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Everything about the take is right, except one moment.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">You're most of the way through a review and there it is: a cough landing under a line of dialogue, a chair creak between two piano chords, a burst of mains hum riding under a quiet passage. Everything else about the take is right. Re-recording it means getting the room, the performer, and the take back, and sometimes that's not available at all: the client has left, the location shoot wrapped, the interview subject isn't coming back, the source is an archival transfer with nothing left to record.</p>
-                <p class="prose-lead" style="margin-top: 14px;">The fix that specific problem needs is narrow: find the blemish in time and frequency, select exactly that, and process only the selection, leaving everything around it untouched. That's a different job from a general noise-reduction pass or an EQ move across the whole file, and it's usually priced and packaged as its own thing.</p>
+                <p class="prose-lead" style="margin-top: 22px;">A cough lands under a line of dialogue, a chair creaks between two piano chords, a burst of mains hum rides under a quiet passage, and everything else about the take is right. Re-recording means getting the room, the performer and the take back, and sometimes that is not possible: the client has left, the location shoot wrapped, the interview subject is not coming back, the source is an archival transfer.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The fix that problem needs is narrow: find the blemish in time and frequency, select exactly that, and process only the selection, leaving everything around it untouched. That is a different job from a general noise-reduction pass or an EQ move across the whole file, and it is usually priced and packaged as its own thing.</p>
             </div>
         </div>
     </section>
@@ -124,7 +130,7 @@
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">Select-it-and-fix-it spectral repair is normally a specialist purchase: an entry-level spectral editor around $90, capped in sample rate and channels; a full spectral editor, or the restoration-suite tier that includes the select-and-fix tools, in the mid hundreds; the top suite tier, past a thousand dollars; or an editor on a subscription.</p>
 
-                <p class="prose-lead" style="margin-top: 18px;">Specula doesn't sell spectral repair as a separate tier. Spectral mode is part of the $99.99 one-time price that also includes everything else on this site: loudness, FFT, spectrogram, compare, edit, record, and the signal generator.</p>
+                <p class="prose-lead" style="margin-top: 18px;">Specula does not sell spectral repair as a separate tier. The Spectral task is part of the $99.99 one-time price, with everything else on this site: the delivery checks, loudness, FFT, spectrogram, compare, edit, record and the signal generator.</p>
             </div>
         </div>
     </section>
@@ -134,28 +140,52 @@
         <div class="section__grid">
             <div>
                 <p class="label">How it works</p>
-                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Select the blemish, pick an operation, audition before you commit. All of it on a zoomable, full-resolution spectrogram.</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Select the blemish, pick an operation, audition before Apply. All of it on a zoomable, full-resolution spectrogram.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Select the blemish</div><div class="feature-row__v"><kbd>⌘5</kbd> (or the <strong>Spectral</strong> button in the transport bar) turns the main canvas into a full-resolution, zoomable spectrogram of the loaded file. Four tools share one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for a straight time/frequency box, <strong>Lasso</strong> (<kbd>L</kbd>) for a free shape, <strong>Brush</strong> (<kbd>B</kbd>) for painting over a curved trace like a bird chirp or a whistle, and <strong>Wand</strong> (<kbd>W</kbd>) for one click: click a spot and the selection grows across the connected region at a similar level, shaped by a dB tolerance and a time reach that re-tune the last stroke live, so one click grabs the local stretch of a hum line, not the whole file, and dragging sweeps the wand along a blemish. The brush and wand paint: strokes add to the selection, an Option-stroke removes. With the rectangle and lasso a plain drag starts a new selection, Shift adds to it, Option subtracts, and Esc clears it. For stereo files the canvas shows the left channel, the right, or both stacked, so a blemish living in only one side is easy to spot. Multichannel files edit channel by channel: pick a channel of the bed (L, C, LFE, Ls, and so on, following the file's layout), fix it, and the other channels stay untouched, sample for sample; the selection persists across channel switches, so a blemish that spans channels is the same region applied a few times.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Choose the operation</div><div class="feature-row__v"><strong>Attenuate</strong> lowers (or raises) the selection by a chosen dB amount, default −18. <strong>Erase</strong> (<kbd>Delete</kbd>) pushes it down to the noise floor learned from the audio just before and after it, minus an adjustable erase depth (default 12 dB), so removal stays decisive even inside busy material. <strong>Repair</strong> bridges it in time, interpolating each frequency's level from the clean audio on both sides, the move for a short blemish crossing otherwise steady material. Every operation feathers its edges in time and frequency, and applies to all channels by default or just the one you pick, since editing a single side of a stereo file can skew the image. The analysis window (1024 to 8192) trades time detail against frequency detail; changing it clears the selection since the underlying grid changes with it.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Audition, then commit</div><div class="feature-row__v">Space plays the selection's span. <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection itself, with the same feathered edges the operation would use, so you hear exactly what an Erase or Attenuate would touch before you touch it. <strong>Result</strong> (<kbd>⌥Space</kbd>) plays the span with the selection removed, an audition of the outcome. Spectral edits share Edit mode's undo history (16 levels), the selection survives an apply and an undo so you can iterate, and Save As always writes a <strong>new file</strong>, the original on disk untouched. Selections longer than 10 minutes are refused; select a shorter range and apply in passes. Full detail in the <a href="guide.html#spectral">Spectral mode guide</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1 · Select the blemish</div><div class="feature-row__v"><kbd>⌘6</kbd>, or Spectral in the top bar, turns the canvas into a full-resolution, zoomable spectrogram of the open file, sharing the other views' zoom and scroll. Four tools sit in a palette on its left edge and share one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for a time and frequency box, whose outline shows the cells it will take while it is dragged; <strong>Lasso</strong> (<kbd>L</kbd>) for a free shape; <strong>Brush</strong> (<kbd>B</kbd>) for painting over a curved trace such as a bird chirp or a whistle; and <strong>Wand</strong> (<kbd>W</kbd>), which outlines, dashed, what a click would take: the connected region within its tolerance above or below the level under the pointer, reaching 250 ms each side by default. A drag with the rectangle or lasso, or a click with the wand, replaces the selection; Shift adds and Option subtracts. Brush strokes add, and an Option-stroke removes. The selection has a white outline, the rest of the canvas dims, the feather's roll-off shows as a soft edge around it, and its time span and frequency range print beside it; <kbd>Esc</kbd> clears it. The <strong>Floor</strong> and <strong>Ceiling</strong> knobs on the task bar (or Spectral › Contrast…) set the levels drawn black and brightest, to bring a faint blemish into view. For stereo files the canvas shows the left channel, the right or both stacked; multichannel files edit one channel at a time, picked by name from the file's layout, and the selection stays across channel switches.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Choose the operation</div><div class="feature-row__v">The operation panel in the sidebar holds the operation and its amount, the feather, the channels Apply edits, Solo, Hear Result and Apply. <strong>Attenuate</strong> lowers (or raises) the selection by a set amount, default −18 dB. <strong>Erase</strong> (Spectral › Erase to Floor, <kbd>⌫</kbd>) pushes it down to the noise floor learned from the audio just before and after it, less an erase depth (default 12 dB), so removal stays decisive inside busy material. <strong>Repair</strong> bridges it in time, interpolating each frequency's level from the clean audio on both sides, for a short blemish crossing steady material. Every selected cell gets the full edit, the feather's roll-off lies outside the selection, where the canvas draws it, and phase is never touched. Apply edits all channels by default, or the ones picked. The analysis size (1024 to 8192) trades time detail against frequency detail; changing it with a selection asks first.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Audition, then apply</div><div class="feature-row__v">Space plays the selection's span. <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection, with the feather the operation would use, so what an Erase or an Attenuate would touch is heard first. <strong>Hear Result</strong> (<kbd>⌥Space</kbd>) plays the chosen operation as Apply would write it. One thing plays at a time: Space stops an audition, and starting one pauses the file. Spectral edits join the Edit task's history, and the selection survives an Apply and an Undo, for another pass. Save As writes a new file; the task bar's Save writes over the original once that is allowed. Selections longer than 10 minutes are refused; select a shorter range and apply in passes. Full detail in the <a href="guide.html#spectral">Spectral guide</a>.</div></div>
             </div>
         </div>
     </section>
+
+    <!-- Before and after -->
+    <!-- SHOT S12: before and after Apply, same view, same size (specula-repair-before.png, specula-repair-after.png).
+         Move the section out of the template when captured; before-after.js below drives it. -->
+    <template id="shot-s12">
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Before and after</p>
+            <figure class="shot ba">
+                <div class="ba__frame">
+                    <img src="specula-repair-before.png" alt="The spectrogram with the blemish selected, before Apply." loading="lazy" decoding="async">
+                    <div class="ba__after"><img src="specula-repair-after.png" alt="The same view after Apply, with the blemish gone and the audio around it unchanged." loading="lazy" decoding="async"></div>
+                    <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Divider between before and after">
+                    <span class="ba__handle" aria-hidden="true"></span>
+                    <span class="ba__tag ba__tag--before" aria-hidden="true">Before</span>
+                    <span class="ba__tag ba__tag--after" aria-hidden="true">After</span>
+                </div>
+                <figcaption><strong>Before and after Apply.</strong> Drag the divider, or focus it and use the arrow keys.</figcaption>
+            </figure>
+        </div>
+    </section>
+    </template>
 
     <!-- Up close (screenshots) -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Up close</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
+                <!-- SHOT S11 crop: the wand (stand-in: 1.x) -->
                 <figure class="shot">
-                    <img src="specula-spectral-wand.png" alt="A wand selection hugging a harmonic shape in the spectrogram, with the wand's dB tolerance and time reach sliders visible in the violet spectral toolbar." loading="lazy" decoding="async">
-                    <figcaption><strong>The wand.</strong> One click selects the connected region at a similar level; the tolerance and reach sliders re-tune it live.</figcaption>
+                    <img src="specula-spectral-wand.png" alt="The wand's dashed outline of what a click would take on a harmonic, with its tolerance and reach in the task bar." loading="lazy" decoding="async">
+                    <figcaption><strong>The wand.</strong> Pointing outlines what a click would take; a click takes the connected region at the clicked level.</figcaption>
                 </figure>
+                <!-- SHOT S27 Spectral crop: the operation panel (stand-in: 1.x Attenuate popover) -->
                 <figure class="shot">
-                    <img src="specula-spectral-attenuate.png" alt="The spectral toolbar with the Attenuate popover open: a dB amount field at the default −18 dB, over an active selection on the spectrogram." loading="lazy" decoding="async">
-                    <figcaption><strong>Attenuate.</strong> Lower (or raise) just the selection by a chosen dB amount.</figcaption>
+                    <img src="specula-spectral-attenuate.png" alt="The operation panel in the sidebar: Attenuate at −18 dB, the feather, the channels, Solo, Hear Result and Apply." loading="lazy" decoding="async">
+                    <figcaption><strong>The operation panel.</strong> Attenuate, Erase or Repair with its amount, the feather and the channels, and Solo and Hear Result before Apply.</figcaption>
                 </figure>
             </div>
         </div>
@@ -166,9 +196,9 @@
         <div class="section__grid">
             <p class="label">FAQ</p>
             <div>
-                <div class="feature-row"><div class="feature-row__k">Is Spectral mode an automatic cleanup tool?</div><div class="feature-row__v">No. Spectral mode is manual spectral editing: you see the problem on the spectrogram, select it with a rectangle, lasso, brush, or wand, and apply one of three operations, Attenuate, Erase, or Repair. There's no automatic de-noise, de-hum, or de-reverb pass at this time. The fix lands exactly where you point it, and nothing else changes.</div></div>
-                <div class="feature-row"><div class="feature-row__k">Do I need a subscription to use spectral repair?</div><div class="feature-row__v">No. Specula is a one-time purchase, and Spectral mode is part of the $99.99 price, not a separate add-on or a higher tier. There's no recurring fee to keep using it.</div></div>
-                <div class="feature-row"><div class="feature-row__k">How does it compare to the dedicated spectral repair tools?</div><div class="feature-row__v">Same core job, select a region on a spectrogram and fix it, different scope and price. The dedicated tools bundle spectral repair with a wider set of restoration modules at a specialist price. Specula bundles Spectral mode with the rest of its analyzer, loudness, FFT, spectrogram, compare, edit, record, at $99.99, one time. Neither is a strict subset of the other; pick based on which set of tools the job actually needs.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Is the Spectral task an automatic cleanup tool?</div><div class="feature-row__v">No. The Spectral task is manual spectral editing: the problem shows on the spectrogram, a rectangle, lasso, brush or wand selects it, and one of three operations, Attenuate, Erase or Repair, applies to the selection. There is no automatic de-noise, de-hum or de-reverb pass at this time. The fix lands exactly where it is pointed, and nothing else changes.</div></div>
+                <div class="feature-row"><div class="feature-row__k">Do I need a subscription to use spectral repair?</div><div class="feature-row__v">No. Specula is a one-time purchase, and the Spectral task is part of the $99.99 price, not a separate add-on or a higher tier. There is no recurring fee to keep using it.</div></div>
+                <div class="feature-row"><div class="feature-row__k">How does it compare to the dedicated spectral repair tools?</div><div class="feature-row__v">Same core job, select a region on a spectrogram and fix it, different scope and price. The dedicated tools bundle spectral repair with a wider set of restoration modules at a specialist price. Specula bundles the Spectral task with the rest of its analyzer, the delivery checks, loudness, FFT, spectrogram, compare, edit and record, at $99.99, one time. Neither is a strict subset of the other; the choice follows which set of tools the job needs.</div></div>
             </div>
         </div>
     </section>
@@ -178,9 +208,9 @@
         <div class="section__grid">
             <p class="label">Fix the moment, not the take</p>
             <div style="max-width: 640px;">
-                <p class="prose-lead">Spectral mode is for the blemish inside an otherwise good recording: select it on the spectrogram, in time and frequency, and process just that region. It shares Edit mode's undo history and always saves a new file, so the original stays exactly as it was.</p>
+                <p class="prose-lead">The Spectral task is for the blemish inside an otherwise good recording: select it on the spectrogram, in time and frequency, and process just that region. Its edits join the Edit task's history, and Save As writes a new file.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#spectral" class="btn btn-primary">Read the spectral mode guide →</a>
+                    <a href="guide.html#spectral" class="btn btn-primary">Read the Spectral guide →</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -193,12 +223,14 @@
             <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
             <li><a href="index.html">Specula</a></li>
             <li><a href="guide.html">User Guide</a></li>
+            <li><a href="faq.html">FAQ</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
     </footer>
 </div>
 
 <script src="../waveform.js"></script>
+<script src="before-after.js"></script>
 <script src="../lightbox.js"></script>
 </body>
 </html>
