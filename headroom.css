@@ -591,9 +591,15 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 .taskblock__name { font-size: 1.15rem; font-weight: 650; color: var(--text); letter-spacing: -0.015em; }
 .taskblock__key { margin-top: 6px; }
 .taskblock .shot { margin-top: 22px; }
-.taskblock__links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; font-size: 0.82rem; }
-.taskblock__links a { color: var(--accent); }
-.taskblock__links a:hover { color: var(--accent-soft); }
+/* The links to a task's workflow pages: the .btn-learn look at a smaller
+   size, so they read as the way on without competing with the hero's
+   buttons. */
+.taskblock__links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.taskblock__links a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  border-radius: var(--radius-btn); font-size: 0.875rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--accent); background: rgba(124,132,246,0.10); border: 1px solid rgba(124,132,246,0.20);
+  transition: background var(--t-fast), border-color var(--t-fast); }
+.taskblock__links a:hover { background: rgba(124,132,246,0.16); border-color: rgba(124,132,246,0.35); }
 .tile__tasks { font-family: var(--font-mono); font-size: 0.7rem !important; color: var(--text-3) !important;
   margin-top: 10px !important; letter-spacing: 0.01em; }
 
