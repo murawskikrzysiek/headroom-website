@@ -516,6 +516,7 @@
     <header class="page-header" id="top">
         <p class="page-eyebrow">Lyra · User Guide</p>
         <h1>Lyra, key by key.</h1>
+        <!-- TODO(volt): masthead is website furniture, not in USER-GUIDE.md. Once Volt support is built and verified, name the Volt here alongside the Apollo (wording from the shipped USER-GUIDE.md, no model list until verified). Same for the meta description above. -->
         <p class="page-lede">Lyra maps F10 / F11 / F12 to the monitor volume of a Universal Audio Apollo. This page covers all of it: setup, the menu, shortcuts, reference levels, pairing, widgets, troubleshooting. The full <code>lyra://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
     </header><div class="hr-waveform waveform"><canvas></canvas></div>
 
@@ -529,18 +530,19 @@
             <li><a href="#shortcuts">5 · Keyboard shortcuts</a></li>
             <li><a href="#hud">6 · Volume HUD</a></li>
             <li><a href="#reference-levels">7 · Reference Levels</a></li>
-            <li><a href="#audita-pairing">8 · Audita pairing</a></li>
-            <li><a href="#url-scheme">9 · URL scheme</a></li>
-            <li><a href="#app-intents">10 · Shortcuts, Siri &amp; Focus Filters</a></li>
-            <li><a href="#widgets">11 · Widgets</a></li>
-            <li><a href="#mixer-engine">12 · UA Mixer Engine</a></li>
-            <li><a href="#settings">13 · Settings</a></li>
-            <li><a href="#licensing">14 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">15 · Updates</a></li>
-            <li><a href="#launch-at-login">16 · Launch at login</a></li>
-            <li><a href="#troubleshooting">17 · Troubleshooting</a></li>
-            <li><a href="#out-of-scope">18 · What Lyra doesn't do</a></li>
-            <li><a href="#feedback">19 · Reporting bugs</a></li>
+            <li><a href="#alt-speakers">8 · ALT speakers</a></li>
+            <li><a href="#audita-pairing">9 · Audita pairing</a></li>
+            <li><a href="#url-scheme">10 · URL scheme</a></li>
+            <li><a href="#app-intents">11 · Shortcuts, Siri &amp; Focus Filters</a></li>
+            <li><a href="#widgets">12 · Widgets</a></li>
+            <li><a href="#mixer-engine">13 · UA Mixer Engine</a></li>
+            <li><a href="#settings">14 · Settings</a></li>
+            <li><a href="#licensing">15 · Trial &amp; licensing</a></li>
+            <li><a href="#updates">16 · Updates</a></li>
+            <li><a href="#launch-at-login">17 · Launch at login</a></li>
+            <li><a href="#troubleshooting">18 · Troubleshooting</a></li>
+            <li><a href="#out-of-scope">19 · What Lyra doesn't do</a></li>
+            <li><a href="#feedback">20 · Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -602,6 +604,7 @@
             <tr><td class="wrap-ok">Centre dot with horizontal bar through it</td><td class="wrap-ok"><strong>DIM</strong> active</td></tr>
             <tr><td class="wrap-ok">Centre dot with vertical bar through it</td><td class="wrap-ok"><strong>Mono</strong> active</td></tr>
             <tr><td class="wrap-ok">Horizontal <strong>and</strong> vertical bar</td><td class="wrap-ok">DIM + Mono together</td></tr>
+            <tr><td class="wrap-ok">Small <strong>1</strong> or <strong>2</strong> to the right of the ring</td><td class="wrap-ok">ALT 1 or ALT 2 speakers active (see <a href="#alt-speakers">ALT speakers</a>). Nothing on the Main speakers.</td></tr>
         </tbody></table>
 
         <p class="prose">The icon is a template image, so it follows the system's menu bar tint automatically (light, dark, accessibility inverted, etc.).</p>
@@ -615,6 +618,7 @@
 
         <p class="prose">Click the icon to open the menu. Sections, top to bottom:</p>
 
+        <!-- SCREENSHOT: lyra-menu (re-shoot for 2.0: Speakers section, "Connected: Apollo Twin X · ALT 1") -->
         <img src="lyra-menu.png" alt="The Lyra menu bar popover with license status, connected Apollo device, volume slider, Mute/DIM/Mono toggles, the Reference Levels submenu, and the Pass F-Keys to macOS and Launch at Login toggles" class="screenshot-full">
 
         <h3>License status</h3>
@@ -631,7 +635,7 @@
         <ul>
             <li><strong>"No compatible interface detected"</strong> - no Apollo on the system right now.</li>
             <li><strong>"&lt;name&gt; - UA Mixer not running"</strong> - Apollo is plugged in via Thunderbolt, but the daemon isn't reachable. A <strong>Start UA Mixer Engine</strong> action appears below - click it to start the daemon (see <a href="#mixer-engine">UA Mixer Engine</a>).</li>
-            <li><strong>"Connected: &lt;name&gt;"</strong> - Apollo present, Mixer Engine reachable. Lyra is fully active.</li>
+            <li><strong>"Connected: &lt;name&gt;"</strong>: Apollo present, Mixer Engine reachable. Lyra is fully active. While ALT speakers are playing, the name ends in <strong>· ALT 1</strong> or <strong>· ALT 2</strong>.</li>
         </ul>
 
         <h3>Volume label &amp; slider</h3>
@@ -640,8 +644,11 @@
         <h3>Mute / DIM / Mono</h3>
         <p class="prose">Three toggles with checkmarks. DIM uses the Apollo's hardware DIM (attenuation amount is whatever you've configured in UA Console - typically −20 dB). Mono uses MixToMono - sums L+R for mono-compatibility checks.</p>
 
+        <h3>Speakers</h3>
+        <p class="prose">Appears on Apollos with ALT speaker outputs. Main, ALT 1 and (on rack Apollos) ALT 2, with a checkmark on the speakers playing now and their <kbd>⌃⌥1</kbd> / <kbd>⌃⌥2</kbd> / <kbd>⌃⌥3</kbd> shortcuts. If ALT is turned off in UA Console, the section reads <strong>ALT speakers off</strong> and shows where to turn it on. Interfaces without ALT outputs (Apollo Solo, Arrow) don't show the section at all. See <a href="#alt-speakers">ALT speakers</a>.</p>
+
         <h3>Reference Levels submenu</h3>
-        <p class="prose">Nine items: three <strong>jump</strong> actions (with their Ctrl+F-key shortcuts shown inline), three <strong>"Save current as…"</strong> actions, three <strong>"Rename…"</strong> actions. See <a href="#reference-levels">Reference Levels</a> for the full workflow.</p>
+        <p class="prose">Nine items: three <strong>jump</strong> actions (with their Ctrl+F-key shortcuts shown inline), three <strong>"Save current as…"</strong> actions, three <strong>"Rename…"</strong> actions. With ALT speakers on, each speaker set gets its own three slots under a heading, and Save and Rename act on the speakers playing now. See <a href="#reference-levels">Reference Levels</a> for the full workflow.</p>
 
         <h3>Pass F-Keys to macOS</h3>
         <p class="prose">Toggle. While checked, F10 / F11 / F12 go to macOS and control the system output device, the way they would without Lyra. The connection, menu and slider keep working; only the keys are handed back. Useful when you want to adjust a different output for a moment, or to compare Lyra's volume pill with the system one side by side. Resets to off when Lyra relaunches.</p>
@@ -676,7 +683,13 @@
             <tr><td><kbd>⌃F10</kbd></td><td class="wrap-ok">Jump to Reference Level slot 1</td></tr>
             <tr><td><kbd>⌃F11</kbd></td><td class="wrap-ok">Jump to Reference Level slot 2</td></tr>
             <tr><td><kbd>⌃F12</kbd></td><td class="wrap-ok">Jump to Reference Level slot 3</td></tr>
+            <tr><td><kbd>⌃⌥F10</kbd> / <kbd>F11</kbd> / <kbd>F12</kbd></td><td class="wrap-ok">Jump to ALT 1's slot 1 / 2 / 3 (switches to ALT 1)</td></tr>
+            <tr><td><kbd>⌃⌥⇧F10</kbd> / <kbd>F11</kbd> / <kbd>F12</kbd></td><td class="wrap-ok">Jump to ALT 2's slot 1 / 2 / 3 (switches to ALT 2)</td></tr>
+            <tr><td><kbd>⌃⌥§</kbd></td><td class="wrap-ok">Next speakers: Main, ALT 1, ALT 2 (the key left of 1; <kbd>⌃⌥`</kbd> on US keyboards)</td></tr>
+            <tr><td><kbd>⌃⌥1</kbd> / <kbd>2</kbd> / <kbd>3</kbd></td><td class="wrap-ok">Main / ALT 1 / ALT 2 speakers</td></tr>
         </tbody></table>
+
+        <p class="prose">The last four rows need ALT speakers turned on in UA Console. Without them, <kbd>⌃⌥</kbd> and <kbd>⌃⌥⇧</kbd> with F10 to F12 jump to the Main slots, and <kbd>⌃⌥</kbd> with § or a digit stays with whatever app you're in. Lyra claims those keys only while ALT is on and the Mixer Engine is connected.</p>
 
         <h3>Handing the keys back</h3>
         <p class="prose"><em>Pass F-Keys to macOS</em> in the menu lets the three keys reach the system output device again until you uncheck it. Lyra also steps aside automatically whenever UA Mixer Engine is not reachable.</p>
@@ -688,7 +701,7 @@
         <p class="prose">Depending on your macOS keyboard settings, you may need to hold <kbd>Fn</kbd> to send F10/F11/F12 as F-keys (rather than the secondary brightness/expose actions printed on the keys). Change this in <strong>System Settings → Keyboard → Function Keys</strong>, or use Fn as a permanent modifier.</p>
 
         <h3>Ctrl wins</h3>
-        <p class="prose">Ctrl+F-keys always do a Reference Level jump, even if Shift or Option are also held. This lets you hold Ctrl from a prior chord and the jump still works.</p>
+        <p class="prose">Ctrl+F-keys always do a Reference Level jump, even if Shift or Option are also held. This lets you hold Ctrl from a prior chord and the jump still works. With ALT speakers on, Option and Shift choose which speakers' slots.</p>
     </section>
 
     <hr class="divider">
@@ -731,6 +744,7 @@
 
         <p class="prose">Lyra has three monitor presets, each stored as a tapered position (0.0-1.0) plus a user-renamable name. Defaults are <strong>Quiet</strong> (25%), <strong>Mix</strong> (50%), <strong>Loud</strong> (75%).</p>
 
+        <!-- SCREENSHOT: lyra-ref-levels (re-shoot for 2.0: per-pair slot headings with ALT on) -->
         <img src="lyra-ref-levels.png" alt="Lyra's Reference Levels submenu with three named slots plus Save and Rename actions" class="screenshot-full">
 
         <h3>Jumping to a slot</h3>
@@ -757,14 +771,59 @@
         <p class="prose"><strong>Reference Levels → Rename "&lt;slot name&gt;"…</strong> opens a small modal with a text field. Keep it short - names appear in the menu and the HUD pill. Common names: <code>K-14</code>, <code>K-20</code>, <code>Mix</code>, <code>Quiet</code>, <code>Cinema</code>, <code>Late night</code>, <code>79 dB</code>.</p>
 
         <h3>Cycling</h3>
-        <p class="prose"><code>lyra://reference/cycle</code> advances to the next slot in order (1 → 2 → 3 → 1). Useful for a single Stream Deck button or a Shortcut that toggles between presets.</p>
+        <p class="prose"><code>lyra://reference/cycle</code> advances to the next slot in order (1 → 2 → 3 → 1). Useful for a single Stream Deck button or a Shortcut that toggles between presets. With ALT speakers on, it cycles the slots of the speakers playing now.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 8. Audita pairing ─────── -->
+    <!-- ─────── 8. ALT speakers ─────── -->
+    <section class="guide-section" id="alt-speakers">
+        <h2>8. ALT speakers <a href="#alt-speakers" class="anchor">#</a></h2>
+
+        <p class="prose">Apollos with ALT monitor outputs can switch the monitor bus between your Main speakers and one or two alternate pairs: ALT 1 on the Twin family, ALT 1 and ALT 2 on the rack Apollos. Lyra reads how many your interface has, switches between them, and keeps a separate set of Reference Levels for each pair.</p>
+        <!-- TODO(volt): ALT on the Volt (the Volt's own Main / Alt switching, if UA Mixer Engine exposes it) is unverified. When USER-GUIDE.md gains Volt wording for this section, re-mirror it; do not add Volt claims HTML-side. -->
+
+        <!-- SCREENSHOT: lyra-menu-alt-off -->
+
+        <h3>Turning ALT on</h3>
+        <p class="prose">ALT outputs are off until you set them up in UA Console: <strong>Settings → Hardware → ALT Count</strong>. Lyra picks up the change while it runs. Until then the Speakers section of Lyra's menu reads <strong>ALT speakers off</strong> with the same hint.</p>
+
+        <h3>Switching speakers</h3>
+        <ul>
+            <li><strong>Menu:</strong> Speakers → Main / ALT 1 / ALT 2.</li>
+            <li><strong>Keyboard:</strong> <kbd>⌃⌥1</kbd> Main, <kbd>⌃⌥2</kbd> ALT 1, <kbd>⌃⌥3</kbd> ALT 2. <kbd>⌃⌥§</kbd> (the key left of 1; <kbd>⌃⌥`</kbd> on US keyboards) steps to the next pair.</li>
+            <li><strong>URL:</strong> <code>lyra://alt/toggle</code>, <code>lyra://alt/set?speakers=1</code>.</li>
+            <li><strong>Shortcuts:</strong> Switch Speakers, Cycle Speakers.</li>
+            <li><strong>Widgets:</strong> the speaker button on Monitor Toggles and Control Panel.</li>
+        </ul>
+
+        <p class="prose">Switching in UA Console, or with the Apollo's front-panel ALT button where it has one, shows up in Lyra too. Every switch pops the HUD with the device name and the pair, e.g. <em>Apollo Twin X · ALT 1</em>, and the menu bar icon carries a small 1 or 2 while an ALT pair is playing.</p>
+
+        <!-- SCREENSHOT: lyra-hud-alt -->
+
+        <p class="prose">The monitor level, Mute, DIM and Mono follow whichever pair is playing, the same as the Apollo's own knob. Each ALT pair's trim (±30 dB) stays in UA Console.</p>
+
+        <h3>Reference Levels per speaker set</h3>
+        <p class="prose">Each pair has its own three slots:</p>
+        <table>
+            <tbody><tr><th>Keys</th><th>Slots</th></tr>
+            <tr><td><kbd>⌃F10</kbd> / <kbd>⌃F11</kbd> / <kbd>⌃F12</kbd></td><td class="wrap-ok">Main slots 1 / 2 / 3</td></tr>
+            <tr><td><kbd>⌃⌥F10</kbd> / <kbd>⌃⌥F11</kbd> / <kbd>⌃⌥F12</kbd></td><td class="wrap-ok">ALT 1 slots 1 / 2 / 3</td></tr>
+            <tr><td><kbd>⌃⌥⇧F10</kbd> / <kbd>⌃⌥⇧F11</kbd> / <kbd>⌃⌥⇧F12</kbd></td><td class="wrap-ok">ALT 2 slots 1 / 2 / 3</td></tr>
+        </tbody></table>
+
+        <p class="prose">The HUD names an ALT slot with its pair, e.g. <em>Quiet · ALT 1</em>; Main slots show the slot name alone. Recalling another pair's slot switches to those speakers and sets the level in one step. When the new level is lower, Lyra lowers the level before switching; when it's higher, it switches first. No pair ever plays above its own starting or target level.</p>
+
+        <!-- SCREENSHOT: lyra-hud-alt-ref -->
+
+        <p class="prose"><strong>Save current as…</strong> and <strong>Rename…</strong> in the menu act on the pair playing now. Your existing slots become the Main slots. ALT slots start at Quiet / Mix / Loud.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 9. Audita pairing ─────── -->
     <section class="guide-section" id="audita-pairing">
-        <h2>8. Audita pairing - calibrated dB SPL slots <a href="#audita-pairing" class="anchor">#</a></h2>
+        <h2>9. Audita pairing - calibrated dB SPL slots <a href="#audita-pairing" class="anchor">#</a></h2>
 
         <p class="prose"><a href="/audita/">Audita</a> is the Headroom SPL meter for macOS. After running Audita's target-level calibration - speaker at known distance, pink noise at known level, measure with the meter - Audita knows what dB SPL your monitor system produces at any given monitor knob position.</p>
 
@@ -791,6 +850,9 @@
 
         <p class="prose">The dB SPL value is metadata - Lyra doesn't re-measure or verify it. It's the number you actually think in once your room is calibrated. If you change anything in the signal chain (different speaker, different distance, different room treatment), re-run Audita and re-send the slot.</p>
 
+        <p class="prose"><strong>On ALT speakers,</strong> a slot sent from Audita goes to the slots of the pair playing now, because that's the pair Audita measured. Calibrate each pair on its own.</p>
+        <!-- TODO(volt): Audita's Send to Lyra works on any Universal Audio output with Lyra 2.0. If USER-GUIDE.md adds Volt wording here, re-mirror it. -->
+
         <div class="note">
             <span class="note-icon">ⓘ</span>
             <p><strong>Don't have Audita?</strong> The slot still works - it just shows a percentage instead of a measured dB SPL value. Audita is the calibration layer; Lyra is the recall layer.</p>
@@ -799,9 +861,9 @@
 
     <hr class="divider">
 
-    <!-- ─────── 9. URL scheme ─────── -->
+    <!-- ─────── 10. URL scheme ─────── -->
     <section class="guide-section" id="url-scheme">
-        <h2>9. URL scheme (<code>lyra://</code>) <a href="#url-scheme" class="anchor">#</a></h2>
+        <h2>10. URL scheme (<code>lyra://</code>) <a href="#url-scheme" class="anchor">#</a></h2>
 
         <p class="prose">Lyra registers a custom <code>lyra://</code> URL scheme so any tool that can fire a URL can drive it - Stream Deck, Keyboard Maestro, Apple Shortcuts, BetterTouchTool, AppleScript, <code>open</code> from the shell, other apps (Audita).</p>
 
@@ -824,6 +886,17 @@ open "lyra://mute/toggle"</code></pre>
         </tbody></table>
 
         <p class="prose"><code>save</code> is the URL Audita uses; you can use it from your own scripts too. If you omit <code>name</code>, the slot's existing name is kept. If you omit <code>dBSPL</code>, any existing calibration value on the slot is preserved (only an explicit value will replace it - URLs can't clear calibration).</p>
+
+        <p class="prose"><strong>ALT speakers.</strong> Without <code>speakers</code>, a jump or a save uses the slots of the pair playing now and never switches speakers. Add <code>speakers=main</code>, <code>speakers=1</code> or <code>speakers=2</code> to name the pair: <code>lyra://reference/2?speakers=1</code> jumps to ALT 1's slot 2 and switches to ALT 1. A <code>save</code> with <code>speakers</code> writes that pair's slot without switching.</p>
+
+        <h3>ALT speakers</h3>
+        <table>
+            <tbody><tr><th>URL</th><th>What it does</th></tr>
+            <tr><td><code>lyra://alt/toggle</code></td><td class="wrap-ok">Next speakers: Main, ALT 1, ALT 2 (same as ⌃⌥§)</td></tr>
+            <tr><td><code>lyra://alt/set?speakers=main</code></td><td class="wrap-ok">Main speakers. Also <code>speakers=1</code> (ALT 1) and <code>speakers=2</code> (ALT 2).</td></tr>
+        </tbody></table>
+
+        <p class="prose">Both reply with <code>speakers</code> and <code>alt_available</code>. If the interface has no ALT outputs, or the pair is off in UA Console, they fail with <code>error_code=unsupported</code> and a message saying where to turn it on.</p>
 
         <h3>Volume</h3>
         <table>
@@ -850,7 +923,7 @@ open "lyra://mute/toggle"</code></pre>
         <table>
             <tbody><tr><th>URL</th><th>Returns (appended to x-success)</th></tr>
             <tr><td class="wrap-ok"><code>lyra://volume/get?x-success=…</code></td><td class="wrap-ok"><code>tapered</code>, <code>db</code></td></tr>
-            <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume.</td></tr>
+            <tr><td class="wrap-ok"><code>lyra://reference/current?x-success=…</code></td><td class="wrap-ok"><code>slot</code> (1-3), <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> if calibrated. Slot keys are absent when no slot matches the live volume. Also <code>speakers</code> (<code>main</code>, <code>1</code>, <code>2</code>) and <code>alt_available</code>; slots are those of the pair playing now.</td></tr>
             <tr><td class="wrap-ok"><code>lyra://state?x-success=…</code></td><td class="wrap-ok">All of the above, plus <code>muted</code>, <code>dim</code>, <code>mono</code>, <code>mixer_connected</code>, <code>device_connected</code>, <code>device_name</code>, <code>volume_step</code>.</td></tr>
         </tbody></table>
         <p class="prose"><code>db</code> may be absent for a fraction of a second on first launch - Lyra waits for the first <code>CRMonitorLevel</code> push from the Apollo before it can answer. After that it stays in sync with the hardware knob.</p>
@@ -860,7 +933,7 @@ open "lyra://mute/toggle"</code></pre>
         <table>
             <tbody><tr><th>Param</th><th>Fires when</th></tr>
             <tr><td><code>x-success</code></td><td class="wrap-ok">The endpoint completed. Returned values are appended to this URL as query items. Action endpoints also append <code>result=ok</code> plus a small status object (e.g. <code>muted=true</code>).</td></tr>
-            <tr><td><code>x-error</code></td><td class="wrap-ok">The endpoint failed. Lyra appends <code>error_code</code> and <code>error_message</code>. Common codes: <code>mixer_disconnected</code>, <code>invalid_slot</code>, <code>invalid_argument</code>, <code>device_not_found</code>, <code>unknown_endpoint</code>.</td></tr>
+            <tr><td><code>x-error</code></td><td class="wrap-ok">The endpoint failed. Lyra appends <code>error_code</code> and <code>error_message</code>. Common codes: <code>mixer_disconnected</code>, <code>invalid_slot</code>, <code>invalid_argument</code>, <code>device_not_found</code>, <code>unknown_endpoint</code>, <code>unsupported</code> (the interface lacks the feature, e.g. ALT speakers).</td></tr>
         </tbody></table>
 
         <p class="prose"><strong>Example - chain "set volume to 0.4 and then run a Raycast script":</strong></p>
@@ -881,11 +954,11 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 10. Shortcuts, Siri & Focus Filters (App Intents) ─────── -->
+    <!-- ─────── 11. Shortcuts, Siri & Focus Filters (App Intents) ─────── -->
     <section class="guide-section" id="app-intents">
-        <h2>10. Shortcuts, Siri &amp; Focus Filters (App Intents) <a href="#app-intents" class="anchor">#</a></h2>
+        <h2>11. Shortcuts, Siri &amp; Focus Filters (App Intents) <a href="#app-intents" class="anchor">#</a></h2>
 
-        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle: eleven intents covering every action you can drive from the URL scheme, plus structured reads. They show up in the macOS Shortcuts app, in Spotlight (pre-wired App Shortcuts for the most-used ones), in Siri (via a named Shortcut), and in Focus Filters (e.g. switch to reference slot 2 when Mixing Focus engages).</p>
+        <p class="prose">On macOS 13 (Ventura) and later, Lyra exposes an <strong>App Intents</strong> bundle: thirteen intents covering every action you can drive from the URL scheme, plus structured reads. They show up in the macOS Shortcuts app, in Spotlight (pre-wired App Shortcuts for the most-used ones), in Siri (via a named Shortcut), and in Focus Filters (e.g. switch to reference slot 2 when Mixing Focus engages).</p>
 
         <p class="prose">On macOS 12 (Monterey), Lyra runs identically except this section is hidden. The Shortcuts integration requires macOS 13+ because App Intents itself does.</p>
 
@@ -893,25 +966,26 @@ open "lyra://mute/toggle"</code></pre>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>The full reference - all eleven intents with parameters and return values, the App Shortcuts list, the Siri-via-named-Shortcut workflow, and the Focus Filter setup - lives in the <a href="api.html#intents">Automation API reference</a>.</p>
+            <p>The full reference - all thirteen intents with parameters and return values, the App Shortcuts list, the Siri-via-named-Shortcut workflow, and the Focus Filter setup - lives in the <a href="api.html#intents">Automation API reference</a>.</p>
         </div>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 11. Widgets ─────── -->
+    <!-- ─────── 12. Widgets ─────── -->
     <section class="guide-section" id="widgets">
-        <h2>11. Widgets <a href="#widgets" class="anchor">#</a></h2>
+        <h2>12. Widgets <a href="#widgets" class="anchor">#</a></h2>
 
         <p class="prose">Lyra ships four interactive widgets in the macOS widget gallery (v1.6+). Open <strong>Notification Centre</strong> (click the date/time, or swipe right with two fingers from the right edge of the trackpad), scroll to the bottom, click <strong>Edit Widgets</strong>, and search for <strong>Lyra</strong>.</p>
 
+        <!-- SCREENSHOT: lyra-widgets (re-shoot for 2.0: Speakers button on Monitor Toggles and Control Panel) -->
         <img src="lyra-widgets.png" alt="Lyra's widgets on the macOS desktop - the large Control Panel (volume, Mute/DIM/Mono, reference slots 1-3), the Monitor Toggles widget, and the Volume widget, each under a Lyra header with a green connection dot" class="screenshot-full">
         <p class="screenshot-caption">Lyra's widgets on the desktop - the Control Panel (left), plus the Monitor Toggles and Volume widgets.</p>
 
         <table>
             <tbody><tr><th>Widget</th><th>Buttons</th><th>Sizes</th></tr>
-            <tr><td>Lyra - Control Panel</td><td class="wrap-ok">Volume, Mute / DIM / Mono, Slots 1-3 (all in one)</td><td>Large</td></tr>
-            <tr><td>Lyra - Monitor Toggles</td><td class="wrap-ok">Mute, DIM, Mono</td><td>Medium</td></tr>
+            <tr><td>Lyra - Control Panel</td><td class="wrap-ok">Volume, Mute / DIM / Mono (+ Speakers), Slots 1-3 (all in one)</td><td>Large</td></tr>
+            <tr><td>Lyra - Monitor Toggles</td><td class="wrap-ok">Mute, DIM, Mono (+ Speakers)</td><td>Medium</td></tr>
             <tr><td>Lyra - Volume</td><td class="wrap-ok">Volume down, Volume up</td><td>Small or Medium</td></tr>
             <tr><td>Lyra - Reference Levels</td><td class="wrap-ok">Slot 1, Slot 2, Slot 3</td><td>Medium</td></tr>
         </tbody></table>
@@ -921,6 +995,8 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">Each tap fires the matching <code>lyra://</code> URL, so the actual action runs in Lyra's main process. Lyra has to be running - it's a menu bar app, so just having it launched is enough, no window needed.</p>
 
         <p class="prose">The widgets <strong>reflect live state</strong>: the Mute and Mono buttons fill with the accent colour when active, the Reference Levels widget highlights the slot you're currently on, and every button dims when Lyra isn't connected to the Mixer Engine. State updates a moment after each tap, once the Apollo echoes the change back to Lyra.</p>
+
+        <p class="prose">With ALT speakers on in UA Console, Monitor Toggles and Control Panel add a <strong>Speakers</strong> button that shows the pair playing now and steps to the next one. The slot buttons then recall the slots of the pair playing now.</p>
 
         <p class="prose">Volume buttons step by Lyra's <strong>Volume step</strong> preference (set in <a href="#settings">Settings</a>), the same as F11 / F12. Reference slot buttons honour your stored slot names and dB SPL calibrations exactly like the menu's Reference Levels submenu.</p>
 
@@ -932,9 +1008,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 12. UA Mixer Engine ─────── -->
+    <!-- ─────── 13. UA Mixer Engine ─────── -->
     <section class="guide-section" id="mixer-engine">
-        <h2>12. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
+        <h2>13. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
 
         <p class="prose">Lyra talks to <strong>UA Mixer Engine</strong> - the local daemon that backs UA Console. It connects over TCP to <code>localhost:4710</code> and uses UA's NULL-terminated text protocol (<code>get /path\0</code>, <code>set /path value\0</code>, <code>subscribe /path\0</code> → JSON responses).</p>
 
@@ -974,9 +1050,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 13. Settings ─────── -->
+    <!-- ─────── 14. Settings ─────── -->
     <section class="guide-section" id="settings">
-        <h2>13. Settings <a href="#settings" class="anchor">#</a></h2>
+        <h2>14. Settings <a href="#settings" class="anchor">#</a></h2>
 
         <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. New in v1.6. Two sections.</p>
 
@@ -1011,9 +1087,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 14. Trial & licensing ─────── -->
+    <!-- ─────── 15. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>14. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>15. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Lyra is <strong>$9.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
@@ -1042,9 +1118,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 15. Updates ─────── -->
+    <!-- ─────── 16. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>16. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
@@ -1053,18 +1129,18 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 16. Launch at login ─────── -->
+    <!-- ─────── 17. Launch at login ─────── -->
     <section class="guide-section" id="launch-at-login">
-        <h2>16. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <h2>17. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
         <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
         <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 17. Troubleshooting ─────── -->
+    <!-- ─────── 18. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>17. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>18. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>F-keys do nothing</h3>
         <ol>
@@ -1104,9 +1180,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 18. What Lyra doesn't do ─────── -->
+    <!-- ─────── 19. What Lyra doesn't do ─────── -->
     <section class="guide-section" id="out-of-scope">
-        <h2>18. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+        <h2>19. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
         <p class="prose">Out of scope, in case any of these are dealbreakers:</p>
 
@@ -1114,6 +1190,7 @@ open "lyra://mute/toggle"</code></pre>
             <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol; there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
             <li><strong>Per-app or system volume.</strong> Lyra changes the Apollo's Monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
             <li><strong>Cue / line / aux outputs.</strong> Only the <code>Monitor</code> output (<code>outputs/4</code>) is exposed. Cue outputs and aux faders have their own paths in the mixer.</li>
+            <!-- TODO(volt): mirrors USER-GUIDE.md. When the md says which non-Apollo UA interfaces (Volt) Lyra drives, re-mirror this line. -->
             <li><strong>Non-Apollo interfaces.</strong> Lyra speaks UA's protocol on <code>localhost:4710</code> only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
             <li><strong>More than three Reference Levels.</strong> Three slots map onto Ctrl+F10/F11/F12 and that's the design. If you need more positions, drive Lyra from a Stream Deck or Shortcut via <code>lyra://volume/set?tapered=…</code> - your launcher can hold any number of presets.</li>
             <li><strong>Configurable shortcuts.</strong> F10/F11/F12 (and the modifier variants) are fixed. Use Karabiner-Elements or BetterTouchTool to remap, or fire <code>lyra://</code> URLs from any tool of your choice.</li>
@@ -1122,9 +1199,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 19. Feedback ─────── -->
+    <!-- ─────── 20. Feedback ─────── -->
     <section class="guide-section" id="feedback">
-        <h2>19. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
+        <h2>20. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
         <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
