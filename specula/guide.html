@@ -574,6 +574,10 @@
         <li><strong>The seek bar</strong>, under the top bar.</li>
         <li><strong>The task bar and the canvas</strong>: the task's own tools, then the task's views stacked top to bottom. Nothing sits at the window's foot.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-inspect.webp" type="image/webp"><img src="specula-inspect.png" width="3200" height="2000" alt="Specula 2.0 in Inspect with a song: the inspector with the file, Deliver to and the delivery card on the left, the top bar with the transport, the tasks and the views, and the waveform, loudness and spectrogram views." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The window.</strong> The inspector on the left, the top bar across the top, the task's views in the canvas.</figcaption>
+        </figure>
         <h3 id="the-top-bar">The top bar</h3>
         <p class="prose">From the left:</p>
         <ul>
@@ -676,6 +680,10 @@
         <li><strong>Four tiles</strong>: <em>Drop an audio file here</em> (click it to open the file picker, or drop one or more files on it), <em>Generate a test signal</em> (the Signal Generator), <em>Record audio</em> (the Record task) and <em>Check a folder</em> (the Check a Folder window). In a narrow window they go two by two, then one above another.</li>
         <li><strong>Recent</strong>: the ten most recent files, each with its folder, length and format, and the delivery category in force when it was last open. A click opens it. A file that is no longer where it was reads <em>File not found</em> and does not open.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-empty-window.webp" type="image/webp"><img src="specula-empty-window.png" width="3200" height="2000" alt="The empty window: tiles to open a file, generate a test signal, record and check a folder, and the recent files with their format and last delivery category." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The empty window.</strong> The ways to a file, and the recent files with what Specula knew of them.</figcaption>
+        </figure>
         <p class="prose">With no file, Tab reaches the tiles and the question's buttons, and Space presses them.</p>
         <h3 id="esc">Esc</h3>
         <p class="prose">Esc does one thing per press, in this order:</p>
@@ -779,6 +787,10 @@
         <p class="prose">Specula keeps the decoded audio in memory. When the file has loaded, it measures the whole file in the background and fills the inspector; see <a href="#readings">Readings</a>.</p>
         <h3 id="headerless-audio-raw-pcm">Headerless audio (raw PCM)</h3>
         <p class="prose">A decoder under test emits raw samples, a logic analyser dumps an I2S capture, a test harness writes a bare array of floats. Nothing in such a file says how to read it. When a file cannot be read as a known audio format (any extension, through every open path above), Specula asks for its format instead of refusing it. Declare it once and the file works like any other: measure it, compare it, edit it, report on it.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-raw-import-sheet.webp" type="image/webp"><img src="specula-raw-import-sheet.png" width="1000" height="1220" alt="The raw import sheet for a headerless file: sample rate, channels, sample format, byte order and layout, the formats ranked by likelihood, and a waveform preview." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Raw PCM import.</strong> Declare the format and check the preview before opening; the sample rate is never guessed.</figcaption>
+        </figure>
         <p class="prose">The import sheet declares:</p>
         <ul>
         <li><strong>Sample rate</strong>, typed or picked from the common rates. Specula never guesses it: no byte pattern reveals a rate, and a wrong one shifts every measurement (K-weighting, true peak, FFT frequencies).</li>
@@ -820,6 +832,10 @@
         <li><strong>Edit targets…</strong> opens Settings › Delivery targets.</li>
         <li>A <strong>lens suggestion</strong> shows at the top when the file fits another category better.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-deliver-to.webp" type="image/webp"><img src="specula-deliver-to.png" width="1520" height="880" alt="The Deliver to picker open over the window: the five delivery categories and the targets in Music streaming, with Spotify leading." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Deliver to.</strong> A category, and the target that leads the card.</figcaption>
+        </figure>
         <p class="prose"><strong>Audiobook</strong> is Podcast with ACX leading: under Audiobook, ACX stays checked and primary (<em>Audiobook leads with ACX. Choose Podcast to lead with another target.</em>). Under Podcast, ACX cannot lead (<em>Choose Audiobook to lead with ACX.</em>), and unchecking the primary target passes the lead to another checked target, never to ACX.</p>
         <h3 id="the-targets">The targets</h3>
         <table>
@@ -1059,6 +1075,10 @@
         <li><strong>ALSO CHECKED</strong>: every other checked target in one line, with a short verdict (<em>-5.0 dB</em>, <em>as recorded</em>, <em>on reference</em>, <em>passes</em>, <em>fails true peak</em>, <em>no reading</em>) and a <strong>Fix</strong> menu where a fix applies. Hover a line for its full sentence.</li>
         <li>Under Music streaming, the <strong>MONO</strong> and <strong>CODEC CHECK</strong> rows (below).</li>
         </ul>
+        <figure class="shot shot--narrow">
+            <picture><source srcset="specula-delivery-card.webp" type="image/webp"><img src="specula-delivery-card.png" width="476" height="704" alt="The delivery card for a song under Music streaming: Spotify's verdict as a sentence, the other platforms one line each, the mono and codec rows, and the fixes as buttons." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The delivery card.</strong> The leading target's verdict in words, the others one line each, the fixes by name.</figcaption>
+        </figure>
         <p class="prose">While the file is measured the card says <em>Measuring the file…</em>. After a change it shows the previous numbers dimmed with <em>Measuring the file again. The fixes wait for it.</em> With nothing checked in the category it says <em>No target is checked for &lt;category&gt;. Choose one with Deliver to.</em></p>
         <h3 id="colours">Colours</h3>
         <p class="prose">A reading is coloured by what the primary target does with it:</p>
@@ -1088,6 +1108,10 @@
         <li>A song (the music analysis found a key and speech does not dominate) under Podcast, Audiobook or Film and TV suggests Music streaming, or Film and TV for a surround song.</li>
         <li>Broadcast gets no suggestion.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-lens-suggestion.webp" type="image/webp"><img src="specula-lens-suggestion.png" width="3200" height="2000" alt="A speech file opened under Music streaming, with the suggestion to deliver it as a podcast under the Deliver to chip." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>A suggestion.</strong> Speech under Music streaming; the lens changes only when the suggestion is taken.</figcaption>
+        </figure>
         <p class="prose"><em>Mostly speech</em> means speech in 60% or more of the file's non-silent blocks. The lens changes only when you press the switch. The banner's close button hides the suggestion for that file until Specula quits; the picker still shows it.</p>
         <h3 id="the-mono-check">The mono check</h3>
         <p class="prose">Under Music streaming, the delivery card says whether a stereo file folds to mono. It reads left against right as the Stereo width view does, over the whole file and over every second of it (blocks below -70 dBFS do not count). A file passes when its correlation stays above -0.2:</p>
@@ -1096,8 +1120,16 @@
         <li><em>Correlation stays below -0.2 for 3.4 s from 1:02.3. That part thins out in mono.</em>, or the count, total and longest stretch when there are several. <strong>Select the longest stretch</strong> selects it so you can play it.</li>
         <li><em>Out of phase: correlation -0.45 over the file. Folded to mono, much of it cancels.</em> A whole file below -0.2 reads this way, as a file with one channel's polarity flipped does.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-mono-check.webp" type="image/webp"><img src="specula-mono-check.png" width="3200" height="2000" alt="The Stereo view over a master, with the longest stretch below -0.2 correlation selected from the delivery card's mono line." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The mono check.</strong> The longest stretch that folds badly to mono, selected from the card.</figcaption>
+        </figure>
         <h3 id="the-codec-check">The codec check</h3>
         <p class="prose">The codec check shows what Apple Music's AAC encode does to the master. Under Music streaming the card's <strong>CODEC CHECK</strong> row offers <strong>Check Apple Music's AAC encode</strong>; <strong>Analyze › Check the Apple Music Encode</strong> does the same under any category. Specula encodes the file as AAC with the encode Apple's afconvert makes (256 kbps, constrained VBR, quality 127; 128 kbps for mono), decodes it and measures the encode's true peak and its samples over full scale. Files above 48 kHz are resampled to 44.1 or 48 kHz first. The check takes mono and stereo files at 44.1 kHz and above.</p>
+        <figure class="shot shot--narrow">
+            <picture><source srcset="specula-codec-card.webp" type="image/webp"><img src="specula-codec-card.png" width="476" height="184" alt="The delivery card's codec row after a check: the encode's true peak and samples over full scale, with the fixes it offers." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The codec check.</strong> What Apple Music's AAC encode does to the master's peaks.</figcaption>
+        </figure>
         <p class="prose">The row then states the result, such as <em>After Apple Music's AAC encode the true peak is +0.4 dBTP, with 12 samples over full scale.</em>, coloured against the primary target's true-peak ceiling, and offers:</p>
         <ul>
         <li><strong>Limit peaks to -1.7 dBTP</strong>, when the encode goes over the ceiling: it opens Limit True Peak at the target less what the encode added. Check again after the limit.</li>
@@ -1106,6 +1138,10 @@
         <p class="prose">After an edit the result reads dimmed with <em>Checked before the last edit.</em> and <strong>Check again</strong>. The export sheet's <strong>Codec check</strong> switch puts the check in the reports.</p>
         <h3 id="custom-targets">Custom targets</h3>
         <p class="prose"><strong>Settings › Delivery targets › Add Custom Target…</strong> defines your own delivery spec: a <strong>Name</strong>, a <strong>Mode</strong> (the list it joins: Music / Streaming, Podcast / Spoken Word, VOD or Broadcast; a Podcast / Spoken Word target appears under both Podcast and Audiobook), what to <strong>Measure</strong> (Integrated (full program), Dialog-gated (speech only) or RMS (un-weighted, ACX-style)), a <strong>Reference</strong>, a <strong>Tolerance</strong> and a <strong>True-peak ceiling</strong>. Fields take up to two decimals, and a target's levels print as you set them. A custom target is a compliance target: it passes when the reading sits within the tolerance and the true peak stays at or under the ceiling. It appears in its category's list in the picker and in Settings, and works everywhere a built-in target does: the verdict, the fixes and the reports.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-custom-target.webp" type="image/webp"><img src="specula-custom-target.png" width="1800" height="1216" alt="The custom target editor in Settings, Delivery targets: name, category, reference, tolerance, true-peak ceiling and gating." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>A custom target.</strong> It joins its category beside the built-in specs.</figcaption>
+        </figure>
     </section>
 
     <hr class="divider">
@@ -1310,6 +1346,10 @@
         <p class="prose">Once the music analysis has found a song, a band under the ruler shows its sections (S1, S2 and on), each with Specula's integrated loudness for that section and shaded from darker (quieter) to lighter (louder). Click a section to select it; Space then plays it and ⌘Return analyses it. See <a href="#music">Songs</a>.</p>
         <span class="anchor-alias" id="loudness-curve"></span><span class="anchor-alias" id="violations"></span><h3 id="the-loudness-view">The loudness view</h3>
         <p class="prose">The loudness view plots the momentary, short-term and integrated loudness over time, aligned with the other lanes, for the whole file.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-loudness-lane.webp" type="image/webp"><img src="specula-loudness-lane.png" width="2660" height="672" alt="The loudness view around the file and its target: the momentary and short-term curves, the threshold lines, and the primary target as a dashed line with its name." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The loudness view.</strong> The curves against the thresholds and the target line.</figcaption>
+        </figure>
         <ul>
         <li>It opens on a range around the file's loudness and the primary target, and draws the target as a dashed line with its name and level, such as <em>Spotify -14 LUFS</em>. ACX targets get no line.</li>
         <li>⌥-scroll zooms the LUFS range. The zoom stays until you double-click the view, open another file or choose another target.</li>
@@ -1522,8 +1562,16 @@
         <p class="prose">Over the waveform, a selection shows its length (the LEN field's text) with <strong>Cut</strong>, <strong>Trim</strong>, <strong>Fade in</strong>, <strong>Fade out</strong>, <strong>Gain -1 dB</strong>, <strong>Gain +1 dB</strong> and <strong>Analyse</strong>. It sits clear of the selection's edges, so a drag on an edge still reaches the waveform. The HUD and menu fades use the equal-power curve, and the HUD and menu Cut a 10 ms crossfade.</p>
         <h3 id="the-history">The History</h3>
         <p class="prose">The inspector's <strong>History</strong> lists every edit of the session by name, up to 16 steps back. Click a step to go back or forward to it in one move; every step brings back the audio whole, to its last sample. The step that matches the file on disk says <strong>On disk</strong>, and going back to it leaves nothing unsaved. Saving starts the history again. <kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> step one at a time. The history is kept on disk, one temporary file per step, so deep history does not multiply memory. When a step cannot be written, Specula asks before applying the edit without Undo.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-edit-task.webp" type="image/webp"><img src="specula-edit-task.png" width="3200" height="2000" alt="The Edit task: a selection over a chorus with its HUD, the Edit task bar, and the history of four edits in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Edit.</strong> The selection's HUD, the task bar, and every edit in the history.</figcaption>
+        </figure>
         <h3 id="the-plugin-drawer">The plugin drawer</h3>
         <p class="prose">The <strong>Plugins</strong> button opens a strip of Audio Unit effects that process the audio in Edit, for mono and stereo files. Closed, it shows how many plugins the chain holds and how many play, and while a render runs its progress with Cancel.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-edit-plugins.webp" type="image/webp"><img src="specula-edit-plugins.png" width="3200" height="2000" alt="The Edit task with the plugin drawer open and two Audio Unit effects in the chain." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The plugin drawer.</strong> Effects heard live, rendered into the file or to a Compare slot.</figcaption>
+        </figure>
         <ul>
         <li><strong>Add</strong> browses the effects installed on your Mac, grouped by maker and searchable; pick one to append it.</li>
         <li>Each <strong>chip</strong> shows the plugin's name and maker, with buttons to bypass it, move it earlier or later, open its controls (its own window, or a generic parameter panel for a plugin without one) and remove it. A plugin that fails to load shows a red warning with the reason. Click a plugin's name to select it for the Edit menu's plugin commands.</li>
@@ -1552,6 +1600,10 @@
         <p class="prose"><strong>Switching.</strong> Press <kbd>1</kbd> to <kbd>6</kbd>, click a slot's chip, or click <strong>Listen</strong> over its column in the matrix; playback carries on from the same position. A file at another sample rate is resampled to slot A's rate once, when it is added: switching to it is instant, and its residual and Align work. Its readings and reports describe the file itself, at its own rate, and the inspector reads, for example, <em>44.1 kHz, plays at 48.0 kHz</em>. Left alone after the others are removed, it loads again at its own rate. Switching to a slot with another channel count rebuilds the audio graph, with a short pause.</p>
         <h3 id="the-matrix">The matrix</h3>
         <p class="prose">The Compare task opens on the metrics matrix over the waveform. Each slot has a column: its letter and name, a <strong>Listen (n)</strong> button naming its key, and its readings: Integrated, True peak, Sample peak, LRA, DR, Max momentary, Max short-term, Duration, and Dialogue when a slot holds speech or the primary target judges it. Each value shows its difference from A, worked out from the printed values (<em>= A</em> when both print the same). A <strong>Residual (A minus)</strong> row shows each residual's peak and RMS once one exists.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-compare-task.webp" type="image/webp"><img src="specula-compare-task.png" width="3200" height="2000" alt="The Compare task with four versions of a song: the matrix with each slot's readings and its difference from A, the waveform, and the slot card in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Compare.</strong> The matrix, the slot in front, and its card.</figcaption>
+        </figure>
         <h3 id="compare-the-task-bar">The task bar</h3>
         <ul>
         <li><strong>The slot chips</strong>: click one to bring it to the front; drag a chip onto another to move it there (onto A's to make it the reference); right-click for <strong>Make the Reference (A)</strong>, <strong>Move Left</strong>, <strong>Move Right</strong> and <strong>Remove</strong>.</li>
@@ -1573,6 +1625,10 @@
         <p class="prose">Slot A's card says it is the reference: the other slots align to it and their residuals subtract from it.</p>
         <h3 id="the-residual">The residual</h3>
         <p class="prose">The residual is A minus the slot in front, at the slot's offset, trim, polarity and level match. With level match on, two correct masters of the same source null close to silence; anything above silence is what differs. It is computed again whenever the slot's offset, gain, polarity or level match changes, also when the change comes while it is still being computed.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-compare-residual.webp" type="image/webp"><img src="specula-compare-residual.png" width="3200" height="2000" alt="The residual of slot B playing, with its own peak and RMS in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The residual.</strong> A minus the slot in front, level matched, with its own readings.</figcaption>
+        </figure>
         <p class="prose">While a residual plays, the inspector shows its own <strong>Peak</strong> and <strong>RMS</strong> (over the stretch where both files have audio) in place of the delivery card, with only the Channels group below, and <em>The two files null: their difference is digital silence.</em> when they do. A residual gets no loudness reading or verdict. Press D again to hear the slot. <strong>File › Export Residual Audio…</strong> (⌃⌘E), the task bar's Export Residual… and the export sheet's Residual audio write the residual in front, and are unavailable when it has none.</p>
         <h3 id="a-new-reference">A new reference</h3>
         <p class="prose">Moving a file into slot A, or removing slot A, rebases every offset onto the new A, computes the residuals again and names the new reference: <em>&lt;name&gt; is the reference now. Alignments follow it.</em></p>
@@ -1647,6 +1703,10 @@
         </tbody>
         </table>
         <p class="prose"><strong>Detection</strong> holds <strong>Silence below</strong> (-90 to -30 dB, -55 to start) and <strong>For at least</strong> (0.5 to 10 s, 2 s to start), used at the next Detect; <strong>Compare by</strong> (RMS or Integrated LUFS, RMS to start) and <strong>Flag beyond</strong> (0.5 to 5, 2.0 to start), which apply at once; and <strong>Offer chapters saved in earlier sessions</strong>.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-chapters-task.webp" type="image/webp"><img src="specula-chapters-task.png" width="3200" height="2000" alt="The Chapters task on an audiobook chapter set: the chapter map, the table with ACX marks, the ACX card and the Level chapters panel." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Chapters.</strong> The map, the table with every chapter's readings, and ACX in the inspector.</figcaption>
+        </figure>
         <p class="prose"><strong>How detection works.</strong> Each silence below the threshold and longer than the minimum becomes a boundary, and the audio between two silences a chapter. A chapter with under 1 s of non-silent content is dropped. The first chapter starts at 0 and the last ends at the end of the file.</p>
         <p class="prose"><strong>Boundaries.</strong> Chapter boundaries are drawn in every lane. Drag a boundary in the waveform to move it. Click a boundary to select the chapter that starts there; Remove then deletes that boundary. After Remove nothing is selected.</p>
         <h3 id="the-chapter-table">The chapter table</h3>
@@ -1743,6 +1803,10 @@
         </tbody>
         </table>
         <p class="prose">The bar also shows a pending In (<em>In at 0:12.340</em>), the number of regions with a dot in their tint, and why saved regions were not applied.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-speech-task.webp" type="image/webp"><img src="specula-speech-task.png" width="3200" height="2000" alt="The Speech task: corrected speech regions on the waveform, the Speech task bar and the Level Dialogue panel with its prediction." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Speech.</strong> The regions the loudness is gated on, and Level Dialogue before Apply.</figcaption>
+        </figure>
         <p class="prose"><kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> in Speech step the region edits (up to 50 steps), separately from the edit history. Region undo survives leaving Speech and is cleared by opening a file or by an edit that moves the timeline.</p>
         <h3 id="detection">Detection</h3>
         <p class="prose"><strong>Detection</strong> holds the three speech detection settings, which apply to every file:</p>
@@ -1774,6 +1838,10 @@
 
         <p class="prose"><kbd>⌘6</kbd>, or the Spectral button. Spectral turns the canvas into a zoomable, full-resolution spectrogram of the file, where you select regions in time and frequency and process only those: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum. It works on any channel count, and its edits share the edit history and the Save commands with Edit.</p>
         <h3 id="spectral-the-canvas">The canvas</h3>
+        <figure class="shot">
+            <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task: a wand selection outlined with its feather, the tool palette on the canvas, and the operation panel in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Spectral.</strong> The selection, its feather, and the operation before Apply.</figcaption>
+        </figure>
         <ul>
         <li>A time ruler along the top (click or drag it to place the playhead), a frequency scale on the right of each channel row, and the readout under the pointer: time, frequency and level.</li>
         <li><strong>Wave</strong> in the task bar (<strong>Spectral › Show Waveform Strip</strong>) adds a small waveform strip over the canvas; click or drag it to move the playhead.</li>
@@ -1822,6 +1890,10 @@
         <p class="prose"><strong>Take goes to</strong>: <strong>New file</strong>, <strong>Append</strong>, <strong>Insert at playhead</strong> or <strong>Punch in</strong>; all but New file need a loaded file. <strong>Splice</strong> sets the equal-power crossfade at each join (0 to 100 ms, 10 ms to start; 0 is a hard splice). <strong>Save</strong> and <strong>Save As…</strong> as in Edit. The record button is in the top bar's transport, and <kbd>R</kbd> starts and stops a take.</p>
         <h3 id="record-the-canvas">The canvas</h3>
         <p class="prose">The <strong>Meters</strong> view names the input (<em>Input · &lt;device&gt;</em>) and shows, under <em>LIVE INPUT</em>, each channel's level from -60 to 0 dBFS with its peak (a clip lights it as an HDR accent), the momentary loudness and the true peak. While the input is armed it adds the <strong>room floor</strong> (below). While a take records the title reads <em>Recording · 0:12.3</em> with the record light, and the <strong>Last take</strong> view draws the take as it records, growing and scrolling, so a dead input shows within a second. When the input is not live, the view says why, such as <em>No microphone access</em> with the way to turn it on in System Settings › Privacy &amp; Security › Microphone.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-record-task.webp" type="image/webp"><img src="specula-record-task.png" width="3200" height="2000" alt="The Record task armed: the input meters, the room check and the takes." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Record.</strong> The input's level, the room's floor, and the takes on disk.</figcaption>
+        </figure>
         <p class="prose">Specula records the signal as the device delivers it: no noise suppression, no automatic gain, no EQ. Set the recording level with the input volume in System Settings › Sound › Input.</p>
         <h3 id="record-the-inspector">The inspector</h3>
         <ul>
@@ -1876,6 +1948,10 @@
         </ul>
         <h3 id="the-stems-view">The Stems view</h3>
         <p class="prose">The Stems view (⌃7) holds the detail, aligned with the other lanes. Click in it to place the playhead.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-songs.webp" type="image/webp"><img src="specula-songs.png" width="3200" height="2000" alt="A song after the music analysis: the section band and bars on the ruler, the Stems view, and the Music group in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>A song.</strong> Sections, bars and stems from the music analysis.</figcaption>
+        </figure>
         <ul>
         <li><strong>Structure</strong>: the sections as labelled bands, with segment and phrase boundaries as ticks. While the section band shows the sections, this row is left out.</li>
         <li><strong>Beat grid</strong>: bar lines and beat ticks (<em>zoom in for beats</em> on a long file at whole-file zoom).</li>
@@ -1888,6 +1964,10 @@
         <p class="prose">The <strong>Music</strong> group lists the <strong>Key</strong> and <strong>Tempo</strong>, the <strong>Loudest</strong> and <strong>Quietest</strong> sections and their <strong>Spread</strong>, and the stem-gated loudness: <strong>Vocal</strong> (integrated over the stretches where the vocal is present), <strong>Bed (no vocal)</strong> and <strong>Vocal balance</strong> (the difference in LU; positive means the vocal stretches run louder than the bed), then <strong>Drums</strong>, <strong>No drums</strong> and <strong>Drums balance</strong>. These are Specula's own BS.1770-4 measurements over the file's 100 ms blocks, gated by Apple's presence spans. A side with less than 10 seconds of audio above the absolute gate reads <em>-</em>.</p>
         <h3 id="sections-as-chapters">Sections as chapters</h3>
         <p class="prose">The Chapters task's <strong>From Music</strong>, or <strong>Chapters › Chapters from Music Sections</strong>, makes one chapter per section; <strong>Chapters from Music Segments</strong> makes a finer split. Analyse then gives the per-section table.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-chapters-from-music.webp" type="image/webp"><img src="specula-chapters-from-music.png" width="3200" height="2000" alt="The Chapters task after Chapters from Music Sections: one chapter per section, with each section's readings in the table." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Sections as chapters.</strong> One row per section in the chapter table.</figcaption>
+        </figure>
         <h3 id="reports">Reports</h3>
         <p class="prose">The JSON report carries the full result under <code>musicAnalysis</code> (stem spans and activity, beats, bars, tempo, sections, segments, phrases, keys, pace) and the stem-gated readings under <code>stemGatedLoudness</code>. The PDF and HTML reports get a Music summary. Apple's analysis is labelled as such. Every loudness figure in Specula is its own BS.1770-4 measurement; the model's loudness is not used.</p>
         <p class="prose">The results come from a closed model and can differ between macOS releases and between sample rates of the same audio. Read them as a map of the song, not as a measurement. Below macOS 27 the Stems view and Analyse Music are unavailable, and the command-line tool and Shortcuts do not run the analysis.</p>
@@ -1900,6 +1980,10 @@
         <h2>15. Check a Folder <a href="#check-a-folder" class="anchor">#</a></h2>
 
         <p class="prose"><strong>File › Check a Folder…</strong>, or the <em>Check a folder</em> tile with no file open, opens the Check a Folder window, which checks every audio file in a folder against Deliver to.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-check-folder.webp" type="image/webp"><img src="specula-check-folder.png" width="1800" height="1240" alt="The Check a Folder window after a run over a mixed folder: one row per file with its verdict against the delivery category." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Check a Folder.</strong> Every file judged, with a report for each.</figcaption>
+        </figure>
         <ul>
         <li><strong>Folder</strong>: <strong>Choose…</strong> the folder; <strong>Include subfolders</strong> on request. The window counts the audio files, the headerless files without a remembered format (they need one, declared once in the main window) and the other files skipped.</li>
         <li><strong>Judged against</strong>: the delivery category and its targets. <strong>Change…</strong> opens the Deliver to picker, which changes Deliver to in the main window too. The lens and the speech settings are fixed when a check starts.</li>
@@ -1953,6 +2037,10 @@
         </tr>
         </tbody>
         </table>
+        <figure class="shot shot--narrow">
+            <picture><source srcset="specula-export-sheet.webp" type="image/webp"><img src="specula-export-sheet.png" width="3200" height="2000" alt="The export sheet: the PDF, HTML and JSON reports ticked, the report contents, and the folder." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The export sheet.</strong> Reports, audio and the chapters CSV into one folder.</figcaption>
+        </figure>
         <p class="prose">An item that cannot be exported says why. <kbd>⇧⌘E</kbd> (Export JSON Report…) opens the sheet with only the JSON report ticked, and <kbd>⌥⌘E</kbd> (Export PDF Report…) with only the PDF.</p>
         <ul>
         <li><strong>Report contents</strong>: <strong>Loudness curves</strong>, <strong>Stereo width</strong>, <strong>Per-channel stats</strong>, <strong>Violations</strong> and <strong>Codec check</strong>. The ticked formats (when the sheet opens with ⌘E) and the contents are remembered for each delivery category. At first, every category writes the PDF, Audiobook the chapters CSV as well, and the codec check is on for Music streaming.</li>
@@ -2008,6 +2096,10 @@
         <li><strong>List</strong>: one row per output channel, with a source picker and a typed gain in dB per route.</li>
         <li><strong>Matrix</strong> (the default): rows are device outputs, columns are source channels; a routed cell is filled, an unrouted one dim. A routed cell has three zones: the <strong>dot</strong> turns the route off, the <strong>ϕ</strong> glyph cycles the route's phase through 0°, +90°, -90° and 180° (orange while not 0°), and the <strong>value</strong> is the gain in dB: type it (Return commits, Esc cancels) or drag up and down (0.25 dB per pixel). Click an unrouted cell to route it at 0 dB. Right-click a cell for the same actions.</li>
         </ul>
+        <figure class="shot">
+            <picture><source srcset="specula-routing-matrix.webp" type="image/webp"><img src="specula-routing-matrix.png" width="1170" height="1394" alt="Output and Routing on a 5.1 file: the channel meters switch, and the matrix of sources against outputs." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Output and Routing.</strong> Sources against outputs, with a gain in each cell.</figcaption>
+        </figure>
         <p class="prose">The ±90° states are a broadband Hilbert shift, not a polarity flip, so a quadrature relationship survives a fold-down built by hand. Save such a matrix as a preset to recall it.</p>
         <p class="prose">With the keyboard, Tab reaches every control; a gain takes Return or Space to type a value and the arrow keys to step it by 1 dB. With VoiceOver, each cell is a button named for its route, such as <em>L to R Out</em>, with its state.</p>
         <h3 id="render-to-file">Render to File</h3>
@@ -2021,6 +2113,10 @@
         <h2>18. Signal generator <a href="#generator" class="anchor">#</a></h2>
 
         <p class="prose"><strong>Window › Signal Generator</strong> (⌘G), or the <em>Generate a test signal</em> tile with no file open, opens the Signal Generator. It builds test signals from scratch and writes them to a file, so it needs nothing loaded. It keeps your signal across closing the window and relaunching.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-generator-window.webp" type="image/webp"><img src="specula-generator-window.png" width="1800" height="1464" alt="The Signal Generator window with a sine and pink noise stacked, the waveform and spectrum preview, and the format settings." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The Signal Generator.</strong> Stacked and sequenced test signals, previewed before they are written.</figcaption>
+        </figure>
         <h3 id="sources">Sources</h3>
         <p class="prose">A signal is made of modules. A module is one sound with a level, a start time and a length:</p>
         <ul>
@@ -2196,6 +2292,10 @@ specula report mix.wav --mode broadcast --no-curve
 
         <p class="prose"><strong>Specula › Settings…</strong> (⌘,) has five tabs. Settings holds what applies to every file; speech detection is set in the Speech task, chapter detection in the Chapters task, and the report contents in the export sheet. Each tab scrolls.</p>
         <h3 id="general">General</h3>
+        <figure class="shot">
+            <picture><source srcset="specula-settings-general.webp" type="image/webp"><img src="specula-settings-general.png" width="1800" height="1216" alt="Settings, General: appearance, text size, the top bar, the pointer, the loudness readout, updates, the license and the command-line tool." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Settings, General.</strong> What applies to every file and every task.</figcaption>
+        </figure>
         <ul>
         <li><strong>Appearance</strong> (macOS 26 and later): <strong>Liquid Glass chrome</strong>, on to start. Off gives solid dark chrome, which suits screenshots and screen recordings.</li>
         <li><strong>Text</strong>: <strong>Text size</strong>, Default, Large or Extra Large. It scales the inspector, the task bars, the views' strips, the top bar's timecode, IN, OUT and LEN fields and Analyse button, the segmented switches and the axis labels. The inspector also follows <strong>Increase Contrast</strong> (System Settings › Accessibility › Display) and draws its dimmed labels brighter.</li>
@@ -2207,6 +2307,10 @@ specula report mix.wav --mode broadcast --no-curve
         <li><strong>Command-line tool</strong>: <strong>Install Command-Line Tool…</strong>.</li>
         </ul>
         <h3 id="analysis">Analysis</h3>
+        <figure class="shot">
+            <picture><source srcset="specula-settings-analysis.webp" type="image/webp"><img src="specula-settings-analysis.png" width="1800" height="1216" alt="Settings, Analysis: the FFT window function, the averaged spectrum, the spectrogram colours and when the music analysis runs." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Settings, Analysis.</strong> The spectrum, the spectrogram and the music analysis.</figcaption>
+        </figure>
         <ul>
         <li><strong>FFT window function</strong>: Hann, Hamming, Blackman, Blackman-Harris or Flat Top, with a line on the one chosen.</li>
         <li><strong>Averaged spectrum</strong>: <strong>Average every window (exact)</strong>.</li>
@@ -2215,6 +2319,10 @@ specula report mix.wav --mode broadcast --no-curve
         </ul>
         <h3 id="delivery-targets">Delivery targets</h3>
         <p class="prose">One list per category: <strong>Music streaming</strong>, <strong>Podcast and Audiobook</strong>, <strong>Film and TV</strong> and <strong>Broadcast</strong>, each target with its reference and how a platform plays a master (<em>penalty, turns down only</em> or <em>penalty</em>), the primary target marked, and the number checked out of four. The lists keep the Deliver to picker's rules: under Audiobook ACX stays checked, and under Podcast unchecking the primary target passes the lead to another target, never to ACX. The category and the primary target are chosen with Deliver to.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-settings-delivery.webp" type="image/webp"><img src="specula-settings-delivery.png" width="1800" height="1216" alt="Settings, Delivery targets: one list per category with each target's reference and how the platform plays a master, the primary target marked, and the custom targets." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Settings, Delivery targets.</strong> Which targets each category checks.</figcaption>
+        </figure>
         <p class="prose"><strong>Custom targets</strong> lists yours with <strong>Edit</strong> and a delete button, and <strong>Add Custom Target…</strong>. See <a href="#custom-targets">Custom targets</a>.</p>
         <h3 id="editing-and-plugins">Editing and plugins</h3>
         <ul>
@@ -2260,6 +2368,10 @@ specula report mix.wav --mode broadcast --no-curve
         </tbody>
         </table>
         <p class="prose">The menu items name these keys in their titles: <em>Play (Space)</em>, <em>Slot 2 (2)</em>, <em>Listen to the Residual (D)</em>.</p>
+        <figure class="shot">
+            <picture><source srcset="specula-keyboard-shortcuts.webp" type="image/webp"><img src="specula-keyboard-shortcuts.png" width="1356" height="1024" alt="The Keyboard Shortcuts window: every command's key by task and menu." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Keyboard Shortcuts.</strong> Help, Keyboard Shortcuts lists the keys for the task in front.</figcaption>
+        </figure>
         <h3 id="file-menu">File menu</h3>
         <table>
         <thead>

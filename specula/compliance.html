@@ -101,9 +101,8 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
-        <!-- SHOT S15 (stand-in: the 1.x violations) -->
         <figure class="shot">
-            <img src="specula-violations.png" alt="Specula marking momentary, short-term and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async">
+            <picture><source srcset="specula-violations-51.webp" type="image/webp"><img src="specula-violations-51.png" width="3200" height="2000" alt="Specula marking momentary, short-term and true-peak loudness violations as coloured bands across all six channels of a 5.1 master, with the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async"></picture>
             <figcaption><strong>Violations on the timeline.</strong> With M, ST and TP thresholds set, every 100 ms block over one is shaded, across the whole file as soon as it has been measured, so a failing true peak is a position to seek to.</figcaption>
         </figure>
     </section>
@@ -169,14 +168,12 @@
 
     <!-- Violations screenshots: waveform marks + loudness curve detail -->
     <section class="shots shots--tight">
-        <!-- SHOT S15 variant (stand-in: the 1.x stereo violations) -->
         <figure class="shot">
-            <img src="specula-violations-stereo.png" alt="A stereo master with momentary, short-term and true-peak violations shaded along the waveform, the loudness graph below it and the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async">
+            <picture><source srcset="specula-violations-counts.webp" type="image/webp"><img src="specula-violations-counts.png" width="3200" height="2000" alt="A stereo master with momentary, short-term and true-peak violations shaded along the waveform, the loudness graph below it and the breach counts beside the M, ST and TP fields." loading="lazy" decoding="async"></picture>
             <figcaption><strong>The counts.</strong> How many blocks breach each threshold, and the shaded bands on the waveform where they sit.</figcaption>
         </figure>
-        <!-- SHOT S15 crop (stand-in: the 1.x loudness lane) -->
         <figure class="shot">
-            <img src="specula-loudness-curve.png" alt="The loudness graph opened around the file and its target: the momentary and short-term curves against the dashed threshold lines, with the primary target's line and name." loading="lazy" decoding="async">
+            <picture><source srcset="specula-loudness-lane.webp" type="image/webp"><img src="specula-loudness-lane.png" width="2660" height="672" alt="The loudness graph opened around the file and its target: the momentary and short-term curves against the dashed threshold lines, with the primary target's line and name." loading="lazy" decoding="async"></picture>
             <figcaption><strong>How far over, not just that it crossed.</strong> The momentary and short-term curves against their threshold lines, with the primary target drawn as a dashed line with its name.</figcaption>
         </figure>
     </section>
@@ -213,20 +210,16 @@
         <div class="section__grid">
             <p class="label">Verdicts and receipts</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
-                <!-- SHOT S31 (stand-in: the 1.x VOD rows) -->
                 <figure class="shot shot--narrow">
-                    <img src="specula-targets-vod.png" alt="The delivery card under Film and TV: Netflix's failing verdict in a sentence with the dialogue loudness and true peak, the Normalize dialogue and Limit peaks fixes, and the other platforms one line each." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-card-netflix.webp" type="image/webp"><img src="specula-card-netflix.png" width="476" height="524" alt="The delivery card under Film and TV: Netflix's failing verdict in a sentence with the dialogue loudness and true peak, the Normalize dialogue and Limit peaks fixes, and the other platforms one line each." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>Pass or fail, per spec.</strong> The failing criterion in a sentence, the fixes by name, the other specs one line each.</figcaption>
                 </figure>
-                <!-- SHOT S19: the export sheet (no 1.x stand-in; add when captured)
                 <figure class="shot shot--narrow">
-                    <img src="specula-export-sheet.png" alt="The export sheet: the PDF, HTML and JSON reports ticked, the report contents for Film and TV, and the delivery category and specs the reports will state." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-export-sheet.webp" type="image/webp"><img src="specula-export-sheet.png" width="3200" height="2000" alt="The export sheet: the PDF, HTML and JSON reports ticked, the report contents for Film and TV, and the delivery category and specs the reports will state." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>One export sheet.</strong> The reports, the edited audio and the chapters CSV into one folder, with what the reports include remembered for the category.</figcaption>
                 </figure>
-                -->
-                <!-- SHOT S20 (stand-in: the 1.0 report) -->
                 <figure class="shot shot--mid">
-                    <img src="specula-report.png" alt="A Specula PDF report: the delivery category and the specs it was judged against, per-spec verdicts, true peak, LRA and per-channel statistics." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-report-pdf.webp" type="image/webp"><img src="specula-report-pdf.png" width="2206" height="3120" alt="A Specula PDF report: the delivery category and the specs it was judged against, per-spec verdicts, true peak, LRA and per-channel statistics." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>A receipt to hand off.</strong> What the file was judged against, every spec's verdict and the readings behind it, as PDF, HTML or JSON.</figcaption>
                 </figure>
             </div>

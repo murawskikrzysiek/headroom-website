@@ -384,6 +384,7 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 figure.shot .ba__frame img { width: 100%; max-height: none; margin: 0; }
 .ba__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--ba)); }
 figure.shot .ba__after img { height: 100%; object-fit: cover; }
+.ba__after picture { height: 100%; }
 .ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
   -webkit-appearance: none; appearance: none; }
 .ba__handle { position: absolute; top: 0; bottom: 0; left: var(--ba); width: 2px; margin-left: -1px;

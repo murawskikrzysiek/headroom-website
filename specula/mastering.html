@@ -101,9 +101,8 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
-        <!-- SHOT S01 (stand-in: the 1.x window) -->
         <figure class="shot">
-            <img src="specula-overview.png" alt="Specula's Inspect task on a stereo master delivered to Spotify: the delivery card's verdict and fixes in the sidebar, the waveform, the loudness graph with a dashed Spotify −14 LUFS line, and the spectrogram." loading="lazy" decoding="async">
+            <picture><source srcset="specula-inspect.webp" type="image/webp"><img src="specula-inspect.png" width="3200" height="2000" alt="Specula's Inspect task on a stereo master delivered to Spotify: the delivery card's verdict and fixes in the sidebar, the waveform, the loudness graph with a dashed Spotify −14 LUFS line, and the spectrogram." decoding="async" fetchpriority="high"></picture>
             <figcaption><strong>Inspect, delivering to Spotify.</strong> The verdict and its fixes in the sidebar, the loudness with Spotify's −14 LUFS line, and the spectrogram of the whole file.</figcaption>
         </figure>
     </section>
@@ -156,9 +155,8 @@
                 <p class="prose-lead">Apple Music's Sound Check, YouTube and Tidal <strong>only turn loud tracks down</strong>. A master at −18 LUFS plays at −18 on Apple Music, not at its −16 reference, and the card says so: "Apple Music plays this as recorded, 2.0 dB under its −16 LUFS reference." It reads green and offers no level fix.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Spotify (in its default mode), Amazon Music, Deezer and SoundCloud <strong>raise quiet tracks</strong>, so their "turns this up by" is a real gain, and Hear at their level plays it.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Music streaming holds Spotify (−14 LUFS), Apple Music (−16), YouTube (−14), Tidal (−14), Amazon Music (−14, with a −2 dBTP ceiling), Deezer (−15), SoundCloud (−14) and the vendor-neutral AES TD1008 (−18). Every target's reference, tolerance and ceiling is in the <a href="guide.html#deliver-to">user guide</a>, and a custom target joins the category beside them.</p>
-                <!-- SHOT S28 (stand-in: the 1.x target rows) -->
                 <figure class="shot shot--narrow" style="margin-top: 22px;">
-                    <img src="specula-targets-asis.png" alt="The delivery card on a quiet master: Spotify's verdict turns it up, and Apple Music, YouTube and Tidal read as recorded." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-card-quiet-master.webp" type="image/webp"><img src="specula-card-quiet-master.png" width="476" height="628" alt="The delivery card on a quiet master: Spotify's verdict turns it up, and Apple Music, YouTube and Tidal read as recorded." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>A quiet master.</strong> Spotify turns it up; Apple Music, YouTube and Tidal play it as recorded.</figcaption>
                 </figure>
             </div>
@@ -180,19 +178,16 @@
         <div class="section__grid">
             <p class="label">On screen</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
-                <!-- SHOT S03 (stand-in: the 1.x sidebar) -->
                 <figure class="shot shot--narrow">
-                    <img src="specula-loudness-sidebar.png" alt="The delivery card: Spotify's verdict as a sentence, the other platforms one line each, the codec and mono checks, and the fixes as buttons." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-delivery-card.webp" type="image/webp"><img src="specula-delivery-card.png" width="476" height="704" alt="The delivery card: Spotify's verdict as a sentence, the other platforms one line each, the codec and mono checks, and the fixes as buttons." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>The delivery card.</strong> Spotify's verdict as a sentence, the other platforms one line each, the fixes by name.</figcaption>
                 </figure>
-                <!-- SHOT S04 (stand-in: the 1.x match row) -->
                 <figure class="shot">
-                    <img src="specula-match.png" alt="The codec check on the delivery card after a check, and the Apple Music encode in a Compare slot beside the master." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-codec-compare.webp" type="image/webp"><img src="specula-codec-compare.png" width="3200" height="2000" alt="The codec check on the delivery card after a check, and the Apple Music encode in a Compare slot beside the master." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>The codec check.</strong> The encode's true peak and overs on the card, and the encode beside the master in Compare.</figcaption>
                 </figure>
-                <!-- SHOT S29 (stand-in: the 1.x stereo lane) -->
                 <figure class="shot">
-                    <img src="specula-stereo.png" alt="The Stereo view over a master, with the longest stretch below −0.2 correlation selected from the delivery card's mono line." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-mono-check.webp" type="image/webp"><img src="specula-mono-check.png" width="3200" height="2000" alt="The Stereo view over a master, with the longest stretch below −0.2 correlation selected from the delivery card's mono line." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>The mono check.</strong> The Stereo view, with the longest stretch below −0.2 selected from the card.</figcaption>
                 </figure>
             </div>

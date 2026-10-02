@@ -70,7 +70,7 @@
             <p class="eyebrow">Workflow · Spectral repair</p>
             <h1 class="display">Take the cough out. Leave the chord.</h1>
             <p class="app-hero__desc">
-                A take is otherwise good except for one moment: a cough, a click, a chair squeak, a bite of hum. Re-recording is not always possible: a client session that is over, a location interview, an archival transfer with nothing left to record from. The specialized tools built for this exact job, select the blemish on a spectrogram and fix just that, are usually sold as a separate purchase or a subscription. The Spectral task does the same job inside the analyzer that checks the numbers.
+                A take is otherwise good except for one moment: a cough, a click, a chair squeak, a bite of hum. Re-recording is not always possible: a client session that is over, a location interview, an archival transfer with nothing left to record from. The Spectral task does that job, select the blemish on a spectrogram and fix just that, inside the analyzer that checks the numbers.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -100,9 +100,8 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
-        <!-- SHOT S11 (stand-in: 1.x Spectral mode) -->
         <figure class="shot">
-            <img src="specula-spectral-lasso.png" alt="Specula's Spectral task: a selection around a blemish with a white outline and the rest of the canvas dimmed, the tool palette on the canvas's left edge, the operation panel in the sidebar, and the Floor and Ceiling knobs in the task bar." loading="lazy" decoding="async">
+            <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="Specula's Spectral task: a selection around a blemish with a white outline and the rest of the canvas dimmed, the tool palette on the canvas's left edge, the operation panel in the sidebar, and the Floor and Ceiling knobs in the task bar." loading="lazy" decoding="async"></picture>
             <figcaption><strong>The Spectral task.</strong> Select the blemish on the spectrogram, then attenuate, erase or repair just that.</figcaption>
         </figure>
     </section>
@@ -116,22 +115,20 @@
                     Everything about the take is right, except one moment.
                 </p>
                 <p class="prose-lead" style="margin-top: 22px;">A cough lands under a line of dialogue, a chair creaks between two piano chords, a burst of mains hum rides under a quiet passage, and everything else about the take is right. Re-recording means getting the room, the performer and the take back, and sometimes that is not possible: the client has left, the location shoot wrapped, the interview subject is not coming back, the source is an archival transfer.</p>
-                <p class="prose-lead" style="margin-top: 14px;">The fix that problem needs is narrow: find the blemish in time and frequency, select exactly that, and process only the selection, leaving everything around it untouched. That is a different job from a general noise-reduction pass or an EQ move across the whole file, and it is usually priced and packaged as its own thing.</p>
+                <p class="prose-lead" style="margin-top: 14px;">The fix that problem needs is narrow: find the blemish in time and frequency, select exactly that, and process only the selection, leaving everything around it untouched. That is a different job from a general noise-reduction pass or an EQ move across the whole file.</p>
             </div>
         </div>
     </section>
 
-    <!-- Cost comparison -->
+    <!-- The price -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">What that job costs elsewhere</p>
+            <p class="label">The price</p>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    Roughly $90 to $1,200 one time, or a subscription you keep paying.
+                    Spectral editing for $99.99, one time.
                 </p>
-                <p class="prose-lead" style="margin-top: 22px;">Select-it-and-fix-it spectral repair is normally a specialist purchase: an entry-level spectral editor around $90, capped in sample rate and channels; a full spectral editor, or the restoration-suite tier that includes the select-and-fix tools, in the mid hundreds; the top suite tier, past a thousand dollars; or an editor on a subscription.</p>
-
-                <p class="prose-lead" style="margin-top: 18px;">Specula does not sell spectral repair as a separate tier. The Spectral task is part of the $99.99 one-time price, with everything else on this site: the delivery checks, loudness, FFT, spectrogram, compare, edit, record and the signal generator.</p>
+                <p class="prose-lead" style="margin-top: 22px;">The Spectral task is part of Specula's one-time price, with everything else on this site: the delivery checks, loudness, FFT, spectrogram, compare, edit, record and the signal generator. That makes it an affordable spectral editor, with the measurements that judge the fix in the same window.</p>
             </div>
         </div>
     </section>
@@ -152,16 +149,13 @@
     </section>
 
     <!-- Before and after -->
-    <!-- SHOT S12: before and after Apply, same view, same size (specula-repair-before.png, specula-repair-after.png).
-         Move the section out of the template when captured; before-after.js below drives it. -->
-    <template id="shot-s12">
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Before and after</p>
             <figure class="shot ba">
                 <div class="ba__frame">
-                    <img src="specula-repair-before.png" alt="The spectrogram with the blemish selected, before Apply." loading="lazy" decoding="async">
-                    <div class="ba__after"><img src="specula-repair-after.png" alt="The same view after Apply, with the blemish gone and the audio around it unchanged." loading="lazy" decoding="async"></div>
+                    <picture><source srcset="specula-repair-before.webp" type="image/webp"><img src="specula-repair-before.png" width="1520" height="880" alt="The spectrogram with the blemish selected, before Apply." loading="lazy" decoding="async"></picture>
+                    <div class="ba__after"><picture><source srcset="specula-repair-after.webp" type="image/webp"><img src="specula-repair-after.png" width="1520" height="880" alt="The same view after Apply, with the blemish gone and the audio around it unchanged." loading="lazy" decoding="async"></picture></div>
                     <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Divider between before and after">
                     <span class="ba__handle" aria-hidden="true"></span>
                     <span class="ba__tag ba__tag--before" aria-hidden="true">Before</span>
@@ -171,21 +165,18 @@
             </figure>
         </div>
     </section>
-    </template>
 
     <!-- Up close (screenshots) -->
     <section class="section section--bordered">
         <div class="section__grid">
             <p class="label">Up close</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
-                <!-- SHOT S11 crop: the wand (stand-in: 1.x) -->
                 <figure class="shot">
-                    <img src="specula-spectral-wand.png" alt="The wand's dashed outline of what a click would take on a harmonic, with its tolerance and reach in the task bar." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-wand-selection.webp" type="image/webp"><img src="specula-wand-selection.png" width="1864" height="688" alt="The wand's dashed outline of what a click would take on a whistle under the speech, with its tolerance and reach in the task bar." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>The wand.</strong> Pointing outlines what a click would take; a click takes the connected region at the clicked level.</figcaption>
                 </figure>
-                <!-- SHOT S27 Spectral crop: the operation panel (stand-in: 1.x Attenuate popover) -->
                 <figure class="shot">
-                    <img src="specula-spectral-attenuate.png" alt="The operation panel in the sidebar: Attenuate at −18 dB, the feather, the channels, Solo, Hear Result and Apply." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-part-spectral.webp" type="image/webp"><img src="specula-part-spectral.png" width="496" height="572" alt="The operation panel in the sidebar: Attenuate at −18 dB, the feather, the channels, Solo, Hear Result and Apply." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>The operation panel.</strong> Attenuate, Erase or Repair with its amount, the feather and the channels, and Solo and Hear Result before Apply.</figcaption>
                 </figure>
             </div>
@@ -199,7 +190,7 @@
             <div>
                 <div class="feature-row"><div class="feature-row__k">Is the Spectral task an automatic cleanup tool?</div><div class="feature-row__v">No. The Spectral task is manual spectral editing: the problem shows on the spectrogram, a rectangle, lasso, brush or wand selects it, and one of three operations, Attenuate, Erase or Repair, applies to the selection. There is no automatic de-noise, de-hum or de-reverb pass at this time. The fix lands exactly where it is pointed, and nothing else changes.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Do I need a subscription to use spectral repair?</div><div class="feature-row__v">No. Specula is a one-time purchase, and the Spectral task is part of the $99.99 price, not a separate add-on or a higher tier. There is no recurring fee to keep using it.</div></div>
-                <div class="feature-row"><div class="feature-row__k">How does it compare to the dedicated spectral repair tools?</div><div class="feature-row__v">Same core job, select a region on a spectrogram and fix it, different scope and price. The dedicated tools bundle spectral repair with a wider set of restoration modules at a specialist price. Specula bundles the Spectral task with the rest of its analyzer, the delivery checks, loudness, FFT, spectrogram, compare, edit and record, at $99.99, one time. Neither is a strict subset of the other; the choice follows which set of tools the job needs.</div></div>
+                <div class="feature-row"><div class="feature-row__k">How does it compare to the dedicated spectral repair tools?</div><div class="feature-row__v">The Spectral task does the core job of a spectral editor: select a region on the spectrogram, then attenuate, erase or repair only that, with Solo and Hear Result before Apply. It sits beside the delivery checks, loudness, FFT, compare, edit and record, for $99.99 one time. Restoration suites carry more repair modules; the choice follows which tools the job needs.</div></div>
             </div>
         </div>
     </section>

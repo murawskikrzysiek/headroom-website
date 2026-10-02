@@ -98,9 +98,8 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
-        <!-- SHOT S21 (stand-in: the 1.x Output panel; 2.0 adds the PRE and POST switch above the routing) -->
         <figure class="shot">
-            <img src="specula-surround-matrix.png" alt="Specula's output routing matrix: a patch-bay mapping 5.1 source channels to output channels with per-cell gain." loading="lazy" decoding="async">
+            <picture><source srcset="specula-routing-matrix.webp" type="image/webp"><img src="specula-routing-matrix.png" width="1170" height="1394" alt="Output and Routing on a 5.1 file: the channel meters' PRE and POST switch, and the matrix mapping the six source channels to the device's outputs, each routed cell with its gain." loading="lazy" decoding="async"></picture>
             <figcaption><strong>Route any channel anywhere.</strong> Rows are outputs, columns are source channels, and every routed cell carries its own gain and phase.</figcaption>
         </figure>
     </section>
@@ -177,24 +176,21 @@
         <div class="section__grid">
             <p class="label">The matrix at work</p>
             <div class="shots shots--tight" style="padding-bottom: 0;">
-                <!-- SHOT S37 (stand-in: the 1.x routing window) -->
                 <figure class="shot">
-                    <img src="specula-render-to-file.png" alt="The routing window with a 5.1 to stereo routing set and a Render to File button in the header." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-routing-downmix.webp" type="image/webp"><img src="specula-routing-downmix.png" width="1170" height="1394" alt="The routing window with a 5.1 to stereo routing set and a Render to File button in the header." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>Render the routing to a file.</strong> Only the routed outputs are written; the source is never overwritten.</figcaption>
                 </figure>
-                <!-- SHOT S38 (stand-in: the 1.x list view) -->
                 <figure class="shot shot--mid">
-                    <img src="specula-surround-list.png" alt="The routing list view with typeable per-contribution dB values and the preset bar above it." loading="lazy" decoding="async">
+                    <picture><source srcset="specula-routing-list.webp" type="image/webp"><img src="specula-routing-list.png" width="1170" height="1394" alt="The routing list view with typeable per-contribution dB values and the preset bar above it." loading="lazy" decoding="async"></picture>
                     <figcaption><strong>Type exact gains.</strong> The list view sets each contribution in dB, with the preset bar above it.</figcaption>
                 </figure>
-                <!-- SHOT S39 (stand-ins: the 1.x PRE and POST toggle) -->
                 <div class="shots-grid shots-grid--2">
                     <figure class="shot">
-                        <img src="specula-monitor-pre.png" alt="The PRE monitor toggle metering the source channels before routing." loading="lazy" decoding="async">
+                        <picture><source srcset="specula-meters-pre.webp" type="image/webp"><img src="specula-meters-pre.png" width="488" height="340" alt="The inspector's Channels meters on PRE: the six channels of a 5.1 file." loading="lazy" decoding="async"></picture>
                         <figcaption><strong>PRE.</strong> Meter the source channels before routing.</figcaption>
                     </figure>
                     <figure class="shot">
-                        <img src="specula-monitor-post.png" alt="The POST monitor toggle metering the routed output after the matrix." loading="lazy" decoding="async">
+                        <picture><source srcset="specula-meters-post.webp" type="image/webp"><img src="specula-meters-post.png" width="488" height="340" alt="The inspector's Channels meters on POST: the routed output, the 5.1 file folded to L and R." loading="lazy" decoding="async"></picture>
                         <figcaption><strong>POST.</strong> Meter the routed output after the matrix.</figcaption>
                     </figure>
                 </div>
