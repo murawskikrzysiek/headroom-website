@@ -28,6 +28,25 @@
         <description>Specula update feed</description>
         <language>en</language>
 
+        <!-- release-cut DRAFT for 2.0 (build 11), commented out until Specula-2.0.dmg is on R2:
+             fill in edSignature (sign_update Specula-2.0.dmg) and length (stat -f%z), check
+             pubDate, then uncomment.
+        <item>
+            <title>Version 2.0 - One window, seven tasks</title>
+            <description>Specula 2.0 is a free update for every 1.x license. The window is organized around seven tasks: Inspect, Edit, Compare, Chapters, Speech, Spectral and Record, chosen in the top bar or with Cmd-1 to Cmd-7, each with its own tools, views and part of the sidebar. Deliver to replaces the Mode: the file is judged against a delivery category (Music streaming, Podcast, Audiobook, Film and TV or Broadcast) and its primary target, with the verdict in a sentence and the fixes that change it. Check a Folder judges every file of a folder at once. The codec check measures what Apple Music's AAC encode does to the master, and a mono check reads the stereo correlation. Edit keeps a history of every edit, Compare shows the slots' readings in a matrix and switches between files at different sample rates without a pause, and the empty window lists the recent files. The sidebar shows the whole file's readings as soon as it has loaded. The full list of changes and fixes is on the release notes page, and the user guide's Coming from 1.4 says where the Mode, Dialogue mode and Chapter mode went.</description>
+            <pubDate>Sat, 03 Oct 2026 12:00:00 +0000</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Specula-2.0.dmg"
+                sparkle:edSignature="PLACEHOLDER_ED_SIGNATURE"
+                length="PLACEHOLDER_LENGTH"
+                type="application/octet-stream" />
+        </item>
+        -->
+
         <!-- release-cut: edSignature and length are from Specula-1.4.1.dmg rebuilt
              2026-09-28 on main 7475948 (build 10, universal, notarized, carries both macOS 27
              fixes), 18,328,872 bytes; R2 serves this file (ETag = its MD5). pubDate set 2026-09-28. -->

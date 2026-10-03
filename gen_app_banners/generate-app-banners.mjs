@@ -65,7 +65,7 @@ const APPS = [
     icon: join(ICONS_DIR, 'specula/icon.png'),
     subtitle: 'Pro audio analysis & repair for macOS',
     // Optional: rendered as a wrapped accent line under the subtitle.
-    features: 'EBU R128 loudness · custom targets · speech-gated LUFS · spectral editing · 6-file compare · record · signal generator · CLI',
+    features: 'delivery verdicts · EBU R128 loudness · speech-gated LUFS · spectral repair · 6-file compare · ACX chapters · record · folder check',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
 ];
