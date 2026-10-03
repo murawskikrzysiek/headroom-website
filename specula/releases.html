@@ -187,6 +187,7 @@
       <li><span class="tag tag-fix">Fix</span><span><strong>A second Specula leaves the first one's renders on disk.</strong> Starting a second copy of Specula deleted the WAV files the first copy's Render to Compare Slot had written, while its Compare slots still named them. Each copy now keeps its renders in a folder of its own.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong>Selecting a speech region leaves Undo alone.</strong> A click that selected a region recorded an undo step, so the next ⌘Z changed nothing and Redo was lost. Only a change to a region is a step now.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong>Opening a file clears the time selection.</strong> The previous file's IN and OUT carried over to the next file opened.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>The chapter map stays readable with many chapters.</strong> With many chapters in view, each chapter's readings drew across its neighbours'. A chapter now shows what its width holds, from its number alone to every reading, and its tooltip lists all of them. A chapter that fails ACX or stands out from the median shows red at any width.</span></li>
     </ul>
   </section>
 
