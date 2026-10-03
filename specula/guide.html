@@ -1812,7 +1812,7 @@
             <picture><source srcset="specula-speech-task.webp" type="image/webp"><img src="specula-speech-task.png" width="3200" height="2000" alt="The Speech task: corrected speech regions on the waveform, the Speech task bar and the Level Dialogue panel with its prediction." loading="lazy" decoding="async"></picture>
             <figcaption><strong>Speech.</strong> The regions the loudness is gated on, and Level Dialogue before Apply.</figcaption>
         </figure>
-        <p class="prose"><kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> in Speech step the region edits (up to 50 steps), separately from the edit history. Region undo survives leaving Speech and is cleared by opening a file or by an edit that moves the timeline.</p>
+        <p class="prose"><kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> in Speech step through Speech's own changes, newest first: the region edits (up to 50 steps) and Level Dialogue's Apply. Edits made in other tasks stay with the edit history. Region undo survives leaving Speech and is cleared by opening a file or by an edit that moves the timeline.</p>
         <h3 id="detection">Detection</h3>
         <p class="prose"><strong>Detection</strong> holds the three speech detection settings, which apply to every file:</p>
         <ul>
@@ -2433,7 +2433,7 @@ specula report mix.wav --mode broadcast --no-curve
         <tbody>
         <tr>
         <td><kbd>⌘Z</kbd></td>
-        <td>Undo (the edit history; the region history in Speech)</td>
+        <td>Undo (the edit history; in Speech, its region edits and Level Dialogue)</td>
         <td></td>
         </tr>
         <tr>
