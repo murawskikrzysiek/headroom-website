@@ -185,6 +185,8 @@
       <li><span class="tag tag-fix">Fix</span><span><strong>Compare switches seamlessly between sample rates.</strong> Switching to a file at another sample rate, such as a codec stream at 44.1 kHz beside a 48 kHz master, paused playback for a moment, and the residual and Auto-align were unavailable for that file. A file at another rate now plays at slot A's rate, resampled once when it is added, so the switch is instant and the residual and Auto-align work. Its readings and reports describe the file itself, at its own rate.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong><code>specula compare</code> compares files at different sample rates.</strong> It refused them. It now resamples the second file to the first file's rate, as Compare in the app does.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong>A second Specula leaves the first one's renders on disk.</strong> Starting a second copy of Specula deleted the WAV files the first copy's Render to Compare Slot had written, while its Compare slots still named them. Each copy now keeps its renders in a folder of its own.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Selecting a speech region leaves Undo alone.</strong> A click that selected a region recorded an undo step, so the next ⌘Z changed nothing and Redo was lost. Only a change to a region is a step now.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Opening a file clears the time selection.</strong> The previous file's IN and OUT carried over to the next file opened.</span></li>
     </ul>
   </section>
 
