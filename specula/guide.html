@@ -1844,8 +1844,8 @@
         <p class="prose"><kbd>⌘6</kbd>, or the Spectral button. Spectral turns the canvas into a zoomable, full-resolution spectrogram of the file, where you select regions in time and frequency and process only those: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum. It works on any channel count, and its edits share the edit history and the Save commands with Edit.</p>
         <h3 id="spectral-the-canvas">The canvas</h3>
         <figure class="shot">
-            <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task: a wand selection outlined with its feather, the tool palette on the canvas, and the operation panel in the inspector." loading="lazy" decoding="async"></picture>
-            <figcaption><strong>Spectral.</strong> The selection, its feather, and the operation before Apply.</figcaption>
+            <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task on an interview with a chair squeak: a brush stroke along the squeak's lowest line, its overtones from 2× to 7× outlined above it by Include harmonics, the tool palette on the canvas, and the Spectral edit panel in the inspector." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Spectral, with Include harmonics.</strong> A stroke on the squeak's lowest line, and its overtones outlined above it.</figcaption>
         </figure>
         <ul>
         <li>A time ruler along the top (click or drag it to place the playhead), a frequency scale on the right of each channel row, and the readout under the pointer: time, frequency and level.</li>
@@ -1880,6 +1880,10 @@
         <li><strong>Hear Result</strong> (⌥Space) plays the span as Apply would leave it, with the chosen operation.</li>
         <li><strong>Apply</strong> writes the operation as one edit. The selection stays, so you can listen and apply again; Undo brings the audio back.</li>
         </ul>
+        <figure class="shot shot--narrow">
+            <picture><source srcset="specula-part-spectral.webp" type="image/webp"><img src="specula-part-spectral.png" width="496" height="740" alt="The Spectral edit panel: Erase with its depth, the feather, Include harmonics ticked with Up to 7× and Only where they ring, the span, range and harmonics found, Solo, Hear Result and Apply." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>The Spectral edit panel.</strong> The operation, the feather and Include harmonics, with the harmonics found.</figcaption>
+        </figure>
         <p class="prose">The operations change the level of the frequency bins inside the selection and leave their phase alone. Selections longer than 10 minutes are refused; select a shorter range and work in passes.</p>
         <p class="prose"><strong>Playback in Spectral.</strong> With a selection, Space plays its time span. Placing the playhead by hand (the ruler, the waveform strip, the arrow keys, Go to Start) makes Space play from the playhead until the selection changes. One thing plays at a time: starting Solo or Hear Result pauses the file; Space stops an audition and starts nothing; Play and Stop end it too. While an audition plays, the Play button shows pause.</p>
         <p class="prose">The <strong>Spectral</strong> menu holds the four tools, Bigger Brush and Smaller Brush, Reset Zoom, Fit Time to Window, Reset Frequency Zoom, Clear Selection, Include Harmonics, <strong>Attenuate</strong>, which applies the panel's gain and names it (<em>Attenuate (-18 dB)</em>), Erase to Floor (⌫), Repair, Play Selection Only, Hear the Result, Feather…, Contrast… and Show Waveform Strip. Erase to Floor and Repair also set the panel's operation.</p>

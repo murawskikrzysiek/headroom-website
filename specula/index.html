@@ -66,7 +66,7 @@
             <p class="eyebrow">Version 2.0</p>
             <h1 class="display">Specula</h1>
             <p class="app-hero__desc">
-                Audio analysis and repair for macOS. Specula judges a file against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the verdict in a sentence and the fix that would change it. Seven tasks cover the rest of the work: inspect the file, edit it, compare up to six versions down to the residual, check audiobook chapters, correct speech regions, repair in the spectrogram, and record.
+                Audio analysis and repair for macOS. Specula judges a file against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the verdict in a sentence and the fix that would change it. Seven tasks cover the rest of the work: inspect the file, edit it, compare up to six versions down to the residual, check audiobook chapters, correct speech regions, repair in the spectrogram with a squeak's overtones included, and record.
             </p>
             <div class="app-hero__badges">
                 <span class="badge badge--macos">macOS</span>
@@ -76,6 +76,7 @@
                 <span class="badge">ACX chapters</span>
                 <span class="badge">Six-version compare</span>
                 <span class="badge">Spectral repair</span>
+                <span class="badge badge--accent">Include harmonics</span>
                 <span class="badge">Check a Folder</span>
                 <span class="badge">Audio Unit plugins</span>
             </div>
@@ -269,13 +270,13 @@
             <div class="section__grid">
                 <div><h3 class="taskblock__name">Spectral</h3><p class="taskblock__key"><kbd>⌘6</kbd></p></div>
                 <div style="max-width: 640px;">
-                    <p class="prose-lead">The spectrogram at full resolution, with a rectangle, lasso, brush or wand to select a cough, a squeak or a hum. Attenuate it, erase it to the noise floor around it, or repair it from the audio either side; Solo plays the selection and Hear Result plays the edit before Apply. Audio beyond the selection and its feather stays bit for bit.</p>
+                    <p class="prose-lead">The spectrogram at full resolution, with a rectangle, lasso, brush or wand to select a cough, a squeak or a hum. <strong>Include harmonics</strong> adds the selection's tone at 2×, 3× and up, where it rings, so one stroke on a squeak's lowest line takes its overtones too, following the squeak as it glides. Attenuate it, erase it to the noise floor around it, or repair it from the audio either side; Solo plays the selection and Hear Result plays the edit before Apply. Audio beyond the selection and its feather stays bit for bit.</p>
                     <p class="taskblock__links"><a href="repair.html">Spectral repair →</a></p>
                 </div>
             </div>
             <figure class="shot">
-                <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task: a wand selection outlined on the spectrogram with its feather, the tool column on the left edge, and the operation panel in the sidebar." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Spectral.</strong> A wand selection with its feather, and the operation waiting in the sidebar.</figcaption>
+                <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task on an interview with a chair squeak: a brush stroke along the squeak's lowest line, its overtones from 2× to 7× outlined above it, the tool column on the left edge, and the Spectral edit panel in the sidebar with Include harmonics ticked." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Spectral, with Include harmonics.</strong> One stroke on a squeak's lowest line, and its overtones from 2× to 7× outlined above it, ready for Erase.</figcaption>
             </figure>
         </article>
 
@@ -510,7 +511,7 @@
             </a>
             <a class="tile" href="repair.html">
                 <div class="tile__glyph">〰</div><h4>Spectral repair</h4>
-                <p>Rectangle, lasso, brush or wand around the blemish, then attenuate, erase or repair just that.</p><p class="tile__tasks">Spectral</p><span class="tile__arrow">→</span>
+                <p>Rectangle, lasso, brush or wand around the blemish, a squeak's overtones included, then attenuate, erase or repair just that.</p><p class="tile__tasks">Spectral</p><span class="tile__arrow">→</span>
             </a>
             <a class="tile" href="songs.html">
                 <div class="tile__glyph">♪</div><h4>Songs</h4>
@@ -552,7 +553,7 @@
                 <div class="spec"><p class="spec__k">Selection analysis</p><p class="spec__v">⌘Return measures any selection into its own card.</p></div>
                 <div class="spec"><p class="spec__k">Check a Folder</p><p class="spec__v">A folder against Deliver to, with a report per file and a CSV.</p></div>
                 <div class="spec"><p class="spec__k">Plugin chain</p><p class="spec__v">Audio Unit effects in Edit, rendered as one undoable edit.</p></div>
-                <div class="spec"><p class="spec__k">Spectral editing</p><p class="spec__v">Select in time and frequency; attenuate, erase or repair.</p></div>
+                <div class="spec"><p class="spec__k">Spectral editing</p><p class="spec__v">Select in time and frequency, harmonics included; attenuate, erase or repair.</p></div>
                 <div class="spec"><p class="spec__k">Recording</p><p class="spec__v">New file, append, insert or punch, with a room check.</p></div>
                 <div class="spec"><p class="spec__k">Signal generator</p><p class="spec__v">Tones, noise, impulses and sweeps, stacked per channel.</p></div>
                 <div class="spec"><p class="spec__k">Channel routing</p><p class="spec__v">N to M output matrix, mixdown presets, render to file.</p></div>
