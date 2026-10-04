@@ -322,15 +322,27 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card);
   transition: opacity var(--t-fast); }
 .shot:hover { opacity: 0.9; }
-.shot img { width: 100%; height: auto; display: block; }
+.shot img { display: block; }
+/* The plain galleries (Lyra, Audita) fill their cell. Figures size their
+   image from its width attribute instead (figure.shot img below). */
+div.shot img { width: 100%; height: auto; }
+/* A WebP in <picture> with its PNG as fallback (tools/webp.sh): the picture
+   is a block box, so the image inside lays out as a bare img does. */
+.shot picture { display: block; }
 
 /* Captioned figures + size variants for the workflow / guide pages. Additive: */
 /* the plain div.shot galleries on the Lyra and Audita pages are unaffected     */
 /* (they carry no figcaption and no size modifier).                              */
 figure.shot { margin: 0; display: flex; flex-direction: column; }
 /* Cap height so tall/portrait shots (sidebars, the PDF report) don't dominate;
-   landscape heroes still fill their width. Image is centered when capped. */
-figure.shot img { max-width: 100%; max-height: 560px; width: auto; height: auto; margin: 0 auto; }
+   landscape heroes still fill their width. Image is centered when capped.
+   The width comes from the img's width attribute (capped to the column) and
+   the height from its aspect ratio, so a lazy image holds its box before it
+   loads: with width: auto it had none, loaded during an anchor's smooth
+   scroll and pushed the target 560 px down (the index page's Inspect chip).
+   When the height cap bites, contain keeps the picture's shape, centred in
+   the box. */
+figure.shot img { max-width: 100%; max-height: 560px; height: auto; margin: 0 auto; object-fit: contain; }
 .shot figcaption { padding: 10px 14px 12px; font-size: 0.74rem; line-height: 1.5;
   color: var(--text-3); border-top: 1px solid var(--border); }
 .shot figcaption strong { color: var(--text-2); font-weight: 600; }
@@ -369,6 +381,31 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
   border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; max-width: 640px; }
 .callout p { font-size: 0.85rem; color: var(--text-2); line-height: 1.65; }
 .callout strong { color: var(--text); font-weight: 600; }
+/* A heading line over its text, where the plain callout sets an icon beside it. */
+.callout--stack { flex-direction: column; gap: 0; }
+
+/* Before and after slider (specula/repair.html + specula/before-after.js).
+   Two captures of the same view stacked in one frame; a transparent range
+   input over them sets --ba, which clips the after image and places the
+   divider, so the arrow keys and VoiceOver work through the input. Without
+   JS the frame stays split at 50%. */
+.ba__frame { position: relative; --ba: 50%; touch-action: pan-y; }
+figure.shot .ba__frame img { width: 100%; max-height: none; margin: 0; }
+.ba__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--ba)); }
+figure.shot .ba__after img { height: 100%; object-fit: cover; }
+.ba__after picture { height: 100%; }
+.ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none; }
+.ba__handle { position: absolute; top: 0; bottom: 0; left: var(--ba); width: 2px; margin-left: -1px;
+  background: var(--text); box-shadow: 0 0 0 1px rgba(0,0,0,0.45); pointer-events: none; }
+.ba__handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 26px; height: 26px;
+  margin: -13px 0 0 -13px; border-radius: 50%; background: rgba(12,12,16,0.78); border: 1.5px solid var(--text); }
+.ba__range:focus-visible ~ .ba__handle::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ba__tag { position: absolute; top: 10px; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text); background: rgba(10,10,14,0.66); padding: 3px 8px;
+  border-radius: 6px; pointer-events: none; }
+.ba__tag--before { left: 10px; }
+.ba__tag--after { right: 10px; }
 
 /* Marketing texture: stat band, terminal sample, compact spec grid, FAQ
    accordion. Added in the 2026-07 site rework to break the label|prose
@@ -491,6 +528,90 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 .mdemo-ax { font-family: var(--font-mono); font-size: 10px; fill: var(--text-4); }
 .mdemo-tl { font-family: var(--font-mono); font-size: 10px; fill: var(--text-3); }
 
+/* The seven tasks' tour (specula/index.html + specula/task-strip.js). The
+   strip is a row of glass chips (floating chrome) that sticks under the nav
+   while the tour scrolls, on wide screens only; the task in view gets the
+   accent through .chip.is-active. Without JS it is a row of anchors. */
+.taskstrip { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 8px; z-index: 50; }
+.taskstrip .chip { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.taskstrip kbd { background: none; border: none; box-shadow: none; padding: 0; font-size: 0.72em;
+  color: var(--text-3); }
+.taskstrip .chip.is-active kbd { color: var(--accent-soft); }
+.taskblock { padding: 30px 0 6px; border-top: 1px solid var(--border); margin-top: 22px; }
+/* Sticky under the nav; a block jumped to lands under the strip (html's
+   84px scroll padding plus the strip's one row). */
+@media (min-width: 821px) {
+  .taskstrip { position: sticky; top: 94px; }
+  .taskblock { scroll-margin-top: 52px; }
+}
+/* The verdict demo (specula/index.html + verdict-demo.js): the app's delivery
+   card drawn for three sample files. The tone colours are the app card's,
+   scoped to the demo as product content; the site's chrome keeps one accent. */
+.vdemo { margin-top: 28px; padding: 20px 22px; border: 1px solid var(--border); border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+  --tone-good: #3ecf7c; --tone-caution: #e8c55a; --tone-warning: #f0a052; --tone-bad: #f67c7c;
+  --tone-neutral: var(--text-2); }
+.vdemo__title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); }
+.vdemo__controls { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.vdemo__row { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
+.vdemo__label { font-size: 0.74rem; color: var(--text-3); }
+.vdemo__card { margin-top: 18px; }
+.vdemo__note { margin-top: 14px; font-size: 0.74rem; color: var(--text-3); line-height: 1.55; }
+@media (max-width: 640px) { .vdemo__row { grid-template-columns: 1fr; gap: 6px; } }
+.vdemo .tone--good { --tone: var(--tone-good); color: var(--tone); }
+.vdemo .tone--caution { --tone: var(--tone-caution); color: var(--tone); }
+.vdemo .tone--warning { --tone: var(--tone-warning); color: var(--tone); }
+.vdemo .tone--bad { --tone: var(--tone-bad); color: var(--tone); }
+.vdemo .tone--neutral { --tone: var(--tone-neutral); color: var(--tone); }
+.vcard { max-width: 440px; padding: 14px 16px; border-radius: 10px; background: var(--bg);
+  border: 1px solid var(--border-hover); font-size: 0.82rem; color: var(--text-2); }
+.vcard__chip { display: inline-block; font-size: 0.72rem; color: var(--text); padding: 3px 10px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); }
+.vcard__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 12px;
+  flex-wrap: wrap; }
+.vcard__target { font-weight: 650; color: var(--text); }
+.vcard__ref { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-3); }
+.vdemo .vcard__verdict { margin-top: 8px; line-height: 1.55; padding-left: 16px; position: relative; color: var(--text); }
+.vcard__verdict::before { content: ""; position: absolute; left: 0; top: 0.48em; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--tone, var(--text-3)); }
+.vcard__readings { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+.vcard__reading { display: flex; align-items: baseline; gap: 5px; }
+.vcard__rlabel, .vcard__runit { font-size: 0.7rem; color: var(--text-3); }
+.vcard__rvalue { font-family: var(--font-mono); font-weight: 600; }
+.vcard__fixes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.vcard__fix { font-size: 0.72rem; color: var(--text); padding: 4px 10px; border-radius: 7px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+.vcard__also-label { margin-top: 14px; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-3); }
+.vcard__also { list-style: none; margin-top: 6px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.vcard__also li { display: flex; align-items: baseline; gap: 10px; }
+.vcard__also-name { flex: 1; color: var(--text-2); }
+.vcard__also-short { font-family: var(--font-mono); font-size: 0.74rem; }
+.vcard__also-fix { font-size: 0.66rem; color: var(--text-3); border: 1px solid var(--border-hover); border-radius: 5px;
+  padding: 1px 6px; }
+
+/* A job page's strip: the tasks the job uses, each linking to its guide
+   section. It stays in the hero. */
+.taskstrip.taskstrip--page { position: static; margin: 20px 0 0; align-items: center; }
+.taskstrip__label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); margin-right: 4px; }
+.taskblock:first-of-type { border-top: none; }
+.taskblock__name { font-size: 1.15rem; font-weight: 650; color: var(--text); letter-spacing: -0.015em; }
+.taskblock__key { margin-top: 6px; }
+.taskblock .shot { margin-top: 22px; }
+/* The links to a task's workflow pages: the .btn-learn look at a smaller
+   size, so they read as the way on without competing with the hero's
+   buttons. */
+.taskblock__links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.taskblock__links a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  border-radius: var(--radius-btn); font-size: 0.875rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--accent); background: rgba(124,132,246,0.10); border: 1px solid rgba(124,132,246,0.20);
+  transition: background var(--t-fast), border-color var(--t-fast); }
+.taskblock__links a:hover { background: rgba(124,132,246,0.16); border-color: rgba(124,132,246,0.35); }
+.tile__tasks { font-family: var(--font-mono); font-size: 0.7rem !important; color: var(--text-3) !important;
+  margin-top: 10px !important; letter-spacing: 0.01em; }
+
 /* ── 13. Doc header + kbd ────────────────────────────────────────────────── */
 /* .doc-header: privacy pages + blog index. kbd: specula pages, lyra releases. */
 /* The guide and API pages embed their own docs styling (.toc/.note/etc.).    */
@@ -608,6 +729,11 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .brand { font-size: 1rem; gap: 8px; }
   .brand-mark { width: 26px; height: 26px; }
 }
+/* Four nav links (Specula's pages: Specula, User Guide, FAQ, All apps)
+   overflowed a 390 px phone by 8 px at the 14 px gap. */
+@media (max-width: 420px) {
+  .nav-links { gap: 10px; }
+}
 
 /* ── Glass fallback ──────────────────────────────────────────────────────
    Solid surfaces when the user opts out of transparency. */
@@ -624,6 +750,7 @@ h1, h2, h3, .display { text-wrap: balance; }
 p, .prose-lead, figcaption, .faq-acc__a { text-wrap: pretty; }
 @view-transition { navigation: auto; }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
     animation: none !important; }
 }

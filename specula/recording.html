@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specula for Recording: narration with a room check and punch-ins on macOS</title>
+    <link rel="canonical" href="https://headroomstudio.dev/specula/recording.html">
+    <meta name="description" content="Record narration and voice-over on macOS with a room check against ACX's noise floor before the take, takes kept for seven days, and punch-ins that keep the file's length.">
+    <meta property="og:title" content="Specula for Recording">
+    <meta property="og:description" content="The room's floor measured the way the file's noise floor will be and judged against ACX before the take, then a new file, an append, an insert or a punch-in.">
+    <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Specula for Recording">
+    <meta name="twitter:description" content="Recording on macOS with a room check against ACX's −60 dB RMS floor, live input meters, takes kept for a week and punch-ins that keep the file's length.">
+    <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="../headroom.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Specula for Recording",
+        "description": "Recording on macOS: a room check that measures the room's floor as the file's noise floor will be and judges it against ACX before the take, live input meters, takes kept for seven days, and new file, append, insert and punch-in targets.",
+        "url": "https://headroomstudio.dev/specula/recording.html",
+        "isPartOf": { "@type": "WebSite", "name": "Headroom Studio", "url": "https://headroomstudio.dev/" },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "Specula",
+            "softwareVersion": "2.0",
+            "operatingSystem": "macOS 14.0 or later",
+            "applicationCategory": "MultimediaApplication",
+            "offers": { "@type": "Offer", "price": "99.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+        }
+    }
+    </script>
+
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--center"></div>
+
+<div class="container nav-shell">
+    <nav class="nav">
+        <a href="/" class="brand">
+            <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+            <span class="brand-word">Head<span>room</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Specula</a>
+            <a href="guide.html">User Guide</a>
+            <a href="faq.html">FAQ</a>
+            <a href="/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All apps</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+        <header class="app-hero">
+        <div class="app-hero__iconwrap">
+            <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
+        </div>
+        <div>
+            <p class="eyebrow">Workflow · Recording</p>
+            <h1 class="display">Check the room before the take.</h1>
+            <p class="app-hero__desc">
+                The Record task records from any input into a new file or into the open one: on the end, at the playhead, or punched in over a stretch. While the input is armed, a room check reads the room's floor the way the file's noise floor will be measured and judges it against ACX's limit, so a humming fridge or a laptop fan shows before a chapter is recorded.
+            </p>
+            <div class="app-hero__badges">
+                <span class="badge badge--macos">macOS</span>
+                <span class="badge">Room check</span>
+                <span class="badge">ACX noise floor</span>
+                <span class="badge">Punch-in</span>
+                <span class="badge">Takes kept 7 days</span>
+                <span class="badge">Mono · Stereo · 5.1</span>
+            </div>
+            <div class="app-hero__cta">
+                <a class="btn btn-primary" href="guide.html#record">Read the Record guide</a>
+                <a class="btn btn-learn" href="index.html">All of Specula</a>
+            </div>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
+                <span class="taskstrip__label">Task</span>
+                <a class="chip" href="guide.html#record">Record <kbd>⌘7</kbd></a>
+            </nav>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container">
+
+    <!-- Hero shot -->
+    <section class="shots shots--tight">
+        <figure class="shot">
+            <picture><source srcset="specula-record-task.webp" type="image/webp"><img src="specula-record-task.png" width="3200" height="2000" alt="Specula's Record task, armed: each input channel's level and peak, the momentary loudness and true peak, the room check against ACX's noise floor, and the input, room check and takes in the sidebar." loading="lazy" decoding="async"></picture>
+            <figcaption><strong>Record, armed.</strong> Each input channel's level and peak, the momentary loudness and true peak, and the room check against ACX's floor.</figcaption>
+        </figure>
+    </section>
+
+    <!-- The problem -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Why the room comes first</p>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    ACX wants a noise floor less than −60 dB RMS, and the floor is set in the room, before the first word.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">Level dialogue buys a few dB on a floor that just misses. Hiss, a fridge, a fan or traffic in the room cannot be leveled out of a narration. The <strong>room check</strong> reads that floor while the input is armed and nothing is recording, measured as the finished file's noise floor will be: the mono mix of the last five seconds, the 90th percentile of its 100 ms blocks. It reads <strong>Quiet enough for ACX</strong> or <strong>Too loud for ACX</strong>, and an input that delivers digital silence, such as a microphone without permission, reads <strong>No input signal</strong> instead of passing.</p>
+
+                <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="std-row"><span class="std-row__tag">Meters</span><span class="std-row__desc">Each input channel's level and peak, the momentary loudness and the true peak, on Specula's own BS.1770 meter.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Room</span><span class="std-row__desc">The room's floor over the last five seconds against ACX's −60 dB RMS limit, paused while a take records.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Takes</span><span class="std-row__desc">Every take kept for seven days, to add to Compare, save as a file or move to the Trash.</span></div>
+                    <div class="std-row"><span class="std-row__tag">Punch</span><span class="std-row__desc">A punch at the playhead keeps the file's length, and speech is detected again inside it.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The workflow -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <div>
+                <p class="label">From input to take</p>
+                <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Arm the input, check the room, choose where the take goes, record.</p>
+            </div>
+            <div>
+                <div class="feature-row"><div class="feature-row__k">1 · Arm the input</div><div class="feature-row__v"><kbd>⌘7</kbd>, or Record in the top bar, arms the input, with a file open or none: Record is how a file starts. The sidebar's <strong>Input</strong> part picks the device, the layout (mono, stereo or 5.1) and the source channels on a multichannel interface. The canvas shows each input channel's level and peak, the momentary loudness and the true peak. Without microphone access it says so and names the switch in System Settings › Privacy &amp; Security › Microphone.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2 · Check the room</div><div class="feature-row__v">While the input is armed, the <strong>Room check</strong> asks for five quiet seconds, then gives the room's floor against ACX's limit, and keeps reading it until a take starts.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3 · Choose where the take goes</div><div class="feature-row__v"><strong>Take goes to</strong>, in the task bar: <strong>New file</strong> opens the take as its own file; <strong>Append</strong> puts it on the end of the open file; <strong>Insert at playhead</strong> puts it in at the playhead and moves the rest of the file later; <strong>Punch in</strong> replaces the selection, or records over the audio from the playhead and keeps the file's length. Every join gets an equal-power crossfade of the <strong>Splice</strong> length set beside it.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4 · Record</div><div class="feature-row__v">The record button in the top bar's transport starts and stops a take (Record › Start Recording), and the take draws on the canvas as it records; Esc never ends one. A take that lands in the file is one step in the Edit task's history, so Undo takes it back out. A punch keeps the file's chapters and corrected speech regions, and speech is detected again inside the punched stretch, also after Undo and Redo.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5 · Keep the takes</div><div class="feature-row__v">Every take is written as it records and listed in the sidebar's <strong>Takes</strong> for seven days, with how long it is kept. <strong>To Compare</strong> puts a take beside the file in Compare, <strong>Save As…</strong> writes it as 32-bit float WAV, AIFF or CAF, and <strong>Move to Trash</strong> removes it. The Record menu acts on the selected take as well.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- After the take -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">After the take</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">A recorded file goes through the same checks as any other. Under Deliver to Audiobook the delivery card judges it against ACX, the Chapters task measures it chapter by chapter, the Speech task corrects the speech regions its dialogue loudness and noise floor are measured with, and Level dialogue ducks a floor that just misses. <a href="audiobook.html">Audiobook / ACX →</a> <a href="podcast.html">Podcast →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--bordered">
+        <div class="section__grid">
+            <p class="label">Before the first chapter</p>
+            <div style="max-width: 640px;">
+                <p class="prose-lead">The Record task checks the room against ACX's floor, keeps every take for a week, and punches a correction in without moving the rest of the file.</p>
+                <div class="app-hero__cta" style="margin-top: 24px;">
+                    <a href="guide.html#record" class="btn btn-primary">Read the Record guide →</a>
+                    <a href="index.html" class="btn btn-outline">Back to Specula</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer__copy">© 2026 Headroom Studio</span>
+        <ul class="footer__links">
+            <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+            <li><a href="index.html">Specula</a></li>
+            <li><a href="guide.html">User Guide</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+</body>
+</html>

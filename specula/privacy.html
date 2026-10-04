@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Specula Privacy Policy - Audio Stays on Your Mac</title>
+  <title>Specula Privacy Policy: Audio Stays on Your Mac</title>
   <link rel="canonical" href="https://headroomstudio.dev/specula/privacy.html">
-  <meta name="description" content="Specula analyses audio entirely locally - no upload, no telemetry. Read the Headroom Studio privacy policy for Specula.">
+  <meta name="description" content="Specula analyses audio entirely on the Mac: no upload, no telemetry. The Headroom Studio privacy policy for Specula.">
   <meta property="og:title" content="Specula Privacy Policy">
   <meta property="og:description" content="Specula analyses audio entirely locally. No upload, no telemetry.">
   <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
@@ -48,34 +48,42 @@
     <header class="doc-header">
     <p class="eyebrow">Specula</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: July 2026</p>
+    <p class="doc-header__meta">Last updated: October 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Specula is a local macOS application. It does not transmit, upload, or share any audio data, file content, or analysis results. All processing happens on-device. There is no telemetry and no analytics.</p>
+    <p>Specula is a local macOS application. It does not transmit, upload or share any audio, file content or analysis results. All processing happens on the Mac. There is no telemetry and no analytics.</p>
   </section>
 
   <section class="priv-section">
     <h2>Audio file access</h2>
-    <p>Specula opens audio files you select via the standard macOS file picker (or drag-and-drop). The entire file is loaded into RAM for analysis and discarded when the app is closed or another file is loaded. Audio is never written elsewhere on disk except when you explicitly export - for example, saving an edited file, exporting a diff WAV, or generating a PDF/JSON report - and even then it goes only to the location you choose.</p>
+    <p>Specula opens the audio files you choose: through the file picker, drag and drop, the Finder's Open With and Services, or Check a Folder, which reads every audio file in the folder you choose, and its subfolders on request. An open file is held in memory for analysis and released when Specula quits or another file opens.</p>
   </section>
 
   <section class="priv-section">
-    <h2>Microphone and Record mode</h2>
-    <p>Record mode captures audio from your input device only while you are in the mode, after macOS grants microphone permission through the standard system prompt. Recordings are written to your Mac and nowhere else: takes stream to Specula's takes folder in your user Library as they record, unsaved takes are kept there for seven days, and <strong>Save Take As…</strong> writes the audio only to the location you choose. No recorded audio is ever transmitted.</p>
+    <h2>What Specula writes on your Mac</h2>
+    <p><strong>Files you ask for</strong> go where you choose: Save and Save As, the export sheet's reports (PDF, HTML and JSON), chapters CSV, edited audio and compare residual, Render to File, Split to Mono Files, the Signal Generator's files and Save Take As. Check a Folder writes its reports and CSV into a new folder beside the checked one by default, and the Finder's Get Report service saves its PDF beside the source file, or in your Downloads folder.</p>
+    <p><strong>Corrected speech regions</strong> are saved beside the audio file they belong to, as a <code>.dlg.json</code> file, so they come back when the file opens again.</p>
+    <p><strong>Working files</strong>: the edit history keeps each step's audio in the system's temporary folder while Specula runs, and the codec check keeps its AAC encode there; both are removed at the next launch once that run has ended.</p>
+    <p><strong>In Specula's folder in your Library</strong> (Application Support): the recorded takes, kept for seven days; the chapters of files you worked on, for Recall; the last plugin chain, for Restore Last Plugin Chain; and the raw PCM presets.</p>
   </section>
 
   <section class="priv-section">
-    <h2>Speech-detection model</h2>
-    <p>Specula's speech detection runs entirely on your Mac, using the open-source <strong>Silero VAD</strong> model via the <strong>FluidAudio</strong> library. No audio, and no information about your files, is ever sent anywhere.</p>
+    <h2>Microphone and the Record task</h2>
+    <p>The Record task uses your input device only while it is open, after macOS grants microphone permission through the standard system prompt. Armed, it meters the input and checks the room; it writes audio to disk only while a take records. Takes stream to Specula's takes folder in your Library and are kept there for seven days, and <strong>Save Take As…</strong> writes a take only to the location you choose. No recorded audio is ever transmitted.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Speech detection, music analysis and the codec check</h2>
+    <p>Specula's speech detection runs entirely on your Mac, using the open-source <strong>Silero VAD</strong> model via the <strong>FluidAudio</strong> library, both inside the app. On macOS 27, the key, tempo, sections and stems of a song come from Apple's on-device music analysis, which runs on the Mac. The codec check encodes the file as AAC with the encoder built into macOS, on the Mac. No audio, and no information about your files, is sent anywhere by any of them.</p>
   </section>
 
   <section class="priv-section">
     <h2>Preferences and settings</h2>
-    <p>Your settings - Layout defaults, Spectrogram colormap and dB range, FFT window, Report toggles - are stored locally on your Mac (in standard macOS preferences) and are never transmitted.</p>
+    <p>Your settings (the five Settings tabs, the delivery category and targets, each task's views, the inspector's groups and the export sheet's choices for each delivery category) and the list of recent files, with each one's length, format and last delivery category, are stored locally on your Mac in standard macOS preferences and are never transmitted.</p>
   </section>
 
   <section class="priv-section">
@@ -85,7 +93,7 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. This request carries only the standard details of an HTTPS request; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. You can disable automatic checks in the app's menu.</p>
+    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. This request carries only the standard details of an HTTPS request; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. Settings › General › Updates turns the automatic checks off.</p>
   </section>
 
   <section class="priv-section">
@@ -95,7 +103,7 @@
 
   <section class="priv-section">
     <h2>Contact</h2>
-    <p>If you have any questions about this privacy policy, you can reach us at <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+    <p>Questions about this policy: <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>. Help › Send Feedback in the app opens an email to the same address in your mail app; Specula itself sends nothing.</p>
   </section>
 
   <footer class="footer">
@@ -103,6 +111,7 @@
     <ul class="footer__links">
       <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
       <li><a href="guide.html">User Guide</a></li>
+      <li><a href="faq.html">FAQ</a></li>
       <li><a href="privacy.html">Privacy</a></li>
     </ul>
   </footer>
