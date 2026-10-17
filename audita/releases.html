@@ -82,6 +82,7 @@
       <li><span class="tag tag-impr">Impr</span><span><strong>The session report's chart axis follows the readings</strong> instead of a fixed 0 to 140 dB, so a quiet session has a shape. When no peak passed a limit the three counters read as one line.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong>EU weekly level with empty days.</strong> The History window counted days without sessions as silent days, so one quiet session in an otherwise empty week read as a low level in green. The level now appears only once five days of the selected range have sessions, with its verdict against the 80 and 85 dBA action values in words.</span></li>
       <li><span class="tag tag-fix">Fix</span><span><strong>Decimals on a comma region.</strong> The History window printed decimals two ways on a Mac set to a comma region (a tile read 0.0% beside a row's 0,0%). Every number in the menu bar window, the panel, History, the session report and the widgets now prints with a point.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span><strong>Auris imports and the level's factory status.</strong> Importing an Auris file read the level as set by hand afterwards, even when the file carried no calibration, so a UMIK-1's factory level lost its factory status until the profile was applied again. The import leaves an unchanged offset alone.</span></li>
     </ul>
   </section>
 

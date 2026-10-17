@@ -25,23 +25,22 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!-- DRAFT: Audita 1.6 (build 8) is not cut yet. At the release cut: uncomment
-             the item, add pubDate, and fill edSignature and length from sign_update
-             on Audita-1.6.dmg. Until then Sparkle serves 1.5.1 below.
+        <!-- release-cut 2026-10-17: edSignature and length from sign_update on
+             Audita-1.6.dmg (13,428,910 bytes); pubDate set to the ship date. -->
         <item>
             <title>Version 1.6 - The menu bar window, the pinned panel, History as a log</title>
-            <description>The menu bar window answers two questions: today's dose as a share of the daily budget, with the state and the next threshold in words, then the reference: the share of the session on target, the band and the preset, the live deviation, and the under / on / over bar. The level is one number; the dBC reading appears as an LF chip when the gap to dBA passes 6 dB. Leq and Ln, the session's readings and today's peak sit under Details. A calibration that needs attention is a banner with a Fix button that opens Settings, Calibration; once the rig has passed its self-check the footer reads Calibrated with the day. Check for Updates moved to Settings, General. Settings is a sidebar window with seven pages; the Audio tab's devices are the Devices page, and the Calibration page says where the chain stands in one line and four pills (Correction, Level, Monitor level, Verified) over four cards with the wizards inside. The pinned panel is one strip (the Bloom, the level, the verdict in words, today's dose) that expands in place; Settings, Panel is gone. The History window opens on three answers for the range (dose per day with the EU weekly level, the on-target share, the loudest moments), a day chart sized to the data, and one line per session with a chevron to the report. The session report's chart axis follows the readings. Fixed: the EU weekly level counted days without sessions as silent days; it now appears once five days have sessions. Fixed: decimals printed two ways on a comma region; every number now prints with a point.</description>
+            <pubDate>Sat, 17 Oct 2026 20:30:00 +0200</pubDate>
+            <description>The menu bar window answers two questions: today's dose as a share of the daily budget, with the state and the next threshold in words, then the reference: the share of the session on target, the band and the preset, the live deviation, and the under / on / over bar. The level is one number; the dBC reading appears as an LF chip when the gap to dBA passes 6 dB. Leq and Ln, the session's readings and today's peak sit under Details. A calibration that needs attention is a banner with a Fix button that opens Settings, Calibration; once the rig has passed its self-check the footer reads Calibrated with the day. Check for Updates moved to Settings, General. Settings is a sidebar window with seven pages; the Audio tab's devices are the Devices page, and the Calibration page says where the chain stands in one line and four pills (Correction, Level, Monitor level, Verified) over four cards with the wizards inside. The pinned panel is one strip (the Bloom, the level, the verdict in words, today's dose) that expands in place; Settings, Panel is gone. The History window opens on three answers for the range (dose per day with the EU weekly level, the on-target share, the loudest moments), a day chart sized to the data, and one line per session with a chevron to the report. The session report's chart axis follows the readings. Fixed: the EU weekly level counted days without sessions as silent days; it now appears once five days have sessions. Fixed: decimals printed two ways on a comma region; every number now prints with a point. Fixed: an Auris import read the level as set by hand afterwards, even when the file carried no calibration.</description>
             <sparkle:version>8</sparkle:version>
             <sparkle:shortVersionString>1.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.6.dmg"
-                sparkle:edSignature=""
-                length=""
+                sparkle:edSignature="pe5ceESUJvVBYvKNJs5bMBMbtVqvRY6d8DaiGrtqSvU32ZVLNrPqaM0gERNzKqOSm3Dp/dhCcvTzt4L/DTi1BA=="
+                length="13428910"
                 type="application/octet-stream" />
         </item>
-        -->
 
         <!-- release-cut 2026-09-16: edSignature and length from sign_update on
              Audita-1.5.1.dmg (13,286,518 bytes); pubDate set to the ship date. -->
