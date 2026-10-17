@@ -1,0 +1,182 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Lyra hero</title>
+<style>
+/* Lyra hero: the monitor knob, lit. A machined knob with an LED ring sits
+   right, lit one F12 step above the Mix slot; the three reference detents
+   (Lyra's defaults Quiet 25 %, Mix 50 %, Loud 75 %) are labelled outside the
+   faceplate. Left: F10 / F11 / F12 as 3D keycaps with F12 pressed, then the
+   modifier layer. The glass volume pill floats in the knob's light. */
+:root{
+  --bg:#08080b; --text:#eeeef6; --text-2:#a9a9b8; --text-3:#72727f; --text-4:#3b3b47;
+  --accent:#7c84f6; --accent-soft:#a0aaff; --accent-dim:rgba(124,132,246,.14);
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;
+  --display:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{width:960px;height:540px;overflow:hidden;font-family:var(--sans);color:var(--text);
+  -webkit-font-smoothing:antialiased;position:relative}
+canvas{position:absolute;inset:0;width:960px;height:540px}
+
+.copy{position:absolute;left:56px;top:56px;width:400px}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7}
+
+/* the chord, as real keycaps in perspective */
+.chord{margin-top:30px;display:flex;align-items:center;gap:14px;perspective:800px}
+.cap{width:104px;height:88px;border-radius:14px;position:relative;transform:rotateX(24deg) rotateY(-10deg);
+  transform-origin:center bottom;
+  background:linear-gradient(170deg,#24242c 0%,#17171c 62%,#121216 100%);
+  border:1px solid #2c2c35;
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.10),inset 0 -6px 10px rgba(0,0,0,.35),
+    0 2px 0 #050507,0 10px 0 -2px #0d0d11,0 22px 30px rgba(0,0,0,.6);
+  display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px}
+.cap .g{font-size:26px;color:#e2e2ec;line-height:1}
+.cap .t{font-size:12px;color:var(--text-3);align-self:flex-end}
+.cap.lit{border-color:rgba(124,132,246,.75);
+  background:linear-gradient(170deg,#2a2c48 0%,#1c1d31 62%,#15162a 100%);
+  box-shadow:inset 0 1.5px 0 rgba(170,178,255,.25),inset 0 -6px 10px rgba(0,0,0,.3),
+    0 2px 0 #050507,0 10px 0 -2px #0d0d16,0 0 0 5px rgba(124,132,246,.10),0 18px 48px rgba(124,132,246,.35)}
+.cap.lit .g{color:#fff}
+.cap.lit .t{color:var(--accent-soft)}
+.cap svg{width:30px;height:24px;color:#d9d9e4}
+.cap.lit svg{color:#fff}
+.plus{font-size:22px;color:var(--text-4);font-weight:300}
+
+h2{margin-top:30px;font-family:var(--display);font-size:40px;line-height:1.04;text-wrap:balance;font-weight:700;letter-spacing:-.035em}
+h2 span{color:var(--text-2);font-weight:600}
+.lede{margin-top:12px;font-size:14px;line-height:1.5;color:var(--text-2);max-width:330px}
+
+.row{margin-top:24px;display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:26px;row-gap:9px}
+.row div{font-size:12px;color:var(--text-2);display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.row kbd{font-family:var(--mono);font-size:11px;color:var(--text);padding:2px 6px;border-radius:5px;
+  background:rgba(255,255,255,.05);border:1px solid #26262e}
+
+.hud{position:absolute;left:744px;top:30px;width:196px;padding:11px 16px 12px;border-radius:22px;
+  background:rgba(40,42,62,.42);border:1px solid rgba(255,255,255,.17);
+  -webkit-backdrop-filter:blur(18px) saturate(1.8);backdrop-filter:blur(18px) saturate(1.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 18px 40px rgba(0,0,0,.45)}
+.hud .name{font-size:12.5px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.slider{margin-top:9px;height:5px;border-radius:3px;background:rgba(255,255,255,.2);position:relative}
+.slider i{position:absolute;left:0;top:0;bottom:0;width:56%;border-radius:3px;background:#fff}
+.ticks{margin-top:5px;display:flex;justify-content:space-between}
+.ticks span{width:1px;height:3px;background:rgba(255,255,255,.38)}
+.auto{margin-top:22px}
+.auto .lbl{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.auto .chips{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.auto span{font-size:11.5px;color:var(--text-2);padding:4px 9px;border-radius:7px;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+.auto span.url{font-family:var(--mono);font-size:11px;color:var(--accent-soft);
+  background:rgba(124,132,246,.12);border-color:rgba(124,132,246,.3)}
+</style></head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+
+<div class="copy">
+  <p class="eyebrow">Apollo monitor volume</p>
+  <div class="chord">
+    <div class="cap"><svg viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 9h5l6-5v16l-6-5H3z" fill="currentColor" stroke="none"/><path d="M19 8l7 8M26 8l-7 8"/></svg><span class="t">F10</span></div>
+    <div class="cap"><svg viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 9h5l6-5v16l-6-5H5z" fill="currentColor" stroke="none"/><path d="M20 8.5a5 5 0 0 1 0 7"/></svg><span class="t">F11</span></div>
+    <div class="cap lit"><svg viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 9h5l6-5v16l-6-5H1z" fill="currentColor" stroke="none"/><path d="M16 8.5a5 5 0 0 1 0 7M19.5 5.5a9.5 9.5 0 0 1 0 13M23 2.5a14 14 0 0 1 0 19"/></svg><span class="t">F12</span></div>
+  </div>
+  <h2>F10, F11, F12. <span>Straight to the Apollo.</span></h2>
+  <p class="lede">Mute, volume down and volume up drive the Apollo's monitor level. Add Control to recall the Quiet, Mix and Loud reference levels.</p>
+  <div class="row">
+    <div><kbd>⇧F10</kbd>DIM</div><div><kbd>⌥F10</kbd>Mono</div><div><kbd>⇧F11 F12</kbd>Half steps</div>
+  </div>
+  <div class="auto"><p class="lbl">Automation</p><div class="chips">
+    <span>Shortcuts</span><span>Spotlight</span><span>Widgets</span><span>Focus filters</span><span>Stream Deck</span><span class="url">lyra://</span>
+  </div></div>
+</div>
+
+<div class="hud">
+  <p class="name">Apollo Twin X</p>
+  <div class="slider"><i></i></div>
+  <div class="ticks"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</div>
+
+<script>
+const c=document.getElementById('c'), g=c.getContext('2d'); g.scale(2,2);
+const CX=700, CY=316, RK=108;           // knob centre + radius
+const A0=Math.PI*0.75, SW=Math.PI*1.5;  // 270° sweep, 7:30 to 4:30 like a hardware pot
+const POS=0.5625;                       // one F12 step above the Mix slot
+const ang=t=>A0+t*SW;
+
+// --- ambient light -------------------------------------------------------------
+let rg=g.createRadialGradient(CX,CY,40,CX,CY,520);
+rg.addColorStop(0,'rgba(124,132,246,0.30)'); rg.addColorStop(.35,'rgba(124,132,246,0.10)'); rg.addColorStop(1,'rgba(124,132,246,0)');
+g.fillStyle=rg; g.fillRect(0,0,960,540);
+rg=g.createRadialGradient(0,0,0,0,0,560); rg.addColorStop(0,'rgba(124,132,246,0.12)'); rg.addColorStop(1,'rgba(124,132,246,0)');
+g.fillStyle=rg; g.fillRect(0,0,960,540);
+// faint concentric rings: the room the knob sits in
+for(let r=RK+120;r<760;r+=46){ g.beginPath(); g.arc(CX,CY,r,0,7);
+  g.strokeStyle=`rgba(160,170,255,${0.05*Math.max(0,1-(r-RK)/620)})`; g.lineWidth=1; g.stroke(); }
+
+// --- faceplate --------------------------------------------------------------------
+rg=g.createRadialGradient(CX-40,CY-60,20,CX,CY,RK+74);
+rg.addColorStop(0,'#17171f'); rg.addColorStop(1,'#0d0d12');
+g.beginPath(); g.arc(CX,CY,RK+68,0,7); g.fillStyle=rg; g.fill();
+g.strokeStyle='rgba(255,255,255,0.06)'; g.lineWidth=1; g.stroke();
+
+// --- LED ring: 31 segments --------------------------------------------------------
+const NS=33, RL=RK+36;
+for(let k=0;k<NS;k++){
+  const t=k/(NS-1), a=ang(t), lit=t<=POS+1e-6;
+  const x1=CX+Math.cos(a)*(RL-9), y1=CY+Math.sin(a)*(RL-9), x2=CX+Math.cos(a)*(RL+9), y2=CY+Math.sin(a)*(RL+9);
+  g.lineCap='round'; g.lineWidth=4.2;
+  if(lit){
+    const hue=t/POS; // cooler at the start, brighter toward the set point
+    g.strokeStyle=`rgba(${Math.round(124+60*hue)},${Math.round(132+56*hue)},255,1)`;
+    g.shadowColor='rgba(124,132,246,0.95)'; g.shadowBlur=16;
+  } else { g.strokeStyle='rgba(255,255,255,0.07)'; g.shadowBlur=0; }
+  g.beginPath(); g.moveTo(x1,y1); g.lineTo(x2,y2); g.stroke();
+}
+g.shadowBlur=0;
+
+// --- reference detents: Quiet 25, Mix 50, Loud 75 ---------------------------------
+const det=[[0.25,'Quiet','⌃F10'],[0.5,'Mix','⌃F11'],[0.75,'Loud','⌃F12']];
+det.forEach(([t,name,key])=>{
+  const a=ang(t);
+  g.beginPath(); g.arc(CX+Math.cos(a)*(RL+18),CY+Math.sin(a)*(RL+18),2.6,0,7);
+  g.fillStyle='rgba(255,255,255,0.45)'; g.fill();
+  const lr=RK+68+16, lx=CX+Math.cos(a)*lr, ly=CY+Math.sin(a)*lr;
+  const top=Math.sin(a)<-0.6;
+  g.textAlign=top?'center':Math.cos(a)<0?'right':'left';
+  const yName=top?ly-18:ly-2, yKey=top?ly-3:ly+13;
+  g.font='600 13px -apple-system, SF Pro Text, sans-serif'; g.fillStyle='rgba(238,238,246,0.92)'; g.fillText(name,lx,yName);
+  g.font='11px ui-monospace, SF Mono, Menlo, monospace'; g.fillStyle='#a0aaff'; g.fillText(key,lx,yKey);
+});
+
+// --- knob body: shadow, skirt, machined cap ----------------------------------------
+g.save(); g.shadowColor='rgba(0,0,0,0.75)'; g.shadowBlur=40; g.shadowOffsetY=18;
+g.beginPath(); g.arc(CX,CY,RK,0,7); g.fillStyle='#111116'; g.fill(); g.restore();
+// knurled skirt
+for(let k=0;k<180;k++){ const a=k/180*Math.PI*2;
+  g.beginPath(); g.moveTo(CX+Math.cos(a)*(RK-14),CY+Math.sin(a)*(RK-14)); g.lineTo(CX+Math.cos(a)*(RK-1),CY+Math.sin(a)*(RK-1));
+  const lightness=0.10+0.10*Math.max(0,Math.cos(a+2.2));
+  g.strokeStyle=`rgba(255,255,255,${lightness})`; g.lineWidth=1; g.stroke(); }
+g.beginPath(); g.arc(CX,CY,RK,0,7); g.strokeStyle='rgba(255,255,255,0.10)'; g.lineWidth=1; g.stroke();
+// cap with brushed conic sheen
+const RC=RK-18;
+let cg=g.createConicGradient(-0.6,CX,CY);
+const stops=[[0,'#3a3a45'],[.12,'#1c1c23'],[.25,'#30303b'],[.38,'#16161c'],[.5,'#33333e'],[.62,'#1a1a21'],[.75,'#2c2c36'],[.88,'#17171d'],[1,'#3a3a45']];
+stops.forEach(([o,col])=>cg.addColorStop(o,col));
+g.beginPath(); g.arc(CX,CY,RC,0,7); g.fillStyle=cg; g.fill();
+// concentric machining
+for(let r=6;r<RC;r+=2.2){ g.beginPath(); g.arc(CX,CY,r,0,7); g.strokeStyle=`rgba(255,255,255,${0.012+0.01*(0.5+0.5*Math.sin(r*7.3))})`; g.lineWidth=0.6; g.stroke(); }
+// top-left key light on the cap
+rg=g.createRadialGradient(CX-RC*0.45,CY-RC*0.55,4,CX-RC*0.2,CY-RC*0.25,RC*1.1);
+rg.addColorStop(0,'rgba(200,205,255,0.22)'); rg.addColorStop(1,'rgba(200,205,255,0)');
+g.beginPath(); g.arc(CX,CY,RC,0,7); g.fillStyle=rg; g.fill();
+// accent rim from the LED ring
+g.beginPath(); g.arc(CX,CY,RC,A0,ang(POS)); g.strokeStyle='rgba(160,170,255,0.45)'; g.lineWidth=1.2; g.stroke();
+g.beginPath(); g.arc(CX,CY,RC,0,7); g.strokeStyle='rgba(255,255,255,0.08)'; g.lineWidth=1; g.stroke();
+// indicator groove
+const ia=ang(POS);
+g.lineCap='round'; g.lineWidth=5;
+g.beginPath(); g.moveTo(CX+Math.cos(ia)*(RC*0.42),CY+Math.sin(ia)*(RC*0.42)); g.lineTo(CX+Math.cos(ia)*(RC-12),CY+Math.sin(ia)*(RC-12));
+g.strokeStyle='#ffffff'; g.shadowColor='rgba(160,170,255,1)'; g.shadowBlur=14; g.stroke(); g.shadowBlur=0;
+</script>
+</body></html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Audita hero</title>
+<style>
+/* Audita hero: the session as a radial sculpture. Every 30 s reading is a
+   bar radiating from the dose ring, length = dBA, colour = reference zone;
+   passes above 80 dBA glow because that is where the dose clock runs. The
+   inner ring is the NIOSH dose, filled to the value the bars produce.
+   All numbers computed from the session model below. */
+:root{
+  --bg:#09090c; --text:#eeeef6; --text-2:#a9a9b8; --text-3:#72727f; --text-4:#3b3b47;
+  --accent:#7c84f6; --accent-soft:#a0aaff;
+  --on:#4cc985; --over:#f09a45; --under:#6f7590;
+  --safe:#4cc985; --caution:#e2c14f; --warning:#ec9440; --danger:#e5574f;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;
+  --display:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{width:960px;height:560px;overflow:hidden;font-family:var(--sans);color:var(--text);
+  -webkit-font-smoothing:antialiased;position:relative}
+canvas{position:absolute;inset:0;width:960px;height:560px}
+.copy{position:absolute;left:56px;top:56px;width:400px}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7}
+h2{max-width:290px;font-family:var(--display);font-size:38px;line-height:1.08;font-weight:700;letter-spacing:-.03em;margin-top:18px;text-wrap:balance}
+h2 span{color:var(--text-2);font-weight:600}
+.q{margin-top:28px;font-size:12.5px;color:var(--text-2)}
+.num{font-family:var(--display);font-size:64px;font-weight:700;letter-spacing:-.035em;line-height:1;margin-top:4px;
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#ffffff 0%,#b9f0d2 100%);-webkit-background-clip:text;color:transparent}
+.num small{font-size:28px;font-weight:600;-webkit-text-fill-color:var(--text-2)}
+.sub{font-size:13px;color:var(--text-2);margin-top:6px}
+.sub b{color:var(--text);font-weight:600}
+.key{max-width:290px;margin-top:22px;display:grid;gap:9px}
+.key div{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-2)}
+.key i{width:18px;height:4px;border-radius:2px;flex:none}
+.key b{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--text-3);margin-left:auto}
+.meta{position:absolute;left:56px;bottom:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--text-4)}
+.auto{margin-top:22px}
+.auto .lbl{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.auto .chips{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.auto span{font-size:11.5px;color:var(--text-2);padding:4px 9px;border-radius:7px;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+.auto span.url{font-family:var(--mono);font-size:11px;color:var(--accent-soft);
+  background:rgba(124,132,246,.12);border-color:rgba(124,132,246,.3)}
+</style></head>
+<body>
+<canvas id="c" width="1920" height="1120"></canvas>
+<div class="copy">
+  <p class="eyebrow">SPL meter and hearing dose</p>
+  <h2>Four hours at the desk, <span>measured end to end.</span></h2>
+  <p class="q">On target today, 10:00 to 14:00</p>
+  <p class="num" id="onNum"></p>
+  <p class="sub">at <b>79 ±3 dBA</b> · K-14</p>
+  <div class="key">
+    <div><i style="background:var(--on)"></i>On target<b id="kOn"></b></div>
+    <div><i style="background:var(--over);box-shadow:0 0 8px var(--over)"></i>Over, dose accrues above 80<b id="kOver"></b></div>
+    <div><i style="background:var(--under)"></i>Under<b id="kUnder"></b></div>
+  </div>
+  <div class="auto"><p class="lbl">Automation</p><div class="chips">
+    <span>Shortcuts</span><span>Spotlight</span><span>Widgets</span><span>Focus filter</span><span class="url">audita://</span>
+  </div></div>
+</div>
+<p class="meta">NIOSH REL · 85 dBA for 8 h · 3 dB exchange</p>
+
+<script>
+// ---- session model (shared with audita-hero.html) -----------------------------
+const STEP_S=30, N=4*3600/STEP_S;
+let seed=20261017; const rnd=()=>(seed=(seed*1664525+1013904223)>>>0)/4294967296-0.5;
+let slow=0,fast=0; const W8=[];
+for(let i=0;i<N;i++){slow=0.94*slow+0.9*rnd();fast=0.5*fast+3.4*rnd();W8.push(slow+fast);}
+const plan=[[0,14,67,0.8],[14,92,79,1.0],[92,112,89,0.7],[112,126,61,0.6],[126,196,79,1.0],[196,214,91,0.6],[214,240,79,0.9]];
+const L=[];
+for(let i=0;i<N;i++){const m=i*STEP_S/60;const p=plan.find(s=>m>=s[0]&&m<s[1]);L.push(p[2]+p[3]*W8[i]);}
+for(let i=1;i<N-1;i++)L[i]=(L[i-1]+2*L[i]+L[i+1])/4;
+const T=l=>8/Math.pow(2,(l-85)/3);
+let dose=0,on=0,over=0,under=0; const D=[];
+for(const l of L){ if(l>=80) dose+=(STEP_S/3600)/T(l)*100; D.push(dose);
+  if(l>82)over++; else if(l<76)under++; else on++; }
+const pct=x=>Math.round(x/N*100), onP=pct(on), overP=pct(over), underP=100-onP-overP, doseR=Math.round(dose);
+document.getElementById('onNum').innerHTML=onP+'<small>%</small>';
+document.getElementById('kOn').textContent=onP+'%';
+document.getElementById('kOver').textContent=overP+'%';
+document.getElementById('kUnder').textContent=underP+'%';
+
+// ---- drawing ------------------------------------------------------------------
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const c=document.getElementById('c'), g=c.getContext('2d'); g.scale(2,2);
+const CX=660, CY=284;
+const zone=l=>l>82?'--over':l<76?'--under':'--on';
+
+// ambient light
+let rg=g.createRadialGradient(CX,CY,0,CX,CY,420);
+rg.addColorStop(0,'rgba(124,132,246,0.20)'); rg.addColorStop(.55,'rgba(124,132,246,0.05)'); rg.addColorStop(1,'rgba(124,132,246,0)');
+g.fillStyle=rg; g.fillRect(0,0,960,560);
+rg=g.createRadialGradient(80,0,0,80,0,520);
+rg.addColorStop(0,'rgba(124,132,246,0.14)'); rg.addColorStop(1,'rgba(124,132,246,0)');
+g.fillStyle=rg; g.fillRect(0,0,960,560);
+
+// geometry: the session sweeps 324° clockwise from the top, leaving a gap for the clock labels
+const A0=-Math.PI/2+Math.PI/20, SWEEP=Math.PI*2*0.9;
+const ang=i=>A0+i/(N-1)*SWEEP;
+const R0=108, K=3.15, LMIN=50;
+const rad=l=>R0+(Math.max(LMIN,l)-LMIN)*K;
+
+// faint level rings + labels
+g.font='10px ui-monospace, SF Mono, Menlo, monospace'; g.textAlign='left';
+for(const v of [60,70,90]){
+  g.beginPath(); g.arc(CX,CY,rad(v),A0,A0+SWEEP); g.strokeStyle='rgba(255,255,255,0.045)'; g.lineWidth=1; g.stroke();
+}
+// reference band annulus
+g.beginPath(); g.arc(CX,CY,rad(82),A0,A0+SWEEP); g.arc(CX,CY,rad(76),A0+SWEEP,A0,true); g.closePath();
+g.fillStyle='rgba(76,201,133,0.08)'; g.fill();
+// 80 dBA threshold
+g.setLineDash([3,4]); g.beginPath(); g.arc(CX,CY,rad(80),A0,A0+SWEEP);
+g.strokeStyle='rgba(240,154,69,0.45)'; g.lineWidth=1; g.stroke(); g.setLineDash([]);
+
+// the bars
+g.lineCap='round';
+for(let pass=0;pass<2;pass++){
+  for(let i=0;i<N;i++){
+    const l=L[i], a=ang(i), z=zone(l), col=css(z);
+    const r1=R0+6, r2=rad(l);
+    if(pass===0 && z!=='--over') continue;   // glow pass: only the dose-accruing readings
+    g.beginPath(); g.moveTo(CX+Math.cos(a)*r1,CY+Math.sin(a)*r1); g.lineTo(CX+Math.cos(a)*r2,CY+Math.sin(a)*r2);
+    if(pass===0){ g.strokeStyle=col; g.globalAlpha=.30; g.lineWidth=2.4; g.shadowColor=col; g.shadowBlur=14; }
+    else {
+      const gr=g.createLinearGradient(CX+Math.cos(a)*r1,CY+Math.sin(a)*r1,CX+Math.cos(a)*r2,CY+Math.sin(a)*r2);
+      gr.addColorStop(0,col+'22'); gr.addColorStop(.6,col+'aa'); gr.addColorStop(1,col);
+      g.strokeStyle=gr; g.globalAlpha=1; g.lineWidth=1.25; g.shadowBlur=0;
+    }
+    g.stroke();
+  }
+}
+g.globalAlpha=1; g.shadowBlur=0;
+// tip highlights on the loudest readings
+for(let i=0;i<N;i++) if(L[i]>87){ const a=ang(i),r=rad(L[i]);
+  g.beginPath(); g.arc(CX+Math.cos(a)*r,CY+Math.sin(a)*r,1.1,0,7); g.fillStyle='rgba(255,236,210,.9)'; g.fill(); }
+
+// hour ticks
+g.fillStyle=css('--text-3'); g.font='10.5px ui-monospace, SF Mono, Menlo, monospace'; g.textAlign='center'; g.textBaseline='middle';
+['10:00','11:00','12:00','13:00','14:00'].forEach((t,k)=>{
+  const a=A0+k/4*SWEEP, r=rad(93)+20;
+  g.beginPath(); g.moveTo(CX+Math.cos(a)*(R0+2),CY+Math.sin(a)*(R0+2)); g.lineTo(CX+Math.cos(a)*(rad(93)+6),CY+Math.sin(a)*(rad(93)+6));
+  g.strokeStyle='rgba(255,255,255,0.07)'; g.lineWidth=1; g.stroke();
+  g.fillText(t,CX+Math.cos(a)*r,CY+Math.sin(a)*r);
+});
+// level labels in the gap
+g.textAlign='right'; g.fillStyle=css('--text-4');
+for(const v of [60,70,80,90]){ const a=A0-0.03; g.fillText(v===90?'90 dBA':String(v),CX+Math.cos(a)*rad(v)-2,CY+Math.sin(a)*rad(v)); }
+
+
+// ---- inner dose ring ------------------------------------------------------------
+const RD=88, tierCol=dose<40?css('--safe'):dose<70?css('--caution'):dose<90?css('--warning'):css('--danger');
+const D0=-Math.PI/2;
+// tier track
+[[0,40,'--safe'],[40,70,'--caution'],[70,90,'--warning'],[90,100,'--danger']].forEach(([a,b,v])=>{
+  g.beginPath(); g.arc(CX,CY,RD,D0+a/100*Math.PI*2+0.02,D0+b/100*Math.PI*2-0.02);
+  g.strokeStyle=css(v); g.globalAlpha=.16; g.lineWidth=8; g.lineCap='butt'; g.stroke(); });
+g.globalAlpha=1;
+// fill with glow
+g.beginPath(); g.arc(CX,CY,RD,D0,D0+dose/100*Math.PI*2);
+g.strokeStyle=tierCol; g.lineWidth=8; g.lineCap='round'; g.shadowColor=tierCol; g.shadowBlur=16; g.stroke(); g.shadowBlur=0;
+// inner disc
+rg=g.createRadialGradient(CX,CY-30,10,CX,CY,RD-8);
+rg.addColorStop(0,'#16161d'); rg.addColorStop(1,'#0c0c10');
+g.beginPath(); g.arc(CX,CY,RD-12,0,7); g.fillStyle=rg; g.fill();
+g.strokeStyle='rgba(255,255,255,0.06)'; g.lineWidth=1; g.stroke();
+// center text
+g.textAlign='center'; g.textBaseline='alphabetic';
+g.fillStyle=css('--text-2'); g.font='500 12px -apple-system, SF Pro Text, sans-serif'; g.fillText("Today's dose",CX,CY-28);
+g.fillStyle='#fff'; g.font='700 46px -apple-system, SF Pro Display, sans-serif';
+const nw=g.measureText(String(doseR)).width; g.fillText(String(doseR),CX-9,CY+16);
+g.fillStyle=css('--text-2'); g.font='600 20px -apple-system, SF Pro Display, sans-serif'; g.textAlign='left'; g.fillText('%',CX-9+nw/2+2,CY+16);
+g.textAlign='center'; g.fillStyle=tierCol; g.font='600 10.5px -apple-system, SF Pro Text, sans-serif';
+g.letterSpacing='1.5px'; g.fillText((dose<40?'SAFE':dose<70?'CAUTION':dose<90?'WARNING':'OVER-EXPOSED'),CX,CY+36); g.letterSpacing='0px';
+</script>
+</body></html>
