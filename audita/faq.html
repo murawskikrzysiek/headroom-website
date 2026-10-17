@@ -527,7 +527,7 @@
             <div class="faq-item">
                 <p class="faq-q">Which input device should I use?</p>
                 <p class="faq-a">For meaningful measurements, use a microphone positioned near your listening position - ideally 30-60 cm from where your ears sit while working. A small measurement mic or a decent USB condenser gives more reliable results than the built-in Mac microphone, though the built-in mic is fine for getting a rough sense of levels.</p>
-                <p class="faq-a">Select your preferred input in <strong>Settings → Audio</strong>. Audita remembers the selection by device UID, so it reconnects to the right mic automatically even after unplugging and replugging.</p>
+                <p class="faq-a">Select your preferred input in <strong>Settings → Devices</strong>. Audita remembers the selection by device UID, so it reconnects to the right mic automatically even after unplugging and replugging.</p>
             </div>
 
             <div class="faq-item">
@@ -558,42 +558,42 @@
 
             <div class="faq-item">
                 <p class="faq-q">How do I calibrate the frequency response?</p>
-                <p class="faq-a">Place the measurement mic at your listening position, then run <strong>Settings → Audio → Step 1 → Measure</strong>. Audita plays pink noise for ~4 seconds, captures the spectral shape, and derives a corrective FIR filter automatically. <a href="guide.html#calibration">Full walkthrough in the guide →</a></p>
+                <p class="faq-a">Place the measurement mic at your listening position, then run <strong>Settings → Calibration → Mic correction → Measure Response</strong>. Audita plays pink noise for ~4 seconds, captures the spectral shape, and derives a corrective FIR filter automatically. <a href="guide.html#calibration">Full walkthrough in the guide →</a></p>
                 <p class="faq-a">A dedicated measurement mic (Behringer ECM8000, Superlux ECM999) gives the most accurate results. The built-in MacBook mic still benefits from correction but varies a lot between units.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">My mic came with a calibration file. Can Audita use it?</p>
-                <p class="faq-a">Yes. <strong>Settings → Audio → Step 1 → Import Calibration File</strong> reads REW-style <code>.cal</code>, <code>.txt</code>, and <code>.frd</code> files, which is what miniDSP, Dayton, and most measurement-mic vendors ship. Audita shows what it found (data points, frequency span, serial number, sensitivity figure), then inverts the curve, limits it to ±9 dB, and applies it ahead of the A and C weighting filters. That replaces the pink-noise measurement.</p>
+                <p class="faq-a">Yes. <strong>Settings → Calibration → Mic correction → Import Calibration File…</strong> reads REW-style <code>.cal</code>, <code>.txt</code>, and <code>.frd</code> files, which is what miniDSP, Dayton, and most measurement-mic vendors ship. Audita shows what it found (data points, frequency span, serial number, sensitivity figure), then inverts the curve, limits it to ±9 dB, and applies it ahead of the A and C weighting filters. That replaces the pink-noise measurement.</p>
                 <p class="faq-a">The two paths describe different things. The manufacturer curve is anechoic data for the microphone alone, so it corrects the capsule. The pink-noise measurement captures your room, monitors, and mic together. Both are valid; the file is the better description of the microphone. A file-based correction also re-designs itself when your device runs at a different sample rate, where a measured one is only valid at the rate it was measured at.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">I have a miniDSP UMIK-1. What's the fastest way to calibrate?</p>
-                <p class="faq-a">Plug it in and select it as the input. Step 1 then leads with the download: type the serial printed on the mic body (without the dash the label prints), pick the 0 degree variant if the mic points at your monitors, and Audita fetches that unit's factory file and opens the import sheet. Tick <strong>Set level calibration from the file</strong> and both Step 1 and Step 2 are done.</p>
+                <p class="faq-a">Plug it in and select it as the input. The Mic correction card then leads with the download: type the serial printed on the mic body (without the dash the label prints), pick the 0 degree variant if the mic points at your monitors, and Audita fetches that unit's factory file and opens the import sheet. Tick <strong>Set level calibration from the file</strong> and both the correction and the level are done.</p>
                 <p class="faq-a">This works because the UMIK-1 is a USB mic with fixed gain: the <code>Sens Factor</code> line in its file maps digital level to real dB SPL with nothing left to measure. Expect the offset to sit well above the 94 dB default; that is correct. The conversion has been checked against the NIOSH SLM app. Keep the input volume at 100% for maximum headroom - if it sits lower, Audita adds the shortfall back in real time and shows the compensation.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Does that work with a UMIK-2, or an ECM8000 through my interface?</p>
-                <p class="faq-a">For frequency correction, yes: any of those cal files import the same way. For the absolute level, no. The automatic conversion is calibrated for the UMIK-1, so on a UMIK-2 set the level with Step 2. An analog mic runs through your interface's preamp, and the file has no way to know what gain you used, so Step 2 stays the level procedure there too.</p>
-                <p class="faq-a">Some analog files carry a <code>Sensitivity X dBFS</code> header, the level the mic produced at 94 dB SPL at whatever gain the file was measured at. Audita can use it as a starting point (off by default, and the sheet says why), but cross-check it against Step 2.</p>
+                <p class="faq-a">For frequency correction, yes: any of those cal files import the same way. For the absolute level, no. The automatic conversion is calibrated for the UMIK-1, so on a UMIK-2 set the level by hand on the Level card. An analog mic runs through your interface's preamp, and the file has no way to know what gain you used, so the Level card stays the level procedure there too.</p>
+                <p class="faq-a">Some analog files carry a <code>Sensitivity X dBFS</code> header, the level the mic produced at 94 dB SPL at whatever gain the file was measured at. Audita can use it as a starting point (off by default, and the sheet says why), but cross-check it against a reference meter on the Level card.</p>
             </div>
 
             <div class="faq-item">
-                <p class="faq-q">What does the calibration health card tell me?</p>
-                <p class="faq-a">It sits at the top of <strong>Settings → Audio</strong> and answers three questions: where your level calibration came from and which device it belongs to, whether the mic correction is really active (a measured correction can be silently bypassed when the engine runs at a different sample rate), and when the rig last passed a self-check. The same state appears as one line in the menu bar popover. A stale or broken calibration shows an orange warning instead of looking identical to a healthy one.</p>
+                <p class="faq-q">What do the Calibration page's pills tell me?</p>
+                <p class="faq-a"><strong>Settings → Calibration</strong> opens on one verdict line and four pills: <strong>Correction</strong> (where the mic correction came from, and whether it belongs to the selected input and is really active; a measured correction can be silently bypassed when the engine runs at a different sample rate), <strong>Level</strong> (factory, from file or manual, with the offset), <strong>Monitor level</strong> (the dBA captured for the selected output, aging after 90 days, old target when the Reference target has moved) and <strong>Verified</strong> (the day the rig last passed a self-check). When one needs attention, the sidebar's Calibration item carries a dot and the menu bar window leads with a banner naming it and a Fix button that opens the page; once the rig has passed its self-check, the window's footer reads Calibrated with the day. A stale or broken calibration shows orange instead of looking identical to a healthy one.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">What is the rig self-check?</p>
-                <p class="faq-a"><strong>Settings → Audio → Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the measured-versus-expected delta with a pass or fail against your calibration tolerance. Set the monitor to the calibrated knob position first; the card shows your note. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you before the noise starts.</p>
+                <p class="faq-a"><strong>Settings → Calibration → Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the measured-versus-expected delta with a pass or fail against your calibration tolerance. Set the monitor to the calibrated knob position first; the Self-check card repeats your note. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you before the noise starts.</p>
                 <p class="faq-a">A check verifies one chain: this mic into these monitors. Switch either end and the verification line reads unverified until you check that path too, and switching back to a rig you already verified reads verified again without re-running. Results age out after 90 days.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Why did my mic correction turn itself off after updating to 1.4?</p>
-                <p class="faq-a">The filter Step 1 derived was built from the wrong segment of the impulse response, so what got applied never matched the curve Settings displayed. The construction is fixed in 1.4 and now regression-tested against the displayed curve, but the filters stored by earlier versions cannot be salvaged, so they are disabled and Settings asks for one new <strong>Measure</strong> run. Your original measurement was valid; the stored filter was not. If your mic has a calibration file, importing it also clears the request.</p>
+                <p class="faq-a">The filter the mic measurement derived was built from the wrong segment of the impulse response, so what got applied never matched the curve Settings displayed. The construction is fixed in 1.4 and now regression-tested against the displayed curve, but the filters stored by earlier versions cannot be salvaged, so they are disabled and Settings asks for one new <strong>Measure</strong> run. Your original measurement was valid; the stored filter was not. If your mic has a calibration file, importing it also clears the request.</p>
             </div>
 
             <div class="faq-item">
@@ -603,7 +603,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Can I save a calibration and reuse it later?</p>
-                <p class="faq-a">Yes - <strong>Settings → Audio → Calibration Profiles</strong> saves the FIR correction + level offset as a named profile you can switch between in one click. Useful when you alternate between rigs (studio desk / mobile rig / second room). The Step 3 reference monitor record is keyed separately by output-device UID and isn't part of profiles. <a href="guide.html#calibration">Detailed coverage in the guide →</a></p>
+                <p class="faq-a">Yes - <strong>Save as…</strong> in the footer of <strong>Settings → Calibration</strong> saves the mic correction and the level offset as a named profile you can switch between in one click; <strong>Manage…</strong> lists them. Useful when you alternate between rigs (studio desk / mobile rig / second room). The monitor level record is keyed separately by output-device UID and isn't part of profiles. <a href="guide.html#calibration">Detailed coverage in the guide →</a></p>
             </div>
 
             <div class="faq-item">
@@ -628,7 +628,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">What is Monitoring Discipline?</p>
-                <p class="faq-a">It's a measure of how consistently you actually monitor at your chosen reference level. Set a target (e.g. 79 dBA for K-14) and a tolerance band (e.g. ±3 dB), and Audita classifies every reading at 10 Hz as <em>under</em>, <em>on-target</em>, or <em>over</em>. The menu bar shows a live <strong>on-target %</strong> chip - green above 80%, yellow 60-80%, orange below - plus a three-segment under/on/over bar so you can see which way the room is leaning. <em>Today's Summary</em> aggregates the same metric across sessions, and per-session figures land in <em>History</em> next to the dose stats.</p>
+                <p class="faq-a">It's a measure of how consistently you actually monitor at your chosen reference level. Set a target (e.g. 79 dBA for K-14) and a tolerance band (e.g. ±3 dB), and Audita classifies every reading at 10 Hz as <em>under</em>, <em>on-target</em>, or <em>over</em>. The menu bar window heads its reference block with the live <strong>on-target %</strong> - green from 75%, yellow from 50%, orange below - plus the band, the live deviation and a three-segment under/on/over bar so you can see which way the room is leaning. At rest the window shows today's share across sessions, each session's row in the History window carries it as a chip, and the History window's On target answer covers any range.</p>
             </div>
 
             <div class="faq-item">
@@ -691,8 +691,8 @@
 
             <div class="faq-item">
                 <p class="faq-q">What does the dBC − dBA gap indicator mean?</p>
-                <p class="faq-a">When the C-weighted reading is significantly higher than the A-weighted reading, it means substantial low-frequency energy is present that A-weighting is filtering out. Audita shows a gap indicator in the menu bar popover:</p>
-                <p class="faq-a"><strong>Gap &gt; 6 dB</strong> (caution): notable low-frequency content present. <strong>Gap &gt; 10 dB</strong> (warning): significant bass energy that A-weighting alone would underreport.</p>
+                <p class="faq-a">When the C-weighted reading is significantly higher than the A-weighted reading, it means substantial low-frequency energy is present that A-weighting is filtering out. Audita shows the C-weighted reading as an <strong>LF chip</strong> beside the level in the menu bar window, only when the gap calls for it:</p>
+                <p class="faq-a"><strong>Gap over 6 dB</strong>: the chip appears; notable low-frequency content present. <strong>Gap over 10 dB</strong>: the chip turns orange; significant bass energy that A-weighting alone would underreport.</p>
                 <p class="faq-a">This matters most when mixing bass-heavy music, working with subwoofers, or tracking heavy kick drums and sub-bass content. In these situations, A-weighting gives you a false sense of safety - you may feel like the levels are manageable while the physical energy reaching your ears is substantially higher.</p>
             </div>
 
@@ -745,7 +745,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Audita have widgets?</p>
-                <p class="faq-a">Yes. Audita 1.3 adds six desktop widgets (macOS 14 and later): On Target (whether you're holding your reference level), Today's Dose, Latest SPL, Safe Streak, Weekly Exposure, and an Overview tile. Right-click the desktop or open Notification Center, choose Edit Widgets, and find Audita. They show the data Audita publishes, so they stay in step with the menu bar. They refresh about once a minute rather than in real time, because macOS limits how often a widget can redraw; for a live reading use the menu bar or floating panel. See the <a href="guide.html#widgets">guide</a> for details.</p>
+                <p class="faq-a">Yes. Audita 1.3 adds six desktop widgets (macOS 14 and later): On Target (whether you're holding your reference level), Today's Dose, Latest SPL, Safe Streak, Weekly Exposure, and an Overview tile. Right-click the desktop or open Notification Center, choose Edit Widgets, and find Audita. They show the data Audita publishes, so they stay in step with the menu bar. They refresh about once a minute rather than in real time, because macOS limits how often a widget can redraw; for a live reading use the menu bar or the pinned panel. See the <a href="guide.html#widgets">guide</a> for details.</p>
             </div>
 
         </div>
@@ -775,7 +775,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">What is the 115 dBA instantaneous ceiling?</p>
-                <p class="faq-a">The 115 dBA limit is the maximum permissible instantaneous A-weighted level per EU Directive 2003/10/EC. Unlike the C-weighted LCpeak thresholds that target impulsive bass-heavy events, this limit applies to any sudden A-weighted spike. Audita counts the number of ticks in each session where this threshold is exceeded and shows a badge in the session history - even a count of 1 warrants attention, as this level is capable of causing immediate cochlear damage.</p>
+                <p class="faq-a">The 115 dBA limit is the maximum permissible instantaneous A-weighted level per EU Directive 2003/10/EC. Unlike the C-weighted LCpeak thresholds that target impulsive bass-heavy events, this limit applies to any sudden A-weighted spike. Audita counts each crossing of this threshold as one event and shows the count as a peak chip in the menu bar window and on the session's row in the History window - even a count of 1 warrants attention, as this level is capable of causing immediate cochlear damage.</p>
             </div>
 
         </div>
@@ -790,7 +790,7 @@
             <div class="faq-item">
                 <p class="faq-q">What is Leq?</p>
                 <p class="faq-a">Leq (equivalent continuous level) is the energy-average of all sound levels measured over a given time window. It answers the question: what single steady level would carry the same total acoustic energy as the actual fluctuating signal? The formula is Leq = 10 · log₁₀(mean(10^(Lᵢ/10))), where each Lᵢ is an individual A-weighted SPL reading. Unlike an arithmetic average, Leq is dominated by the loud moments - a few loud seconds pull the Leq up significantly more than many quiet ones.</p>
-                <p class="faq-a">Audita shows Leq over three rolling windows: 1 minute, 10 minutes, and 30 minutes. These update live in the menu bar panel.</p>
+                <p class="faq-a">Audita shows Leq over three rolling windows: 1 minute, 10 minutes, and 30 minutes. They update live under Details in the menu bar window and in the expanded pinned panel.</p>
             </div>
 
             <div class="faq-item">
@@ -842,7 +842,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Audita work with Lyra?</p>
-                <p class="faq-a">Yes. <a href="../lyra/">Lyra</a> is our keyboard-driven volume control for Universal Audio Apollo interfaces. After running Audita's <strong>target-level calibration</strong> in Settings → Audio, click <strong>"Send to Lyra…"</strong> - Audita hands the position to Lyra by writing the live Apollo monitor level into one of three reference slots, tagged with the name and dB SPL value you picked. Recall the position later with <strong>Ctrl+F10 / F11 / F12</strong> in Lyra. The slot displays as e.g. <em>"Mix - 85 dB SPL"</em> in Lyra's menu and HUD instead of a generic percentage.</p>
+                <p class="faq-a">Yes. <a href="../lyra/">Lyra</a> is our keyboard-driven volume control for Universal Audio Apollo interfaces. After capturing a <strong>monitor level</strong> in Settings → Calibration, click <strong>"Send to Lyra…"</strong> - Audita hands the position to Lyra by writing the live Apollo monitor level into one of three reference slots, tagged with the name and dB SPL value you picked. Recall the position later with <strong>Ctrl+F10 / F11 / F12</strong> in Lyra. The slot displays as e.g. <em>"Mix - 85 dB SPL"</em> in Lyra's menu and HUD instead of a generic percentage.</p>
                 <p class="faq-a">The integration uses Lyra's <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px;">lyra://reference/{n}/save</code> URL scheme, so even if Lyra is closed, macOS launches it on demand. Requires <strong>Lyra 1.4 or later</strong>. If Lyra isn't installed, Audita shows a small link to the product page in place of the button - no nags or interruptions.</p>
             </div>
 
@@ -866,7 +866,7 @@
                 <p class="faq-q">The Sparkle update prompt isn't appearing.</p>
                 <p class="faq-a">Sparkle caches its "already checked" state. To force a fresh check:</p>
                 <div class="terminal">defaults delete com.headroom.Audita</div>
-                <p class="faq-a" style="margin-top: 8px;">Relaunch Audita, then use <strong>menu → Check for Updates…</strong></p>
+                <p class="faq-a" style="margin-top: 8px;">Relaunch Audita, then use <strong>Settings → General → Check for Updates…</strong></p>
             </div>
 
         </div>

@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audita - User Guide</title>
     <link rel="canonical" href="https://headroomstudio.dev/audita/guide.html">
-    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration including cal-file import and the UMIK-1, the rig self-check, Monitoring Discipline, floating panel, Lyra pairing, automation, troubleshooting, licensing.">
+    <meta name="description" content="Complete user reference for Audita - first launch, menu bar display, calibration including cal-file import and the UMIK-1, the rig self-check, Monitoring Discipline, the pinned panel, the History window, Lyra pairing, automation, troubleshooting, licensing.">
     <meta property="og:title" content="Audita User Guide">
-    <meta property="og:description" content="Complete reference for Audita - menu bar SPL readout, calibration, Monitoring Discipline, floating panel, Lyra pairing, troubleshooting.">
+    <meta property="og:description" content="Complete reference for Audita - the menu bar window, calibration, Monitoring Discipline, the pinned panel, the History window, Lyra pairing, troubleshooting.">
     <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
     <meta property="og:type" content="article">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -525,11 +525,11 @@
             <li><a href="#what-audita-does">1 · What Audita does</a></li>
             <li><a href="#first-launch">2 · First launch</a></li>
             <li><a href="#menu-bar-display">3 · Menu bar display</a></li>
-            <li><a href="#dropdown-menu">4 · The dropdown menu</a></li>
-            <li><a href="#floating-panel">5 · Floating measurement panel</a></li>
+            <li><a href="#dropdown-menu">4 · The menu bar window</a></li>
+            <li><a href="#floating-panel">5 · The pinned panel</a></li>
             <li><a href="#calibration">6 · Calibration</a></li>
             <li><a href="#monitoring-discipline">7 · Monitoring Discipline</a></li>
-            <li><a href="#sessions">8 · Sessions &amp; DAW detection</a></li>
+            <li><a href="#sessions">8 · Sessions &amp; the History window</a></li>
             <li><a href="#session-reports">9 · Session reports &amp; sharing</a></li>
             <li><a href="#pause-resume">10 · Pause &amp; resume monitoring</a></li>
             <li><a href="#send-to-lyra">11 · Send to Lyra</a></li>
@@ -591,9 +591,9 @@
         <p class="prose">On first launch:</p>
         <ol>
             <li>macOS asks for <strong>microphone access</strong>. Click <strong>OK</strong>. Audita needs microphone access to measure SPL; the measurement microphone you pick (see below) is the only audio source it reads.</li>
-            <li>The Audita icon appears in the menu bar. Click it to open the popover.</li>
-            <li>Open <strong>Settings → Audio</strong> and select your <strong>measurement microphone</strong> from the input device picker. Defaults to the system default input. Any mic works (built-in, talkback, anything CoreAudio sees); for the most accurate readings we recommend a small condenser or omnidirectional measurement mic permanently mounted near the listening position.</li>
-            <li>Run the <a href="#calibration">3-step calibration wizard</a> (Settings → Audio). Without calibration, the SPL numbers Audita displays are not in real-world dB.</li>
+            <li>The Audita icon appears in the menu bar. Click it to open the menu bar window.</li>
+            <li>Open <strong>Settings → Devices</strong> and select your <strong>measurement microphone</strong> from the input device picker. Defaults to the system default input. Any mic works (built-in, talkback, anything CoreAudio sees); for the most accurate readings we recommend a small condenser or omnidirectional measurement mic permanently mounted near the listening position.</li>
+            <li>Work through <a href="#calibration">Settings → Calibration</a>: the mic correction, the level, the monitor level, then the self-check. Without calibration, the SPL numbers Audita displays are not in real-world dB.</li>
         </ol>
 
         <p class="prose">Audita is agent-only. It never appears in the Dock or the ⌘-Tab switcher. All interaction happens through the menu bar.</p>
@@ -605,8 +605,8 @@
 
         <p class="prose">To add a DAW that isn't in the built-in list, open <strong>Settings → DAWs → Add Custom DAW</strong> and enter its bundle ID and display name. Custom DAWs persist across launches and survive Auris imports.</p>
 
-        <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar and popover header)</h3>
-        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom in the popover header.</p>
+        <h3 id="menu-bar-icon-states">Pressure Bloom states (menu bar, menu bar window, pinned panel)</h3>
+        <p class="prose">The menu bar glyph is the <strong>Pressure Bloom</strong>, the same arcs-and-dot shape as the Audita app icon. The number of arcs reflects <strong>live SPL</strong>; the colour reflects <strong>today's NIOSH dose tier</strong>. So a single glyph tells you "loud right now" and "how much of today's hearing budget has been spent" at the same time. The same state machine drives the larger Bloom beside today's dose in the menu bar window and at the left of the pinned panel.</p>
 
         <table>
             <tbody><tr><th>Condition</th><th>Glyph</th><th>Colour</th></tr>
@@ -667,118 +667,112 @@
 
     <hr class="divider">
 
-    <!-- ─────── 4. The dropdown menu ─────── -->
+    <!-- ─────── 4. The menu bar window ─────── -->
     <section class="guide-section" id="dropdown-menu">
-        <h2>4. The dropdown menu <a href="#dropdown-menu" class="anchor">#</a></h2>
+        <h2>4. The menu bar window <a href="#dropdown-menu" class="anchor">#</a></h2>
 
-        <p class="prose">Click the menu bar icon to open the popover. Two panels: the live measurement panel (default) and the session history panel (accessed via the <strong>History</strong> button).</p>
+        <p class="prose">Click the menu bar icon and the window opens on two questions, then the level. Every fact in the first glance appears once; the rest sits under Details.</p>
 
-        <img src="images/screenshots/menubar-popover-main.png" alt="The main Audita menu bar popover showing license status, live dBA and dBC readings, Monitoring Discipline gauge, today's dose summary, and the pin and history buttons in the footer" class="screenshot-full">
-
-        <p class="prose">A larger Pressure Bloom sits in the popover header next to the accumulated dose readout. It's driven by the same state machine as the menu bar glyph - see <a href="#menu-bar-icon-states">Pressure Bloom states</a> for the arc and colour rules.</p>
-
-        <h3>License status</h3>
-        <p class="prose">"Licensed", "Trial - N days left", or "Trial expired" in red, with an <strong>Activate</strong> or <strong>Manage</strong> button alongside.</p>
-
-        <h3>Active session block</h3>
-        <p class="prose">Visible while a session is running (auto-started by a DAW or manually started). Shows the DAW name, elapsed time, running average dBA and peak dBA / dBC, and the dose accrued during this session only. The peak counters (<code>≥115 dBA</code>, <code>≥135 dBC</code>) appear as red badges when the corresponding EU thresholds have been exceeded.</p>
-
-        <h3>Live dBA and dBC</h3>
-        <p class="prose">Two large numbers showing the smoothed A-weighted and C-weighted SPL at your microphone position. Exponentially smoothed (α = 0.3) for display only; dose, Leq, and session statistics use the energy average of each 100 ms measurement interval, so every sample contributes its actual acoustic energy and short bursts are counted at full weight. A <strong>dBC − dBA gap indicator</strong> appears below when the gap exceeds 6 dB (caution) or 10 dB (warning), flagging significant low-frequency content that A-weighting alone underreports.</p>
-
-        <h3>Monitoring Discipline gauge</h3>
-        <p class="prose">When Monitoring Discipline is enabled and the audio chain is calibrated, a small gauge shows the active reference target (e.g. <code>K-14 / 79 dBA ±3</code>), the live distance from target in dB, and the rolling on-target % for the current session. See <a href="#monitoring-discipline">Monitoring Discipline</a> for the full mechanic.</p>
+        <img src="images/screenshots/menubar-popover-main.png" alt="The Audita menu bar window during a session: today's dose with its state and next threshold, the reference with the on-target share and the under, on and over bar, the level in dBA, the Details disclosure, the session row with End Session, and the footer with the pin, Settings, History and Quit" class="screenshot-full">
 
         <h3>Today's dose</h3>
-        <p class="prose">The cumulative NIOSH dose percentage for the current calendar day, color-coded by zone (green / yellow / orange / red). Below it, peak counters for today's <code>≥135 dBC</code> and <code>≥115 dBA</code> events when non-zero. The dose resets at midnight.</p>
+        <p class="prose">The share of the daily NIOSH budget used so far, as a whole percent, with the state and the next threshold in words ("Safe, caution from 40%") and a bar. The Bloom beside it follows the live level during a session and takes the dose colour; see <a href="#menu-bar-icon-states">Pressure Bloom states</a>. The dose resets at midnight.</p>
 
-        <h3>Calibration status line</h3>
-        <p class="prose">A single line above the footer summarises the same state as the health card in <a href="#calibration">Settings → Audio</a>: whether your level calibration, mic correction, and last self-check are all in order for the devices currently selected, or which of them needs attention. It also carries the input-volume compensation indicator when a UMIK calibration is active and the mic's volume control sits below 100%.</p>
+        <h3>The reference</h3>
+        <p class="prose">Shown when Monitoring Discipline is on: the share of the session on target at headline size, coloured by one ladder (green from 75%, yellow from 50%, orange below), the band and the preset ("on 79 ±3 dBA · K-14"), the live deviation as a chip, and the under / on / over bar with its legend. Until 30 seconds of non-silent monitoring have accrued it reads "Warming up". See <a href="#monitoring-discipline">Monitoring Discipline</a> for the mechanic.</p>
 
-        <h3>Footer: pin and history</h3>
-        <p class="prose">Two buttons at the bottom:</p>
-        <ul>
-            <li><strong>Pin icon</strong> - opens or closes the <a href="#floating-panel">floating measurement panel</a>. The icon swaps between an outline pin (closed) and a filled accent-tinted pin (open).</li>
-            <li><strong>History</strong> - opens the second panel of the popover, showing the 7-day bar chart and chronological session list. Click <strong>History window</strong> at the top to open the standalone resizable history window with calendar navigation and 30-day range stats.</li>
-        </ul>
+        <h3>The level</h3>
+        <p class="prose">One number in dBA, smoothed for display only; dose, Leq and the session statistics use the energy average of each 100 ms measurement interval, so every sample contributes its acoustic energy and short bursts count at full weight. The C-weighted reading appears as an <strong>LF chip</strong> beside the level only when the dBC to dBA gap passes 6 dB (orange from 10 dB), flagging low-frequency content that A-weighting alone underreports. When a UMIK calibration is compensating a lowered input volume, the compensation is a chip here too. A peak flashes as a red chip for two seconds.</p>
 
-        <h3>Start Session / End Session</h3>
-        <p class="prose">Manual session control. Useful when you're not in a tracked DAW (e.g. mixing in iZotope RX, listening on Spotify, scoring against a reference track in QuickTime). The session records exactly like an auto-detected one but is labelled <code>Manual</code> until you give it a custom name.</p>
+        <h3>The peak chip</h3>
+        <p class="prose">One chip under the level, only when a limit was passed today: the day's peak dBC and the counts over 140 dBC (or 135 dBC) and 115 dBA. A day with no such peak shows no chip; its peak dBC is under Details.</p>
+
+        <h3>Details</h3>
+        <p class="prose">A disclosure that stays open or closed as you leave it. Open, it holds Leq over 1, 10 and 30 minutes, the L10 / L50 / L90 percentiles, the session's average and peaks, today's peak, and a note when <a href="#sessions">conservative dose mode</a> is on.</p>
+
+        <h3>The session row and the actions</h3>
+        <p class="prose">The actions are menu rows. A running session is one row, "Logic Pro · 1h 12m · +2.4%" (the DAW, the elapsed time, the dose this session added), with <strong>End Session</strong> at its end; without a session the row reads <strong>Start Session</strong>. Manual sessions cover work outside a tracked DAW (iZotope RX, Spotify, a reference track in QuickTime); they record like an auto-detected one, labelled <code>Manual</code>. Then <strong>Pause Monitoring</strong>, which reads <strong>Resume Monitoring</strong> while paused (see <a href="#pause-resume">Pause &amp; resume</a>), and <strong>More</strong>, which holds <strong>Share Last Session…</strong> and <strong>Reset Dose…</strong>. Reset asks before it zeroes the day.</p>
+
+        <h3>License row</h3>
+        <p class="prose">During the trial a row names the trial with the days left, or reads "Trial expired" in red, with <strong>Manage</strong> or <strong>Activate</strong> alongside. Once licensed, the row is gone.</p>
+
+        <h3>The footer</h3>
+        <p class="prose">The pin opens or closes the <a href="#floating-panel">pinned panel</a> (an outline pin when closed, a filled accent-tinted pin when open), then <strong>Settings</strong>, <strong>History</strong> (the <a href="#history">History window</a>) and <strong>Quit</strong>. Once the rig has passed its <a href="#calibration">self-check</a> on the current input and output, the footer reads <strong>Calibrated</strong> with the day. Check for Updates lives in <strong>Settings → General</strong>.</p>
+
+        <h3>The calibration banner</h3>
+        <p class="prose">A calibration that needs attention is a banner at the top of the window, naming the item, with a <strong>Fix</strong> button that opens <strong>Settings → Calibration</strong>, where the <a href="#calibration">verdict line and the pills</a> name it. A healthy or merely unverified chain draws nothing there.</p>
+
+        <h3>At rest</h3>
+        <p class="prose">With the engine stopped the window says "Not measuring" with today's session count and time, and the day's on-target share aggregated across today's sessions. The dose headline stays.</p>
+
+        <img src="images/screenshots/menubar-window-at-rest.png" alt="The Audita menu bar window at rest: today's dose with its state, Not measuring with the day's on-target share and session count, the Details disclosure, the Start Session row, and the footer reading Calibrated with the day" class="screenshot-full">
 
         <h3>Settings…</h3>
-        <p class="prose">Opens the Settings window. Six tabs: <strong>Audio</strong> (device, calibration), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>Reference</strong> (target dBA, alerts), <strong>DAWs</strong> (custom bundle IDs), <strong>Panel</strong> (floating panel sections), <strong>General</strong> (menu bar display, launch at login, notifications, Auris import).</p>
+        <p class="prose">Opens the Settings window: a sidebar with seven pages, 820 by 600 points and resizable. <strong>General</strong> (menu bar display, launch at login, notifications, storage, updates, Auris import), <strong>Devices</strong> (input and channel, output, mic location, the engine's state), <strong>Calibration</strong> (the chain, <a href="#calibration">section 6</a>), <strong>Reference</strong> (target dBA, tolerance, alerts), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>DAWs</strong> (custom bundle IDs) and <strong>About</strong> (version, license).</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 5. Floating measurement panel ─────── -->
+    <!-- ─────── 5. The pinned panel ─────── -->
     <section class="guide-section" id="floating-panel">
-        <h2>5. Floating measurement panel <a href="#floating-panel" class="anchor">#</a></h2>
+        <h2>5. The pinned panel <a href="#floating-panel" class="anchor">#</a></h2>
 
-        <p class="prose">A detached always-on-top window that keeps the measurement panel visible while you work in another app. Opened via the pin icon in the menu bar footer; dismissed via the same pin or by double-clicking the panel surface.</p>
+        <p class="prose">The pin in the menu bar window's footer opens the same numbers as a strip that stays above your DAW. The pin closes it.</p>
 
-        <img src="images/screenshots/floating-panel.png" alt="The Audita floating measurement panel translucent over a DAW window showing live SPL, dose, Monitoring Discipline, and today's summary" class="screenshot-full">
+        <img src="images/screenshots/floating-panel.png" alt="The Audita pinned panel as a strip over a DAW window: the Bloom, the level in dBA, the verdict On target, today's dose and the chevron" class="screenshot-full">
 
-        <h3>What it shows</h3>
-        <p class="prose">All the same data the menu bar popover shows, configurable per section in <strong>Settings → Panel</strong>:</p>
-        <ul>
-            <li>Hearing dose (today's NIOSH dose with color)</li>
-            <li>Current SPL (dBA + dBC)</li>
-            <li>Monitoring Discipline (target, distance, on-target %)</li>
-            <li>Leq / Ln statistics</li>
-            <li>Active session details</li>
-            <li>Today's summary (dose, peaks)</li>
-        </ul>
-        <p class="prose">All sections default on. Sections that depend on context (no active session, monitoring disabled, audio not running) auto-hide regardless of the toggle.</p>
+        <h3>The strip</h3>
+        <p class="prose">One row: the Bloom, the level now in dBA, the discipline verdict in words ("On target", "2 dB over", "Silent"), today's dose as a share of the budget in its colour, and a chevron. Between sessions the level reads "Not measuring". A peak flashes as a red chip for two seconds, as in the menu bar window.</p>
+
+        <h3>Expanded</h3>
+        <p class="prose">The chevron, or a double-click anywhere on the panel, expands it in place: a calibration that needs attention and a pause show as banners, then the reference, Leq and Ln, the session's readings and today's peak, the menu bar window's Details rows. The same chevron or double-click collapses it, and the panel remembers which size you left it at. There is nothing to configure.</p>
+
+        <img src="audita-pin-window-clean.png" alt="The Audita pinned panel expanded in place: the strip on top, then the reference, Leq and Ln, the session's readings and today's peak" class="screenshot-full">
 
         <h3>Behaviour</h3>
         <ul>
-            <li><strong>Always on top.</strong> Floats above other windows at <code>NSWindow.Level.floating</code>.</li>
-            <li><strong>Follows you across spaces and full-screen apps.</strong> Joins all spaces; visible whether you're in a DAW's full-screen mode, on a different Mission Control space, or on a secondary display.</li>
-            <li><strong>Borderless and translucent.</strong> No title bar, no traffic lights. The SwiftUI material background draws edge-to-edge.</li>
-            <li><strong>Liquid Glass on macOS 26+.</strong> Uses the system's translucent <code>.glassEffect</code> material and inherits the color of whatever is behind it. On macOS 14-25 it falls back to <code>.regularMaterial</code> - still translucent, but flat.</li>
-            <li><strong>Resizable, position-remembered.</strong> Drag any edge to resize. The frame is auto-saved between launches.</li>
-            <li><strong>Auto-resize on section toggle.</strong> Toggling sections in Settings → Panel re-fits the window without leaving a gap; the top edge stays where you put it so the resize feels anchored.</li>
+            <li><strong>Always on top.</strong> Floats above other windows, including a DAW in full-screen mode, on every Space and on a secondary display.</li>
+            <li><strong>Borderless and translucent.</strong> No title bar, no traffic lights. Liquid Glass on macOS 26 and later, which takes the colour of whatever is behind it; a flat translucent material on macOS 14 and 15.</li>
+            <li><strong>Drag anywhere.</strong> Click any part of the panel and drag. The position and the size are remembered between launches.</li>
         </ul>
     </section>
-
-    <hr class="divider">
 
     <!-- ─────── 6. Calibration ─────── -->
     <section class="guide-section" id="calibration">
         <h2>6. Calibration <a href="#calibration" class="anchor">#</a></h2>
 
-        <p class="prose">Audita's measurement chain is only as accurate as its calibration. <strong>Settings → Audio</strong> opens with a calibration health card and then presents calibration as a numbered 3-step journey, because the steps depend on each other: Step 2 only matters if Step 1 has flattened the mic, and Step 3 only matters if Steps 1 and 2 have made the broadband level reliable.</p>
+        <p class="prose">Audita's measurement chain is only as accurate as its calibration. <strong>Settings → Calibration</strong> is one page: a verdict line and four status pills at the top, the rig under them, then four cards in the order the chain depends on them: <strong>Mic correction</strong>, <strong>Level</strong>, <strong>Monitor level</strong> and <strong>Self-check</strong>. The level only means something once the correction has flattened the mic, and the monitor level only once the level is reliable. Each card holds its pill, one line of fact, its actions and a <strong>How it works</strong> disclosure; the wizards run inside their card.</p>
 
-        <img src="images/screenshots/settings-audio-calibration-health.png" alt="The top of the Settings Audio tab: the Calibration Health card with three status rows for level, mic correction, and verification, the Run Self-Check button, and the row naming the saved profile currently in use" class="screenshot-full">
+        <img src="images/screenshots/settings-calibration-page.png" alt="The Settings Calibration page: the verdict line, the Correction, Level, Monitor level and Verified pills, the rig line, and the Mic correction card with its correction curve, with the Level, Monitor level and Self-check cards and the profile footer below" class="screenshot-full">
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>TL;DR.</strong> Run Step 1 once per mic, or import that mic's calibration file instead. Run Step 2 every time you move the mic or change the gain - unless a UMIK-1 file set the level, which makes it a cross-check rather than a procedure. Run Step 3 once per output device.</p>
+            <p><strong>TL;DR.</strong> Measure or import the mic correction once per mic. Set the level every time you move the mic or change the gain - unless a UMIK-1 file set it, which makes it a cross-check rather than a procedure. Capture the monitor level once per output device. Run the self-check whenever you want to know the chain still holds.</p>
         </div>
 
-        <h3>Calibration health at a glance</h3>
-        <p class="prose">The card at the top of the Audio tab answers three questions before you touch a slider:</p>
+        <h3>The verdict and the pills</h3>
+        <p class="prose">The line at the top says where the chain stands: the first caution in words, or <em>Calibrated and verified on UMIK-1 into Apollo Twin X, 12 Oct</em>. Under it, four pills, one per card, each with a tint and a word or two:</p>
 
         <ul>
-            <li><strong>Level.</strong> Where the offset came from - a factory calibration file, a file's sensitivity header, or your own hand-set number - and whether it belongs to the input you currently have selected.</li>
-            <li><strong>Mic correction.</strong> Whether a correction is active, which source it came from, and whether the audio engine's current sample rate is bypassing a measured correction (a measured filter is only valid at the rate it was measured at; a correction from a calibration file re-designs itself instead).</li>
-            <li><strong>Verification.</strong> When this mic-and-monitor pair last passed a self-check, or that it has not been checked yet.</li>
+            <li><strong>Correction.</strong> Where the mic correction came from (<em>factory file</em>, <em>measured</em> with the day), <em>off</em>, <em>none</em>, or <em>needs attention</em>: a correction that belongs to another microphone, or a measured one the audio engine's sample rate is bypassing (a measured filter is only valid at the rate it was measured at; a correction from a calibration file re-designs itself instead).</li>
+            <li><strong>Level.</strong> Where the offset came from - <em>factory</em> for a UMIK-1 file, <em>from file</em> for a sensitivity header, <em>manual</em> for your own hand-set number - with the offset, and whether it belongs to the input you currently have selected.</li>
+            <li><strong>Monitor level.</strong> The dBA captured for the selected output, <em>not yet</em> before a capture, <em>aging</em> once the record is older than 90 days, and <em>old target</em> when the Reference target has moved since: the knob position then means a level that is no longer the target.</li>
+            <li><strong>Verified.</strong> The day this mic-and-monitor pair last passed a self-check, <em>failed</em> with the day, <em>never</em>, or <em>not on this rig</em> when the check you ran belongs to another pair.</li>
         </ul>
 
-        <p class="prose">Each line carries its own tint, and the card takes the worst of the three, so a stale or silently bypassed calibration does not look identical to a healthy one. The menu bar popover carries the same state as a single summary line above its footer.</p>
+        <p class="prose">Each pill carries its own tint, and the verdict line takes the worst of the four, so a stale or silently bypassed calibration does not look identical to a healthy one. A caution anywhere also shows as a dot on the sidebar's Calibration item, and the <a href="#dropdown-menu">menu bar window</a> and the <a href="#floating-panel">pinned panel</a> lead with a banner naming it, with a <strong>Fix</strong> button that opens this page. A healthy chain, or one not yet checked, shows no banner. Once the rig has passed its self-check, the menu bar window's footer reads Calibrated with the day.</p>
 
-        <p class="prose">Below the card are the input and output device pickers and the free-text <strong>Mic Location</strong> field. Use the location field to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"); it is stored alongside the calibration so you can reproduce or cross-check it weeks later.</p>
+        <p class="prose">The rig line under the pills names the input and the output; <strong>Change in Devices</strong> opens the Devices page, which holds the input and output pickers, the input channel and the free-text <strong>Mic Location</strong> field. Use the location field to record the physical setup ("Earthworks M30 at LP, 1.2 m behind monitors, 38 cm above desk, gain at unity"); it is stored alongside the calibration so you can reproduce or cross-check it weeks later.</p>
 
-        <h3>Step 1 - Mic frequency response correction (optional)</h3>
-        <p class="prose">Most desk-mounted measurement mics, talkback channels on audio interfaces, and onboard laptop mics have non-flat frequency responses that bias dBA readings by 1-5 dB depending on programme content. Step 1 measures your mic's actual frequency response with pink noise and an FFT, then derives a corrective FIR filter that flattens the input chain before the A and C weighting filters run.</p>
+        <h3>1. Mic correction (optional)</h3>
+        <p class="prose">Most desk-mounted measurement mics, talkback channels on audio interfaces, and onboard laptop mics have non-flat frequency responses that bias dBA readings by 1-5 dB depending on programme content. The Mic correction card measures your mic's actual frequency response with pink noise and an FFT, then derives a corrective FIR filter that flattens the input chain before the A and C weighting filters run.</p>
 
         <ol>
             <li>Place the measurement mic at your normal listening position - where your head sits during a session.</li>
             <li>Turn your monitors to a normal listening level - loud enough to dominate room noise, not so loud the mic clips.</li>
-            <li><strong>Settings → Audio → Step 1 → Measure.</strong></li>
+            <li><strong>Settings → Calibration → Mic correction → Measure Response.</strong></li>
             <li>Pink noise plays for ~4 seconds. The mic captures the response. The FIR is computed and saved automatically.</li>
-            <li>The status row updates to <strong>Active</strong>.</li>
+            <li>The card's pill reads <strong>measured</strong> with the day, and the correction curve draws under it.</li>
         </ol>
 
         <p class="prose"><strong>Re-run when:</strong> you change the measurement mic, move it to a meaningfully different position, or change room treatment in the listening area.</p>
@@ -790,12 +784,12 @@
 
         <h3>Import the manufacturer's calibration file</h3>
 
-        <img src="images/screenshots/settings-audio-step1-calibration-file.png" alt="Step 1 in the Settings Audio tab with a calibration file imported: the file name, serial number and date, the correction curve it produced, the UMIK-1 serial-number download field with 0 and 90 degree options, and the Measure Response and Import Calibration File buttons below" class="screenshot-full">
+        <img src="images/screenshots/settings-audio-step1-calibration-file.png" alt="The Mic correction card with a calibration file imported: the file name, serial number and date, the correction curve it produced, the UMIK-1 serial-number download field with 0 and 90 degree options, and the Measure Response and Import Calibration File buttons below" class="screenshot-full">
 
         <p class="prose">Most measurement mics ship with a calibration file: a text file of frequency and gain pairs describing that exact unit's deviation from flat. Audita reads the REW-style formats (<code>.cal</code>, <code>.txt</code>, <code>.frd</code>) that miniDSP, Dayton, and most vendors publish. If you have one, you can skip the pink noise measurement.</p>
 
         <ol>
-            <li><strong>Settings → Audio → Step 1 → Import Calibration File.</strong></li>
+            <li><strong>Settings → Calibration → Mic correction → Import Calibration File…</strong></li>
             <li>Pick the file. Audita shows what it found: the number of data points, the frequency span, the serial number, and, for USB mics, the sensitivity figure.</li>
             <li>Click <strong>Apply</strong>. The correction is derived from the manufacturer curve, limited to ±9 dB, and enabled.</li>
         </ol>
@@ -804,10 +798,10 @@
 
         <p class="prose">miniDSP ships two files per serial number: <strong>0 degree</strong> for a mic pointing at the monitors and <strong>90 degree</strong> for a mic pointing up (grazing incidence). Import the one matching how yours is mounted. Audita flags 90 degree files so you can check.</p>
 
-        <p class="prose">After importing, Step 1 names the file and serial number it is using, so the number on screen is always attributable. Settings also notes on Step 2 when the offset came from a file; moving the slider by hand returns to manual calibration.</p>
+        <p class="prose">After importing, the Mic correction card names the file and serial number it is using, so the number on screen is always attributable, and the Level pill reads <strong>factory</strong> or <strong>from file</strong> when the offset came from it; moving the slider by hand returns to manual calibration.</p>
 
         <h3>UMIK-1: absolute SPL straight from the file</h3>
-        <p class="prose">A UMIK cal file's header carries a per-unit sensitivity line (<code>Sens Factor</code>). The UMIK-1 is a USB mic with fixed internal gain, so that number maps digital level to real dB SPL directly, with nothing left to measure. When a UMIK-1 is the selected input, the import sheet offers <strong>Set level calibration from the file</strong>: Audita sets the Step 2 offset from the sensitivity figure and records where it came from. The conversion accounts for the digital gain miniDSP's figure assumes but macOS never engages, and it has been checked against the NIOSH SLM app.</p>
+        <p class="prose">A UMIK cal file's header carries a per-unit sensitivity line (<code>Sens Factor</code>). The UMIK-1 is a USB mic with fixed internal gain, so that number maps digital level to real dB SPL directly, with nothing left to measure. When a UMIK-1 is the selected input, the import sheet offers <strong>Set level calibration from the file</strong>: Audita sets the level offset from the sensitivity figure and records where it came from. The conversion accounts for the digital gain miniDSP's figure assumes but macOS never engages, and it has been checked against the NIOSH SLM app.</p>
 
         <p class="prose">Three conditions apply, all handled in the sheet:</p>
 
@@ -819,10 +813,10 @@
 
         <p class="prose">Expect the resulting offset to sit well above the 94 dB default. That is correct: it encodes the mic's absolute USB sensitivity rather than a pistonphone reference. To verify, play pink noise and compare Audita against the NIOSH SLM app at the listening position; they should agree within about 2 dB.</p>
 
-        <p class="prose">UMIK-2 files import the same way for frequency correction, but the automatic level conversion is calibrated for the UMIK-1, so set the level with Step 2 there.</p>
+        <p class="prose">UMIK-2 files import the same way for frequency correction, but the automatic level conversion is calibrated for the UMIK-1, so set the level by hand there.</p>
 
         <h3>Download a UMIK-1 file by serial number</h3>
-        <p class="prose">With a UMIK-1 connected, Step 1 leads with the download instead of the measurement. Type the serial printed on the mic body, pick the 0 or 90 degree variant, and Audita fetches the factory calibration for that exact unit and opens the same import sheet.</p>
+        <p class="prose">With a UMIK-1 connected, the Mic correction card leads with the download instead of the measurement. Type the serial printed on the mic body, pick the 0 or 90 degree variant, and Audita fetches the factory calibration for that exact unit and opens the same import sheet.</p>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
@@ -830,27 +824,27 @@
         </div>
 
         <h3>Analog mics through an interface</h3>
-        <p class="prose">An ECM8000, EMM-6, or similar analog measurement mic takes its frequency correction from the cal file exactly like a USB mic. The level offset still comes from Step 2, because the file cannot know what gain your preamp was set to.</p>
+        <p class="prose">An ECM8000, EMM-6, or similar analog measurement mic takes its frequency correction from the cal file exactly like a USB mic. The level offset still comes from the Level card, because the file cannot know what gain your preamp was set to.</p>
 
-        <p class="prose">Some analog files carry a <code>Sensitivity -12.34 dBFS</code> line: the level the mic produced at 94 dB SPL at whatever interface gain was used when the file was made. Audita can use it as the level reference, off by default, and both the import sheet and Settings say what it depends on. It holds only while your gain matches that measurement state, and the file cannot tell you what that state was. Treat it as a starting point and cross-check with Step 2.</p>
+        <p class="prose">Some analog files carry a <code>Sensitivity -12.34 dBFS</code> line: the level the mic produced at 94 dB SPL at whatever interface gain was used when the file was made. Audita can use it as the level reference, off by default, and both the import sheet and Settings say what it depends on. It holds only while your gain matches that measurement state, and the file cannot tell you what that state was. Treat it as a starting point and cross-check against a reference meter on the Level card.</p>
 
-        <h3>Step 2 - Level offset (the main one)</h3>
+        <h3>2. Level (the main one)</h3>
         <p class="prose">This is the single number that maps <code>20·log₁₀(digital RMS)</code> to real-world dB SPL. The default 94 dB matches the IEC 60942 pistonphone standard - a calibrator that produces a 1 kHz tone at exactly 94 dB SPL. If you have a pistonphone, place it on the mic and adjust the offset until the live reading shows 94 dBA. For everyone else, calibrate against an iPhone running the free <strong>NIOSH SLM</strong> app (independently validated to ±2 dB):</p>
 
         <ol>
             <li>Install <strong>NIOSH SLM</strong> on iPhone.</li>
             <li>Place the iPhone <strong>at your listening position</strong> - where your head would be - <em>not</em> next to the measurement mic.</li>
-            <li>Open <strong>Settings → Audio → Step 2</strong>. Click <strong>Play Pink Noise</strong> under the offset slider and let your monitors settle at a typical listening level. The live SPL reading is shown next to the slider.</li>
+            <li>Open <strong>Settings → Calibration → Level</strong>. Click <strong>Play Pink Noise</strong> and let your monitors settle at a typical listening level. The live SPL reading sits beside the offset slider.</li>
             <li>Note the difference: NIOSH reads <code>X</code> dBA, Audita reads <code>Y</code> dBA.</li>
             <li>Adjust the offset slider by <code>(X − Y)</code>. So if NIOSH says 78 and Audita says 72, increase the offset by 6.</li>
             <li>Repeat until both meters agree to within 1-2 dB. Click <strong>Stop Pink Noise</strong> when you're done.</li>
         </ol>
 
-        <img src="images/screenshots/settings-audio-step2-file-offset.png" alt="Step 2 in the Settings Audio tab: the calibration offset slider reading 125.6 dB, with a green row noting that the value was set from the microphone's factory calibration file, its serial number, and its Sens Factor" class="screenshot-full">
+        <img src="images/screenshots/settings-audio-step2-file-offset.png" alt="The Level card: the offset slider reading 125.6 dB, with a green row noting that the value was set from the microphone's factory calibration file, its serial number, and its Sens Factor" class="screenshot-full">
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>UMIK-1 owner?</strong> If you applied the sensitivity figure when importing the cal file, this step is already done: the card below the slider says so and names the Sens Factor it came from. The procedure above is for every other mic, or for cross-checking. Moving the slider by hand replaces the factory number with a manual one.</p>
+            <p><strong>UMIK-1 owner?</strong> If you applied the sensitivity figure when importing the cal file, this card is already done: its pill reads <strong>factory</strong> with the offset, and the fact line names the Sens Factor it came from. The procedure above is for every other mic, or for cross-checking. Moving the slider by hand replaces the factory number with a manual one.</p>
         </div>
 
         <div class="note">
@@ -858,50 +852,50 @@
             <p><strong>Why the listening position, not next to the mic?</strong> The goal of dose tracking is to estimate the SPL at your ears, not at an arbitrary point in the room. Your measurement mic is a proxy for your ears - if it sits 30-40 cm away from where your head actually is, there will be a small but real difference in level due to distance and room reflections. Calibrating with the iPhone at the listening position folds that spatial offset into the calibration constant. This is not the formally correct method (IEC 61252 specifies the mic on the shoulder, 10-20 cm from the ear), but it's the closest practical approximation for a desk-mounted setup. If you move the mic, recalibrate.</p>
         </div>
 
-        <h3>Step 3 - Reference monitor level (per output device)</h3>
-        <p class="prose">Steps 1 and 2 establish that what Audita measures matches reality. Step 3 captures which <strong>physical knob position</strong> on your monitor controller produces your target reference level - and stores that record per output device UID, so each monitor pair carries its own calibration.</p>
+        <h3>3. Monitor level (per output device)</h3>
+        <p class="prose">The correction and the level establish that what Audita measures matches reality. The Monitor level card captures which <strong>physical knob position</strong> on your monitor controller produces your target reference level - and stores that record per output device UID, so each monitor pair carries its own calibration.</p>
 
-        <img src="calibration-wizard.png" alt="Audita target-level calibration wizard in the captured state, showing live SPL at target with the option to save the controller position" class="screenshot-full">
+        <img src="calibration-wizard.png" alt="The Monitor level card with its wizard running: the calibration noise playing through the Apollo, the target band and the live level in green, On target, capture now, and the Capture position button" class="screenshot-full">
 
         <ol>
-            <li><strong>Settings → Audio → Step 3 → Run Calibration Wizard.</strong></li>
+            <li><strong>Settings → Calibration → Monitor level → Calibrate…</strong> (<strong>Recalibrate…</strong> once a record exists). The wizard runs inside the card.</li>
             <li>Pink noise starts playing through the selected output device. The live SPL is shown alongside your target dBA (set in <strong>Settings → Reference</strong>, defaulting to 79 dBA / K-14).</li>
             <li>Adjust your physical monitor controller until the live SPL matches the target. Take your time - this is the moment that defines what "K-14" means on your rig.</li>
             <li>Click <strong>Capture position</strong>. Pink noise stops; the measured value is held so you can check it before saving.</li>
             <li>Type a short note describing the controller position (e.g. <em>"Apollo knob at 11 o'clock, monitors L+R at 0 dB on the desk panel"</em>).</li>
-            <li>Click <strong>Save</strong>. The record is persisted; the card shows a green checkmark.</li>
+            <li>Click <strong>Save</strong>. The record is persisted; the pill reads the captured dBA in green.</li>
         </ol>
 
-        <p class="prose">Audita stores the captured <code>measuredDBA</code> alongside the target for honesty - if you aimed for 79 but the closest knob detent gave 80.4, that's recorded. The discrepancy is shown in the saved-record card so you can decide whether to live with it or fine-tune.</p>
+        <p class="prose">Audita stores the captured <code>measuredDBA</code> alongside the target for honesty - if you aimed for 79 but the closest knob detent gave 80.4, that's recorded. The discrepancy is on the card's fact line so you can decide whether to live with it or fine-tune.</p>
 
         <p class="prose"><strong>Re-run when:</strong> you switched monitor pairs or selected a different output device, you moved a knob and forgot to put it back, you changed monitor placement or room treatment, or you added/removed a hardware level pad.</p>
 
-        <h3>The rig self-check</h3>
-        <p class="prose">Steps 1 to 3 make the chain accurate on the day you run them. <strong>Run Self-Check</strong> tells you whether it still is. Audita plays pink noise through the selected output at your calibrated reference, measures it back through the mic for a few seconds, and compares the result with what it measured when you captured Step 3.</p>
+        <h3>4. Self-check</h3>
+        <p class="prose">The three cards above make the chain accurate on the day you run them. <strong>Run Self-Check</strong> tells you whether it still is. Audita plays pink noise through the selected output at your calibrated reference, measures it back through the mic for a few seconds, and compares the result with what it measured when you captured the monitor level.</p>
 
         <ol>
-            <li>Set your monitor controller to the calibrated position. The card shows the note you typed in Step 3. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you so the level is right before the noise starts.</li>
+            <li>Set your monitor controller to the calibrated position. The card's fact line repeats the note you typed when you captured it. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you so the level is right before the noise starts.</li>
             <li>Click <strong>Run Self-Check</strong>. Pink noise plays while the measurement settles.</li>
             <li>Audita reports the measured level, the expected level, and the delta, with a pass or fail against the tolerance band you calibrated with (±2 / ±3 / ±5 dB).</li>
         </ol>
 
-        <p class="prose">A failed check means something in the chain moved: the knob, the mic position, the preamp gain, the input device, or the room. Every run is logged with a timestamp and feeds the verification line on the health card. Checks age out after 90 days, the same interval as the Step 3 staleness hint.</p>
+        <p class="prose">A failed check means something in the chain moved: the knob, the mic position, the preamp gain, the input device, or the room. Every run is logged with a timestamp and feeds the Verified pill. Checks age out after 90 days, the same interval after which the Monitor level pill reads aging.</p>
 
-        <p class="prose">A check verifies <strong>one chain</strong>: this mic into these monitors. Switch either end and the verification line reads unverified, because nothing on the new path has been measured. Each pair keeps its own result, so switching back to a rig you already verified reads verified again without re-running.</p>
+        <p class="prose">A check verifies <strong>one chain</strong>: this mic into these monitors. Switch either end and the Verified pill reads <em>not on this rig</em>, because nothing on the new path has been measured. Each pair keeps its own result, so switching back to a rig you already verified reads verified again without re-running.</p>
 
         <h3>Calibration profiles</h3>
-        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with its own measurement mic, second room - saving a <strong>named profile</strong> lets you restore one in a click. <strong>Settings → Audio → Calibration Profiles</strong> has a save button and a picker.</p>
+        <p class="prose">If you work in multiple physical setups - studio desk, mobile rig with its own measurement mic, second room - saving a <strong>named profile</strong> lets you restore one in a click. The footer of the Calibration page has <strong>Save as…</strong> and <strong>Manage…</strong>, which lists the saved profiles with Apply and Delete.</p>
 
-        <p class="prose">A profile is your <strong>microphone's</strong> calibration: the Step 1 correction, the Step 2 offset, and the calibration file behind them. All three describe the input chain, so none of them changes when you switch monitors. The output-dependent parts live elsewhere: the Step 3 reference level is stored per output device, and a self-check result belongs to the input and output pair it measured. So switching monitors keeps your mic calibration and asks for a fresh verification.</p>
+        <p class="prose">A profile is your <strong>microphone's</strong> calibration: the mic correction, the level offset, and the calibration file behind them. All three describe the input chain, so none of them changes when you switch monitors. The output-dependent parts live elsewhere: the monitor level is stored per output device, and a self-check result belongs to the input and output pair it measured. So switching monitors keeps your mic calibration and asks for a fresh verification.</p>
 
         <h3>Audita offers the profile back</h3>
-        <p class="prose">Select a microphone you have saved a profile for and Settings → Audio shows a row above Step 1 offering it: <strong>Apply</strong> when a single profile fits, <strong>Choose…</strong> when several do. Nothing is applied without you asking, and <strong>Dismiss</strong> hides the offer for that mic until you next launch Audita.</p>
+        <p class="prose">Select a microphone you have saved a profile for and the Calibration page's footer offers it: <strong>Apply</strong> when a single profile fits, <strong>Choose…</strong> when several do. Nothing is applied without you asking.</p>
 
         <p class="prose">Each profile records where it was captured, so the row and the chooser can say "saved 11 Aug on UMIK-1 into Apollo Twin X" when you are deciding which one you want. That is there to help you recognise the sitting a profile came from; it does not restrict when the profile applies. Profiles saved before Audita recorded outputs, including anything imported from Auris, show no output.</p>
 
-        <p class="prose">When a saved profile is already in effect, the same row names it - <em>Using saved profile: Desk, Apollo 40%</em> - with where and when it was captured. So the calibration on screen is always attributable, whether you just applied it or it was already loaded.</p>
+        <p class="prose">When a saved profile is already in effect, the footer names it - <em>Profile: Desk, Apollo 40%</em> - with where and when it was captured. So the calibration on screen is always attributable, whether you just applied it or it was already loaded.</p>
 
-        <p class="prose">A profile saved while a calibration file was setting your level carries that file's proof with it: file name, serial, and Sens Factor. Apply it with the same microphone selected and the level returns as factory calibration, so the health card and Step 2 read exactly as they did after the import. Apply it with a different mic selected and only the number is restored, as a manual offset: a UMIK's factory figure is a claim about that one microphone and says nothing about another.</p>
+        <p class="prose">A profile saved while a calibration file was setting your level carries that file's proof with it: file name, serial, and Sens Factor. Apply it with the same microphone selected and the level returns as factory calibration, so the Correction and Level pills read exactly as they did after the import. Apply it with a different mic selected and only the number is restored, as a manual offset: a UMIK's factory figure is a claim about that one microphone and says nothing about another.</p>
     </section>
 
     <hr class="divider">
@@ -928,7 +922,9 @@
             <tr><td>K-20 / Dolby / SMPTE</td><td class="wrap-ok">85 dBA</td><td class="wrap-ok">Film, theatrical, reference-loudness mix stages</td></tr>
         </tbody></table>
 
-        <img src="images/screenshots/settings-reference-tab.png" alt="The Settings Reference tab with the K-14, K-12, K-20 and mastering presets visible, the tolerance slider, and the on-target and off-target alert toggles" class="screenshot-full">
+        <img src="images/screenshots/settings-reference-tab.png" alt="The Settings Reference page with the K-14, K-12, K-20 and mastering presets visible, the tolerance slider, and the on-target and off-target alert toggles" class="screenshot-full">
+
+        <p class="prose">The Reference page shows the monitor level captured for the selected output as one pill that opens the Calibration page, so the target and the knob position that produces it sit together. The standards and the preset explanations fold under <strong>Reference levels explained</strong>, with the controls first; the Safety page does the same with its thresholds.</p>
 
         <h3>On-target percentage</h3>
         <p class="prose">Every SPL tick (10 Hz) is classified into one of four zones:</p>
@@ -941,11 +937,11 @@
             <tr><td>Over</td><td class="wrap-ok">dBA &gt; (target + tolerance)</td></tr>
         </tbody></table>
 
-        <p class="prose">The on-target % reported in the menu bar's <em>Monitoring Discipline</em> section is:</p>
+        <p class="prose">The on-target % in the menu bar window's reference headline is:</p>
 
         <pre><code>on_target % = on_target_seconds / (under + on_target + over) × 100</code></pre>
 
-        <p class="prose">Silent time is excluded from the denominator - breaks don't penalise your discipline score. A session where you mixed for 90 minutes (80 % on target) and then took a 30-minute break still reports 80 %. The metric is suppressed (shown as "-") until at least 30 seconds of non-silent monitoring time has been recorded.</p>
+        <p class="prose">Silent time is excluded from the denominator - breaks don't penalise your discipline score. A session where you mixed for 90 minutes (80 % on target) and then took a 30-minute break still reports 80 %. The metric is suppressed (the headline reads "Warming up") until at least 30 seconds of non-silent monitoring time has been recorded. It is coloured by one ladder everywhere: green from 75%, yellow from 50%, orange below.</p>
 
         <h3>The drift detector</h3>
         <p class="prose">Drift is the slow, unconscious creep of monitoring level upward over a long session. Your ears adapt, you compensate, you get louder, the cycle continues. Audita catches this in the background.</p>
@@ -979,14 +975,14 @@
         <p class="prose">Snoozing a drift alert silences future drift alerts only - dose alerts still fire. Snoozing an off-target alert silences future off-target alerts only. Snoozing a dose / peak / sustained-SPL alert silences those collectively but leaves drift and off-target alone. A user who's mid-mastering at a level intentionally below K-14 can silence off-target alerts without losing the safety net of dose alerts.</p>
 
         <h3>When Monitoring Discipline is meaningful</h3>
-        <p class="prose">When you're working at a roughly stable level (mixing, mastering, music creation) on a calibrated output. If you're tracking, A/B-ing across levels, or the output device has changed since the last Step 3 calibration, disable Monitoring Discipline in <strong>Settings → Reference</strong>.</p>
+        <p class="prose">When you're working at a roughly stable level (mixing, mastering, music creation) on a calibrated output. If you're tracking, A/B-ing across levels, or the output device has changed since its monitor level was captured, disable Monitoring Discipline in <strong>Settings → Reference</strong>.</p>
     </section>
 
     <hr class="divider">
 
     <!-- ─────── 8. Sessions ─────── -->
     <section class="guide-section" id="sessions">
-        <h2>8. Sessions &amp; DAW detection <a href="#sessions" class="anchor">#</a></h2>
+        <h2>8. Sessions &amp; the History window <a href="#sessions" class="anchor">#</a></h2>
 
         <p class="prose">A <strong>session</strong> is a contiguous span of recorded measurement. Each session captures start and end time, the DAW that triggered it, average dBA, peak dBA and dBC, peak impulse counts, the dose accumulated during that session only, and sparse SPL readings taken every 10 seconds for the session chart.</p>
 
@@ -1003,13 +999,34 @@
         <h3>Session history</h3>
         <p class="prose">Sessions persist to <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>. Retention is configurable in <strong>Settings → General → Storage</strong> - default is <strong>90 days</strong> for full session records and <strong>14 days</strong> for the detailed time-series within each session. See <a href="#session-reports">Session reports &amp; sharing</a> for the full retention model.</p>
 
-        <p class="prose">Two ways to review history:</p>
-        <ul>
-            <li><strong>History panel in the menu bar popover.</strong> 7-day bar chart at the top (each bar is one day, color-coded by dose) plus a chronological session list grouped by date. The chart header shows the EU <code>L_EX,w</code> weekly exposure level (ISO 9612, in dBA, green/orange/red against the 85 dBA criterion) and a daily average.</li>
-            <li><strong>History window.</strong> Standalone resizable window with a 30-day calendar on the left and six stat tiles on the right (Total dose, Avg per day, EU weekly, Peak dBA, Peak dBC, Impulses ≥135 dBC). Open it from the menu bar popover's <strong>History</strong> button. Each tile has an ⓘ button with a plain-English explanation.</li>
-        </ul>
+        <h3 id="history">The History window</h3>
+        <p class="prose">Open it from the <strong>History</strong> button in the menu bar window's footer. It is a standard macOS window, resizable and independent of the menu bar window: a calendar on the left, three answers for the selected range, a day chart, and the log of sessions.</p>
 
-        <img src="history.png" alt="The Audita session history window with the calendar range selector, the six summary stat tiles, and the chronological session list" class="screenshot-full">
+        <img src="history.png" alt="The Audita History window with a full week selected: the calendar, the three answers (Dose per day with the EU weekly level, On target, Loudest), the day chart with its legend, and the one-line session rows grouped by day" class="screenshot-full">
+
+        <p class="prose"><strong>Calendar and range.</strong> Days with sessions carry a dot in the day's dose colour. Click a day to start a range and a second day to complete it, or drag across days. A segmented control under the grid picks the last 7, 14 or 30 days, or this month. The first open shows the last 7 days.</p>
+
+        <p class="prose"><strong>Three answers.</strong></p>
+        <table>
+            <tbody><tr><th>Tile</th><th>What it shows</th><th>How to read it</th></tr>
+            <tr><td>Dose per day</td><td class="wrap-ok">The average daily dose over the range, with its band word and the total ("226% over 7 days")</td><td class="wrap-ok">Compare to 100%, the daily NIOSH limit; coloured by dose level. Under it, the EU weekly level <code>L_EX,w</code> (ISO 9612 / 2003/10/EC) in dBA with its verdict in words, shown only once five days of the range have sessions, because the formula averages a working week: under 80 dBA is under the lower action value, 80 to 85 is over it, 85 and up is over the limit.</td></tr>
+            <tr><td>On target</td><td class="wrap-ok">The time-weighted share of the range's monitoring inside your reference band, with the monitored time, the band (when one band was used throughout) and the under and over shares</td><td class="wrap-ok">Green from 75%, yellow from 50%, orange below. Silent breaks are excluded. Needs 30 seconds of monitoring in the range.</td></tr>
+            <tr><td>Loudest</td><td class="wrap-ok">The highest A-weighted measurement-interval level and the highest C-weighted peak in the range, the counts over 140 dBC (or 135 dBC) and 115 dBA, and the day they happened</td><td class="wrap-ok">Peak dBC is coloured against the EU values: orange from 135 dBC (action value), red from 140 dBC (limit). "No peaks over the limits" otherwise.</td></tr>
+        </tbody></table>
+
+        <p class="prose">The <strong>How these are measured</strong> link in the header opens this guide. <strong>Export CSV</strong> sits beside it; see <a href="#session-reports">CSV export</a>.</p>
+
+        <p class="prose"><strong>The day chart.</strong> One bar per day of the range (the last 7 days when the range is longer than 14), oldest on the left, Today on the right, each bar scaled to the highest day and coloured by that day's dose band, with the legend under it. Click a bar to select its day. A range with no sessions says so instead of drawing empty columns.</p>
+
+        <p class="prose"><strong>Session rows.</strong> Sessions are grouped by day, newest day first; each day's header carries the day's dose, the session count and the total time. Each session is one line:</p>
+        <ul>
+            <li><strong>DAW and time</strong>: the application that triggered the session (or Manual Session), the start and end clock time and the length ("00:27 to 01:08 · 41m"). Length is wall-clock time, not filtered for silences.</li>
+            <li><strong>Sparkline</strong>: the session's A-weighted level over time, shaded by zone: green on target, grey under the band, orange over it; silent stretches stay unshaded. The same colours the session report uses.</li>
+            <li><strong>+X.X%</strong>: the dose this session added, coloured by the day's running total after it, so a +15% session that pushed the day to 120% reads red.</li>
+            <li><strong>On-target chip</strong>: the session's on-target share, coloured by the one ladder. Absent when the session has no discipline data.</li>
+            <li><strong>Peak chip</strong>: only when a limit was passed, naming the highest one (140 dBC, 135 dBC or 115 dBA).</li>
+        </ul>
+        <p class="prose">The chevron opens the <a href="#session-reports">session report</a>, where the averages, the peaks, Leq and the Ln percentiles live. Right-click a row, or use its menu, for Open, Save, Share and Delete.</p>
 
         <h3>Peak monitoring (EU 2003/10/EC)</h3>
         <p class="prose">Beyond cumulative dose, Audita monitors for dangerous peak impulses on the C-weighted path. Three thresholds per EU Directive 2003/10/EC:</p>
@@ -1021,7 +1038,7 @@
             <tr><td>140 dBC</td><td class="wrap-ok">Absolute ceiling</td><td class="wrap-ok">No exposure permitted - immediate damage risk</td></tr>
         </tbody></table>
 
-        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Every audio buffer feeds peak detection, and the counters count exceedance events: one count when the level first crosses a threshold, re-armed once it falls about 2 dB below it again. A sustained loud passage is one event; a snare hit every half second counts every hit. Counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. A red <code>≥115 dBA: N</code> badge appears in the active session block, today's summary, and session history rows whenever the count is non-zero. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
+        <p class="prose">Notifications fire when an impulse exceeds 135 dBC, rate-limited to one per 30 seconds. Every audio buffer feeds peak detection, and the counters count exceedance events: one count when the level first crosses a threshold, re-armed once it falls about 2 dB below it again. A sustained loud passage is one event; a snare hit every half second counts every hit. Counts are tracked per session and per day. EU Directive 2003/10/EC also defines a maximum <strong>115 dBA instantaneous</strong> A-weighted level - a separate limit from the C-weighted thresholds. Whenever a limit was passed, the counts appear as the peak chip in the menu bar window and on the session's row in the History window. Even a count of 1 indicates a level capable of immediate mechanical hair-cell damage.</p>
 
         <h3>Conservative dose mode</h3>
         <p class="prose">Standard dose calculation uses A-weighted levels only. For bass-heavy work (sub-bass mixing, kick tracking, live sound with subwoofers), <strong>Settings → Safety → Conservative dose mode</strong> uses <code>max(dBA, dBC)</code> for dose accumulation. Each tick, whichever weighting gives the higher reading is used. For mid-range content (speech, acoustic instruments), dBA ≈ dBC and behaviour is unchanged. There is no formal NIOSH or OSHA standard for this approach - it's a maximum-protection option.</p>
@@ -1041,16 +1058,16 @@
         <p class="prose">A single-page layout, top to bottom:</p>
         <ul>
             <li><strong>Brand strip</strong> - Audita mark and the session's DAW + date + duration.</li>
-            <li><strong>SPL chart</strong> - dBA (and dBC) plotted across the session's duration. The chart's background is shaded by <strong>monitoring-discipline zone</strong>: silent, under, on-target, over. The shaded bands make it easy to see at a glance how much of the session was spent at reference and how much drifted off.</li>
-            <li><strong>Stats grid</strong> - average SPL, peak SPL, session dose %, EU peak-impulse counters (135 / 137 / 140 dBC and 115 dBA when non-zero), elapsed time, on-target % for the session.</li>
+            <li><strong>SPL chart</strong> - dBA (and dBC) plotted across the session's duration. The chart's background is shaded by <strong>monitoring-discipline zone</strong>: silent, under, on-target, over. The shaded bands make it easy to see at a glance how much of the session was spent at reference and how much drifted off. The level axis follows the readings rather than a fixed 0 to 140 dB, so a quiet session has a shape.</li>
+            <li><strong>Stats grid</strong> - average SPL, peak SPL, session dose %, EU peak-impulse counters (135 / 137 / 140 dBC and 115 dBA; when no peak passed a limit the three read as one line), elapsed time, on-target % for the session.</li>
         </ul>
 
         <p class="prose">Behind the scenes the time-series sample rate was bumped from one reading per minute (in v1.1) to one reading every 10 seconds in v1.2, so the chart has enough density to read. Older v1.1 sessions still render - they just plot at the lower density they were captured at.</p>
 
         <h3>Three ways to open it</h3>
         <ul>
-            <li><strong>History panel context menu.</strong> Open the menu bar popover, switch to the <strong>History</strong> panel, right-click any session row. The context menu has <strong>Open Report</strong> and <strong>Share Report…</strong> entries.</li>
-            <li><strong>Menu bar popover button.</strong> <strong>Share Last Session…</strong> sits in the popover next to the manual session controls - one click on the most recent finished session.</li>
+            <li><strong>A session row in the History window.</strong> The chevron at the end of the row opens the report. Right-click the row, or use its menu, for <strong>Open Report</strong>, <strong>Save Report</strong>, <strong>Share Report…</strong> and <strong>Delete</strong>.</li>
+            <li><strong>The menu bar window.</strong> <strong>Share Last Session…</strong> sits under <strong>More</strong>: one click on the most recent finished session.</li>
             <li><strong>Session-recap notification action.</strong> When a session ends, the recap notification carries a <strong>Share Report…</strong> action button. Use it right after a session if you want to send the report to someone without opening Audita.</li>
         </ul>
 
@@ -1091,7 +1108,7 @@
 
         <p class="prose">Three ways to pause and resume:</p>
         <ul>
-            <li><strong>Menu bar popover.</strong> The <em>Pause Monitoring</em> button sits next to <em>Start Session</em> / <em>End Session</em> and toggles to <em>Resume Monitoring</em> while paused. Indefinite pause only from this surface; for timed pauses use the URL scheme or a Shortcut.</li>
+            <li><strong>Menu bar window.</strong> The <em>Pause Monitoring</em> row sits under the session row and reads <em>Resume Monitoring</em> while paused. Indefinite pause only from this surface; for timed pauses use the URL scheme or a Shortcut.</li>
             <li><strong>URL scheme</strong> - <code>audita://monitoring/pause</code> for an indefinite pause, <code>audita://monitoring/pause?duration=900</code> for a 15-minute timed pause. <code>audita://monitoring/resume</code> ends it. See the <a href="api.html">URL scheme reference</a>.</li>
             <li><strong>App Intents (Shortcuts / Siri / Spotlight)</strong> - the <em>Pause Monitoring</em> intent takes a required <code>durationMinutes</code> value. Enter <code>0</code> for an indefinite pause; any positive number gives you a timed pause that auto-resumes. Spotlight prompts for the value when you run the action without one. The <em>Resume Monitoring</em> intent takes no parameters. See the <a href="api.html#intents">App Intents reference</a>.</li>
         </ul>
@@ -1101,8 +1118,8 @@
         <p class="prose"><strong>Visual indicators.</strong> Three surfaces reflect pause state so the gated pipeline is never silent:</p>
         <ul>
             <li>The <strong>menu bar Pressure Bloom</strong> and live SPL number desaturate to neutral grey while paused; they spring back to colour the moment monitoring resumes.</li>
-            <li>The <strong>menu bar popover</strong> shows an orange "Monitoring paused" banner at the top, with the resume time appended for timed pauses (e.g. "Resumes 14:32.").</li>
-            <li>The <strong>floating measurement panel</strong> shows the same banner above its sections.</li>
+            <li>The <strong>menu bar window</strong> shows an orange "Monitoring paused" banner at the top, with the resume time appended for timed pauses (e.g. "Resumes 14:32.").</li>
+            <li>The <strong>pinned panel</strong> shows the same banner when expanded.</li>
         </ul>
     </section>
 
@@ -1114,10 +1131,10 @@
 
         <p class="prose"><a href="/lyra/">Lyra</a> is the Headroom menu bar app that controls Apollo Twin X monitor volume via the UA Mixer Engine. Lyra has three Reference Level slots (Ctrl+F10 / F11 / F12). Audita can write the calibrated dB SPL value <em>and</em> the live Apollo monitor position into one of those slots so the slot recalls the exact level you just calibrated.</p>
 
-        <img src="send-to-lyra.png" alt="The Send to Lyra sheet in Audita with the slot picker, name field, and read-only SPL value" class="screenshot-full">
+        <img src="send-to-lyra.png" alt="The Send to Lyra sheet over the Calibration page: the slot picker, the name field, and the read-only SPL value of the captured monitor level" class="screenshot-full">
 
         <h3>How to use it</h3>
-        <p class="prose">After running <a href="#calibration">Step 3 calibration</a> against an Apollo output device, the saved-calibration card in <strong>Settings → Audio → Step 3</strong> grows a <strong>Send to Lyra…</strong> button. Click it to open the sheet:</p>
+        <p class="prose">Once a <a href="#calibration">monitor level</a> is captured on an Apollo output device, the Monitor level card in <strong>Settings → Calibration</strong> grows a <strong>Send to Lyra…</strong> button. Click it to open the sheet:</p>
 
         <ol>
             <li><strong>Slot picker</strong> - 1, 2, or 3 (Ctrl+F10 / F11 / F12 respectively).</li>
@@ -1186,8 +1203,8 @@
         <ul>
             <li>Session history (up to 30 days).</li>
             <li>Today's accumulated dose.</li>
-            <li>Calibration profiles (Step 1 FIR + Step 2 offset).</li>
-            <li>Step 3 target calibration records, keyed by output device UID.</li>
+            <li>Calibration profiles (the mic correction and the level offset).</li>
+            <li>Monitor level records, keyed by output device UID.</li>
             <li>Custom DAW bundle IDs.</li>
             <li>Mic frequency response correction filters.</li>
         </ul>
@@ -1229,7 +1246,7 @@
     <!-- ─────── 15. Updates ─────── -->
     <section class="guide-section" id="updates">
         <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
-        <p class="prose">Audita checks for new versions automatically. When one's available you'll see an update prompt at the next launch. To check on demand: <strong>Menu → Check for Updates…</strong></p>
+        <p class="prose">Audita checks for new versions automatically. When one's available you'll see an update prompt at the next launch. To check on demand: <strong>Settings → General → Check for Updates…</strong>, with the automatic check's toggle beside it.</p>
         <p class="prose">Release notes: <a href="releases.html">headroomstudio.dev/audita/releases.html</a>.</p>
     </section>
 
@@ -1242,29 +1259,29 @@
         <h3>No SPL reading - the menu bar shows a dash</h3>
         <ol>
             <li><strong>Microphone permission.</strong> Open <strong>System Settings → Privacy &amp; Security → Microphone</strong> and verify Audita is in the list and toggled on.</li>
-            <li><strong>Input device selected.</strong> Open <strong>Settings → Audio</strong> and confirm the measurement microphone is selected. If you previously selected a device that has since been unplugged, Audita stops measuring gracefully - re-select an available device or plug the original back in.</li>
+            <li><strong>Input device selected.</strong> Open <strong>Settings → Devices</strong> and confirm the measurement microphone is selected. If you previously selected a device that has since been unplugged, Audita stops measuring gracefully - re-select an available device or plug the original back in.</li>
             <li><strong>Audio engine status.</strong> The dash means the audio engine isn't running. After granting microphone permission for the first time, quit and relaunch Audita to re-initialise the engine.</li>
         </ol>
 
         <h3>Readings are wildly off (off by 20+ dB)</h3>
-        <p class="prose">Audita measures relative to the digital full-scale level of your microphone. Without Step 2 calibration, the displayed dB is not in real-world SPL - it's a digital level offset by the default 94 dB pistonphone constant. Run <a href="#calibration">Step 2</a> against an iPhone running NIOSH SLM to map the digital scale to real-world dB SPL. On a UMIK-1, importing the mic's calibration file with <em>Set level calibration from the file</em> does the same job in one step.</p>
+        <p class="prose">Audita measures relative to the digital full-scale level of your microphone. Without a level calibration, the displayed dB is not in real-world SPL - it's a digital level offset by the default 94 dB pistonphone constant. Set the <a href="#calibration">level</a> against an iPhone running NIOSH SLM to map the digital scale to real-world dB SPL. On a UMIK-1, importing the mic's calibration file with <em>Set level calibration from the file</em> does the same job in one step.</p>
 
-        <p class="prose">If the offset was set from a UMIK file and readings still look low, check the health card first: it names the device the level belongs to, so a mic swap or a switch to System Default shows up there. Then check the input volume - Audita compensates for a lowered control automatically and says when it is doing so, but a value it cannot read is a value it cannot correct.</p>
+        <p class="prose">If the offset was set from a UMIK file and readings still look low, check the Level pill first: a caution there names the device the level belongs to, so a mic swap or a switch to System Default shows up there. Then check the input volume - Audita compensates for a lowered control automatically and says when it is doing so, but a value it cannot read is a value it cannot correct.</p>
 
         <h3>dBA and dBC differ by &gt; 10 dB on broadband content</h3>
-        <p class="prose">On broadband pink noise, dBA and dBC should be within ~3 dB. A larger gap means your mic has significant low-frequency response that A-weighting alone underreports. Run <a href="#calibration">Step 1</a> to flatten the mic, then re-verify against pink noise. If the gap persists after Step 1, the mic itself may be the issue (check the cable, preamp, and gain staging).</p>
+        <p class="prose">On broadband pink noise, dBA and dBC should be within ~3 dB. A larger gap means your mic has significant low-frequency response that A-weighting alone underreports. Measure the <a href="#calibration">mic correction</a> to flatten the mic, then re-verify against pink noise. If the gap persists with the correction on, the mic itself may be the issue (check the cable, preamp, and gain staging).</p>
 
         <h3>Settings says the mic correction is bypassed at this sample rate</h3>
-        <p class="prose">A measured correction is a filter designed for the rate the audio device was running at when you measured it. Start the engine at a different rate and the filter cannot be applied, so the health card reports it as bypassed. Either set the device back to the rate you measured at (Audio MIDI Setup), re-run <strong>Measure</strong> at the current rate, or import the mic's calibration file - a file-based correction re-designs itself for whatever rate the device runs at.</p>
+        <p class="prose">A measured correction is a filter designed for the rate the audio device was running at when you measured it. Start the engine at a different rate and the filter cannot be applied, so the Correction pill reports it as bypassed. Either set the device back to the rate you measured at (Audio MIDI Setup), re-run <strong>Measure</strong> at the current rate, or import the mic's calibration file - a file-based correction re-designs itself for whatever rate the device runs at.</p>
 
         <h3>The UMIK-1 download can't find my serial</h3>
         <p class="prose">The label prints the serial with a dash; type it without. If the number is right and the download still fails, minidsp.com may not have a file for that unit; download it from their site in a browser and use <strong>Import Calibration File</strong> instead.</p>
 
         <h3>The self-check fails but the level sounds right</h3>
-        <p class="prose">The check compares what the mic hears now against what it heard when you captured Step 3, so any change on either side of the chain shows up as a delta: the monitor knob (set it to the position in your Step 3 note first), the mic's position, the preamp gain, a different input or output device, or room changes. Work through <a href="#calibration">Steps 1 to 3</a> in order, then re-run. If the level really is where it should be and only the mic moved, re-running Step 2 and Step 3 is the fix.</p>
+        <p class="prose">The check compares what the mic hears now against what it heard when you captured the monitor level, so any change on either side of the chain shows up as a delta: the monitor knob (set it to the position in your note first), the mic's position, the preamp gain, a different input or output device, or room changes. Work through the <a href="#calibration">three cards</a> in order, then re-run. If the level really is where it should be and only the mic moved, redoing the level and the monitor level is the fix.</p>
 
-        <h3>On-target % stays at "-"</h3>
-        <p class="prose">The metric is suppressed until at least 30 seconds of non-silent monitoring time has been recorded. If you've been monitoring for longer and it still says "-", check that the dBA is above the silent floor (50 dBA, or target − 30 dBA, whichever is higher).</p>
+        <h3>The reference headline stays at "Warming up"</h3>
+        <p class="prose">The on-target share is suppressed until at least 30 seconds of non-silent monitoring time has been recorded. If you've been monitoring for longer and it still says "Warming up", check that the dBA is above the silent floor (50 dBA, or target − 30 dBA, whichever is higher).</p>
 
         <h3>Drift alert never fires</h3>
         <p class="prose">The drift detector needs 10 minutes of baseline plus 5 minutes of sustained elevation. A 20-minute session is the earliest it can fire. If you're in a longer session and expected an alert, check that <strong>Settings → Reference → Alerts → Drift alert</strong> is enabled.</p>
@@ -1284,7 +1301,7 @@
         <h3>Sparkle won't show an update prompt</h3>
         <p class="prose">Reset Sparkle's "already checked / already skipped" state:</p>
         <pre><code>defaults delete com.headroom.Audita</code></pre>
-        <p class="prose">Relaunch, then <strong>Menu → Check for Updates…</strong> to force a fresh check. This also resets other preferences (menu bar display, today's dose, etc.) to factory defaults.</p>
+        <p class="prose">Relaunch, then <strong>Settings → General → Check for Updates…</strong> to force a fresh check. This also resets other preferences (menu bar display, today's dose, etc.) to factory defaults.</p>
     </section>
 
     <hr class="divider">
@@ -1318,7 +1335,7 @@
         <p class="prose"><strong>Today's Dose (small, medium)</strong> shows your accumulated NIOSH dose as a ring that fills and changes colour from green to red; the medium size adds your safe streak and EU weekly level. <strong>Overview (large)</strong> puts today's dose, latest SPL, your on-target state, your streak, and the weekly chart in one tile.</p>
         <img src="audita-dose-summary.png" alt="Audita Today's Dose ring (small and medium) and the large Overview tile combining dose, latest SPL, on-target, streak, and the weekly chart" class="screenshot-full">
 
-        <p class="prose">Widgets refresh when your dose tier changes colour, when a session starts or ends, at midnight, and on a light schedule while you are measuring. The system limits how often a widget can redraw, so the numbers move about once a minute rather than in real time. For a live reading, use the menu bar or the floating panel.</p>
+        <p class="prose">Widgets refresh when your dose tier changes colour, when a session starts or ends, at midnight, and on a light schedule while you are measuring. The system limits how often a widget can redraw, so the numbers move about once a minute rather than in real time. For a live reading, use the menu bar or the pinned panel.</p>
     </section>
     </div><!-- /guide-main -->
 </div>
