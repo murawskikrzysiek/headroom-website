@@ -29,7 +29,7 @@
              Audita.dmg (1.6.1, build 9; 13,397,481 bytes), uploaded as Audita-1.6.1.dmg. -->
         <item>
             <title>Version 1.6.1 - Volt support for the Lyra handoff</title>
-            <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt Gen 2 interfaces, with Lyra 2.0.</description>
+            <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt Gen 2 interfaces, with Lyra 1.9.</description>
             <pubDate>Tue, 20 Oct 2026 18:48:28 +0200</pubDate>
             <sparkle:version>9</sparkle:version>
             <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>

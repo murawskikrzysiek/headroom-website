@@ -19,21 +19,24 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - keyboard monitor volume for Universal Audio interfaces</description>
         <language>en</language>
-        <!-- release-cut 2026-10-20: edSignature and length from sign_update on
-             Lyra.dmg (2.0, build 11; 6,969,343 bytes), uploaded as Lyra-2.0.dmg. -->
+        <!-- RELEASE-CUT: renumbered 2.0 -> 1.9 on 2026-10-20; the 2.0 DMG and its
+             signature are void. Rebuild (make release), run sign_update on
+             Lyra.dmg, fill edSignature, length and pubDate, upload as
+             Lyra-1.9.dmg, then uncomment.
         <item>
-            <title>Version 2.0</title>
-            <pubDate>Tue, 20 Oct 2026 18:37:19 +0200</pubDate>
+            <title>Version 1.9</title>
+            <pubDate>RELEASE-CUT</pubDate>
             <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>2.0</sparkle:shortVersionString>
+            <sparkle:shortVersionString>1.9</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
             <enclosure
-                url="https://releases.headroomstudio.dev/Lyra-2.0.dmg"
-                sparkle:edSignature="MOznjlLTXXpYqmIrLdQx891QeE2cJEpScQMHCzMJWEqIqH9ryZgwWQoAgDI6c4dAgesmN1gqssLoaznyCXJiAw=="
-                length="6969343"
+                url="https://releases.headroomstudio.dev/Lyra-1.9.dmg"
+                sparkle:edSignature="RELEASE-CUT"
+                length="RELEASE-CUT"
                 type="application/octet-stream" />
         </item>
+        -->
         <!-- release-cut: edSignature and length are from Lyra-1.8.dmg rebuilt
              2026-09-13 with the new icon and .VolumeIcon.icns (6,598,547
              bytes). pubDate set 2026-09-13. -->

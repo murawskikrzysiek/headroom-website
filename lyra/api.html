@@ -608,7 +608,7 @@
         <p class="hero-eyebrow">Lyra</p>
         <h1>Automation API</h1>
         <p class="hero-desc">Lyra exposes two scriptable surfaces: a bundle of <strong>App Intents</strong> for Shortcuts, Siri, and Focus Filters, and a <code>lyra://</code> <strong>URL scheme</strong> for everything else (Stream Deck, Keyboard Maestro, Hammerspoon, BetterTouchTool, AppleScript, Raycast, <code>open</code> from a shell). Both surfaces map onto the same underlying state.</p>
-        <p class="hero-meta">Lyra 2.0. App Intents require macOS 13+. The URL scheme works on every supported macOS; <code>x-callback-url</code> chaining is new in v1.5, the ALT speaker endpoints and the <code>speakers</code> parameter in 2.0.</p>
+        <p class="hero-meta">Lyra 1.9. App Intents require macOS 13+. The URL scheme works on every supported macOS; <code>x-callback-url</code> chaining is new in v1.5, the ALT speaker endpoints and the <code>speakers</code> parameter in 1.9.</p>
 
         
     </section><div class="hr-waveform waveform"><canvas></canvas></div>
@@ -927,7 +927,7 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
                 <div class="meta-key">Path</div>
                 <div class="meta-val">Slot number is <code>1</code>, <code>2</code>, or <code>3</code>. Anything else fires <code>x-error=invalid_slot</code>.</div>
                 <div class="meta-key">Params</div>
-                <div class="meta-val"><code>speakers</code> - <code>main</code>, <code>1</code> (ALT 1) or <code>2</code> (ALT 2), optional, new in 2.0. Any other value fires <code>invalid_argument</code>. Example: <code>lyra://reference/2?speakers=1</code> jumps to ALT 1's slot 2 and switches to ALT 1.</div>
+                <div class="meta-val"><code>speakers</code> - <code>main</code>, <code>1</code> (ALT 1) or <code>2</code> (ALT 2), optional, new in 1.9. Any other value fires <code>invalid_argument</code>. Example: <code>lyra://reference/2?speakers=1</code> jumps to ALT 1's slot 2 and switches to ALT 1.</div>
                 <div class="meta-key">x-success</div>
                 <div class="meta-val">Appends <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> (if calibrated), <code>tapered</code>, <code>db</code>, <code>result=ok</code>. For an ALT 1 or ALT 2 slot, also <code>speakers</code> (<code>1</code> or <code>2</code>); a Main slot adds no <code>speakers</code> key.</div>
                 <div class="meta-key">x-error</div>
@@ -951,7 +951,7 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
             <p class="endpoint-desc">Write a slot. Lyra reads the <strong>live</strong> Apollo monitor level for the tapered value, so the slot always reflects exactly what the user just measured - unless you pass an explicit <code>tapered</code> override. This is the URL Audita fires from its <em>"Send to Lyra…"</em> action after target-level calibration. Without <code>speakers</code>, the write goes to the slots of the speaker pair playing now, the pair Audita measured. A save never switches speakers.</p>
             <div class="endpoint-meta">
                 <div class="meta-key">Params</div>
-                <div class="meta-val"><code>name</code> - string, optional. If omitted, the slot's existing name is kept. <br><code>dBSPL</code> - float, optional. The measured SPL for the calibrated label. Omit to preserve any existing calibration on the slot. URLs cannot clear calibration. <br><code>tapered</code> - float 0.0-1.0, optional. Overrides the live Apollo read; power users only. <br><code>speakers</code> - <code>main</code>, <code>1</code> or <code>2</code>, optional, new in 2.0. Writes that pair's slot without switching to it.</div>
+                <div class="meta-val"><code>name</code> - string, optional. If omitted, the slot's existing name is kept. <br><code>dBSPL</code> - float, optional. The measured SPL for the calibrated label. Omit to preserve any existing calibration on the slot. URLs cannot clear calibration. <br><code>tapered</code> - float 0.0-1.0, optional. Overrides the live Apollo read; power users only. <br><code>speakers</code> - <code>main</code>, <code>1</code> or <code>2</code>, optional, new in 1.9. Writes that pair's slot without switching to it.</div>
                 <div class="meta-key">x-success</div>
                 <div class="meta-val">Appends <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> (if set), <code>result=ok</code>. For an ALT 1 or ALT 2 slot, also <code>speakers</code>.</div>
                 <div class="meta-key">x-error</div>
@@ -975,8 +975,8 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
     <section class="section" id="alt">
         <p class="section-label">Endpoints</p>
         <h2>ALT speakers<a class="anchor" href="#alt">#</a></h2>
-        <p class="prose">New in 2.0. On Apollos with ALT monitor outputs, these switch the monitor bus between Main, ALT 1 and ALT 2. ALT outputs are set up in UA Console under <strong>Settings → Hardware → ALT Count</strong>; until then both endpoints fail with <code>unsupported</code>. The monitor level, mute, DIM and mono follow whichever pair is playing.</p>
-        <!-- TODO(volt): if Volt ALT switching ships in 2.0, say which interfaces these endpoints cover once verified on the hardware. -->
+        <p class="prose">New in 1.9. On Apollos with ALT monitor outputs, these switch the monitor bus between Main, ALT 1 and ALT 2. ALT outputs are set up in UA Console under <strong>Settings → Hardware → ALT Count</strong>; until then both endpoints fail with <code>unsupported</code>. The monitor level, mute, DIM and mono follow whichever pair is playing.</p>
+        <!-- TODO(volt): if Volt ALT switching ships in 1.9, say which interfaces these endpoints cover once verified on the hardware. -->
 
         <div class="endpoint">
             <span class="endpoint-url">lyra://alt/toggle</span>
@@ -1026,8 +1026,8 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
                     <code>device_name</code> - string, e.g. <code>"Apollo Twin X"</code>.<br>
                     <code>volume_step</code> - float, the default step size (typically <code>0.0625</code>).<br>
                     <code>slot</code>, <code>slot_name</code>, <code>slot_tapered</code>, <code>slot_dbspl</code> - the active slot, if one matches the live volume. When no slot matches, only <code>slot=none</code> is set.<br>
-                    <code>speakers</code> - <code>main</code>, <code>1</code> or <code>2</code>, the pair playing now (2.0+).<br>
-                    <code>alt_available</code> - bool, <code>true</code> when at least one ALT pair is on in UA Console (2.0+).
+                    <code>speakers</code> - <code>main</code>, <code>1</code> or <code>2</code>, the pair playing now (1.9+).<br>
+                    <code>alt_available</code> - bool, <code>true</code> when at least one ALT pair is on in UA Console (1.9+).
                 </div>
                 <div class="meta-key">x-error</div>
                 <div class="meta-val">Rare - the endpoint succeeds even if the mixer is disconnected (it just returns <code>mixer_connected=false</code>). Only fires on a malformed request URL.</div>
@@ -1076,7 +1076,7 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
                 </tr>
                 <tr>
                     <td><code>unsupported</code></td>
-                    <td>The interface lacks the feature. In 2.0: ALT speakers, when the interface has no ALT outputs or the requested pair is off in UA Console. The message says where to turn it on. New in 2.0.</td>
+                    <td>The interface lacks the feature. In 1.9: ALT speakers, when the interface has no ALT outputs or the requested pair is off in UA Console. The message says where to turn it on. New in 1.9.</td>
                 </tr>
                 <tr>
                     <td><code>unknown_endpoint</code></td>
@@ -1140,7 +1140,7 @@ lyra://state?x-success=shortcuts%3A%2F%2Frun-shortcut%3Fname%3DPost%26arg%3Dfoo<
         <p class="prose">All action endpoints (and <code>volume/get</code>, <code>reference/current</code>) require UA Mixer Engine to be running and Lyra's TCP client to be connected. If the daemon isn't up, the action is silently dropped - or, if you passed <code>x-error</code>, you'll get <code>mixer_disconnected</code>. The <code>lyra://state</code> endpoint is the exception: it succeeds even when disconnected, and reports <code>mixer_connected=false</code> in its response so you can branch on it.</p>
 
         <h3>Reference URLs without speakers follow the pair playing now</h3>
-        <p class="prose">On an interface with ALT speakers on, <code>lyra://reference/{n}</code> and <code>.../save</code> without a <code>speakers</code> parameter act on the slots of the pair playing now and never switch speakers, so a Stream Deck button set up before 2.0 recalls the slot of whichever pair is playing. The keyboard and the Shortcuts actions read differently: <code>⌃F10</code> to <code>⌃F12</code> and <strong>Switch to Reference Level</strong> with an empty Speakers field always mean the Main slots. To pin a URL to one pair, add <code>speakers=main</code>, <code>1</code> or <code>2</code>. Without ALT, every form behaves as in 1.8.</p>
+        <p class="prose">On an interface with ALT speakers on, <code>lyra://reference/{n}</code> and <code>.../save</code> without a <code>speakers</code> parameter act on the slots of the pair playing now and never switch speakers, so a Stream Deck button set up before 1.9 recalls the slot of whichever pair is playing. The keyboard and the Shortcuts actions read differently: <code>⌃F10</code> to <code>⌃F12</code> and <strong>Switch to Reference Level</strong> with an empty Speakers field always mean the Main slots. To pin a URL to one pair, add <code>speakers=main</code>, <code>1</code> or <code>2</code>. Without ALT, every form behaves as in 1.8.</p>
 
         <h3>Reads are no-ops without x-success</h3>
         <p class="prose"><code>lyra://volume/get</code>, <code>lyra://reference/current</code>, and <code>lyra://state</code> have nowhere to send data unless you give them a callback URL. Calling them without one is harmless - they're logged and ignored - but they won't do anything either.</p>
