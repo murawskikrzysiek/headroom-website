@@ -17,7 +17,7 @@
     <channel>
         <title>Lyra</title>
         <link>https://headroomstudio.dev/lyra</link>
-        <description>Lyra - UA Apollo keyboard volume control</description>
+        <description>Lyra - keyboard monitor volume for Universal Audio interfaces</description>
         <language>en</language>
         <!-- DRAFT Lyra 2.0 (branch feat/lyra-2.0). The item below is commented out
              so this feed is unchanged if the branch merges before the cut: Sparkle
@@ -27,7 +27,6 @@
              CFBundleVersion of the signed build; 1.8 was 10), RELEASE-CUT-SIGNATURE
              (sign_update on Lyra-2.0.dmg) and RELEASE-CUT-LENGTH (wc -c), confirm
              minimumSystemVersion, then validate this file as XML.
-             TODO(volt): if Volt ships in 2.0, widen the channel description above.
         <item>
             <title>Version 2.0</title>
             <pubDate>RELEASE-CUT-PUBDATE</pubDate>

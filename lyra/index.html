@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lyra - Apollo monitor volume control for macOS</title>
+  <title>Lyra - Monitor volume control for Universal Audio interfaces on macOS</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/">
-  <!-- TODO(volt): title, meta/og/twitter descriptions and the JSON-LD description say Apollo only. Widen to the verified UA interfaces once Volt support is built and tested; no model list until then. -->
-  <meta name="description" content="Lyra maps F10/F11/F12 to the monitor volume of a Universal Audio Apollo - with native Shortcuts, Spotlight, widgets, Focus Filters, and a lyra:// URL scheme. macOS, $9.99.">
+  <meta name="description" content="Lyra maps F10, F11 and F12 to the monitor volume of Universal Audio Apollo and Volt interfaces, with Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme. macOS, $9.99.">
 
-  <meta property="og:title" content="Lyra - Apollo volume control for macOS">
-  <meta property="og:description" content="F-key monitor volume for Universal Audio Apollo interfaces, with Shortcuts, widgets, and a URL scheme.">
+  <meta property="og:title" content="Lyra - F-key monitor volume for macOS">
+  <meta property="og:description" content="F-key monitor volume for Universal Audio Apollo and Volt interfaces, with Shortcuts, widgets and a URL scheme.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://headroomstudio.dev/lyra/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Lyra - Apollo volume control for macOS">
-  <meta name="twitter:description" content="F-key monitor volume for Universal Audio Apollo interfaces, with Shortcuts, widgets, and a URL scheme.">
+  <meta name="twitter:title" content="Lyra - F-key monitor volume for macOS">
+  <meta name="twitter:description" content="F-key monitor volume for Universal Audio Apollo and Volt interfaces, with Shortcuts, widgets and a URL scheme.">
   <meta name="twitter:image" content="https://headroomstudio.dev/lyra/og.png">
 
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -33,7 +32,7 @@
     "operatingSystem": "macOS 12.0 or later",
     "applicationCategory": "MultimediaApplication",
     "softwareVersion": "2.0",
-    "description": "F-key monitor volume control for Universal Audio Apollo interfaces, with native Shortcuts, Spotlight, widgets, Focus Filters, and a lyra:// URL scheme.",
+    "description": "F-key monitor volume control for Universal Audio Apollo and Volt interfaces, with native Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme.",
     "url": "https://headroomstudio.dev/lyra/",
     "image": "https://headroomstudio.dev/lyra/og.png",
     "offers": { "@type": "Offer", "price": "9.99", "priceCurrency": "USD" },
@@ -77,8 +76,7 @@
       </p>
       <div class="app-hero__badges">
         <span class="badge badge--macos">macOS</span>
-        <span class="badge">UA Apollo</span>
-        <!-- TODO(volt): add a Volt badge (or one "Universal Audio" badge) once Volt support is verified. -->
+        <span class="badge">Apollo &amp; Volt</span>
         <span class="badge">Menu bar</span>
         <span class="badge">Shortcuts &amp; Widgets</span>
         <span class="badge">URL scheme</span>
@@ -124,8 +122,10 @@
     <div class="section__grid">
       <p class="label">New in 2.0</p>
       <div>
-        <!-- TODO(volt): Universal Audio Volt support leads this section once it is built and verified on the hardware. Keep Volt-specific details out until then. -->
         <p class="prose-lead">Free update for every Lyra license.</p>
+        <p class="prose-lead"><strong>Volt interfaces.</strong> Lyra controls the monitor section of Universal Audio Volt interfaces: volume, mute, DIM, mono and, on the Volt 4 Max, ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme as on an Apollo. Tested on the Volt 4 Max. UAD Console needs to be installed; its window doesn't need to be open.</p>
+        <p class="prose-lead"><strong>One interface at a time.</strong> With an Apollo and a Volt connected, Lyra controls the Apollo unless you pick the Volt in the menu or in Settings, and remembers the pick. Reference Levels are kept per interface.</p>
+        <!-- SCREENSHOT: lyra-menu-interfaces (Interface submenu with Apollo Twin X and Volt 4 Max) -->
         <p class="prose-lead"><strong>ALT speakers.</strong> On Apollos with ALT monitor outputs, Lyra switches the monitor between Main, ALT 1 and ALT 2: from the Speakers section of the menu, with <kbd>⌃⌥1</kbd> / <kbd>⌃⌥2</kbd> / <kbd>⌃⌥3</kbd>, or one step at a time with <kbd>⌃⌥§</kbd>. The HUD and the menu name the pair playing, e.g. <em>Apollo Twin X · ALT 1</em>, and the menu bar icon carries a small 1 or 2.</p>
         <p class="prose-lead"><strong>Reference Levels per pair.</strong> Main, ALT 1 and ALT 2 each keep three slots, on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, plus <kbd>⌥</kbd> for ALT 1 and <kbd>⌥⇧</kbd> for ALT 2. Recalling another pair's slot switches speakers and sets the level in one step. ALT switching is also in the <a href="api.html#alt">URL scheme</a>, in Shortcuts, and on the widgets.</p>
         <!-- SCREENSHOT: lyra-hud-alt -->
@@ -181,7 +181,7 @@
         <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Siri</div><div class="feature-row__v">Thirteen first-class App Intents exposed to the macOS Shortcuts app. Pre-wired App Shortcuts surface in Spotlight without you building anything.</div></div>
         <div class="feature-row"><div class="feature-row__k">Focus Filter</div><div class="feature-row__v">Wire a reference level into a macOS Focus. The common setup: a Mixing Focus jumps Lyra to slot 2 and silences non-DAW notifications.</div></div>
         <div class="feature-row"><div class="feature-row__k">Audita pairing</div><div class="feature-row__v">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/">Audita</a>. After calibration, hit "Send to Lyra…" and the position lands in the slot of your choice - the HUD then reads e.g. "Mix - 85 dB SPL".</div></div>
-        <div class="feature-row"><!-- TODO(volt): "when Apollo wakes" / "when it disconnects": revisit once the Volt lifecycle is known. --><div class="feature-row__k">UA Mixer automations</div><div class="feature-row__v">Optionally auto-start UA Mixer Engine when Apollo wakes, and auto-quit the UA apps when it disconnects so they stop drawing power. Both opt-in, each with its own notification toggle.</div></div>
+        <div class="feature-row"><div class="feature-row__k">UA background apps</div><div class="feature-row__v">Optionally start UA Mixer Engine and UA Mixer Helper when an interface connects, and quit the UA apps once the last interface disconnects. Both opt-in, each with its own notification toggle.</div></div>
         <div class="feature-row"><div class="feature-row__k">Volume HUD</div><div class="feature-row__v">The on-screen pill matches the macOS volume control on macOS 26 and later: the connected Apollo's name above a tick-marked level slider, in clear glass that takes its colour from the wallpaper. A Reference Level jump puts the slot name on the name line. Settings can switch back to the compact single-row pill.</div></div>
         <div class="feature-row"><div class="feature-row__k">Pass F-Keys to macOS</div><div class="feature-row__v">A menu toggle hands F10 / F11 / F12 back to the system output device without quitting Lyra. The connection, menu and slider keep working. Off again on the next launch.</div></div>
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 12 or later).</div></div>
@@ -325,13 +325,13 @@
   <!-- ── Credits ──────────────────────────────────────────────────────── -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">Credits</p>
+      <p class="label">About</p>
       <div>
         <p class="prose-lead">
-          The UA Mixer Engine communicates via a TCP protocol on port 4710. Public documentation of this protocol exists in several open-source projects, including <a href="https://github.com/raduvarga/UA-Midi-Control" target="_blank" rel="noopener">UA MIDI Control</a> by Radu Varga. Our implementation was written independently from scratch.
+          Lyra controls the interface through UA Mixer Engine (Apollo) and UA Mixer Helper (Volt), the background apps installed with UAD Console. It doesn't modify UA software.
         </p>
         <p class="prose-lead">
-          Lyra is an independent project and is not affiliated with, endorsed by, or supported by Universal Audio. Universal Audio, Apollo, and UA Mixer are trademarks of Universal Audio, Inc.<!-- TODO(volt): add Volt to this trademark list when Volt is named on the page. -->
+          Lyra is an independent product by Headroom Studio. It is not affiliated with, endorsed by or supported by Universal Audio, Inc. Universal Audio, Apollo, Volt, UAD and LUNA are trademarks of Universal Audio, Inc., used here only to identify compatible hardware and software.
         </p>
       </div>
     </div>

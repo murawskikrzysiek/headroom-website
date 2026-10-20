@@ -2,10 +2,9 @@
 <html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyra FAQ - Apollo Volume Control on Mac, Setup &amp; Permissions</title>
+    <title>Lyra FAQ - Setup, Permissions and Supported Interfaces</title>
     <link rel="canonical" href="https://headroomstudio.dev/lyra/faq.html">
-    <!-- TODO(volt): title and description say Apollo; widen once Volt support is verified. -->
-    <meta name="description" content="Common questions about Lyra: Accessibility permissions, supported Apollo models, UA Mixer Engine setup, hotkey customization, trial, and licensing.">
+    <meta name="description" content="Common questions about Lyra: Accessibility permissions, supported Universal Audio interfaces, UA Mixer Engine setup, hotkey customization, trial and licensing.">
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -421,6 +420,7 @@
                 <p class="faq-q">What is UA Mixer Engine?</p>
                 <p class="faq-a">UA Mixer Engine is a background process installed alongside UA Console. It handles all real-time communication between your Apollo hardware and your Mac - routing, monitoring levels, plugin processing, and more. Lyra talks directly to this process over a local connection. It never leaves your machine.</p>
                 <p class="faq-a">You don't need to do anything special to set it up. If you've ever used UA Console, UA Mixer Engine is already installed.</p>
+                <p class="faq-a">Volt interfaces use UA Mixer Helper, which comes with UAD Console in the same way. Lyra starts it the same way it starts UA Mixer Engine.</p>
             </div>
 
             <div class="faq-item">
@@ -430,7 +430,7 @@
 
             <div class="faq-item">
                 <p class="faq-q">Lyra says "UA Mixer not running". What do I do?</p>
-                <p class="faq-a">This means your Apollo is detected but UA Mixer Engine isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu - this launches the process without needing to open Console. It should connect within a few seconds.</p>
+                <p class="faq-a">This means your interface is detected but UA Mixer Engine (Apollo) or UA Mixer Helper (Volt) isn't running yet. Click <strong>"Start UA Mixer Engine"</strong> in the Lyra menu - this launches the process without needing to open Console. It should connect within a few seconds.</p>
                 <p class="faq-a">If that doesn't help, opening UA Console directly will always start Mixer Engine as a side effect.</p>
                 <p class="faq-a">As of v1.6 you can also have Lyra do this for you automatically - see <em>"Does Lyra start UA Mixer Engine automatically?"</em> below.</p>
             </div>
@@ -448,17 +448,43 @@
                 <p class="faq-a">The default behaviour is unchanged from v1.5: do nothing on disconnect, reconnect when Apollo returns.</p>
             </div>
 
-            <div class="faq-item">
-                <p class="faq-q">Does UA's license agreement allow apps like Lyra?</p>
-                <p class="faq-a">Lyra controls your Apollo through the UA Mixer Engine, the same local interface UA Console uses. It doesn't modify UA software, bypass licensing, or collect any data from it.</p>
-                <p class="faq-a">In September 2026, UA's End User License Agreement (version 11) added a broad clause against "automated means" of accessing UA software. UA hasn't said whether it's meant to cover local control apps like Lyra, UA Companion, or Stream Deck integrations. My reading is that it targets scraping and AI training, but the wording is wide. Read <a href="https://cdn.shopify.com/s/files/1/0558/1724/0665/files/EULA_Ver_11__090826.pdf" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">Section 3(a)(viii)</a> yourself and decide what you're comfortable with.</p>
-                <p class="faq-a">If UA clarifies its position or changes the interface, I'll update this page.</p>
-            </div>
-
         </div>
     </section>
 
     <!-- ── Reference Levels ───────────────────────────────────────────── -->
+
+    <section class="faq-group">
+        <p class="group-label">Lyra and Universal Audio</p>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <p class="faq-q">Is Lyra made by Universal Audio?</p>
+                <p class="faq-a">No. Lyra is an independent app by Headroom Studio. It is not affiliated with, endorsed by or supported by Universal Audio. For help with UA hardware or UAD Console, contact Universal Audio support.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How does Lyra control my interface?</p>
+                <p class="faq-a">Through the background apps that come with UAD Console: UA Mixer Engine for Apollo interfaces and UA Mixer Helper for Volt interfaces. UAD Console's own window doesn't need to be open. Lyra changes the same monitor settings you can change in UAD Console: volume, mute, DIM, mono and ALT speakers.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra modify or patch UA software?</p>
+                <p class="faq-a">No. Lyra doesn't change, patch or add files to UA software, and doesn't touch licensing or activation. Uninstalling Lyra leaves UAD Console exactly as it was.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does Lyra read or send my data?</p>
+                <p class="faq-a">Lyra reads only the monitor section of the interface it controls (level, mute, DIM, mono, speaker selection and the interface's name). Nothing from UA software leaves the Mac. See the <a href="privacy.html">privacy page</a>.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Does UA's license agreement allow apps like Lyra?</p>
+                <p class="faq-a">Lyra works through UA Mixer Engine and UA Mixer Helper, the local apps UAD Console itself uses, and changes only monitor settings that UAD Console also offers. It doesn't modify UA software or bypass licensing.</p>
+                <p class="faq-a">Universal Audio's End User License Agreement is an agreement between you and Universal Audio. Version 11 (September 2026) is on uaudio.com. If Universal Audio publishes guidance on third-party control apps, this page will link to it.</p>
+            </div>
+
+        </div>
+    </section>
 
     <section class="faq-group">
         <p class="group-label">Reference Levels</p>
@@ -590,27 +616,26 @@
         <p class="group-label">Compatibility</p>
         <div class="faq-list">
 
-            <!-- TODO(volt): once Volt support is built and verified, retitle this "Which interfaces are supported?" and
-                 add the Volt models that were actually tested. No model list before the hardware pass. -->
             <div class="faq-item">
-                <p class="faq-q">Which Apollo interfaces are supported?</p>
-                <p class="faq-a">Lyra works with any Universal Audio Apollo Thunderbolt interface, including the Apollo Twin X, Apollo x4, x6, x8, x8p, x16, and the Arrow. If your interface uses UA Console and UA Mixer Engine, it will work with Lyra.</p>
+                <p class="faq-q">Which interfaces are supported?</p>
+                <p class="faq-a">Universal Audio Apollo interfaces (tested on the Apollo Twin X) and Volt interfaces (tested on the Volt 4 Max). ALT speakers work where the interface has them and they are switched on in UAD Console. Other models are untested; if yours doesn't work, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
             </div>
 
-            <!-- TODO(volt): FAQ stubs, unpublished until the Volt hardware pass. Write answers from what the hardware shows.
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with Universal Audio Volt?</p>
-                <p class="faq-a">TODO(volt): which Volt models, which controls (volume, mute, DIM, mono, ALT), any setup step.</p>
+                <p class="faq-a">Yes, from Lyra 2.0. On a Volt, Lyra controls volume, mute, DIM and mono, and on the Volt 4 Max the ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme. UAD Console needs to be installed. DIM from Lyra dims the monitors without turning on talkback. A Volt reports no dB value, so Lyra shows its level as a percentage.</p>
             </div>
+
             <div class="faq-item">
-                <p class="faq-q">Can Lyra control an Apollo and a Volt connected at the same time?</p>
-                <p class="faq-a">TODO(volt): device choice in the menu and Settings, what happens when the chosen device disconnects, notifications. Only if device switching ships in 2.0.</p>
+                <p class="faq-q">I have an Apollo and a Volt. Which one does Lyra control?</p>
+                <p class="faq-a">One at a time. With both connected, Lyra controls the Apollo until you pick the Volt in the menu (Interface) or in Settings, and remembers your pick. When the interface Lyra controls is disconnected, Lyra moves to the other one and moves back when it returns, with a notification each time.</p>
             </div>
+
             <div class="faq-item">
-                <p class="faq-q">Do Reference Levels and Audita calibration work on a Volt?</p>
-                <p class="faq-a">TODO(volt): slots are kept per interface and speaker pair; confirm the Volt's level range and taper before promising calibrated recall.</p>
+                <p class="faq-q">Do Reference Levels work on a Volt?</p>
+                <p class="faq-a">Yes. Each interface keeps its own slots, since the same knob position means a different loudness on different hardware. A Volt slot shows its level as a percentage.</p>
             </div>
-            -->
+
 
             <div class="faq-item">
                 <p class="faq-q">Can Lyra control my headphone volume?</p>
@@ -711,6 +736,7 @@
             <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
+        <p class="footer-notice" style="flex-basis:100%;margin:8px 0 0;font-size:11px;line-height:1.5;opacity:0.7">Lyra is an independent product by Headroom Studio. It is not affiliated with, endorsed by or supported by Universal Audio, Inc. Universal Audio, Apollo, Volt, UAD and LUNA are trademarks of Universal Audio, Inc., used here only to identify compatible hardware and software.</p>
     </footer>
 </div>
 

@@ -535,7 +535,7 @@
             <li><a href="#url-scheme">10 · URL scheme</a></li>
             <li><a href="#app-intents">11 · Shortcuts, Siri &amp; Focus Filters</a></li>
             <li><a href="#widgets">12 · Widgets</a></li>
-            <li><a href="#mixer-engine">13 · UA Mixer Engine</a></li>
+            <li><a href="#mixer-engine">13 · UA Mixer Engine and UA Mixer Helper</a></li>
             <li><a href="#settings">14 · Settings</a></li>
             <li><a href="#licensing">15 · Trial &amp; licensing</a></li>
             <li><a href="#updates">16 · Updates</a></li>
@@ -1010,42 +1010,27 @@ open "lyra://mute/toggle"</code></pre>
 
     <!-- ─────── 13. UA Mixer Engine ─────── -->
     <section class="guide-section" id="mixer-engine">
-        <h2>13. UA Mixer Engine <a href="#mixer-engine" class="anchor">#</a></h2>
+        <h2>13. UA Mixer Engine and UA Mixer Helper <a href="#mixer-engine" class="anchor">#</a></h2>
 
-        <p class="prose">Lyra talks to <strong>UA Mixer Engine</strong> - the local daemon that backs UA Console. It connects over TCP to <code>localhost:4710</code> and uses UA's NULL-terminated text protocol (<code>get /path\0</code>, <code>set /path value\0</code>, <code>subscribe /path\0</code> → JSON responses).</p>
+        <p class="prose">Lyra controls the interface through the background apps that come with UAD Console: <strong>UA Mixer Engine</strong> for Apollo interfaces and <strong>UA Mixer Helper</strong> for Volt interfaces. UAD Console's own window doesn't need to be open.</p>
 
-        <p class="prose">The monitor parameters Lyra reads/writes:</p>
-        <table>
-            <tbody><tr><th>Parameter</th><th>Path</th><th>What it controls</th></tr>
-            <tr><td>Volume (tapered)</td><td class="wrap-ok"><code>/devices/0/outputs/4/CRMonitorLevelTapered</code></td><td class="wrap-ok">Float 0.0-1.0 - the Monitor knob</td></tr>
-            <tr><td>Mute</td><td class="wrap-ok"><code>/devices/0/outputs/4/Mute</code></td><td class="wrap-ok">Bool</td></tr>
-            <tr><td>DIM</td><td class="wrap-ok"><code>/devices/0/outputs/4/DimOn</code></td><td class="wrap-ok">Bool - Apollo applies the attenuation set in Console</td></tr>
-            <tr><td>Mix-to-Mono</td><td class="wrap-ok"><code>/devices/0/outputs/4/MixToMono</code></td><td class="wrap-ok">Bool</td></tr>
-        </tbody></table>
+        <p class="prose">Lyra reads and changes the monitor section only: volume, mute, DIM, mono and the speaker set (ALT). Changes made elsewhere, such as the hardware knob or UAD Console, show up in Lyra's icon, menu and HUD within about 100 ms. Lyra doesn't change, patch or add files to UA software.</p>
 
-        <p class="prose">The paths above show <code>outputs/4</code> because that's the Monitor output on Apollo Twin X. As of v1.6, the output index is <strong>discovered at connect</strong>, not pinned - Lyra asks the Mixer Engine which output is the Monitor and uses whichever index your hardware reports. Twin X reports <code>4</code>; other Apollo models report different indices. If discovery doesn't return a usable answer, Lyra falls back to <code>4</code> so existing Twin X setups are unaffected.</p>
+        <p class="prose">On Apollo models other than the Twin X, the monitor output sits elsewhere; Lyra finds it when it connects.</p>
 
-        <p class="prose">Lyra <strong>subscribes</strong> to all four properties, so any change made elsewhere - turning the hardware knob, clicking Console's mute, automating Mixer parameters from a script - is reflected in Lyra's icon, menu, and HUD within ~100 ms. This works both ways: Lyra is a peer to Console, not a layer on top of it.</p>
-
-        <h3>Starting the Mixer Engine</h3>
-        <p class="prose">If the menu shows <strong>"&lt;device&gt; - UA Mixer not running"</strong>, click <strong>Start UA Mixer Engine</strong>. Lyra prefers the headless engine:</p>
-        <ol>
-            <li><strong>First, the standalone <code>UA Mixer Engine.app</code></strong> at <code>/Library/Application Support/Universal Audio/Apollo/UA Mixer Engine.app</code> - installed by recent UA drivers, runs the TCP daemon with no GUI window.</li>
-            <li><strong>If that's missing, UA Console</strong> - opens the full Console app, which always starts the daemon as a side-effect. Used on older driver installs.</li>
-        </ol>
-        <p class="prose">Once the daemon is up, Lyra's TCP client auto-connects and the menu flips to <strong>"Connected: &lt;device&gt;"</strong>.</p>
+        <h3>Starting the background apps</h3>
+        <p class="prose">If the menu says the UA Mixer isn't running, click <strong>Start UA Mixer Engine</strong>. Lyra opens UA Mixer Engine without a window (UAD Console on older installs), and UA Mixer Helper when a Volt is connected. The menu then shows <strong>Connected</strong> with the interface's name.</p>
 
         <h3>Reconnection</h3>
-        <p class="prose">If the daemon drops (Console crashes, you quit it, the machine sleeps) Lyra retries the connection every 5 seconds in the background. You don't need to relaunch - leave Lyra running and it will pick the connection back up when the daemon returns. Same on Apollo unplug/replug: when CoreAudio reports the device gone, Lyra stops trying and waits; when it's back, the connection resumes.</p>
+        <p class="prose">If a background app stops (UAD Console quits, the Mac sleeps), Lyra retries the connection every 5 seconds and picks it up when the app returns. When an interface is unplugged, Lyra stops trying and waits; when it's back, the connection resumes. A Volt that is switched off and on is found again within a few seconds.</p>
 
-        <h3>Lifecycle automation (opt-in, v1.6+)</h3>
-        <p class="prose">Two opt-in toggles in <a href="#settings">Settings</a> tie Lyra to the Apollo's presence:</p>
+        <h3>Lifecycle automation (opt-in)</h3>
+        <p class="prose">Two opt-in toggles in <a href="#settings">Settings</a> tie the UA background apps to your interfaces:</p>
         <ul>
-            <li><strong>Auto-start UA Mixer Engine when Apollo is detected.</strong> Off by default. With this on, Lyra opens the Mixer Engine for you the moment Apollo comes online - same launch path as the manual <em>Start UA Mixer Engine</em> menu item (standalone Mixer Engine app first, UA Console fallback for older driver installs).</li>
-            <li><strong>Auto-quit UA apps when Apollo disconnects.</strong> Off by default. After about seven seconds without Apollo, Lyra quits <strong>UA Mixer Helper</strong>, <strong>UA Mixer Engine</strong>, <strong>UAD Console</strong>, and <strong>UAD Meter &amp; Control Panel</strong> so they stop drawing power. If Apollo returns inside that grace window, nothing is killed - brief sleep/wake or Thunderbolt renegotiation is safe.</li>
+            <li><strong>Auto-start UA background apps when an interface connects.</strong> Off by default. Lyra opens UA Mixer Engine and UA Mixer Helper when an Apollo or Volt comes online, the same way as the Start UA Mixer Engine menu item.</li>
+            <li><strong>Auto-quit UA apps when the last interface disconnects.</strong> Off by default. About seven seconds after the last Apollo or Volt disconnects, Lyra quits <strong>UA Mixer Helper</strong>, <strong>UA Mixer Engine</strong>, <strong>UAD Console</strong> and <strong>UAD Meter &amp; Control Panel</strong>. If an interface reconnects in that time, nothing is quit, so a short sleep or reconnection is safe.</li>
         </ul>
-        <p class="prose">Each automation has a paired <strong>Show a notification when this happens</strong> sub-toggle (on by default). The banner explains what Lyra just did. Once you trust the automation you can turn the notification off and let it run silently. macOS asks for notification permission the first time Lyra tries to post.</p>
-        <p class="prose">Both parent toggles default to off. Lyra has no opinion about your UA workflow until you ask for one.</p>
+        <p class="prose">Each automation has a paired <strong>Show a notification when this happens</strong> sub-toggle (on by default). The banner says what Lyra just did. macOS asks for notification permission the first time Lyra posts one.</p>
     </section>
 
     <hr class="divider">
@@ -1054,18 +1039,24 @@ open "lyra://mute/toggle"</code></pre>
     <section class="guide-section" id="settings">
         <h2>14. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. New in v1.6. Two sections.</p>
+        <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. Three sections.</p>
 
         <img src="settings-window.png" alt="Lyra's Settings window: an Automation section with the auto-start and auto-quit toggles plus their paired notification sub-toggles, and a General section with the volume HUD toggle, the HUD style popup set to System style, and the volume step slider" class="screenshot-full">
+        <!-- SCREENSHOT: settings-window (re-shoot for 2.0: Interface section on top, new automation wording; update the alt text with it) -->
+
+        <h3>Interface</h3>
+        <ul>
+            <li><strong>Interface.</strong> Which connected interface Lyra controls, the same choice as the menu's Interface submenu. Lyra controls one interface at a time: with an Apollo and a Volt connected, the Apollo until you pick another one here or in the menu. Your pick is remembered. Greyed out with one interface connected.</li>
+        </ul>
 
         <h3>Automation</h3>
         <ul>
-            <li><strong>Auto-start UA Mixer Engine when Apollo is detected.</strong> Opens UA's headless Mixer Engine the moment Apollo wakes up. Off by default. Same launch path as the manual <em>Start UA Mixer Engine</em> menu item.
+            <li><strong>Auto-start UA background apps when an interface connects.</strong> Opens UA Mixer Engine and UA Mixer Helper when an Apollo or Volt comes online. Off by default. Same launch path as the manual <em>Start UA Mixer Engine</em> menu item.
                 <ul>
-                    <li><em>Show a notification when this happens.</em> On by default. Banner posts as soon as Lyra starts the Engine. Only active when the parent toggle is on.</li>
+                    <li><em>Show a notification when this happens.</em> On by default. Banner posts as soon as Lyra starts one of them. Only active when the parent toggle is on.</li>
                 </ul>
             </li>
-            <li><strong>Auto-quit UA apps when Apollo disconnects.</strong> Quits UA Mixer Helper, UA Mixer Engine, UAD Console, and UAD Meter &amp; Control Panel about seven seconds after Apollo goes away. Off by default. Cancelled if Apollo comes back inside the grace window.
+            <li><strong>Auto-quit UA apps when the last interface disconnects.</strong> Quits UA Mixer Helper, UA Mixer Engine, UAD Console, and UAD Meter &amp; Control Panel about seven seconds after the last Apollo or Volt disconnects. Off by default. Cancelled if an interface reconnects in that time.
                 <ul>
                     <li><em>Show a notification when this happens.</em> On by default. Banner posts only if at least one UA app was actually closed; no noise when none of those apps were running.</li>
                 </ul>
@@ -1188,10 +1179,9 @@ open "lyra://mute/toggle"</code></pre>
 
         <ul>
             <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol; there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
-            <li><strong>Per-app or system volume.</strong> Lyra changes the Apollo's Monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
-            <li><strong>Cue / line / aux outputs.</strong> Only the <code>Monitor</code> output (<code>outputs/4</code>) is exposed. Cue outputs and aux faders have their own paths in the mixer.</li>
-            <!-- TODO(volt): mirrors USER-GUIDE.md. When the md says which non-Apollo UA interfaces (Volt) Lyra drives, re-mirror this line. -->
-            <li><strong>Non-Apollo interfaces.</strong> Lyra speaks UA's protocol on <code>localhost:4710</code> only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
+            <li><strong>Per-app or system volume.</strong> Lyra changes the interface's monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
+            <li><strong>Cue / line / aux outputs.</strong> Lyra controls the monitor output only. Cue outputs and aux faders aren't part of Lyra's scope.</li>
+            <li><strong>Other brands.</strong> Lyra works with Universal Audio Apollo and Volt interfaces only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
             <li><strong>More than three Reference Levels.</strong> Three slots map onto Ctrl+F10/F11/F12 and that's the design. If you need more positions, drive Lyra from a Stream Deck or Shortcut via <code>lyra://volume/set?tapered=…</code> - your launcher can hold any number of presets.</li>
             <li><strong>Configurable shortcuts.</strong> F10/F11/F12 (and the modifier variants) are fixed. Use Karabiner-Elements or BetterTouchTool to remap, or fire <code>lyra://</code> URLs from any tool of your choice.</li>
         </ul>
@@ -1220,6 +1210,7 @@ open "lyra://mute/toggle"</code></pre>
             <li><a href="releases.html">Release notes</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
+        <p class="footer-notice" style="flex-basis:100%;margin:8px 0 0;font-size:11px;line-height:1.5;opacity:0.7">Lyra is an independent product by Headroom Studio. It is not affiliated with, endorsed by or supported by Universal Audio, Inc. Universal Audio, Apollo, Volt, UAD and LUNA are trademarks of Universal Audio, Inc., used here only to identify compatible hardware and software.</p>
     </footer>
 </div>
 
