@@ -1181,7 +1181,7 @@ open "lyra://mute/toggle"</code></pre>
             <li><strong>Headphone (HP) volume.</strong> The HP LEVEL knob on Apollo Twin X is a <strong>hardware-only analog control</strong>. It produces no events on the UA Mixer Engine protocol; there's nothing to read or write. Lyra controls only the Monitor (speaker) output.</li>
             <li><strong>Per-app or system volume.</strong> Lyra changes the interface's monitor level, full stop. macOS's per-app volume and the CoreAudio output volume scalar are untouched.</li>
             <li><strong>Cue / line / aux outputs.</strong> Lyra controls the monitor output only. Cue outputs and aux faders aren't part of Lyra's scope.</li>
-            <li><strong>Other brands.</strong> Lyra works with Universal Audio Apollo and Volt interfaces only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
+            <li><strong>Other brands.</strong> Lyra works with Universal Audio Apollo and Volt Gen 2 interfaces only. It does not work with RME TotalMix FX, MOTU CueMix, Focusrite Control, etc.</li>
             <li><strong>More than three Reference Levels.</strong> Three slots map onto Ctrl+F10/F11/F12 and that's the design. If you need more positions, drive Lyra from a Stream Deck or Shortcut via <code>lyra://volume/set?tapered=…</code> - your launcher can hold any number of presets.</li>
             <li><strong>Configurable shortcuts.</strong> F10/F11/F12 (and the modifier variants) are fixed. Use Karabiner-Elements or BetterTouchTool to remap, or fire <code>lyra://</code> URLs from any tool of your choice.</li>
         </ul>
