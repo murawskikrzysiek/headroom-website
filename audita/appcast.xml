@@ -35,7 +35,7 @@
              confirm the build is 9, then validate this file as XML.
         <item>
             <title>Version 1.6.1 - Volt support for the Lyra handoff</title>
-            <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt interfaces, with Lyra 2.0.</description>
+            <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt Gen 2 interfaces, with Lyra 2.0.</description>
             <pubDate>RELEASE-CUT-PUBDATE</pubDate>
             <sparkle:version>9</sparkle:version>
             <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>
