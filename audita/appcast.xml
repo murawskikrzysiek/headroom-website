@@ -25,29 +25,22 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!-- DRAFT Audita 1.6.1 (branch feat/audita-1.6.1). Ships with Lyra 2.0,
-             never before it. The item below is commented out so this feed is
-             unchanged if the branch merges before the cut: Sparkle never sees an
-             item with a missing DMG or a placeholder signature.
-             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822,
-             e.g. "Thu, 22 Oct 2026 12:00:00 +0200"), RELEASE-CUT-SIGNATURE
-             (sign_update on Audita-1.6.1.dmg) and RELEASE-CUT-LENGTH (wc -c),
-             confirm the build is 9, then validate this file as XML.
+        <!-- release-cut 2026-10-20: edSignature and length from sign_update on
+             Audita.dmg (1.6.1, build 9; 13,397,481 bytes), uploaded as Audita-1.6.1.dmg. -->
         <item>
             <title>Version 1.6.1 - Volt support for the Lyra handoff</title>
             <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt Gen 2 interfaces, with Lyra 2.0.</description>
-            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <pubDate>Tue, 20 Oct 2026 18:48:28 +0200</pubDate>
             <sparkle:version>9</sparkle:version>
             <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.6.1.dmg"
-                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
-                length="RELEASE-CUT-LENGTH"
+                sparkle:edSignature="NSJPZb1T7zXaxQ+L7HZPEQr05d3969QGSu8OpR9BMOTqqMmzvbgF9F3IyA5b1/FMDMOeAGIEFLpRGaoDTwqXBA=="
+                length="13397481"
                 type="application/octet-stream" />
         </item>
-        END DRAFT Audita 1.6.1 -->
 
         <!-- release-cut 2026-10-17: edSignature and length from sign_update on
              Audita-1.6.dmg (13,428,910 bytes); pubDate set to the ship date. -->
