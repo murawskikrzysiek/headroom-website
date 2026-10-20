@@ -100,9 +100,11 @@
   <!-- ── Screenshots ──────────────────────────────────────────────────── -->
   <section class="shots">
     <div class="shot"><picture><source srcset="lyra-hero.webp" type="image/webp"><img src="lyra-hero.png" width="1920" height="1080" alt="Lyra on the F-row - F10, F11 and F12 keycaps with F12 pressed, beside a lit monitor knob whose LED ring marks the Quiet, Mix and Loud reference levels on Control F10, F11 and F12, and the volume pill reading Apollo Twin X · ALT 1. Shift F10 for DIM, Option F10 for Mono, Shift F11 and F12 for half steps, Control Option § for ALT speakers; automation through Shortcuts, Spotlight, widgets, Focus filters, Stream Deck and lyra:// URLs" decoding="async"></picture></div>
-    <!-- SCREENSHOT: lyra-menu (re-shoot for 2.0: Speakers section, "Connected: Apollo Twin X · ALT 1"; update the alt text with it) -->
-    <div class="shot"><img src="lyra-menu.png" alt="Lyra menu bar popover - license and device status, monitor slider, Mute / DIM / Mono, Reference Levels submenu, Pass F-Keys to macOS and Launch at Login toggles"></div>
+    <div class="shot"><img src="lyra-menu.png" alt="Lyra menu bar popover - license status, Connected: Apollo Twin X · ALT 1, the Interface submenu, monitor slider, Mute / DIM / Mono, the Speakers section with ALT 1 checked, Reference Levels, Pass F-Keys to macOS and Launch at Login"></div>
+    <div class="shot"><img src="lyra-menu-interfaces.png" alt="The Interface submenu listing Apollo Twin X, checked, and Volt 4 Max"></div>
     <div class="shot"><img src="lyra-hud.png" alt="Lyra volume HUD on macOS 26 - the connected Apollo's name above a tick-marked level slider, in clear glass under the menu bar"></div>
+    <div class="shot"><img src="lyra-hud-alt.png" alt="Volume HUD on ALT speakers - the name line reads Apollo Twin X · ALT 1, and the menu bar icon carries a small 1"></div>
+    <div class="shot"><img src="lyra-hud-volt.png" alt="Volume HUD after switching interface - the name line reads Volt 4 Max"></div>
     <div class="shot"><img src="lyra-hud-ref.png" alt="Volume HUD after a Reference Level jump - the name line reads Mix - 85 dB SPL instead of the device name"></div>
     <div class="shot"><img src="lyra-hud-dim.png" alt="Volume HUD with DIM engaged - the level slider fills amber"></div>
     <div class="shot"><img src="lyra-hud-mute.png" alt="Volume HUD with the monitor muted - slashed speaker glyph and a dimmed slider"></div>
@@ -125,10 +127,8 @@
         <p class="prose-lead">Free update for every Lyra license.</p>
         <p class="prose-lead"><strong>Volt interfaces.</strong> Lyra controls the monitor section of second-generation Universal Audio Volt interfaces (Volt Gen 2 and the Volt Max models): volume, mute, DIM, mono and, on the Volt 4 Max, ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme as on an Apollo. Tested on the Volt 4 Max; the Volt 876 may work but hasn't been tested. UAD Console needs to be installed; its window doesn't need to be open. Details in the <a href="faq.html">FAQ</a>.</p>
         <p class="prose-lead"><strong>One interface at a time.</strong> With an Apollo and a Volt connected, Lyra controls the Apollo unless you pick the Volt in the menu or in Settings, and remembers the pick. Reference Levels are kept per interface.</p>
-        <!-- SCREENSHOT: lyra-menu-interfaces (Interface submenu with Apollo Twin X and Volt 4 Max) -->
         <p class="prose-lead"><strong>ALT speakers.</strong> On Apollos with ALT monitor outputs, Lyra switches the monitor between Main, ALT 1 and ALT 2: from the Speakers section of the menu, with <kbd>⌃⌥1</kbd> / <kbd>⌃⌥2</kbd> / <kbd>⌃⌥3</kbd>, or one step at a time with <kbd>⌃⌥§</kbd>. The HUD and the menu name the pair playing, e.g. <em>Apollo Twin X · ALT 1</em>, and the menu bar icon carries a small 1 or 2.</p>
         <p class="prose-lead"><strong>Reference Levels per pair.</strong> Main, ALT 1 and ALT 2 each keep three slots, on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, plus <kbd>⌥</kbd> for ALT 1 and <kbd>⌥⇧</kbd> for ALT 2. Recalling another pair's slot switches speakers and sets the level in one step. ALT switching is also in the <a href="api.html#alt">URL scheme</a>, in Shortcuts, and on the widgets.</p>
-        <!-- SCREENSHOT: lyra-hud-alt -->
         <div class="callout"><p><strong>Turning ALT on.</strong> ALT outputs are set up in UA Console under Settings → Hardware → ALT Count. The Apollo Twin family has ALT 1; ALT 2 works on Apollos that have it. Details in the <a href="guide.html#alt-speakers">user guide</a>.</p></div>
       </div>
     </div>
