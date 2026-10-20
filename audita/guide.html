@@ -874,8 +874,7 @@
         <p class="prose">The three cards above make the chain accurate on the day you run them. <strong>Run Self-Check</strong> tells you whether it still is. Audita plays pink noise through the selected output at your calibrated reference, measures it back through the mic for a few seconds, and compares the result with what it measured when you captured the monitor level.</p>
 
         <ol>
-            <!-- TODO(volt): says Apollo only. With Lyra 2.0 the Lyra handoff and self-check recall work on any Universal Audio output, Volt included; widen this once Volt support is verified on the hardware. -->
-            <li>Set your monitor controller to the calibrated position. The card's fact line repeats the note you typed when you captured it. On an Apollo output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you so the level is right before the noise starts.</li>
+            <li>Set your monitor controller to the calibrated position. The card's fact line repeats the note you typed when you captured it. On an Apollo or Volt output with <a href="../lyra/">Lyra</a> installed, Audita can recall the matching reference slot for you so the level is right before the noise starts.</li>
             <li>Click <strong>Run Self-Check</strong>. Pink noise plays while the measurement settles.</li>
             <li>Audita reports the measured level, the expected level, and the delta, with a pass or fail against the tolerance band you calibrated with (±2 / ±3 / ±5 dB).</li>
         </ol>
@@ -1130,13 +1129,12 @@
     <section class="guide-section" id="send-to-lyra">
         <h2>11. Send to Lyra - write a calibrated level into a Lyra reference slot <a href="#send-to-lyra" class="anchor">#</a></h2>
 
-        <!-- TODO(volt): this section says Apollo (and Apollo Twin X) throughout. With Lyra 2.0 the Lyra handoff and self-check recall work on any Universal Audio output, Volt included; widen this once Volt support is verified on the hardware. -->
-        <p class="prose"><a href="/lyra/">Lyra</a> is the Headroom menu bar app that controls Apollo Twin X monitor volume via the UA Mixer Engine. Lyra has three Reference Level slots (Ctrl+F10 / F11 / F12). Audita can write the calibrated dB SPL value <em>and</em> the live Apollo monitor position into one of those slots so the slot recalls the exact level you just calibrated.</p>
+        <p class="prose"><a href="/lyra/">Lyra</a> is the Headroom menu bar app that controls the monitor volume of Universal Audio Apollo and Volt Gen 2 interfaces. Lyra has three Reference Level slots (Ctrl+F10 / F11 / F12). Audita can write the calibrated dB SPL value <em>and</em> the live Apollo or Volt monitor position into one of those slots so the slot recalls the exact level you just calibrated.</p>
 
         <img src="send-to-lyra.png" alt="The Send to Lyra sheet over the Calibration page: the slot picker, the name field, and the read-only SPL value of the captured monitor level" class="screenshot-full">
 
         <h3>How to use it</h3>
-        <p class="prose">Once a <a href="#calibration">monitor level</a> is captured on an Apollo output device, the Monitor level card in <strong>Settings → Calibration</strong> grows a <strong>Send to Lyra…</strong> button. Click it to open the sheet:</p>
+        <p class="prose">Once a <a href="#calibration">monitor level</a> is captured on an Apollo or Volt output device, the Monitor level card in <strong>Settings → Calibration</strong> grows a <strong>Send to Lyra…</strong> button. Click it to open the sheet:</p>
 
         <ol>
             <li><strong>Slot picker</strong> - 1, 2, or 3 (Ctrl+F10 / F11 / F12 respectively).</li>
@@ -1146,18 +1144,16 @@
 
         <p class="prose">When you confirm, Audita fires <code>lyra://reference/{n}/save?name=…&amp;dBSPL=…</code> and Lyra:</p>
         <ol>
-            <li>Reads the <strong>live</strong> Apollo monitor level (so the slot reflects exactly what Audita just measured against).</li>
+            <li>Reads the <strong>live</strong> monitor level of the interface it is controlling (so the slot reflects exactly what Audita just measured against).</li>
             <li>Stores tapered + name + dBSPL together.</li>
             <li>Pops the labeled HUD as confirmation - e.g. <code>Mix - 85 dB SPL</code>.</li>
         </ol>
 
-        <p class="prose">With ALT speakers on in Lyra 2.0, the slot goes to the speaker pair that was playing while Audita measured. Calibrate each pair on its own.</p>
-
-        <p class="prose">Audita does <strong>not</strong> send the tapered position itself. Lyra reads it directly from the Apollo when receiving the URL, which is exactly the position the user just calibrated against. Audita contributes only <code>name</code> and <code>dBSPL</code> as metadata that Lyra surfaces in its menu and HUD.</p>
+        <p class="prose">Audita does <strong>not</strong> send the tapered position itself. Lyra reads it directly from the interface when receiving the URL, which is exactly the position the user just calibrated against. Audita contributes only <code>name</code> and <code>dBSPL</code> as metadata that Lyra surfaces in its menu and HUD.</p>
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p><strong>Don't have Lyra?</strong> The Send to Lyra button is hidden when Lyra isn't installed; a subtle hint links to the Lyra product page instead. Audita works fully without Lyra - it's a cross-app convenience for users who own both. Requires Lyra 1.4 or later.</p>
+            <p><strong>Don't have Lyra?</strong> The Send to Lyra button is hidden when Lyra isn't installed; a subtle hint links to the Lyra product page instead. Audita works fully without Lyra - it's a cross-app convenience for users who own both. Requires Lyra 1.4 or later on an Apollo, Lyra 2.0 or later on a Volt Gen 2.</p>
         </div>
     </section>
 

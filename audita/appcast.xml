@@ -25,19 +25,19 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!-- DRAFT Audita 1.6.1, paired with Lyra 2.0 (branch feat/lyra-2.0; 1.6 shipped on its
-             own 2026-10-17). The item below is commented out so this feed is unchanged if
-             the branch merges before the cut. Ship together with Lyra 2.0, never before it.
-             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822),
-             RELEASE-CUT-BUILD (CFBundleVersion; 1.6 was 8), RELEASE-CUT-SIGNATURE
-             (sign_update on the DMG) and RELEASE-CUT-LENGTH (wc -c), then validate
-             this file as XML.
-             The description names the Volt: Lyra 2.0 support is verified on a Volt 4 Max.
+        <!-- DRAFT Audita 1.6.1 (branch feat/audita-1.6.1). Ships with Lyra 2.0,
+             never before it. The item below is commented out so this feed is
+             unchanged if the branch merges before the cut: Sparkle never sees an
+             item with a missing DMG or a placeholder signature.
+             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822,
+             e.g. "Thu, 22 Oct 2026 12:00:00 +0200"), RELEASE-CUT-SIGNATURE
+             (sign_update on Audita-1.6.1.dmg) and RELEASE-CUT-LENGTH (wc -c),
+             confirm the build is 9, then validate this file as XML.
         <item>
-            <title>Version 1.6.1</title>
-            <description>Send to Lyra and the self-check's Lyra recall work on second-generation Universal Audio Volt interfaces, with Lyra 2.0.</description>
+            <title>Version 1.6.1 - Volt support for the Lyra handoff</title>
+            <description>Send to Lyra and the self-check's Lyra recall work on Universal Audio Volt Gen 2 interfaces, with Lyra 2.0.</description>
             <pubDate>RELEASE-CUT-PUBDATE</pubDate>
-            <sparkle:version>RELEASE-CUT-BUILD</sparkle:version>
+            <sparkle:version>9</sparkle:version>
             <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
@@ -47,7 +47,7 @@
                 length="RELEASE-CUT-LENGTH"
                 type="application/octet-stream" />
         </item>
-        END DRAFT Audita -->
+        END DRAFT Audita 1.6.1 -->
 
         <!-- release-cut 2026-10-17: edSignature and length from sign_update on
              Audita-1.6.dmg (13,428,910 bytes); pubDate set to the ship date. -->
