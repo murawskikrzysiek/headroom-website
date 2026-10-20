@@ -437,15 +437,15 @@
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra start UA Mixer Engine automatically?</p>
-                <p class="faq-a">Only if you opt in. As of v1.6, Lyra's <strong>Settings window</strong> (open with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) has an <em>"Auto-start UA Mixer Engine when Apollo is detected"</em> toggle. It's <strong>off by default</strong>. With it on, Lyra opens the headless UA Mixer Engine the moment Apollo wakes up, using the same launch path as the manual <em>"Start UA Mixer Engine"</em> menu button (standalone Mixer Engine app first, UA Console fallback for older driver installs).</p>
-                <p class="faq-a">A paired <em>"Show a notification when this happens"</em> sub-toggle (on by default) posts a banner each time Lyra starts the Engine. Turn it off once you stop reading the banners.</p>
+                <p class="faq-a">Only if you opt in. As of v1.6, Lyra's <strong>Settings window</strong> (open with <code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>) has an <em>"Auto-start UA background apps when an interface connects"</em> toggle. It's <strong>off by default</strong>. With it on, Lyra opens UA Mixer Engine and UA Mixer Helper when an Apollo or Volt comes online, using the same launch path as the manual <em>"Start UA Mixer Engine"</em> menu button.</p>
+                <p class="faq-a">A paired <em>"Show a notification when this happens"</em> sub-toggle (on by default) posts a banner each time Lyra starts one of them. Turn it off once you stop reading the banners.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Will Lyra close my UA Console when I unplug for a minute?</p>
-                <p class="faq-a">Not unless you turn it on. The setting is <em>"Auto-quit UA apps when Apollo disconnects"</em> in Lyra's <strong>Settings window</strong> (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>), <strong>off by default</strong>. With it on, once Apollo has been gone for about seven seconds Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. If Apollo returns inside that window - brief sleep/wake, Thunderbolt renegotiation, switching ports - nothing gets killed.</p>
+                <p class="faq-a">Not unless you turn it on. The setting is <em>"Auto-quit UA apps when the last interface disconnects"</em> in Lyra's <strong>Settings window</strong> (<code style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">Cmd+,</code>), <strong>off by default</strong>. With it on, about seven seconds after the last Apollo or Volt disconnects Lyra quits <em>UA Mixer Helper</em>, <em>UA Mixer Engine</em>, <em>UAD Console</em>, and <em>UAD Meter &amp; Control Panel</em> so they stop drawing power. If an interface reconnects in that time (a short sleep, switching ports), nothing is quit.</p>
                 <p class="faq-a">This mirrors the <a href="https://uadforum.com/community/index.php?threads/uad-mixer-engine-energy-draw.79450/#post-614588" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(124,132,246,0.3);">popular auto-close script</a> from uadforum.com, just without the launchd job to maintain. A paired notification sub-toggle (on by default) tells you which apps got closed; the banner only appears if at least one of them was actually running.</p>
-                <p class="faq-a">The default behaviour is unchanged from v1.5: do nothing on disconnect, reconnect when Apollo returns.</p>
+                <p class="faq-a">By default Lyra does nothing on disconnect and reconnects when the interface returns.</p>
             </div>
 
         </div>
@@ -618,12 +618,12 @@
 
             <div class="faq-item">
                 <p class="faq-q">Which interfaces are supported?</p>
-                <p class="faq-a">Universal Audio Apollo interfaces (tested on the Apollo Twin X) and Volt interfaces (tested on the Volt 4 Max). ALT speakers work where the interface has them and they are switched on in UAD Console. Other models are untested; if yours doesn't work, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+                <p class="faq-a">Universal Audio Apollo interfaces (tested on the Apollo Twin X) and second-generation Volt interfaces: Volt Gen 2 and the Volt Max models (tested on the Volt 4 Max). The Volt 876 may work but hasn't been tested. Other first-generation Volt interfaces don't work with Lyra. ALT speakers work where the interface has them and they are switched on in UAD Console. Other Apollo and Volt models are untested; if yours doesn't work, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
             </div>
 
             <div class="faq-item">
                 <p class="faq-q">Does Lyra work with Universal Audio Volt?</p>
-                <p class="faq-a">Yes, from Lyra 2.0. On a Volt, Lyra controls volume, mute, DIM and mono, and on the Volt 4 Max the ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme. UAD Console needs to be installed. DIM from Lyra dims the monitors without turning on talkback. A Volt reports no dB value, so Lyra shows its level as a percentage.</p>
+                <p class="faq-a">Yes, from Lyra 2.0, with second-generation Volt interfaces: Volt Gen 2 and the Volt Max models. Tested on the Volt 4 Max. The Volt 876 may work but hasn't been tested; other first-generation Volts don't work with Lyra. On a supported Volt, Lyra controls volume, mute, DIM and mono, and on the Volt 4 Max the ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme. UAD Console needs to be installed. DIM from Lyra dims the monitors without turning on talkback. A Volt reports no dB value, so Lyra shows its level as a percentage.</p>
             </div>
 
             <div class="faq-item">

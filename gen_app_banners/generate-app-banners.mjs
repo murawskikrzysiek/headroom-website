@@ -56,7 +56,7 @@ const APPS = [
     slug: 'lyra',
     name: 'Lyra',
     icon: join(ICONS_DIR, 'lyra/icon.png'),
-    subtitle: 'F-key volume control for Universal Audio Apollo',
+    subtitle: 'F-key volume control for Universal Audio Apollo and Volt',
     tagline: 'Headroom Studio · Precision audio tools for macOS',
   },
   {
