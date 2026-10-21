@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Switching Speakers at a Calibrated Level - Headroom</title>
+  <link rel="canonical" href="https://headroomstudio.dev/blog/switching-speakers-at-level.html">
+  <meta name="description" content="Each speaker pair needs its own monitor level to play at the same SPL. Audita measures it per pair, Lyra 1.9 recalls it with the switch, and the workflow now runs on second-generation Universal Audio Volt interfaces too.">
+  <meta property="og:title" content="Switching speakers at a calibrated level">
+  <meta property="og:description" content="Each speaker pair needs its own monitor level to play at the same SPL. Audita measures it per pair, Lyra 1.9 recalls it with the switch, and the workflow now runs on second-generation Universal Audio Volt interfaces too.">
+  <meta property="og:image" content="https://headroomstudio.dev/lyra/lyra-menu-interfaces.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Switching speakers at a calibrated level">
+  <meta name="twitter:image" content="https://headroomstudio.dev/lyra/lyra-menu-interfaces.png">
+  <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="blog.css">
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<div class="glow glow--tl"></div>
+
+<div class="container--read nav-shell">
+    <nav class="nav">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="10" y="11.25" width="44" height="1.5" rx="0.75"/><rect x="9.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="53.25" y="10" width="1.5" height="4" rx="0.75"/><rect x="9" y="30" width="7" height="22" rx="3.5"/><rect x="18.5" y="20" width="6" height="32" rx="3"/><rect x="27" y="12" width="5" height="40" rx="2.5"/><rect x="34.5" y="8" width="4" height="44" rx="2"/><rect x="41" y="14" width="3.5" height="38" rx="1.75"/><rect x="47" y="24" width="3" height="28" rx="1.5"/><rect x="52.5" y="32" width="2.5" height="20" rx="1.25"/></svg>
+      <span class="brand-word">Head<span>room</span></span>
+    </a>
+    <a href="/blog/" class="nav-back"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>All posts</a>
+  </nav>
+</div>
+
+<div class="container--read">
+    <header class="article-header">
+        <p class="article-eyebrow">Workflow</p>
+        <h1>Switching speakers at a calibrated level</h1>
+        <p class="article-subtitle">Each speaker pair needs its own monitor level to play at the same SPL. Audita measures it per pair, Lyra 1.9 recalls it with the switch, and the workflow now runs on second-generation Universal Audio Volt interfaces too.</p>
+        <div class="article-meta">
+            <span>Krzysiek</span>
+            <span class="dot"></span>
+            <span>21 October 2026</span>
+            <span class="dot"></span>
+            <span>4 min read</span>
+        </div>
+    </header>
+</div>
+
+<div class="waveform"><canvas></canvas></div>
+
+<div class="container--read">
+  <article class="article">
+
+        <p>The case for working at a fixed monitor level is made in the <a href="calibrated-monitoring.html">calibrated monitoring post</a>: the ear's tonal balance shifts with level, so decisions made against a level that keeps moving drift with it. Calibrate the room to a number, come back to that number, and today's mix can be compared with yesterday's.</p>
+
+        <p>That argument usually assumes one pair of speakers. Many mixing setups have two or three: the main monitors, a small pair for a small-system check, sometimes a third. Switching between them is where the level tends to slip.</p>
+
+        <h2>The same monitor position, a different level</h2>
+
+        <p>Two pairs of speakers fed the same signal can play at quite different levels. The SPL at the listening position depends on each pair's sensitivity, its amplifier gain or input trim, and its distance from the listening position, and none of these has to match between pairs. Unless the pairs have been matched by measurement, the same monitor position can play the small pair several dB louder or quieter than the mains. Switch at that position and the comparison is between two levels as much as between two speakers.</p>
+
+        <p>Level tends to win that comparison. Of two otherwise similar playbacks, the louder one sounds fuller and brighter, and a dB or two is enough to tip it. A check on the small pair tells you something about the mix only when the small pair plays at the level the mains were calibrated to, or at a deliberate, known offset from it.</p>
+
+        <p>So each pair needs its own calibration, and switching speakers needs to change the level along with them.</p>
+
+        <h2>Calibrating each pair with Audita</h2>
+
+        <p><a href="../audita/">Audita</a>'s monitor-level calibration plays pink noise through the selected output while the monitor level is set until the reading at the listening position lands on the target. It lives in Settings &#8250; Calibration, on the Monitor level card: <strong>Calibrate&#8230;</strong>, set the level, <strong>Capture position</strong>. <strong>Send to Lyra&#8230;</strong> then writes the measured dB SPL into one of Lyra's three Reference Level slots, under a name such as Mix.</p>
+
+        <p>In <a href="../lyra/">Lyra</a> 1.9 each speaker pair keeps its own three slots, and a level sent from Audita lands on the pair that was playing while Audita measured. Calibrating two pairs is the same pass done twice:</p>
+
+        <ol>
+            <li>With the mains playing, run the calibration and send it to slot 2 as Mix.</li>
+            <li>Switch to ALT 1 with Ctrl+Opt+2, run the calibration again, and send it to slot 2.</li>
+        </ol>
+
+        <p>The second send goes to ALT 1's slot 2, not the mains'. If you bracket the reference with a quiet and a loud check, do the same for slots 1 and 3. Each slot ends up holding a monitor position and the SPL it was measured at, for its own speakers.</p>
+
+        <h2>Switching at level</h2>
+
+        <table class="data-table">
+            <thead>
+                <tr><th>Slot</th><th>Main</th><th>ALT 1</th><th>ALT 2</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Ctrl+F10</td><td>Ctrl+Opt+F10</td><td>Ctrl+Opt+Shift+F10</td></tr>
+                <tr><td>2</td><td>Ctrl+F11</td><td>Ctrl+Opt+F11</td><td>Ctrl+Opt+Shift+F11</td></tr>
+                <tr><td>3</td><td>Ctrl+F12</td><td>Ctrl+Opt+F12</td><td>Ctrl+Opt+Shift+F12</td></tr>
+            </tbody>
+        </table>
+
+        <p>Ctrl+F10 to F12 recall the Main slots. Adding Opt recalls the ALT 1 slots and Opt+Shift the ALT 2 slots, so Ctrl+Opt+F11 is Mix on the small pair. One key changes the speakers and sets the level.</p>
+
+        <p>The order of those two changes matters. If Lyra switched first and set the level second, the new pair would play for a moment at the old pair's position, which can be well above its own calibration. So when the target level is lower, Lyra lowers the level first and then switches; when it is higher, Lyra switches first and then raises it. No pair plays above its own starting or target level, including the moment between the two steps.</p>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-hud-alt-ref.png" alt="Lyra volume HUD after recalling an ALT 1 slot: the name line reads Quiet · ALT 1 above the level slider, and the menu bar icon carries a small 1">
+            <figcaption>An ALT 1 slot recalled: the HUD names the slot and the pair, and the menu bar icon carries a small 1.</figcaption>
+        </figure>
+
+        <p>Plain switching is there as well: Ctrl+Opt+1, 2 and 3 pick a pair, and Ctrl+Opt+&#167; (Ctrl+Opt+` on US keyboards) steps to the next one. The volume HUD shows the active pair beside the interface name, and the menu bar icon carries a small 1 or 2 while an ALT pair is playing.</p>
+
+        <h2>Now on Volt as well</h2>
+
+        <p>Until this release, all of this needed a Universal Audio Apollo interface. Lyra 1.9 adds second-generation Universal Audio Volt interfaces: Volt Gen 2 and the Volt Max models get volume, mute, DIM, mono and Reference Levels, and the Volt 4 Max gets ALT speakers too. Audita 1.6.1, out the same day, sends calibrations to Lyra and runs its self-check recall on a Volt, so a desk with a Volt 4 Max and two pairs of speakers can run the whole workflow above.</p>
+
+        <figure class="figure">
+            <img src="../lyra/lyra-menu-interfaces.png" alt="Lyra menu with the Speakers section (Main, ALT 1 checked) and the Interface submenu listing Apollo Twin X, checked, and Volt 4 Max">
+            <figcaption>With more than one interface connected, the Interface menu picks the one Lyra controls. Reference Levels are kept per interface.</figcaption>
+        </figure>
+
+        <p>I tested it on a Volt 4 Max. The Volt 876 may work, but I haven't tested it, and other first-generation Volts are not supported. UAD Console needs to be installed; its window doesn't need to be open.</p>
+
+        <p>Both updates are free for existing licenses, through Check for Updates in each app. Lyra and Audita each have a 7-day trial. Everything else in the two releases is in the release notes: <a href="../lyra/releases.html#v1.9">Lyra 1.9</a> and <a href="../audita/releases.html#v1.6.1">Audita 1.6.1</a>.</p>
+
+        <div class="kicker">
+            <p>The single-pair version of this setup is in <a href="pairing-audita-and-lyra.html">Calibrate once, recall forever</a>.</p>
+        </div>
+
+        <p><em>Lyra is an independent product by Headroom Studio. It is not affiliated with, endorsed by or supported by Universal Audio, Inc. Universal Audio, Apollo, Volt, UAD and LUNA are trademarks of Universal Audio, Inc., used here only to identify compatible hardware and software.</em></p>
+
+        <div class="related">
+            <p class="related-label">Related reading</p>
+            <ul class="related-list">
+                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe - the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
+                <li><a href="pairing-audita-and-lyra.html"><span>Calibrate once, recall forever - pairing Audita and Lyra</span><span class="arrow">→</span></a></li>
+            </ul>
+        </div>
+    </article>
+
+  <section style="padding-bottom: 60px;">
+    <div class="newsletter">
+      <div>
+        <p class="eyebrow">Newsletter</p>
+        <h3 class="display">Get the next post in your inbox.</h3>
+        <p>Short notes from the studio when there's something worth saying. No more than a few times a year.</p>
+      </div>
+      <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
+        <div class="nl-row">
+          <input type="email" name="email" placeholder="you@studio.com" required>
+          <button type="submit">Subscribe &#8594;</button>
+        </div>
+        <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
+        <div class="nl-hp" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="hp_url" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <!-- Cloudflare Turnstile: injects hidden input name="cf-turnstile-response". -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADroEtLeNDpdwzu9" data-action="subscribe" data-theme="dark"></div>
+        <label class="nl-consent"><input type="checkbox" required> I agree to receive emails from Headroom Studio. <a href="/audita/privacy.html">Privacy</a></label>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer__copy">&#169; 2026 Headroom Studio</span>
+    <ul class="footer__links">
+      <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
+      <li><a href="/lyra/">Lyra</a></li>
+      <li><a href="/audita/">Audita</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="../waveform.js"></script>
+<script src="../lightbox.js"></script>
+<script src="../newsletter.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

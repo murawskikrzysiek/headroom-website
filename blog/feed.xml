@@ -6,7 +6,16 @@
     <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 13 Sep 2026 17:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 09:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Switching speakers at a calibrated level</title>
+      <link>https://headroomstudio.dev/blog/switching-speakers-at-level.html</link>
+      <guid isPermaLink="true">https://headroomstudio.dev/blog/switching-speakers-at-level.html</guid>
+      <pubDate>Wed, 21 Oct 2026 09:00:00 +0000</pubDate>
+      <category>Workflow</category>
+      <description>Each speaker pair needs its own monitor level to play at the same SPL. Audita measures it per pair, Lyra 1.9 recalls it with the switch, and the workflow now runs on second-generation Universal Audio Volt interfaces too.</description>
+    </item>
 
     <item>
       <title>macOS 27: new icons, real glass, and an input that measured nothing</title>
