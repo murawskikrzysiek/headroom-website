@@ -688,7 +688,9 @@
         <p class="prose">One chip under the level, only when a limit was passed today: the day's peak dBC and the counts over 140 dBC (or 135 dBC) and 115 dBA. A day with no such peak shows no chip; its peak dBC is under Details.</p>
 
         <h3>Details</h3>
-        <p class="prose">A disclosure that stays open or closed as you leave it. Open, it holds Leq over 1, 10 and 30 minutes, the L10 / L50 / L90 percentiles, the session's average and peaks, today's peak, and a note when <a href="#sessions">conservative dose mode</a> is on.</p>
+        <p class="prose">A disclosure that stays open or closed as you leave it. While a session runs it opens on the <a href="#session-dial">session dial</a>: the session so far on a face that grows in 15-minute steps, so the session fills about three quarters of the circle and the time at the top climbs as it runs (a 2h30 session sits on a 3h15 face). The latest reading is a bright tip. Then Leq over 1, 10 and 30 minutes, the L10 / L50 / L90 percentiles, the session's average and peaks, today's peak, and a note when <a href="#sessions">conservative dose mode</a> is on.</p>
+
+        <img src="images/screenshots/menubar-details-dial.png" alt="The Audita menu bar window with Details open during a session: the live session dial on a face that grows with the session, the latest reading as a bright tip, then Leq, the Ln percentiles and the session's readings" class="screenshot-full">
 
         <h3>The session row and the actions</h3>
         <p class="prose">The actions are menu rows. A running session is one row, "Logic Pro · 1h 12m · +2.4%" (the DAW, the elapsed time, the dose this session added), with <strong>End Session</strong> at its end; without a session the row reads <strong>Start Session</strong>. Manual sessions cover work outside a tracked DAW (iZotope RX, Spotify, a reference track in QuickTime); they record like an auto-detected one, labelled <code>Manual</code>. Then <strong>Pause Monitoring</strong>, which reads <strong>Resume Monitoring</strong> while paused (see <a href="#pause-resume">Pause &amp; resume</a>), and <strong>More</strong>, which holds <strong>Share Last Session…</strong> and <strong>Reset Dose…</strong>. Reset asks before it zeroes the day.</p>
@@ -708,7 +710,7 @@
         <img src="images/screenshots/menubar-window-at-rest.png" alt="The Audita menu bar window at rest: today's dose with its state, Not measuring with the day's on-target share and session count, the Details disclosure, the Start Session row, and the footer reading Calibrated with the day" class="screenshot-full">
 
         <h3>Settings…</h3>
-        <p class="prose">Opens the Settings window: a sidebar with seven pages, 820 by 600 points and resizable. <strong>General</strong> (menu bar display, launch at login, notifications, storage, updates, Auris import), <strong>Devices</strong> (input and channel, output, mic location, the engine's state), <strong>Calibration</strong> (the chain, <a href="#calibration">section 6</a>), <strong>Reference</strong> (target dBA, tolerance, alerts), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>DAWs</strong> (custom bundle IDs) and <strong>About</strong> (version, developer and contact details, license).</p>
+        <p class="prose">Opens the Settings window: a sidebar with seven pages, 820 by 600 points and resizable. <strong>General</strong> (menu bar display, launch at login, notifications, storage, report appearance, updates, Auris import), <strong>Devices</strong> (input and channel, output, mic location, the engine's state), <strong>Calibration</strong> (the chain, <a href="#calibration">section 6</a>), <strong>Reference</strong> (target dBA, tolerance, alerts), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>DAWs</strong> (custom bundle IDs) and <strong>About</strong> (version, developer and contact details, license).</p>
     </section>
 
     <hr class="divider">
@@ -725,9 +727,9 @@
         <p class="prose">One row: the Bloom, the level now in dBA, the discipline verdict in words ("On target", "2 dB over", "Silent"), today's dose as a share of the budget in its colour, and a chevron. Between sessions the level reads "Not measuring". A peak flashes as a red chip for two seconds, as in the menu bar window.</p>
 
         <h3>Expanded</h3>
-        <p class="prose">The chevron, or a double-click anywhere on the panel, expands it in place: a calibration that needs attention and a pause show as banners, then the reference, Leq and Ln, the session's readings and today's peak, the menu bar window's Details rows. The same chevron or double-click collapses it, and the panel remembers which size you left it at. There is nothing to configure.</p>
+        <p class="prose">The chevron, or a double-click anywhere on the panel, expands it in place: a calibration that needs attention and a pause show as banners, then the reference and the menu bar window's Details rows: the live session dial while a session runs, Leq and Ln, the session's readings and today's peak. The same chevron or double-click collapses it, and the panel remembers which size you left it at. There is nothing to configure.</p>
 
-        <img src="audita-pin-window-clean.png" alt="The Audita pinned panel expanded in place: the strip on top, then the reference, Leq and Ln, the session's readings and today's peak" class="screenshot-full">
+        <img src="audita-pin-window-clean.png" alt="The Audita pinned panel expanded in place: the strip on top, then the reference, the live session dial, Leq and Ln, the session's readings and today's peak" class="screenshot-full">
 
         <h3>Behaviour</h3>
         <ul>
@@ -1000,9 +1002,9 @@
         <p class="prose">Sessions persist to <code>~/Library/Containers/com.headroom.Audita/Data/Library/Application Support/Audita/sessions.json</code>. Retention is configurable in <strong>Settings → General → Storage</strong> - default is <strong>90 days</strong> for full session records and <strong>14 days</strong> for the detailed time-series within each session. See <a href="#session-reports">Session reports &amp; sharing</a> for the full retention model.</p>
 
         <h3 id="history">The History window</h3>
-        <p class="prose">Open it from the <strong>History</strong> button in the menu bar window's footer. It is a standard macOS window, resizable and independent of the menu bar window: a calendar on the left, three answers for the selected range, a day chart, and the log of sessions.</p>
+        <p class="prose">Open it from the <strong>History</strong> button in the menu bar window's footer. It is a standard macOS window, resizable and independent of the menu bar window: a calendar on the left, three answers for the selected range, the dials, and the log of sessions.</p>
 
-        <img src="history.png" alt="The Audita History window with a full week selected: the calendar, the three answers (Dose per day with the EU weekly level, On target, Loudest), the day chart with its legend, and the one-line session rows grouped by day" class="screenshot-full">
+        <img src="history.png" alt="The Audita History window with a full week selected: the calendar, the three answers (Dose per day with the EU weekly level, On target, Loudest), one small dial per day in a Monday to Sunday row, and the one-line session rows grouped by day" class="screenshot-full">
 
         <p class="prose"><strong>Calendar and range.</strong> Days with sessions carry a dot in the day's dose colour. Click a day to start a range and a second day to complete it, or drag across days. A segmented control under the grid picks the last 7, 14 or 30 days, or this month. The first open shows the last 7 days.</p>
 
@@ -1014,19 +1016,48 @@
             <tr><td>Loudest</td><td class="wrap-ok">The highest A-weighted measurement-interval level and the highest C-weighted peak in the range, the counts over 140 dBC (or 135 dBC) and 115 dBA, and the day they happened</td><td class="wrap-ok">Peak dBC is coloured against the EU values: orange from 135 dBC (action value), red from 140 dBC (limit). "No peaks over the limits" otherwise.</td></tr>
         </tbody></table>
 
-        <p class="prose">The <strong>How these are measured</strong> link in the header opens this guide. <strong>Export CSV</strong> sits beside it; see <a href="#session-reports">CSV export</a>.</p>
+        <p class="prose">The <strong>How these are measured</strong> link in the header opens this guide. <strong>Export CSV</strong> and <strong>Report</strong> sit beside it; see <a href="#session-reports">CSV export</a> and <a href="#selection-report">The Report</a>.</p>
 
-        <p class="prose"><strong>The day chart.</strong> One bar per day of the range (the last 7 days when the range is longer than 14), oldest on the left, Today on the right, each bar scaled to the highest day and coloured by that day's dose band, with the legend under it. Click a bar to select its day. A range with no sessions says so instead of drawing empty columns.</p>
+        <p class="prose"><strong>The day's dial.</strong> With one day selected, the window shows that day's <a href="#session-dial">session dial</a>: every session of the day on a face spanning the hours that hold readings (09:00 to 21:00 for a day that started at 09:40 and ended at 20:50), with the day's dose in the centre, on the ring and as the number, coloured by its band, and the zone key beside it. Breaks between sessions stay empty.</p>
+
+        <img src="images/screenshots/history-day-dial.png" alt="The Audita History window with one day selected: the three answers for the day, and the day's dial with every session of the day on a face spanning its working hours, the day's dose on the ring and as the number in the centre, and the zone key beside it" class="screenshot-full">
+
+        <p class="prose"><strong>One dial per day.</strong> With a range selected, the window shows one small dial per day in Monday to Sunday rows, above the session list. Every dial spans the same hours, from the earliest session start in the range to the latest session end (rounded out to whole hours, stated above the dials), so 14:00 sits in the same place on each. Each dial keeps the bars and the dose: the inner ring is the day's dose and the number inside it, coloured by the day's band ("&lt;1%" for a day that accrued less than half a percent). A day without sessions is an empty circle; today is labelled Today. Click a day to open its dial. A range with no sessions says so instead.</p>
+
+        <p class="prose"><strong>One session.</strong> Click a session in the log to narrow the window to it. The header becomes a breadcrumb (the selection, then the session) with the session's time, length and its place in the day. The answers become the session's: <strong>Session dose</strong> with the day's running total before and after it, <strong>On target</strong> and <strong>Loudest</strong> for the session alone. The session's dial sits beside its level chart, and its row stays highlighted. Click the selection in the breadcrumb, or pick other days, to step back. The chevron at the end of a row opens the full session report; Export CSV exports the selected session alone.</p>
+
+        <img src="images/screenshots/history-session-view.png" alt="The Audita History window narrowed to one session: the breadcrumb with the session's time and length, the Session dose, On target and Loudest answers for the session, the session's dial beside its level chart, and its row highlighted in the log" class="screenshot-full">
 
         <p class="prose"><strong>Session rows.</strong> Sessions are grouped by day, newest day first; each day's header carries the day's dose, the session count and the total time. Each session is one line:</p>
         <ul>
             <li><strong>DAW and time</strong>: the application that triggered the session (or Manual Session), the start and end clock time and the length ("00:27 to 01:08 · 41m"). Length is wall-clock time, not filtered for silences.</li>
-            <li><strong>Sparkline</strong>: the session's A-weighted level over time, shaded by zone: green on target, grey under the band, orange over it; silent stretches stay unshaded. The same colours the session report uses.</li>
+            <li><strong>Sparkline</strong>: the session's A-weighted level over time, scaled to the session's own range so its shape reads at a glance. The zones are on the session's dial and the on-target chip.</li>
             <li><strong>+X.X%</strong>: the dose this session added, coloured by the day's running total after it, so a +15% session that pushed the day to 120% reads red.</li>
             <li><strong>On-target chip</strong>: the session's on-target share, coloured by the one ladder. Absent when the session has no discipline data.</li>
             <li><strong>Peak chip</strong>: only when a limit was passed, naming the highest one (140 dBC, 135 dBC or 115 dBA).</li>
         </ul>
-        <p class="prose">The chevron opens the <a href="#session-reports">session report</a>, where the averages, the peaks, Leq and the Ln percentiles live. Right-click a row, or use its menu, for Open, Save, Share and Delete.</p>
+        <p class="prose">A click on the row narrows the window to the session. The chevron opens the <a href="#session-reports">session report</a>, where the averages, the peaks, Leq and the Ln percentiles live. Right-click a row, or use its menu, for Open, Save, Share and Delete.</p>
+
+        <h3 id="selection-report">The Report</h3>
+        <p class="prose"><strong>Report</strong> in the History window's header makes a PDF of what is selected:</p>
+        <ul>
+            <li><strong>A range</strong>: the three answers, one dial per day, a day-by-day table (sessions, time, dose, on target, loudest, and the average per day), and every session with its sparkline, grouped by day, newest first.</li>
+            <li><strong>One day</strong>: the three answers, the day's dial, and the day's sessions.</li>
+            <li><strong>One session</strong>: the <a href="#session-reports">session report</a>.</li>
+        </ul>
+        <p class="prose">The PDF is A4-proportioned and breaks between blocks, so no dial, table row or session is split across pages. It opens in the default PDF viewer, which saves, prints and shares it. Reports follow <strong>Settings → General → Reports → Appearance</strong>: match the system (the default), light or dark, for the session report window and every PDF.</p>
+
+        <img src="images/screenshots/selection-report.png" alt="The first page of an Audita History report for a week: the three answers, one dial per day, and the day-by-day table with the average per day" class="screenshot-full">
+
+        <h3 id="session-dial">The session dial</h3>
+        <p class="prose">The dial draws a stretch of time as a circle. Each bar is a slice of it, pointing outward from a ring:</p>
+        <ul>
+            <li><strong>Length</strong> is the slice's level, on the same 50 to 100 dBA scale on every dial. A slice's level is the energy average of its readings, its Leq.</li>
+            <li><strong>Colour</strong> is the reference zone: green on target, orange over the band, grey under it. A slice with readings in two zones takes the more frequent one; a tie goes to the zone off target.</li>
+            <li><strong>Behind the bars</strong> sit the reference band, faint green, and a dashed orange circle at 80 dBA, where the NIOSH dose starts to accrue. The bars past it glow.</li>
+            <li><strong>Gaps</strong> are silence and breaks. A session recorded with Monitoring Discipline off, or before readings carried a zone, draws its bars in one neutral tone.</li>
+        </ul>
+        <p class="prose">The dial appears in four places: the day's dial and the range's dials in the History window, the session's dial in History's session view and at the top of the session report, and the live dial under Details in the menu bar window and the expanded pinned panel. Older sessions keep a reading every 100 seconds instead of every 10 (<strong>Settings → General → Storage</strong>); their dials draw fewer, wider slices. VoiceOver reads the dose and the on-target, over and under shares.</p>
 
         <h3>Peak monitoring (EU 2003/10/EC)</h3>
         <p class="prose">Beyond cumulative dose, Audita monitors for dangerous peak impulses on the C-weighted path. Three thresholds per EU Directive 2003/10/EC:</p>
@@ -1050,15 +1081,16 @@
     <section class="guide-section" id="session-reports">
         <h2>9. Session reports &amp; sharing (v1.2+) <a href="#session-reports" class="anchor">#</a></h2>
 
-        <p class="prose">Every session Audita records can be opened as a one-page <strong>Session Report</strong> and shared as a PDF through the standard macOS Share menu - AirDrop to a phone, attach to a Mail draft for a producer, drop into a Messages thread, or save to disk for an archive. The Session Report is also a self-contained brief for anyone who hasn't seen Audita before: chart, stats, and a footer link to the product.</p>
+        <p class="prose">Every session Audita records can be opened as a one-page <strong>Session Report</strong> and shared as a PDF through the standard macOS Share menu - AirDrop to a phone, attach to a Mail draft for a producer, drop into a Messages thread, or save to disk for an archive. The Session Report is also a self-contained brief for anyone who hasn't seen Audita before: dial, chart, stats, and a footer link to the product.</p>
 
-        <img src="images/screenshots/session-report-window.png" alt="The Audita Session Report window showing the brand strip, the SPL chart with monitoring-discipline shading, the stats grid, and the headroomstudio.dev/audita footer link" class="screenshot-full">
+        <img src="images/screenshots/session-report-window.png" alt="The Audita Session Report window showing the brand strip, the session's dial with the on-target share and the time on target, over and under beside it, the level chart with the dBA and dBC lines over the reference band, the stats grid, and the headroomstudio.dev/audita footer link" class="screenshot-full">
 
         <h3>What the report contains</h3>
         <p class="prose">A single-page layout, top to bottom:</p>
         <ul>
             <li><strong>Brand strip</strong> - Audita mark and the session's DAW + date + duration.</li>
-            <li><strong>SPL chart</strong> - dBA (and dBC) plotted across the session's duration. The chart's background is shaded by <strong>monitoring-discipline zone</strong>: silent, under, on-target, over. The shaded bands make it easy to see at a glance how much of the session was spent at reference and how much drifted off. The level axis follows the readings rather than a fixed 0 to 140 dB, so a quiet session has a shape.</li>
+            <li><strong>Session dial</strong> - the session's <a href="#session-dial">dial</a>, swept over the session's own length, with the session's dose in the centre and the on-target share and the time on target, over and under beside it. Its inner ring is the day's dose: faint for what the day held before the session, solid for what the session added. Shown when the session has at least two readings.</li>
+            <li><strong>SPL chart</strong> - the dBA and dBC lines across the session's duration over a faint band at your reference. The level axis follows the readings, so a quiet session has a shape.</li>
             <li><strong>Stats grid</strong> - average SPL, peak SPL, session dose %, EU peak-impulse counters (135 / 137 / 140 dBC and 115 dBA; when no peak passed a limit the three read as one line), elapsed time, on-target % for the session.</li>
         </ul>
 
@@ -1329,7 +1361,7 @@
         <p class="prose"><strong>Safe Streak (small, medium).</strong> Consecutive days, up to yesterday, your dose stayed under 50% of the daily limit. The same streak Audita reports through Shortcuts and Siri.</p>
         <img src="audita-streak.png" alt="Audita Safe Streak widget (small and medium): consecutive days under 50% dose" class="screenshot-full">
 
-        <p class="prose"><strong>Weekly Exposure (medium, large).</strong> Your last 7 days of dose as a bar chart, with the EU weekly exposure level (L_EX,w, ISO 9612) against the 85 dBA criterion. The same figures as the in-app weekly chart.</p>
+        <p class="prose"><strong>Weekly Exposure (medium, large).</strong> Your last 7 days of dose as a bar chart, with the EU weekly exposure level (L_EX,w, ISO 9612) against the 85 dBA criterion. The same figures as the History window's Dose per day answer.</p>
         <img src="audita-weekly-exposure.png" alt="Audita Weekly Exposure widget (medium and large): 7-day dose bar chart with the EU weekly L_EX,w level against the 85 dBA criterion" class="screenshot-full">
 
         <p class="prose"><strong>Today's Dose (small, medium)</strong> shows your accumulated NIOSH dose as a ring that fills and changes colour from green to red; the medium size adds your safe streak and EU weekly level. <strong>Overview (large)</strong> puts today's dose, latest SPL, your on-target state, your streak, and the weekly chart in one tile.</p>
