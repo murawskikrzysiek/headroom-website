@@ -25,9 +25,8 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
-        <!-- DRAFT Audita 1.7: commented out until the DMG rebuilt with the Dock
-             change (Audita f624876) is signed. Fill RELEASE-CUT-SIGNATURE and
-             RELEASE-CUT-LENGTH from sign_update, then uncomment.
+        <!-- release-cut 2026-11-01: edSignature and length from sign_update on
+             Audita.dmg (1.7, build 10; 13,818,710 bytes), uploaded as Audita-1.7.dmg. -->
         <item>
             <title>Version 1.7 - The session dial</title>
             <description>Sessions are drawn as a dial: every slice of time is a bar, its length the level on one 50 to 100 dBA scale, its colour the reference zone, with the 80 dBA line where the dose starts behind the bars. With one day selected the History window shows that day's dial; with a range, one small dial per day on the same hours. The session report opens on the session's dial, and while a session runs Details in the menu bar window and the expanded pinned panel open on the live dial. Clicking a session in the History log narrows the window to it, with its dial beside its level chart. The History window's Report button makes a PDF of any selection, and Settings, General, Reports sets reports to light, dark or the system appearance. The report's level chart shows the dBA and dBC lines over the reference band, and the History sparklines show the A-weighted level alone. While a window is open, Audita has a Dock icon and a place in the app switcher, and ⌘Q closes the windows while measuring goes on.</description>
@@ -38,11 +37,10 @@
             <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Audita-1.7.dmg"
-                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
-                length="RELEASE-CUT-LENGTH"
+                sparkle:edSignature="gciZkwHjIC4gWH2hEND3YdwuFYlttu31A2qMEG3MgniMPKyV3yGiXLd9KKtxuI2SBfRW63dV1bmRXSSKW0IcAA=="
+                length="13818710"
                 type="application/octet-stream" />
         </item>
-        END DRAFT Audita 1.7 -->
 
         <!-- release-cut 2026-10-20: edSignature and length from sign_update on
              Audita.dmg (1.6.1, build 9; 13,397,481 bytes), uploaded as Audita-1.6.1.dmg. -->
