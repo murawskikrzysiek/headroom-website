@@ -67,8 +67,25 @@
     </div>
   </header>
 
+  <section class="release" id="v1.7">
+    <div class="release-header"><span class="version">Version 1.7</span><span class="date">November 2026</span><span class="badge-new">Latest</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>The session dial.</strong> Sessions are drawn as a dial: every slice of time is a bar radiating from a ring, its length the level on one 50 to 100 dBA scale, its colour the reference zone (on target, over, under). The reference band and the 80 dBA line where the dose starts to accrue sit behind the bars, and the stretches above it glow. Silent stretches and breaks stay empty. Sessions recorded with Monitoring Discipline off, or before readings carried a zone, draw in one neutral tone.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>The day's dial.</strong> With one day selected, the History window shows that day's dial: every session of the day on a face spanning its working hours, with the day's dose on a ring around the number in the centre.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>One dial per day.</strong> With a range selected, the History window shows one small dial per day, in Monday to Sunday rows. Every dial spans the same hours, from the range's earliest session to its latest, so the same time sits in the same place on each; the day's dose is the inner ring and the number inside it. Click a day to open its dial.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>The session report opens on the dial</strong>, with the on-target share and the time on target, over and under beside it. The inner ring shows the day's dose before the session and what the session added.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>One session in History.</strong> Clicking a session in the log narrows the window to it: its dose with the day before and after, its on-target share and loudest moments, its dial beside its level chart, and the row highlighted. The breadcrumb steps back to the selection; the chevron opens the session report.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>A report for any selection.</strong> The History window's Report button makes a PDF of the selection: the three answers, the day's dial or one dial per day, a day-by-day table with the average per day, and every session with its sparkline, grouped by day, on as many pages as it needs. It opens in the default PDF viewer.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Report appearance.</strong> Settings → General → Reports sets how reports look: match the system, light or dark. It applies to the session report window and every PDF report.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Level charts show the levels.</strong> The report's level chart shows the dBA and dBC lines over the reference band, and the History sparklines show the A-weighted level alone; the zones over time are on the dials.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>The live dial.</strong> While a session runs, Details in the menu bar window and the expanded pinned panel open on the live dial. The face grows in 15-minute steps so the session fills about three quarters of it, with the face's length at the top and the latest reading as a bright tip.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Windows in the Dock.</strong> While the History window, a session report or Settings is open, Audita has a Dock icon and a place in the app switcher (⌘-Tab). When the last window closes, Audita stays in the menu bar alone.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Keep measuring after ⌘Q.</strong> ⌘Q closes Audita's windows and measuring goes on in the menu bar; ⌥⌘Q, or Quit in the menu bar window, quits Audita. Settings → General → Keep measuring after ⌘Q turns this off.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.6.1">
-    <div class="release-header"><span class="version">Version 1.6.1</span><span class="date">October 2026</span><span class="badge-new">Latest</span></div>
+    <div class="release-header"><span class="version">Version 1.6.1</span><span class="date">October 2026</span></div>
     <ul class="changes">
       <li><span class="tag tag-impr">Impr</span><span><strong>Lyra on Universal Audio Volt</strong> - Send to Lyra and the self-check's Lyra recall work on second-generation Universal Audio Volt interfaces, with <a href="../lyra/">Lyra</a> 1.9.</span></li>
       <li><span class="tag tag-impr">Impr</span><span><strong>Settings › About</strong> - the version, developer and contact details moved there from Settings › General.</span></li>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Audita Privacy Policy - No Tracking, No Telemetry</title>
+  <title>Audita Privacy Policy - Measurements Stay on Your Mac</title>
   <link rel="canonical" href="https://headroomstudio.dev/audita/privacy.html">
-  <meta name="description" content="Audita measures sound locally on your Mac, collects no personal data, and sends no telemetry. Read the full Headroom Studio privacy policy.">
+  <meta name="description" content="Audita measures sound locally on your Mac and collects no personal data. Update checks are counted anonymously. Read the full Headroom Studio privacy policy.">
   <meta property="og:title" content="Audita Privacy Policy">
-  <meta property="og:description" content="Audita analyzes audio only locally. No recording, no upload, no telemetry.">
+  <meta property="og:description" content="Audita analyzes audio only locally. No recording, no upload.">
   <meta property="og:image" content="https://headroomstudio.dev/audita/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -42,14 +42,14 @@
     <header class="doc-header">
     <p class="eyebrow">Audita</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: August 2026</p>
+    <p class="doc-header__meta">Last updated: November 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics, no crash reporting, and no telemetry. The app reaches the network for three things only: license validation, auto-update checks, and a microphone calibration file you ask it to download. Each is described below.</p>
+    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics and no crash reporting. The app reaches the network for three things only: license validation, auto-update checks (which are also counted, without personal data), and a microphone calibration file you ask it to download. Each is described below.</p>
   </section>
 
   <section class="priv-section">
@@ -59,7 +59,7 @@
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>None that leaves your device. Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded.</p>
+    <p>No personal data. Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded. Update checks carry your copy's license state, described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -111,7 +111,8 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Audita uses <strong>Sparkle</strong> for automatic updates, periodically fetching the appcast at <code>https://headroomstudio.dev/audita/appcast.xml</code>. The request includes your macOS version and CPU architecture for compatibility; no personal data is transmitted.</p>
+    <p>Audita uses <strong>Sparkle</strong> for automatic updates. About once a day it fetches the appcast at <code>https://headroomstudio.dev/audita/appcast.xml</code>. The request carries the Audita and Sparkle version numbers and one word for the license state: <code>trial</code>, <code>licensed</code> or <code>expired</code>. No license key, email address, machine name or device identifier is sent.</p>
+    <p>These requests are counted to see how many copies of Audita are in use, by version, license state and country. Each copy is counted through a hash of its IP address and user agent, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
   </section>
 
   <section class="priv-section">
