@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lyra Privacy Policy - No Tracking, No Telemetry</title>
+  <title>Lyra Privacy Policy - No Personal Data</title>
   <link rel="canonical" href="https://headroomstudio.dev/lyra/privacy.html">
-  <meta name="description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac. Read the full Headroom Studio privacy policy.">
+  <meta name="description" content="Lyra collects no personal data and runs on your Mac. Update checks are counted anonymously. Read the full Headroom Studio privacy policy.">
   <meta property="og:title" content="Lyra Privacy Policy">
-  <meta property="og:description" content="Lyra collects no personal data, sends no telemetry, and runs entirely on your Mac.">
+  <meta property="og:description" content="Lyra collects no personal data and runs on your Mac. Update checks are counted anonymously.">
   <meta property="og:image" content="https://headroomstudio.dev/lyra/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -45,19 +45,19 @@
     <header class="doc-header">
     <p class="eyebrow">Lyra</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: May 2026</p>
+    <p class="doc-header__meta">Last updated: November 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics, no crash reporting, and no telemetry. The app does reach the network for license validation, auto-update checks, and the URL handoff to Audita; each is described below.</p>
+    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics and no crash reporting. The app does reach the network for license validation, auto-update checks (which are also counted, without personal data), and the URL handoff to Audita; each is described below.</p>
   </section>
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>None. The app does not collect any information about you or your usage.</p>
+    <p>No personal data. Settings and reference levels stay on your Mac. Update checks are counted anonymously, as described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -97,7 +97,8 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Lyra uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. This request includes your macOS version and CPU architecture so Sparkle can determine compatibility; no personal data is transmitted.</p>
+    <p>Lyra uses <strong>Sparkle</strong> for automatic updates. About once a day it fetches the appcast at <code>https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. The request carries the Lyra and Sparkle version numbers. No license key, email address, machine name or device identifier is sent.</p>
+    <p>These requests are counted to see how many copies of Lyra are in use, by version and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
   </section>
 
   <section class="priv-section">

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Specula Privacy Policy: Audio Stays on Your Mac</title>
   <link rel="canonical" href="https://headroomstudio.dev/specula/privacy.html">
-  <meta name="description" content="Specula analyses audio entirely on the Mac: no upload, no telemetry. The Headroom Studio privacy policy for Specula.">
+  <meta name="description" content="Specula analyses audio entirely on the Mac, with no upload. Update checks are counted anonymously. The Headroom Studio privacy policy for Specula.">
   <meta property="og:title" content="Specula Privacy Policy">
-  <meta property="og:description" content="Specula analyses audio entirely locally. No upload, no telemetry.">
+  <meta property="og:description" content="Specula analyses audio entirely locally. No upload.">
   <meta property="og:image" content="https://headroomstudio.dev/specula/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Specula Privacy Policy">
-  <meta name="twitter:description" content="Specula analyses audio entirely locally. No upload, no telemetry.">
+  <meta name="twitter:description" content="Specula analyses audio entirely locally. No upload.">
   <meta name="twitter:image" content="https://headroomstudio.dev/specula/og.png">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
@@ -48,14 +48,14 @@
     <header class="doc-header">
     <p class="eyebrow">Specula</p>
     <h1 class="display">Privacy Policy</h1>
-    <p class="doc-header__meta">Last updated: October 2026</p>
+    <p class="doc-header__meta">Last updated: November 2026</p>
   </header>
 
   <hr class="rule" style="margin-bottom: 48px;">
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Specula is a local macOS application. It does not transmit, upload or share any audio, file content or analysis results. All processing happens on the Mac. There is no telemetry and no analytics.</p>
+    <p>Specula is a local macOS application. It does not transmit, upload or share any audio, file content or analysis results. All processing happens on the Mac. There are no in-app analytics. Update checks are counted anonymously, as described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -93,7 +93,8 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. This request carries only the standard details of an HTTPS request; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. Settings › General › Updates turns the automatic checks off.</p>
+    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. The request carries the Specula and Sparkle version numbers; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. Settings › General › Updates turns the automatic checks off.</p>
+    <p>These requests are counted to see how many copies of Specula are in use, by version and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
   </section>
 
   <section class="priv-section">
