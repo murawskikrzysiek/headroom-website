@@ -6,7 +6,7 @@ Context for working on the headroom-website repository.
 
 Static website for **Headroom Studio** (headroomstudio.dev), Krzysiek's indie macOS software label. It serves marketing pages, guides, FAQs, API docs, release notes, a blog, and Sparkle appcast feeds for three shipping apps — **Lyra**, **Audita**, **Specula** — plus redirect stubs for **Auris** (renamed to Audita 2026-05-08; `auris/` pages redirect and its appcast points users at the rename).
 
-**Stack:** Plain HTML + one shared stylesheet + a handful of vanilla JS helpers. No build step, no dependencies, nothing to install. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS (proxy **OFF** — DNS only, required for the GitHub Pages cert). Push to `main` deploys in ~1-2 min.
+**Stack:** Plain HTML + one shared stylesheet + a handful of vanilla JS helpers. No build step, no dependencies, nothing to install. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS. The four apex `A` records are **Proxied** since 2026-11-02 so the `releases-worker` can count Sparkle update checks on `/<app>/appcast.xml` (see `headroom/releases-worker/SETUP.md`); `www` stays DNS only. Push to `main` deploys in ~1-2 min.
 
 **Contact:** hello@headroomstudio.dev (iCloud Mail with custom domain).
 
@@ -87,7 +87,7 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 ## External services
 
 - **GitHub Pages** — hosting; deploys on push to `main`
-- **Cloudflare** — DNS (proxy OFF / DNS-only; turning it on breaks GitHub Pages TLS), R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
+- **Cloudflare** — DNS (apex proxied, SSL/TLS mode **Full**, Always Use HTTPS on; never Flexible, which loops with GitHub's HTTPS redirect, and never Full strict, which breaks the day GitHub can't renew its certificate behind the proxy), the `releases-worker` route on the appcasts, R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
 - **Lemon Squeezy** — payment processor / license server for all apps (referenced in privacy pages and FAQs)
 - **MailerLite** — newsletter backend, reached only server-side via the Worker (`_newsletter-proxy/README.md` explains why: content blockers kill direct MailerLite fetches, and their public form endpoint 403s Worker IPs, so the Worker uses the server API)
 - **Sparkle** — macOS auto-update framework consuming the appcasts
@@ -131,7 +131,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 ```
 
-**Why JS Snippet mode** (not dashboard auto-injection): auto-injection needs the Cloudflare proxy on to rewrite HTML at the edge; our proxy is off (DNS-only, for GitHub Pages TLS), so the snippet must run client-side. Captures pageviews, uniques, referrers, top pages/devices/countries. No cookies, no PII, no GDPR banner. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
+**Why JS Snippet mode** (not dashboard auto-injection): the snippet predates the proxy and works regardless of it. Now that the apex is proxied, leave dashboard auto-injection **off**; with the snippet already on every page it would count each view twice. Captures pageviews, uniques, referrers, top pages/devices/countries. No cookies, no PII, no GDPR banner. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
 
 **Verifying:** after deploying a new page, visit it once and check the dashboard within ~5 min — a missing pageview means a missing or malformed snippet.
 
@@ -143,7 +143,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
 - **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
 - **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
 - **System fonts + liquid-glass chrome** — 2026-07 design refresh: SF system stack (no webfonts), sticky glass nav on every page, glass on chips/badges/secondary buttons; periwinkle accent kept (it matches the app icons; the AI-default look was the Inter+violet+glow ensemble, not the hue)
-- **Cloudflare proxy OFF** — GitHub Pages must see the A records directly for TLS
+- **Cloudflare proxy ON for the apex (2026-11-02)** — the `releases-worker` counts appcast checks for active-install numbers; SSL mode Full keeps GitHub Pages TLS working behind it. Rollback: set the apex `A` records back to DNS only, which only stops the counting
 - **Per-app folder structure** — keeps root clean as apps accumulate
 - **Auris pages stay up** — old links and the old appcast must keep resolving post-rename
 - **`assets/screens/` is unlisted, not private** — hotlinkable for forum posts, excluded from sitemap + robots
