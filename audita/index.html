@@ -95,18 +95,22 @@
          synthetic session with the app's own rules; the steps drive it. -->
     <section class="scrolly" data-instrument="pin" aria-label="Audita's pinned window through one session">
       <div class="scrolly__stage">
+        <div class="trig" role="status"><span class="trig__k"></span><span class="trig__t"></span><span class="trig__r"></span><span class="trig__app"></span></div>
         <div class="pin" data-pin data-state="start" aria-live="polite"></div>
         <div class="notif" role="status"><img src="icon.png" alt=""><div><p class="notif__app">Audita</p><p class="notif__t"></p><p class="notif__b"></p></div></div>
         <p class="scrolly__hint">Scroll. Every number is computed from the session as it fills in.</p>
       </div>
       <div class="scrolly__steps">
         <div class="step" data-state="start"><h3>The level at the chair</h3><p>Audita listens through a measurement microphone at the listening position and reads the A-weighted level ten times a second. The pinned window keeps that reading on screen while you work.</p></div>
+        <div class="step" data-state="session"><h3>The session starts itself</h3><p>A session begins when a DAW you track launches, from Start Mixing Session in Spotlight or a Shortcut, from a Focus Filter, or from <code>audita://session/start</code>. It ends the same ways, and the recap follows.</p></div>
         <div class="step" data-state="reference"><h3>The reference</h3><p>Calibrate once against a target, 79 dBA for K-14 here, and every reading becomes a verdict: under, on or over, with a 3 dB band either side. The share of the session on target is the number that tells you how the day went.</p></div>
         <div class="step" data-state="over"><h3>Over</h3><p>A loud stretch pushes past the band. The bars turn orange, the status says by how much, and the dose climbs faster than the clock.</p></div>
         <div class="step" data-state="drift"><h3>Drift</h3><p>The level that creeps up over half an hour is the one nobody notices from the chair. Audita compares the last 30 minutes with the baseline before them and says so once per session, with the figure.</p></div>
         <div class="step" data-state="under"><h3>Under</h3><p>A quiet stretch, playback paused or the monitor turned down, shows as grey. It counts against the on-target share and costs no hearing.</p></div>
         <div class="step" data-state="dose"><h3>Today's dose</h3><p>By the NIOSH method: 85 dBA for eight hours is a full day, every 3 dB louder halves the time, and nothing below 80 dBA accrues. The percentage is how much of today's budget the day has spent so far.</p></div>
         <div class="step" data-state="leq"><h3>Leq and Ln</h3><p>Leq over 1, 10 and 30 minutes are energy averages. L10, L50 and L90 say how loud the loudest tenth, the middle and the floor were. The session's average and peak sit under them.</p></div>
+        <div class="step" data-state="readback"><h3>Read it back</h3><p>Every number in the window is readable from outside: Get Current SPL, Get Today's Dose and Get Monitoring Stats in Shortcuts, or <code>audita://dose</code> and <code>audita://state</code> for anything that opens a URL, chained with x-callback-url.</p></div>
+        <div class="step" data-state="lyra"><h3>Send to Lyra</h3><p>After calibration, Send to Lyra writes the measured level into one of Lyra's reference slots. From then on <kbd>⌃F11</kbd> recalls the exact monitor position the microphone measured.</p></div>
         <div class="step" data-state="end"><h3>The session, kept as a dial</h3><p>When the session ends it stays in History as this dial, one per session or one per day for a range, with the report and a PDF a click away.</p></div>
       </div>
     </section>

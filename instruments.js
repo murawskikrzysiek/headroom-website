@@ -21,6 +21,23 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var instruments = {};
 
+  /* The incoming trigger shown above an instrument: [kind, text, result]. */
+  var glyphs = {
+    spotlight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+    shortcut: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h7l-3 5h5l-8 7 2-6H6z"/></svg>',
+    url: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+    focus: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3a8 8 0 1 0 7 11.6A7 7 0 0 1 14 3z"/></svg>'
+  };
+  function showTrig(el, t, app) {
+    if (!el) return;
+    if (!t) { el.classList.remove('is-on'); return; }
+    el.className = 'trig trig--' + t[0] + ' is-on';
+    el.querySelector('.trig__k').innerHTML = glyphs[t[0]] || '';
+    el.querySelector('.trig__t').textContent = t[1];
+    el.querySelector('.trig__r').textContent = t[2] || '';
+    el.querySelector('.trig__app').textContent = t[0] === 'spotlight' || t[0] === 'shortcut' ? app : '';
+  }
+
   /* ── Lyra: the volume HUD ─────────────────────────────────────────────── */
   function buildHUD(root) {
     var SEGS = 16;
@@ -32,8 +49,9 @@
     for (var i = 0; i < SEGS; i++) { var s = document.createElement('i'); s.className = 'hud__seg'; bar.appendChild(s); }
     var read = root.parentNode.querySelector('.hud-read');
     var notif = root.parentNode.querySelector('.notif');
+    var trig = root.parentNode.querySelector('.trig');
     var st = {};
-    var base = { level: 10, muted: false, dim: false, mono: false, gone: false, name: 'Apollo Twin X', note: 'on the monitor bus', notif: null };
+    var base = { level: 10, muted: false, dim: false, mono: false, gone: false, name: 'Apollo Twin X', note: 'on the monitor bus', notif: null, trig: null };
     var states = {
       rest:  {},
       level: { level: 12 },
@@ -43,6 +61,9 @@
       ref:   { name: 'Mix · 79 dB SPL', note: 'recalled with ⌃F11' },
       alt:   { name: 'Apollo Twin X · ALT 1', note: 'on the ALT 1 pair' },
       volt:  { level: 9, name: 'Volt 4 Max', note: 'on the Volt' },
+      spot:  { name: 'Mix · 79 dB SPL', note: 'from Spotlight', trig: ['spotlight', 'Switch to Reference Level'] },
+      url:   { name: 'Mix · 79 dB SPL', note: 'from a URL', trig: ['url', 'lyra://reference/2'] },
+      focus: { name: 'Mix · 79 dB SPL', note: 'from the Mixing Focus', trig: ['focus', 'Mixing', 'Focus on'] },
       uastart: { notif: ['UA Mixer Engine started', 'Lyra started UA Mixer Engine because Apollo is now connected.'] },
       uaclose: { level: 0, gone: true, note: '', notif: ['UA apps closed', 'Lyra closed 2 UA apps because no Universal Audio interface is connected.'] }
     };
@@ -58,6 +79,7 @@
         if (st.notif) { notif.querySelector('.notif__t').textContent = st.notif[0]; notif.querySelector('.notif__b').textContent = st.notif[1]; notif.classList.add('is-on'); }
         else notif.classList.remove('is-on');
       }
+      showTrig(trig, st.trig, 'Lyra');
     }
     function set(k) { var t = states[k] || {}; for (var p in base) st[p] = base[p]; for (var q in t) st[q] = t[q]; draw(); }
     root.setAttribute('tabindex', '0');
@@ -69,7 +91,7 @@
       else if (k === 'd' || k === 'D') st.dim = !st.dim;
       else if (k === 'o' || k === 'O') st.mono = !st.mono;
       else return;
-      e.preventDefault(); st.gone = false; st.notif = null; draw();
+      e.preventDefault(); st.gone = false; st.notif = null; st.trig = null; draw();
     });
     bar.addEventListener('click', function (e) {
       var r = bar.getBoundingClientRect(); st.level = Math.round((e.clientX - r.left) / r.width * SEGS); st.muted = false; draw();
@@ -211,14 +233,24 @@
       }
     };
     var notif = root.parentNode.querySelector('.notif');
+    var trig = root.parentNode.querySelector('.trig');
+    /* The triggers: what arrives from outside, with the figure read back. */
+    var trigs = {
+      session: function () { return ['spotlight', 'Start Mixing Session']; },
+      readback: function (n) { return ['shortcut', 'Get Today’s Dose', dose(L.slice(0, n)).toFixed(1) + '%']; },
+      lyra: function () { return ['url', 'lyra://reference/2/save?name=K-14&dBSPL=79.4']; }
+    };
     var states = {
       start: { n: 14, focus: 'head' },
+      session: { n: 1, focus: 'head', trig: 'session' },
       reference: { n: 48, focus: 'ref' },
       over: { n: 85, focus: 'head', notif: 'over' },
       drift: { n: 136, focus: 'head', notif: 'drift' },
       under: { n: 160, focus: 'ref' },
       dose: { n: 186, focus: 'dose' },
       leq: { n: 192, focus: 'leq' },
+      readback: { n: 192, focus: 'dose', trig: 'readback' },
+      lyra: { n: 192, focus: 'ref', trig: 'lyra' },
       end: { n: MIN, focus: 'dial', notif: 'end' },
       rest: { n: 118, focus: '' }
     };
@@ -230,6 +262,7 @@
         if (s.notif) { var t = notifs[s.notif](s.n); notif.querySelector('.notif__t').textContent = t[0]; notif.querySelector('.notif__b').textContent = t[1]; notif.classList.add('is-on'); }
         else notif.classList.remove('is-on');
       }
+      showTrig(trig, s.trig ? trigs[s.trig](s.n) : null, 'Audita');
     }
     render(0);
     set(root.getAttribute('data-state') || 'rest');
