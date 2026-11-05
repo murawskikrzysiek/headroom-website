@@ -3,7 +3,7 @@
   <channel>
     <title>Headroom Studio - Notes from the studio</title>
     <link>https://headroomstudio.dev/blog/</link>
-    <description>Monitoring discipline, hearing health, and the macOS tools that make studio work easier.</description>
+    <description>Notes on monitor level, hearing dose, loudness delivery and the Mac apps behind them.</description>
     <language>en</language>
     <atom:link href="https://headroomstudio.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>Wed, 21 Oct 2026 09:00:00 +0000</lastBuildDate>
@@ -42,7 +42,7 @@
       <description>Specula 1.2 adds custom loudness targets - your delivery spec as a first-class compliance target - and raw PCM import for headerless audio under a declared format, in the app and on the CLI. Free update for existing licenses.</description>
     </item>
     <item>
-      <title>Specula 1.1: spectral editing, fix what you measure</title>
+      <title>Specula 1.1: spectral editing, Record mode, an Audio Unit chain and a signal generator</title>
       <link>https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/specula-1-1-spectral-editing.html</guid>
       <pubDate>Wed, 29 Jul 2026 09:00:00 +0000</pubDate>
@@ -50,7 +50,7 @@
       <description>Specula 1.1 adds spectral editing on the analysis spectrogram, Record mode with live BS.1770 meters, an Audio Unit chain in Edit mode, and a signal generator. Free update for existing licenses.</description>
     </item>
     <item>
-      <title>Why streaming TV is measured on the dialogue, not the mix</title>
+      <title>Why streaming TV loudness is measured on the dialogue</title>
       <link>https://headroomstudio.dev/blog/dialogue-gated-loudness.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/dialogue-gated-loudness.html</guid>
       <pubDate>Sat, 27 Jun 2026 09:00:00 +0000</pubDate>
@@ -59,7 +59,7 @@
     </item>
 
     <item>
-      <title>The one loud chapter - per-chapter loudness for audiobook delivery</title>
+      <title>Per-chapter loudness for audiobook delivery</title>
       <link>https://headroomstudio.dev/blog/per-chapter-loudness.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/per-chapter-loudness.html</guid>
       <pubDate>Fri, 26 Jun 2026 10:00:00 +0000</pubDate>
@@ -68,12 +68,12 @@
     </item>
 
     <item>
-      <title>The noise floor problem - why audiobooks get rejected on the quiet parts</title>
+      <title>Measuring the ACX noise floor</title>
       <link>https://headroomstudio.dev/blog/acx-noise-floor.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/acx-noise-floor.html</guid>
       <pubDate>Fri, 26 Jun 2026 09:00:00 +0000</pubDate>
       <category>Audiobook</category>
-      <description>The noise floor is the ACX gate narrators trip over - the room tone in the gaps between phrases. Measuring it means reading the silence, not the speech, which is harder than it sounds.</description>
+      <description>ACX measures the noise floor on the room tone between phrases. Specula finds the speech with a voice-activity detector and reads the floor only over the gaps, live, so the passage that fails is visible before upload.</description>
     </item>
 
     <item>
@@ -95,12 +95,12 @@
     </item>
 
     <item>
-      <title>Calibrate once, recall forever - pairing Audita and Lyra</title>
+      <title>Pairing Audita and Lyra</title>
       <link>https://headroomstudio.dev/blog/pairing-audita-and-lyra.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/pairing-audita-and-lyra.html</guid>
       <pubDate>Mon, 27 Apr 2026 09:00:00 +0000</pubDate>
       <category>Workflow</category>
-      <description>A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL.</description>
+      <description>Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. From then on Ctrl+F11 recalls a monitor level with its dB SPL figure attached.</description>
     </item>
 
     <item>
@@ -109,16 +109,16 @@
       <guid isPermaLink="true">https://headroomstudio.dev/blog/the-3-db-rule.html</guid>
       <pubDate>Sun, 27 Apr 2026 09:00:00 +0000</pubDate>
       <category>Hearing health</category>
-      <description>Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it.</description>
+      <description>Every 3 dB increase halves the safe listening time and every 3 dB decrease doubles it. The NIOSH table, the OSHA 5 dB figure and where it came from, and what the rule says about a mixing day.</description>
     </item>
 
     <item>
-      <title>Monitor at a number, not a vibe - the case for calibrated studio listening</title>
+      <title>The case for calibrated studio monitoring</title>
       <link>https://headroomstudio.dev/blog/calibrated-monitoring.html</link>
       <guid isPermaLink="true">https://headroomstudio.dev/blog/calibrated-monitoring.html</guid>
       <pubDate>Mon, 20 Apr 2026 09:00:00 +0000</pubDate>
       <category>Practice</category>
-      <description>Translation, consistency, lower hearing dose, less fatigue - the case for calibrated studio listening.</description>
+      <description>Set the monitor level against a measured SPL once and come back to it. Why mixes translate better that way, where the cinema, K-System and broadcast references put the number, and a three-level setup on the F-keys.</description>
     </item>
   </channel>
 </rss>
