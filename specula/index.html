@@ -85,6 +85,40 @@
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
+        <!-- The workflows, in the app's own captures: one frame, pinned, and a
+             step per capture. Where the before and the after both exist, two
+             steps. instruments.js swaps the capture the step names. -->
+        <section class="scrolly scrolly--wide" data-instrument="walk" aria-label="Specula's workflows, capture by capture">
+          <div class="scrolly__stage">
+            <figure class="walk">
+              <div class="walk__frame" data-walk data-state="inspect">
+                <img data-key="inspect" src="specula-inspect.webp" alt="Specula's window in the Inspect task on a song: the Spotify delivery card with its verdict and fixes in the sidebar, the waveform, the loudness view with Spotify's target as a dashed line, and the spectrogram." decoding="async" fetchpriority="high">
+                <img data-key="repair-before" src="specula-harmonics-before.webp" alt="The squeak under the interview selected on its lowest line, with its overtones outlined above it by Include harmonics, before Apply." loading="lazy">
+                <img data-key="repair-after" src="specula-harmonics-after.webp" alt="The same view after Erase, with the squeak and all its overtones gone and the voice around them unchanged." loading="lazy">
+                <img data-key="chapters-before" src="specula-chapters-task.webp" alt="The Chapters task on an audiobook: the chapter map over the chapter table with its ACX, Consistency and Details columns, one chapter failing in red, and the ACX summary and Level chapters in the sidebar." loading="lazy">
+                <img data-key="chapters-after" src="specula-chapters-leveled.webp" alt="The same audiobook after Level chapters, with every chapter's ACX cells green." loading="lazy">
+                <img data-key="compare-before" src="specula-compare-task.webp" alt="The Compare task with four versions of a song: the metrics matrix with each slot's readings and its difference from A, the waveform under it, and the slot in front's offset, level match and trim in the sidebar." loading="lazy">
+                <img data-key="compare-after" src="specula-compare-residual.webp" alt="The residual of slot B playing in the Compare task, with the residual's own peak and RMS in the sidebar." loading="lazy">
+                <img data-key="speech" src="specula-speech-task.webp" alt="The Speech task on a podcast episode: detected and corrected speech regions on the waveform, the region tools in the task bar, and Level dialogue with its prediction in the sidebar." loading="lazy">
+                <img data-key="folder" src="specula-check-folder.webp" alt="The Check a Folder window after a run: the folder, Judged against with its targets, the report formats, and a row per file with its verdict, integrated loudness, true peak, LRA and Speech %." loading="lazy">
+                <img data-key="songs" src="specula-songs.webp" alt="A song after the music analysis: the Music group in the sidebar with the key and tempo, the section band with each section's loudness under the ruler in bars, and the Stems view with the vocal, drums, bass and other lanes." loading="lazy">
+              </div>
+              <figcaption class="walk__cap"></figcaption>
+            </figure>
+          </div>
+          <div class="scrolly__steps">
+            <div class="step" data-state="inspect" data-cap="<strong>Inspect, delivering to Spotify.</strong> The whole file's verdict and fixes in the sidebar, the loudness with the target's line, the spectrogram."><h3>One file, judged</h3><p>Open a file and name where it is going. The delivery card says what that platform will do to it, in a sentence, with the integrated loudness and true peak under it and the fix that would change the verdict as a button.</p></div>
+            <div class="step" data-state="repair-before" data-cap="<strong>Spectral, before.</strong> The squeak's lowest line selected, its overtones outlined above it by Include harmonics."><h3>A squeak under the interview</h3><p>In the Spectral task a brush stroke along the squeak's lowest line selects it. Include harmonics outlines its overtones from 2× up in parallel, so the whole sound is one selection.</p></div>
+            <div class="step" data-state="repair-after" data-cap="<strong>Spectral, after Erase.</strong> The squeak and its overtones gone, the voice around them unchanged."><h3>Erased, overtones included</h3><p>Erase takes the selection out and leaves the voice around it as it was. The spectrogram shows the gap where the squeak was and nothing else different.</p></div>
+            <div class="step" data-state="chapters-before" data-cap="<strong>Chapters, before.</strong> The chapter map over the table, one chapter failing ACX in red."><h3>An audiobook, chapter by chapter</h3><p>The Chapters task reads the chapter marks and judges each chapter against ACX: RMS, peak, noise floor and consistency across the set. One chapter fails, and the table says which cell.</p></div>
+            <div class="step" data-state="chapters-after" data-cap="<strong>Chapters, after Level chapters.</strong> Every chapter's ACX cells green."><h3>Level chapters</h3><p>Level chapters brings every chapter into the ACX window and into line with the others. The same table, every cell green, before the files go out.</p></div>
+            <div class="step" data-state="compare-before" data-cap="<strong>Compare, four versions.</strong> The metrics matrix with each slot's difference from A, the waveform under it."><h3>Four versions of a song</h3><p>Compare holds up to six versions, level-matched and aligned to the sample. The matrix shows each slot's readings and its difference from A, and one key switches which one plays.</p></div>
+            <div class="step" data-state="compare-after" data-cap="<strong>Compare, the residual.</strong> Slot B minus A playing, with the residual's own peak and RMS."><h3>Down to the residual</h3><p>Play the residual and you hear only what differs between two versions, with the residual's own peak and RMS in the sidebar. Silence means identical.</p></div>
+            <div class="step" data-state="speech" data-cap="<strong>Speech.</strong> Detected and corrected speech regions over the waveform, Level dialogue's prediction in the sidebar."><h3>Speech regions</h3><p>The Speech task finds where people talk, lets you correct the regions, and measures dialogue on its own. Level dialogue predicts the result before it applies.</p></div>
+            <div class="step" data-state="folder" data-cap="<strong>Check a Folder.</strong> One row per file with its verdict, integrated loudness, true peak, LRA and Speech %."><h3>A folder at a time</h3><p>Check a Folder runs the delivery check over every file in a folder and writes one row per file, with a report per file and a CSV of the rows.</p></div>
+            <div class="step" data-state="songs" data-cap="<strong>Songs.</strong> Key and tempo, the section band shaded by loudness under the bars ruler, the Stems view."><h3>A song's sections and stems</h3><p>On macOS 27 the music analysis reads a song's key, tempo and sections, and splits it into vocal, drums, bass and other. Each section's loudness sits under the ruler in bars, and the vocal is measured against the bed.</p></div>
+          </div>
+        </section>
         <figure class="mdemo" data-i="-14.66">
                     <div class="mdemo__panel">
                         <div class="mdemo__bar">
@@ -152,12 +186,7 @@
                         </div>
                     </div>
                     <figcaption><strong>What to watch.</strong> The quiet passage drops short-term by 10 LU and integrated barely moves: blocks more than 10 LU under the running mean fall out of BS.1770's relative gate. True peak ends a decibel above sample peak - the inter-sample overshoot that only shows up once the 4× oversampler looks between samples. Playback runs at 2×.</figcaption>
-                </figure>
-        <figure class="shot">
-            <picture><source srcset="specula-inspect.webp" type="image/webp"><img src="specula-inspect.png" width="3200" height="2000" alt="Specula's window in the Inspect task on a song: the sidebar with the file, Deliver to Spotify and the delivery card's verdict and fixes; the waveform, the loudness view with Spotify's target as a dashed line, and the spectrogram." decoding="async" fetchpriority="high"></picture>
-            <figcaption><strong>Inspect, delivering to Spotify.</strong> The whole file's verdict and fixes in the sidebar, over the waveform, the loudness with the target's line, and the spectrogram.</figcaption>
-        </figure>
-    </section>
+                </figure>    </section>
 
     <!-- Stat band -->
     <div class="statband">
@@ -655,6 +684,7 @@
 </div>
 
 <script src="../lightbox.js"></script>
+<script src="../instruments.js"></script>
 <script src="meter-demo.js"></script>
 <script src="verdict-demo-data.js"></script>
 <script src="verdict-demo.js"></script>

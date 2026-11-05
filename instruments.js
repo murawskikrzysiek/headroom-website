@@ -269,12 +269,34 @@
     return { set: set };
   }
 
+  /* ── Specula: a frame of real captures ────────────────────────────────── */
+  function buildWalk(root) {
+    var imgs = root.querySelectorAll('img[data-key]');
+    var cap = root.parentNode.querySelector('.walk__cap');
+    var section = root.closest ? root.closest('.scrolly') : null;
+    function set(k) {
+      var found = false;
+      for (var i = 0; i < imgs.length; i++) {
+        var on = imgs[i].getAttribute('data-key') === k;
+        imgs[i].classList.toggle('is-on', on);
+        if (on) { found = true; if (imgs[i].getAttribute('loading') === 'lazy') imgs[i].removeAttribute('loading'); }
+      }
+      if (!found && imgs.length) imgs[0].classList.add('is-on');
+      if (cap) {
+        var step = section ? section.querySelector('.step[data-state="' + k + '"]') : null;
+        cap.innerHTML = step && step.getAttribute('data-cap') ? step.getAttribute('data-cap') : '';
+      }
+    }
+    set(root.getAttribute('data-state') || (imgs[0] && imgs[0].getAttribute('data-key')));
+    return { set: set };
+  }
+
   /* ── Scroll engine ────────────────────────────────────────────────────── */
   function wire(section) {
     var kind = section.getAttribute('data-instrument');
     var inst = instruments[kind] && instruments[kind][0];
     var stage = section.querySelector('.scrolly__stage');
-    var anchor = section.querySelector('.hud, .pin');
+    var anchor = section.querySelector('.hud, .pin, .walk');
     var steps = section.querySelectorAll('.step');
     if (!inst || !stage || !anchor || !steps.length) return;
     var current = null, ticking = false;
@@ -297,16 +319,18 @@
   }
 
   function init() {
-    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]');
-    instruments.hud = []; instruments.pin = [];
+    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]');
+    instruments.hud = []; instruments.pin = []; instruments.walk = [];
     for (var i = 0; i < huds.length; i++) instruments.hud.push(buildHUD(huds[i]));
     for (var j = 0; j < pins.length; j++) instruments.pin.push(buildPin(pins[j]));
+    for (var w = 0; w < walks.length; w++) instruments.walk.push(buildWalk(walks[w]));
     var sections = document.querySelectorAll('.scrolly[data-instrument]');
     for (var k = 0; k < sections.length; k++) {
       /* each section drives the instrument inside it */
       var sec = sections[k], kind = sec.getAttribute('data-instrument');
-      var node = sec.querySelector(kind === 'hud' ? '[data-hud]' : '[data-pin]');
-      var list = kind === 'hud' ? huds : pins;
+      var sel = { hud: '[data-hud]', pin: '[data-pin]', walk: '[data-walk]' }[kind];
+      var node = sel ? sec.querySelector(sel) : null;
+      var list = { hud: huds, pin: pins, walk: walks }[kind] || [];
       var idx = Array.prototype.indexOf.call(list, node);
       if (idx < 0) continue;
       var saved = instruments[kind];
