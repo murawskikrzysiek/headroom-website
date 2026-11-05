@@ -91,7 +91,23 @@
 <div class="container">
   <!-- Screenshots -->
   <section class="shots">
-    <div class="shot"><picture><source srcset="audita-hero.webp" type="image/webp"><img src="audita-hero.png" width="1920" height="1120" alt="Audita, SPL meter and hearing dose - a four-hour session from 10:00 to 14:00 drawn as a radial dial of A-weighted readings, 73 percent on target at 79 plus or minus 3 dBA (K-14), with the two loud passes above 80 dBA lit where the NIOSH dose accrues and today's dose at 29 percent (safe) in the centre; automation through Shortcuts, Spotlight, widgets, a Focus filter and audita:// URLs" decoding="async"></picture></div>
+    <!-- The pinned window, session by session. instruments.js draws it from one
+         synthetic session with the app's own rules; the steps drive it. -->
+    <section class="scrolly" data-instrument="pin" aria-label="Audita's pinned window through one session">
+      <div class="scrolly__stage">
+        <div class="pin" data-pin data-state="start" aria-live="polite"></div>
+        <p class="scrolly__hint">Scroll. Every number is computed from the session as it fills in.</p>
+      </div>
+      <div class="scrolly__steps">
+        <div class="step" data-state="start"><h3>The level at the chair</h3><p>Audita listens through a measurement microphone at the listening position and reads the A-weighted level ten times a second. The pinned window keeps that reading on screen while you work.</p></div>
+        <div class="step" data-state="reference"><h3>The reference</h3><p>Calibrate once against a target, 79 dBA for K-14 here, and every reading becomes a verdict: under, on or over, with a 3 dB band either side. The share of the session on target is the number that tells you how the day went.</p></div>
+        <div class="step" data-state="over"><h3>Over</h3><p>A loud stretch pushes past the band. The bars turn orange, the status says by how much, and the dose climbs faster than the clock.</p></div>
+        <div class="step" data-state="under"><h3>Under</h3><p>A quiet stretch, playback paused or the monitor turned down, shows as grey. It counts against the on-target share and costs no hearing.</p></div>
+        <div class="step" data-state="dose"><h3>Today's dose</h3><p>By the NIOSH method: 85 dBA for eight hours is a full day, every 3 dB louder halves the time, and nothing below 80 dBA accrues. The percentage is how much of today's budget the day has spent so far.</p></div>
+        <div class="step" data-state="leq"><h3>Leq and Ln</h3><p>Leq over 1, 10 and 30 minutes are energy averages. L10, L50 and L90 say how loud the loudest tenth, the middle and the floor were. The session's average and peak sit under them.</p></div>
+        <div class="step" data-state="end"><h3>The session, kept as a dial</h3><p>When the session ends it stays in History as this dial, one per session or one per day for a range, with the report and a PDF a click away.</p></div>
+      </div>
+    </section>
     <div class="shots-grid shots-grid--3">
       <div class="shot"><img src="menu_bloom_green.png" alt="Audita menu bar window - Safe dose tier (green)"></div>
       <div class="shot"><img src="menu_bloom_yellow.png" alt="Audita menu bar window - Caution dose tier (yellow)"></div>
@@ -389,6 +405,7 @@
 
 <script src="../newsletter.js"></script>
 <script src="../activity-feed.js"></script>
+<script src="../instruments.js"></script>
 <script src="../lightbox.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>

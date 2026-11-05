@@ -174,6 +174,152 @@ code {
   border: 1px solid var(--border); border-radius: 14px; background: var(--bg-card); }
 .home-hero__shot img { width: 100%; height: auto; }
 
+/* ── 7c. Instruments ─────────────────────────────────────────────────────── */
+/* The apps' own readouts drawn live by instruments.js: Lyra's volume HUD and
+   Audita's pinned window. A .scrolly section pins one beside a column of
+   steps; the step level with the instrument drives its state. On a phone the
+   instrument pins under the nav as a strip and the steps scroll beneath. */
+.scrolly { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 8px 0 0; }
+.scrolly__stage { position: sticky; top: clamp(92px, 18vh, 220px); padding: 24px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.scrolly__steps { padding: 0 0 12vh; }
+.step { min-height: 30vh; padding: 14px 0; display: flex; flex-direction: column; justify-content: center; max-width: 440px;
+  opacity: 0.38; transition: opacity 0.35s; }
+.step:first-child { min-height: 0; justify-content: flex-start; padding-top: 34px; padding-bottom: 12vh; }
+.step.is-on { opacity: 1; }
+.step h3 { font-size: 1.15rem; font-weight: 650; letter-spacing: -0.012em; }
+.step p { font-size: 1rem; color: var(--text-2); line-height: 1.6; margin-top: 10px; }
+.step kbd { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text); background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-hover); border-radius: 5px; padding: 1px 6px; }
+.scrolly__hint { font-size: 0.8rem; color: var(--text-3); text-align: center; }
+.hud-read { font-size: 0.95rem; color: var(--text-2); font-variant-numeric: tabular-nums; min-height: 1.5em; text-align: center; }
+.hud-read strong { color: var(--text); font-weight: 600; }
+
+/* Lyra's HUD: the system volume pill with the interface's name. */
+.hud { display: inline-flex; align-items: center; gap: 16px; padding: 16px 26px; border-radius: 999px; outline: none;
+  background: rgba(30,30,36,0.92); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  transition: opacity 0.25s; }
+.hud:focus-visible { box-shadow: 0 14px 40px rgba(0,0,0,0.55), 0 0 0 2px var(--accent); }
+.hud.is-muted { opacity: 0.55; }
+.hud__glyph { width: 22px; height: 22px; color: var(--text); flex-shrink: 0; }
+.hud__glyph .w { transition: opacity 0.2s; }
+.hud.is-muted .hud__glyph .w { opacity: 0; }
+.hud__glyph .x { opacity: 0; transition: opacity 0.2s; }
+.hud.is-muted .hud__glyph .x { opacity: 1; }
+.hud__name { font-size: 1rem; font-weight: 600; color: var(--text); white-space: nowrap; min-width: 160px; }
+.hud__bar { display: flex; gap: 3px; cursor: pointer; }
+.hud__seg { width: 9px; height: 11px; border-radius: 2px; background: rgba(255,255,255,0.16); transition: background 0.12s; }
+.hud__seg.on { background: #fff; }
+.hud.is-dim .hud__seg.on { background: #f0b25a; }
+.hud__tag { font-size: 0.78rem; font-weight: 600; color: var(--text-2); border: 1px solid var(--border-hover);
+  border-radius: 6px; padding: 2px 7px; display: none; }
+.hud.is-mono .hud__tag { display: inline-block; }
+
+/* A macOS notification banner, shown by the states that post one. */
+.notif { display: none; gap: 12px; align-items: flex-start; width: min(340px, 100%); padding: 12px 14px; border-radius: 14px;
+  background: rgba(40,40,46,0.96); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+.notif.is-on { display: flex; animation: notifIn 0.25s ease-out; }
+@keyframes notifIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.notif img { width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0; }
+.notif__app { font-size: 0.72rem; color: var(--text-3); margin-bottom: 1px; }
+.notif__t { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+.notif__b { font-size: 0.82rem; color: var(--text-2); line-height: 1.45; margin-top: 2px; }
+
+/* Audita's pinned window, drawn from one session. */
+.pin { --on: #58d35c; --over: #f0a23c; --under: #9a9db0; --caution: #e8c33a; --danger: #f0623c;
+  width: min(360px, 100%); border-radius: 18px; background: #3a3a40; color: #f2f2f5; padding: 14px 16px 12px;
+  border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 50px rgba(0,0,0,0.55); font-size: 0.9rem; }
+.pin > * { transition: opacity 0.3s; }
+.pin[class*="pin--focus-"] > * { opacity: 0.5; }
+.pin[class*="pin--focus-"] .pin__dialwrap { opacity: 1; }
+.pin--focus-head .pin__head, .pin--focus-dose .pin__head, .pin--focus-ref .pin__ref, .pin--focus-leq .pin__leq,
+.pin--focus-leq .pin__session, .pin--focus-dial .pin__dialwrap { opacity: 1; }
+.pin--focus-dose .pin__dosev { text-shadow: 0 0 18px currentColor; }
+.pin__head { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.pin__bloom { width: 24px; height: 24px; color: var(--on); margin-top: 6px; flex-shrink: 0; }
+.pin__level { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.pin__u { font-size: 1.1rem; font-weight: 500; color: rgba(255,255,255,0.8); }
+.pin__status { font-size: 0.86rem; display: flex; align-items: center; gap: 6px; margin-top: 4px; color: var(--on); }
+.pin__status i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pin__status.is-over { color: var(--over); }
+.pin__status.is-under { color: var(--under); }
+.pin__dose { margin-left: auto; text-align: right; }
+.pin__dosev { font-size: 1.6rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.pin__dosev.is-safe { color: var(--on); }
+.pin__dosev.is-caution { color: var(--caution); }
+.pin__dosev.is-over { color: var(--danger); }
+.pin__dosel { font-size: 0.82rem; color: rgba(255,255,255,0.75); }
+.pin__ref { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.pin__ontarget { font-size: 1rem; display: flex; align-items: center; gap: 6px; }
+.pin__ontarget strong { font-size: 1.6rem; font-weight: 700; color: var(--on); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.pin__chip { margin-left: auto; font-size: 0.8rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: rgba(88,211,92,0.18); color: var(--on); font-variant-numeric: tabular-nums; }
+.pin__chip:empty { display: none; }
+.pin__band { font-size: 0.86rem; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.pin__stack { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin-top: 10px; background: rgba(255,255,255,0.08); }
+.pin__stack i { display: block; height: 100%; transition: width 0.3s; }
+.pin__stack .u { background: var(--under); }
+.pin__stack .o { background: var(--on); }
+.pin__stack .v { background: var(--over); }
+.pin__legend { display: flex; gap: 14px; font-size: 0.8rem; margin-top: 8px; color: rgba(255,255,255,0.85); flex-wrap: wrap; }
+.pin__legend span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.pin__legend .u::before { background: var(--under); }
+.pin__legend .o::before { background: var(--on); }
+.pin__legend .v::before { background: var(--over); }
+.pin__legend b { font-weight: 600; color: #fff; }
+.pin__dialwrap { position: relative; padding: 6px 0; }
+.pin__dial { width: 100%; height: auto; display: block; }
+.pin__dialc { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 0.9rem; color: rgba(255,255,255,0.9); pointer-events: none; }
+.pin__ring { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 1; }
+.pin__refring { fill: none; stroke: rgba(240,162,60,0.6); stroke-width: 1; stroke-dasharray: 3 3; }
+.pin__bar { stroke-width: 2; stroke-linecap: round; transition: opacity 0.15s; }
+.pin__bar--on { stroke: var(--on); }
+.pin__bar--over { stroke: var(--over); }
+.pin__bar--under { stroke: var(--under); }
+.pin__cursor { fill: #fff; }
+.pin__tick { fill: rgba(255,255,255,0.7); font-size: 12px; font-family: var(--font-sans); }
+.pin__leq { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 8px; padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; }
+.pin__leq p { color: rgba(255,255,255,0.75); }
+.pin__leq .v { color: #fff; font-size: 0.95rem; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.pin__session { font-size: 0.82rem; color: rgba(255,255,255,0.85); display: flex; gap: 14px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.pin__session b { color: #fff; font-weight: 600; }
+
+/* Homepage: the meter, then two instruments side by side. */
+.home-inst { padding-bottom: 24px; }
+.home-inst .mdemo { margin-top: 0; }
+.pin--compact .pin__leq, .pin--compact .pin__session { display: none; }
+.inst-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; align-items: start; }
+.inst-row__stage { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.inst-row__text { margin-top: 18px; max-width: 440px; }
+.inst-row__text h3 { font-size: 1.05rem; font-weight: 650; }
+.inst-row__text p { font-size: 0.95rem; color: var(--text-2); line-height: 1.55; margin-top: 6px; }
+.inst-row__text a { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hud, .hud__seg, .hud__glyph .w, .hud__glyph .x, .step, .pin > *, .pin__stack i, .pin__bar { transition: none; }
+  .notif.is-on { animation: none; }
+}
+@media (max-width: 820px) {
+  .scrolly { grid-template-columns: 1fr; gap: 0; }
+  .scrolly__stage { top: 74px; z-index: 40; background: var(--bg); padding: 14px 0 12px; border-bottom: 1px solid var(--border); }
+  .scrolly__steps { padding: 4vh 0 8vh; }
+  .step { min-height: 28vh; }
+  .hud { padding: 12px 18px; gap: 12px; }
+  .hud__name { min-width: 0; font-size: 0.92rem; }
+  .hud__seg { width: 7px; height: 10px; }
+  .scrolly__hint { display: none; }
+  .scrolly[data-instrument="pin"] .pin__leq, .scrolly[data-instrument="pin"] .pin__session,
+  .scrolly[data-instrument="pin"] .pin__legend { display: none; }
+  .scrolly[data-instrument="pin"] .pin { padding: 10px 14px 8px; }
+  .scrolly[data-instrument="pin"] .pin__ref { padding: 8px 0; }
+  .scrolly[data-instrument="pin"] .pin__dial { max-height: 150px; }
+  .scrolly[data-instrument="pin"] .scrolly__stage { padding: 10px 0 10px; }
+  .inst-row { grid-template-columns: 1fr; gap: 36px; }
+}
+
 /* ── 8. App list rows (homepage) ─────────────────────────────────────────── */
 .apps-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
 .apps-list { display: flex; flex-direction: column; }
