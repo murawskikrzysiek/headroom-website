@@ -333,56 +333,47 @@
     return { set: function () { play(); }, play: play };
   }
 
-  /* ── Homepage: one face per app ───────────────────────────────────────── */
-  function buildFaces(root) {
-    var faces = root.querySelectorAll('.face[data-key]');
-    var section = root.closest ? root.closest('.scrolly') : null;
-    var steps = section ? section.querySelectorAll('.step[data-state]') : [];
-    /* the apps already scrolled past move into the nav, beside the brand */
-    var row = document.createElement('div'); row.className = 'nav__apps';
+  /* ── Homepage: the apps' icons join the nav as their sections pass ─────── */
+  /* Each .tile-app[data-app] section: once its icon has slid under the nav,
+     the app's icon appears beside the brand; a click scrolls back to the
+     section. The Specula captures start their pass when the section shows. */
+  function wireTiles() {
+    var tiles = document.querySelectorAll('.tile-app[data-app]');
+    if (!tiles.length) return;
     var navBar = document.querySelector('.nav'), brand = navBar && navBar.querySelector('.brand');
-    var chips = {};
-    for (var s = 0; s < steps.length; s++) (function (step) {
-      var k = step.getAttribute('data-state'), icon = step.querySelector('.step__icon'), h = step.querySelector('h3');
+    if (!brand) return;
+    var row = document.createElement('div'); row.className = 'nav__apps';
+    var chips = [];
+    for (var i = 0; i < tiles.length; i++) (function (tile) {
+      var icon = tile.querySelector('.tile-app__icon'), h = tile.querySelector('h2');
       var chip = document.createElement('button'); chip.type = 'button'; chip.className = 'faces__chip';
-      chip.innerHTML = (icon ? '<img src="' + icon.getAttribute('src') + '" alt="">' : '') + '<span>' + (h ? h.firstChild.textContent.trim() : k) + '</span>';
+      chip.innerHTML = (icon ? '<img src="' + icon.getAttribute('src') + '" alt="">' : '') + '<span>' + (h ? h.firstChild.textContent.trim() : tile.getAttribute('data-app')) + '</span>';
       chip.addEventListener('click', function () {
-        var line = root.getBoundingClientRect().top + 60;
-        window.scrollBy({ top: step.getBoundingClientRect().top - line + 8, behavior: reduce ? 'auto' : 'smooth' });
+        window.scrollBy({ top: tile.getBoundingClientRect().top - navBar.getBoundingClientRect().bottom - 8, behavior: reduce ? 'auto' : 'smooth' });
       });
-      chips[k] = chip; row.appendChild(chip);
-    })(steps[s]);
-    if (brand) brand.parentNode.insertBefore(row, brand.nextSibling); else root.insertBefore(row, root.firstChild);
-    /* an icon joins the nav the moment the step's own icon is hidden under the bar */
-    var navTicking = false, navSettle = null;
-    function placeIcons() {
-      navTicking = false;
-      var edge = navBar ? navBar.getBoundingClientRect().bottom : 0;
-      for (var i = 0; i < steps.length; i++) {
-        var icon = steps[i].querySelector('.step__icon') || steps[i];
-        chips[steps[i].getAttribute('data-state')].classList.toggle('is-on', icon.getBoundingClientRect().bottom <= edge);
+      row.appendChild(chip); chips.push({ tile: tile, icon: icon || tile, chip: chip, slides: tile.querySelector('[data-slides]'), played: false });
+    })(tiles[i]);
+    brand.parentNode.insertBefore(row, brand.nextSibling);
+    var ticking = false, settle = null;
+    function place() {
+      ticking = false;
+      var edge = navBar.getBoundingClientRect().bottom, vh = window.innerHeight;
+      for (var j = 0; j < chips.length; j++) {
+        var c = chips[j], r = c.icon.getBoundingClientRect();
+        c.chip.classList.toggle('is-on', r.bottom <= edge);
+        if (c.slides && !c.played) {
+          var sr = c.slides.getBoundingClientRect();
+          if (sr.top < vh * 0.8 && sr.bottom > 0 && c.slides.__play) { c.played = true; c.slides.__play(); }
+        }
       }
     }
-    function onNavScroll() {
-      if (!navTicking) { navTicking = true; requestAnimationFrame(placeIcons); }
-      clearTimeout(navSettle); navSettle = setTimeout(placeIcons, 150);
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(place); }
+      clearTimeout(settle); settle = setTimeout(place, 150);
     }
-    window.addEventListener('scroll', onNavScroll, { passive: true });
-    window.addEventListener('resize', onNavScroll);
-    placeIcons();
-    function set(k) {
-      var found = false, idx = -1;
-      for (var i = 0; i < faces.length; i++) {
-        var on = faces[i].getAttribute('data-key') === k;
-        faces[i].classList.toggle('is-on', on);
-        var sl = faces[i].querySelector('[data-slides]');
-        if (on) { found = true; if (sl && sl.__play) sl.__play(); }
-        else if (sl && sl.__stop) sl.__stop();
-      }
-      if (!found && faces.length) faces[0].classList.add('is-on');
-    }
-    set(root.getAttribute('data-state') || (faces[0] && faces[0].getAttribute('data-key')));
-    return { set: set };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    place();
   }
 
   /* ── Scroll engine ────────────────────────────────────────────────────── */
@@ -390,7 +381,7 @@
     var kind = section.getAttribute('data-instrument');
     var inst = instruments[kind] && instruments[kind][0];
     var stage = section.querySelector('.scrolly__stage');
-    var anchor = section.querySelector('.faces, .hud, .pin, .walk');
+    var anchor = section.querySelector('.hud, .pin, .walk');
     var steps = section.querySelectorAll('.step');
     if (!inst || !stage || !anchor || !steps.length) return;
     var current = null, ticking = false, settle = null;
@@ -417,20 +408,20 @@
   }
 
   function init() {
-    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]'), facesList = document.querySelectorAll('[data-faces]'), slides = document.querySelectorAll('[data-slides]');
-    instruments.hud = []; instruments.pin = []; instruments.walk = []; instruments.faces = []; instruments.slides = [];
+    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]'), slides = document.querySelectorAll('[data-slides]');
+    instruments.hud = []; instruments.pin = []; instruments.walk = []; instruments.slides = [];
     for (var i = 0; i < huds.length; i++) instruments.hud.push(buildHUD(huds[i]));
     for (var j = 0; j < pins.length; j++) instruments.pin.push(buildPin(pins[j]));
     for (var w = 0; w < walks.length; w++) instruments.walk.push(buildWalk(walks[w]));
     for (var sl = 0; sl < slides.length; sl++) instruments.slides.push(buildSlides(slides[sl]));
-    for (var f = 0; f < facesList.length; f++) instruments.faces.push(buildFaces(facesList[f]));
+    wireTiles();
     var sections = document.querySelectorAll('.scrolly[data-instrument]');
     for (var k = 0; k < sections.length; k++) {
       /* each section drives the instrument inside it */
       var sec = sections[k], kind = sec.getAttribute('data-instrument');
-      var sel = { hud: '[data-hud]', pin: '[data-pin]', walk: '[data-walk]', faces: '[data-faces]' }[kind];
+      var sel = { hud: '[data-hud]', pin: '[data-pin]', walk: '[data-walk]' }[kind];
       var node = sel ? sec.querySelector(sel) : null;
-      var list = { hud: huds, pin: pins, walk: walks, faces: facesList }[kind] || [];
+      var list = { hud: huds, pin: pins, walk: walks }[kind] || [];
       var idx = Array.prototype.indexOf.call(list, node);
       if (idx < 0) continue;
       var saved = instruments[kind];

@@ -67,78 +67,82 @@
   <!-- The apps, one step each, beside a pinned stage that shows the app's
        own face: Lyra's HUD and Audita's pinned window drawn by
        instruments.js, Specula's delivery card as a screenshot. -->
-  <section class="scrolly" id="apps" data-instrument="faces" aria-label="The three apps">
-    <div class="scrolly__stage">
-      <div class="faces" data-faces data-state="lyra">
-        <div class="face" data-key="lyra">
-          <div class="hud" data-hud data-state="rest" aria-live="polite"></div>
-          <p class="hud-read"></p>
-          <p class="scrolly__hint">Arrow keys, M, D and O work on it.</p>
+  <!-- One big section per app: the name, one line, two actions, four facts,
+       and the app's own face drawn large. The scroll-driven stories live on
+       the app pages. instruments.js draws the faces and moves each app's
+       icon into the nav once its section has scrolled past. -->
+  <section class="tile-app" id="lyra-tile" data-app="lyra" aria-labelledby="tile-lyra-h">
+    <div class="tile-app__head">
+      <img class="tile-app__icon" src="lyra/icon.png" alt="">
+      <h2 id="tile-lyra-h">Lyra <span class="app-row__ver">1.9</span></h2>
+      <p class="tile-app__line">Monitor volume for Universal Audio Apollo and Volt Gen 2 interfaces, on the F-keys.</p>
+      <p class="tile-app__actions"><a class="btn btn-learn" href="lyra/">Details</a><a class="btn btn-outline" href="https://releases.headroomstudio.dev/Lyra-1.9.dmg">Download free trial</a><span class="tile-app__price">$9.99, macOS 12 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="hud-big">
+        <div class="hud" data-hud data-state="rest" aria-live="polite"></div>
+        <p class="hud-read"></p>
+      </div>
+      <p class="tile-app__hint">The HUD as it appears on the desk. Arrow keys, M, D and O work on it.</p>
+    </div>
+    <ul class="tile-app__facts">
+      <li><kbd>F10</kbd> mutes, <kbd>F11</kbd> and <kbd>F12</kbd> move the level, <kbd>⇧</kbd> halves the step. DIM and Mono on the same keys.</li>
+      <li>Three Reference Levels on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, each recallable to a dB SPL measured with Audita.</li>
+      <li>ALT speakers on Apollos with ALT outputs. An Apollo and a Volt side by side, one of them in control.</li>
+      <li>Thirteen App Intents, four widgets, a Focus Filter and the <code>lyra://</code> URL scheme. <strong>New in 1.9:</strong> Volt Gen 2 and ALT speakers.</li>
+    </ul>
+  </section>
+
+  <section class="tile-app" id="audita-tile" data-app="audita" aria-labelledby="tile-audita-h">
+    <div class="tile-app__head">
+      <img class="tile-app__icon" src="audita/icon.png" alt="">
+      <h2 id="tile-audita-h">Audita <span class="app-row__ver">1.7</span></h2>
+      <p class="tile-app__line">The SPL at the listening position against a calibrated reference, and the day's hearing dose, from the menu bar.</p>
+      <p class="tile-app__actions"><a class="btn btn-learn" href="audita/">Details</a><a class="btn btn-outline" href="https://releases.headroomstudio.dev/Audita-1.7.dmg">Download free trial</a><span class="tile-app__price">$19.99, macOS 14 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="pin" data-pin data-state="rest" aria-live="polite"></div>
+      <p class="tile-app__hint">The pinned window, two hours into a session. Every number is computed from the session by the app's rules.</p>
+    </div>
+    <ul class="tile-app__facts">
+      <li>A-weighted SPL ten times a second through a measurement microphone. A UMIK-1 reads at absolute level from its calibration file.</li>
+      <li>Under, on or over the reference, the share of the session on target, and the Leq and Ln figures behind it.</li>
+      <li>Today's dose by the NIOSH method, with notifications at 40, 70 and 90 percent and alerts for drift and time off target.</li>
+      <li>Sessions start with your DAW or a Shortcut, stay in History as dials and leave as PDF reports. <strong>New in 1.7:</strong> the session dial.</li>
+    </ul>
+  </section>
+
+  <section class="tile-app" id="specula-tile" data-app="specula" aria-labelledby="tile-specula-h">
+    <div class="tile-app__head">
+      <img class="tile-app__icon" src="specula/icon.png" alt="">
+      <h2 id="tile-specula-h">Specula <span class="app-row__ver">2.0</span></h2>
+      <p class="tile-app__line">Loudness, true peak and delivery checks, with the editing and repair around them.</p>
+      <p class="tile-app__actions"><a class="btn btn-learn" href="specula/">Details</a><a class="btn btn-outline" href="https://releases.headroomstudio.dev/Specula-2.0.dmg">Download free trial</a><span class="tile-app__price">$99.99, macOS 14 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="slides slides--wide" data-slides aria-label="Specula, a few captures in turn">
+        <div class="slides__frame">
+          <img data-key="inspect" src="specula/specula-inspect.webp" alt="Specula's Inspect task on a song: the Spotify delivery card, the waveform, the loudness view and the spectrogram." data-cap="<strong>Inspect.</strong> The file judged against Spotify, with the fix beside the verdict." decoding="async">
+          <img data-key="spectral" src="specula/specula-harmonics-before.webp" alt="The Spectral task: a chair squeak selected on its lowest line with its overtones outlined above it." data-cap="<strong>Spectral.</strong> A squeak selected with its overtones, ready to erase." loading="lazy">
+          <img data-key="chapters" src="specula/specula-chapters-leveled.webp" alt="The Chapters task on an audiobook after Level chapters, every chapter's ACX cells green." data-cap="<strong>Chapters.</strong> An audiobook levelled chapter by chapter, every ACX cell green." loading="lazy">
+          <img data-key="compare" src="specula/specula-compare-task.webp" alt="The Compare task with four versions of a song and the metrics matrix." data-cap="<strong>Compare.</strong> Four versions, level-matched, each against A." loading="lazy">
         </div>
-        <div class="face" data-key="audita">
-          <div class="pin pin--compact" data-pin data-state="rest" aria-live="polite"></div>
-        </div>
-        <div class="face" data-key="specula">
-          <div class="slides" data-slides aria-label="Specula, a few captures in turn">
-            <div class="slides__frame">
-              <img data-key="inspect" src="specula/specula-inspect.webp" alt="Specula's Inspect task on a song: the Spotify delivery card, the waveform, the loudness view and the spectrogram." data-cap="<strong>Inspect.</strong> The file judged against Spotify, with the fix beside the verdict." decoding="async">
-              <img data-key="spectral" src="specula/specula-harmonics-before.webp" alt="The Spectral task: a chair squeak selected on its lowest line with its overtones outlined above it." data-cap="<strong>Spectral.</strong> A squeak selected with its overtones, ready to erase." loading="lazy">
-              <img data-key="chapters" src="specula/specula-chapters-leveled.webp" alt="The Chapters task on an audiobook after Level chapters, every chapter's ACX cells green." data-cap="<strong>Chapters.</strong> An audiobook levelled chapter by chapter, every ACX cell green." loading="lazy">
-              <img data-key="compare" src="specula/specula-compare-task.webp" alt="The Compare task with four versions of a song and the metrics matrix." data-cap="<strong>Compare.</strong> Four versions, level-matched, each against A." loading="lazy">
-            </div>
-            <p class="slides__cap"></p>
-          </div>
-        </div>
+        <p class="slides__cap"></p>
       </div>
     </div>
-    <div class="scrolly__steps">
-      <div class="step step--app" data-state="lyra">
-        <img class="step__icon" src="lyra/icon.png" alt="">
-        <h3>Lyra <a href="lyra/releases.html#v1.9" class="app-row__ver">1.9</a></h3>
-        <p>F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces. macOS 12 and later.</p>
-        <ul class="step__facts">
-          <li><kbd>F10</kbd> mutes, <kbd>F11</kbd> and <kbd>F12</kbd> move the monitor level, <kbd>⇧</kbd> halves the step, DIM and Mono on the same keys.</li>
-          <li>Three Reference Levels on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, each recallable to a dB SPL measured with Audita.</li>
-          <li>ALT speakers on Apollos with ALT outputs; an Apollo and a Volt side by side, one of them in control.</li>
-          <li>Thirteen App Intents for Shortcuts and Spotlight, four widgets, a Focus Filter and the <code>lyra://</code> URL scheme.</li>
-        </ul>
-        <p class="step__new"><strong>New in 1.9:</strong> Volt Gen 2 interfaces and ALT speakers, a free update.</p>
-        <p class="step__links"><a href="lyra/" class="app-row__cta">Details</a><span class="app-row__price">$9.99</span><a href="lyra/guide.html">User guide</a><a href="lyra/releases.html">Release notes</a></p>
-      </div>
-      <div class="step step--app" data-state="audita">
-        <img class="step__icon" src="audita/icon.png" alt="">
-        <h3>Audita <a href="audita/releases.html#v1.7" class="app-row__ver">1.7</a></h3>
-        <p>A menu bar SPL meter and hearing-dose tracker for the listening position. macOS 14 and later.</p>
-        <ul class="step__facts">
-          <li>A-weighted SPL ten times a second through a measurement microphone, with a UMIK-1 read at absolute level from its calibration file.</li>
-          <li>Under, on or over a calibrated reference, with the share of the session on target and the Leq and Ln figures behind it.</li>
-          <li>Today's dose by the NIOSH method, with notifications at the 40, 70 and 90 percent thresholds and alerts for drift and time off target.</li>
-          <li>Sessions start with your DAW or a Shortcut, stay in History as dials, and leave as PDF reports.</li>
-        </ul>
-        <p class="step__new"><strong>New in 1.7:</strong> the session dial in History, the report and the pinned window.</p>
-        <p class="step__links"><a href="audita/" class="app-row__cta">Details</a><span class="app-row__price">$19.99</span><a href="audita/guide.html">User guide</a><a href="audita/releases.html">Release notes</a></p>
-      </div>
-      <div class="step step--app" data-state="specula">
-        <img class="step__icon" src="specula/icon.png" alt="">
-        <h3>Specula <a href="specula/releases.html#v2.0" class="app-row__ver">2.0</a></h3>
-        <p>Loudness, true peak and delivery checks, with the editing and repair around them. macOS 14 and later.</p>
-        <ul class="step__facts">
-          <li>Every file judged against where it is going, Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check.</li>
-          <li>Seven tasks in one window: Inspect, Edit, Compare up to six versions, audiobook Chapters, Speech regions, Spectral repair and Record.</li>
-          <li>Check a Folder for a whole delivery at once, one row per file, with a report per file and a CSV.</li>
-          <li>A command-line tool for the same checks, and the BS.1770-4 meter the verdicts rest on.</li>
-        </ul>
-        <p class="step__new"><strong>New in 2.0:</strong> Deliver to, Check a Folder and the Apple Music encode check, a free update for every 1.x license.</p>
-        <p class="step__links"><a href="specula/" class="app-row__cta">Details</a><span class="app-row__price">$99.99</span><a href="specula/guide.html">User guide</a><a href="specula/releases.html">Release notes</a></p>
-      </div>
-    </div>
+    <ul class="tile-app__facts">
+      <li>Every file judged against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check.</li>
+      <li>Seven tasks in one window: Inspect, Edit, Compare up to six versions, audiobook Chapters, Speech regions, Spectral repair and Record.</li>
+      <li>Check a Folder for a whole delivery at once, one row per file, with a report per file and a CSV.</li>
+      <li>A command-line tool for the same checks, and the BS.1770-4 meter the verdicts rest on. <strong>New in 2.0:</strong> Deliver to, Check a Folder, the Apple Music encode check.</li>
+    </ul>
   </section>
 </div>
 
 <div class="container">
   <!-- ── Apps ─────────────────────────────────────────────────────────── -->
   <!-- The three side by side, once the scroll is done. -->
-  <section id="all-apps" class="apps-summary" aria-label="The three apps side by side">
+  <section id="apps" class="apps-summary" aria-label="The three apps side by side">
     <h2 class="section-title">The three, side by side</h2>
     <div class="apps-summary__grid">
       <a class="apps-summary__app" href="lyra/">
