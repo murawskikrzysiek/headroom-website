@@ -19,7 +19,6 @@ headroom-website/
 ├── index.html              # Homepage - app rows + About + activity feed + newsletter
 ├── 404.html                # Standalone (embeds its own CSS; tokens mirror headroom.css §1)
 ├── headroom.css            # THE shared stylesheet (see Styling)
-├── waveform.js             # Ambient animated signal band (auto-inits .waveform divs)
 ├── lightbox.js             # Shared click-to-zoom w/ prev-next; self-contained (injects own CSS)
 ├── faq-search.js           # Live search + category chips on the FAQ pages
 ├── newsletter.js           # Subscribe form → first-party Cloudflare Worker proxy
@@ -63,7 +62,6 @@ Each file's header comment documents its container contract — read it before w
 
 | File | What it does | Used on |
 |---|---|---|
-| `waveform.js` | ambient canvas band, auto-inits every `.waveform` | most pages |
 | `lightbox.js` | click-to-zoom with prev/next; targets `.shot img`, `img.screenshot-full`, `.screenshot-row img`, `.figure img`; injects its own overlay + styles | every page with zoomable images — do NOT add per-page lightboxes |
 | `faq-search.js` | search box + category chips over `.faq-group` markup | lyra + audita FAQ |
 | `newsletter.js` | posts the subscribe form to `api.headroomstudio.dev/s/<list>` (Worker → MailerLite) with a Turnstile token | homepage, blog, app pages |
@@ -143,6 +141,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
 - **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
 - **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
 - **System fonts + liquid-glass chrome** — 2026-07 design refresh: SF system stack (no webfonts), sticky glass nav on every page, glass on chips/badges/secondary buttons; periwinkle accent kept (it matches the app icons; the AI-default look was the Inter+violet+glow ensemble, not the hue)
+- **Lists, not cards; sentence case, not tracked capitals (2026-11)** - the frontend-design pass: no radial glows, no waveform band, no badge walls, no status pills, no arrows on link text, no middle-dot meta strings, no card boxes for lists (app rows, doc links, stats, callouts are rows and asides with hairlines). `.eyebrow` and `.label` are sentence-case text at reading size; monospace is for code and the in-page app mockups only. Picture frames and code blocks keep their borders. The checklist lives in the `frontend-design` plugin skill; run it before adding a new page pattern
 - **Cloudflare proxy ON for the apex (2026-11-02)** — the `releases-worker` counts appcast checks for active-install numbers; SSL mode Full keeps GitHub Pages TLS working behind it. Rollback: set the apex `A` records back to DNS only, which only stops the counting
 - **Per-app folder structure** — keeps root clean as apps accumulate
 - **Auris pages stay up** — old links and the old appcast must keep resolving post-rename

@@ -10,7 +10,7 @@
      4. Nav + brand
      5. Buttons
      6. Eyebrow / labels / badges / pills
-     7. Ambient waveform
+     7. (removed 2026-11: ambient waveform band)
      8. App list rows (homepage)
      9. Activity feed
     10. Newsletter
@@ -106,15 +106,6 @@ code {
 
 .rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-/* Ambient page highlights (the signature radial glows) */
-.glow { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
-.glow--tl { top: 20px; left: -120px; width: 540px; height: 540px;
-  background: radial-gradient(circle, rgba(124,132,246,0.14) 0%, transparent 65%); }
-.glow--tr { top: 120px; right: -160px; width: 380px; height: 380px;
-  background: radial-gradient(circle, rgba(62,207,124,0.06) 0%, transparent 65%); }
-.glow--center { top: -80px; left: 50%; transform: translateX(-50%); width: 900px; height: 500px;
-  background: radial-gradient(ellipse 60% 50% at center, rgba(124,132,246,0.14) 0%, transparent 70%); }
-
 /* ── 4. Nav + brand ──────────────────────────────────────────────────────── */
 /* Glass chrome. Rule: glass is for FLOATING CHROME (nav, chips, controls,
    overlays); content surfaces (cards, tables, accordions, callouts) stay solid.
@@ -157,41 +148,16 @@ code {
   border-color: rgba(124,132,246,0.20); }
 .btn-learn:hover { background: rgba(124,132,246,0.16); border-color: rgba(124,132,246,0.35); }
 
-/* ── 6. Eyebrow / labels / badges / pills ───────────────────────────────── */
-.eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 0.7rem;
-  font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-.eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%;
-  background: currentColor; opacity: 0.7; }
+/* ── 6. Eyebrow and section heads ────────────────────────────────────────── */
+/* Both in sentence case at reading size. The eyebrow is the small line over
+   a page title (the version, the section of the site); the label is a
+   section head. Neither is tracked capitals, and nothing on the site is. */
+.eyebrow { display: block; font-size: 0.88rem; font-weight: 500; color: var(--text-3); }
 
-.label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--text-3); }
+.label { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.012em; color: var(--text); }
 
-.badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
-  text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-badge); white-space: nowrap;
-  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.08); color: var(--text-2);
-  -webkit-backdrop-filter: blur(12px) saturate(1.7); backdrop-filter: blur(12px) saturate(1.7); }
-.badge--macos { background: rgba(50,130,220,0.12); color: #5aabee; }
-.badge--accent { background: rgba(124,132,246,0.14); color: var(--accent-soft); }
-
-.pill-ver { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 600;
-  letter-spacing: 0.06em; color: var(--accent); background: rgba(124,132,246,0.14);
-  padding: 2px 7px; border-radius: 4px; }
-
-.status { display: inline-flex; align-items: center; gap: 5px; font-size: 0.66rem;
-  letter-spacing: 0.06em; text-transform: uppercase; }
-.status::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-.status--shipping { color: var(--green); }
-.status--flight { color: var(--text-3); }
-.status--flight::before { animation: pulseSlow 2.4s ease-in-out infinite; }
-
-@keyframes pulseSlow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 @keyframes pulseDot { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
 
-/* ── 7. Ambient waveform ─────────────────────────────────────────────────── */
-.waveform { width: 100%; height: 110px; position: relative; overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 75%, transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 75%, transparent 100%); }
-.waveform canvas { width: 100%; height: 100%; display: block; }
 
 /* ── 7b. Homepage hero ───────────────────────────────────────────────────── */
 /* Logo, one line, one picture. No glows, no waveform band, no badges: the
@@ -296,33 +262,21 @@ a.app-row__cta:hover { background: rgba(124,132,246,0.16); border-color: rgba(12
 .nl-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .cf-turnstile { margin: 4px 0 2px; }
 
-/* ── 11. Dig-deeper tiles ────────────────────────────────────────────────── */
-.tiles { display: grid; gap: 12px; }
-.tiles--4 { grid-template-columns: repeat(4, 1fr); }
-.tiles--3 { grid-template-columns: repeat(3, 1fr); }
-.tile { display: block; padding: 22px; border-radius: 14px; background: var(--bg-card);
-  border: 1px solid var(--border); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-  transition: background var(--t-fast), border-color var(--t-fast); position: relative; }
-.tile:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
-.tile--featured { background: rgba(124,132,246,0.10); border-color: rgba(124,132,246,0.30); }
-.tile--featured:hover { background: rgba(124,132,246,0.16); border-color: rgba(124,132,246,0.45); }
-.tile__glyph { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center;
-  justify-content: center; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-  color: var(--text-2); font-size: 1rem; }
-.tile--featured .tile__glyph { background: rgba(124,132,246,0.18); border-color: rgba(124,132,246,0.30);
-  color: var(--accent-soft); }
-.tile h4 { font-size: 1rem; font-weight: 650; color: var(--text); margin-top: 16px; letter-spacing: -0.015em; }
-.tile p { font-size: 0.82rem; color: var(--text-2); line-height: 1.5; margin-top: 6px; }
-.tile__arrow { position: absolute; top: 22px; right: 22px; font-size: 0.95rem; color: var(--text-3);
-  transition: color var(--t-fast), transform var(--t-fast); }
-.tile:hover .tile__arrow { color: var(--accent); transform: translateX(2px); }
+/* ── 11. Dig-deeper list ─────────────────────────────────────────────────── */
+/* The documents for an app, one row each with a hairline between. */
+.tiles { display: flex; flex-direction: column; }
+.tile { display: grid; grid-template-columns: 200px 1fr; gap: 20px; align-items: baseline;
+  padding: 16px 0; border-top: 1px solid var(--border); }
+.tile:last-child { border-bottom: 1px solid var(--border); }
+.tile__glyph { display: none; }
+.tile h4 { grid-column: 1; font-size: 1rem; font-weight: 600; color: var(--text); letter-spacing: -0.012em; }
+.tile:hover h4 { color: var(--accent-soft); }
+.tile p { grid-column: 2; font-size: 0.88rem; color: var(--text-2); line-height: 1.55; }
+.tile .tile__tasks { font-size: 0.8rem; color: var(--text-3); margin-top: 4px; }
 
 /* ── 12. App detail page ─────────────────────────────────────────────────── */
 .app-hero { padding: 56px 0; display: grid; grid-template-columns: 120px 1fr; gap: 32px; align-items: start; }
-.app-hero__iconwrap { padding-top: 8px; position: relative; isolation: isolate; }
-.app-hero__iconwrap::before { content: ""; position: absolute; top: 50%; left: 50%; width: 280px; height: 280px;
-  transform: translate(-50%, -50%); border-radius: 50%; z-index: -1; pointer-events: none;
-  background: radial-gradient(circle, rgba(124,132,246,0.16) 0%, transparent 65%); }
+.app-hero__iconwrap { padding-top: 8px; }
 .app-hero__icon { width: 108px; height: 108px; border-radius: 24px; }
 .app-hero h1 { font-size: 3.6rem; font-weight: 700; letter-spacing: -0.022em; line-height: 1.05;
   margin-top: 18px; color: var(--text); }
@@ -386,7 +340,7 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 
 .std-row { padding: 14px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
   border-radius: 8px; display: grid; grid-template-columns: 140px 1fr; gap: 18px; align-items: center; }
-.std-row__tag { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+.std-row__tag { font-size: 0.8rem; font-weight: 600;
   color: var(--accent-soft); background: rgba(124,132,246,0.14); padding: 3px 9px; border-radius: 5px;
   text-align: center; white-space: nowrap; }
 .std-row__desc { font-size: 0.86rem; color: var(--text-2); line-height: 1.5; }
@@ -397,8 +351,9 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 .prose-lead a { color: var(--accent); border-bottom: 1px solid rgba(124,132,246,0.3); }
 .prose-lead + .prose-lead { margin-top: 14px; }
 
-.callout { margin-top: 28px; padding: 18px 22px; border-radius: 10px; background: rgba(255,255,255,0.025);
-  border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; max-width: 640px; }
+/* An aside: a rule down its left side, no box. */
+.callout { margin-top: 28px; padding: 2px 0 2px 18px; border-left: 2px solid var(--border-hover);
+  display: flex; align-items: flex-start; gap: 12px; max-width: 640px; }
 .callout p { font-size: 0.85rem; color: var(--text-2); line-height: 1.65; }
 .callout strong { color: var(--text); font-weight: 600; }
 /* A heading line over its text, where the plain callout sets an icon beside it. */
@@ -421,8 +376,8 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 .ba__handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 26px; height: 26px;
   margin: -13px 0 0 -13px; border-radius: 50%; background: rgba(12,12,16,0.78); border: 1.5px solid var(--text); }
 .ba__range:focus-visible ~ .ba__handle::after { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ba__tag { position: absolute; top: 10px; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text); background: rgba(10,10,14,0.66); padding: 3px 8px;
+.ba__tag { position: absolute; top: 10px; font-size: 0.76rem; font-weight: 500;
+  color: var(--text); background: rgba(10,10,14,0.66); padding: 3px 8px;
   border-radius: 6px; pointer-events: none; }
 .ba__tag--before { left: 10px; }
 .ba__tag--after { right: 10px; }
@@ -430,21 +385,21 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 /* Marketing texture: stat band, terminal sample, compact spec grid, FAQ
    accordion. Added in the 2026-07 site rework to break the label|prose
    monotony on app pages. */
-.statband { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 4px 0 40px; }
-.stat { padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); }
-.stat__n { font-family: var(--font-mono); font-size: 1.55rem; font-weight: 600; color: var(--text);
-  letter-spacing: -0.02em; line-height: 1.1; }
+/* Figures in a row, no boxes. */
+.statband { display: flex; flex-wrap: wrap; gap: 14px 40px; padding: 4px 0 40px; }
+.stat { min-width: 120px; }
+.stat__n { font-size: 1.45rem; font-weight: 600; color: var(--text);
+  letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat__n em { font-style: normal; color: var(--accent); }
-.stat__l { font-size: 0.72rem; color: var(--text-3); margin-top: 6px; line-height: 1.45; }
+.stat__l { font-size: 0.8rem; color: var(--text-3); margin-top: 4px; line-height: 1.45; }
 
+/* A code sample with a title line. No pretend window controls. */
 .term { margin-top: 18px; border-radius: 10px; background: rgba(0,0,0,0.45);
   border: 1px solid var(--border-hover); overflow: hidden; }
-.term__bar { display: flex; align-items: center; gap: 6px; padding: 9px 14px;
+.term__bar { display: flex; align-items: center; padding: 9px 14px;
   border-bottom: 1px solid var(--border); }
-.term__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border-hover); }
-.term__title { margin-left: 8px; font-family: var(--font-mono); font-size: 0.66rem;
-  color: var(--text-4); letter-spacing: 0.04em; }
+.term__dot { display: none; }
+.term__title { font-size: 0.78rem; color: var(--text-3); }
 .term pre { margin: 0; padding: 14px 18px; overflow-x: auto; font-family: var(--font-mono);
   font-size: 0.8rem; line-height: 1.8; color: #d6d6f0; white-space: pre; }
 .term .p { color: var(--text-4); user-select: none; }
@@ -453,8 +408,8 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border);
   border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 .spec { background: var(--bg-card); padding: 13px 16px; }
-.spec__k { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.03em; color: var(--accent-soft); }
+.spec__k { font-size: 0.8rem; font-weight: 600;
+  color: var(--accent-soft); }
 .spec__v { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; margin-top: 3px; }
 
 .faq-acc { border-top: 1px solid var(--border); }
@@ -491,13 +446,13 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 .dg-flow { fill: none; stroke: var(--text-4); stroke-width: 1.2; }
 .dg-flow--accent { stroke: rgba(124,132,246,0.55); }
 .dg-dash { stroke-dasharray: 3 5; }
-.dg-t { font-family: var(--font-mono); font-size: 13.5px; font-weight: 500; fill: var(--text); }
-.dg-s { font-family: var(--font-mono); font-size: 11px; fill: var(--text-3); }
+.dg-t { font-family: var(--font-sans); font-size: 13.5px; font-weight: 500; fill: var(--text); }
+.dg-s { font-family: var(--font-sans); font-size: 11px; fill: var(--text-3); }
 .dg-s--a { fill: var(--accent-soft); }
-.dg-p { font-family: var(--font-mono); font-size: 12.5px; fill: var(--text-2); }
-.dg-l { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--text-3);
+.dg-p { font-family: var(--font-sans); font-size: 12.5px; fill: var(--text-2); }
+.dg-l { font-family: var(--font-sans); font-size: 10px; font-weight: 600; fill: var(--text-3);
   letter-spacing: 0.12em; }
-.dg-u { font-family: var(--font-mono); font-size: 11px; fill: var(--accent-soft); }
+.dg-u { font-family: var(--font-sans); font-size: 11px; fill: var(--accent-soft); }
 
 /* Live loudness meter demo (specula/index.html + specula/meter-demo.js).
    The figure ships with a baked final state - full SVG curves + readout
@@ -509,7 +464,7 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 .mdemo__bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   padding: 10px 14px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.045);
   -webkit-backdrop-filter: blur(18px) saturate(1.7); backdrop-filter: blur(18px) saturate(1.7); }
-.mdemo__title { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-4);
+.mdemo__title { font-size: 0.78rem; color: var(--text-3);
   letter-spacing: 0.04em; margin-right: auto; }
 .mdemo__targets { display: flex; gap: 6px; flex-wrap: wrap; }
 .mdemo__targets[hidden] { display: none; }
@@ -571,7 +526,7 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
   background: rgba(255,255,255,0.02);
   --tone-good: #3ecf7c; --tone-caution: #e8c55a; --tone-warning: #f0a052; --tone-bad: #f67c7c;
   --tone-neutral: var(--text-2); }
-.vdemo__title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+.vdemo__title { font-size: 0.8rem; font-weight: 500;
   color: var(--text-3); }
 .vdemo__controls { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
 .vdemo__row { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
@@ -614,7 +569,7 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
 /* A job page's strip: the tasks the job uses, each linking to its guide
    section. It stays in the hero. */
 .taskstrip.taskstrip--page { position: static; margin: 20px 0 0; align-items: center; }
-.taskstrip__label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+.taskstrip__label { font-size: 0.8rem; font-weight: 500;
   color: var(--text-3); margin-right: 4px; }
 .taskblock:first-of-type { border-top: none; }
 .taskblock__name { font-size: 1.15rem; font-weight: 650; color: var(--text); letter-spacing: -0.015em; }
@@ -629,7 +584,7 @@ figure.shot .ba__after img { height: 100%; object-fit: cover; }
   color: var(--accent); background: rgba(124,132,246,0.10); border: 1px solid rgba(124,132,246,0.20);
   transition: background var(--t-fast), border-color var(--t-fast); }
 .taskblock__links a:hover { background: rgba(124,132,246,0.16); border-color: rgba(124,132,246,0.35); }
-.tile__tasks { font-family: var(--font-mono); font-size: 0.7rem !important; color: var(--text-3) !important;
+.tile__tasks { font-size: 0.8rem !important; color: var(--text-3) !important;
   margin-top: 10px !important; letter-spacing: 0.01em; }
 
 /* ── 13. Doc header + kbd ────────────────────────────────────────────────── */
@@ -656,7 +611,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 .endpoint__desc { font-size: 0.9rem; color: var(--text-2); line-height: 1.6; margin-bottom: 12px; }
 .endpoint dl { display: grid; grid-template-columns: 110px 1fr; gap: 8px 18px; font-size: 0.82rem;
   color: var(--text-2); line-height: 1.55; }
-.endpoint dt { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+.endpoint dt { font-size: 0.8rem; font-weight: 600;
   color: var(--accent); padding-top: 3px; }
 .endpoint dd { margin: 0; }
 .type-pill { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
@@ -670,7 +625,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 .faq-search svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--text-3); }
 .faq-search input { flex: 1; background: transparent; border: none; outline: none; color: var(--text);
   font-family: inherit; font-size: 0.95rem; padding: 14px 0; }
-.faq-search__count { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-4); }
+.faq-search__count { font-size: 0.78rem; color: var(--text-4); }
 .faq-search__clear { background: transparent; border: none; cursor: pointer; color: var(--text-3);
   font-size: 1.2rem; line-height: 1; padding: 0; transition: color var(--t-fast); }
 .faq-search__clear:hover { color: var(--text); }
@@ -698,7 +653,7 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
 .faq-item mark { background: rgba(124,132,246,0.24); color: var(--accent-soft); padding: 0 2px; border-radius: 3px; }
 .faq-steps { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
 .faq-steps li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.88rem; color: var(--text-2); line-height: 1.6; }
-.faq-steps .n { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; color: var(--accent);
+.faq-steps .n { font-size: 0.78rem; font-weight: 600; color: var(--accent);
   background: rgba(124,132,246,0.14); padding: 2px 7px; border-radius: 4px; margin-top: 2px; flex-shrink: 0;
   min-width: 22px; text-align: center; }
 .faq-tip { margin-top: 14px; padding: 12px 16px; border-radius: 8px; background: rgba(255,255,255,0.025);
@@ -725,7 +680,6 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .statband { grid-template-columns: 1fr 1fr; }
   .section__grid { grid-template-columns: 1fr; gap: 16px; }
   .newsletter { grid-template-columns: 1fr; gap: 24px; }
-  .tiles--4, .tiles--3 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
   .container, .container--docs, .container--read { padding: 0 20px; }
@@ -734,6 +688,8 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .home-hero { padding: 48px 0 28px; }
   .home-hero__apps a { font-size: 0.98rem; }
   .home-hero__shot { border-radius: 10px; }
+  .tile { grid-template-columns: 1fr; gap: 4px; }
+  .tile p { grid-column: 1; }
   .app-row { grid-template-columns: 48px 1fr; gap: 14px; }
   .app-row__badges, .app-row__buy { grid-column: 2; justify-content: flex-start; margin-top: 4px; }
   .feed-row { grid-template-columns: 36px 1fr; }
@@ -741,7 +697,6 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .feature-row, .std-row, .endpoint dl { grid-template-columns: 1fr; gap: 6px; }
   .specs { grid-template-columns: 1fr; }
   .shots-grid--2, .shots-grid--3 { grid-template-columns: 1fr; }
-  .tiles--4, .tiles--3 { grid-template-columns: 1fr; }
   .diagram__wide { display: none; }
   .diagram__tall { display: block; }
   .mdemo__readouts { grid-template-columns: 1fr 1fr; }

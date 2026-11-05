@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Songs</p>
+            <p class="eyebrow">Workflow: Songs</p>
             <h1 class="display">The song's sections, each with its own loudness.</h1>
             <p class="app-hero__desc">
                 On macOS 27, Apple's on-device music analysis reads a song's key and tempo, its sections, bars and beats, and its four stems: vocals, drums, bass and other. Specula measures against them with its own BS.1770-4: each section's loudness under the ruler, the vocal's loudness against the bed, and the sections as chapters for a table of per-section readings.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS 27</span>
-                <span class="badge">Key &amp; tempo</span>
-                <span class="badge">Section loudness</span>
-                <span class="badge">Bars &amp; beats</span>
-                <span class="badge">Four stems</span>
-                <span class="badge">Stem-gated loudness</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#music">Read the music guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · music analysis on macOS 27, the rest on macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, music analysis on macOS 27, the rest on macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Tasks</span>
                 <a class="chip" href="guide.html#inspect">Inspect <kbd>⌘1</kbd></a>
@@ -94,7 +85,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -109,7 +99,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">One number hides the parts</p>
+            <h2 class="label">One number hides the parts</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     A track that reads −10 LUFS integrated can still run a chorus 3 LU above its verses.
@@ -131,16 +121,16 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">From file to sections</p>
+                <h2 class="label">From file to sections</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The analysis runs on its own, the timeline shows what it found, the Chapters task turns it into a table.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Open the song</div><div class="feature-row__v">With the default setting, <strong>Automatically, except for speech</strong>, the analysis runs on its own after a file opens, for files up to 15 minutes that are not mostly speech; Analyze › Analyse Music runs it on any file, and Settings › Analysis also offers Only on request and Automatically, for every file. It takes about 0.6 seconds per minute of audio, plus a few seconds the first time after launch. When it finds a key, the file is a song: the sidebar's Music group opens, the ruler switches to bars for that file, the sections appear under the ruler, and the Stems view (<kbd>⌃7</kbd>) opens unless Settings › Analysis › Open the Stems view when a song is detected is off.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Read the sections</div><div class="feature-row__v">The band under the ruler names each section with its integrated LUFS, shaded from quieter to louder, and a click on a section selects it, so <kbd>⌘Return</kbd> measures it in a Selection card. The sidebar's Music group lists the loudest section, the quietest and their spread.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Work in bars</div><div class="feature-row__v">The ruler's unit menu holds Time, Samples and Bars (also View › Ruler Unit). The top bar reads the bar and beat under the playhead, and the <strong>Snap</strong> chip lands selection edges on the nearest beat or bar, or stays off.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · The vocal against the bed</div><div class="feature-row__v">The Music group's <strong>Stem-Gated</strong> rows read the integrated loudness over the blocks where the vocal is present, over the blocks where it is not, and the difference in LU, and the same for the drums, each side needing at least 10 seconds of audio.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Sections as chapters</div><div class="feature-row__v">The Chapters task (<kbd>⌘4</kbd>) offers a song's sections when it opens on one. <strong>From Music</strong> in its bar, or Chapters › Chapters from Music Sections, makes one chapter per section, and Analyse fills the table with each section's integrated loudness, true peak, RMS and LRA and its deviation from the song's median.</div></div>
-                <div class="feature-row"><div class="feature-row__k">6 · Into the report</div><div class="feature-row__v">The PDF and HTML report carry a music section with the key, the tempo and the sections, and the JSON report the analysis and the stem-gated loudness.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Open the song</div><div class="feature-row__v">With the default setting, <strong>Automatically, except for speech</strong>, the analysis runs on its own after a file opens, for files up to 15 minutes that are not mostly speech; Analyze › Analyse Music runs it on any file, and Settings › Analysis also offers Only on request and Automatically, for every file. It takes about 0.6 seconds per minute of audio, plus a few seconds the first time after launch. When it finds a key, the file is a song: the sidebar's Music group opens, the ruler switches to bars for that file, the sections appear under the ruler, and the Stems view (<kbd>⌃7</kbd>) opens unless Settings › Analysis › Open the Stems view when a song is detected is off.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Read the sections</div><div class="feature-row__v">The band under the ruler names each section with its integrated LUFS, shaded from quieter to louder, and a click on a section selects it, so <kbd>⌘Return</kbd> measures it in a Selection card. The sidebar's Music group lists the loudest section, the quietest and their spread.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Work in bars</div><div class="feature-row__v">The ruler's unit menu holds Time, Samples and Bars (also View › Ruler Unit). The top bar reads the bar and beat under the playhead, and the <strong>Snap</strong> chip lands selection edges on the nearest beat or bar, or stays off.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. The vocal against the bed</div><div class="feature-row__v">The Music group's <strong>Stem-Gated</strong> rows read the integrated loudness over the blocks where the vocal is present, over the blocks where it is not, and the difference in LU, and the same for the drums, each side needing at least 10 seconds of audio.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Sections as chapters</div><div class="feature-row__v">The Chapters task (<kbd>⌘4</kbd>) offers a song's sections when it opens on one. <strong>From Music</strong> in its bar, or Chapters › Chapters from Music Sections, makes one chapter per section, and Analyse fills the table with each section's integrated loudness, true peak, RMS and LRA and its deviation from the song's median.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6. Into the report</div><div class="feature-row__v">The PDF and HTML report carry a music section with the key, the tempo and the sections, and the JSON report the analysis and the stem-gated loudness.</div></div>
             </div>
         </div>
     </section>
@@ -148,10 +138,10 @@
     <!-- Apple's and Specula's -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Whose numbers</p>
+            <h2 class="label">Whose numbers</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The structure, the stems, the key and the tempo are Apple's analysis and are labelled so throughout. Every loudness figure is Specula's own BS.1770-4 measurement. The analysis runs on the Mac and nothing is uploaded. It needs macOS 27; everything else in Specula runs on macOS 14 and later.</p>
-                <p class="prose-lead" style="margin-top: 14px;">Under Podcast, Audiobook or Film and TV, a song gets a note under Deliver to, "Apple's music analysis found a key, so this looks like a song.", with a switch to Music streaming, where the delivery card also checks Apple Music's AAC encode and the mono fold-down. <a href="mastering.html">Mastering →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;">Under Podcast, Audiobook or Film and TV, a song gets a note under Deliver to, "Apple's music analysis found a key, so this looks like a song.", with a switch to Music streaming, where the delivery card also checks Apple Music's AAC encode and the mono fold-down. <a href="mastering.html">Mastering</a></p>
             </div>
         </div>
     </section>
@@ -159,7 +149,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">On screen</p>
+            <h2 class="label">On screen</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-chapters-from-music.webp" type="image/webp"><img src="specula-chapters-from-music.png" width="3200" height="2000" alt="The Chapters task on a song after From Music: one chapter per section on the chapter map, and the table with each section's loudness, true peak, RMS, LRA and deviation from the song's median." loading="lazy" decoding="async"></picture>
@@ -176,11 +166,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Part by part</p>
+            <h2 class="label">Part by part</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">On macOS 27 a song opens with its key, tempo and sections, each section carries its own loudness on the timeline, and the vocal's level against the bed is a reading in the sidebar.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#music" class="btn btn-primary">Read the music guide →</a>
+                    <a href="guide.html#music" class="btn btn-primary">Read the music guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -199,7 +189,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 </body>
 </html>

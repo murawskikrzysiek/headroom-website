@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Reference comparison</p>
+            <p class="eyebrow">Workflow: Reference comparison</p>
             <h1 class="display">Is rev 4 better, or just louder?</h1>
             <p class="app-hero__desc">
                 Half a dB of level reads as better to the ear. The Compare task holds up to six versions of a mix or a master, level-matched by integrated loudness and aligned to the sample, with every reading in one matrix beside its difference from A. The residual, A minus a version, plays and draws what the two do not share.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Up to 6 files</span>
-                <span class="badge">LUFS level match</span>
-                <span class="badge">Sample-accurate align</span>
-                <span class="badge">A−X residual</span>
-                <span class="badge">Any sample rate</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#compare">Read the Compare guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Task</span>
                 <a class="chip" href="guide.html#compare">Compare <kbd>⌘3</kbd></a>
@@ -93,7 +84,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -108,7 +98,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Why a raw A/B misleads</p>
+            <h2 class="label">Why a raw A/B misleads</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     The louder version sounds better, so a straight switch measures the level, not the change.
@@ -122,14 +112,14 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Set up a fair A/B</p>
+                <h2 class="label">Set up a fair A/B</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Open the versions, take level and timing out of the way, then listen to what is left.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Open up to six versions</div><div class="feature-row__v">Opened together, or dropped on the window together, files fill slots <strong>A to F</strong> in file-name order, Take 2 before Take 10, and the first is A, the reference. <strong>Add</strong> in the task bar, or File › Add Files to Compare… (<kbd>⇧⌘O</kbd>), adds more. <kbd>1</kbd> to <kbd>6</kbd> switch slots, and each column of the matrix has its own Listen button. A slot chip, dragged, reorders the slots, and its menu makes it the reference: the other slots' alignments follow the new A. A file at another sample rate, such as a 44.1 kHz stream beside a 48 kHz master, plays at A's rate, resampled once when it is added, so switching to it is instant.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Match the level</div><div class="feature-row__v"><strong>Match</strong> in the task bar (Compare › Level Match) plays every slot at A's integrated loudness, and the residual subtracts at the same gain. The slot card in the sidebar shows the gain it applies, and <strong>Trim</strong> adds a hand offset, typed or in steps of 0.1 and 1 dB, up to ±24 dB.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Align to the sample</div><div class="feature-row__v"><strong>Align</strong> (Compare › Auto-Align to A) cross-correlates the slot with A, first on a decimated signal to find the offset and then at the full rate to land on the sample, for takes that start within about 5 seconds of each other. The slot card's nudges move it by a sample or a millisecond, and its offset takes a typed value in samples. <strong>Invert polarity</strong> flips the slot.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Listen to the residual</div><div class="feature-row__v"><strong>Residual</strong> in the task bar, or <kbd>D</kbd> (Playback › Listen to the Residual), swaps the slot in front for A minus that slot: it plays and draws the residual, and the sidebar shows the residual's own peak and RMS. With the level matched, two versions of the same master net out to near silence, and what stays above it is what changed. A change to the slot's offset, gain, polarity or level match, or an Align, computes the residual again. Export Residual… (<kbd>⌃⌘E</kbd>) writes it as a WAV, and the export sheet can write it beside the reports.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Open up to six versions</div><div class="feature-row__v">Opened together, or dropped on the window together, files fill slots <strong>A to F</strong> in file-name order, Take 2 before Take 10, and the first is A, the reference. <strong>Add</strong> in the task bar, or File › Add Files to Compare… (<kbd>⇧⌘O</kbd>), adds more. <kbd>1</kbd> to <kbd>6</kbd> switch slots, and each column of the matrix has its own Listen button. A slot chip, dragged, reorders the slots, and its menu makes it the reference: the other slots' alignments follow the new A. A file at another sample rate, such as a 44.1 kHz stream beside a 48 kHz master, plays at A's rate, resampled once when it is added, so switching to it is instant.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Match the level</div><div class="feature-row__v"><strong>Match</strong> in the task bar (Compare › Level Match) plays every slot at A's integrated loudness, and the residual subtracts at the same gain. The slot card in the sidebar shows the gain it applies, and <strong>Trim</strong> adds a hand offset, typed or in steps of 0.1 and 1 dB, up to ±24 dB.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Align to the sample</div><div class="feature-row__v"><strong>Align</strong> (Compare › Auto-Align to A) cross-correlates the slot with A, first on a decimated signal to find the offset and then at the full rate to land on the sample, for takes that start within about 5 seconds of each other. The slot card's nudges move it by a sample or a millisecond, and its offset takes a typed value in samples. <strong>Invert polarity</strong> flips the slot.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Listen to the residual</div><div class="feature-row__v"><strong>Residual</strong> in the task bar, or <kbd>D</kbd> (Playback › Listen to the Residual), swaps the slot in front for A minus that slot: it plays and draws the residual, and the sidebar shows the residual's own peak and RMS. With the level matched, two versions of the same master net out to near silence, and what stays above it is what changed. A change to the slot's offset, gain, polarity or level match, or an Align, computes the residual again. Export Residual… (<kbd>⌃⌘E</kbd>) writes it as a WAV, and the export sheet can write it beside the reports.</div></div>
             </div>
         </div>
     </section>
@@ -137,7 +127,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">What it looks like</p>
+            <h2 class="label">What it looks like</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-compare-residual.webp" type="image/webp"><img src="specula-compare-residual.png" width="3200" height="2000" alt="The residual of slot B playing in the Compare task, with the residual's own peak and RMS in the sidebar." loading="lazy" decoding="async"></picture>
@@ -158,7 +148,7 @@
     <!-- The residual / diff in depth -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The residual is the answer</p>
+            <h2 class="label">The residual is the answer</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>What changed becomes its own waveform.</strong> The residual is A minus the slot in front, sample by sample. Once level and timing are matched, everything the two versions share cancels, and what is left is the change itself: on the waveform, where it shows where in the file the difference lives and how loud it is, and in the monitors.</p>
 
@@ -214,11 +204,11 @@
     <!-- Encode and plugins -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Against the encode, and the plugins</p>
+            <h2 class="label">Against the encode, and the plugins</h2>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>The streamed version.</strong> Under Music streaming, Analyze › Compare with the Apple Music Encode puts Apple Music's AAC encode of the master in a slot beside it: the matrix gives the encode's true peak beside the master's, and its residual plays what the encoder took away. <a href="mastering.html">Mastering →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Before and after the processing.</strong> In the Edit task, the plugin chain's Render to Compare Slot renders the processed file into a new slot instead of the file, for an A/B of the chain. <a href="editing.html">Editing →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>From the terminal.</strong> <code>specula compare</code> takes two files, level-matches them on request and writes the residual, resampling the second to the first file's rate. <a href="automation.html">Batch and automation →</a></p>
+                <p class="prose-lead"><strong>The streamed version.</strong> Under Music streaming, Analyze › Compare with the Apple Music Encode puts Apple Music's AAC encode of the master in a slot beside it: the matrix gives the encode's true peak beside the master's, and its residual plays what the encoder took away. <a href="mastering.html">Mastering</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Before and after the processing.</strong> In the Edit task, the plugin chain's Render to Compare Slot renders the processed file into a new slot instead of the file, for an A/B of the chain. <a href="editing.html">Editing</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>From the terminal.</strong> <code>specula compare</code> takes two files, level-matches them on request and writes the residual, resampling the second to the first file's rate. <a href="automation.html">Batch and automation</a></p>
             </div>
         </div>
     </section>
@@ -226,11 +216,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Settle the comparison</p>
+            <h2 class="label">Settle the comparison</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">"Better or just louder?" has an answer that plays. With the versions level-matched and aligned, the residual is the change itself, on screen as a waveform and in the monitors as audio, and the matrix gives the numbers from the same comparison.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#compare" class="btn btn-primary">Read the Compare guide →</a>
+                    <a href="guide.html#compare" class="btn btn-primary">Read the Compare guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -249,7 +239,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 </body>
 </html>

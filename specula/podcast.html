@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Podcast</p>
+            <p class="eyebrow">Workflow: Podcast</p>
             <h1 class="display">Measure the talking, not the music bed.</h1>
             <p class="app-hero__desc">
                 Podcast platforms judge dialogue loudness, not the whole file's. When an episode opens, Specula finds the speech with a neural speech detector, measures the loudness over those blocks and the noise floor over the rest, and judges the episode against Apple Podcasts and Spotify under Deliver to Podcast. Where the detector is wrong, the Speech task corrects the regions by hand, and every reading follows.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Dialogue loudness</span>
-                <span class="badge">Silero neural VAD</span>
-                <span class="badge">Speech task</span>
-                <span class="badge">Level dialogue</span>
-                <span class="badge">Noise floor</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#speech">Read the Speech guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Tasks</span>
                 <a class="chip" href="guide.html#inspect">Inspect <kbd>⌘1</kbd></a>
@@ -94,7 +85,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -109,7 +99,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Why whole-file LUFS is the wrong number</p>
+            <h2 class="label">Why whole-file LUFS is the wrong number</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Loudness over the whole episode mixes the voice with the bed, the stingers and the pauses, so podcast platforms judge dialogue loudness.
@@ -180,15 +170,15 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">From episode to verdict</p>
+                <h2 class="label">From episode to verdict</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">The detector does the first pass, the Speech task corrects it, the verdicts read off the result.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Deliver to Podcast</div><div class="feature-row__v">Open the episode. <strong>Deliver to Podcast</strong> judges it against Apple Podcasts and Spotify (Podcast), with one of them primary. A file that is mostly speech under another category gets a note under Deliver to, "This file is mostly speech.", with a switch to Podcast; the category changes only when the switch is pressed.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Speech, found on load</div><div class="feature-row__v">The <strong>Silero neural speech detector</strong> runs when the file opens, on a 16 kHz mono copy, and classifies every 100 ms block as speech or not. The Speech group in the sidebar reads the <strong>Dialogue</strong> loudness in LKFS, <strong>Speech %</strong> and the <strong>Noise Floor</strong> over the whole file, and the loudness graph's Dialogue overlay shows where the speech is.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Correct it in the Speech task</div><div class="feature-row__v">The <strong>Speech</strong> task (<kbd>⌘5</kbd>) puts the regions on the waveform: green as detected, amber where corrected, blue where added by hand. Drag a region to move it or its edges to resize it; <strong>Add</strong> (<kbd>A</kbd>), <strong>In</strong> and <strong>Out</strong> (<kbd>I</kbd> and <kbd>O</kbd>), <strong>Split</strong> at the playhead (<kbd>S</kbd>) and <strong>Delete</strong> (<kbd>⌫</kbd>) do the rest, with 50 steps of undo. The corrections are saved beside the file and come back when it reopens at the same length, Save As carries them to the new file, and <strong>Reset to Detected</strong> (<kbd>⌘R</kbd>) discards them and detects again.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Read the verdict</div><div class="feature-row__v">A correction measures the file again, so the dialogue loudness, Speech % and noise floor, the verdicts, the fixes and the reports follow it. The card says what each platform does: "Apple Podcasts plays this as recorded, 8.7 dB under its −16 LKFS reference.", and "Spotify (Podcast) turns this up by 10.7 dB." With the <strong>TP threshold</strong> at −1 dBTP, every breach is marked on the waveform: an intro sting, a clipped laugh, a hot plosive.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Export the receipt</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports into one folder, and they say whether speech was detected or came from corrected regions; <kbd>⇧⌘E</kbd> and <kbd>⌥⌘E</kbd> open the sheet with the JSON or the PDF ticked. A season goes through File › Check a Folder… in one run.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Deliver to Podcast</div><div class="feature-row__v">Open the episode. <strong>Deliver to Podcast</strong> judges it against Apple Podcasts and Spotify (Podcast), with one of them primary. A file that is mostly speech under another category gets a note under Deliver to, "This file is mostly speech.", with a switch to Podcast; the category changes only when the switch is pressed.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Speech, found on load</div><div class="feature-row__v">The <strong>Silero neural speech detector</strong> runs when the file opens, on a 16 kHz mono copy, and classifies every 100 ms block as speech or not. The Speech group in the sidebar reads the <strong>Dialogue</strong> loudness in LKFS, <strong>Speech %</strong> and the <strong>Noise Floor</strong> over the whole file, and the loudness graph's Dialogue overlay shows where the speech is.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Correct it in the Speech task</div><div class="feature-row__v">The <strong>Speech</strong> task (<kbd>⌘5</kbd>) puts the regions on the waveform: green as detected, amber where corrected, blue where added by hand. Drag a region to move it or its edges to resize it; <strong>Add</strong> (<kbd>A</kbd>), <strong>In</strong> and <strong>Out</strong> (<kbd>I</kbd> and <kbd>O</kbd>), <strong>Split</strong> at the playhead (<kbd>S</kbd>) and <strong>Delete</strong> (<kbd>⌫</kbd>) do the rest, with 50 steps of undo. The corrections are saved beside the file and come back when it reopens at the same length, Save As carries them to the new file, and <strong>Reset to Detected</strong> (<kbd>⌘R</kbd>) discards them and detects again.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Read the verdict</div><div class="feature-row__v">A correction measures the file again, so the dialogue loudness, Speech % and noise floor, the verdicts, the fixes and the reports follow it. The card says what each platform does: "Apple Podcasts plays this as recorded, 8.7 dB under its −16 LKFS reference.", and "Spotify (Podcast) turns this up by 10.7 dB." With the <strong>TP threshold</strong> at −1 dBTP, every breach is marked on the waveform: an intro sting, a clipped laugh, a hot plosive.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Export the receipt</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports into one folder, and they say whether speech was detected or came from corrected regions; <kbd>⇧⌘E</kbd> and <kbd>⌥⌘E</kbd> open the sheet with the JSON or the PDF ticked. A season goes through File › Check a Folder… in one run.</div></div>
             </div>
         </div>
     </section>
@@ -196,7 +186,7 @@
     <!-- Speech detection depth -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Speech detection, and where the corrections go</p>
+            <h2 class="label">Speech detection, and where the corrections go</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>The detector is Silero</strong>, a neural model (MIT-licensed, run through FluidAudio) that ships inside the app, so detection works offline. Where it cannot run, a spectral fallback classifies on four features (a high-frequency gate, the 300 to 3,400 Hz band-energy ratio, spectral flatness and a harmonicity-plus-flux test), so the dialogue reading still has a result.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>Tune it in the Speech task.</strong> <strong>Detection</strong> in the task bar (Speech › Speech Detection…) holds three settings that apply to every file: <strong>Threshold</strong> (0.1 to 0.9, default 0.5; lower picks up quieter speech), <strong>Shortest region</strong> (0.05 to 2.0 s, default 0.10; longer rejects clicks and short interjections) and <strong>Merge gap</strong> (0.05 to 2.0 s, default 0.10; longer fuses regions through breath pauses). A change detects again over the detector's own regions only. Corrected or imported regions stay until Analyze › Detect Speech Again, which asks first.</p>
@@ -208,11 +198,11 @@
     <!-- Fix what's off -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Then fix the level</p>
+            <h2 class="label">Then fix the level</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Level dialogue</strong>, in the Speech task's sidebar and in the Edit task's Loudness menu, works off the same speech regions as the measurement. It ducks the room tone between phrases by the amount set and can lift the dialogue to a target in the same pass, so an episode comes up in level while the pauses stay quiet. Before Apply it shows the dialogue loudness and the noise floor now and predicted after leveling, with the floor against ACX's limit; after Apply, the file's own readings. It buys a few dB on a borderline floor; hiss from the room or the preamp needs fixing at the source. It is offered once detection has finished, on files with 10 % speech or more.</p>
-                <p class="prose-lead" style="margin-top: 14px;">For a straight level move, the card's <strong>Normalize dialogue to −14 LKFS</strong> shifts the whole episode by the gain that lands its dialogue loudness on Spotify's reference. It is offered where the target changes the level: Apple Podcasts plays a quiet episode as recorded, so it offers no level fix. <strong>Limit peaks to −1.0 dBTP</strong> caps the peaks and leaves the loudness. Each is an edit in the Edit task's History, and Save or Save As writes the file. <a href="editing.html">Editing →</a></p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Before the take.</strong> The Record task's room check reads the room's floor over the last five seconds, measured the way the file's noise floor will be, against ACX's limit. <a href="recording.html">Recording →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;">For a straight level move, the card's <strong>Normalize dialogue to −14 LKFS</strong> shifts the whole episode by the gain that lands its dialogue loudness on Spotify's reference. It is offered where the target changes the level: Apple Podcasts plays a quiet episode as recorded, so it offers no level fix. <strong>Limit peaks to −1.0 dBTP</strong> caps the peaks and leaves the loudness. Each is an edit in the Edit task's History, and Save or Save As writes the file. <a href="editing.html">Editing</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Before the take.</strong> The Record task's room check reads the room's floor over the last five seconds, measured the way the file's noise floor will be, against ACX's limit. <a href="recording.html">Recording</a></p>
             </div>
         </div>
     </section>
@@ -220,7 +210,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">In practice</p>
+            <h2 class="label">In practice</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-speech-lane.webp" type="image/webp"><img src="specula-speech-lane.png" width="2660" height="1008" alt="Speech regions on a spoken-word waveform in the Speech task, the corrected set saved beside the file." loading="lazy" decoding="async"></picture>
@@ -245,11 +235,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Ship the episode on target</p>
+            <h2 class="label">Ship the episode on target</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The episode's number is the dialogue's: measured over the speech as corrected, judged against Apple's and Spotify's specs, and fixed in the same window. <strong>Level dialogue</strong> for the floor, <strong>Normalize dialogue</strong> for the target, <strong>Limit peaks</strong> for the peaks.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#speech" class="btn btn-primary">Read the Speech guide →</a>
+                    <a href="guide.html#speech" class="btn btn-primary">Read the Speech guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -268,7 +258,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 </body>
 </html>

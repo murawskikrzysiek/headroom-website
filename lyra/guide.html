@@ -96,10 +96,8 @@
         .page-header { padding: 32px 0 24px; }
 
         .page-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 500;
             color: var(--accent);
             margin-bottom: 10px;
         }
@@ -129,10 +127,8 @@
         }
 
         .toc-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 500;
             color: var(--text-3);
             margin-bottom: 12px;
         }
@@ -264,10 +260,8 @@
         }
 
         th {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 500;
             color: var(--text-3);
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
@@ -514,7 +508,7 @@
 
 <div class="container doc-grid">
     <header class="page-header" id="top">
-        <p class="page-eyebrow">Lyra · User Guide</p>
+        <p class="page-eyebrow">Lyra user guide</p>
         <h1>Lyra, key by key.</h1>
         <!-- TODO(volt): masthead is website furniture, not in USER-GUIDE.md. Once Volt support is built and verified, name the Volt here alongside the Apollo (wording from the shipped USER-GUIDE.md, no model list until verified). Same for the meta description above. -->
         <p class="page-lede">Lyra maps F10 / F11 / F12 to the monitor volume of a Universal Audio Apollo. This page covers all of it: setup, the menu, shortcuts, reference levels, pairing, widgets, troubleshooting. The full <code>lyra://</code> URL scheme reference lives on a <a href="api.html">separate page</a>.</p>
@@ -523,26 +517,26 @@
     <nav class="toc" aria-label="Table of contents" data-guide-toc>
         <p class="toc-label">Contents</p>
         <ul class="toc-list">
-            <li><a href="#quick-start">1 · Quick start</a></li>
-            <li><a href="#first-launch">2 · First launch &amp; Accessibility</a></li>
-            <li><a href="#menu-bar-icon">3 · The menu bar icon</a></li>
-            <li><a href="#dropdown-menu">4 · The dropdown menu</a></li>
-            <li><a href="#shortcuts">5 · Keyboard shortcuts</a></li>
-            <li><a href="#hud">6 · Volume HUD</a></li>
-            <li><a href="#reference-levels">7 · Reference Levels</a></li>
-            <li><a href="#alt-speakers">8 · ALT speakers</a></li>
-            <li><a href="#audita-pairing">9 · Audita pairing</a></li>
-            <li><a href="#url-scheme">10 · URL scheme</a></li>
-            <li><a href="#app-intents">11 · Shortcuts, Siri &amp; Focus Filters</a></li>
-            <li><a href="#widgets">12 · Widgets</a></li>
-            <li><a href="#mixer-engine">13 · UA Mixer Engine and UA Mixer Helper</a></li>
-            <li><a href="#settings">14 · Settings</a></li>
-            <li><a href="#licensing">15 · Trial &amp; licensing</a></li>
-            <li><a href="#updates">16 · Updates</a></li>
-            <li><a href="#launch-at-login">17 · Launch at login</a></li>
-            <li><a href="#troubleshooting">18 · Troubleshooting</a></li>
-            <li><a href="#out-of-scope">19 · What Lyra doesn't do</a></li>
-            <li><a href="#feedback">20 · Reporting bugs</a></li>
+            <li><a href="#quick-start">1. Quick start</a></li>
+            <li><a href="#first-launch">2. First launch &amp; Accessibility</a></li>
+            <li><a href="#menu-bar-icon">3. The menu bar icon</a></li>
+            <li><a href="#dropdown-menu">4. The dropdown menu</a></li>
+            <li><a href="#shortcuts">5. Keyboard shortcuts</a></li>
+            <li><a href="#hud">6. Volume HUD</a></li>
+            <li><a href="#reference-levels">7. Reference Levels</a></li>
+            <li><a href="#alt-speakers">8. ALT speakers</a></li>
+            <li><a href="#audita-pairing">9. Audita pairing</a></li>
+            <li><a href="#url-scheme">10. URL scheme</a></li>
+            <li><a href="#app-intents">11. Shortcuts, Siri &amp; Focus Filters</a></li>
+            <li><a href="#widgets">12. Widgets</a></li>
+            <li><a href="#mixer-engine">13. UA Mixer Engine and UA Mixer Helper</a></li>
+            <li><a href="#settings">14. Settings</a></li>
+            <li><a href="#licensing">15. Trial &amp; licensing</a></li>
+            <li><a href="#updates">16. Updates</a></li>
+            <li><a href="#launch-at-login">17. Launch at login</a></li>
+            <li><a href="#troubleshooting">18. Troubleshooting</a></li>
+            <li><a href="#out-of-scope">19. What Lyra doesn't do</a></li>
+            <li><a href="#feedback">20. Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -748,7 +742,7 @@
         <h3>Jumping to a slot</h3>
         <p class="prose">Three ways:</p>
         <ul>
-            <li><strong>Keyboard:</strong> <kbd>⌃F10</kbd> → slot 1 · <kbd>⌃F11</kbd> → slot 2 · <kbd>⌃F12</kbd> → slot 3.</li>
+            <li><strong>Keyboard:</strong> <kbd>⌃F10</kbd> → slot 1, <kbd>⌃F11</kbd> → slot 2, <kbd>⌃F12</kbd> → slot 3.</li>
             <li><strong>Menu:</strong> Reference Levels submenu → click the slot's name.</li>
             <li><strong>URL:</strong> <code>open lyra://reference/2</code> (slots are 1-indexed in URLs).</li>
         </ul>
@@ -1217,6 +1211,5 @@ open "lyra://mute/toggle"</code></pre>
 
 
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 <script src="../guide-toc.js"></script></body></html>
