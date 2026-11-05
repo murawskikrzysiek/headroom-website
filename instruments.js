@@ -132,8 +132,17 @@
     function f1(x) { return x.toFixed(1); }
 
     root.innerHTML =
+      /* The Pressure Bloom, from BloomGlyph.swift: a 22-unit canvas, the
+         source dot at (11, 16) with radius 0.9, arcs of radius 3.5, 6 and
+         8.5 over the upper half at opacities 1, 0.75 and 0.55, stroke 1.6
+         with round caps. Arcs follow the level (<35, <55, <80, 80+ dBA give
+         0 to 3), colour follows the dose band. */
       '<div class="pin__head">' +
-        '<svg class="pin__bloom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 17a4 4 0 0 1 8 0"/><path d="M5 14a7 7 0 0 1 14 0"/><path d="M2 11a10 10 0 0 1 20 0"/></svg>' +
+        '<svg class="pin__bloom" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">' +
+          '<path class="pin__arc" data-arc="1" d="M7.5 16A3.5 3.5 0 0 1 14.5 16" opacity="1"/>' +
+          '<path class="pin__arc" data-arc="2" d="M5 16A6 6 0 0 1 17 16" opacity="0.75"/>' +
+          '<path class="pin__arc" data-arc="3" d="M2.5 16A8.5 8.5 0 0 1 19.5 16" opacity="0.55"/>' +
+          '<circle cx="11" cy="16" r="0.9" fill="currentColor" stroke="none"/></svg>' +
         '<div><p class="pin__level"><span class="pin__lv"></span> <span class="pin__u">dBA</span></p><p class="pin__status"><i></i><span></span></p></div>' +
         '<div class="pin__dose"><p class="pin__dosev"></p><p class="pin__dosel">today</p></div>' +
       '</div>' +
@@ -188,7 +197,13 @@
       q('.pin__status span').textContent = last === null ? 'not measuring' : z === 'on' ? (diff === 0 ? 'on target' : Math.abs(diff) + ' dB ' + (diff < 0 ? 'under' : 'over') + ', in the band') : Math.abs(diff) + ' dB ' + (diff < 0 ? 'under' : 'over');
       var d = dose(cur);
       q('.pin__dosev').textContent = Math.round(d) + '%';
-      q('.pin__dosev').className = 'pin__dosev ' + (d < 50 ? 'is-safe' : d < 100 ? 'is-caution' : 'is-over');
+      var band = d < 40 ? 'safe' : d < 70 ? 'caution' : d < 90 ? 'warning' : 'danger';
+      q('.pin__dosev').className = 'pin__dosev is-' + band;
+      /* Bloom: arcs from the level, colour from the dose band. */
+      var arcs = last === null ? 3 : last < 35 ? 0 : last < 55 ? 1 : last < 80 ? 2 : 3;
+      var arcEls = root.querySelectorAll('.pin__arc');
+      for (var ai = 0; ai < arcEls.length; ai++) arcEls[ai].style.visibility = ai < arcs ? 'visible' : 'hidden';
+      q('.pin__bloom').className.baseVal = 'pin__bloom is-' + (last === null ? 'rest' : band);
       var cu = 0, co = 0, cv = 0; for (var j = 0; j < n; j++) { var zz = zone(L[j]); if (zz === 'under') cu++; else if (zz === 'over') cv++; else co++; }
       q('.pin__ontarget strong').textContent = n ? Math.round(co / n * 100) + '%' : '—';
       q('.pin__chip').textContent = last === null ? '' : (diff > 0 ? '+' : '') + diff + ' dB';

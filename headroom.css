@@ -256,7 +256,13 @@ code {
 .pin--focus-leq .pin__session, .pin--focus-dial .pin__dialwrap { opacity: 1; }
 .pin--focus-dose .pin__dosev { text-shadow: 0 0 18px currentColor; }
 .pin__head { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.pin__bloom { width: 24px; height: 24px; color: var(--on); margin-top: 6px; flex-shrink: 0; }
+.pin__bloom { width: 26px; height: 26px; color: var(--on); margin-top: 4px; flex-shrink: 0; }
+.pin__bloom.is-rest { color: rgba(255,255,255,0.85); }
+.pin__bloom.is-caution { color: var(--caution); }
+.pin__bloom.is-warning { color: var(--over); }
+.pin__bloom.is-danger { color: var(--danger); }
+.pin__dosev.is-warning { color: var(--over); }
+.pin__dosev.is-danger { color: var(--danger); }
 .pin__level { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .pin__u { font-size: 1.1rem; font-weight: 500; color: rgba(255,255,255,0.8); }
 .pin__status { font-size: 0.86rem; display: flex; align-items: center; gap: 6px; margin-top: 4px; color: var(--on); }
@@ -323,6 +329,13 @@ code {
 .home-inst .mdemo { margin-top: 0; }
 .pin--compact .pin__leq, .pin--compact .pin__session { display: none; }
 .inst-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; align-items: start; }
+.inst-row--3 { grid-template-columns: 1fr 1fr 1fr; gap: 36px; margin-top: 8px; }
+.inst-row--3 .inst-row__stage { min-height: 0; justify-content: flex-start; border: 0; padding: 0; }
+.inst-row--3 .vcard { max-width: none; }
+@media (max-width: 1100px) {
+  .inst-row--3 { grid-template-columns: 1fr 1fr; }
+  .inst-row--3 > :nth-child(2) { grid-row: span 2; }
+}
 .inst-row__stage { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
   padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .inst-row__text { margin-top: 18px; max-width: 440px; }
