@@ -362,6 +362,11 @@ code {
 .tile-app h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.025em; margin-top: 18px;
   display: flex; justify-content: center; align-items: baseline; gap: 10px; }
 .tile-app h2 .app-row__ver { font-size: 1rem; font-weight: 500; }
+.tile-app h2 a { color: inherit; }
+.tile-app h2 a:hover, .tile-app__iconlink:hover + h2 a { color: var(--accent-soft); }
+.tile-app__iconlink { display: inline-block; border-radius: 18px; }
+.tile-app__iconlink:hover .tile-app__icon { transform: translateY(-2px); }
+.tile-app__icon { transition: transform 0.2s; }
 .tile-app__line { font-size: 1.15rem; line-height: 1.5; color: var(--text-2); margin-top: 12px; }
 .tile-app__actions { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
 .tile-app__price { font-size: 0.88rem; color: var(--text-3); }
