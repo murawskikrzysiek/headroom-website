@@ -306,12 +306,24 @@
     return { set: set };
   }
 
+  /* ── Homepage: one face per app ───────────────────────────────────────── */
+  function buildFaces(root) {
+    var faces = root.querySelectorAll('.face[data-key]');
+    function set(k) {
+      var found = false;
+      for (var i = 0; i < faces.length; i++) { var on = faces[i].getAttribute('data-key') === k; faces[i].classList.toggle('is-on', on); if (on) found = true; }
+      if (!found && faces.length) faces[0].classList.add('is-on');
+    }
+    set(root.getAttribute('data-state') || (faces[0] && faces[0].getAttribute('data-key')));
+    return { set: set };
+  }
+
   /* ── Scroll engine ────────────────────────────────────────────────────── */
   function wire(section) {
     var kind = section.getAttribute('data-instrument');
     var inst = instruments[kind] && instruments[kind][0];
     var stage = section.querySelector('.scrolly__stage');
-    var anchor = section.querySelector('.hud, .pin, .walk');
+    var anchor = section.querySelector('.faces, .hud, .pin, .walk');
     var steps = section.querySelectorAll('.step');
     if (!inst || !stage || !anchor || !steps.length) return;
     var current = null, ticking = false;
@@ -334,18 +346,19 @@
   }
 
   function init() {
-    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]');
-    instruments.hud = []; instruments.pin = []; instruments.walk = [];
+    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]'), facesList = document.querySelectorAll('[data-faces]');
+    instruments.hud = []; instruments.pin = []; instruments.walk = []; instruments.faces = [];
     for (var i = 0; i < huds.length; i++) instruments.hud.push(buildHUD(huds[i]));
     for (var j = 0; j < pins.length; j++) instruments.pin.push(buildPin(pins[j]));
     for (var w = 0; w < walks.length; w++) instruments.walk.push(buildWalk(walks[w]));
+    for (var f = 0; f < facesList.length; f++) instruments.faces.push(buildFaces(facesList[f]));
     var sections = document.querySelectorAll('.scrolly[data-instrument]');
     for (var k = 0; k < sections.length; k++) {
       /* each section drives the instrument inside it */
       var sec = sections[k], kind = sec.getAttribute('data-instrument');
-      var sel = { hud: '[data-hud]', pin: '[data-pin]', walk: '[data-walk]' }[kind];
+      var sel = { hud: '[data-hud]', pin: '[data-pin]', walk: '[data-walk]', faces: '[data-faces]' }[kind];
       var node = sel ? sec.querySelector(sel) : null;
-      var list = { hud: huds, pin: pins, walk: walks }[kind] || [];
+      var list = { hud: huds, pin: pins, walk: walks, faces: facesList }[kind] || [];
       var idx = Array.prototype.indexOf.call(list, node);
       if (idx < 0) continue;
       var saved = instruments[kind];

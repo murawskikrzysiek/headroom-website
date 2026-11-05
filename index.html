@@ -60,64 +60,46 @@
 <div class="container">
   <header class="home-hero">
     <h1 class="display home-hero__title">Mac apps for audio work.</h1>
-    <ul class="home-hero__apps">
-      <li><a href="lyra/"><strong>Lyra</strong> sets monitor volume on Universal Audio Apollo and Volt from the F-keys.</a></li>
-      <li><a href="audita/"><strong>Audita</strong> shows the SPL at your listening position and counts the day's hearing dose.</a></li>
-      <li><a href="specula/"><strong>Specula</strong> measures loudness and true peak against a delivery spec, and edits and repairs the file.</a></li>
-    </ul>
+    <p class="home-hero__line">Three so far. Lyra sets the monitor level, Audita measures the room, Specula checks the file.</p>
   </header>
 
-  <!-- The three apps' own faces, drawn by instruments.js and the app's own
-       verdict code: Lyra's volume HUD, Audita's pinned window, Specula's
-       delivery card. Each is the product, not a picture of it. -->
-  <section class="home-inst" aria-label="The three apps' own readouts">
-    <div class="inst-row inst-row--3">
-      <div>
-        <div class="inst-row__stage">
+  <!-- The apps, one step each, beside a pinned stage that shows the app's
+       own face: Lyra's HUD and Audita's pinned window drawn by
+       instruments.js, Specula's delivery card as a screenshot. -->
+  <section class="scrolly" id="apps" data-instrument="faces" aria-label="The three apps">
+    <div class="scrolly__stage">
+      <div class="faces" data-faces data-state="lyra">
+        <div class="face" data-key="lyra">
           <div class="hud" data-hud data-state="rest" aria-live="polite"></div>
           <p class="hud-read"></p>
           <p class="scrolly__hint">Arrow keys, M, D and O work on it.</p>
         </div>
-        <div class="inst-row__text">
-          <h3>Lyra</h3>
-          <p>F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with Reference Levels you can recall to a measured dB SPL. <a href="lyra/">Details</a></p>
-        </div>
-      </div>
-      <div>
-        <div class="inst-row__stage">
+        <div class="face" data-key="audita">
           <div class="pin pin--compact" data-pin data-state="rest" aria-live="polite"></div>
         </div>
-        <div class="inst-row__text">
-          <h3>Audita</h3>
-          <p>A menu bar SPL meter. It shows the level at the listening position against a calibrated reference and tracks hearing dose through the day by the NIOSH method. <a href="audita/">Details</a></p>
+        <div class="face" data-key="specula">
+          <figure class="shot inst-row__shot"><picture><source srcset="specula/specula-card-loud-master.webp" type="image/webp"><img src="specula/specula-card-loud-master.png" width="476" height="744" alt="Specula's delivery card for a loud master: the verdict as a sentence, the integrated loudness and true peak, and the Limit peaks and Normalize buttons." decoding="async"></picture></figure>
         </div>
       </div>
-      <div>
-        <div class="inst-row__stage">
-          <div class="vcard">
-            <p class="vcard__chip">Deliver to Spotify · Music streaming</p>
-            <div class="vcard__head">
-              <p class="vcard__target">Spotify</p>
-              <p class="vcard__ref">-14 LUFS · ≤ -1 dBTP</p>
-            </div>
-            <p class="vcard__verdict tone--warning">Spotify turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling.</p>
-            <div class="vcard__readings">
-              <p class="vcard__reading"><span class="vcard__rlabel">Integrated</span><span class="vcard__rvalue tone--warning">-8.7</span><span class="vcard__runit">LUFS</span></p>
-              <p class="vcard__reading"><span class="vcard__rlabel">True peak</span><span class="vcard__rvalue tone--warning">0.4</span><span class="vcard__runit">dBTP</span></p>
-            </div>
-            <div class="vcard__fixes"><span class="vcard__fix">Limit peaks to -1.0 dBTP</span><span class="vcard__fix">Normalize to -14 LUFS</span><span class="vcard__fix">Hear at Spotify&#x27;s level</span></div>
-            <p class="vcard__also-label">Also checked</p>
-            <ul class="vcard__also">
-              <li title="Apple Music turns this down by 7.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Apple Music</span><span class="vcard__also-short tone--warning">-7.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-              <li title="YouTube turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">YouTube</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-              <li title="Tidal turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Tidal</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="inst-row__text">
-          <h3>Specula</h3>
-          <p>Loudness, true peak and delivery checks against Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check. <a href="specula/">Details</a></p>
-        </div>
+    </div>
+    <div class="scrolly__steps">
+      <div class="step step--app" data-state="lyra">
+        <img class="step__icon" src="lyra/icon.png" alt="">
+        <h3>Lyra <a href="lyra/releases.html#v1.9" class="app-row__ver">1.9</a></h3>
+        <p>F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme. macOS 12 and later.</p>
+        <p class="step__links"><a href="lyra/" class="app-row__cta">Details</a><span class="app-row__price">$9.99</span></p>
+      </div>
+      <div class="step step--app" data-state="audita">
+        <img class="step__icon" src="audita/icon.png" alt="">
+        <h3>Audita <a href="audita/releases.html#v1.7" class="app-row__ver">1.7</a></h3>
+        <p>A menu bar SPL meter. It shows the level at the listening position against a calibrated reference and tracks hearing dose through the day by the NIOSH method. macOS 14 and later.</p>
+        <p class="step__links"><a href="audita/" class="app-row__cta">Details</a><span class="app-row__price">$19.99</span></p>
+      </div>
+      <div class="step step--app" data-state="specula">
+        <img class="step__icon" src="specula/icon.png" alt="">
+        <h3>Specula <a href="specula/releases.html#v2.0" class="app-row__ver">2.0</a></h3>
+        <p>Loudness, true peak and delivery checks against Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check. Seven tasks: inspect, edit, compare up to six versions, audiobook chapters, speech regions, spectral repair and recording. macOS 14 and later.</p>
+        <p class="step__links"><a href="specula/" class="app-row__cta">Details</a><span class="app-row__price">$99.99</span></p>
       </div>
     </div>
   </section>
@@ -125,7 +107,7 @@
 
 <div class="container">
   <!-- ── Apps ─────────────────────────────────────────────────────────── -->
-  <section id="apps" style="padding: 56px 0 88px;">
+  <section id="latest" style="padding: 56px 0 72px;">
     <div class="latest">
       <h2 class="section-title">Latest</h2>
       <ul class="latest__list">
@@ -133,62 +115,7 @@
         <li><a href="lyra/releases.html#v1.9"><strong>Lyra 1.9</strong>, 20 Oct 2026. Second-generation Volt interfaces, an Interface picker for an Apollo and a Volt together, and ALT speakers with three Reference Levels per pair.</a></li>
         <li><a href="specula/releases.html#v2.0"><strong>Specula 2.0</strong>, 4 Oct 2026. One window with seven tasks, Deliver to with a verdict per target, Check a Folder, and the Apple Music AAC encode check. Free for every 1.x license.</a></li>
       </ul>
-    </div>
-    <div class="apps-head">
-      <h2 class="section-title">Apps</h2>
-    </div>
-
-    <div class="apps-list">
-      <!-- Lyra -->
-      <div class="app-row">
-        <img class="app-row__icon" src="lyra/icon.png" alt="Lyra app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Lyra</h3>
-            <a href="lyra/releases.html#v1.9" class="app-row__ver">1.9</a>
-          </div>
-          <p class="app-row__desc">F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme. macOS 12 and later.</p>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$9.99</span>
-          <a href="lyra/" class="app-row__cta">Details</a>
-        </div>
-      </div>
-
-      <!-- Audita -->
-      <div class="app-row">
-        <img class="app-row__icon" src="audita/icon.png" alt="Audita app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Audita</h3>
-            <a href="audita/releases.html#v1.7" class="app-row__ver">1.7</a>
-          </div>
-          <p class="app-row__desc">A menu bar SPL meter. It shows the level at the listening position against a calibrated reference and tracks hearing dose through the day by the NIOSH method. macOS 14 and later.</p>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$19.99</span>
-          <a href="audita/" class="app-row__cta">Details</a>
-        </div>
-      </div>
-
-      <!-- Specula -->
-      <div class="app-row">
-        <img class="app-row__icon" src="specula/icon.png" alt="Specula app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Specula</h3>
-            <a href="specula/releases.html#v2.0" class="app-row__ver">2.0</a>
-          </div>
-          <p class="app-row__desc">Loudness, true peak and delivery checks against Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check. Seven tasks: inspect, edit, compare up to six versions, audiobook chapters, speech regions, spectral repair and recording. macOS 14 and later.</p>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$99.99</span>
-          <a href="specula/" class="app-row__cta">Details</a>
-        </div>
-      </div>
-      <!-- Add future apps here - duplicate an .app-row block. -->
-    </div>
-  </section>
+    </div>  </section>
 
   <!-- ── About ────────────────────────────────────────────────────────── -->
   <section id="about" style="padding-bottom: 72px;">
