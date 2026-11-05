@@ -322,11 +322,22 @@
       }
       if (cap) cap.innerHTML = imgs[i].getAttribute('data-cap') || '';
     }
+    var loop = root.hasAttribute('data-loop'), every = parseInt(root.getAttribute('data-every') || '2800', 10);
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function play() {
-      stop(); show(0);
+    function next() { show(loop ? (at + 1) % imgs.length : Math.min(at + 1, imgs.length - 1)); }
+    function arm() {
+      stop();
       if (reduce || imgs.length < 2) return;
-      timer = setInterval(function () { if (at + 1 >= imgs.length) { stop(); return; } show(at + 1); }, 2800);
+      timer = setInterval(function () { if (!loop && at + 1 >= imgs.length) { stop(); return; } next(); }, every);
+    }
+    function play() { show(0); arm(); }
+    /* a click moves to the next capture and restarts the clock */
+    var frame = root.querySelector('.slides__frame');
+    if (frame) {
+      frame.style.cursor = 'pointer'; frame.setAttribute('role', 'button'); frame.setAttribute('tabindex', '0');
+      frame.setAttribute('aria-label', 'Next capture');
+      frame.addEventListener('click', function () { next(); if (timer) arm(); });
+      frame.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); next(); if (timer) arm(); } });
     }
     show(0);
     root.__play = play; root.__stop = stop;
