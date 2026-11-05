@@ -61,6 +61,7 @@
   <header class="home-hero">
     <h1 class="display home-hero__title">Mac apps for audio work.</h1>
     <p class="home-hero__line">Three so far. Lyra sets the monitor level, Audita measures the room, Specula checks the file.</p>
+    <p class="home-hero__line">Built by one engineer for the desk they work at, and sold to anyone whose desk looks similar.</p>
   </header>
 
   <!-- The apps, one step each, beside a pinned stage that shows the app's
@@ -94,20 +95,41 @@
       <div class="step step--app" data-state="lyra">
         <img class="step__icon" src="lyra/icon.png" alt="">
         <h3>Lyra <a href="lyra/releases.html#v1.9" class="app-row__ver">1.9</a></h3>
-        <p>F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme. macOS 12 and later.</p>
-        <p class="step__links"><a href="lyra/" class="app-row__cta">Details</a><span class="app-row__price">$9.99</span></p>
+        <p>F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces. macOS 12 and later.</p>
+        <ul class="step__facts">
+          <li><kbd>F10</kbd> mutes, <kbd>F11</kbd> and <kbd>F12</kbd> move the monitor level, <kbd>⇧</kbd> halves the step, DIM and Mono on the same keys.</li>
+          <li>Three Reference Levels on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, each recallable to a dB SPL measured with Audita.</li>
+          <li>ALT speakers on Apollos with ALT outputs; an Apollo and a Volt side by side, one of them in control.</li>
+          <li>Thirteen App Intents for Shortcuts and Spotlight, four widgets, a Focus Filter and the <code>lyra://</code> URL scheme.</li>
+        </ul>
+        <p class="step__new"><strong>New in 1.9:</strong> Volt Gen 2 interfaces and ALT speakers, a free update.</p>
+        <p class="step__links"><a href="lyra/" class="app-row__cta">Details</a><span class="app-row__price">$9.99</span><a href="lyra/guide.html">User guide</a><a href="lyra/releases.html">Release notes</a></p>
       </div>
       <div class="step step--app" data-state="audita">
         <img class="step__icon" src="audita/icon.png" alt="">
         <h3>Audita <a href="audita/releases.html#v1.7" class="app-row__ver">1.7</a></h3>
-        <p>A menu bar SPL meter. It shows the level at the listening position against a calibrated reference and tracks hearing dose through the day by the NIOSH method. macOS 14 and later.</p>
-        <p class="step__links"><a href="audita/" class="app-row__cta">Details</a><span class="app-row__price">$19.99</span></p>
+        <p>A menu bar SPL meter and hearing-dose tracker for the listening position. macOS 14 and later.</p>
+        <ul class="step__facts">
+          <li>A-weighted SPL ten times a second through a measurement microphone, with a UMIK-1 read at absolute level from its calibration file.</li>
+          <li>Under, on or over a calibrated reference, with the share of the session on target and the Leq and Ln figures behind it.</li>
+          <li>Today's dose by the NIOSH method, with notifications at the 40, 70 and 90 percent thresholds and alerts for drift and time off target.</li>
+          <li>Sessions start with your DAW or a Shortcut, stay in History as dials, and leave as PDF reports.</li>
+        </ul>
+        <p class="step__new"><strong>New in 1.7:</strong> the session dial in History, the report and the pinned window.</p>
+        <p class="step__links"><a href="audita/" class="app-row__cta">Details</a><span class="app-row__price">$19.99</span><a href="audita/guide.html">User guide</a><a href="audita/releases.html">Release notes</a></p>
       </div>
       <div class="step step--app" data-state="specula">
         <img class="step__icon" src="specula/icon.png" alt="">
         <h3>Specula <a href="specula/releases.html#v2.0" class="app-row__ver">2.0</a></h3>
-        <p>Loudness, true peak and delivery checks against Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check. Seven tasks: inspect, edit, compare up to six versions, audiobook chapters, speech regions, spectral repair and recording. macOS 14 and later.</p>
-        <p class="step__links"><a href="specula/" class="app-row__cta">Details</a><span class="app-row__price">$99.99</span></p>
+        <p>Loudness, true peak and delivery checks, with the editing and repair around them. macOS 14 and later.</p>
+        <ul class="step__facts">
+          <li>Every file judged against where it is going, Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check.</li>
+          <li>Seven tasks in one window: Inspect, Edit, Compare up to six versions, audiobook Chapters, Speech regions, Spectral repair and Record.</li>
+          <li>Check a Folder for a whole delivery at once, one row per file, with a report per file and a CSV.</li>
+          <li>A command-line tool for the same checks, and the BS.1770-4 meter the verdicts rest on.</li>
+        </ul>
+        <p class="step__new"><strong>New in 2.0:</strong> Deliver to, Check a Folder and the Apple Music encode check, a free update for every 1.x license.</p>
+        <p class="step__links"><a href="specula/" class="app-row__cta">Details</a><span class="app-row__price">$99.99</span><a href="specula/guide.html">User guide</a><a href="specula/releases.html">Release notes</a></p>
       </div>
     </div>
   </section>

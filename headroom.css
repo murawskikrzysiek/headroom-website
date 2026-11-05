@@ -369,7 +369,16 @@ code {
 .step--app h3 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 10px; }
 .step--app h3 .app-row__ver { font-size: 0.9rem; font-weight: 500; }
 .step--app p { font-size: 1.02rem; }
-.step__links { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.step__links { display: flex; align-items: center; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+.step__links a:not(.app-row__cta) { font-size: 0.9rem; color: var(--text-2); border-bottom: 1px solid var(--border-hover); }
+.step__links a:not(.app-row__cta):hover { color: var(--text); }
+.step__facts { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.step__facts li { font-size: 0.95rem; color: var(--text-2); line-height: 1.55; padding-left: 16px; position: relative; }
+.step__facts li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.75; }
+.step__new { margin-top: 14px; font-size: 0.92rem; color: var(--text-3); line-height: 1.5; }
+.step__new strong { color: var(--text-2); font-weight: 600; }
+.step--app { max-width: 520px; }
+@media (min-width: 1100px) { .faces { width: min(420px, 100%); } }
 @media (prefers-reduced-motion: reduce) { .face.is-on { animation: none; } .faces__chip.is-on { animation: none; } }
 .inst-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; align-items: start; }
 .inst-row--3 { grid-template-columns: 1fr 1fr 1fr; gap: 36px; margin-top: 8px; }
