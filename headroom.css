@@ -327,17 +327,18 @@ code {
 .faces { width: min(360px, 100%); display: flex; flex-direction: column; align-items: stretch; }
 .face { display: none; flex-direction: column; align-items: center; gap: 14px; width: 100%; }
 .face.is-on { display: flex; animation: notifIn 0.3s ease-out; }
-.face .hud { width: 100%; justify-content: space-between; }
-.face .hud__name { min-width: 0; }
+.face .hud { width: 100%; justify-content: space-between; padding: 14px 20px; gap: 12px; }
+.face .hud__name { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.face .hud__seg { width: 6px; }
 .face .pin { width: 100%; }
 /* the apps already scrolled past, as chips over the face; a click goes back */
-.faces__row { display: flex; gap: 10px; margin-bottom: 18px; min-height: 40px; align-items: center; }
-.faces__chip { display: none; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 10px;
-  opacity: 0.55; transition: opacity 0.2s, transform 0.2s; }
+/* the apps already scrolled past sit in the nav beside the brand; a click goes back */
+.nav__apps { display: flex; gap: 8px; align-items: center; margin-left: 18px; margin-right: auto; }
+.faces__chip { display: none; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 8px;
+  opacity: 0.85; transition: opacity 0.2s; }
 .faces__chip.is-on { display: inline-flex; animation: notifIn 0.25s ease-out; }
-.faces__chip.is-current { opacity: 1; transform: scale(1.12); cursor: default; }
 .faces__chip:hover { opacity: 1; }
-.faces__chip img { width: 36px; height: 36px; border-radius: 9px; display: block; }
+.faces__chip img { width: 26px; height: 26px; border-radius: 7px; display: block; }
 .faces__chip span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 /* Specula's face: a timed pass through a few real captures */
 .slides { width: 100%; }

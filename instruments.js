@@ -338,8 +338,9 @@
     var faces = root.querySelectorAll('.face[data-key]');
     var section = root.closest ? root.closest('.scrolly') : null;
     var steps = section ? section.querySelectorAll('.step[data-state]') : [];
-    /* the apps already scrolled past form a row of chips over the face */
-    var row = document.createElement('div'); row.className = 'faces__row';
+    /* the apps already scrolled past move into the nav, beside the brand */
+    var row = document.createElement('div'); row.className = 'nav__apps';
+    var navBar = document.querySelector('.nav'), brand = navBar && navBar.querySelector('.brand');
     var chips = {};
     for (var s = 0; s < steps.length; s++) (function (step) {
       var k = step.getAttribute('data-state'), icon = step.querySelector('.step__icon'), h = step.querySelector('h3');
@@ -351,7 +352,7 @@
       });
       chips[k] = chip; row.appendChild(chip);
     })(steps[s]);
-    root.insertBefore(row, root.firstChild);
+    if (brand) brand.parentNode.insertBefore(row, brand.nextSibling); else root.insertBefore(row, root.firstChild);
     function set(k) {
       var found = false, idx = -1;
       for (var i = 0; i < faces.length; i++) {
@@ -363,12 +364,8 @@
       }
       if (!found && faces.length) faces[0].classList.add('is-on');
       for (var j = 0; j < steps.length; j++) if (steps[j].getAttribute('data-state') === k) idx = j;
-      /* the apps passed and the one in front, as icons; a click goes back */
-      for (var c = 0; c < steps.length; c++) {
-        var key = steps[c].getAttribute('data-state');
-        chips[key].classList.toggle('is-on', c <= idx);
-        chips[key].classList.toggle('is-current', c === idx);
-      }
+      /* the apps already passed, as icons in the nav; a click goes back */
+      for (var c = 0; c < steps.length; c++) chips[steps[c].getAttribute('data-state')].classList.toggle('is-on', c < idx);
     }
     set(root.getAttribute('data-state') || (faces[0] && faces[0].getAttribute('data-key')));
     return { set: set };
