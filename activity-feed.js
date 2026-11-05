@@ -94,8 +94,8 @@
       : '<div class="feed-row__icon feed-row__glyph">\u270E</div>';
     var kicker = it.type === 'release'
       ? ''
-      : '<span class="feed-row__kicker feed-row__kicker--post">Post \u00b7 ' + esc(it.tag) + '</span>'
-        + (it.read ? '<span style="font-size:.7rem;color:var(--text-3)"> \u00b7 ' + esc(it.read) + '</span>' : '');
+      : '<span class="feed-row__kicker feed-row__kicker--post">' + esc(it.tag)
+        + (it.read ? ', ' + esc(it.read) + ' read' : '') + '</span>';
     return '<a class="feed-row" href="' + esc(it.href) + '">' +
       icon +
       '<div>' +
