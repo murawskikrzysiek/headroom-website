@@ -74,7 +74,7 @@
     <div class="tile-app__head">
       <a class="tile-app__iconlink" href="lyra/"><img class="tile-app__icon" src="lyra/icon.png" alt=""></a>
       <h2 id="tile-lyra-h"><a href="lyra/">Lyra</a> <span class="app-row__ver">1.9</span></h2>
-      <p class="tile-app__line">Monitor volume for Universal Audio Apollo and Volt Gen 2 interfaces, on the F-keys.</p>
+      <p class="tile-app__line">Monitor volume for Universal Audio Apollo and Volt Gen 2 interfaces on the F-keys, with Shortcuts, Spotlight, widgets, a Focus Filter and a <code>lyra://</code> URL scheme behind them.</p>
       <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="lyra/">Details</a><span class="tile-app__price">$9.99, macOS 12 and later</span></p>
     </div>
     <div class="tile-app__stage">
@@ -88,7 +88,7 @@
       <li><kbd>F10</kbd> mutes, <kbd>F11</kbd> and <kbd>F12</kbd> move the level, <kbd>⇧</kbd> halves the step. DIM and Mono on the same keys.</li>
       <li>Three Reference Levels on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, each recallable to a dB SPL measured with Audita.</li>
       <li>ALT speakers on Apollos with ALT outputs. An Apollo and a Volt side by side, one of them in control.</li>
-      <li>Thirteen App Intents, four widgets, a Focus Filter and the <code>lyra://</code> URL scheme. <strong>New in 1.9:</strong> Volt Gen 2 and ALT speakers.</li>
+      <li>Lyra can start UA Mixer Engine and UA Mixer Helper when the interface connects and quit them when it leaves, with a notification each way. Both opt in. <strong>New in 1.9:</strong> Volt Gen 2 and ALT speakers.</li>
     </ul>
   </section>
 
@@ -96,7 +96,7 @@
     <div class="tile-app__head">
       <a class="tile-app__iconlink" href="audita/"><img class="tile-app__icon" src="audita/icon.png" alt=""></a>
       <h2 id="tile-audita-h"><a href="audita/">Audita</a> <span class="app-row__ver">1.7</span></h2>
-      <p class="tile-app__line">The SPL at the listening position against a calibrated reference, and the day's hearing dose, from the menu bar.</p>
+      <p class="tile-app__line">Hearing health at the desk: the SPL at the listening position against a calibrated reference, and how much of the day's safe exposure the day has used, from the menu bar.</p>
       <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="audita/">Details</a><span class="tile-app__price">$19.99, macOS 14 and later</span></p>
     </div>
     <div class="tile-app__stage">
@@ -106,8 +106,8 @@
     <ul class="tile-app__facts">
       <li>A-weighted SPL ten times a second through a measurement microphone. A UMIK-1 reads at absolute level from its calibration file.</li>
       <li>Under, on or over the reference, the share of the session on target, and the Leq and Ln figures behind it.</li>
-      <li>Today's dose by the NIOSH method, with notifications at 40, 70 and 90 percent and alerts for drift and time off target.</li>
-      <li>Sessions start with your DAW or a Shortcut, stay in History as dials and leave as PDF reports. <strong>New in 1.7:</strong> the session dial.</li>
+      <li>Today's dose by the NIOSH method, notifications at 40, 70 and 90 percent, alerts for drift and time off target, and impulse peaks held against the EU action values at 135, 137 and 140 dBC.</li>
+      <li>Sessions start with your DAW or a Shortcut, stay in History as dials and leave as PDF reports. A calibrated level goes to Lyra as a reference slot. <strong>New in 1.7:</strong> the session dial.</li>
     </ul>
   </section>
 
@@ -115,7 +115,7 @@
     <div class="tile-app__head">
       <a class="tile-app__iconlink" href="specula/"><img class="tile-app__icon" src="specula/icon.png" alt=""></a>
       <h2 id="tile-specula-h"><a href="specula/">Specula</a> <span class="app-row__ver">2.0</span></h2>
-      <p class="tile-app__line">Audio inspection, analysis and editing, with delivery checks against the platform the file is going to.</p>
+      <p class="tile-app__line">Audio inspection, analysis and editing for macOS: loudness to ITU-R BS.1770-4 and speech-gated LUFS, spectral repair down to a squeak's overtones, compare, audiobook chapters, Audio Unit plugins, and the verdict against the platform the file is going to.</p>
       <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="specula/">Details</a><span class="tile-app__price">$99.99, macOS 14 and later</span></p>
     </div>
     <div class="tile-app__stage">
@@ -131,9 +131,9 @@
     </div>
     <ul class="tile-app__facts">
       <li>Every file judged against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check.</li>
-      <li>Seven tasks in one window: Inspect, Edit, Compare up to six versions, audiobook Chapters, Speech regions, Spectral repair and Record.</li>
-      <li>Check a Folder for a whole delivery at once, one row per file, with a report per file and a CSV.</li>
-      <li>A command-line tool for the same checks, and the BS.1770-4 meter behind the verdicts. <strong>New in 2.0:</strong> Deliver to, Check a Folder, the Apple Music encode check.</li>
+      <li>Spectral repair on the spectrogram with a brush, a wand or a lasso. Include harmonics takes the overtones with the fundamental, and Erase leaves the voice around them as it was.</li>
+      <li>Compare up to six versions level-matched, down to the residual. Audiobook chapters judged against ACX and levelled together. Speech regions with dialogue-gated loudness.</li>
+      <li>Editing with Audio Unit plugins, recording, Check a Folder for a whole delivery with a report per file, and a command-line tool for the same checks. <strong>New in 2.0:</strong> Deliver to, Check a Folder, the Apple Music encode check.</li>
     </ul>
   </section>
 </div>
@@ -147,19 +147,19 @@
       <a class="apps-summary__app" href="lyra/">
         <img src="lyra/icon.png" alt="">
         <h3>Lyra <span class="app-row__ver">1.9</span></h3>
-        <p>Monitor volume on Universal Audio Apollo and Volt, from the F-keys, with Reference Levels you can recall to a measured dB SPL.</p>
+        <p>Monitor volume on Universal Audio Apollo and Volt from the F-keys, Reference Levels recalled to a measured dB SPL, and the UA apps started and quit with the interface.</p>
         <p class="apps-summary__meta"><span class="app-row__price">$9.99</span><span>macOS 12 and later</span></p>
       </a>
       <a class="apps-summary__app" href="audita/">
         <img src="audita/icon.png" alt="">
         <h3>Audita <span class="app-row__ver">1.7</span></h3>
-        <p>The SPL at the listening position against a calibrated reference, and the day's hearing dose by the NIOSH method, from the menu bar.</p>
+        <p>Hearing health at the desk: the SPL at the listening position against a calibrated reference, and the day's hearing dose by the NIOSH method.</p>
         <p class="apps-summary__meta"><span class="app-row__price">$19.99</span><span>macOS 14 and later</span></p>
       </a>
       <a class="apps-summary__app" href="specula/">
         <img src="specula/icon.png" alt="">
         <h3>Specula <span class="app-row__ver">2.0</span></h3>
-        <p>Audio inspection, analysis and editing: loudness and true peak against the platform the file is going to, compare, chapters, speech, spectral repair and recording.</p>
+        <p>Audio inspection, analysis and editing: loudness and true peak against the platform the file is going to, spectral repair, six-version compare, audiobook chapters, speech, Audio Unit plugins and recording.</p>
         <p class="apps-summary__meta"><span class="app-row__price">$99.99</span><span>macOS 14 and later</span></p>
       </a>
     </div>
