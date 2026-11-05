@@ -353,6 +353,23 @@
       chips[k] = chip; row.appendChild(chip);
     })(steps[s]);
     if (brand) brand.parentNode.insertBefore(row, brand.nextSibling); else root.insertBefore(row, root.firstChild);
+    /* an icon joins the nav the moment the step's own icon is hidden under the bar */
+    var navTicking = false, navSettle = null;
+    function placeIcons() {
+      navTicking = false;
+      var edge = navBar ? navBar.getBoundingClientRect().bottom : 0;
+      for (var i = 0; i < steps.length; i++) {
+        var icon = steps[i].querySelector('.step__icon') || steps[i];
+        chips[steps[i].getAttribute('data-state')].classList.toggle('is-on', icon.getBoundingClientRect().bottom <= edge);
+      }
+    }
+    function onNavScroll() {
+      if (!navTicking) { navTicking = true; requestAnimationFrame(placeIcons); }
+      clearTimeout(navSettle); navSettle = setTimeout(placeIcons, 150);
+    }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    window.addEventListener('resize', onNavScroll);
+    placeIcons();
     function set(k) {
       var found = false, idx = -1;
       for (var i = 0; i < faces.length; i++) {
@@ -363,9 +380,6 @@
         else if (sl && sl.__stop) sl.__stop();
       }
       if (!found && faces.length) faces[0].classList.add('is-on');
-      for (var j = 0; j < steps.length; j++) if (steps[j].getAttribute('data-state') === k) idx = j;
-      /* the apps already passed, as icons in the nav; a click goes back */
-      for (var c = 0; c < steps.length; c++) chips[steps[c].getAttribute('data-state')].classList.toggle('is-on', c < idx);
     }
     set(root.getAttribute('data-state') || (faces[0] && faces[0].getAttribute('data-key')));
     return { set: set };
