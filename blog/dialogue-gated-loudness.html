@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Why Streaming TV Loudness Is Measured on the Dialogue - Headroom</title>
+  <title>Why streaming TV loudness is measured on the dialogue - Headroom</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/dialogue-gated-loudness.html">
   <meta name="description" content="Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.">
-  <meta property="og:title" content="Why streaming TV is measured on the dialogue, not the mix">
+  <meta property="og:title" content="Why streaming TV loudness is measured on the dialogue">
   <meta property="og:description" content="The streaming-TV loudness spec everyone quotes is dialogue-gated. Measure the full mix instead and the number can be off by more than 10 dB.">
   <meta property="og:image" content="https://headroomstudio.dev/specula/specula-targets-vod.png">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Why streaming TV is measured on the dialogue, not the mix">
+  <meta name="twitter:title" content="Why streaming TV loudness is measured on the dialogue">
   <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-targets-vod.png">
   <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -37,7 +37,7 @@
 <div class="container--read">
     <header class="article-header">
         <p class="article-eyebrow">Loudness</p>
-        <h1>Why streaming TV is measured on the dialogue, not the mix</h1>
+        <h1>Why streaming TV loudness is measured on the dialogue</h1>
         <p class="article-subtitle">Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.</p>
         <div class="article-meta">
             <span>Krzysiek, </span>
@@ -96,9 +96,9 @@
 
         <h2>Dialogue-gating isn't only a streaming thing</h2>
 
-        <p>It is worth noticing which rows in that table are dialogue-gated: all five VOD platforms, and the CALM Act over on the broadcast side. The CALM Act - the US law that stopped TV adverts being louder than the programmes around them - is itself dialogue-gated, at -24 LKFS. The streamers didn't invent the idea; they adopted it. The principle is the same one in every case: judge perceived loudness on the voice, because the voice is what a viewer's attention tracks. Once you have seen the integrated and dialogue-gated numbers drift several dB apart on the same file, it is obvious why the spec is written that way.</p>
+        <p>Note which rows in that table are dialogue-gated: all five VOD platforms, and the CALM Act over on the broadcast side. The CALM Act - the US law that stopped TV adverts being louder than the programmes around them - is itself dialogue-gated, at -24 LKFS. The streamers didn't invent the idea; they adopted it. The principle is the same one in every case: judge perceived loudness on the voice, because the voice is what a viewer's attention tracks. Once you have seen the integrated and dialogue-gated numbers drift several dB apart on the same file, it is obvious why the spec is written that way.</p>
 
-        <p>The loudness math underneath all of it is ITU-R BS.1770-4: K-weighting, dual gating, 4x oversampled true-peak detection, validated against the EBU R128 test set. The dialogue gate is that same algorithm, run only over the blocks the detector marked as speech. Same standard, narrower window - which is precisely what the delivery spec asked for.</p>
+        <p>The loudness math underneath all of it is ITU-R BS.1770-4: K-weighting, dual gating, 4x oversampled true-peak detection, validated against the EBU R128 test set. The dialogue gate is that same algorithm, run only over the blocks the detector marked as speech, which is what the delivery spec describes.</p>
 
         <div class="kicker">
             <p>The Loudness Targets panel ships in <a href="../specula/">Specula</a>, a desktop audio analyser for macOS. The <a href="../specula/compliance.html">compliance guide</a> lists all 22 targets it checks.</p>
@@ -107,8 +107,8 @@
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="acx-noise-floor.html"><span>The noise floor problem - why audiobooks get rejected on the quiet parts</span></a></li>
-                <li><a href="per-chapter-loudness.html"><span>The one loud chapter - per-chapter loudness for audiobook delivery</span></a></li>
+                <li><a href="acx-noise-floor.html"><span>Measuring the ACX noise floor</span></a></li>
+                <li><a href="per-chapter-loudness.html"><span>Per-chapter loudness for audiobook delivery</span></a></li>
             </ul>
         </div>
     </article>
@@ -123,7 +123,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe &#8594;</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">

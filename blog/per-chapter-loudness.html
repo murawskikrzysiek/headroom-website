@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Per-Chapter Loudness for Audiobook Delivery - Headroom</title>
+  <title>Per-chapter loudness for audiobook delivery - Headroom</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/per-chapter-loudness.html">
   <meta name="description" content="An audiobook can pass on the whole-file loudness number and still fail chapter by chapter. Per-chapter RMS, deviation from the book's own median, and the three ACX gates - measured before you upload.">
-  <meta property="og:title" content="The one loud chapter - per-chapter loudness for audiobook delivery">
-  <meta property="og:description" content="An audiobook can read fine on the whole-file number and fail chapter by chapter. Measure every chapter against the book's own centre, before the distributor does.">
+  <meta property="og:title" content="Per-chapter loudness for audiobook delivery">
+  <meta property="og:description" content="An audiobook can read fine on the whole-file number and fail chapter by chapter. Chapter mode measures every chapter against the book's own median and the three ACX gates before upload.">
   <meta property="og:image" content="https://headroomstudio.dev/specula/specula-chapters.png">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The one loud chapter - per-chapter loudness for audiobook delivery">
+  <meta name="twitter:title" content="Per-chapter loudness for audiobook delivery">
   <meta name="twitter:image" content="https://headroomstudio.dev/specula/specula-chapters.png">
   <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -37,8 +37,8 @@
 <div class="container--read">
     <header class="article-header">
         <p class="article-eyebrow">Audiobook</p>
-        <h1>The one loud chapter - per-chapter loudness for audiobook delivery</h1>
-        <p class="article-subtitle">An audiobook can read fine on the whole-file number and fail chapter by chapter. The fix is to measure every chapter against the book's own centre, before the distributor does it for you.</p>
+        <h1>Per-chapter loudness for audiobook delivery</h1>
+        <p class="article-subtitle">An audiobook can read fine on the whole-file number and fail chapter by chapter. Chapter mode measures every chapter against the book's own median and the three ACX gates before upload.</p>
         <div class="article-meta">
             <span>Krzysiek, </span>
             <span>26 June 2026, </span>
@@ -110,19 +110,19 @@
 
         <h2>Where it sits next to the ACX preset</h2>
 
-        <p>Chapter mode is the per-chapter half of audiobook QC. The other half is the per-file verdict: Specula's Loudness Targets panel carries an ACX preset (-20.5 dB RMS ±2.5, peak at or below -3 dBTP, plus the speech-gated noise floor) that judges the file as a whole. The preset tells you the book is in spec; Chapter mode tells you which chapter isn't. A submission can pass the first and fail the second, which is exactly the case worth catching before upload.</p>
+        <p>Chapter mode is the per-chapter half of audiobook QC. The other half is the per-file verdict: Specula's Loudness Targets panel carries an ACX preset (-20.5 dB RMS ±2.5, peak at or below -3 dBTP, plus the speech-gated noise floor) that judges the file as a whole. The preset tells you the book is in spec; Chapter mode tells you which chapter isn't. A submission can pass the first and fail the second, which is the case to catch before upload.</p>
 
         <p>That noise-floor gate is its own measurement - it reads the room tone in the gaps between phrases, and it is the gate that catches narrators out, because you can't hear it while you record. <a href="acx-noise-floor.html">That's the next post.</a></p>
 
         <div class="kicker">
-            <p>Chapter mode is part of <a href="../specula/">Specula</a> 1.0. $99.99, one-time purchase; requires macOS 14 (Sonoma) or later.</p>
+            <p>Chapter mode is part of <a href="../specula/">Specula</a>. $99.99 one time, 7-day trial, macOS 14 or later.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="acx-noise-floor.html"><span>The noise floor problem - why audiobooks get rejected on the quiet parts</span></a></li>
-                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV is measured on the dialogue, not the mix</span></a></li>
+                <li><a href="acx-noise-floor.html"><span>Measuring the ACX noise floor</span></a></li>
+                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV loudness is measured on the dialogue</span></a></li>
             </ul>
         </div>
     </article>
@@ -137,7 +137,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe &#8594;</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
