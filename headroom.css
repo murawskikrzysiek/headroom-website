@@ -193,6 +193,21 @@ code {
           mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 75%, transparent 100%); }
 .waveform canvas { width: 100%; height: 100%; display: block; }
 
+/* ── 7b. Homepage hero ───────────────────────────────────────────────────── */
+/* Logo, one line, one picture. No glows, no waveform band, no badges: the
+   picture is the product. The figure clips the window still at a fixed
+   height so the fold shows the top of the app, not a thumbnail of all of it. */
+.home-hero { padding: 72px 0 40px; max-width: 760px; }
+.home-hero__title { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; line-height: 1.06;
+  letter-spacing: -0.028em; }
+.home-hero__apps { margin-top: 22px; display: flex; flex-direction: column; gap: 6px; }
+.home-hero__apps a { display: block; font-size: 1.05rem; line-height: 1.55; color: var(--text-2); }
+.home-hero__apps a:hover { color: var(--text); }
+.home-hero__apps strong { color: var(--text); font-weight: 650; }
+.home-hero__shot { margin: 0; max-height: clamp(240px, 44vw, 580px); overflow: hidden;
+  border: 1px solid var(--border); border-radius: 14px; background: var(--bg-card); }
+.home-hero__shot img { width: 100%; height: auto; }
+
 /* ── 8. App list rows (homepage) ─────────────────────────────────────────── */
 .apps-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
 .apps-list { display: flex; flex-direction: column; gap: 12px; }
@@ -711,6 +726,9 @@ kbd { display: inline-block; background: rgba(255,255,255,0.07); border: 1px sol
   .container, .container--docs, .container--read { padding: 0 20px; }
   .app-hero { grid-template-columns: 1fr; gap: 20px; }
   .app-hero h1 { font-size: 2.6rem; }
+  .home-hero { padding: 48px 0 28px; }
+  .home-hero__apps a { font-size: 0.98rem; }
+  .home-hero__shot { border-radius: 10px; }
   .app-row { grid-template-columns: 48px 1fr; gap: 14px; }
   .app-row__badges, .app-row__buy { grid-column: 2; justify-content: flex-start; margin-top: 4px; }
   .feed-row { grid-template-columns: 36px 1fr; }
