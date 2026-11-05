@@ -324,9 +324,29 @@ code {
 /* Homepage: one step per app beside a pinned stage that shows that app's
    face: Lyra's HUD, Audita's pinned window, Specula's delivery card. */
 .pin--compact .pin__leq, .pin--compact .pin__session { display: none; }
-.faces { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.faces { width: min(360px, 100%); display: flex; flex-direction: column; align-items: stretch; }
 .face { display: none; flex-direction: column; align-items: center; gap: 14px; width: 100%; }
 .face.is-on { display: flex; animation: notifIn 0.3s ease-out; }
+.face .hud { width: 100%; justify-content: space-between; }
+.face .hud__name { min-width: 0; }
+.face .pin { width: 100%; }
+/* the apps already scrolled past, as chips over the face; a click goes back */
+.faces__row { display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; min-height: 36px; }
+.faces__row.is-on { display: flex; }
+.faces__chip { display: none; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border-hover); background: var(--bg-card); color: var(--text-2); font: inherit; font-size: 0.85rem; }
+.faces__chip.is-on { display: inline-flex; animation: notifIn 0.25s ease-out; }
+.faces__chip:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+.faces__chip img { width: 24px; height: 24px; border-radius: 7px; }
+/* the spectrogram */
+.spec { width: 100%; }
+.spec canvas { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--border); background: #0e0e12; }
+.spec-read { font-size: 0.86rem; color: var(--text-3); line-height: 1.5; margin-top: 10px; min-height: 2.6em; }
+.spec-read strong { color: var(--text-2); font-weight: 600; }
+/* room for each face: the steps are taller here than on the app pages */
+.scrolly[data-instrument="faces"] .step { min-height: 78vh; }
+.scrolly[data-instrument="faces"] .step:first-child { padding-bottom: 42vh; }
+.scrolly[data-instrument="faces"] .scrolly__steps { padding-bottom: 30vh; }
 .step--app { max-width: 460px; }
 .step__icon { width: 64px; height: 64px; border-radius: 15px; margin-bottom: 14px; }
 .step--app h3 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 10px; }
@@ -368,7 +388,9 @@ code {
   .scrolly .pin__ref { padding: 8px 0; }
   .scrolly .pin__dial { max-height: 150px; }
   .scrolly .scrolly__stage { padding: 10px 0 10px; }
-  .face .inst-row__shot { width: min(220px, 100%); }
+  .scrolly[data-instrument="faces"] .step { min-height: 54vh; }
+  .scrolly[data-instrument="faces"] .step:first-child { padding-bottom: 20vh; }
+  .scrolly[data-instrument="faces"] .scrolly__steps { padding-bottom: 12vh; }
   .inst-row { grid-template-columns: 1fr; gap: 36px; }
 }
 

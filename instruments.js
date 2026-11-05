@@ -306,13 +306,148 @@
     return { set: set };
   }
 
+  /* ── Specula: a spectrogram with a squeak, selected and erased ─────────── */
+  /* Synthetic on purpose: a voice-like spectrogram (a wandering fundamental
+     with its harmonics over noise) and a chair squeak, a thin line near
+     900 Hz with six overtones. Shown: the squeak outlined the way Include
+     harmonics outlines it, then erased, the voice around it untouched. */
+  function buildSpec(root) {
+    var W = 720, H = 450, FMIN = 60, FMAX = 8000;
+    var canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H; canvas.setAttribute('aria-hidden', 'true');
+    root.insertBefore(canvas, root.firstChild);
+    var read = root.querySelector('.spec-read');
+    var ctx = canvas.getContext('2d');
+    var seed = 11; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    var G = 64, grid = []; for (var g = 0; g < G * G; g++) grid.push(rnd());
+    function noise(x, y) { /* value noise on a 64x64 grid, bilinear */
+      var gx = x * 0.03, gy = y * 0.06, x0 = Math.floor(gx), y0 = Math.floor(gy), fx = gx - x0, fy = gy - y0;
+      function v(i, j) { return grid[((j % G) + G) % G * G + ((i % G) + G) % G]; }
+      var a = v(x0, y0), b = v(x0 + 1, y0), c = v(x0, y0 + 1), d = v(x0 + 1, y0 + 1);
+      fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
+      return (a + (b - a) * fx) + ((c + (d - c) * fx) - (a + (b - a) * fx)) * fy;
+    }
+    function rowOf(f) { return H * Math.log(FMAX / f) / Math.log(FMAX / FMIN); }
+    /* the voice: f0 wanders 110 to 190 Hz in phrases, with silences */
+    var base = new Float32Array(W * H), squeak = new Float32Array(W * H);
+    for (var x = 0; x < W; x++) {
+      var phrase = 0.5 + 0.5 * Math.sin(x * 0.02) * Math.sin(x * 0.0071 + 1.3);
+      var env = Math.max(0, phrase - 0.18) * 1.3; if (env > 1) env = 1;
+      var f0 = 140 + 40 * Math.sin(x * 0.013) + 15 * Math.sin(x * 0.047);
+      for (var y = 0; y < H; y++) {
+        var f = FMAX * Math.pow(FMIN / FMAX, y / H);
+        var n = noise(x, y);
+        var a = 0.10 + 0.18 * n * n;
+        if (env > 0.02) {
+          var k = Math.round(f / f0); if (k < 1) k = 1;
+          var df = Math.abs(f - k * f0) / f0;
+          var harm = Math.exp(-df * df * 18) * Math.pow(0.86, k - 1);
+          var formant = 0.35 + 0.65 * (Math.exp(-Math.pow((f - 520) / 180, 2)) + 0.8 * Math.exp(-Math.pow((f - 1500) / 350, 2)) + 0.5 * Math.exp(-Math.pow((f - 2700) / 500, 2)));
+          a += env * harm * formant * (0.55 + 0.45 * n);
+          a += env * 0.06 * n * Math.exp(-f / 4000);
+        }
+        base[y * W + x] = a > 1 ? 1 : a;
+      }
+    }
+    var SQ0 = Math.round(W * 0.32), SQ1 = Math.round(W * 0.68), NH = 7;
+    function sqFreq(x) { return 920 + 35 * Math.sin((x - SQ0) * 0.035) + 12 * Math.sin((x - SQ0) * 0.11); }
+    for (var sx = SQ0; sx < SQ1; sx++) {
+      var fade = Math.min(1, (sx - SQ0) / 18, (SQ1 - sx) / 18);
+      for (var h = 1; h <= NH; h++) {
+        var r = rowOf(sqFreq(sx) * h), amp = (h === 1 ? 0.95 : 0.7 / Math.sqrt(h)) * fade;
+        for (var dy = -3; dy <= 3; dy++) {
+          var yy = Math.round(r) + dy; if (yy < 0 || yy >= H) continue;
+          var w = Math.exp(-dy * dy / 1.4);
+          var i = yy * W + sx; if (amp * w > squeak[i]) squeak[i] = amp * w;
+        }
+      }
+    }
+    /* magma-like ramp, as the app's spectrogram */
+    var stops = [[0, 8, 5, 18], [0.28, 62, 14, 96], [0.55, 182, 52, 86], [0.8, 244, 138, 42], [1, 252, 236, 128]];
+    var lut = new Uint8ClampedArray(256 * 3);
+    for (var t = 0; t < 256; t++) {
+      var p = t / 255, s0 = stops[0], s1 = stops[1];
+      for (var si = 1; si < stops.length; si++) { if (p <= stops[si][0]) { s0 = stops[si - 1]; s1 = stops[si]; break; } s0 = stops[si - 1]; s1 = stops[si]; }
+      var u = (p - s0[0]) / (s1[0] - s0[0] || 1);
+      lut[t * 3] = s0[1] + (s1[1] - s0[1]) * u; lut[t * 3 + 1] = s0[2] + (s1[2] - s0[2]) * u; lut[t * 3 + 2] = s0[3] + (s1[3] - s0[3]) * u;
+    }
+    var img = ctx.createImageData(W, H), px = img.data;
+    function paint(sqAlpha, outline) {
+      for (var i = 0, j = 0; i < W * H; i++, j += 4) {
+        var v = base[i] + squeak[i] * sqAlpha; if (v > 1) v = 1;
+        var c = (v * 255) | 0;
+        px[j] = lut[c * 3]; px[j + 1] = lut[c * 3 + 1]; px[j + 2] = lut[c * 3 + 2]; px[j + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      if (outline > 0) {
+        ctx.save(); ctx.globalAlpha = outline; ctx.lineJoin = 'round';
+        for (var h = 1; h <= NH; h++) {
+          ctx.beginPath();
+          for (var x = SQ0; x <= SQ1; x += 4) ctx.lineTo(x, rowOf(sqFreq(x) * h) - 6);
+          for (var x2 = SQ1; x2 >= SQ0; x2 -= 4) ctx.lineTo(x2, rowOf(sqFreq(x2) * h) + 6);
+          ctx.closePath();
+          ctx.strokeStyle = h === 1 ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.7)';
+          ctx.lineWidth = h === 1 ? 2.5 : 1.5; ctx.setLineDash(h === 1 ? [] : [6, 5]); ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
+    var texts = {
+      before: '<strong>Spectral.</strong> A chair squeak under the voice, with its overtones.',
+      selected: '<strong>Include harmonics.</strong> The squeak and six overtones in one selection.',
+      after: '<strong>Erase.</strong> The squeak gone, the voice around it unchanged.'
+    };
+    function say(k) { if (read) read.innerHTML = texts[k]; }
+    var raf = null;
+    function play() {
+      if (raf) cancelAnimationFrame(raf);
+      if (reduce) { paint(0, 0); say('after'); return; }
+      var t0 = null;
+      function tick(ts) {
+        if (!t0) t0 = ts;
+        var t = (ts - t0) / 1000;
+        if (t < 0.9) { paint(1, 0); say('before'); }
+        else if (t < 2.2) { paint(1, Math.min(1, (t - 0.9) / 0.4)); say('selected'); }
+        else if (t < 3.2) { var p = (t - 2.2) / 1.0; paint(1 - p, 1 - p); say('after'); }
+        else { paint(0, 0); say('after'); raf = null; return; }
+        raf = requestAnimationFrame(tick);
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    paint(1, 0); say('before');
+    root.__play = play;
+    return { set: function () { play(); }, play: play };
+  }
+
   /* ── Homepage: one face per app ───────────────────────────────────────── */
   function buildFaces(root) {
     var faces = root.querySelectorAll('.face[data-key]');
+    var section = root.closest ? root.closest('.scrolly') : null;
+    var steps = section ? section.querySelectorAll('.step[data-state]') : [];
+    /* the apps already scrolled past form a row of chips over the face */
+    var row = document.createElement('div'); row.className = 'faces__row';
+    var chips = {};
+    for (var s = 0; s < steps.length; s++) (function (step) {
+      var k = step.getAttribute('data-state'), icon = step.querySelector('.step__icon'), h = step.querySelector('h3');
+      var chip = document.createElement('button'); chip.type = 'button'; chip.className = 'faces__chip';
+      chip.innerHTML = (icon ? '<img src="' + icon.getAttribute('src') + '" alt="">' : '') + '<span>' + (h ? h.firstChild.textContent.trim() : k) + '</span>';
+      chip.addEventListener('click', function () {
+        var line = root.getBoundingClientRect().top + 60;
+        window.scrollBy({ top: step.getBoundingClientRect().top - line + 8, behavior: reduce ? 'auto' : 'smooth' });
+      });
+      chips[k] = chip; row.appendChild(chip);
+    })(steps[s]);
+    root.insertBefore(row, root.firstChild);
     function set(k) {
-      var found = false;
-      for (var i = 0; i < faces.length; i++) { var on = faces[i].getAttribute('data-key') === k; faces[i].classList.toggle('is-on', on); if (on) found = true; }
+      var found = false, idx = -1;
+      for (var i = 0; i < faces.length; i++) {
+        var on = faces[i].getAttribute('data-key') === k;
+        faces[i].classList.toggle('is-on', on);
+        if (on) { found = true; var sp = faces[i].querySelector('[data-spec]'); if (sp && sp.__play) sp.__play(); }
+      }
       if (!found && faces.length) faces[0].classList.add('is-on');
+      for (var j = 0; j < steps.length; j++) if (steps[j].getAttribute('data-state') === k) idx = j;
+      for (var c = 0; c < steps.length; c++) { var key = steps[c].getAttribute('data-state'); chips[key].classList.toggle('is-on', c < idx); }
+      row.classList.toggle('is-on', idx > 0);
     }
     set(root.getAttribute('data-state') || (faces[0] && faces[0].getAttribute('data-key')));
     return { set: set };
@@ -346,11 +481,12 @@
   }
 
   function init() {
-    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]'), facesList = document.querySelectorAll('[data-faces]');
-    instruments.hud = []; instruments.pin = []; instruments.walk = []; instruments.faces = [];
+    var huds = document.querySelectorAll('[data-hud]'), pins = document.querySelectorAll('[data-pin]'), walks = document.querySelectorAll('[data-walk]'), facesList = document.querySelectorAll('[data-faces]'), specs = document.querySelectorAll('[data-spec]');
+    instruments.hud = []; instruments.pin = []; instruments.walk = []; instruments.faces = []; instruments.spec = [];
     for (var i = 0; i < huds.length; i++) instruments.hud.push(buildHUD(huds[i]));
     for (var j = 0; j < pins.length; j++) instruments.pin.push(buildPin(pins[j]));
     for (var w = 0; w < walks.length; w++) instruments.walk.push(buildWalk(walks[w]));
+    for (var sp = 0; sp < specs.length; sp++) instruments.spec.push(buildSpec(specs[sp]));
     for (var f = 0; f < facesList.length; f++) instruments.faces.push(buildFaces(facesList[f]));
     var sections = document.querySelectorAll('.scrolly[data-instrument]');
     for (var k = 0; k < sections.length; k++) {
