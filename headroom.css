@@ -212,7 +212,14 @@ code {
 .apps-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
 .apps-list { display: flex; flex-direction: column; gap: 12px; }
 
-.app-row { display: grid; grid-template-columns: 64px 1fr 210px auto; gap: 22px; align-items: center;
+/* "Latest": the newest release per app as plain lines, no card, no tag. */
+.latest { margin-bottom: 44px; }
+.latest__list { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; }
+.latest__list a { display: block; font-size: 0.95rem; line-height: 1.55; color: var(--text-2); }
+.latest__list a:hover { color: var(--text); }
+.latest__list strong { color: var(--text); font-weight: 650; }
+
+.app-row { display: grid; grid-template-columns: 64px 1fr auto; gap: 22px; align-items: center;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   transition: background var(--t-fast), border-color var(--t-fast); position: relative; overflow: hidden; }
@@ -223,6 +230,8 @@ code {
 .app-row__icon { width: 56px; height: 56px; border-radius: 13px; }
 .app-row__name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .app-row__name h3 { font-size: 1.05rem; font-weight: 650; letter-spacing: -0.015em; color: var(--text); }
+.app-row__ver { font-size: 0.8rem; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.app-row__ver:hover { color: var(--accent); }
 .app-row__desc { font-size: 0.88rem; color: var(--text-2); margin-top: 5px; line-height: 1.5; }
 .app-row__badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
 .app-row__buy { display: flex; align-items: center; gap: 14px; }

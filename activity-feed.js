@@ -25,13 +25,6 @@
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   function fmtDate(d) { return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
-  function ago(d) {
-    var days = Math.round((Date.now() - d.getTime()) / 86400000);
-    if (days < 1) return 'today';
-    if (days < 30) return days + 'd';
-    if (days < 365) return Math.round(days / 30) + 'mo';
-    return Math.round(days / 365) + 'y';
-  }
   function esc(s) { var n = document.createElement('div'); n.textContent = s == null ? '' : s; return n.innerHTML; }
   function strip(html) { var n = document.createElement('div'); n.innerHTML = html || ''; return (n.textContent || '').replace(/\s+/g, ' ').trim(); }
   function truncate(s, n) { return s.length > n ? s.slice(0, n - 1).trim() + '\u2026' : s; }
@@ -100,18 +93,17 @@
       ? '<img class="feed-row__icon" src="/' + it.app + '/icon.png" alt="">'
       : '<div class="feed-row__icon feed-row__glyph">\u270E</div>';
     var kicker = it.type === 'release'
-      ? '<span class="feed-row__kicker feed-row__kicker--release">Released \u00b7 ' + esc(it.title) + '</span>'
+      ? ''
       : '<span class="feed-row__kicker feed-row__kicker--post">Post \u00b7 ' + esc(it.tag) + '</span>'
         + (it.read ? '<span style="font-size:.7rem;color:var(--text-3)"> \u00b7 ' + esc(it.read) + '</span>' : '');
     return '<a class="feed-row" href="' + esc(it.href) + '">' +
       icon +
       '<div>' +
-        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' + kicker + '</div>' +
+        (kicker ? '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' + kicker + '</div>' : '') +
         '<p class="feed-row__title">' + esc(it.title) + '</p>' +
         '<p class="feed-row__summary">' + esc(it.summary) + '</p>' +
-        '<p class="feed-row__cta">' + (it.type === 'release' ? 'Read release notes \u2192' : 'Read post \u2192') + '</p>' +
       '</div>' +
-      '<div class="feed-row__meta"><span class="feed-row__ago">' + ago(it.date) + '</span>' +
+      '<div class="feed-row__meta">' +
         '<p class="feed-row__date">' + fmtDate(it.date) + '</p></div>' +
       '</a>';
   }
