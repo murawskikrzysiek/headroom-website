@@ -34,7 +34,6 @@
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -55,16 +54,15 @@
     <header class="doc-header">
     <p class="eyebrow">Blog</p>
     <h1 class="display" style="font-size: 3.6rem;">Notes from the studio.</h1>
-    <p class="doc-header__lead">Monitoring discipline, hearing health, and the macOS tools that quietly make studio work easier. New posts irregularly, when there's something worth saying. <a href="/blog/feed.xml" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">RSS →</a></p>
+    <p class="doc-header__lead">Monitoring discipline, hearing health, and the macOS tools that quietly make studio work easier. New posts irregularly, when there's something worth saying. <a href="/blog/feed.xml" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">RSS</a></p>
   </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container" style="padding-top: 32px;">
   <!-- Featured -->
   <section style="padding-bottom: 24px;">
-    <p class="label" style="margin-bottom: 22px;">Latest</p>
+    <h2 class="label" style="margin-bottom: 22px;">Latest</h2>
     <a href="switching-speakers-at-level.html" class="feat"
        data-post data-title="Switching speakers at a calibrated level"
        data-date="2026-10-21" data-tag="Workflow" data-read="4 min"
@@ -75,7 +73,7 @@
           <h2 class="feat__title">Switching speakers at a calibrated level</h2>
           <p class="feat__excerpt">The same monitor position can play two pairs of speakers several dB apart, and the louder pair wins the comparison. Calibrate each pair on its own with Audita, and Lyra 1.9 switches speakers and level in one key, now on Volt interfaces as well.</p>
         </div>
-        <div class="feat__meta"><span>21 October 2026</span><span class="dot"></span><span>K. Murawski</span></div>
+        <div class="feat__meta"><span>21 October 2026, </span><span>K. Murawski</span></div>
       </div>
       <div class="feat__art">
         <div class="feat__terminal">
@@ -256,12 +254,12 @@
         <p class="eyebrow">Newsletter</p>
         <h3 class="display">Get new posts in your inbox.</h3>
         <p>One short note per post. Unsubscribe in one click.</p>
-        <p style="margin-top: 8px;">Or follow along: <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> · <a href="https://x.com/Murawski_K">X</a>.</p>
+        <p style="margin-top: 8px;">Or follow along: <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> or <a href="https://x.com/Murawski_K">X</a>.</p>
       </div>
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe →</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -285,7 +283,6 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../newsletter.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>

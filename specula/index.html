@@ -41,7 +41,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -68,246 +67,63 @@
             <p class="app-hero__desc">
                 Audio analysis and repair for macOS. Specula judges a file against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the verdict in a sentence and the fix that would change it. Seven tasks cover the rest of the work: inspect the file, edit it, compare up to six versions down to the residual, check audiobook chapters, correct speech regions, repair in the spectrogram with a squeak's overtones included, and record.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">EBU R128</span>
-                <span class="badge">ITU-R BS.1770-4</span>
-                <span class="badge">Speech-gated LUFS</span>
-                <span class="badge">ACX chapters</span>
-                <span class="badge">Six-version compare</span>
-                <span class="badge">Spectral repair</span>
-                <span class="badge badge--accent">Include harmonics</span>
-                <span class="badge">Check a Folder</span>
-                <span class="badge">Audio Unit plugins</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.dmg"><span>↓</span>Download free trial</a>
                 <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/f8ee8e8b-ea3a-4dca-bf7c-b90c30c96ade?embed=1">Buy $99.99</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · free update for every 1.x license · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, free update for every 1.x license, macOS 14 and later</p>
             <div class="app-hero__doclinks">
-                <a href="guide.html" class="primary">Read the user guide →</a>
-                <a href="releases.html">Release notes →</a>
+                <a href="guide.html" class="primary">User guide</a>
+                <a href="faq.html">FAQ</a>
+                <a href="releases.html">Release notes</a>
             </div>
         </div>
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
     <!-- Hero shot -->
     <section class="shots shots--tight">
-        <figure class="shot">
-            <picture><source srcset="specula-inspect.webp" type="image/webp"><img src="specula-inspect.png" width="3200" height="2000" alt="Specula's window in the Inspect task on a song: the sidebar with the file, Deliver to Spotify and the delivery card's verdict and fixes; the waveform, the loudness view with Spotify's target as a dashed line, and the spectrogram." decoding="async" fetchpriority="high"></picture>
-            <figcaption><strong>Inspect, delivering to Spotify.</strong> The whole file's verdict and fixes in the sidebar, over the waveform, the loudness with the target's line, and the spectrogram.</figcaption>
-        </figure>
-    </section>
-
-    <!-- Stat band -->
-    <div class="statband">
-        <div class="stat"><p class="stat__n">22</p><p class="stat__l">delivery targets in five categories, from streaming to broadcast</p></div>
-        <div class="stat"><p class="stat__n">6</p><p class="stat__l">versions compared at once, level-matched and sample-aligned</p></div>
-        <div class="stat"><p class="stat__n">4<em>×</em></p><p class="stat__l">oversampled true peak, judged against each target's ceiling</p></div>
-        <div class="stat"><p class="stat__n">−60 <em>dB</em></p><p class="stat__l">ACX's noise floor, checked on the room before the take</p></div>
-    </div>
-
-    <!-- Deliver to -->
-    <section class="section section--bordered" id="deliver-to">
-        <div class="section__grid">
-            <p class="label">Deliver to</p>
-            <div style="max-width: 640px;">
-                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    Every file is judged against where it is going, in a sentence, with the fix that would change it.
-                </p>
-                <p class="prose-lead" style="margin-top: 22px;">Monitors won't flag what delivery QC will: integrated loudness half a dB over Spotify's target, a dialogue mix four LU under Netflix's speech-gated level, one channel with its polarity flipped that nobody caught on headphones. Those numbers are already in the file.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Deliver to</strong> names where the file is going, Music streaming, Podcast, Audiobook, Film and TV or Broadcast, and the targets checked there, one of them primary. The delivery card under it gives the primary target's verdict as a sentence, such as "Spotify turns this down by 5.0 dB." or "Apple Podcasts plays this as recorded, 8.7 dB under its −16 LKFS reference.", with the reading in the target's own terms: integrated loudness, dialogue loudness, or ACX's RMS and noise floor. The card judges the whole file as soon as it has loaded.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Fixes in words.</strong> The primary target's fixes are buttons that say what they do, such as Limit peaks to −1.0 dBTP, Normalize to −14 LUFS and Hear at Spotify's level, offered only where they change something. Every other checked target keeps its fixes in a Fix menu.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>Two checks for streaming.</strong> Under Music streaming the card also says whether a stereo master folds to mono, such as "Mono-compatible. Correlation +0.62 over the file.", and what Apple Music's AAC encode does to it: the true peak and the samples over full scale after the encode, with Limit peaks set to leave room for it.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>ACX in its own words.</strong> A volume between −23 and −18 dB RMS, peaks less than −3 dB and a noise floor less than −60 dB RMS: a reading exactly on a limit fails, as ACX states it, and Limit peaks for ACX aims at −3.1 dBTP.</p>
-
-                <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
-                    <div class="std-row"><span class="std-row__tag">Music streaming</span><span class="std-row__desc">Spotify · Apple Music · YouTube · Tidal · Amazon Music · Deezer · SoundCloud · AES TD1008</span></div>
-                    <div class="std-row"><span class="std-row__tag">Podcast</span><span class="std-row__desc">Apple Podcasts · Spotify (Podcast) · ACX</span></div>
-                    <div class="std-row"><span class="std-row__tag">Audiobook</span><span class="std-row__desc">ACX leading, with Apple Podcasts and Spotify (Podcast)</span></div>
-                    <div class="std-row"><span class="std-row__tag">Film and TV</span><span class="std-row__desc">Netflix · Prime Video · Apple TV+ · Disney+ · Max, dialogue-gated at −27 LKFS</span></div>
-                    <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128 · R128 live · R128 S1 short-form · ATSC A/85 · ARIB TR-B32 · OP-59</span></div>
-                </div>
-                <p class="prose-lead" style="margin-top: 18px;">A spec of your own joins its category as a custom target: a reference level, a tolerance, a true-peak ceiling, and integrated, dialogue-gated or RMS measurement. Every target's reference, tolerance and ceiling is listed in the <a href="guide.html#deliver-to">user guide</a>.</p>
-
-                <div class="vdemo" data-vdemo>
-                    <p class="vdemo__title">The delivery card for three sample files</p>
-                    <div class="vdemo__controls" data-vdemo-controls hidden></div>
-                    <div class="vdemo__card" data-vdemo-card aria-live="polite">
-                        <!-- verdict-demo:card -->
-                        <div class="vcard">
-                            <p class="vcard__chip">Deliver to Spotify · Music streaming</p>
-                            <div class="vcard__head">
-                                <p class="vcard__target">Spotify</p>
-                                <p class="vcard__ref">-14 LUFS · ≤ -1 dBTP</p>
-                            </div>
-                            <p class="vcard__verdict tone--warning">Spotify turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling.</p>
-                            <div class="vcard__readings">
-                                <p class="vcard__reading"><span class="vcard__rlabel">Integrated</span><span class="vcard__rvalue tone--warning">-8.7</span><span class="vcard__runit">LUFS</span></p>
-                                <p class="vcard__reading"><span class="vcard__rlabel">True peak</span><span class="vcard__rvalue tone--warning">0.4</span><span class="vcard__runit">dBTP</span></p>
-                            </div>
-                            <div class="vcard__fixes"><span class="vcard__fix">Limit peaks to -1.0 dBTP</span><span class="vcard__fix">Normalize to -14 LUFS</span><span class="vcard__fix">Hear at Spotify&#x27;s level</span></div>
-                            <p class="vcard__also-label">Also checked</p>
-                            <ul class="vcard__also">
-                                <li title="Apple Music turns this down by 7.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Apple Music</span><span class="vcard__also-short tone--warning">-7.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-                                <li title="YouTube turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">YouTube</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-                                <li title="Tidal turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Tidal</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
-                            </ul>
-                        </div>
-                        <!-- /verdict-demo:card -->
-                    </div>
-                    <p class="vdemo__note">The readings are typed in for the demo. The sentences and the fixes are the app's, made by its own code.</p>
-                </div>
-            </div>
-        </div>
-        <div class="shots-grid shots-grid--2" style="margin-top: 28px;">
-            <figure class="shot">
-                <picture><source srcset="specula-deliver-to.webp" type="image/webp"><img src="specula-deliver-to.png" width="1520" height="880" alt="The Deliver to picker: the five delivery categories on the left, the chosen category's targets on the right with a checkbox each and the primary target marked." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Deliver to.</strong> Five categories, their targets, and the one the verdict leads with.</figcaption>
+        <!-- The workflows, in the app's own captures: one frame, pinned, and a
+             step per capture. Where the before and the after both exist, two
+             steps. instruments.js swaps the capture the step names. -->
+        <section class="scrolly scrolly--wide" data-instrument="walk" aria-label="Specula's workflows, capture by capture">
+          <div class="scrolly__stage">
+            <figure class="walk">
+              <div class="walk__frame" data-walk data-state="inspect">
+                <img data-key="inspect" src="specula-inspect.webp" alt="Specula's window in the Inspect task on a song: the Spotify delivery card with its verdict and fixes in the sidebar, the waveform, the loudness view with Spotify's target as a dashed line, and the spectrogram." decoding="async" fetchpriority="high">
+                <img data-key="repair-before" src="specula-harmonics-before.webp" alt="The squeak under the interview selected on its lowest line, with its overtones outlined above it by Include harmonics, before Apply." loading="lazy">
+                <img data-key="repair-after" src="specula-harmonics-after.webp" alt="The same view after Erase, with the squeak and all its overtones gone and the voice around them unchanged." loading="lazy">
+                <img data-key="chapters-before" src="specula-chapters-task.webp" alt="The Chapters task on an audiobook: the chapter map over the chapter table with its ACX, Consistency and Details columns, one chapter failing in red, and the ACX summary and Level chapters in the sidebar." loading="lazy">
+                <img data-key="chapters-after" src="specula-chapters-leveled.webp" alt="The same audiobook after Level chapters, with every chapter's ACX cells green." loading="lazy">
+                <img data-key="compare-before" src="specula-compare-task.webp" alt="The Compare task with four versions of a song: the metrics matrix with each slot's readings and its difference from A, the waveform under it, and the slot in front's offset, level match and trim in the sidebar." loading="lazy">
+                <img data-key="compare-after" src="specula-compare-residual.webp" alt="The residual of slot B playing in the Compare task, with the residual's own peak and RMS in the sidebar." loading="lazy">
+                <img data-key="speech" src="specula-speech-task.webp" alt="The Speech task on a podcast episode: detected and corrected speech regions on the waveform, the region tools in the task bar, and Level dialogue with its prediction in the sidebar." loading="lazy">
+                <img data-key="folder" src="specula-check-folder.webp" alt="The Check a Folder window after a run: the folder, Judged against with its targets, the report formats, and a row per file with its verdict, integrated loudness, true peak, LRA and Speech %." loading="lazy">
+                <img data-key="songs" src="specula-songs.webp" alt="A song after the music analysis: the Music group in the sidebar with the key and tempo, the section band with each section's loudness under the ruler in bars, and the Stems view with the vocal, drums, bass and other lanes." loading="lazy">
+              </div>
+              <figcaption class="walk__cap"></figcaption>
             </figure>
-            <figure class="shot">
-                <picture><source srcset="specula-card-loud-master.webp" type="image/webp"><img src="specula-card-loud-master.png" width="476" height="744" alt="The delivery card for a loud master: the verdict as a sentence, the integrated loudness and true peak, and the Limit peaks and Normalize buttons." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>The delivery card.</strong> The verdict as a sentence, the readings in the target's terms, the fixes as buttons.</figcaption>
-            </figure>
-        </div>
-    </section>
-
-    <!-- Seven tasks -->
-    <section class="section section--bordered" id="tasks">
-        <div class="section__grid">
-            <p class="label">Seven tasks</p>
-            <div style="max-width: 640px;">
-                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    One task at a time, each with its own tools, its own views and its own part of the sidebar.
-                </p>
-                <p class="prose-lead" style="margin-top: 22px;">The task switcher sits in the top bar, ⌘1 to ⌘7 reach the tasks, and Esc, with nothing left to clear, returns to Inspect. The file, its zoom and its scroll stay as they were from task to task.</p>
-            </div>
-        </div>
-
-        <nav class="taskstrip" aria-label="The seven tasks">
-            <a class="chip" href="#task-inspect">Inspect <kbd>⌘1</kbd></a>
-            <a class="chip" href="#task-edit">Edit <kbd>⌘2</kbd></a>
-            <a class="chip" href="#task-compare">Compare <kbd>⌘3</kbd></a>
-            <a class="chip" href="#task-chapters">Chapters <kbd>⌘4</kbd></a>
-            <a class="chip" href="#task-speech">Speech <kbd>⌘5</kbd></a>
-            <a class="chip" href="#task-spectral">Spectral <kbd>⌘6</kbd></a>
-            <a class="chip" href="#task-record">Record <kbd>⌘7</kbd></a>
-        </nav>
-
-        <article class="taskblock" id="task-inspect">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Inspect</h3><p class="taskblock__key"><kbd>⌘1</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">The file as it is. The waveform, the loudness with the primary target drawn as a dashed line, and the spectrogram computed for the whole file. The sidebar holds the file, the delivery card, Loudness details with a Live side for what is playing, and the speech, music and channel readings. ⌘Return measures a selection into a card of its own.</p>
-                    <p class="taskblock__links"><a href="mastering.html">Mastering →</a><a href="compliance.html">Compliance →</a></p>
-                </div>
-            </div>
-        </article>
-
-        <article class="taskblock" id="task-edit">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Edit</h3><p class="taskblock__key"><kbd>⌘2</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">Cut, trim, fades and gain on the task bar; Normalize, Limit True Peak and Level Dialogue in its Loudness menu; a chain of Audio Unit effects rendered as one edit. A selection shows its length and its common edits right over the waveform. The sidebar lists the history: every edit by name, up to 16 steps back, any of them a click away. Save As writes a new file, and saving over the original is a setting.</p>
-                    <p class="taskblock__links"><a href="editing.html">Editing →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-edit-task.webp" type="image/webp"><img src="specula-edit-task.png" width="3200" height="2000" alt="The Edit task on a song: a selection with its length and edits over the waveform, the Edit task bar, and the sidebar's Edit part listing the history of four edits." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Edit.</strong> The task bar, a selection's edits over the waveform, and the history in the sidebar.</figcaption>
-            </figure>
-        </article>
-
-        <article class="taskblock" id="task-compare">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Compare</h3><p class="taskblock__key"><kbd>⌘3</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">Up to six versions of a mix or a master sit in a matrix of their readings, each with its difference from A. Level match, sample-accurate Align, and the residual: everything that differs between A and a slot, playable with D and measured on its own. A file at another sample rate switches in without a pause, and Apple Music's encode of the master can take a slot of its own.</p>
-                    <p class="taskblock__links"><a href="compare.html">Reference compare →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-compare-task.webp" type="image/webp"><img src="specula-compare-task.png" width="3200" height="2000" alt="The Compare task with four versions of a song: the metrics matrix with each slot's readings and its difference from A, the waveform below, and the slot card for slot B in the sidebar." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Compare.</strong> Four versions in the matrix, level-matched, with the slot in front's alignment in the sidebar.</figcaption>
-            </figure>
-        </article>
-
-        <article class="taskblock" id="task-chapters">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Chapters</h3><p class="taskblock__key"><kbd>⌘4</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">Chapters found at the silences, then a table of every chapter's readings with ACX's marks, an ACX summary for the book, and Level chapters, which brings every chapter to a common RMS or LUFS and shows each chapter's gain before it is applied. Chapters can also come from a song's sections.</p>
-                    <p class="taskblock__links"><a href="audiobook.html">Audiobook / ACX →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-chapters-task.webp" type="image/webp"><img src="specula-chapters-task.png" width="3200" height="2000" alt="The Chapters task on an audiobook file: the chapter map over the chapter table with ACX's marks, and the ACX summary and Level chapters in the sidebar." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Chapters.</strong> Every chapter against ACX, and the gains Level chapters would apply.</figcaption>
-            </figure>
-        </article>
-
-        <article class="taskblock" id="task-speech">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Speech</h3><p class="taskblock__key"><kbd>⌘5</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">Silero's speech regions, corrected by hand: add, split, mark in and out, delete. The dialogue loudness and the speech percentage follow the corrected regions. Level dialogue predicts the dialogue loudness and the noise floor before it is applied, and judges the floor against ACX.</p>
-                    <p class="taskblock__links"><a href="podcast.html">Podcast →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-speech-task.webp" type="image/webp"><img src="specula-speech-task.png" width="3200" height="2000" alt="The Speech task on a narration: corrected speech regions over the waveform, the Speech task bar, and Level dialogue's prediction in the sidebar." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Speech.</strong> Regions corrected by hand, and Level dialogue's prediction before Apply.</figcaption>
-            </figure>
-        </article>
-
-        <article class="taskblock" id="task-spectral">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Spectral</h3><p class="taskblock__key"><kbd>⌘6</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">The spectrogram at full resolution, with a rectangle, lasso, brush or wand to select a cough, a squeak or a hum. <strong>Include harmonics</strong> adds the selection's tone at 2×, 3× and up, where it rings, so one stroke on a squeak's lowest line takes its overtones too, following the squeak as it glides. Attenuate it, erase it to the noise floor around it, or repair it from the audio either side; Solo plays the selection and Hear Result plays the edit before Apply. Audio beyond the selection and its feather stays bit for bit.</p>
-                    <p class="taskblock__links"><a href="repair.html">Spectral repair →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task on an interview with a chair squeak: a brush stroke along the squeak's lowest line, its overtones from 2× to 7× outlined above it, the tool column on the left edge, and the Spectral edit panel in the sidebar with Include harmonics ticked." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Spectral, with Include harmonics.</strong> One stroke on a squeak's lowest line, and its overtones from 2× to 7× outlined above it, ready for Erase.</figcaption>
-            </figure>
-        </article>
-
-        <article class="taskblock" id="task-record">
-            <div class="section__grid">
-                <div><h3 class="taskblock__name">Record</h3><p class="taskblock__key"><kbd>⌘7</kbd></p></div>
-                <div style="max-width: 640px;">
-                    <p class="prose-lead">Any input, armed with live meters and a room check against ACX's noise floor before the take. A take lands as a new file, appended, inserted at the playhead or punched in; a punch at the playhead keeps the file's length, and speech is detected again where it landed. Takes stay for seven days.</p>
-                    <p class="taskblock__links"><a href="recording.html">Recording →</a></p>
-                </div>
-            </div>
-            <figure class="shot">
-                <picture><source srcset="specula-record-task.webp" type="image/webp"><img src="specula-record-task.png" width="3200" height="2000" alt="The Record task armed: the input's level, the momentary loudness and true peak, the room check against ACX's noise floor, and the takes in the sidebar." loading="lazy" decoding="async"></picture>
-                <figcaption><strong>Record.</strong> The input armed, with the room checked against ACX before the take.</figcaption>
-            </figure>
-        </article>
-    </section>
-
-    <!-- Live meter demo: baked state below is a finished run of meter-demo.js -->
-    <section class="section section--bordered" id="meter">
-        <div class="section__grid">
-            <p class="label">Live meter</p>
-            <div style="max-width: 640px;">
-                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
-                    The standard itself, running in this page.
-                </p>
-                <p class="prose-lead" style="margin-top: 22px;">Below is a working BS.1770-4 meter. The page synthesizes a 30-second program - verse, quiet passage, loud chorus, verse, fade - and meters it as it plays: K-weighted momentary and short-term, gated integrated loudness, true peak at 4× oversampling. Specula runs the same standard natively, on your files.</p>
-                <figure class="mdemo" data-i="-14.66">
+          </div>
+          <div class="scrolly__steps">
+            <div class="step" data-state="inspect" data-cap="<strong>Inspect, delivering to Spotify.</strong> The whole file's verdict and fixes in the sidebar, the loudness with the target's line, the spectrogram."><h3>The delivery check</h3><p>Open a file and name where it is going. The delivery card says what that platform will do to it, in a sentence, with the integrated loudness and true peak under it and the fix that would change the verdict as a button.</p></div>
+            <div class="step" data-state="repair-before" data-cap="<strong>Spectral, before.</strong> The squeak's lowest line selected, its overtones outlined above it by Include harmonics."><h3>A squeak under the interview</h3><p>In the Spectral task a brush stroke along the squeak's lowest line selects it. Include harmonics outlines its overtones from 2× up in parallel, so the whole sound is one selection.</p></div>
+            <div class="step" data-state="repair-after" data-cap="<strong>Spectral, after Erase.</strong> The squeak and its overtones gone, the voice around them unchanged."><h3>After Erase</h3><p>Erase takes the selection out and leaves the voice around it as it was. The spectrogram shows the gap where the squeak was and nothing else different.</p></div>
+            <div class="step" data-state="chapters-before" data-cap="<strong>Chapters, before.</strong> The chapter map over the table, one chapter failing ACX in red."><h3>An audiobook, chapter by chapter</h3><p>The Chapters task reads the chapter marks and judges each chapter against ACX: RMS, peak, noise floor and consistency across the set. One chapter fails, and the table says which cell.</p></div>
+            <div class="step" data-state="chapters-after" data-cap="<strong>Chapters, after Level chapters.</strong> Every chapter's ACX cells green."><h3>Level chapters</h3><p>Level chapters brings every chapter into the ACX window and into line with the others. The same table, every cell green, before the files go out.</p></div>
+            <div class="step" data-state="compare-before" data-cap="<strong>Compare, four versions.</strong> The metrics matrix with each slot's difference from A, the waveform under it."><h3>Four versions of a song</h3><p>Compare holds up to six versions, level-matched and aligned to the sample. The matrix shows each slot's readings and its difference from A, and one key switches which one plays.</p></div>
+            <div class="step" data-state="compare-after" data-cap="<strong>Compare, the residual.</strong> Slot B minus A playing, with the residual's own peak and RMS."><h3>Down to the residual</h3><p>Play the residual and you hear only what differs between two versions, with the residual's own peak and RMS in the sidebar. If the two are identical, the residual is silent.</p></div>
+            <div class="step" data-state="speech" data-cap="<strong>Speech.</strong> Detected and corrected speech regions over the waveform, Level dialogue's prediction in the sidebar."><h3>Speech regions</h3><p>The Speech task finds where people talk, lets you correct the regions, and measures dialogue on its own. Level dialogue predicts the result before it applies.</p></div>
+            <div class="step" data-state="folder" data-cap="<strong>Check a Folder.</strong> One row per file with its verdict, integrated loudness, true peak, LRA and Speech %."><h3>A folder at a time</h3><p>Check a Folder runs the delivery check over every file in a folder and writes one row per file, with a report per file and a CSV of the rows.</p></div>
+            <div class="step" data-state="songs" data-cap="<strong>Songs.</strong> Key and tempo, the section band shaded by loudness under the bars ruler, the Stems view."><h3>A song's sections and stems</h3><p>On macOS 27 the music analysis reads a song's key, tempo and sections, and splits it into vocal, drums, bass and other. Each section's loudness sits under the ruler in bars, and the vocal is measured against the bed.</p></div>
+          </div>
+        </section>
+        <figure class="mdemo" data-i="-14.66">
                     <div class="mdemo__panel">
                         <div class="mdemo__bar">
-                            <span class="mdemo__title">BS.1770-4 · 48 kHz · 30 s generated program</span>
+                            <span class="mdemo__title">BS.1770-4, 48 kHz, 30 s generated program</span>
                             <div class="mdemo__targets" hidden>
                                 <button type="button" class="chip is-active" data-t="-14" aria-pressed="true">Streaming −14</button>
                                 <button type="button" class="chip" data-t="-16" aria-pressed="false">Podcast −16</button>
@@ -371,8 +187,207 @@
                         </div>
                     </div>
                     <figcaption><strong>What to watch.</strong> The quiet passage drops short-term by 10 LU and integrated barely moves: blocks more than 10 LU under the running mean fall out of BS.1770's relative gate. True peak ends a decibel above sample peak - the inter-sample overshoot that only shows up once the 4× oversampler looks between samples. Playback runs at 2×.</figcaption>
-                </figure>
+                </figure>    </section>
+
+    <!-- Stat band -->
+    <div class="statband">
+        <div class="stat"><p class="stat__n">22</p><p class="stat__l">delivery targets in five categories, from streaming to broadcast</p></div>
+        <div class="stat"><p class="stat__n">6</p><p class="stat__l">versions compared at once, level-matched and sample-aligned</p></div>
+        <div class="stat"><p class="stat__n">4<em>×</em></p><p class="stat__l">oversampled true peak, judged against each target's ceiling</p></div>
+        <div class="stat"><p class="stat__n">−60 <em>dB</em></p><p class="stat__l">ACX's noise floor, checked on the room before the take</p></div>
+    </div>
+
+    <!-- Deliver to -->
+    <section class="section section--bordered" id="deliver-to">
+        <div class="section__grid">
+            <h2 class="label">Deliver to</h2>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    Every file is judged against where it is going, in a sentence, with the fix that would change it.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">Monitors won't flag what delivery QC will: integrated loudness half a dB over Spotify's target, a dialogue mix four LU under Netflix's speech-gated level, one channel with its polarity flipped that nobody caught on headphones. Those numbers are already in the file.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Deliver to</strong> names where the file is going, Music streaming, Podcast, Audiobook, Film and TV or Broadcast, and the targets checked there, one of them primary. The delivery card under it gives the primary target's verdict as a sentence, such as "Spotify turns this down by 5.0 dB." or "Apple Podcasts plays this as recorded, 8.7 dB under its −16 LKFS reference.", with the reading in the target's own terms: integrated loudness, dialogue loudness, or ACX's RMS and noise floor. The card judges the whole file as soon as it has loaded.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Fixes in words.</strong> The primary target's fixes are buttons that say what they do, such as Limit peaks to −1.0 dBTP, Normalize to −14 LUFS and Hear at Spotify's level, offered only where they change something. Every other checked target keeps its fixes in a Fix menu.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>Two checks for streaming.</strong> Under Music streaming the card also says whether a stereo master folds to mono, such as "Mono-compatible. Correlation +0.62 over the file.", and what Apple Music's AAC encode does to it: the true peak and the samples over full scale after the encode, with Limit peaks set to leave room for it.</p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>ACX in its own words.</strong> A volume between −23 and −18 dB RMS, peaks less than −3 dB and a noise floor less than −60 dB RMS: a reading exactly on a limit fails, as ACX states it, and Limit peaks for ACX aims at −3.1 dBTP.</p>
+
+                <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="std-row"><span class="std-row__tag">Music streaming</span><span class="std-row__desc">Spotify, Apple Music, YouTube, Tidal, Amazon Music, Deezer, SoundCloud, AES TD1008</span></div>
+                    <div class="std-row"><span class="std-row__tag">Podcast</span><span class="std-row__desc">Apple Podcasts, Spotify (Podcast), ACX</span></div>
+                    <div class="std-row"><span class="std-row__tag">Audiobook</span><span class="std-row__desc">ACX leading, with Apple Podcasts and Spotify (Podcast)</span></div>
+                    <div class="std-row"><span class="std-row__tag">Film and TV</span><span class="std-row__desc">Netflix, Prime Video, Apple TV+, Disney+, Max, dialogue-gated at −27 LKFS</span></div>
+                    <div class="std-row"><span class="std-row__tag">Broadcast</span><span class="std-row__desc">EBU R128, R128 live, R128 S1 short-form, ATSC A/85, ARIB TR-B32, OP-59</span></div>
+                </div>
+                <p class="prose-lead" style="margin-top: 18px;">A spec of your own joins its category as a custom target: a reference level, a tolerance, a true-peak ceiling, and integrated, dialogue-gated or RMS measurement. Every target's reference, tolerance and ceiling is listed in the <a href="guide.html#deliver-to">user guide</a>.</p>
+
+                <div class="vdemo" data-vdemo>
+                    <p class="vdemo__title">The delivery card for three sample files</p>
+                    <div class="vdemo__controls" data-vdemo-controls hidden></div>
+                    <div class="vdemo__card" data-vdemo-card aria-live="polite">
+                        <!-- verdict-demo:card -->
+                        <div class="vcard">
+                            <p class="vcard__chip">Deliver to Spotify · Music streaming</p>
+                            <div class="vcard__head">
+                                <p class="vcard__target">Spotify</p>
+                                <p class="vcard__ref">-14 LUFS · ≤ -1 dBTP</p>
+                            </div>
+                            <p class="vcard__verdict tone--warning">Spotify turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling.</p>
+                            <div class="vcard__readings">
+                                <p class="vcard__reading"><span class="vcard__rlabel">Integrated</span><span class="vcard__rvalue tone--warning">-8.7</span><span class="vcard__runit">LUFS</span></p>
+                                <p class="vcard__reading"><span class="vcard__rlabel">True peak</span><span class="vcard__rvalue tone--warning">0.4</span><span class="vcard__runit">dBTP</span></p>
+                            </div>
+                            <div class="vcard__fixes"><span class="vcard__fix">Limit peaks to -1.0 dBTP</span><span class="vcard__fix">Normalize to -14 LUFS</span><span class="vcard__fix">Hear at Spotify&#x27;s level</span></div>
+                            <p class="vcard__also-label">Also checked</p>
+                            <ul class="vcard__also">
+                                <li title="Apple Music turns this down by 7.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Apple Music</span><span class="vcard__also-short tone--warning">-7.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                                <li title="YouTube turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">YouTube</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                                <li title="Tidal turns this down by 5.3 dB. True peak 0.4 dBTP is over its -1 dBTP ceiling."><span class="vcard__also-name">Tidal</span><span class="vcard__also-short tone--warning">-5.3 dB</span><span class="vcard__also-fix">Fix</span></li>
+                            </ul>
+                        </div>
+                        <!-- /verdict-demo:card -->
+                    </div>
+                    <p class="vdemo__note">The readings are typed in for the demo. The sentences and the fixes are the app's, made by its own code.</p>
+                </div>
             </div>
+        </div>
+        <div class="shots-grid shots-grid--2" style="margin-top: 28px;">
+            <figure class="shot">
+                <picture><source srcset="specula-deliver-to.webp" type="image/webp"><img src="specula-deliver-to.png" width="1520" height="880" alt="The Deliver to picker: the five delivery categories on the left, the chosen category's targets on the right with a checkbox each and the primary target marked." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Deliver to.</strong> Five categories, their targets, and the one the verdict leads with.</figcaption>
+            </figure>
+            <figure class="shot">
+                <picture><source srcset="specula-card-loud-master.webp" type="image/webp"><img src="specula-card-loud-master.png" width="476" height="744" alt="The delivery card for a loud master: the verdict as a sentence, the integrated loudness and true peak, and the Limit peaks and Normalize buttons." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>The delivery card.</strong> The verdict as a sentence, the readings in the target's terms, the fixes as buttons.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Seven tasks -->
+    <section class="section section--bordered" id="tasks">
+        <div class="section__grid">
+            <h2 class="label">Seven tasks</h2>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    One task at a time, each with its own tools, its own views and its own part of the sidebar.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">The task switcher sits in the top bar, ⌘1 to ⌘7 reach the tasks, and Esc, with nothing left to clear, returns to Inspect. The file, its zoom and its scroll stay as they were from task to task.</p>
+            </div>
+        </div>
+
+        <nav class="taskstrip" aria-label="The seven tasks">
+            <a class="chip" href="#task-inspect">Inspect <kbd>⌘1</kbd></a>
+            <a class="chip" href="#task-edit">Edit <kbd>⌘2</kbd></a>
+            <a class="chip" href="#task-compare">Compare <kbd>⌘3</kbd></a>
+            <a class="chip" href="#task-chapters">Chapters <kbd>⌘4</kbd></a>
+            <a class="chip" href="#task-speech">Speech <kbd>⌘5</kbd></a>
+            <a class="chip" href="#task-spectral">Spectral <kbd>⌘6</kbd></a>
+            <a class="chip" href="#task-record">Record <kbd>⌘7</kbd></a>
+        </nav>
+
+        <article class="taskblock" id="task-inspect">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Inspect</h3><p class="taskblock__key"><kbd>⌘1</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">The file as it is. The waveform, the loudness with the primary target drawn as a dashed line, and the spectrogram computed for the whole file. The sidebar holds the file, the delivery card, Loudness details with a Live side for what is playing, and the speech, music and channel readings. ⌘Return measures a selection into a card of its own.</p>
+                    <p class="taskblock__links"><a href="mastering.html">Mastering</a><a href="compliance.html">Compliance</a></p>
+                </div>
+            </div>
+        </article>
+
+        <article class="taskblock" id="task-edit">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Edit</h3><p class="taskblock__key"><kbd>⌘2</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">Cut, trim, fades and gain on the task bar; Normalize, Limit True Peak and Level Dialogue in its Loudness menu; a chain of Audio Unit effects rendered as one edit. A selection shows its length and its common edits right over the waveform. The sidebar lists the history: every edit by name, up to 16 steps back, any of them a click away. Save As writes a new file, and saving over the original is a setting.</p>
+                    <p class="taskblock__links"><a href="editing.html">Editing</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-edit-task.webp" type="image/webp"><img src="specula-edit-task.png" width="3200" height="2000" alt="The Edit task on a song: a selection with its length and edits over the waveform, the Edit task bar, and the sidebar's Edit part listing the history of four edits." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Edit.</strong> The task bar, a selection's edits over the waveform, and the history in the sidebar.</figcaption>
+            </figure>
+        </article>
+
+        <article class="taskblock" id="task-compare">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Compare</h3><p class="taskblock__key"><kbd>⌘3</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">Up to six versions of a mix or a master sit in a matrix of their readings, each with its difference from A. Level match, sample-accurate Align, and the residual: everything that differs between A and a slot, playable with D and measured on its own. A file at another sample rate switches in without a pause, and Apple Music's encode of the master can take a slot of its own.</p>
+                    <p class="taskblock__links"><a href="compare.html">Reference compare</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-compare-task.webp" type="image/webp"><img src="specula-compare-task.png" width="3200" height="2000" alt="The Compare task with four versions of a song: the metrics matrix with each slot's readings and its difference from A, the waveform below, and the slot card for slot B in the sidebar." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Compare.</strong> Four versions in the matrix, level-matched, with the slot in front's alignment in the sidebar.</figcaption>
+            </figure>
+        </article>
+
+        <article class="taskblock" id="task-chapters">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Chapters</h3><p class="taskblock__key"><kbd>⌘4</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">Chapters found at the silences, then a table of every chapter's readings with ACX's marks, an ACX summary for the book, and Level chapters, which brings every chapter to a common RMS or LUFS and shows each chapter's gain before it is applied. Chapters can also come from a song's sections.</p>
+                    <p class="taskblock__links"><a href="audiobook.html">Audiobook / ACX</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-chapters-task.webp" type="image/webp"><img src="specula-chapters-task.png" width="3200" height="2000" alt="The Chapters task on an audiobook file: the chapter map over the chapter table with ACX's marks, and the ACX summary and Level chapters in the sidebar." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Chapters.</strong> Every chapter against ACX, and the gains Level chapters would apply.</figcaption>
+            </figure>
+        </article>
+
+        <article class="taskblock" id="task-speech">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Speech</h3><p class="taskblock__key"><kbd>⌘5</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">Silero's speech regions, corrected by hand: add, split, mark in and out, delete. The dialogue loudness and the speech percentage follow the corrected regions. Level dialogue predicts the dialogue loudness and the noise floor before it is applied, and judges the floor against ACX.</p>
+                    <p class="taskblock__links"><a href="podcast.html">Podcast</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-speech-task.webp" type="image/webp"><img src="specula-speech-task.png" width="3200" height="2000" alt="The Speech task on a narration: corrected speech regions over the waveform, the Speech task bar, and Level dialogue's prediction in the sidebar." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Speech.</strong> Regions corrected by hand, and Level dialogue's prediction before Apply.</figcaption>
+            </figure>
+        </article>
+
+        <article class="taskblock" id="task-spectral">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Spectral</h3><p class="taskblock__key"><kbd>⌘6</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">The spectrogram at full resolution, with a rectangle, lasso, brush or wand to select a cough, a squeak or a hum. <strong>Include harmonics</strong> adds the selection's tone at 2×, 3× and up, where it rings, so one stroke on a squeak's lowest line takes its overtones too, following the squeak as it glides. Attenuate it, erase it to the noise floor around it, or repair it from the audio either side; Solo plays the selection and Hear Result plays the edit before Apply. Audio beyond the selection and its feather stays bit for bit.</p>
+                    <p class="taskblock__links"><a href="repair.html">Spectral repair</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-spectral-task.webp" type="image/webp"><img src="specula-spectral-task.png" width="3200" height="2000" alt="The Spectral task on an interview with a chair squeak: a brush stroke along the squeak's lowest line, its overtones from 2× to 7× outlined above it, the tool column on the left edge, and the Spectral edit panel in the sidebar with Include harmonics ticked." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Spectral, with Include harmonics.</strong> One stroke on a squeak's lowest line, and its overtones from 2× to 7× outlined above it, ready for Erase.</figcaption>
+            </figure>
+        </article>
+
+        <article class="taskblock" id="task-record">
+            <div class="section__grid">
+                <div><h3 class="taskblock__name">Record</h3><p class="taskblock__key"><kbd>⌘7</kbd></p></div>
+                <div style="max-width: 640px;">
+                    <p class="prose-lead">Any input, armed with live meters and a room check against ACX's noise floor before the take. A take lands as a new file, appended, inserted at the playhead or punched in; a punch at the playhead keeps the file's length, and speech is detected again where it landed. Takes stay for seven days.</p>
+                    <p class="taskblock__links"><a href="recording.html">Recording</a></p>
+                </div>
+            </div>
+            <figure class="shot">
+                <picture><source srcset="specula-record-task.webp" type="image/webp"><img src="specula-record-task.png" width="3200" height="2000" alt="The Record task armed: the input's level, the momentary loudness and true peak, the room check against ACX's noise floor, and the takes in the sidebar." loading="lazy" decoding="async"></picture>
+                <figcaption><strong>Record.</strong> The input armed, with the room checked against ACX before the take.</figcaption>
+            </figure>
+        </article>
+    </section>
+
+    <!-- Live meter demo: baked state below is a finished run of meter-demo.js -->
+    <section class="section section--bordered" id="meter">
+        <div class="section__grid">
+            <h2 class="label">Live meter</h2>
+            <div style="max-width: 640px;">
+                <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
+                    The standard itself, running in this page.
+                </p>
+                <p class="prose-lead" style="margin-top: 22px;">The meter at the top of this page is a working BS.1770-4 meter. The page synthesizes a 30-second program - verse, quiet passage, loud chorus, verse, fade - and meters it as it plays: K-weighted momentary and short-term, gated integrated loudness, true peak at 4× oversampling. Specula runs the same standard natively, on your files.</p>            </div>
         </div>
     </section>
 
@@ -380,7 +395,7 @@
     <!-- The pipeline -->
     <section class="section section--bordered" id="pipeline">
         <div class="section__grid">
-            <p class="label">The pipeline</p>
+            <h2 class="label">The pipeline</h2>
             <div>
                 <figure class="diagram">
                     <svg class="diagram__wide" viewBox="0 0 700 246" role="img" aria-label="Specula's analysis pipeline: a loaded file fans out into five paths - BS.1770-4 loudness, oversampled true peak, FFT spectrum, Silero VAD speech gating, and correlation - which feed the verdicts against 22 delivery targets and the reports, in the app, from a folder check or from the command line.">
@@ -442,7 +457,7 @@
     <!-- A folder at a time -->
     <section class="section section--bordered" id="folder">
         <div class="section__grid">
-            <p class="label">A folder at a time</p>
+            <h2 class="label">A folder at a time</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Check a Folder</strong> (File › Check a Folder…) checks every audio file in a folder against Deliver to: one row per file with its verdict, integrated loudness, true peak, loudness range and Speech %, measured with the app's speech settings and any saved speech regions made for the file. Reports in JSON, HTML or PDF are written for each file as it finishes, and a CSV of the rows at the end, into a new folder beside the checked one and never over a file.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The same engine runs from the terminal: five subcommands, <code>analyze</code>, <code>compare</code>, <code>edit</code>, <code>generate</code> and <code>report</code>, return the numbers the app shows as deterministic sorted-key JSON. Install it from <strong>Specula › Install Command-Line Tool…</strong></p>
@@ -464,10 +479,10 @@
     <!-- Songs -->
     <section class="section section--bordered" id="music">
         <div class="section__grid">
-            <p class="label">Songs</p>
+            <h2 class="label">Songs</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">On macOS 27, Apple's on-device music analysis reads a song's key and tempo, its sections with each one's loudness under the ruler, its bars and beats for the ruler and for snapping, and its four stems: vocal, drums, bass and other. A detected song opens the sidebar's Music group and switches the ruler to bars; the Stems view shows where each stem plays, and stem-gated loudness measures the vocal against the bed. A song's sections can become chapters for a per-section loudness table. The analysis is labelled as Apple's throughout, and the loudness figures stay Specula's own BS.1770-4 measurement.</p>
-                <p class="taskblock__links"><a href="songs.html">Songs →</a><a href="guide.html#music">Guide →</a></p>
+                <p class="taskblock__links"><a href="songs.html">Songs</a><a href="guide.html#music">Guide</a></p>
             </div>
         </div>
         <figure class="shot" style="margin-top: 28px;">
@@ -478,52 +493,52 @@
 
     <!-- Built for your job -->
     <section class="section section--bordered">
-        <div class="apps-head"><p class="label">Built for your job</p><span style="font-size: 0.74rem; color: var(--text-4);">Eleven jobs · one engine</span></div>
+        <div class="apps-head"><h2 class="label">Built for your job</h2></div>
         <p style="font-size: 0.78rem; color: var(--text-3); margin: 6px 0 22px; line-height: 1.55; max-width: 620px;">Eleven ways into the same engine, each with the tasks it uses.</p>
         <div class="tiles tiles--4">
             <a class="tile" href="mastering.html">
                 <div class="tile__glyph">◎</div><h4>Mastering</h4>
-                <p>Confirm a master for streaming: the verdict per platform, the fixes, the mono and codec checks.</p><p class="tile__tasks">Inspect&nbsp;· Edit&nbsp;· Compare</p><span class="tile__arrow">→</span>
+                <p>Confirm a master for streaming: the verdict per platform, the fixes, the mono and codec checks.</p><p class="tile__tasks">Inspect, Edit, Compare</p>
             </a>
             <a class="tile" href="compare.html">
                 <div class="tile__glyph">⇄</div><h4>Reference compare</h4>
-                <p>Up to six versions, level-matched and aligned to the sample, down to the residual.</p><p class="tile__tasks">Compare</p><span class="tile__arrow">→</span>
+                <p>Up to six versions, level-matched and aligned to the sample, down to the residual.</p><p class="tile__tasks">Compare</p>
             </a>
             <a class="tile" href="compliance.html">
                 <div class="tile__glyph">✓</div><h4>Compliance</h4>
-                <p>Film and TV and broadcast targets judged in a sentence, with reports that say what they were judged against.</p><p class="tile__tasks">Inspect&nbsp;· Check&nbsp;a&nbsp;Folder</p><span class="tile__arrow">→</span>
+                <p>Film and TV and broadcast targets judged in a sentence, with reports that say what they were judged against.</p><p class="tile__tasks">Inspect, Check&nbsp;a&nbsp;Folder</p>
             </a>
             <a class="tile" href="podcast.html">
                 <div class="tile__glyph">◉</div><h4>Podcast</h4>
-                <p>Dialogue-gated loudness on speech regions you can correct, and Level dialogue's prediction.</p><p class="tile__tasks">Speech&nbsp;· Inspect</p><span class="tile__arrow">→</span>
+                <p>Dialogue-gated loudness on speech regions you can correct, and Level dialogue's prediction.</p><p class="tile__tasks">Speech, Inspect</p>
             </a>
             <a class="tile" href="audiobook.html">
                 <div class="tile__glyph">▤</div><h4>Audiobook / ACX</h4>
-                <p>Every chapter against ACX's limits as ACX states them, then leveled to a common RMS.</p><p class="tile__tasks">Chapters&nbsp;· Record&nbsp;· Speech</p><span class="tile__arrow">→</span>
+                <p>Every chapter against ACX's limits as ACX states them, then leveled to a common RMS.</p><p class="tile__tasks">Chapters, Record, Speech</p>
             </a>
             <a class="tile" href="recording.html">
                 <div class="tile__glyph">●</div><h4>Recording</h4>
-                <p>Narration and punch-ins, with the room checked against ACX before the take.</p><p class="tile__tasks">Record</p><span class="tile__arrow">→</span>
+                <p>Narration and punch-ins, with the room checked against ACX before the take.</p><p class="tile__tasks">Record</p>
             </a>
             <a class="tile" href="editing.html">
                 <div class="tile__glyph">✎</div><h4>Editing</h4>
-                <p>Cut, trim, fade, normalize and level, with a history of every edit and your Audio Unit plugins.</p><p class="tile__tasks">Edit</p><span class="tile__arrow">→</span>
+                <p>Cut, trim, fade, normalize and level, with a history of every edit and your Audio Unit plugins.</p><p class="tile__tasks">Edit</p>
             </a>
             <a class="tile" href="repair.html">
                 <div class="tile__glyph">〰</div><h4>Spectral repair</h4>
-                <p>Rectangle, lasso, brush or wand around the blemish, a squeak's overtones included, then attenuate, erase or repair just that.</p><p class="tile__tasks">Spectral</p><span class="tile__arrow">→</span>
+                <p>Rectangle, lasso, brush or wand around the blemish, a squeak's overtones included, then attenuate, erase or repair just that.</p><p class="tile__tasks">Spectral</p>
             </a>
             <a class="tile" href="songs.html">
                 <div class="tile__glyph">♪</div><h4>Songs</h4>
-                <p>Key, tempo, sections with their loudness, bars and stems, on macOS 27.</p><p class="tile__tasks">Inspect&nbsp;· Chapters</p><span class="tile__arrow">→</span>
+                <p>Key, tempo, sections with their loudness, bars and stems, on macOS 27.</p><p class="tile__tasks">Inspect, Chapters</p>
             </a>
             <a class="tile" href="automation.html">
                 <div class="tile__glyph">⟨ ⟩</div><h4>Batch &amp; automation</h4>
-                <p>A whole folder against a delivery target, or the same engine from the terminal and Shortcuts.</p><p class="tile__tasks">Check&nbsp;a&nbsp;Folder&nbsp;· command&nbsp;line</p><span class="tile__arrow">→</span>
+                <p>A whole folder against a delivery target, or the same engine from the terminal and Shortcuts.</p><p class="tile__tasks">Check&nbsp;a&nbsp;Folder, command&nbsp;line</p>
             </a>
             <a class="tile" href="routing.html">
                 <div class="tile__glyph">⊞</div><h4>Flexible monitoring</h4>
-                <p>Any channel to any output with per-route gain and phase, rendered to a file when it is right.</p><p class="tile__tasks">Output&nbsp;and&nbsp;routing</p><span class="tile__arrow">→</span>
+                <p>Any channel to any output with per-route gain and phase, rendered to a file when it is right.</p><p class="tile__tasks">Output&nbsp;and&nbsp;routing</p>
             </a>
         </div>
         <div class="callout callout--stack" style="margin-top:24px;">
@@ -536,7 +551,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Everything it measures</p>
+                <h2 class="label">Everything it measures</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Every file is measured whole as it opens; Live readings follow playback; any selection on request.</p>
             </div>
             <div class="specs">
@@ -570,7 +585,7 @@
                 <p style="color:var(--text); font-weight:600; font-size:0.95rem; margin-bottom:4px;">The whole app, task by task</p>
                 <p>Every task, view and setting, what each reading means, the delivery targets' levels, and the complete keyboard map.</p>
             </div>
-            <a href="guide.html" class="btn btn-primary">Open user guide →</a>
+            <a href="guide.html" class="btn btn-primary">Open user guide</a>
         </div>
     </section>
 
@@ -578,7 +593,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Standards</p>
+                <h2 class="label">Standards</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Specula implements the actual specifications, not approximations of them.</p>
                 <a href="https://tech.ebu.ch/loudness" target="_blank" rel="noopener"
                    title="Specula implements EBU R 128 loudness metering (Tech 3341 / 3342) and normalisation. The EBU R 128 logo is © EBU, used per its rules of use."
@@ -599,7 +614,7 @@
     <!-- Requirements -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Requirements</p>
+            <h2 class="label">Requirements</h2>
             <div>
                 <div class="feature-row"><div class="feature-row__k">macOS</div><div class="feature-row__v">Sonoma 14.0 or later. Music analysis needs macOS 27; the HDR accents need macOS 26 and a display with HDR headroom.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Hardware</div><div class="feature-row__v">Any Mac that runs macOS 14. Apple Silicon recommended for large files; uses Apple's vDSP throughout.</div></div>
@@ -614,7 +629,7 @@
     <!-- FAQ: five here, the rest on faq.html -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">FAQ</p>
+            <h2 class="label">FAQ</h2>
             <div>
                 <details class="faq-acc">
                     <summary>Is Specula 2.0 a free update?</summary>
@@ -636,7 +651,7 @@
                     <summary>Does my audio leave the Mac?</summary>
                     <div class="faq-acc__a"><p>No. Loudness, speech detection and the music analysis run on the Mac. The app's only outbound connections are update checks and license validation, and neither carries audio. See the <a href="privacy.html">privacy policy</a>.</p></div>
                 </details>
-                <p class="prose-lead" style="margin-top: 18px;"><a href="faq.html">More questions →</a></p>
+                <p class="prose-lead" style="margin-top: 18px;"><a href="faq.html">More questions</a></p>
             </div>
         </div>
     </section>
@@ -644,12 +659,12 @@
     <!-- Before delivery -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before delivery</p>
+            <h2 class="label">Before delivery</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Specula is the last check between the mix and the delivery. It measures what a listening pass can miss: a phase problem, a true peak half a dB over its ceiling, a dialogue mix three LU off Netflix's target.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The user guide covers loudness gating from the start, and its keyboard reference lists every shortcut.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html" class="btn btn-primary">Open user guide →</a>
+                    <a href="guide.html" class="btn btn-primary">Open user guide</a>
                     <a href="https://releases.headroomstudio.dev/Specula-2.0.dmg" class="btn btn-outline"><span>↓</span>Download free trial</a>
                 </div>
             </div>
@@ -669,8 +684,8 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
+<script src="../instruments.js"></script>
 <script src="meter-demo.js"></script>
 <script src="verdict-demo-data.js"></script>
 <script src="verdict-demo.js"></script>

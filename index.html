@@ -42,9 +42,6 @@
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
-<div class="glow glow--tr"></div>
-
 <div class="container nav-shell">
     <nav class="nav">
     <a href="/" class="brand">
@@ -61,115 +58,126 @@
 </div>
 
 <div class="container">
-    <header style="padding: 92px 0 56px; max-width: 760px;">
-    <h1 class="display" style="font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; line-height: 1.06; letter-spacing: -0.028em;">
-      Native Mac apps for professional audio work.
-    </h1>
-    <p style="font-size: 1.1rem; color: var(--text-2); max-width: 620px; line-height: 1.65; margin-top: 20px;">
-      Lyra sets monitor volume on Universal Audio interfaces, Audita measures SPL and hearing dose, and Specula repairs, edits and analyses audio, down to a squeak's overtones on the spectrogram. From Headroom, a one-person studio.
-    </p>
+  <header class="home-hero">
+    <h1 class="display home-hero__title">Mac apps for audio work.</h1>
+    <p class="home-hero__line">Three apps: Lyra for the monitor level, Audita for target monitoring and hearing dose, Specula for audio inspection, analysis, editing and delivery checks.</p>
   </header>
-</div>
 
-<div class="waveform"><canvas></canvas></div>
+  <!-- The apps, one step each, beside a pinned stage that shows the app's
+       own face: Lyra's HUD and Audita's pinned window drawn by
+       instruments.js, Specula's delivery card as a screenshot. -->
+  <!-- One big section per app: the name, one line, two actions, four facts,
+       and the app's own face drawn large. The scroll-driven stories live on
+       the app pages. instruments.js draws the faces and moves each app's
+       icon into the nav once its section has scrolled past. -->
+  <section class="tile-app" id="lyra-tile" data-app="lyra" aria-labelledby="tile-lyra-h">
+    <div class="tile-app__head">
+      <a class="tile-app__iconlink" href="lyra/"><img class="tile-app__icon" src="lyra/icon.png" alt=""></a>
+      <h2 id="tile-lyra-h"><a href="lyra/">Lyra</a> <span class="app-row__ver">1.9</span></h2>
+      <p class="tile-app__line">Monitor volume for Universal Audio Apollo and Volt Gen 2 interfaces on the F-keys, with Shortcuts, Spotlight, widgets, a Focus Filter and a <code>lyra://</code> URL scheme behind them.</p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="lyra/">Details</a><span class="tile-app__price">$9.99, macOS 12 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="hud-big">
+        <div class="hud" data-hud data-state="rest" aria-live="polite"></div>
+        <p class="hud-read"></p>
+      </div>
+      <p class="tile-app__hint">The volume HUD. Arrow keys, M, D and O work on it.</p>
+    </div>
+    <ul class="tile-app__facts">
+      <li><kbd>F10</kbd> mutes, <kbd>F11</kbd> and <kbd>F12</kbd> move the level, <kbd>⇧</kbd> halves the step. DIM and Mono on the same keys.</li>
+      <li>Three Reference Levels on <kbd>⌃F10</kbd> to <kbd>⌃F12</kbd>, each recallable to a dB SPL measured with Audita.</li>
+      <li>ALT speakers on Apollos with ALT outputs. An Apollo and a Volt side by side, one of them in control.</li>
+      <li>Lyra can start UA Mixer Engine and UA Mixer Helper when the interface connects and quit them when it leaves, with a notification each way. Both opt in. <strong>New in 1.9:</strong> Volt Gen 2 and ALT speakers.</li>
+    </ul>
+  </section>
+
+  <section class="tile-app" id="audita-tile" data-app="audita" aria-labelledby="tile-audita-h">
+    <div class="tile-app__head">
+      <a class="tile-app__iconlink" href="audita/"><img class="tile-app__icon" src="audita/icon.png" alt=""></a>
+      <h2 id="tile-audita-h"><a href="audita/">Audita</a> <span class="app-row__ver">1.7</span></h2>
+      <p class="tile-app__line">Target monitoring and hearing health, from the menu bar: the SPL at the listening position held against a calibrated target level, and how much of the day's safe exposure the day has used.</p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="audita/">Details</a><span class="tile-app__price">$19.99, macOS 14 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="pin" data-pin data-state="rest" aria-live="polite"></div>
+      <p class="tile-app__hint">The pinned window, two hours into a session. Every number is computed from the session by the app's rules.</p>
+    </div>
+    <ul class="tile-app__facts">
+      <li>A-weighted SPL ten times a second through a measurement microphone. A UMIK-1 reads at absolute level from its calibration file.</li>
+      <li>Under, on or over the reference, the share of the session on target, and the Leq and Ln figures behind it.</li>
+      <li>Today's dose by the NIOSH method, notifications at 40, 70 and 90 percent, alerts for drift and time off target, and impulse peaks held against the EU action values at 135, 137 and 140 dBC.</li>
+      <li>Sessions start with your DAW or a Shortcut, stay in History as dials and leave as PDF reports. A calibrated level goes to Lyra as a reference slot. <strong>New in 1.7:</strong> the session dial.</li>
+    </ul>
+  </section>
+
+  <section class="tile-app" id="specula-tile" data-app="specula" aria-labelledby="tile-specula-h">
+    <div class="tile-app__head">
+      <a class="tile-app__iconlink" href="specula/"><img class="tile-app__icon" src="specula/icon.png" alt=""></a>
+      <h2 id="tile-specula-h"><a href="specula/">Specula</a> <span class="app-row__ver">2.0</span></h2>
+      <p class="tile-app__line">Audio inspection, analysis and editing for macOS: loudness to ITU-R BS.1770-4 and speech-gated LUFS, spectral repair down to a squeak's overtones, compare, audiobook chapters, Audio Unit plugins, and the verdict against the platform the file is going to.</p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="specula/">Details</a><span class="tile-app__price">$99.99, macOS 14 and later</span></p>
+    </div>
+    <div class="tile-app__stage">
+      <div class="slides slides--wide" data-slides data-loop data-every="4200" aria-label="Specula, a few captures in turn">
+        <div class="slides__frame">
+          <img data-key="inspect" src="specula/specula-inspect.webp" alt="Specula's Inspect task on a song: the Spotify delivery card, the waveform, the loudness view and the spectrogram." data-cap="<strong>Inspect.</strong> The file judged against Spotify, with the fix beside the verdict." decoding="async">
+          <img data-key="spectral" src="specula/specula-harmonics-before.webp" alt="The Spectral task: a chair squeak selected on its lowest line with its overtones outlined above it." data-cap="<strong>Spectral.</strong> A squeak selected with its overtones, before Erase." loading="lazy">
+          <img data-key="chapters" src="specula/specula-chapters-leveled.webp" alt="The Chapters task on an audiobook after Level chapters, every chapter's ACX cells green." data-cap="<strong>Chapters.</strong> An audiobook levelled chapter by chapter, every ACX cell green." loading="lazy">
+          <img data-key="compare" src="specula/specula-compare-task.webp" alt="The Compare task with four versions of a song and the metrics matrix." data-cap="<strong>Compare.</strong> Four versions, level-matched, each against A." loading="lazy">
+        </div>
+        <p class="slides__cap"></p>
+      </div>
+    </div>
+    <ul class="tile-app__facts">
+      <li>Every file judged against where it is going: Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own, with the fix named next to each failed check.</li>
+      <li>Spectral repair on the spectrogram with a brush, a wand or a lasso. Include harmonics takes the overtones with the fundamental, and Erase leaves the voice around them as it was.</li>
+      <li>Compare up to six versions level-matched, down to the residual. Audiobook chapters judged against ACX and levelled together. Speech regions with dialogue-gated loudness.</li>
+      <li>Editing with Audio Unit plugins, recording, Check a Folder for a whole delivery with a report per file, and a command-line tool for the same checks. <strong>New in 2.0:</strong> Deliver to, Check a Folder, the Apple Music encode check.</li>
+    </ul>
+  </section>
+</div>
 
 <div class="container">
   <!-- ── Apps ─────────────────────────────────────────────────────────── -->
-  <section id="apps" style="padding: 56px 0 88px;">
-    <a href="#recent" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:36px; padding:16px 22px; border:1px solid rgba(124,132,246,0.4); border-radius:14px; background:linear-gradient(135deg, rgba(124,132,246,0.18), rgba(62,207,124,0.07)); text-decoration:none;">
-      <span style="font-size:0.64rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:#061a0e; background:var(--green); padding:5px 10px; border-radius:7px; white-space:nowrap;">New releases</span>
-      <span style="display:flex; flex-direction:column; gap:14px; min-width:0;">
-      <span style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-        <span style="font-size:1.02rem; line-height:1.4; color:var(--text-2);"><strong style="color:var(--text); font-weight:650;">Lyra 1.9</strong> &middot; Second-generation Universal Audio Volt interfaces next to the Apollo, and ALT speakers with three Reference Levels for each pair.</span>
-        <span style="font-size:0.85rem; line-height:1.45; color:var(--text-3);">A free update for every Lyra license. With an Apollo and a Volt connected, Lyra controls the one you pick and remembers it. Still runs on macOS 12 and later.</span>
-      </span>
-      <span style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-        <span style="font-size:1.02rem; line-height:1.4; color:var(--text-2);"><strong style="color:var(--text); font-weight:650;">Specula 2.0</strong> &middot; Every file judged against where it is going, the verdict in a sentence with the fix that would change it, and seven tasks for the work on it.</span>
-        <span style="font-size:0.85rem; line-height:1.45; color:var(--text-3);">A free update for every Specula license, with Check a Folder and Apple Music's AAC encode checked on the Mac. Still runs on macOS 14 and later.</span>
-      </span>
-      </span>
-      <span style="margin-left:auto; color:var(--accent); font-weight:600; white-space:nowrap;">See what's new →</span>
-    </a>
-    <div class="apps-head">
-      <p class="label">Apps</p>
-      <span class="mono" style="font-size: 0.7rem; color: var(--text-4);">3 shipping</span>
-    </div>
-
-    <div class="apps-list">
-      <!-- Lyra -->
-      <div class="app-row">
-        <img class="app-row__icon" src="lyra/icon.png" alt="Lyra app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Lyra</h3>
-            <a href="lyra/releases.html#v1.9" class="status status--shipping">Shipping · v1.9</a>
-          </div>
-          <p class="app-row__desc">F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with native Shortcuts, Spotlight, widgets, Focus Filters and a lyra:// URL scheme.</p>
-        </div>
-        <div class="app-row__badges">
-          <span class="badge badge--macos">macOS</span>
-          <span class="badge">Apollo &amp; Volt</span>
-          <span class="badge">Shortcuts</span>
-          <span class="badge">Widgets</span>
-          <span class="badge">URL scheme</span>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$9.99</span>
-          <a href="lyra/" class="app-row__cta">Learn more →</a>
-        </div>
-      </div>
-
-      <!-- Audita -->
-      <div class="app-row">
-        <img class="app-row__icon" src="audita/icon.png" alt="Audita app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Audita</h3>
-            <a href="audita/releases.html#v1.7" class="status status--shipping">Shipping · v1.7</a>
-          </div>
-          <p class="app-row__desc">A menu-bar SPL meter for monitoring discipline and hearing protection - pin your monitor to a calibrated reference and track hearing dose at once.</p>
-        </div>
-        <div class="app-row__badges">
-          <span class="badge badge--macos">macOS</span>
-          <span class="badge">SPL meter</span>
-          <span class="badge">Hearing health</span>
-          <span class="badge">NIOSH</span>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$19.99</span>
-          <a href="audita/" class="app-row__cta">Learn more →</a>
-        </div>
-      </div>
-
-      <!-- Specula -->
-      <div class="app-row">
-        <img class="app-row__icon" src="specula/icon.png" alt="Specula app icon">
-        <div>
-          <div class="app-row__name">
-            <h3>Specula</h3>
-            <a href="specula/releases.html#v2.0" class="status status--shipping">Shipping · v2.0</a>
-          </div>
-          <p class="app-row__desc">Audio analysis and delivery checks for macOS. Every file is judged against where it is going (Spotify, Apple Podcasts, ACX, Netflix, EBU R128 or a spec of your own) with the verdict in a sentence and the fix that would change it, and seven tasks cover the rest: editing, a six-version compare, audiobook chapters, speech regions, spectral repair and recording.</p>
-        </div>
-        <div class="app-row__badges">
-          <span class="badge badge--macos">macOS</span>
-          <span class="badge">EBU R128</span>
-          <span class="badge">Delivery checks</span>
-          <span class="badge">Spectral repair</span>
-          <span class="badge">Check a Folder</span>
-        </div>
-        <div class="app-row__buy">
-          <span class="app-row__price">$99.99</span>
-          <a href="specula/" class="app-row__cta">Learn more →</a>
-        </div>
-      </div>
-      <!-- Add future apps here - duplicate an .app-row block. -->
+  <!-- The three side by side, once the scroll is done. -->
+  <section id="apps" class="apps-summary" aria-label="The three apps side by side">
+    <h2 class="section-title">Apps</h2>
+    <div class="apps-summary__grid">
+      <a class="apps-summary__app" href="lyra/">
+        <img src="lyra/icon.png" alt="">
+        <h3>Lyra <span class="app-row__ver">1.9</span></h3>
+        <p>Monitor volume on Universal Audio Apollo and Volt from the F-keys, Reference Levels recalled to a measured dB SPL, and the UA apps started and quit with the interface.</p>
+        <p class="apps-summary__meta"><span class="app-row__price">$9.99</span><span>macOS 12 and later</span></p>
+      </a>
+      <a class="apps-summary__app" href="audita/">
+        <img src="audita/icon.png" alt="">
+        <h3>Audita <span class="app-row__ver">1.7</span></h3>
+        <p>Target monitoring and hearing health: the SPL at the listening position held against a calibrated target level, and the day's hearing dose by the NIOSH method.</p>
+        <p class="apps-summary__meta"><span class="app-row__price">$19.99</span><span>macOS 14 and later</span></p>
+      </a>
+      <a class="apps-summary__app" href="specula/">
+        <img src="specula/icon.png" alt="">
+        <h3>Specula <span class="app-row__ver">2.0</span></h3>
+        <p>Audio inspection, analysis and editing: loudness and true peak against the platform the file is going to, spectral repair, six-version compare, audiobook chapters, speech, Audio Unit plugins and recording.</p>
+        <p class="apps-summary__meta"><span class="app-row__price">$99.99</span><span>macOS 14 and later</span></p>
+      </a>
     </div>
   </section>
 
+  <section id="latest" style="padding: 56px 0 72px;">
+    <div class="latest">
+      <h2 class="section-title">Latest</h2>
+      <ul class="latest__list">
+        <li><a href="audita/releases.html#v1.7"><strong>Audita 1.7</strong>, 1 Nov 2026. Sessions drawn as a dial in History, the session report and the menu bar window, and a PDF report for any selection.</a></li>
+        <li><a href="lyra/releases.html#v1.9"><strong>Lyra 1.9</strong>, 20 Oct 2026. Second-generation Volt interfaces, an Interface picker for an Apollo and a Volt together, and ALT speakers with three Reference Levels per pair.</a></li>
+        <li><a href="specula/releases.html#v2.0"><strong>Specula 2.0</strong>, 4 Oct 2026. One window with seven tasks, Deliver to with a verdict per target, Check a Folder, and the Apple Music AAC encode check. Free for every 1.x license.</a></li>
+      </ul>
+    </div>  </section>
+
   <!-- ── About ────────────────────────────────────────────────────────── -->
   <section id="about" style="padding-bottom: 72px;">
-    <p class="label">About</p>
+    <h2 class="section-title">About</h2>
     <div style="max-width: 640px; margin-top: 22px;">
       <p class="prose-lead">
         Headroom is a one-person studio making macOS tools for audio work. I've spent most of my life around audio - live sound first, then recording and production, and eventually into software. These days I work in software quality at a major professional audio company, while my home studio stays busy with personal projects. Guitar has been the constant through all of it, and I've been steadily picking up drums and bass.
@@ -178,19 +186,19 @@
         I build the apps I was always missing: focused tools that look and behave like they shipped with macOS.
       </p>
       <p class="prose-lead" style="margin-top: 14px;">
-        Follow along: <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> · <a href="https://x.com/Murawski_K">X</a>.
+        Follow along on <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> or <a href="https://x.com/Murawski_K">X</a>.
       </p>
-      <div class="callout">
-        <p><strong>Why aren't these apps free?</strong> Building and maintaining software properly takes real time and investment. A one-time purchase makes that sustainable without subscriptions, ads, or eventually abandoning the project. You buy it once; I keep it working.</p>
-      </div>
+      <p class="prose-lead" style="margin-top: 14px;">
+        <strong>Why aren't these apps free?</strong> Building and maintaining software properly takes real time and investment. A one-time purchase makes that sustainable without subscriptions, ads, or eventually abandoning the project. You buy it once; I keep it working.
+      </p>
     </div>
   </section>
 
   <!-- ── Recent ───────────────────────────────────────────────────────── -->
   <section id="recent" style="padding-bottom: 80px;">
     <div class="apps-head">
-      <p class="label">Recent</p>
-      <a href="blog/" style="font-size: 0.78rem; color: var(--text-3);">Activity log →</a>
+      <h2 class="section-title">Recent</h2>
+      <a href="blog/" style="font-size: 0.78rem; color: var(--text-3);">Blog and all releases</a>
     </div>
     <!-- Populated by activity-feed.js from appcasts + blog index; these rows
          are the fallback shown if the fetches fail (e.g. offline). -->
@@ -198,172 +206,138 @@
       <a class="feed-row" href="audita/releases.html#v1.7">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.7</span></div>
           <p class="feed-row__title">Audita 1.7</p>
           <p class="feed-row__summary">Sessions drawn as a dial in History, the session report and the menu bar window, one session at a time in History, and a PDF report for any selection.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">1 Nov 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">1 Nov 2026</p></div>
       </a>
       <a class="feed-row" href="lyra/releases.html#v1.9">
         <img class="feed-row__icon" src="lyra/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.9</span></div>
           <p class="feed-row__title">Lyra 1.9</p>
           <p class="feed-row__summary">Second-generation Universal Audio Volt interfaces, an Interface picker for an Apollo and a Volt together, and ALT speakers with three Reference Levels for each pair.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">20 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="audita/releases.html#v1.6.1">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.6.1</span></div>
           <p class="feed-row__title">Audita 1.6.1</p>
           <p class="feed-row__summary">Send to Lyra and the self-check&#39;s Lyra recall work on second-generation Universal Audio Volt interfaces, with Lyra 1.9.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">20 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="audita/releases.html#v1.6">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.6</span></div>
           <p class="feed-row__title">Audita 1.6</p>
-          <p class="feed-row__summary">The menu bar window answers two questions, today's dose and the reference, with the level once and Details folded. The pinned panel is one strip that expands in place, the History window opens on three answers and one line per session, and Settings is a sidebar window with a Calibration page: one verdict line, four pills, four cards.</p>
-          <p class="feed-row__cta">Read release notes →</p>
+          <p class="feed-row__summary">The menu bar window answers two questions: today's dose as a share of the daily budget, then the reference. The pinned panel is one strip that expands in place, History is a log with one line per session, and Settings is a sidebar window with a Calibration page.</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">17 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">17 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v2.0">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released &middot; Specula v2.0</span></div>
           <p class="feed-row__title">Specula 2.0</p>
-          <p class="feed-row__summary">One window organized around seven tasks, and Deliver to, which judges each file against its delivery category and primary target. New: Check a Folder, Include harmonics in Spectral, the Apple Music encode check, a mono check and an edit history. A free update for every 1.x license.</p>
-          <p class="feed-row__cta">Read release notes &rarr;</p>
+          <p class="feed-row__summary">Specula 2.0 is a free update for every 1.x license. The window is organized around seven tasks: Inspect, Edit, Compare, Chapters, Speech, Spectral and Record. Deliver to judges the file against its delivery category, and Check a Folder, the Apple Music encode check, a mono check and an edit history are new.</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">4 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">4 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.4.1">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released &middot; Specula v1.4.1</span></div>
           <p class="feed-row__title">Specula 1.4.1</p>
           <p class="feed-row__summary">Very long files open on macOS 15 and later: stereo beyond about 3 hours and 5.1 beyond about an hour, up to about 6 hours at 48 kHz, as long as the decoded file fits in half the Mac's memory. Opening a long file also takes less memory. On macOS 27, Undo and Redo keep the whole file, and Edit mode plays on devices with more than two outputs.</p>
-          <p class="feed-row__cta">Read release notes &rarr;</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">28 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">28 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.4">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released &middot; Specula v1.4</span></div>
           <p class="feed-row__title">Specula 1.4</p>
           <p class="feed-row__summary">Music analysis on macOS 27: a song's key and tempo, its sections with their loudness under the ruler, a bars ruler, beat snapping, and the vocal measured against the bed.</p>
-          <p class="feed-row__cta">Read release notes &rarr;</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">20 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="audita/releases.html#v1.5.1">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.5.1</span></div>
           <p class="feed-row__title">Audita 1.5.1</p>
           <p class="feed-row__summary">Input devices running at 88.2 kHz or higher measured nothing. Measurement now follows every rate the device offers, 44.1 through 192 kHz.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">16 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">16 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.3">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Specula v1.3</span></div>
           <p class="feed-row__title">Specula 1.3</p>
           <p class="feed-row__summary">New app icon, Liquid Glass chrome that keeps its dark face on macOS 27, and fixes for Record mode, the edit popovers, and the floating panels on 27.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">Sep 2026</p></div>
       </a>
       <a class="feed-row" href="audita/releases.html#v1.5">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.5</span></div>
           <p class="feed-row__title">Audita 1.5</p>
           <p class="feed-row__summary">New app icon, Liquid Glass on the Welcome and License windows, and a fix for input devices selected explicitly on macOS 27.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">13 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">13 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="lyra/releases.html#v1.8">
         <img class="feed-row__icon" src="lyra/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.8</span></div>
           <p class="feed-row__title">Lyra 1.8</p>
           <p class="feed-row__summary">New app icon, a volume HUD that matches the macOS volume control, and a menu toggle that hands the F-keys back to macOS.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">Sep 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.2.3">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Specula v1.2.3</span></div>
           <p class="feed-row__title">Specula 1.2.3</p>
           <p class="feed-row__summary">Save keeps the file's container: a WAV called .WAV, .wave, or .bwf used to come back as a CAF under that name. Save As writes the source's bit depth, and the info panel's Format and Encoding rows read the file's header, not its name.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">7 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">7 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.2.2">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Specula v1.2.2</span></div>
           <p class="feed-row__title">Specula 1.2.2</p>
           <p class="feed-row__summary">Save over the original file: an opt-in Save (⌘S) under Settings, Editing rewrites the loaded WAV, AIFF, or CAF in its own format, with a failed save leaving the original untouched.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">6 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">6 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.2.1">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Specula v1.2.1</span></div>
           <p class="feed-row__title">Specula 1.2.1</p>
           <p class="feed-row__summary">Icons only for the mode and view buttons: a toggle under Settings, Layout drops the text labels from the mode bar, the view toggles, and Generate.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Aug</span><p class="feed-row__date">21 Aug 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">21 Aug 2026</p></div>
       </a>
       <a class="feed-row" href="audita/releases.html#v1.4">
         <img class="feed-row__icon" src="audita/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.4</span></div>
           <p class="feed-row__title">Audita 1.4</p>
           <p class="feed-row__summary">Calibration-file import with absolute SPL from a UMIK-1's serial, a calibration health card, a one-click rig self-check, and dose that accumulates from true interval energy.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Aug</span><p class="feed-row__date">13 Aug 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">13 Aug 2026</p></div>
       </a>
       <a class="feed-row" href="specula/releases.html#v1.2">
         <img class="feed-row__icon" src="specula/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Specula v1.2</span></div>
           <p class="feed-row__title">Specula 1.2</p>
           <p class="feed-row__summary">Custom loudness targets bring your own delivery spec to every verdict, Match, and report; raw PCM import opens headerless audio under a declared format, in the app and on the CLI.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Aug</span><p class="feed-row__date">3 Aug 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">3 Aug 2026</p></div>
       </a>
       <a class="feed-row" href="lyra/releases.html#v1.7.1">
         <img class="feed-row__icon" src="lyra/icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.7.1</span></div>
           <p class="feed-row__title">Lyra 1.7.1</p>
           <p class="feed-row__summary">The volume HUD keeps its grey, glassy look on macOS 26 over any wallpaper, with a clear white glyph and level bar.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Jun</span><p class="feed-row__date">21 Jun 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">21 Jun 2026</p></div>
       </a>
     </div>
   </section>
@@ -372,14 +346,13 @@
   <section style="padding-bottom: 72px;">
     <div class="newsletter">
       <div>
-        <p class="eyebrow">Newsletter</p>
         <h3 class="display">Notes from the studio.</h3>
         <p>When there's something worth saying about monitoring, hearing health, or shipping the next thing. No more than a few times a year.</p>
       </div>
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe →</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -393,7 +366,7 @@
   </section>
 
   <footer class="footer">
-    <p class="footer__colophon">Hand-written HTML, no build step, no framework. Set in the system fonts. No trackers beyond a cookieless pageview counter. Hosted on GitHub Pages.</p>
+    <p class="footer__colophon">Static HTML on GitHub Pages. The only analytics is a cookieless pageview count.</p>
     <span class="footer__copy">© 2026 Headroom Studio</span>
     <ul class="footer__links">
       <li><a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a></li>
@@ -408,9 +381,9 @@
   </footer>
 </div>
 
-<script src="waveform.js"></script>
 <script src="newsletter.js"></script>
 <script src="activity-feed.js"></script>
+<script src="instruments.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

@@ -23,6 +23,7 @@
              Lyra.dmg (1.9, build 11; 6,969,303 bytes), uploaded as Lyra-1.9.dmg. -->
         <item>
             <title>Version 1.9</title>
+            <description>Second-generation Universal Audio Volt interfaces, an Interface picker for an Apollo and a Volt together, and ALT speakers with three Reference Levels for each pair. A free update for every Lyra license; still runs on macOS 12 and later.</description>
             <pubDate>Tue, 20 Oct 2026 22:03:43 +0200</pubDate>
             <sparkle:version>11</sparkle:version>
             <sparkle:shortVersionString>1.9</sparkle:shortVersionString>

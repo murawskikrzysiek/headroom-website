@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,25 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Editing</p>
+            <p class="eyebrow">Workflow: Editing</p>
             <h1 class="display">The small fix, without booting a DAW.</h1>
             <p class="app-hero__desc">
                 A trim. A cut out of the middle. A fade. A LUFS normalize before upload. The Edit task runs jobs this size on the open file, from the keyboard or its task bar, keeps every edit in a history by name, and measures the file again after each one. Save As writes a new file; writing over the original is a setting.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Edit history</span>
-                <span class="badge">Cut &amp; Trim</span>
-                <span class="badge">Normalize LUFS</span>
-                <span class="badge">Audio Unit plugins</span>
-                <span class="badge">Spectral repair</span>
-                <span class="badge">Keyboard shortcuts</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#edit">Read the Edit guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Tasks</span>
                 <a class="chip" href="guide.html#edit">Edit <kbd>⌘2</kbd></a>
@@ -95,7 +85,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -110,7 +99,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">When a DAW is too much</p>
+            <h2 class="label">When a DAW is too much</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     The fix is thirty seconds of work. Opening a DAW to do it is not.
@@ -125,13 +114,13 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Three steps, no project</p>
+                <h2 class="label">Three steps, no project</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Open the task, run the operation, save.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Open the Edit task</div><div class="feature-row__v"><kbd>⌘2</kbd>, or Edit in the top bar. The task bar holds <strong>Cut</strong>, <strong>Trim</strong>, <strong>Fade In</strong>, <strong>Fade Out</strong> and <strong>Gain</strong>, a <strong>Loudness</strong> menu (Normalize…, Limit True Peak…, Level Dialogue…), a <strong>More</strong> menu (Silence…, Invert Phase, Remove DC Offset, Swap Left and Right, Split to Mono Files…), the <strong>Plugins</strong> drawer, Save and Save As. A selection shows its length over the waveform, with Cut, Trim, the fades, Gain −1 and +1 dB and Analyse beside it. Operations that take values open a small popover. Edit works on one file: it is unavailable in a Compare session of two or more files, and going from Edit to Compare asks first about unsaved edits and an unrendered plugin chain.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Apply an operation</div><div class="feature-row__v">Each operation runs on the selection, or on the whole file without one. <strong>Trim</strong> crops to the selection (<kbd>⌘T</kbd>); <strong>Cut</strong> (<kbd>⌫</kbd>) removes it and joins the sides with an equal-power crossfade, for a too-long pause or a flubbed line. <strong>Silence</strong> inserts at the playhead with no selection (say 500 ms for a video sync), or before, after or in place of a selection, in seconds or samples. <strong>Gain</strong> applies a gain in dB (<kbd>⌥↑</kbd> and <kbd>⌥↓</kbd> for ±1 dB). <strong>Invert Phase</strong> flips the polarity. The fades offer linear, logarithmic and equal-power curves. <strong>Normalize</strong> targets a peak in dBFS or a loudness in LUFS with a ceiling, and its panel shows Now, Target and Gain for the selection or the whole file, whichever it applies to; LUFS normalizing that raises the level runs a 4× oversampled true-peak limiter. <strong>Limit True Peak</strong> caps the inter-sample peaks at a dBTP ceiling on its own. <strong>Level Dialogue</strong> ducks the room tone between speech regions and can lift the dialogue to a target in one pass (below). <strong>Remove DC Offset</strong> subtracts each channel's mean, <strong>Swap Left and Right</strong> swaps a stereo file's channels, and <strong>Split to Mono Files</strong> writes one mono WAV per channel. The delivery card's fixes open the same panels, filled in: Normalize to −14 LUFS with the target and its basis (integrated or dialogue-gated), Limit peaks to −1.0 dBTP with the target's ceiling, −3.1 dBTP for ACX.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Undo, or save</div><div class="feature-row__v"><strong>History</strong> in the sidebar lists every edit by name, up to 16 steps back. A click on a step goes back or forward to it in one move, <kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> step one at a time, and the step that matches the file on disk says On disk. After every edit, Undo or Redo the file is measured again in the background, so the delivery card and the readings describe the audio in front. <strong>Save As</strong> (<kbd>⇧⌘S</kbd>) writes a new file at the source's bit depth and sample rate, and asks first when an integer file would clip samples above full scale, offering 32-bit float. With the setting on, <strong>Save</strong> (<kbd>⌘S</kbd>) writes over the open WAV, AIFF or CAF after asking; a failed write leaves the original untouched. Only the audio is rewritten: BWF, iXML, cue and marker chunks are not carried over. File › Export… can write the edited audio beside the reports.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Open the Edit task</div><div class="feature-row__v"><kbd>⌘2</kbd>, or Edit in the top bar. The task bar holds <strong>Cut</strong>, <strong>Trim</strong>, <strong>Fade In</strong>, <strong>Fade Out</strong> and <strong>Gain</strong>, a <strong>Loudness</strong> menu (Normalize…, Limit True Peak…, Level Dialogue…), a <strong>More</strong> menu (Silence…, Invert Phase, Remove DC Offset, Swap Left and Right, Split to Mono Files…), the <strong>Plugins</strong> drawer, Save and Save As. A selection shows its length over the waveform, with Cut, Trim, the fades, Gain −1 and +1 dB and Analyse beside it. Operations that take values open a small popover. Edit works on one file: it is unavailable in a Compare session of two or more files, and going from Edit to Compare asks first about unsaved edits and an unrendered plugin chain.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Apply an operation</div><div class="feature-row__v">Each operation runs on the selection, or on the whole file without one. <strong>Trim</strong> crops to the selection (<kbd>⌘T</kbd>); <strong>Cut</strong> (<kbd>⌫</kbd>) removes it and joins the sides with an equal-power crossfade, for a too-long pause or a flubbed line. <strong>Silence</strong> inserts at the playhead with no selection (say 500 ms for a video sync), or before, after or in place of a selection, in seconds or samples. <strong>Gain</strong> applies a gain in dB (<kbd>⌥↑</kbd> and <kbd>⌥↓</kbd> for ±1 dB). <strong>Invert Phase</strong> flips the polarity. The fades offer linear, logarithmic and equal-power curves. <strong>Normalize</strong> targets a peak in dBFS or a loudness in LUFS with a ceiling, and its panel shows Now, Target and Gain for the selection or the whole file, whichever it applies to; LUFS normalizing that raises the level runs a 4× oversampled true-peak limiter. <strong>Limit True Peak</strong> caps the inter-sample peaks at a dBTP ceiling on its own. <strong>Level Dialogue</strong> ducks the room tone between speech regions and can lift the dialogue to a target in one pass (below). <strong>Remove DC Offset</strong> subtracts each channel's mean, <strong>Swap Left and Right</strong> swaps a stereo file's channels, and <strong>Split to Mono Files</strong> writes one mono WAV per channel. The delivery card's fixes open the same panels, filled in: Normalize to −14 LUFS with the target and its basis (integrated or dialogue-gated), Limit peaks to −1.0 dBTP with the target's ceiling, −3.1 dBTP for ACX.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Undo, or save</div><div class="feature-row__v"><strong>History</strong> in the sidebar lists every edit by name, up to 16 steps back. A click on a step goes back or forward to it in one move, <kbd>⌘Z</kbd> and <kbd>⇧⌘Z</kbd> step one at a time, and the step that matches the file on disk says On disk. After every edit, Undo or Redo the file is measured again in the background, so the delivery card and the readings describe the audio in front. <strong>Save As</strong> (<kbd>⇧⌘S</kbd>) writes a new file at the source's bit depth and sample rate, and asks first when an integer file would clip samples above full scale, offering 32-bit float. With the setting on, <strong>Save</strong> (<kbd>⌘S</kbd>) writes over the open WAV, AIFF or CAF after asking; a failed write leaves the original untouched. Only the audio is rewritten: BWF, iXML, cue and marker chunks are not carried over. File › Export… can write the edited audio beside the reports.</div></div>
             </div>
         </div>
     </section>
@@ -139,7 +128,7 @@
     <!-- True-peak limiter depth -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The ceiling is a true-peak ceiling</p>
+            <h2 class="label">The ceiling is a true-peak ceiling</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>A peak normalize that only watches sample values watches the wrong ceiling.</strong> The number that gets a master rejected, and the one streaming platforms enforce, is the inter-sample peak: the level the signal reaches once the converter reconstructs the waveform between samples. A file can read −1.0 dBFS on the samples and still overshoot when it is played back.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Specula's limiter measures the <strong>4× oversampled inter-sample peak</strong> and holds the ceiling against that, in dBTP. Normalizing in LUFS runs it whenever the gain raises the level, in two offline passes: the first builds the gain envelope from the oversampled peaks, the second catches any peak the release left fractionally over the ceiling.</p>
@@ -151,7 +140,7 @@
     <!-- Keyboard shortcuts -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Edit with the keyboard</p>
+            <h2 class="label">Edit with the keyboard</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>The Edit task has its own keys</strong>, active only there so they never shadow the transport, listed in the Edit menu and in Help › Keyboard Shortcuts. One group acts on the selection, the other at the playhead.</p>
                 <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
@@ -172,7 +161,7 @@
     <!-- Level the dialogue -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Level the dialogue without raising the floor</p>
+            <h2 class="label">Level the dialogue without raising the floor</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Level Dialogue</strong> is the edit for spoken word. It is a downward expander keyed to the speech regions Specula detects and the Speech task corrects: it ducks the room tone <em>between</em> phrases with a fast attack and a slow release, so word onsets and tails stay clean.</p>
                 <p class="prose-lead" style="margin-top: 14px;">With <strong>Lift dialogue to a target</strong> on, it also brings the speech to a loudness target in the same pass, capping inter-sample peaks at a true-peak ceiling. The silence is gated first and the makeup gain goes on after, so the noise floor ends up lower, not higher, which is what makes it the fix for a room-tone floor sitting just over ACX's line.</p>
@@ -184,7 +173,7 @@
     <!-- Plugin chain -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Your Audio Unit effects, right here</p>
+            <h2 class="label">Your Audio Unit effects, right here</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>The Edit task hosts a chain of Audio Unit effects.</strong> The Plugins drawer adds any effect installed on the Mac (AUv2 and AUv3), chains several in order, bypasses or reorders them, and opens each plugin's own window, or a generic parameter panel for a plugin that ships none. It works on mono and stereo files, and the Edit menu reaches every drawer action.</p>
                 <p class="prose-lead" style="margin-top: 14px;">The chain plays live while the file plays. Loudness details' Live side and the spectrum and phase panels follow the processed sound, while the delivery card and the whole-file readings keep describing the file until the chain is rendered.</p>
@@ -204,11 +193,11 @@
     <!-- Spectral editing teaser -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Blemishes come out on the spectrogram</p>
+            <h2 class="label">Blemishes come out on the spectrogram</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Spectral</strong> (<kbd>⌘6</kbd>) is for the blemish inside the audio worth keeping: a cough inside a piano chord, a chair squeak under speech, a bite of mains hum. Select it on a full-resolution, zoomable spectrogram, in time and frequency, then attenuate, erase or repair just that region, leaving the rest bit for bit. Include harmonics adds the overtones of a squeak or a whistle to the selection. It is a bigger job than the trims and fades on this page, so it has its own workflow: the selection tools, the wand's tolerance and reach, the feather, Include harmonics, and auditions before Apply.</p>
                 <div class="app-hero__cta" style="margin-top: 20px;">
-                    <a href="repair.html" class="btn btn-primary">See the spectral repair workflow →</a>
+                    <a href="repair.html" class="btn btn-primary">See the spectral repair workflow</a>
                 </div>
             </div>
         </div>
@@ -217,7 +206,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The popovers</p>
+            <h2 class="label">The popovers</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-cut-popover.webp" type="image/webp"><img src="specula-cut-popover.png" width="544" height="484" alt="The Cut popover with a crossfade length in milliseconds and presets, with a selection active." loading="lazy" decoding="async"></picture>
@@ -242,11 +231,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Fix it where the file is</p>
+            <h2 class="label">Fix it where the file is</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The Edit task is for the jobs that do not earn a DAW session, most of them one key. It runs them on the open file, lists every edit in its history, and writes a new file on Save As, or over the original once that is allowed.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#edit" class="btn btn-primary">Read the Edit guide →</a>
+                    <a href="guide.html#edit" class="btn btn-primary">Read the Edit guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -265,7 +254,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
 <script src="../lightbox.js"></script>
 </body>
 </html>
