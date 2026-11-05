@@ -25,6 +25,7 @@ headroom-website/
 ├── activity-feed.js        # "Recent" feed built from appcast.xml files + blog index
 ├── sitemap.xml             # Maintained BY HAND - add new pages (see Sitemap and robots)
 ├── tools/check-sitemap.sh  # Verifies sitemap.xml matches the pages on disk
+├── tools/stamp-assets.sh   # Stamps every local .css/.js link with a content hash (see Asset stamps)
 ├── robots.txt              # Disallows appcasts (wildcard) + /assets/screens/
 ├── CNAME                   # headroomstudio.dev
 ├── favicon.ico / favicon-{16,32,48}x*.png / apple-touch-icon.png / headroom-mark*.svg
@@ -58,7 +59,7 @@ Tokens (palette, radii, fonts) live in `headroom.css` §1 — read them there, d
 
 ## Shared JS helpers
 
-Each file's header comment documents its container contract — read it before wiring a page. All are plain script tags at the end of `<body>`, no modules, no build.
+Each file's header comment documents its container contract — read it before wiring a page. All are plain script tags at the end of `<body>`, no modules, no build. Every local `<link>`/`<script>` carries a `?v=<hash>` stamp; see Asset stamps below.
 
 | File | What it does | Used on |
 |---|---|---|
@@ -97,7 +98,7 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 2. Add the app row to the homepage grid and, if it should appear in the feed, to the `data-feed-apps` list
 3. Generate the OG image + thumbnail with `gen_app_banners/`
 4. Add every new page to `sitemap.xml` (hand-maintained) and run `./tools/check-sitemap.sh` (see Sitemap and robots)
-5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern
+5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern; run `./tools/stamp-assets.sh` once the page links its CSS and JS
 6. Include the full favicon set (`favicon.ico` 48x48, svg, 32, 16, apple-touch) in `<head>`
 7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics). Currently on all 41 pages — keep it at 100%.
 8. **If the app breaks a studio-wide positioning line, sweep them all.** The site currently says "audio" / "sound" in: homepage `<title>` + meta/og descriptions, the homepage hero ("Mac apps for audio work."), the About paragraph ("macOS tools for audio work"), `og-headroom.png` and the social headers ("Precision audio tools for macOS" - regenerate via `gen_app_banners/`, one command each). **Videre (video) is the known future case** - when it ships, these all need a wording pass; candidate direction: "Precision tools for macOS" or "sound and picture".
@@ -122,6 +123,16 @@ It diffs the sitemap against the `.html` files on disk in both directions and va
 
 **Keeping a page out of the index means `noindex`, not `Disallow`.** The two do different jobs: `Disallow` stops the crawl, and a page that is never crawled is a page whose `noindex` is never read, so an already-indexed URL can linger. All four `auris/` pages carry `<meta name="robots" content="noindex,follow">` and are deliberately left crawlable for exactly that reason. Never add `Disallow: /auris/`. `Disallow` is the right tool only for non-HTML files that cannot carry a meta tag (the appcasts, `assets/screens/`), since GitHub Pages cannot set an `X-Robots-Tag` header.
 
+## Asset stamps
+
+GitHub Pages serves `.css` and `.js` with `max-age=14400` (four hours) and HTML with ten minutes, and Cloudflare caches on top of that. A stylesheet change shipped bare meets the old copy in every browser that visited that day. So every local stylesheet and script link carries a content hash, `headroom.css?v=e67a5e09`, written by:
+
+```bash
+./tools/stamp-assets.sh
+```
+
+Run it before opening any PR that touches a `.css` or `.js` file (idempotent, rewrites only links whose target changed; `gen_app_banners/` is skipped). `./tools/stamp-assets.sh --check` exits non-zero when a link is stale, the same shape as the sitemap checker. CDN URLs (Turnstile, the analytics beacon) are left alone. A changed file gets a new URL, so no purge is needed on either cache.
+
 ## Analytics
 
 Every public-facing HTML page must include the Cloudflare Web Analytics snippet in its `<head>`. Paste this verbatim, just before `</head>`:
@@ -138,7 +149,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
 
 ## Key decisions
 
-- **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship
+- **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship. The one pre-commit step is `tools/stamp-assets.sh`, a hash on each asset link, so a stylesheet change never meets a cached copy (2026-11-05: the rework went live with the new HTML against a four-hour-cached old `headroom.css`)
 - **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
 - **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
 - **System fonts + liquid-glass chrome** — 2026-07 design refresh: SF system stack (no webfonts), sticky glass nav on every page, glass on chips/badges/secondary buttons; periwinkle accent kept (it matches the app icons; the AI-default look was the Inter+violet+glow ensemble, not the hue)
