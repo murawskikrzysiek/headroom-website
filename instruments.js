@@ -86,13 +86,18 @@
   /* ── Audita: the pinned window ────────────────────────────────────────── */
   function buildPin(root) {
     /* One session, minute by minute: 3 h 15 min at the desk, mostly on
-       79 +/-3 dBA, a loud stretch, a quiet stretch, a second warm patch. */
-    var MIN = 195, REF = 79, BAND = 3, LO = 50, HI = 100;
+       79 +/-3 dBA, a 15-minute loud stretch, half an hour of creeping up,
+       a quiet stretch, a second warm patch. The alerts fire where the app's
+       detectors would: off target after 15 minutes over the band, drift when
+       the rolling 30-minute Leq sits 3 dB over the baseline taken 10 minutes
+       into the session, the recap when the session ends. */
+    var MIN = 195, REF = 79, BAND = 3, LO = 50, HI = 100, OFF_WINDOW = 15;
     var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
     var L = [];
     for (var m = 0; m < MIN; m++) {
       var base = 78.6 + (rnd() - 0.5) * 2.6;
-      if (m >= 70 && m < 82) base = 85.5 + (rnd() - 0.5) * 3;
+      if (m >= 70 && m < 85) base = 85.5 + (rnd() - 0.5) * 3;
+      else if (m >= 100 && m < 136) base = 78.5 + (m - 100) / 35 * 5.5 + (rnd() - 0.5) * 1.6;
       else if (m >= 150 && m < 158) base = 71.5 + (rnd() - 0.5) * 2;
       else if (m >= 176 && m < 184) base = 83.2 + (rnd() - 0.5) * 1.6;
       L.push(Math.round(base * 10) / 10);
@@ -187,20 +192,44 @@
       }
       raf = requestAnimationFrame(tick);
     }
+    /* The notifications, worded as the app posts them, with the figures from
+       the session at that moment. */
+    var notifs = {
+      over: function (n) {
+        return ['Monitoring above target',
+          'You’ve been monitoring above your ' + REF + ' dBA target for the last ' + OFF_WINDOW + ' minutes. Drift, fatigue, or intentional?'];
+      },
+      drift: function (n) {
+        var baseline = leq(L.slice(0, 10)), now = leq(L.slice(Math.max(0, n - 30), n));
+        return ['Monitoring drift detected',
+          'Your monitoring level has crept up ' + Math.round(now - baseline) + ' dB over the last 30 minutes (now ~' + Math.round(now) + ' dBA).'];
+      },
+      end: function (n) {
+        var d = dose(L.slice(0, n));
+        return ['Session complete',
+          'This session used ' + d.toFixed(1) + '% of your daily dose. Running total: ' + d.toFixed(1) + '% - ' + (100 - d).toFixed(1) + '% remaining today.'];
+      }
+    };
+    var notif = root.parentNode.querySelector('.notif');
     var states = {
       start: { n: 14, focus: 'head' },
       reference: { n: 48, focus: 'ref' },
-      over: { n: 84, focus: 'head' },
+      over: { n: 85, focus: 'head', notif: 'over' },
+      drift: { n: 136, focus: 'head', notif: 'drift' },
       under: { n: 160, focus: 'ref' },
       dose: { n: 186, focus: 'dose' },
       leq: { n: 192, focus: 'leq' },
-      end: { n: MIN, focus: 'dial' },
+      end: { n: MIN, focus: 'dial', notif: 'end' },
       rest: { n: 118, focus: '' }
     };
     function set(k) {
       var s = states[k] || states.rest;
       root.className = root.className.replace(/\s*pin--focus-\w+/g, '') + (s.focus ? ' pin--focus-' + s.focus : '');
       animateTo(s.n);
+      if (notif) {
+        if (s.notif) { var t = notifs[s.notif](s.n); notif.querySelector('.notif__t').textContent = t[0]; notif.querySelector('.notif__b').textContent = t[1]; notif.classList.add('is-on'); }
+        else notif.classList.remove('is-on');
+      }
     }
     render(0);
     set(root.getAttribute('data-state') || 'rest');

@@ -184,6 +184,9 @@ code {
 .scrolly__stage { position: sticky; top: clamp(92px, 18vh, 220px); padding: 24px 0;
   display: flex; flex-direction: column; align-items: center; gap: 18px; }
 .scrolly__steps { padding: 0 0 12vh; }
+/* The pinned window is tall: room under the last step so the stage is still
+   in place when that step reaches its line. */
+.scrolly[data-instrument="pin"] .scrolly__steps { padding-bottom: 56vh; }
 .step { min-height: 30vh; padding: 14px 0; display: flex; flex-direction: column; justify-content: center; max-width: 440px;
   opacity: 0.38; transition: opacity 0.35s; }
 .step:first-child { min-height: 0; justify-content: flex-start; padding-top: 34px; padding-bottom: 12vh; }
