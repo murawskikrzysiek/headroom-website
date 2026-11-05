@@ -354,6 +354,17 @@ code {
 .scrolly[data-instrument="faces"] .step:first-child { padding-bottom: 24vh; }
 .scrolly[data-instrument="faces"] .scrolly__steps { padding-bottom: 16vh; }
 .step--app { max-width: 460px; }
+/* After the scroll: the three next to each other, one glance. */
+.apps-summary { padding: 64px 0 24px; border-top: 1px solid var(--border); }
+.apps-summary__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 26px; }
+.apps-summary__app { display: block; color: inherit; }
+.apps-summary__app img { width: 56px; height: 56px; border-radius: 13px; }
+.apps-summary__app h3 { font-size: 1.2rem; font-weight: 650; letter-spacing: -0.015em; margin-top: 14px; display: flex; align-items: baseline; gap: 8px; }
+.apps-summary__app h3 .app-row__ver { font-size: 0.82rem; font-weight: 500; }
+.apps-summary__app:hover h3 { color: var(--accent-soft); }
+.apps-summary__app p { font-size: 0.92rem; color: var(--text-2); line-height: 1.55; margin-top: 8px; }
+.apps-summary__meta { display: flex; gap: 14px; align-items: baseline; margin-top: 12px; font-size: 0.85rem; color: var(--text-3); }
+@media (max-width: 820px) { .apps-summary__grid { grid-template-columns: 1fr; gap: 28px; } }
 .step__icon { width: 64px; height: 64px; border-radius: 15px; margin-bottom: 14px; }
 .step--app h3 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 10px; }
 .step--app h3 .app-row__ver { font-size: 0.9rem; font-weight: 500; }
