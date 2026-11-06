@@ -93,8 +93,8 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. The request carries the Specula and Sparkle version numbers; no system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. Settings › General › Updates turns the automatic checks off.</p>
-    <p>These requests are counted to see how many copies of Specula are in use, by version and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
+    <p>Specula uses <strong>Sparkle</strong> for automatic updates. Sparkle periodically fetches the appcast feed at <code>https://headroomstudio.dev/specula/appcast.xml</code> to check for new versions. The request carries the Specula and Sparkle version numbers and one word for the license state: <code>trial</code>, <code>licensed</code> or <code>expired</code>. No license key or system profile data is sent. Update compatibility is worked out on your Mac, from the minimum system version listed in the appcast. Settings › General › Updates turns the automatic checks off.</p>
+    <p>These requests are counted to see how many copies of Specula are in use, by version, license state and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
   </section>
 
   <section class="priv-section">
