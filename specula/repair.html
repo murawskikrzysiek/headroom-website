@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,26 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Spectral repair</p>
+            <p class="eyebrow">Workflow: Spectral repair</p>
             <h1 class="display">Take the cough out. Leave the chord.</h1>
             <p class="app-hero__desc">
                 A take is otherwise good except for one moment: a cough, a click, a chair squeak, a bite of hum. Re-recording is not always possible: a client session that is over, a location interview, an archival transfer with nothing left to record from. The Spectral task does that job, select the blemish on a spectrogram and fix just that, inside the analyzer that checks the numbers, and Include harmonics adds a squeak's or a whistle's overtones to the selection.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Spectral repair</span>
-                <span class="badge badge--accent">Include harmonics</span>
-                <span class="badge">Attenuate / Erase / Repair</span>
-                <span class="badge">Lasso · Brush · Wand</span>
-                <span class="badge">One-time purchase</span>
-                <span class="badge">No subscription</span>
-                <span class="badge">7-day trial</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#spectral">Read the Spectral guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Task</span>
                 <a class="chip" href="guide.html#spectral">Spectral <kbd>⌘6</kbd></a>
@@ -95,7 +84,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -110,7 +98,7 @@
     <!-- Include harmonics -->
     <section class="section section--bordered" id="harmonics">
         <div class="section__grid">
-            <p class="label">Include harmonics</p>
+            <h2 class="label">Include harmonics</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     A selection on a squeak's lowest line takes its overtones with it.
@@ -124,7 +112,7 @@
     <!-- Before and after -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before and after</p>
+            <h2 class="label">Before and after</h2>
             <figure class="shot ba">
                 <div class="ba__frame">
                     <picture><source srcset="specula-harmonics-before.webp" type="image/webp"><img src="specula-harmonics-before.png" width="1520" height="880" alt="The squeak under the interview selected on its lowest line, with its overtones outlined above it by Include harmonics, before Apply." loading="lazy" decoding="async"></picture>
@@ -142,7 +130,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">When there's no take two</p>
+            <h2 class="label">When there's no take two</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Everything about the take is right, except one moment.
@@ -156,7 +144,7 @@
     <!-- The price -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The price</p>
+            <h2 class="label">The price</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Spectral editing for $99.99, one time.
@@ -170,13 +158,13 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">How it works</p>
+                <h2 class="label">How it works</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Select the blemish, pick an operation, audition before Apply. All of it on a zoomable, full-resolution spectrogram.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Select the blemish</div><div class="feature-row__v"><kbd>⌘6</kbd>, or Spectral in the top bar, turns the canvas into a full-resolution, zoomable spectrogram of the open file, sharing the other views' zoom and scroll. Four tools sit in a palette on its left edge and share one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for a time and frequency box, whose outline shows the cells it will take while it is dragged; <strong>Lasso</strong> (<kbd>L</kbd>) for a free shape; <strong>Brush</strong> (<kbd>B</kbd>) for painting over a curved trace such as a bird chirp or a whistle; and <strong>Wand</strong> (<kbd>W</kbd>), which outlines, dashed, what a click would take: the connected region within its tolerance above or below the level under the pointer, reaching 250 ms each side by default. A drag with the rectangle or lasso, or a click with the wand, replaces the selection; Shift adds and Option subtracts. Brush strokes add, and an Option-stroke removes. The selection has a white outline, the rest of the canvas dims, the feather's roll-off shows as a soft edge around it, and its time span and frequency range print beside it; <kbd>Esc</kbd> clears it. The <strong>Floor</strong> and <strong>Ceiling</strong> knobs on the task bar (or Spectral › Contrast…) set the levels drawn black and brightest, to bring a faint blemish into view. For stereo files the canvas shows the left channel, the right or both stacked; multichannel files edit one channel at a time, picked by name from the file's layout, and the selection stays across channel switches.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Choose the operation</div><div class="feature-row__v">The operation panel in the sidebar holds the operation and its amount, the feather, Include harmonics, the channels Apply edits, Solo, Hear Result and Apply. <strong>Include harmonics</strong> adds the selection's tone at 2×, 3× and up, where it rings, so a squeak or a whistle goes with its overtones. <strong>Attenuate</strong> lowers (or raises) the selection by a set amount, default −18 dB. <strong>Erase</strong> (Spectral › Erase to Floor, <kbd>⌫</kbd>) pushes it down to the noise floor learned from the audio just before and after it, less an erase depth (default 12 dB), so removal stays decisive inside busy material. <strong>Repair</strong> bridges it in time, interpolating each frequency's level from the clean audio on both sides, for a short blemish crossing steady material. Every selected cell gets the full edit, the feather's roll-off lies outside the selection, where the canvas draws it, and phase is never touched. Apply edits all channels by default, or the ones picked. The analysis size (1024 to 8192) trades time detail against frequency detail; changing it with a selection asks first.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Audition, then apply</div><div class="feature-row__v">Space plays the selection's span. <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection, with the feather the operation would use, so what an Erase or an Attenuate would touch is heard first. <strong>Hear Result</strong> (<kbd>⌥Space</kbd>) plays the chosen operation as Apply would write it. One thing plays at a time: Space stops an audition, and starting one pauses the file. Spectral edits join the Edit task's history, and the selection survives an Apply and an Undo, for another pass. Save As writes a new file; the task bar's Save writes over the original once that is allowed. Selections longer than 10 minutes are refused; select a shorter range and apply in passes. Full detail in the <a href="guide.html#spectral">Spectral guide</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Select the blemish</div><div class="feature-row__v"><kbd>⌘6</kbd>, or Spectral in the top bar, turns the canvas into a full-resolution, zoomable spectrogram of the open file, sharing the other views' zoom and scroll. Four tools sit in a palette on its left edge and share one selection: <strong>Rectangle</strong> (<kbd>R</kbd>) for a time and frequency box, whose outline shows the cells it will take while it is dragged; <strong>Lasso</strong> (<kbd>L</kbd>) for a free shape; <strong>Brush</strong> (<kbd>B</kbd>) for painting over a curved trace such as a bird chirp or a whistle; and <strong>Wand</strong> (<kbd>W</kbd>), which outlines, dashed, what a click would take: the connected region within its tolerance above or below the level under the pointer, reaching 250 ms each side by default. A drag with the rectangle or lasso, or a click with the wand, replaces the selection; Shift adds and Option subtracts. Brush strokes add, and an Option-stroke removes. The selection has a white outline, the rest of the canvas dims, the feather's roll-off shows as a soft edge around it, and its time span and frequency range print beside it; <kbd>Esc</kbd> clears it. The <strong>Floor</strong> and <strong>Ceiling</strong> knobs on the task bar (or Spectral › Contrast…) set the levels drawn black and brightest, to bring a faint blemish into view. For stereo files the canvas shows the left channel, the right or both stacked; multichannel files edit one channel at a time, picked by name from the file's layout, and the selection stays across channel switches.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Choose the operation</div><div class="feature-row__v">The operation panel in the sidebar holds the operation and its amount, the feather, Include harmonics, the channels Apply edits, Solo, Hear Result and Apply. <strong>Include harmonics</strong> adds the selection's tone at 2×, 3× and up, where it rings, so a squeak or a whistle goes with its overtones. <strong>Attenuate</strong> lowers (or raises) the selection by a set amount, default −18 dB. <strong>Erase</strong> (Spectral › Erase to Floor, <kbd>⌫</kbd>) pushes it down to the noise floor learned from the audio just before and after it, less an erase depth (default 12 dB), so removal stays decisive inside busy material. <strong>Repair</strong> bridges it in time, interpolating each frequency's level from the clean audio on both sides, for a short blemish crossing steady material. Every selected cell gets the full edit, the feather's roll-off lies outside the selection, where the canvas draws it, and phase is never touched. Apply edits all channels by default, or the ones picked. The analysis size (1024 to 8192) trades time detail against frequency detail; changing it with a selection asks first.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Audition, then apply</div><div class="feature-row__v">Space plays the selection's span. <strong>Solo</strong> (<kbd>⇧Space</kbd>) plays only the selection, with the feather the operation would use, so what an Erase or an Attenuate would touch is heard first. <strong>Hear Result</strong> (<kbd>⌥Space</kbd>) plays the chosen operation as Apply would write it. One thing plays at a time: Space stops an audition, and starting one pauses the file. Spectral edits join the Edit task's history, and the selection survives an Apply and an Undo, for another pass. Save As writes a new file; the task bar's Save writes over the original once that is allowed. Selections longer than 10 minutes are refused; select a shorter range and apply in passes. Full detail in the <a href="guide.html#spectral">Spectral guide</a>.</div></div>
             </div>
         </div>
     </section>
@@ -184,7 +172,7 @@
     <!-- Up close (screenshots) -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Up close</p>
+            <h2 class="label">Up close</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-wand-selection.webp" type="image/webp"><img src="specula-wand-selection.png" width="1864" height="688" alt="The wand's dashed outline of what a click would take on a whistle under the speech, with its tolerance and reach in the task bar." loading="lazy" decoding="async"></picture>
@@ -201,7 +189,7 @@
     <!-- Honest limits -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">FAQ</p>
+            <h2 class="label">FAQ</h2>
             <div>
                 <div class="feature-row"><div class="feature-row__k">Is the Spectral task an automatic cleanup tool?</div><div class="feature-row__v">No. The Spectral task is manual spectral editing: the problem shows on the spectrogram, a rectangle, lasso, brush or wand selects it, and one of three operations, Attenuate, Erase or Repair, applies to the selection. There is no automatic de-noise, de-hum or de-reverb pass at this time. The fix lands exactly where it is pointed, and nothing else changes.</div></div>
                 <div class="feature-row"><div class="feature-row__k">Can it take a squeak's overtones out too?</div><div class="feature-row__v">Yes. Include harmonics, in the Spectral edit panel, adds the overtones of a squeak, a whistle or hum to a selection drawn on its lowest line, from 2× up to 16×, where they ring. The canvas outlines them before Apply.</div></div>
@@ -214,11 +202,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Fix the moment, not the take</p>
+            <h2 class="label">Fix the moment, not the take</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The Spectral task is for the blemish inside an otherwise good recording: select it on the spectrogram, in time and frequency, and process just that region. Its edits join the Edit task's history, and Save As writes a new file.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#spectral" class="btn btn-primary">Read the Spectral guide →</a>
+                    <a href="guide.html#spectral" class="btn btn-primary">Read the Spectral guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -237,8 +225,7 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="before-after.js"></script>
-<script src="../lightbox.js"></script>
+<script src="before-after.js?v=34016580"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

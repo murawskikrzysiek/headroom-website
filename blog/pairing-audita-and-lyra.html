@@ -3,27 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pairing Audita + Lyra: Calibrate Once, Recall Forever - Headroom</title>
+  <title>Pairing Audita and Lyra - Headroom</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/pairing-audita-and-lyra.html">
-  <meta name="description" content="Calibrate your monitor chain to a target dB SPL with Audita, save it to a Lyra hotkey, and recall a known reference level with one keystroke.">
-  <meta property="og:title" content="Calibrate once, recall forever - pairing Audita and Lyra">
-  <meta property="og:description" content="A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what 'Mix' actually means in dB SPL.">
+  <meta name="description" content="Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. From then on Ctrl+F11 recalls a monitor level with its dB SPL figure attached.">
+  <meta property="og:title" content="Pairing Audita and Lyra">
+  <meta property="og:description" content="Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. From then on Ctrl+F11 recalls a monitor level with its dB SPL figure attached.">
   <meta property="og:image" content="https://headroomstudio.dev/blog/screenshots/pairing-04-lyra-hud.png">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Calibrate once, recall forever - pairing Audita and Lyra">
+  <meta name="twitter:title" content="Pairing Audita and Lyra">
   <meta name="twitter:image" content="https://headroomstudio.dev/blog/screenshots/pairing-04-lyra-hud.png">
   <link rel="alternate" type="application/rss+xml" title="Headroom Studio - Notes from the studio" href="/blog/feed.xml">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
-  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="blog.css?v=8591d376">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
 
 <div class="container--read nav-shell">
     <nav class="nav">
@@ -38,19 +37,16 @@
 <div class="container--read">
     <header class="article-header">
         <p class="article-eyebrow">Workflow</p>
-        <h1>Calibrate once, recall forever - pairing Audita and Lyra</h1>
-        <p class="article-subtitle">A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL.</p>
+        <h1>Pairing Audita and Lyra</h1>
+        <p class="article-subtitle">Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. From then on Ctrl+F11 recalls a monitor level with its dB SPL figure attached.</p>
         <div class="article-meta">
-            <span>Krzysiek</span>
-            <span class="dot"></span>
-            <span>27 April 2026</span>
-            <span class="dot"></span>
+            <span>Krzysiek, </span>
+            <span>27 April 2026, </span>
             <span>9 min read</span>
         </div>
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container--read">
   <article class="article">
@@ -146,7 +142,7 @@
             <figcaption>The menu bar shows the calibrated value alongside the name. Once both apps are paired, "Mix" stops being a vague intention and becomes a number.</figcaption>
         </figure>
 
-        <p>This is most of the value of the integration: a familiar listening level, a known number, a key combination. Just <em>Ctrl+F11 → that's mix level → carry on</em>.</p>
+        <p>This is most of the value of the integration: a familiar listening level, a known number, a key combination. Ctrl+F11, and the room is at mix level.</p>
 
         <figure class="figure">
             <img src="screenshots/pairing-04-lyra-hud.png" alt="Lyra HUD overlay showing 'Mix - 79 dB SPL' on screen after pressing Ctrl+F11">
@@ -159,7 +155,7 @@
 
         <p>Three monitor presets named "low / med / high" are useful. Three monitor presets named "71 / 79 / 85 dB SPL" are accountable. The next time you calibrate the same speakers - whether tomorrow or in three months - you'll know whether the slot still hits its target. If <em>Mix</em> calibrated at 79 last time and reads 81 this time, something has drifted: a knob position, the room treatment, the ambient floor, the converter output. You have a baseline to argue against.</p>
 
-        <p>It also exposes a small lie that most engineers tell themselves. If you've never measured what your "mid" listening level actually is, the answer is almost certainly louder than you think. The first time someone calibrates is often the moment they discover they've been mixing at 86 dBA all year.</p>
+        <p>It also exposes a small lie that most engineers tell themselves. If you've never measured what your "mid" listening level is, the answer is almost certainly louder than you think. The first time someone calibrates is often the moment they discover they've been mixing at 86 dBA all year.</p>
 
         <h2>What it doesn't do</h2>
 
@@ -173,20 +169,18 @@
 
         <p>If you already have <a href="../audita/">Audita</a> installed and a measurement mic at your listening position, the <em>Send to Lyra</em> button is right there under the saved-calibration card. <a href="../lyra/">Lyra 1.4</a> needs to be installed too - the URL scheme handler ships in that version. If Lyra isn't installed, Audita shows a small link to the product page in place of the button, and otherwise stays out of the way.</p>
 
-        <p>The first calibration takes a few minutes if you've never used Audita's wizard before. Every subsequent one - re-pairing after moving rooms, swapping monitors, or adjusting a trim - takes about ninety seconds. The recall after that is one keystroke, indefinitely.</p>
-
-        <p>Most studio tools optimise for what happens during the mix. This one optimises for the part in between: knowing where the knob is.</p>
+        <p>The first calibration takes a few minutes if you've never used Audita's wizard before. Every subsequent one - re-pairing after moving rooms, swapping monitors, or adjusting a trim - takes about ninety seconds. The recall after that is one keystroke.</p>
 
         <div class="kicker">
-            <p><a href="../audita/">Audita</a> is a real-time hearing dose meter for macOS - passive SPL tracking, NIOSH dose accumulation, and now Lyra calibration handoff. <a href="../lyra/">Lyra</a> is a menu-bar volume controller for UA Apollo interfaces - F-key shortcuts, three named reference levels, and a documented URL scheme. Both apps offer 7-day free trials and live in the menu bar.</p>
+            <p>The pairing needs <a href="../audita/">Audita</a> 1.0 and <a href="../lyra/">Lyra</a> 1.4 or later. Both have a 7-day trial.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="switching-speakers-at-level.html"><span>Switching speakers at a calibrated level</span><span class="arrow">→</span></a></li>
-                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - how loudness halves safe listening time</span><span class="arrow">→</span></a></li>
-                <li><a href="calibrated-monitoring.html"><span>Monitor at a number, not a vibe - the case for calibrated studio listening</span><span class="arrow">→</span></a></li>
+                <li><a href="switching-speakers-at-level.html"><span>Switching speakers at a calibrated level</span></a></li>
+                <li><a href="the-3-db-rule.html"><span>The 3 dB rule - how loudness halves safe listening time</span></a></li>
+                <li><a href="calibrated-monitoring.html"><span>The case for calibrated studio monitoring</span></a></li>
             </ul>
         </div>
     </article>
@@ -201,7 +195,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe &#8594;</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -225,9 +219,8 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
-<script src="../newsletter.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

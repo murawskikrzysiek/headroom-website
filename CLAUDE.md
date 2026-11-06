@@ -6,7 +6,7 @@ Context for working on the headroom-website repository.
 
 Static website for **Headroom Studio** (headroomstudio.dev), Krzysiek's indie macOS software label. It serves marketing pages, guides, FAQs, API docs, release notes, a blog, and Sparkle appcast feeds for three shipping apps — **Lyra**, **Audita**, **Specula** — plus redirect stubs for **Auris** (renamed to Audita 2026-05-08; `auris/` pages redirect and its appcast points users at the rename).
 
-**Stack:** Plain HTML + one shared stylesheet + a handful of vanilla JS helpers. No build step, no dependencies, nothing to install. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS (proxy **OFF** — DNS only, required for the GitHub Pages cert). Push to `main` deploys in ~1-2 min.
+**Stack:** Plain HTML + one shared stylesheet + a handful of vanilla JS helpers. No build step, no dependencies, nothing to install. Hosted on GitHub Pages with custom domain `headroomstudio.dev` via Cloudflare DNS. The four apex `A` records are **Proxied** since 2026-11-02 so the `releases-worker` can count Sparkle update checks on `/<app>/appcast.xml` (see `headroom/releases-worker/SETUP.md`); `www` stays DNS only. Push to `main` deploys in ~1-2 min.
 
 **Contact:** hello@headroomstudio.dev (iCloud Mail with custom domain).
 
@@ -19,13 +19,13 @@ headroom-website/
 ├── index.html              # Homepage - app rows + About + activity feed + newsletter
 ├── 404.html                # Standalone (embeds its own CSS; tokens mirror headroom.css §1)
 ├── headroom.css            # THE shared stylesheet (see Styling)
-├── waveform.js             # Ambient animated signal band (auto-inits .waveform divs)
 ├── lightbox.js             # Shared click-to-zoom w/ prev-next; self-contained (injects own CSS)
 ├── faq-search.js           # Live search + category chips on the FAQ pages
 ├── newsletter.js           # Subscribe form → first-party Cloudflare Worker proxy
 ├── activity-feed.js        # "Recent" feed built from appcast.xml files + blog index
 ├── sitemap.xml             # Maintained BY HAND - add new pages (see Sitemap and robots)
 ├── tools/check-sitemap.sh  # Verifies sitemap.xml matches the pages on disk
+├── tools/stamp-assets.sh   # Stamps every local .css/.js link with a content hash (see Asset stamps)
 ├── robots.txt              # Disallows appcasts (wildcard) + /assets/screens/
 ├── CNAME                   # headroomstudio.dev
 ├── favicon.ico / favicon-{16,32,48}x*.png / apple-touch-icon.png / headroom-mark*.svg
@@ -59,15 +59,15 @@ Tokens (palette, radii, fonts) live in `headroom.css` §1 — read them there, d
 
 ## Shared JS helpers
 
-Each file's header comment documents its container contract — read it before wiring a page. All are plain script tags at the end of `<body>`, no modules, no build.
+Each file's header comment documents its container contract — read it before wiring a page. All are plain script tags at the end of `<body>`, no modules, no build. Every local `<link>`/`<script>` carries a `?v=<hash>` stamp; see Asset stamps below.
 
 | File | What it does | Used on |
 |---|---|---|
-| `waveform.js` | ambient canvas band, auto-inits every `.waveform` | most pages |
 | `lightbox.js` | click-to-zoom with prev/next; targets `.shot img`, `img.screenshot-full`, `.screenshot-row img`, `.figure img`; injects its own overlay + styles | every page with zoomable images — do NOT add per-page lightboxes |
 | `faq-search.js` | search box + category chips over `.faq-group` markup | lyra + audita FAQ |
 | `newsletter.js` | posts the subscribe form to `api.headroomstudio.dev/s/<list>` (Worker → MailerLite) with a Turnstile token | homepage, blog, app pages |
 | `activity-feed.js` | merges appcast releases + blog posts into the `[data-feed]` container, newest first | homepage, app pages |
+| `instruments.js` | the apps' own readouts drawn live: Lyra's volume HUD (`[data-hud]`, keys work), Audita's pinned window (`[data-pin]`, every number computed from one synthetic session by the app's rules, with the app's own alerts where its detectors fire) and Specula's capture walkthrough (`[data-walk]`, a frame of real captures, two per workflow where before and after both exist). The homepage is one `.tile-app` section per app (head, actions, the face drawn large, four facts); `wireTiles` moves each app's icon into the nav once its section has scrolled past. The scroll-driven stories live on the app pages. A `.trig` above an instrument shows an incoming trigger (Spotlight, Shortcut, URL, Focus), a `.notif` the app's notification. A `.scrolly[data-instrument]` section pins one beside steps; the step level with it (phone: just under the pinned strip) sets its `data-state`. Reduced motion: no load moment, no transitions | homepage, lyra/index, audita/index, specula/index |
 | `guide-toc.js` | sidebar-TOC upgrades for long guides: injects a fuzzy search field (titles fuzzy, body text substring, subhead deep-links) and scroll-spies the current section and subhead; wants `nav.toc[data-guide-toc]`; layout (sticky rail >=1100px, static card below) lives in the page's own CSS. Indexes **direct-child `li` only**, so a nested `.toc-sub` is not mistaken for a section. A page that ships its own static `.toc-sub` owns those nodes: search filters them and never rebuilds them; a page without one gets sub-entries derived from its h3s while a search runs (what every current guide does). Shell furniture - not part of the md mirror | all three guides + both API pages (a value on `data-guide-toc` overrides the search placeholder) |
 | `specula/meter-demo.js` | live BS.1770-4 meter demo: synthesizes a deterministic 30 s program and meters it in JS (K-weighting, gated integrated, 4× true peak); auto-inits every `.mdemo`; under reduced motion stays static and hides Run | `specula/index.html` only |
 
@@ -87,7 +87,7 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 ## External services
 
 - **GitHub Pages** — hosting; deploys on push to `main`
-- **Cloudflare** — DNS (proxy OFF / DNS-only; turning it on breaks GitHub Pages TLS), R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
+- **Cloudflare** — DNS (apex proxied, SSL/TLS mode **Full**, Always Use HTTPS on; never Flexible, which loops with GitHub's HTTPS redirect, and never Full strict, which breaks the day GitHub can't renew its certificate behind the proxy), the `releases-worker` route on the appcasts, R2 for DMGs, Workers for the newsletter proxy, Turnstile for form abuse protection, Web Analytics
 - **Lemon Squeezy** — payment processor / license server for all apps (referenced in privacy pages and FAQs)
 - **MailerLite** — newsletter backend, reached only server-side via the Worker (`_newsletter-proxy/README.md` explains why: content blockers kill direct MailerLite fetches, and their public form endpoint 403s Worker IPs, so the Worker uses the server API)
 - **Sparkle** — macOS auto-update framework consuming the appcasts
@@ -98,10 +98,10 @@ Each app folder has `appcast.xml` (Sparkle feed, served at `headroomstudio.dev/<
 2. Add the app row to the homepage grid and, if it should appear in the feed, to the `data-feed-apps` list
 3. Generate the OG image + thumbnail with `gen_app_banners/`
 4. Add every new page to `sitemap.xml` (hand-maintained) and run `./tools/check-sitemap.sh` (see Sitemap and robots)
-5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern
+5. Link `../headroom.css` and reuse its components; guides/API pages may embed their own styles per the existing pattern; run `./tools/stamp-assets.sh` once the page links its CSS and JS
 6. Include the full favicon set (`favicon.ico` 48x48, svg, 32, 16, apple-touch) in `<head>`
 7. **Add the Cloudflare Web Analytics snippet to the `<head>` of every new HTML page** (see Analytics). Currently on all 41 pages — keep it at 100%.
-8. **If the app breaks a studio-wide positioning line, sweep them all.** The site currently says "audio" / "sound" in: homepage `<title>` + meta/og descriptions, the hero sub-line ("people who work in sound"), the About paragraph ("macOS tools for audio work"), `og-headroom.png` and the social headers ("Precision audio tools for macOS" - regenerate via `gen_app_banners/`, one command each). **Videre (video) is the known future case** - when it ships, these all need a wording pass; candidate direction: "Precision tools for macOS" or "sound and picture".
+8. **If the app breaks a studio-wide positioning line, sweep them all.** The site currently says "audio" / "sound" in: homepage `<title>` + meta/og descriptions, the homepage hero ("Mac apps for audio work."), the About paragraph ("macOS tools for audio work"), `og-headroom.png` and the social headers ("Precision audio tools for macOS" - regenerate via `gen_app_banners/`, one command each). **Videre (video) is the known future case** - when it ships, these all need a wording pass; candidate direction: "Precision tools for macOS" or "sound and picture".
 
 ## Sitemap and robots
 
@@ -123,6 +123,16 @@ It diffs the sitemap against the `.html` files on disk in both directions and va
 
 **Keeping a page out of the index means `noindex`, not `Disallow`.** The two do different jobs: `Disallow` stops the crawl, and a page that is never crawled is a page whose `noindex` is never read, so an already-indexed URL can linger. All four `auris/` pages carry `<meta name="robots" content="noindex,follow">` and are deliberately left crawlable for exactly that reason. Never add `Disallow: /auris/`. `Disallow` is the right tool only for non-HTML files that cannot carry a meta tag (the appcasts, `assets/screens/`), since GitHub Pages cannot set an `X-Robots-Tag` header.
 
+## Asset stamps
+
+GitHub Pages serves `.css` and `.js` with `max-age=14400` (four hours) and HTML with ten minutes, and Cloudflare caches on top of that. A stylesheet change shipped bare meets the old copy in every browser that visited that day. So every local stylesheet and script link carries a content hash, `headroom.css?v=e67a5e09`, written by:
+
+```bash
+./tools/stamp-assets.sh
+```
+
+Run it before opening any PR that touches a `.css` or `.js` file (idempotent, rewrites only links whose target changed; `gen_app_banners/` is skipped). `./tools/stamp-assets.sh --check` exits non-zero when a link is stale, the same shape as the sitemap checker. CDN URLs (Turnstile, the analytics beacon) are left alone. A changed file gets a new URL, so no purge is needed on either cache.
+
 ## Analytics
 
 Every public-facing HTML page must include the Cloudflare Web Analytics snippet in its `<head>`. Paste this verbatim, just before `</head>`:
@@ -131,7 +141,7 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 ```
 
-**Why JS Snippet mode** (not dashboard auto-injection): auto-injection needs the Cloudflare proxy on to rewrite HTML at the edge; our proxy is off (DNS-only, for GitHub Pages TLS), so the snippet must run client-side. Captures pageviews, uniques, referrers, top pages/devices/countries. No cookies, no PII, no GDPR banner. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
+**Why JS Snippet mode** (not dashboard auto-injection): the snippet predates the proxy and works regardless of it. Now that the apex is proxied, leave dashboard auto-injection **off**; with the snippet already on every page it would count each view twice. Captures pageviews, uniques, referrers, top pages/devices/countries. No cookies, no PII, no GDPR banner. Dashboard: `dash.cloudflare.com` → Analytics & Logs → Web Analytics.
 
 **Verifying:** after deploying a new page, visit it once and check the dashboard within ~5 min — a missing pageview means a missing or malformed snippet.
 
@@ -139,11 +149,12 @@ Every public-facing HTML page must include the Cloudflare Web Analytics snippet 
 
 ## Key decisions
 
-- **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship
+- **No build tools** — intentional; plain HTML/CSS is easy to maintain and fast to ship. The one pre-commit step is `tools/stamp-assets.sh`, a hash on each asset link, so a stylesheet change never meets a cached copy (2026-11-05: the rework went live with the new HTML against a four-hour-cached old `headroom.css`)
 - **One shared stylesheet** — pages moved off per-page embedded CSS to `headroom.css`; only guides/API/404 still embed styles, deliberately
 - **One shared lightbox** — `lightbox.js` everywhere; inline copies were removed in the 2026-07 rework
 - **System fonts + liquid-glass chrome** — 2026-07 design refresh: SF system stack (no webfonts), sticky glass nav on every page, glass on chips/badges/secondary buttons; periwinkle accent kept (it matches the app icons; the AI-default look was the Inter+violet+glow ensemble, not the hue)
-- **Cloudflare proxy OFF** — GitHub Pages must see the A records directly for TLS
+- **Lists, not cards; sentence case, not tracked capitals (2026-11)** - the frontend-design pass: no radial glows, no waveform band, no badge walls, no status pills, no arrows on link text, no middle-dot meta strings, no card boxes for lists (app rows, doc links, stats, callouts are rows and asides with hairlines). `.eyebrow` and `.label` are sentence-case text at reading size; monospace is for code and the in-page app mockups only. Picture frames and code blocks keep their borders. The checklist lives in the `frontend-design` plugin skill; run it before adding a new page pattern
+- **Cloudflare proxy ON for the apex (2026-11-02)** — the `releases-worker` counts appcast checks for active-install numbers; SSL mode Full keeps GitHub Pages TLS working behind it. Rollback: set the apex `A` records back to DNS only, which only stops the counting
 - **Per-app folder structure** — keeps root clean as apps accumulate
 - **Auris pages stay up** — old links and the old appcast must keep resolving post-rename
 - **`assets/screens/` is unlisted, not private** — hotlinkable for forum posts, excluded from sitemap + robots

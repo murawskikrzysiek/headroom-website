@@ -17,13 +17,12 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
-  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="blog.css?v=8591d376">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
 
 <div class="container--read nav-shell">
     <nav class="nav">
@@ -41,16 +40,13 @@
         <h1>Specula 1.2: custom loudness targets and raw PCM import</h1>
         <p class="article-subtitle">The delivery spec a client sends you, entered once and treated like a built-in target. Plus headerless audio under a declared format, and a readability pass across the main window.</p>
         <div class="article-meta">
-            <span>Krzysiek</span>
-            <span class="dot"></span>
-            <span>3 August 2026</span>
-            <span class="dot"></span>
+            <span>Krzysiek, </span>
+            <span>3 August 2026, </span>
             <span>4 min read</span>
         </div>
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container--read">
   <article class="article">
@@ -61,7 +57,7 @@
 
         <p>Delivery specs rarely land on a platform preset. A house spec reads &ldquo;integrated -18 LUFS, tolerance 1 LU, true peak under -1 dBTP&rdquo;, and until now the workflow was picking the nearest built-in target and doing the remaining arithmetic in your head every time the badge updated. In 1.2, <strong>Settings &#8594; Targets &#8594; Custom targets</strong> holds the spec itself: a name, the mode it belongs to, the measurement source (integrated, dialog-gated, or un-weighted RMS), the reference level, the tolerance band, and the true-peak ceiling. The saved target joins its mode's list and gets the full treatment: the verdict badge, the hover breakdown showing which number missed and by how much, Match to audition at the target level, Normalize to target to commit, and a row in the report exports, so the PDF that goes back to the client carries a verdict against their own numbers.</p>
 
-        <p>The measurement source is the field that earns its keep. Broadcast and music specs judge integrated LUFS, VOD houses judge dialog-gated, and audiobook delivery is un-weighted RMS. A custom target names its source explicitly, so the number being checked is the number the spec is written in.</p>
+        <p>The measurement source is the field that matters most. Broadcast and music specs judge integrated LUFS, VOD houses judge dialog-gated, and audiobook delivery is un-weighted RMS. A custom target names its source explicitly, so the number being checked is the number the spec is written in.</p>
 
         <h2>Raw PCM import</h2>
 
@@ -86,14 +82,14 @@
         </ul>
 
         <div class="kicker">
-            <p>Specula 1.2 is a free update for existing licenses: <strong>Check for Updates</strong> inside the app, or download at <a href="/specula/">headroomstudio.dev/specula</a>. New licenses are <strong>$99.99</strong>, one time, with a 7-day trial. <a href="/specula/releases.html#v1.2">Full release notes &#8594;</a></p>
+            <p>Specula 1.2 is a free update for existing licenses, through Check for Updates in the app or from the <a href="/specula/">Specula page</a>. New licenses $99.99 one time, 7-day trial, macOS 14 or later. <a href="/specula/releases.html#v1.2">Release notes</a>.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV is measured on the dialogue, not the mix</span><span class="arrow">&#8594;</span></a></li>
-                <li><a href="specula-1-1-spectral-editing.html"><span>Specula 1.1: spectral editing, fix what you measure</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="dialogue-gated-loudness.html"><span>Why streaming TV loudness is measured on the dialogue</span></a></li>
+                <li><a href="specula-1-1-spectral-editing.html"><span>Specula 1.1: spectral editing, Record mode, an Audio Unit chain and a signal generator</span></a></li>
             </ul>
         </div>
     </article>
@@ -108,7 +104,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe &#8594;</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -132,9 +128,8 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
-<script src="../newsletter.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Batch QC &amp; automation</p>
+            <p class="eyebrow">Workflow: Batch QC &amp; automation</p>
             <h1 class="display">Score a folder unattended, same numbers as the app.</h1>
             <p class="app-hero__desc">
                 File › Check a Folder… checks every audio file in a folder against Deliver to, with no script: a row per file with its verdict and readings, a report per file and a CSV of the rows. For a pipeline, the <code>specula</code> command-line tool, eight Shortcuts actions and three Finder services run the same measurement engine, so a script walking a directory gets the window's numbers as sorted-key JSON that diffs cleanly across runs.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Check a Folder</span>
-                <span class="badge">specula CLI</span>
-                <span class="badge">8 App Intents</span>
-                <span class="badge">Finder Services</span>
-                <span class="badge">Deterministic JSON</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#check-a-folder">Read the Check a Folder guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tools this workflow uses">
                 <span class="taskstrip__label">Tools</span>
                 <a class="chip" href="guide.html#check-a-folder">Check a Folder</a>
@@ -94,7 +85,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -109,7 +99,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Why hand-checking doesn't scale</p>
+            <h2 class="label">Why hand-checking doesn't scale</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Opening, reading and closing files by hand is fine for one master and slow for a folder of forty.
@@ -130,13 +120,13 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">A folder, in the app</p>
+                <h2 class="label">A folder, in the app</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Choose the folder, check what it is judged against, run it.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Choose the folder</div><div class="feature-row__v">File › Check a Folder…, or the Check a folder tile in the empty window, opens the Check a Folder window. Choose the folder, and <strong>Include subfolders</strong> where they hold more files.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Judged against</div><div class="feature-row__v">Every file is judged against Deliver to. <strong>Judged against</strong> names the category and its targets, and <strong>Change…</strong> beside it opens the Deliver to picker: ACX under Audiobook, the −27 LKFS dialogue window under Film and TV, and custom targets in their category. After a check, <strong>Judge Again</strong> judges the rows against a new target from their readings.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Run it</div><div class="feature-row__v"><strong>Check</strong> measures one file at a time, with the app's speech settings and any corrected speech regions saved for a file, and fills a row: File, Verdict, Integrated, True peak, LRA and Speech. JSON, HTML or PDF reports are written for each file as it finishes, and a CSV of the rows at the end, by default into a new folder beside the checked one, such as "Masters Specula check 2026-10-02", never into the checked folder and never over an existing file. Cancel keeps what is done, and its CSV.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Choose the folder</div><div class="feature-row__v">File › Check a Folder…, or the Check a folder tile in the empty window, opens the Check a Folder window. Choose the folder, and <strong>Include subfolders</strong> where they hold more files.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Judged against</div><div class="feature-row__v">Every file is judged against Deliver to. <strong>Judged against</strong> names the category and its targets, and <strong>Change…</strong> beside it opens the Deliver to picker: ACX under Audiobook, the −27 LKFS dialogue window under Film and TV, and custom targets in their category. After a check, <strong>Judge Again</strong> judges the rows against a new target from their readings.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Run it</div><div class="feature-row__v"><strong>Check</strong> measures one file at a time, with the app's speech settings and any corrected speech regions saved for a file, and fills a row: File, Verdict, Integrated, True peak, LRA and Speech. JSON, HTML or PDF reports are written for each file as it finishes, and a CSV of the rows at the end, by default into a new folder beside the checked one, such as "Masters Specula check 2026-10-02", never into the checked folder and never over an existing file. Cancel keeps what is done, and its CSV.</div></div>
             </div>
         </div>
     </section>
@@ -145,15 +135,15 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Scripting it</p>
+                <h2 class="label">Scripting it</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Install once, then put the same numbers in a loop.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Install the CLI</div><div class="feature-row__v">The command-line tool ships inside the app: <strong>Specula › Install Command-Line Tool…</strong>, or the button in Settings › General, links <code>specula</code> into <code>/usr/local/bin</code> (one admin prompt if that folder needs it), and <code>specula --version</code> confirms it. App updates keep it current. It shares the app's license and trial: it runs through the 7-day trial and needs the license activated in the app after that.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Analyze in a loop</div><div class="feature-row__v"><code>specula analyze &lt;FILE&gt;</code> emits the headline numbers as JSON: integrated LUFS, true peak, sample peak, loudness range, dialogue loudness and stereo correlation, with <code>speech.map</code> saying whether speech was detected or came from corrected regions saved for the file's length. <code>--no-vad</code> skips speech detection (faster), <code>--no-stereo</code> the correlation pass, and <code>--no-sidecar</code> measures with detected speech even where corrected regions are saved. Walk the folder, parse one field, flag the misses.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · A report per file</div><div class="feature-row__v"><code>specula report &lt;FILE&gt;</code> runs the full report through the headless pipeline. <code>--format json|html|pdf|csv</code> picks the shape (PDF is the report the app's preview renders and needs <code>--out</code>; CSV is a flat metric,value table). <code>--mode music|podcast|vod|broadcast</code> picks the mode whose default targets judge the file: Spotify, Apple Music, YouTube and Tidal; Apple Podcasts and Spotify (Podcast); Netflix, Prime Video, Apple TV+ and Max; EBU R128 and ATSC A/85. It does not read the app's Deliver to or custom targets and has no audiobook mode, so ACX is judged in the app and in Check a Folder. <code>--vad-threshold</code>, <code>--vad-min-speech</code> and <code>--vad-min-silence</code> take the app's speech settings, and <code>--no-curve</code> drops the per-100 ms loudness curve for smaller batch output.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Diff two versions</div><div class="feature-row__v"><code>specula compare &lt;A&gt; &lt;B&gt;</code> reports every metric side by side with <code>B − A</code> deltas. <code>--match-loudness</code> nets out the integrated-LUFS delta so the deltas show spectral or shape differences instead of level drift; <code>--out-diff &lt;PATH&gt;</code> writes the <code>A − gainB·B</code> residual as a Float32 WAV and adds a <code>residual</code> block to the JSON. B at another sample rate is resampled to A's; the channel counts must match.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Generate test signals</div><div class="feature-row__v"><code>specula generate --out &lt;OUT&gt;</code> synthesizes a test signal and writes it: one source per run (<code>--sine</code>, <code>--square</code>, <code>--saw</code>, <code>--triangle</code>, <code>--noise white|pink|brown</code>, <code>--sweep START:END</code>, <code>--impulse</code>, <code>--silence</code>) across N identical channels, with <code>--sample-rate</code>, <code>--bit-depth 16|24|32f</code> and <code>--container wav|aiff|caf</code>. For layered or time-sequenced multichannel signals, a JSON spec goes in with <code>--spec-file</code>; the receipt on stdout reports the written format and the measured peak, RMS and integrated LUFS. The sources are the Signal Generator window's.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Install the CLI</div><div class="feature-row__v">The command-line tool ships inside the app: <strong>Specula › Install Command-Line Tool…</strong>, or the button in Settings › General, links <code>specula</code> into <code>/usr/local/bin</code> (one admin prompt if that folder needs it), and <code>specula --version</code> confirms it. App updates keep it current. It shares the app's license and trial: it runs through the 7-day trial and needs the license activated in the app after that.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Analyze in a loop</div><div class="feature-row__v"><code>specula analyze &lt;FILE&gt;</code> emits the headline numbers as JSON: integrated LUFS, true peak, sample peak, loudness range, dialogue loudness and stereo correlation, with <code>speech.map</code> saying whether speech was detected or came from corrected regions saved for the file's length. <code>--no-vad</code> skips speech detection (faster), <code>--no-stereo</code> the correlation pass, and <code>--no-sidecar</code> measures with detected speech even where corrected regions are saved. Walk the folder, parse one field, flag the misses.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. A report per file</div><div class="feature-row__v"><code>specula report &lt;FILE&gt;</code> runs the full report through the headless pipeline. <code>--format json|html|pdf|csv</code> picks the shape (PDF is the report the app's preview renders and needs <code>--out</code>; CSV is a flat metric,value table). <code>--mode music|podcast|vod|broadcast</code> picks the mode whose default targets judge the file: Spotify, Apple Music, YouTube and Tidal; Apple Podcasts and Spotify (Podcast); Netflix, Prime Video, Apple TV+ and Max; EBU R128 and ATSC A/85. It does not read the app's Deliver to or custom targets and has no audiobook mode, so ACX is judged in the app and in Check a Folder. <code>--vad-threshold</code>, <code>--vad-min-speech</code> and <code>--vad-min-silence</code> take the app's speech settings, and <code>--no-curve</code> drops the per-100 ms loudness curve for smaller batch output.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Diff two versions</div><div class="feature-row__v"><code>specula compare &lt;A&gt; &lt;B&gt;</code> reports every metric side by side with <code>B − A</code> deltas. <code>--match-loudness</code> nets out the integrated-LUFS delta so the deltas show spectral or shape differences instead of level drift; <code>--out-diff &lt;PATH&gt;</code> writes the <code>A − gainB·B</code> residual as a Float32 WAV and adds a <code>residual</code> block to the JSON. B at another sample rate is resampled to A's; the channel counts must match.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Generate test signals</div><div class="feature-row__v"><code>specula generate --out &lt;OUT&gt;</code> synthesizes a test signal and writes it: one source per run (<code>--sine</code>, <code>--square</code>, <code>--saw</code>, <code>--triangle</code>, <code>--noise white|pink|brown</code>, <code>--sweep START:END</code>, <code>--impulse</code>, <code>--silence</code>) across N identical channels, with <code>--sample-rate</code>, <code>--bit-depth 16|24|32f</code> and <code>--container wav|aiff|caf</code>. For layered or time-sequenced multichannel signals, a JSON spec goes in with <code>--spec-file</code>; the receipt on stdout reports the written format and the measured peak, RMS and integrated LUFS. The sources are the Signal Generator window's.</div></div>
 
                 <p class="prose-lead" style="margin-top: 22px;">A report straight to PDF, the same shape the app prints:</p>
                 <div class="callout" style="margin-top: 16px;">
@@ -168,7 +158,7 @@
     <!-- App Intents depth -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">No shell? Use the App Intents</p>
+            <h2 class="label">No shell? Use the App Intents</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Eight App Intents</strong> let the Shortcuts app and Siri call the same engine the command line does, with output a later step can chain on. Four actions ship in two variants each, one taking a <strong>file</strong> and one a <strong>path</strong>: <strong>Get Measurements</strong>, <strong>Compare Files</strong>, <strong>Get Compare Diff</strong> and <strong>Get Report</strong>.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The results are Shortcuts output to chain on.</strong> Get Measurements exposes every numeric field as a variable, so a later step can branch ("if Integrated LUFS &gt; -12 then…") without parsing JSON. Compare Files returns both sides and the <code>B − A</code> deltas; Get Compare Diff returns the residual WAV, with B resampled to A's rate where they differ; Get Report returns the JSON, HTML or PDF file for a step such as Save File or Mail, judged in the loudness mode chosen in the step, as on the command line. The actions read corrected speech regions saved for a file, as the app does.</p>
@@ -183,7 +173,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Shortcuts and Finder</p>
+            <h2 class="label">Shortcuts and Finder</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <img src="specula-shortcuts.png" width="1600" height="952" alt="A Shortcuts workflow using Specula's Get Measurements action with its chainable output." loading="lazy" decoding="async">
@@ -200,11 +190,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Put the same engine in your pipeline</p>
+            <h2 class="label">Put the same engine in your pipeline</h2>
             <div style="max-width: 640px;">
-                <p class="prose-lead">The window, Check a Folder, the command line, Shortcuts and the Finder services run one measurement engine. The command line also fixes what a level move can: <code>specula edit in.wav --normalize-lufs=-16 --lufs-ceiling=-1 --out out.wav</code> normalizes and caps a file unattended, so a Folder Action can correct what it flagged. A noisy capture or a bad mix is left as it is, with numbers that diff across runs. <a href="editing.html">The editing workflow →</a></p>
+                <p class="prose-lead">The window, Check a Folder, the command line, Shortcuts and the Finder services run one measurement engine. The command line also fixes what a level move can: <code>specula edit in.wav --normalize-lufs=-16 --lufs-ceiling=-1 --out out.wav</code> normalizes and caps a file unattended, so a Folder Action can correct what it flagged. A noisy capture or a bad mix is left as it is, with numbers that diff across runs. <a href="editing.html">The editing workflow</a></p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#cli" class="btn btn-primary">Read the command-line guide →</a>
+                    <a href="guide.html#cli" class="btn btn-primary">Read the command-line guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -223,7 +213,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

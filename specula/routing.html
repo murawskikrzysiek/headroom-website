@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,23 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Flexible monitoring</p>
+            <p class="eyebrow">Workflow: Flexible monitoring</p>
             <h1 class="display">Send any channel to any output.</h1>
             <p class="app-hero__desc">
                 A file's channel layout and the speakers on the desk rarely match. Specula puts an N→M routing matrix between the two: send any source channel to any output, trim each route in dB, set its phase, and switch the channel meters between the raw file and the routed result. Nothing done here touches the file. When the routing is right, render it to a new one.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">N→M routing</span>
-                <span class="badge">Per-route gain &amp; phase</span>
-                <span class="badge">PRE / POST meters</span>
-                <span class="badge">Render to file</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#routing">Read the routing guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tools this workflow uses">
                 <span class="taskstrip__label">Tools</span>
                 <a class="chip" href="guide.html#routing">Output and Routing <kbd>⌥⌘O</kbd></a>
@@ -92,7 +84,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -107,7 +98,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">When the file and the room disagree</p>
+            <h2 class="label">When the file and the room disagree</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     Where each channel ends up is a decision, and the matrix is where it is made.
@@ -130,16 +121,16 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Working the matrix</p>
+                <h2 class="label">Working the matrix</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Open the matrix, patch it by hand or from a preset, then choose which side the meters show.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Open Output and Routing</div><div class="feature-row__v">The output device button near the right end of the top bar, <kbd>⌥⌘O</kbd>, or <strong>Window › Output and Routing</strong> opens the window. It holds the device selector (with the channel count beside each name), the PRE and POST switch for the channel meters, and the routing matrix, so the channels the matrix targets and the device driving them sit together. It remembers its size and position, and routing settings persist for the open file.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Route N→M in the matrix</div><div class="feature-row__v">The matrix maps each source channel to one or more outputs with per-route gain trim. In <strong>Matrix view</strong> (default) each routed cell splits into three zones: an on/off dot, a <strong>ϕ glyph</strong> that cycles the route's phase through 0°, +90°, −90° and 180° (turns orange when active), and a typeable dB gain: drag a value vertically to adjust it by 0.25 dB per pixel, and click an unrouted cell to enable it at unity. <strong>List view</strong> gives one row per output with a source picker and a precise dB field. A silent row or an unused source column stands out at a glance, and the view chosen persists across launches. From the keyboard, each cell is a button named for its route, such as L to R Out: the arrow keys step its gain by 1 dB, Return or Space types a value, and VoiceOver reads its state.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Or start from a preset</div><div class="feature-row__v">The preset bar applies a complete mapping in one click, filtered to the ones that fit the current file and device channel counts. <strong>Default</strong> restores the 1:1 identity routing from any state. <strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R. <strong>5.1 downmix</strong> (6-ch file): Lo/Ro (BS.775 stereo), 5.1 to Mono. <strong>7.1 downmix</strong> (8-ch file): 7.1 to Lo/Ro, 7.1 to 5.1. <strong>Test</strong> (6-ch file): Ls/Rs solo, C/LFE solo. A preset is a complete replacement, not an overlay: it overwrites every output and mutes the ones it doesn't address.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Meter PRE or POST</div><div class="feature-row__v"><strong>PRE / POST</strong>, beside the sidebar's Channels meters and in the Output and Routing window, switches what those meters show, and the Channels group names it. <strong>PRE</strong> meters the file's own channels. <strong>POST</strong> meters the routed output after the matrix's gains, so a fold-down shows the levels each speaker gets. The loudness readings and the delivery verdicts always measure the file.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Render the routing to a file</div><div class="feature-row__v">When it sounds and meters right, <strong>Render to File…</strong> (in the Routing section header) turns the routing into a deliverable instead of an audition. Every per-route gain, phase and ±90° shift is applied exactly as it plays, computed offline. <strong>Only the routed outputs are written</strong>: a 5.1 → stereo fold renders a 2-channel file, not eight channels padded with silence. It saves as a new file (WAV, or CAF when the layout cannot be stored in WAV order) and refuses any name that would open the source file, another spelling or a hard link included.</div></div>
-                <div class="feature-row"><div class="feature-row__k">6 · Fix what soloing turned up</div><div class="feature-row__v">Routing a channel to both speakers is often how a problem gets found. The <strong>Spectral</strong> task (<kbd>⌘6</kbd>) then edits multichannel files channel by channel: pick that channel from the channel menu, catch the noise on its spectrogram, and fix it in place. Every other channel is copied through unchanged. See the <a href="repair.html">spectral repair workflow</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Open Output and Routing</div><div class="feature-row__v">The output device button near the right end of the top bar, <kbd>⌥⌘O</kbd>, or <strong>Window › Output and Routing</strong> opens the window. It holds the device selector (with the channel count beside each name), the PRE and POST switch for the channel meters, and the routing matrix, so the channels the matrix targets and the device driving them sit together. It remembers its size and position, and routing settings persist for the open file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Route N→M in the matrix</div><div class="feature-row__v">The matrix maps each source channel to one or more outputs with per-route gain trim. In <strong>Matrix view</strong> (default) each routed cell splits into three zones: an on/off dot, a <strong>ϕ glyph</strong> that cycles the route's phase through 0°, +90°, −90° and 180° (turns orange when active), and a typeable dB gain: drag a value vertically to adjust it by 0.25 dB per pixel, and click an unrouted cell to enable it at unity. <strong>List view</strong> gives one row per output with a source picker and a precise dB field. A silent row or an unused source column stands out at a glance, and the view chosen persists across launches. From the keyboard, each cell is a button named for its route, such as L to R Out: the arrow keys step its gain by 1 dB, Return or Space types a value, and VoiceOver reads its state.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Or start from a preset</div><div class="feature-row__v">The preset bar applies a complete mapping in one click, filtered to the ones that fit the current file and device channel counts. <strong>Default</strong> restores the 1:1 identity routing from any state. <strong>Basic</strong> (any stereo file): L/R, Mono L, L+R to both, Swap L/R. <strong>5.1 downmix</strong> (6-ch file): Lo/Ro (BS.775 stereo), 5.1 to Mono. <strong>7.1 downmix</strong> (8-ch file): 7.1 to Lo/Ro, 7.1 to 5.1. <strong>Test</strong> (6-ch file): Ls/Rs solo, C/LFE solo. A preset is a complete replacement, not an overlay: it overwrites every output and mutes the ones it doesn't address.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Meter PRE or POST</div><div class="feature-row__v"><strong>PRE / POST</strong>, beside the sidebar's Channels meters and in the Output and Routing window, switches what those meters show, and the Channels group names it. <strong>PRE</strong> meters the file's own channels. <strong>POST</strong> meters the routed output after the matrix's gains, so a fold-down shows the levels each speaker gets. The loudness readings and the delivery verdicts always measure the file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Render the routing to a file</div><div class="feature-row__v">When it sounds and meters right, <strong>Render to File…</strong> (in the Routing section header) turns the routing into a deliverable instead of an audition. Every per-route gain, phase and ±90° shift is applied exactly as it plays, computed offline. <strong>Only the routed outputs are written</strong>: a 5.1 → stereo fold renders a 2-channel file, not eight channels padded with silence. It saves as a new file (WAV, or CAF when the layout cannot be stored in WAV order) and refuses any name that would open the source file, another spelling or a hard link included.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6. Fix what soloing turned up</div><div class="feature-row__v">Routing a channel to both speakers is often how a problem gets found. The <strong>Spectral</strong> task (<kbd>⌘6</kbd>) then edits multichannel files channel by channel: pick that channel from the channel menu, catch the noise on its spectrogram, and fix it in place. Every other channel is copied through unchanged. See the <a href="repair.html">spectral repair workflow</a>.</div></div>
             </div>
         </div>
     </section>
@@ -147,7 +138,7 @@
     <!-- Coefficients & standards -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">What the controls actually do</p>
+            <h2 class="label">What the controls actually do</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>Each contribution carries its own gain.</strong> Every source contribution to an output has its own dB value, so two channels landing on the same speaker are attenuated, not added at unity into clipping. Where the built-in presets use −3 dB, that is 1/√2, the equal-power gain for summing correlated channels.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The fold-down presets come from the published specification.</strong> Lo/Ro is the ITU-R BS.775 stereo downmix: the front channel, plus Center at −3 dB, plus the same-side surround at −3 dB. The 7.1 → Lo/Ro preset extends the same rule to both the side and back surround pairs, so the two surround pairs don't stack up on the front channels.</p>
@@ -161,7 +152,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Save a routing, share a routing</p>
+                <h2 class="label">Save a routing, share a routing</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Custom patches, recalled in a click and portable between machines.</p>
             </div>
             <div>
@@ -174,7 +165,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">The matrix at work</p>
+            <h2 class="label">The matrix at work</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-routing-downmix.webp" type="image/webp"><img src="specula-routing-downmix.png" width="1170" height="1394" alt="The routing window with a 5.1 to stereo routing set and a Render to File button in the header." loading="lazy" decoding="async"></picture>
@@ -201,11 +192,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Monitor on the speakers at hand</p>
+            <h2 class="label">Monitor on the speakers at hand</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Any channel on any speaker, with per-route gain and phase, and meters on either side of the routing. The patch saves for next time or renders to a new file, and the open file is a read-only input to all of it.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#routing" class="btn btn-primary">Read the routing guide →</a>
+                    <a href="guide.html#routing" class="btn btn-primary">Read the routing guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -224,7 +215,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

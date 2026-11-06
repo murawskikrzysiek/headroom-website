@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notes from the studio - the Headroom blog</title>
   <link rel="canonical" href="https://headroomstudio.dev/blog/">
-  <meta name="description" content="Notes from Headroom Studio - monitoring discipline, hearing health, and the macOS tools that make studio work easier.">
+  <meta name="description" content="Notes from Headroom Studio on monitor level, hearing dose, loudness delivery and the Mac apps behind them.">
   <meta property="og:title" content="Notes from the studio - the Headroom blog">
-  <meta property="og:description" content="Monitoring discipline, hearing health, and the macOS tools that make studio work easier.">
+  <meta property="og:description" content="Notes on monitor level, hearing dose, loudness delivery and the Mac apps behind them.">
   <meta property="og:image" content="https://headroomstudio.dev/og-headroom.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -17,8 +17,8 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
-  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="blog.css?v=8591d376">
 
   <script type="application/ld+json">
   {
@@ -34,7 +34,6 @@
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -55,27 +54,26 @@
     <header class="doc-header">
     <p class="eyebrow">Blog</p>
     <h1 class="display" style="font-size: 3.6rem;">Notes from the studio.</h1>
-    <p class="doc-header__lead">Monitoring discipline, hearing health, and the macOS tools that quietly make studio work easier. New posts irregularly, when there's something worth saying. <a href="/blog/feed.xml" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">RSS →</a></p>
+    <p class="doc-header__lead">Notes on monitor level, hearing dose, loudness delivery and the Mac apps behind them. A few posts a year. <a href="/blog/feed.xml" style="color:var(--accent);border-bottom:1px solid rgba(124,132,246,0.3);">RSS</a></p>
   </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container" style="padding-top: 32px;">
   <!-- Featured -->
   <section style="padding-bottom: 24px;">
-    <p class="label" style="margin-bottom: 22px;">Latest</p>
+    <h2 class="label" style="margin-bottom: 22px;">Latest</h2>
     <a href="switching-speakers-at-level.html" class="feat"
        data-post data-title="Switching speakers at a calibrated level"
        data-date="2026-10-21" data-tag="Workflow" data-read="4 min"
        data-summary="Each speaker pair needs its own monitor level to play at the same SPL. Audita measures it per pair, Lyra 1.9 recalls it with the switch, and the workflow now runs on second-generation Universal Audio Volt interfaces too.">
       <div class="feat__body">
         <div>
-          <p class="feat__kicker">Workflow &#183; 4 min read</p>
+          <p class="feat__kicker">Workflow, 4 min read</p>
           <h2 class="feat__title">Switching speakers at a calibrated level</h2>
           <p class="feat__excerpt">The same monitor position can play two pairs of speakers several dB apart, and the louder pair wins the comparison. Calibrate each pair on its own with Audita, and Lyra 1.9 switches speakers and level in one key, now on Volt interfaces as well.</p>
         </div>
-        <div class="feat__meta"><span>21 October 2026</span><span class="dot"></span><span>K. Murawski</span></div>
+        <div class="feat__meta"><span>21 October 2026, </span><span>K. Murawski</span></div>
       </div>
       <div class="feat__art">
         <div class="feat__terminal">
@@ -131,52 +129,52 @@
       </div>
       <div class="post-item">
         <a href="specula-1-1-spectral-editing.html"
-           data-post data-title="Specula 1.1: spectral editing, fix what you measure"
+           data-post data-title="Specula 1.1: spectral editing, Record mode, an Audio Unit chain and a signal generator"
            data-date="2026-07-29" data-tag="Release" data-read="5 min"
            data-summary="Spectral repair on the analysis spectrogram, Record mode with live BS.1770 meters, an Audio Unit chain in Edit mode, and a signal generator. Free update for existing licenses.">
           <div><p class="post-item__tag" style="color:#3ecf7c;">Release</p><p class="post-item__date">29 Jul 2026</p></div>
           <div>
-            <h3 class="post-item__title">Specula 1.1: spectral editing, fix what you measure</h3>
-            <p class="post-item__excerpt">Select a hum, a cough, or a chair squeak on the spectrogram and attenuate, erase, or repair it, without leaving the app that found it. Plus Record mode through the analyzer's meters, AU plugin hosting in Edit mode, and a test-signal generator.</p>
+            <h3 class="post-item__title">Specula 1.1: spectral editing, Record mode, an Audio Unit chain and a signal generator</h3>
+            <p class="post-item__excerpt">Spectral repair on the analysis spectrogram: select a hum, a cough or a chair squeak and attenuate, erase or repair it. Also Record mode through the analyzer's meters, Audio Unit hosting in Edit mode, and a test-signal generator.</p>
           </div>
           <span class="post-item__read">5 min</span>
         </a>
       </div>
       <div class="post-item">
         <a href="dialogue-gated-loudness.html"
-           data-post data-title="Why streaming TV is measured on the dialogue, not the mix"
+           data-post data-title="Why streaming TV loudness is measured on the dialogue"
            data-date="2026-06-27" data-tag="Loudness" data-read="9 min"
-           data-summary="Streaming-TV loudness specs are dialogue-gated: you measure the speech, not the mix. On a music-heavy file the two numbers can drift several dB apart - enough to send you the wrong way.">
+           data-summary="Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.">
           <div><p class="post-item__tag" style="color:#7c84f6;">Loudness</p><p class="post-item__date">27 Jun 2026</p></div>
           <div>
-            <h3 class="post-item__title">Why streaming TV is measured on the dialogue, not the mix</h3>
-            <p class="post-item__excerpt">Streaming-TV loudness specs are dialogue-gated: you measure the speech, not the mix. On a music-heavy file the two numbers can drift several dB apart - enough to send you the wrong way.</p>
+            <h3 class="post-item__title">Why streaming TV loudness is measured on the dialogue</h3>
+            <p class="post-item__excerpt">Netflix, Prime Video, Apple TV+, Disney+ and HBO Max all specify -27 LKFS dialogue-gated. Measure the whole programme instead and the number can be off by more than 10 dB.</p>
           </div>
           <span class="post-item__read">9 min</span>
         </a>
       </div>
       <div class="post-item">
         <a href="per-chapter-loudness.html"
-           data-post data-title="The one loud chapter - per-chapter loudness for audiobook delivery"
+           data-post data-title="Per-chapter loudness for audiobook delivery"
            data-date="2026-06-26" data-tag="Audiobook" data-read="8 min"
            data-summary="An audiobook can pass on the whole-file number and fail chapter by chapter. Measure every chapter against the book's own median.">
           <div><p class="post-item__tag" style="color:#4cc2c2;">Audiobook</p><p class="post-item__date">26 Jun 2026</p></div>
           <div>
-            <h3 class="post-item__title">The one loud chapter - per-chapter loudness for audiobook delivery</h3>
-            <p class="post-item__excerpt">An audiobook can read fine on the whole-file loudness number and fail chapter by chapter. Chapter mode segments the book at its silences and flags the one that drifted from the book's own centre, before the distributor does.</p>
+            <h3 class="post-item__title">Per-chapter loudness for audiobook delivery</h3>
+            <p class="post-item__excerpt">An audiobook can read fine on the whole-file loudness number and fail chapter by chapter. Chapter mode segments the book at its silences and measures every chapter against the book's own median and the three ACX gates.</p>
           </div>
           <span class="post-item__read">8 min</span>
         </a>
       </div>
       <div class="post-item">
         <a href="acx-noise-floor.html"
-           data-post data-title="The noise floor problem - why audiobooks get rejected on the quiet parts"
+           data-post data-title="Measuring the ACX noise floor"
            data-date="2026-06-26" data-tag="Audiobook" data-read="7 min"
-           data-summary="The noise floor is the ACX gate narrators trip over - the room tone between phrases. Measuring it means reading the silence, not the speech.">
+           data-summary="ACX measures the noise floor on the room tone between phrases. Specula finds the speech with a voice-activity detector and reads the floor only over the gaps, live.">
           <div><p class="post-item__tag" style="color:#4cc2c2;">Audiobook</p><p class="post-item__date">26 Jun 2026</p></div>
           <div>
-            <h3 class="post-item__title">The noise floor problem - why audiobooks get rejected on the quiet parts</h3>
-            <p class="post-item__excerpt">Noise floor is the ACX gate narrators trip over, and the one you can't fix in mastering. Measuring it correctly means gating to the silence between words - which is what a neural VAD over the file makes possible.</p>
+            <h3 class="post-item__title">Measuring the ACX noise floor</h3>
+            <p class="post-item__excerpt">ACX measures the noise floor on the room tone between phrases. Specula finds the speech with a voice-activity detector and reads the floor only over the gaps, live, so the passage that fails is visible before upload.</p>
           </div>
           <span class="post-item__read">7 min</span>
         </a>
@@ -209,13 +207,13 @@
       </div>
       <div class="post-item">
         <a href="pairing-audita-and-lyra.html"
-           data-post data-title="Calibrate once, recall forever - pairing Audita and Lyra"
+           data-post data-title="Pairing Audita and Lyra"
            data-date="2026-04-27" data-tag="Workflow" data-read="9 min"
-           data-summary="A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what 'Mix' means in dB SPL.">
+           data-summary="Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. Ctrl+F11 then recalls a monitor level with its dB SPL figure attached.">
           <div><p class="post-item__tag" style="color:#7c84f6;">Workflow</p><p class="post-item__date">27 Apr 2026</p></div>
           <div>
-            <h3 class="post-item__title">Calibrate once, recall forever - pairing Audita and Lyra</h3>
-            <p class="post-item__excerpt">A pink-noise sweep, a name, and one keystroke replace fifteen years of guessing what "Mix" actually means in dB SPL. The integration closes the gap between SPL meter and monitor controller.</p>
+            <h3 class="post-item__title">Pairing Audita and Lyra</h3>
+            <p class="post-item__excerpt">Audita measures the SPL at the listening position and writes it into one of Lyra's three Reference Level slots. From then on Ctrl+F11 recalls a monitor level with its dB SPL figure attached.</p>
           </div>
           <span class="post-item__read">9 min</span>
         </a>
@@ -224,24 +222,24 @@
         <a href="the-3-db-rule.html"
            data-post data-title="The 3 dB rule - how loudness halves safe listening time"
            data-date="2026-04-27" data-tag="Hearing health" data-read="7 min"
-           data-summary="Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it.">
+           data-summary="Every 3 dB increase halves the safe listening time and every 3 dB decrease doubles it. The NIOSH table, the OSHA 5 dB figure, and what the rule says about a mixing day.">
           <div><p class="post-item__tag" style="color:#e0a55a;">Hearing health</p><p class="post-item__date">27 Apr 2026</p></div>
           <div>
             <h3 class="post-item__title">The 3 dB rule - how loudness halves safe listening time</h3>
-            <p class="post-item__excerpt">Every 3 dB increase halves your safe listening time. Every 3 dB decrease doubles it. The arithmetic is unforgiving and most engineers have never run it on their own habits.</p>
+            <p class="post-item__excerpt">Every 3 dB increase halves the safe listening time and every 3 dB decrease doubles it. The NIOSH table, the OSHA 5 dB figure and where it came from, and what the rule says about a mixing day.</p>
           </div>
           <span class="post-item__read">7 min</span>
         </a>
       </div>
       <div class="post-item">
         <a href="calibrated-monitoring.html"
-           data-post data-title="Monitor at a number, not a vibe"
+           data-post data-title="The case for calibrated studio monitoring"
            data-date="2026-04-20" data-tag="Practice" data-read="10 min"
-           data-summary="Translation, consistency, lower hearing dose, less fatigue - the case for calibrated studio listening.">
+           data-summary="Set the monitor level against a measured SPL once and come back to it. Why mixes translate better that way, where the standards put the number, and a three-level setup on the F-keys.">
           <div><p class="post-item__tag" style="color:#3ecf7c;">Practice</p><p class="post-item__date">20 Apr 2026</p></div>
           <div>
-            <h3 class="post-item__title">Monitor at a number, not a vibe - the case for calibrated studio listening</h3>
-            <p class="post-item__excerpt">Translation, consistency, lower hearing dose, less fatigue. The case for calibrated monitoring has been made for fifty years; the tooling finally caught up.</p>
+            <h3 class="post-item__title">The case for calibrated studio monitoring</h3>
+            <p class="post-item__excerpt">Set the monitor level against a measured SPL once and come back to it. Why mixes translate better that way, where the cinema, K-System and broadcast references put the number, and a three-level setup on the F-keys.</p>
           </div>
           <span class="post-item__read">10 min</span>
         </a>
@@ -256,12 +254,12 @@
         <p class="eyebrow">Newsletter</p>
         <h3 class="display">Get new posts in your inbox.</h3>
         <p>One short note per post. Unsubscribe in one click.</p>
-        <p style="margin-top: 8px;">Or follow along: <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> · <a href="https://x.com/Murawski_K">X</a>.</p>
+        <p style="margin-top: 8px;">Or follow along: <a rel="me" href="https://mastodon.online/@mural">Mastodon</a> or <a href="https://x.com/Murawski_K">X</a>.</p>
       </div>
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe →</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -285,8 +283,7 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../newsletter.js"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

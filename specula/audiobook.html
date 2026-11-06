@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Audiobook / ACX</p>
+            <p class="eyebrow">Workflow: Audiobook / ACX</p>
             <h1 class="display">Audiobooks, scored chapter by chapter.</h1>
             <p class="app-hero__desc">
                 ACX judges an audiobook chapter by chapter, so Specula does too. Under Deliver to Audiobook, ACX leads the verdict in its own words, and the Chapters task splits the book at its silences, measures every chapter's RMS, true peak and noise floor against ACX, and checks each against the book's own median loudness, which catches the one pickup that drifted.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">ACX spec</span>
-                <span class="badge">Chapters task</span>
-                <span class="badge">Speech task</span>
-                <span class="badge">Noise floor</span>
-                <span class="badge">Room check</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#chapter">Read the Chapters guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Tasks</span>
                 <a class="chip" href="guide.html#chapter">Chapters <kbd>⌘4</kbd></a>
@@ -95,7 +86,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -110,7 +100,7 @@
     <!-- The three gates -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Why ACX rejects audiobooks</p>
+            <h2 class="label">Why ACX rejects audiobooks</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     ACX checks three things in every chapter and rejects on any of them.
@@ -132,7 +122,7 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Score the book</p>
+                <h2 class="label">Score the book</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Clean the speech map, split the chapters, score them, export.</p>
             </div>
             <div>
@@ -204,10 +194,10 @@
                     </svg>
                     <figcaption><strong>The chapter pass.</strong> Detect cuts the book at silences; every chapter is scored against ACX's limits and the book median, and the flagged one is one Level chapters move from passing.</figcaption>
                 </figure>
-                <div class="feature-row"><div class="feature-row__k">1 · Clean the speech map</div><div class="feature-row__v">Silero's neural speech detector marks the speech when the file opens. Where a breath, a page turn or a music bed is mislabelled, the <strong>Speech</strong> task (<kbd>⌘5</kbd>) corrects the regions (drag, <kbd>I</kbd> and <kbd>O</kbd>, split with <kbd>S</kbd>), so the noise floor and the speech readings measure the right blocks. The corrections are saved beside the file and come back when it reopens.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Split into chapters</div><div class="feature-row__v">The <strong>Chapters</strong> task (<kbd>⌘4</kbd>), opened on a book without chapters, detects and measures them, or offers the chapters saved in an earlier session. <strong>Detect</strong> (<kbd>⌘D</kbd>) splits the file at silences, 2 s under −55 dB by default (Detection, in the task bar), and asks before replacing chapters that were named or moved. Drag a boundary on the chapter map to correct it, remove one (<kbd>⌫</kbd>) to merge two chapters, rename them, or Import a layout from a JSON file.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Score every chapter</div><div class="feature-row__v"><strong>Analyse</strong> (<kbd>⌘L</kbd>) measures each chapter's RMS, integrated loudness, true peak, noise floor, LRA, max short-term, dialogue loudness and Speech %. The table groups them as <strong>ACX</strong> (RMS, true peak and noise floor, each green or red), <strong>Consistency</strong> (each chapter against the book's median, in RMS or LUFS as chosen in Detection, ±2 by default) and <strong>Details</strong>. The ACX summary in the sidebar counts them: "3 of 20 chapters fail ACX." After an edit the chapters are measured again, and until then the table judges nothing.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Hand off the receipt</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports and the chapters CSV into one folder. The report's chapter table carries the same groups, each ACX cell green or red, with ACX's limit as its tooltip in the HTML report, and the report names ACX as what the book was judged against.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Clean the speech map</div><div class="feature-row__v">Silero's neural speech detector marks the speech when the file opens. Where a breath, a page turn or a music bed is mislabelled, the <strong>Speech</strong> task (<kbd>⌘5</kbd>) corrects the regions (drag, <kbd>I</kbd> and <kbd>O</kbd>, split with <kbd>S</kbd>), so the noise floor and the speech readings measure the right blocks. The corrections are saved beside the file and come back when it reopens.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Split into chapters</div><div class="feature-row__v">The <strong>Chapters</strong> task (<kbd>⌘4</kbd>), opened on a book without chapters, detects and measures them, or offers the chapters saved in an earlier session. <strong>Detect</strong> (<kbd>⌘D</kbd>) splits the file at silences, 2 s under −55 dB by default (Detection, in the task bar), and asks before replacing chapters that were named or moved. Drag a boundary on the chapter map to correct it, remove one (<kbd>⌫</kbd>) to merge two chapters, rename them, or Import a layout from a JSON file.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Score every chapter</div><div class="feature-row__v"><strong>Analyse</strong> (<kbd>⌘L</kbd>) measures each chapter's RMS, integrated loudness, true peak, noise floor, LRA, max short-term, dialogue loudness and Speech %. The table groups them as <strong>ACX</strong> (RMS, true peak and noise floor, each green or red), <strong>Consistency</strong> (each chapter against the book's median, in RMS or LUFS as chosen in Detection, ±2 by default) and <strong>Details</strong>. The ACX summary in the sidebar counts them: "3 of 20 chapters fail ACX." After an edit the chapters are measured again, and until then the table judges nothing.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Hand off the receipt</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports and the chapters CSV into one folder. The report's chapter table carries the same groups, each ACX cell green or red, with ACX's limit as its tooltip in the HTML report, and the report names ACX as what the book was judged against.</div></div>
             </div>
         </div>
     </section>
@@ -215,7 +205,7 @@
     <!-- Per-chapter detail -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Per chapter, and against the median</p>
+            <h2 class="label">Per chapter, and against the median</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead"><strong>A file-level pass is not enough for a book.</strong> An audiobook can sit at −20 dB RMS overall while one chapter recorded on another day drifts to −16, or one quiet pickup dips under the noise-floor line. ACX checks per chapter, so every chapter gets its own verdict on RMS, true peak and noise floor.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>The consistency flag</strong> catches what the absolute limits miss. Each chapter is compared with the book's own median, in RMS by default, and one beyond the tolerance (±2 by default) is flagged even inside ACX's window: the chapter that would sound louder than the rest to a listener mid-book.</p>
@@ -227,11 +217,11 @@
     <!-- Fix what's flagged -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Fix what's flagged, in the same app</p>
+            <h2 class="label">Fix what's flagged, in the same app</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Each red cell points at its fix, and the two flags that bounce the most audiobooks each have one.</p>
                 <p class="prose-lead" style="margin-top: 14px;"><strong>A noise floor at or over −60 dB RMS</strong> is a common ACX rejection, and a uniform gain cannot fix it: raising the voice raises the room tone with it. <strong>Level dialogue</strong>, in the Speech task's sidebar, works from the other side. Using the corrected speech regions, it ducks the tone between phrases first and then lifts the voice to a target, so the floor lands lower while the narration comes up, and before Apply it predicts the dialogue loudness and the floor, with the floor against ACX. It covers a floor that just misses, a dB or two over the line; hiss in the capture needs a new take.</p>
-                <p class="prose-lead" style="margin-top: 14px;"><strong>A chapter that drifts off the book's loudness</strong> is the consistency flag, and <strong>Level chapters</strong>, in the Chapters task's sidebar, is the one-move fix: each chapter's gain to the book's median or to a fixed target, in the metric the chapters are compared by (RMS, ACX's, or LUFS), shown chapter by chapter before Apply, with a true-peak ceiling that starts at −3.1 dBTP for ACX. Chapters › Level Chapters (<kbd>⇧⌘L</kbd>) applies it as one edit. A true peak at or over −3 dBTP takes the card's <strong>Limit peaks to −3.1 dBTP</strong>, which trims the overshoots and leaves the chapter levels. Every fix is an edit in the Edit task's History. <a href="editing.html">The editing workflow →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;"><strong>A chapter that drifts off the book's loudness</strong> is the consistency flag, and <strong>Level chapters</strong>, in the Chapters task's sidebar, is the one-move fix: each chapter's gain to the book's median or to a fixed target, in the metric the chapters are compared by (RMS, ACX's, or LUFS), shown chapter by chapter before Apply, with a true-peak ceiling that starts at −3.1 dBTP for ACX. Chapters › Level Chapters (<kbd>⇧⌘L</kbd>) applies it as one edit. A true peak at or over −3 dBTP takes the card's <strong>Limit peaks to −3.1 dBTP</strong>, which trims the overshoots and leaves the chapter levels. Every fix is an edit in the Edit task's History. <a href="editing.html">The editing workflow</a></p>
             </div>
         </div>
     </section>
@@ -239,9 +229,9 @@
     <!-- Before the take -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before the take</p>
+            <h2 class="label">Before the take</h2>
             <div style="max-width: 640px;">
-                <p class="prose-lead"><strong>The room check.</strong> Armed, the Record task (<kbd>⌘7</kbd>) reads the room's floor over the last five seconds, measured the way the file's noise floor will be, and judges it against ACX's limit, so a humming room shows before a chapter is recorded. <strong>Punch-ins</strong> at the playhead keep the file's length, and speech is detected again inside the punch. <a href="recording.html">Recording →</a></p>
+                <p class="prose-lead"><strong>The room check.</strong> Armed, the Record task (<kbd>⌘7</kbd>) reads the room's floor over the last five seconds, measured the way the file's noise floor will be, and judges it against ACX's limit, so a humming room shows before a chapter is recorded. <strong>Punch-ins</strong> at the playhead keep the file's length, and speech is detected again inside the punch. <a href="recording.html">Recording</a></p>
             </div>
         </div>
     </section>
@@ -249,7 +239,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">In the app</p>
+            <h2 class="label">In the app</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot">
                     <picture><source srcset="specula-level-chapters-panel.webp" type="image/webp"><img src="specula-level-chapters-panel.png" width="496" height="732" alt="The Level chapters panel: the book's median or a fixed target, the true-peak ceiling, and each chapter's level now, its gain and its level after." loading="lazy" decoding="async"></picture>
@@ -275,12 +265,12 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">Batch a whole series</p>
+                <h2 class="label">Batch a whole series</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">A folder of chapter files in one run.</p>
             </div>
             <div>
                 <p class="prose-lead">File › Check a Folder… under Deliver to Audiobook checks every file in a folder against ACX: a row per file with its verdict, integrated loudness, true peak, LRA and Speech %, measured with the app's speech settings and any corrected regions saved for the file, a report per file and a CSV of the rows, written into a new folder beside the checked one.</p>
-                <p class="prose-lead" style="margin-top: 14px;">The command line and Shortcuts measure the same numbers and take a loudness mode (music, podcast, vod or broadcast), judging its default targets; ACX's verdict comes from the app and from Check a Folder. <a href="automation.html">Batch and automation →</a></p>
+                <p class="prose-lead" style="margin-top: 14px;">The command line and Shortcuts measure the same numbers and take a loudness mode (music, podcast, vod or broadcast), judging its default targets; ACX's verdict comes from the app and from Check a Folder. <a href="automation.html">Batch and automation</a></p>
             </div>
         </div>
     </section>
@@ -288,11 +278,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before you upload</p>
+            <h2 class="label">Before you upload</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The chapter table says which chapters clear ACX and which do not, and the two flags that bounce the most books each have a one-move fix: <strong>Level dialogue</strong> for a marginal room-tone floor, <strong>Level chapters</strong> for the chapter that drifts off the book's loudness.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#chapter" class="btn btn-primary">Read the Chapters guide →</a>
+                    <a href="guide.html#chapter" class="btn btn-primary">Read the Chapters guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -311,7 +301,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

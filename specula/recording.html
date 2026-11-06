@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Recording</p>
+            <p class="eyebrow">Workflow: Recording</p>
             <h1 class="display">Check the room before the take.</h1>
             <p class="app-hero__desc">
                 The Record task records from any input into a new file or into the open one: on the end, at the playhead, or punched in over a stretch. While the input is armed, a room check reads the room's floor the way the file's noise floor will be measured and judges it against ACX's limit, so a humming fridge or a laptop fan shows before a chapter is recorded.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">Room check</span>
-                <span class="badge">ACX noise floor</span>
-                <span class="badge">Punch-in</span>
-                <span class="badge">Takes kept 7 days</span>
-                <span class="badge">Mono · Stereo · 5.1</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#record">Read the Record guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Task</span>
                 <a class="chip" href="guide.html#record">Record <kbd>⌘7</kbd></a>
@@ -93,7 +84,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -108,7 +98,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Why the room comes first</p>
+            <h2 class="label">Why the room comes first</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     ACX wants a noise floor less than −60 dB RMS, and the floor is set in the room, before the first word.
@@ -129,15 +119,15 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">From input to take</p>
+                <h2 class="label">From input to take</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Arm the input, check the room, choose where the take goes, record.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Arm the input</div><div class="feature-row__v"><kbd>⌘7</kbd>, or Record in the top bar, arms the input, with a file open or none: Record is how a file starts. The sidebar's <strong>Input</strong> part picks the device, the layout (mono, stereo or 5.1) and the source channels on a multichannel interface. The canvas shows each input channel's level and peak, the momentary loudness and the true peak. Without microphone access it says so and names the switch in System Settings › Privacy &amp; Security › Microphone.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Check the room</div><div class="feature-row__v">While the input is armed, the <strong>Room check</strong> asks for five quiet seconds, then gives the room's floor against ACX's limit, and keeps reading it until a take starts.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Choose where the take goes</div><div class="feature-row__v"><strong>Take goes to</strong>, in the task bar: <strong>New file</strong> opens the take as its own file; <strong>Append</strong> puts it on the end of the open file; <strong>Insert at playhead</strong> puts it in at the playhead and moves the rest of the file later; <strong>Punch in</strong> replaces the selection, or records over the audio from the playhead and keeps the file's length. Every join gets an equal-power crossfade of the <strong>Splice</strong> length set beside it.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Record</div><div class="feature-row__v">The record button in the top bar's transport starts and stops a take (Record › Start Recording), and the take draws on the canvas as it records; Esc never ends one. A take that lands in the file is one step in the Edit task's history, so Undo takes it back out. A punch keeps the file's chapters and corrected speech regions, and speech is detected again inside the punched stretch, also after Undo and Redo.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Keep the takes</div><div class="feature-row__v">Every take is written as it records and listed in the sidebar's <strong>Takes</strong> for seven days, with how long it is kept. <strong>To Compare</strong> puts a take beside the file in Compare, <strong>Save As…</strong> writes it as 32-bit float WAV, AIFF or CAF, and <strong>Move to Trash</strong> removes it. The Record menu acts on the selected take as well.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Arm the input</div><div class="feature-row__v"><kbd>⌘7</kbd>, or Record in the top bar, arms the input, with a file open or none: Record is how a file starts. The sidebar's <strong>Input</strong> part picks the device, the layout (mono, stereo or 5.1) and the source channels on a multichannel interface. The canvas shows each input channel's level and peak, the momentary loudness and the true peak. Without microphone access it says so and names the switch in System Settings › Privacy &amp; Security › Microphone.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Check the room</div><div class="feature-row__v">While the input is armed, the <strong>Room check</strong> asks for five quiet seconds, then gives the room's floor against ACX's limit, and keeps reading it until a take starts.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Choose where the take goes</div><div class="feature-row__v"><strong>Take goes to</strong>, in the task bar: <strong>New file</strong> opens the take as its own file; <strong>Append</strong> puts it on the end of the open file; <strong>Insert at playhead</strong> puts it in at the playhead and moves the rest of the file later; <strong>Punch in</strong> replaces the selection, or records over the audio from the playhead and keeps the file's length. Every join gets an equal-power crossfade of the <strong>Splice</strong> length set beside it.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Record</div><div class="feature-row__v">The record button in the top bar's transport starts and stops a take (Record › Start Recording), and the take draws on the canvas as it records; Esc never ends one. A take that lands in the file is one step in the Edit task's history, so Undo takes it back out. A punch keeps the file's chapters and corrected speech regions, and speech is detected again inside the punched stretch, also after Undo and Redo.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Keep the takes</div><div class="feature-row__v">Every take is written as it records and listed in the sidebar's <strong>Takes</strong> for seven days, with how long it is kept. <strong>To Compare</strong> puts a take beside the file in Compare, <strong>Save As…</strong> writes it as 32-bit float WAV, AIFF or CAF, and <strong>Move to Trash</strong> removes it. The Record menu acts on the selected take as well.</div></div>
             </div>
         </div>
     </section>
@@ -145,9 +135,9 @@
     <!-- After the take -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">After the take</p>
+            <h2 class="label">After the take</h2>
             <div style="max-width: 640px;">
-                <p class="prose-lead">A recorded file goes through the same checks as any other. Under Deliver to Audiobook the delivery card judges it against ACX, the Chapters task measures it chapter by chapter, the Speech task corrects the speech regions its dialogue loudness and noise floor are measured with, and Level dialogue ducks a floor that just misses. <a href="audiobook.html">Audiobook / ACX →</a> <a href="podcast.html">Podcast →</a></p>
+                <p class="prose-lead">A recorded file goes through the same checks as any other. Under Deliver to Audiobook the delivery card judges it against ACX, the Chapters task measures it chapter by chapter, the Speech task corrects the speech regions its dialogue loudness and noise floor are measured with, and Level dialogue ducks a floor that just misses. <a href="audiobook.html">Audiobook / ACX</a> <a href="podcast.html">Podcast</a></p>
             </div>
         </div>
     </section>
@@ -155,11 +145,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before the first chapter</p>
+            <h2 class="label">Before the first chapter</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">The Record task checks the room against ACX's floor, keeps every take for a week, and punches a correction in without moving the rest of the file.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#record" class="btn btn-primary">Read the Record guide →</a>
+                    <a href="guide.html#record" class="btn btn-primary">Read the Record guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -178,7 +168,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

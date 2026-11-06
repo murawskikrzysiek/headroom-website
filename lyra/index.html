@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
   <script type="application/ld+json">
   {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -73,32 +72,49 @@
       <p class="app-hero__desc">
         F-key volume control for Universal Audio Apollo and Volt Gen 2 interfaces, with native Shortcuts, Spotlight, interactive widgets, Focus Filters and a <code>lyra://</code> URL scheme to drive it from anywhere on macOS.
       </p>
-      <div class="app-hero__badges">
-        <span class="badge badge--macos">macOS</span>
-        <span class="badge">Apollo &amp; Volt</span>
-        <span class="badge">Menu bar</span>
-        <span class="badge">Shortcuts &amp; Widgets</span>
-        <span class="badge">URL scheme</span>
-      </div>
       <div class="app-hero__cta">
         <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.dmg"><span>↓</span>Download free trial</a>
         <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1">Buy - $9.99</a>
-        <span class="app-hero__meta">7-day trial · one-time purchase · macOS 12+</span>
+        <span class="app-hero__meta">7-day trial, one-time purchase, macOS 12 and later</span>
       </div>
       <div class="app-hero__doclinks">
-        <a href="guide.html" class="primary">Read the user guide →</a>
-        <a href="faq.html">Have questions? Read the FAQ →</a>
+        <a href="guide.html" class="primary">User guide</a>
+        <a href="faq.html">FAQ</a>
+        <a href="releases.html">Release notes</a>
       </div>
     </div>
   </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
   <!-- ── Screenshots ──────────────────────────────────────────────────── -->
   <section class="shots">
-    <div class="shot"><picture><source srcset="lyra-hero.webp" type="image/webp"><img src="lyra-hero.png" width="1920" height="1080" alt="Lyra on the F-row - F10, F11 and F12 keycaps with F12 pressed, beside a lit monitor knob whose LED ring marks the Quiet, Mix and Loud reference levels on Control F10, F11 and F12, and the volume pill reading Apollo Twin X · ALT 1. Shift F10 for DIM, Option F10 for Mono, Shift F11 and F12 for half steps, Control Option § for ALT speakers; automation through Shortcuts, Spotlight, widgets, Focus filters, Stream Deck and lyra:// URLs" decoding="async"></picture></div>
+    <!-- The HUD, state by state. instruments.js draws it; the steps drive it. -->
+    <section class="scrolly" data-instrument="hud" aria-label="Lyra's volume HUD, state by state">
+      <div class="scrolly__stage">
+        <div class="trig" role="status"><span class="trig__k"></span><span class="trig__t"></span><span class="trig__r"></span><span class="trig__app"></span></div>
+        <div class="hud" data-hud data-state="level" aria-live="polite"></div>
+        <p class="hud-read"></p>
+        <div class="notif" role="status"><img src="icon.png" alt=""><div><p class="notif__app">Lyra</p><p class="notif__t"></p><p class="notif__b"></p></div></div>
+        <p class="scrolly__hint">Scroll, or use the keys named on the right.</p>
+      </div>
+      <div class="scrolly__steps">
+        <div class="step" data-state="level"><h3>Volume on the F-row</h3><p><kbd>F12</kbd> up, <kbd>F11</kbd> down, in 3 dB steps on the monitor bus of the connected interface. Hold <kbd>⇧</kbd> and the step halves. The HUD is the system one on macOS 26 and later, with the interface's name on the name line.</p></div>
+        <div class="step" data-state="mute"><h3>Mute</h3><p><kbd>F10</kbd> mutes the monitor. The slider dims and the speaker glyph is crossed, the same way the system HUD shows a muted output.</p></div>
+        <div class="step" data-state="dim"><h3>DIM</h3><p><kbd>⇧F10</kbd> drops the monitor by 20 dB without losing the level you were at. The slider fills amber while DIM is on.</p></div>
+        <div class="step" data-state="mono"><h3>Mono</h3><p><kbd>⌥F10</kbd> folds the monitor to mono for a phase check. The HUD marks it, and the level stays where it was.</p></div>
+        <div class="step" data-state="ref"><h3>Reference Levels</h3><p>Three named presets, Quiet, Mix and Loud by default, on <kbd>⌃F10</kbd>, <kbd>⌃F11</kbd> and <kbd>⌃F12</kbd>. After pairing with Audita a slot holds a measured level, and the name line reads the slot and its dB SPL instead of the device.</p></div>
+        <div class="step" data-state="alt"><h3>ALT speakers</h3><p>On Apollos with ALT monitor outputs, <kbd>⌃⌥1</kbd>, <kbd>⌃⌥2</kbd> and <kbd>⌃⌥3</kbd> switch between Main, ALT 1 and ALT 2. The name line names the pair that is playing, and each pair keeps its own three references.</p></div>
+        <div class="step" data-state="volt"><h3>Apollo and Volt</h3><p>With an Apollo and a second-generation Volt connected, the Interface submenu picks the one Lyra controls and remembers it. The name line follows.</p></div>
+        <div class="step" data-state="spot"><h3>From Spotlight and Shortcuts</h3><p>Thirteen App Intents: Switch to Reference Level, Set Monitor Level, Toggle Mute, DIM and Mono, Switch Speakers and the rest. Type one in Spotlight or chain it in a Shortcut, and the HUD responds.</p></div>
+        <div class="step" data-state="url"><h3>From anything that opens a URL</h3><p>Stream Deck, Keyboard Maestro, a shell script. <code>lyra://</code> URLs recall a slot, set the level, toggle Mute, DIM, Mono and the speakers, and read the state back with x-callback-url.</p></div>
+        <div class="step" data-state="focus"><h3>From a Focus</h3><p>A Focus Filter wires a reference level into a macOS Focus. Turn Mixing on and Lyra jumps to slot 2; when the Focus ends it can restore the level it left.</p></div>
+        <div class="step" data-state="uastart"><h3>UA apps, started when the interface arrives</h3><p>Opt in, and Lyra starts UA Mixer Engine and UA Mixer Helper the moment an interface connects, with a notification if you want one.</p></div>
+        <div class="step" data-state="uaclose"><h3>And quit when it leaves</h3><p>Once the last interface disconnects, Lyra quits the UA apps for you. Both toggles are off by default and each has its own notification switch.</p></div>
+        <div class="step" data-state="rest"><h3>The menu bar</h3><p>The menu bar holds the same controls, and so do Shortcuts, Spotlight, the widgets and the <code>lyra://</code> URL scheme.</p></div>
+      </div>
+    </section>
     <div class="shots-grid shots-grid--2">
       <div class="shot"><img src="lyra-menu.png" alt="Lyra menu bar popover - license status, Connected: Apollo Twin X · ALT 1, the Interface submenu, monitor slider, Mute / DIM / Mono, the Speakers section with ALT 1 checked, Reference Levels, Pass F-Keys to macOS and Launch at Login"></div>
       <div class="shot"><img src="lyra-menu-interfaces.png" alt="The Interface submenu listing Apollo Twin X, checked, and Volt 4 Max"></div>
@@ -122,7 +138,7 @@
   <!-- ── New in 1.9 ───────────────────────────────────────────────────── -->
   <section class="section section--bordered" id="alt-speakers">
     <div class="section__grid">
-      <p class="label">New in 1.9</p>
+      <h2 class="label">New in 1.9</h2>
       <div>
         <p class="prose-lead">Free update for every Lyra license.</p>
         <p class="prose-lead"><strong>Volt interfaces.</strong> Lyra controls the monitor section of second-generation Universal Audio Volt interfaces (Volt Gen 2 and the Volt Max models): volume, mute, DIM, mono and, on the Volt 4 Max, ALT speakers, from the same keys, menu, widgets, Shortcuts and URL scheme as on an Apollo. Tested on the Volt 4 Max; the Volt 876 may work but hasn't been tested. UAD Console needs to be installed; its window doesn't need to be open. Details in the <a href="faq.html">FAQ</a>.</p>
@@ -136,23 +152,23 @@
 
   <!-- ── Dig deeper ───────────────────────────────────────────────────── -->
   <section style="padding: 12px 0 56px;">
-    <div class="apps-head"><p class="label">Dig deeper</p><span style="font-size: 0.74rem; color: var(--text-4);">The full reference · 4 docs</span></div>
+    <div class="apps-head"><h2 class="label">Dig deeper</h2></div>
     <div class="tiles tiles--4">
       <a class="tile tile--featured" href="guide.html">
         <div class="tile__glyph">☰</div><h4>User Guide</h4>
-        <p>Every feature, every setting, every recipe. The full reference.</p><span class="tile__arrow">→</span>
+        <p>Every feature, every setting, every recipe. The full reference.</p>
       </a>
       <a class="tile" href="api.html">
         <div class="tile__glyph">⟨ ⟩</div><h4>Automation API</h4>
-        <p>Endpoints, parameters, returns, copy-paste examples for Shortcuts, Stream Deck, AppleScript.</p><span class="tile__arrow">→</span>
+        <p>Endpoints, parameters, returns, copy-paste examples for Shortcuts, Stream Deck, AppleScript.</p>
       </a>
       <a class="tile" href="releases.html">
         <div class="tile__glyph">↑</div><h4>Release notes</h4>
-        <p>Version history. What changed in each release and why.</p><span class="tile__arrow">→</span>
+        <p>Version history. What changed in each release and why.</p>
       </a>
       <a class="tile" href="faq.html">
         <div class="tile__glyph">?</div><h4>FAQ</h4>
-        <p>Common questions, common gotchas, the things people email about.</p><span class="tile__arrow">→</span>
+        <p>Common questions, common gotchas, the things people email about.</p>
       </a>
     </div>
   </section>
@@ -160,7 +176,7 @@
   <!-- ── Native to macOS ──────────────────────────────────────────────── -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">Native to macOS</p>
+      <h2 class="label">Native to macOS</h2>
       <p class="prose-lead">
         Lyra is built for the platform, not bolted onto it. The F-row drives the monitor, the menu bar holds the state, and every action is also a first-class <strong>App Intent</strong> - so the same controls appear in <strong>Shortcuts</strong>, surface in <strong>Spotlight</strong>, sit in the <strong>widget gallery</strong>, and wire into <strong>Focus Filters</strong>. For everything else there's a <code>lyra://</code> URL scheme - Stream Deck, Keyboard Maestro, Raycast, AppleScript can drive Lyra and read state back.
       </p>
@@ -170,19 +186,14 @@
   <!-- ── Features ─────────────────────────────────────────────────────── -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">Features</p>
+      <h2 class="label">Features</h2>
       <div>
-        <div class="feature-row"><div class="feature-row__k">Keyboard</div><div class="feature-row__v">Volume, mute, DIM, and mono - all from the F-row. Shift halves the step.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Reference levels</div><div class="feature-row__v">Three named monitor presets (default Quiet / Mix / Loud), recalled with Ctrl+F10/F11/F12. Each can be calibrated against Audita. With ALT speakers on, each speaker pair keeps its own three.</div></div>
-        <div class="feature-row"><div class="feature-row__k">ALT speakers</div><div class="feature-row__v">Switch between Main, ALT 1 and ALT 2 on Apollos with ALT monitor outputs, from the menu, Ctrl+Opt+1/2/3, or Ctrl+Opt+§ to step through them. The HUD names the pair playing.</div></div>
         <div class="feature-row"><div class="feature-row__k">Interactive widgets</div><div class="feature-row__v">Four widgets in the macOS widget gallery - Control Panel, Monitor Toggles, Volume, and Reference Levels. Each shows live state and reacts the instant you tap. Requires macOS 14+.</div></div>
         <div class="feature-row"><div class="feature-row__k">Settings window</div><div class="feature-row__v">A proper preferences window (Cmd+,) for the automation toggles, the volume HUD overlay and style, and the volume step size.</div></div>
         <div class="feature-row"><div class="feature-row__k">URL scheme</div><div class="feature-row__v">Drive Lyra from Stream Deck, Keyboard Maestro, Shortcuts, or any other app via <code>lyra://</code> URLs.</div></div>
         <div class="feature-row"><div class="feature-row__k">Shortcuts &amp; Siri</div><div class="feature-row__v">Thirteen first-class App Intents exposed to the macOS Shortcuts app. Pre-wired App Shortcuts surface in Spotlight without you building anything.</div></div>
         <div class="feature-row"><div class="feature-row__k">Focus Filter</div><div class="feature-row__v">Wire a reference level into a macOS Focus. The common setup: a Mixing Focus jumps Lyra to slot 2 and silences non-DAW notifications.</div></div>
         <div class="feature-row"><div class="feature-row__k">Audita pairing</div><div class="feature-row__v">Anchor each reference slot to a measured dB SPL by pairing with <a href="../audita/">Audita</a>. After calibration, hit "Send to Lyra…" and the position lands in the slot of your choice - the HUD then reads e.g. "Mix - 85 dB SPL".</div></div>
-        <div class="feature-row"><div class="feature-row__k">UA background apps</div><div class="feature-row__v">Optionally start UA Mixer Engine and UA Mixer Helper when an interface connects, and quit the UA apps once the last interface disconnects. Both opt-in, each with its own notification toggle.</div></div>
-        <div class="feature-row"><div class="feature-row__k">Volume HUD</div><div class="feature-row__v">The on-screen pill matches the macOS volume control on macOS 26 and later: the connected Apollo's name above a tick-marked level slider, in clear glass that takes its colour from the wallpaper. A Reference Level jump puts the slot name on the name line. Settings can switch back to the compact single-row pill.</div></div>
         <div class="feature-row"><div class="feature-row__k">Pass F-Keys to macOS</div><div class="feature-row__v">A menu toggle hands F10 / F11 / F12 back to the system output device without quitting Lyra. The connection, menu and slider keep working. Off again on the next launch.</div></div>
         <div class="feature-row"><div class="feature-row__k">Universal binary</div><div class="feature-row__v">Ships as a universal binary - runs natively on both Apple Silicon and Intel Macs (macOS 12 or later).</div></div>
         <div class="feature-row"><div class="feature-row__k">Menu bar</div><div class="feature-row__v">Lives quietly in the menu bar. No dock icon, no windows, no UI to get in the way.</div></div>
@@ -194,7 +205,7 @@
   <!-- ── Pairs with Audita ────────────────────────────────────────────── -->
   <section class="section section--bordered" id="pairing">
     <div class="section__grid">
-      <p class="label">Pairs with Audita</p>
+      <h2 class="label">Pairs with Audita</h2>
       <div>
         <figure class="diagram">
           <svg class="diagram__wide diagram__wide--s" viewBox="0 0 560 324" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
@@ -254,69 +265,57 @@
   <!-- ── Recent for Lyra ──────────────────────────────────────────────── -->
   <section class="section section--bordered">
     <div class="apps-head" style="margin-bottom: 22px;">
-      <p class="label">Recent for Lyra</p>
-      <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases →</a>
+      <h2 class="label">Recent for Lyra</h2>
+      <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases</a>
     </div>
     <div class="feed" data-feed data-feed-apps="lyra" data-feed-scope="lyra" data-feed-blog="/blog/" data-feed-limit="4">
       <a class="feed-row" href="releases.html#v1.9">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.9</span></div>
           <p class="feed-row__title">Lyra 1.9</p>
           <p class="feed-row__summary">Second-generation Universal Audio Volt interfaces, an Interface picker for an Apollo and a Volt together, and ALT speakers with three Reference Levels for each pair.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">20 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.8">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.8</span></div>
           <p class="feed-row__title">Lyra 1.8</p>
           <p class="feed-row__summary">New app icon, a volume HUD that matches the macOS volume control, and a menu toggle that hands the F-keys back to macOS.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">13 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">13 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.7.1">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.7.1</span></div>
           <p class="feed-row__title">Lyra 1.7.1</p>
           <p class="feed-row__summary">The volume HUD keeps its grey, glassy look on macOS 26 over any wallpaper, with a clear white glyph and level bar.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Jun</span><p class="feed-row__date">21 Jun 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">21 Jun 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.7">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.7</span></div>
           <p class="feed-row__title">Lyra 1.7</p>
           <p class="feed-row__summary">The volume HUD, About, and Settings windows render on the system's real Liquid Glass material on macOS 26, matching the native volume control.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Jun</span><p class="feed-row__date">20 Jun 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Jun 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.6">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.6</span></div>
           <p class="feed-row__title">Lyra 1.6</p>
           <p class="feed-row__summary">Interactive widgets, a Settings window, UA Mixer Engine auto-start/quit, "test for 5 minutes" after the trial, and a universal binary that runs on Intel Macs.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">May</span><p class="feed-row__date">May 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">May 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.5">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Lyra v1.5</span></div>
           <p class="feed-row__title">Lyra 1.5</p>
           <p class="feed-row__summary">Eleven App Intents for Shortcuts, Spotlight and Siri, a Focus Filter, URL-scheme read endpoints, and x-callback-url chaining.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">May</span><p class="feed-row__date">May 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">May 2026</p></div>
       </a>
     </div>
   </section>
@@ -324,7 +323,7 @@
   <!-- ── Credits ──────────────────────────────────────────────────────── -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">About</p>
+      <h2 class="label">About</h2>
       <div>
         <p class="prose-lead">
           Lyra controls the interface through UA Mixer Engine (Apollo) and UA Mixer Helper (Volt), the background apps installed with UAD Console. It doesn't modify UA software.
@@ -347,7 +346,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/lyra">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe →</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -373,10 +372,10 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../newsletter.js"></script>
-<script src="../activity-feed.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
+<script src="../activity-feed.js?v=3b378b70"></script>
+<script src="../instruments.js?v=980bf1ff"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

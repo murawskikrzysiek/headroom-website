@@ -17,13 +17,12 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/headroom-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
-  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="blog.css?v=8591d376">
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b17689e9a2d3478cb704287beb955f48"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-<div class="glow glow--tl"></div>
 
 <div class="container--read nav-shell">
     <nav class="nav">
@@ -39,23 +38,20 @@
     <header class="article-header">
         <p class="article-eyebrow">Release</p>
         <h1>Audita 1.4: absolute SPL from a UMIK-1 serial number</h1>
-        <p class="article-subtitle">Type the serial printed on the mic and the factory calibration does the work a reference meter used to do. Plus cal-file import for any measurement mic, live input-volume compensation, and a health card and self-check that say whether the chain still holds.</p>
+        <p class="article-subtitle">Audita 1.4 fetches a UMIK-1's factory calibration by serial number and takes absolute SPL from it, with no reference meter in the loop. Also cal-file import for any measurement mic, live input-volume compensation, and a health card and self-check for the chain.</p>
         <div class="article-meta">
-            <span>Krzysiek</span>
-            <span class="dot"></span>
-            <span>12 August 2026</span>
-            <span class="dot"></span>
+            <span>Krzysiek, </span>
+            <span>12 August 2026, </span>
             <span>5 min read</span>
         </div>
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container--read">
   <article class="article">
 
-        <p>Audita 1.4 is out. The part worth a post is what happens when the microphone you plug in is a <strong>miniDSP UMIK-1</strong>: you type the serial number printed on its body, and a few seconds later the app is measuring in real dB SPL.</p>
+        <p>Audita 1.4 is out. The part that needs a post is what happens when the microphone you plug in is a <strong>miniDSP UMIK-1</strong>: you type the serial number printed on its body, and a few seconds later the app is measuring in real dB SPL.</p>
 
         <h2>Why the UMIK-1 makes that possible</h2>
 
@@ -65,13 +61,13 @@
 
         <p>The second thing the UMIK-1 gets right is the gain. It is a USB microphone with fixed internal gain, so there is no preamp knob between the capsule and the numbers. That makes the sensitivity figure in its calibration file a stable claim about <em>level</em>, not only about tone. An analog measurement mic can tell my software its frequency response through the same kind of file; it cannot tell me what the person at the desk did with the gain trim, and level calibration lives or dies on exactly that.</p>
 
-        <p>It is an inexpensive microphone with a serial-numbered measurement behind it, and it is the reason a menu-bar app can make an absolute-SPL claim with a straight face.</p>
+        <p>It is an inexpensive microphone with a serial-numbered measurement behind it, and it is the reason a menu-bar app can make an absolute-SPL claim.</p>
 
         <h2>Type the serial, skip the meter</h2>
 
         <p>With a UMIK-1 selected as the input, <strong>Settings &#8594; Audio &#8594; Step 1</strong> leads with the download. Type the serial (the label prints it with a dash, type it without), pick 0 or 90 degree, and Audita fetches the factory file for that unit, shows what it found (data points, frequency span, serial, sensitivity), and applies the curve as the mic correction: inverted, limited to &#177;9 dB, and running ahead of the A and C weighting filters.</p>
 
-        <p>The same sheet offers <strong>Set level calibration from the file</strong>. Tick it and the level offset comes from the sensitivity figure too, which means the whole calibration is done in one pass, with no SPL meter in the loop. For every other microphone, that step is still a cross-check against an iPhone running the free NIOSH Sound Level Meter app: play noise, compare the two readings, nudge the offset until they agree. It works, it is what I have recommended since 1.0, and it is still the answer for an ECM8000. It is simply not something a UMIK owner needs to do any more.</p>
+        <p>The same sheet offers <strong>Set level calibration from the file</strong>. Tick it and the level offset comes from the sensitivity figure too, so no SPL meter is needed. For every other microphone, that step is still a cross-check against an iPhone running the free NIOSH Sound Level Meter app: play noise, compare the two readings, nudge the offset until they agree. It works, it is what I have recommended since 1.0, and it is still the answer for an ECM8000. It is simply not something a UMIK owner needs to do any more.</p>
 
         <figure class="figure">
             <img src="../audita/images/screenshots/settings-audio-step1-calibration-file.png" alt="Audita's Step 1 card with a UMIK-1 calibration file imported: the file name, serial and date, the correction curve it produced, and the serial-number download field with 0 and 90 degree options">
@@ -90,7 +86,7 @@
 
         <h2>The input slider is part of the calibration</h2>
 
-        <p>macOS treats a USB microphone's input volume as a user control, and a sensitivity figure is only true at the position it was defined at, which is full volume. That is a real trap: one drag of a slider in System Settings and an absolute meter is quietly wrong.</p>
+        <p>macOS treats a USB microphone's input volume as a user control, and a sensitivity figure is only true at the position it was defined at, which is full volume. That is a real trap: one drag of a slider in System Settings and an absolute meter is wrong.</p>
 
         <p>Audita watches the control instead of trusting it. With a UMIK calibration active it adds the shortfall back in real time, so readings stay absolute at any slider position, and it says so in Settings and in the menu bar popover whenever it is compensating. Full volume still gives the most headroom, and the import sheet offers a one-click way back to it.</p>
 
@@ -98,7 +94,7 @@
 
         <p>Cal-file import is not UMIK-only. Audita reads the REW-style <code>.cal</code>, <code>.txt</code> and <code>.frd</code> files that miniDSP, Dayton and most measurement-mic vendors ship, so an ECM8000 or an EMM-6 through an interface gets its frequency correction from the manufacturer's curve instead of a pink-noise sweep of your room. Some analog files carry a <code>Sensitivity</code> figure in dBFS as well; Audita can use it as a level reference, off by default, with the cross-check as the arbiter, because that figure is tied to whatever preamp gain the file was measured at and the file cannot tell you what that was.</p>
 
-        <p>One quiet advantage of the file path: a correction derived from a published curve re-designs itself when your interface changes sample rate. A correction measured with pink noise is only valid at the rate it was measured at, and 1.4 now says so on screen instead of leaving it bypassed in silence.</p>
+        <p>One advantage of the file path: a correction derived from a published curve re-designs itself when your interface changes sample rate. A correction measured with pink noise is only valid at the rate it was measured at, and 1.4 now says so on screen instead of leaving it bypassed in silence.</p>
 
         <h2>Knowing whether you are still calibrated</h2>
 
@@ -106,17 +102,17 @@
 
         <p><strong>Run Self-Check</strong> plays pink noise through the selected output at your calibrated reference, measures it back through the mic, and reports the delta with a pass or fail against your own tolerance band. A result belongs to the pair it measured, this mic into these monitors, so swapping either end reads as unverified until you check that path too, and switching back to a rig you already verified reads verified again. Results age out after 90 days.</p>
 
-        <p>Put the three together and calibration stops being something you did once in June and half remember. The file says which capsule the numbers came from, the card says whether that still applies to the devices in front of you, and the self-check answers it with pink noise instead of an opinion.</p>
+        <p>Put the three together and calibration stops being something you did once in June and half remember. The file says which capsule the numbers came from, the card says whether that still applies to the devices in front of you, and the self-check measures it.</p>
 
         <div class="kicker">
-            <p>Audita 1.4 is a free update for existing licenses: <strong>Check for Updates</strong> in the menu, or download at <a href="/audita/">headroomstudio.dev/audita</a>. New licenses are <strong>$19.99</strong>, one time, with a 7-day trial, macOS 14 or later. <a href="/audita/releases.html#v1.4">Full release notes &#8594;</a></p>
+            <p>Audita 1.4 is a free update for existing licenses, through Check for Updates in the app or from the <a href="/audita/">Audita page</a>. New licenses $19.99 one time, 7-day trial, macOS 14 or later. <a href="/audita/releases.html#v1.4">Release notes</a>.</p>
         </div>
 
         <div class="related">
             <p class="related-label">Related reading</p>
             <ul class="related-list">
-                <li><a href="calibrated-monitoring.html"><span>The case for calibrated studio monitoring</span><span class="arrow">&#8594;</span></a></li>
-                <li><a href="pairing-audita-and-lyra.html"><span>Pairing Audita + Lyra: calibrate once, recall forever</span><span class="arrow">&#8594;</span></a></li>
+                <li><a href="calibrated-monitoring.html"><span>The case for calibrated studio monitoring</span></a></li>
+                <li><a href="pairing-audita-and-lyra.html"><span>Pairing Audita and Lyra</span></a></li>
             </ul>
         </div>
     </article>
@@ -131,7 +127,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/main">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe &#8594;</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -155,9 +151,8 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
-<script src="../newsletter.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

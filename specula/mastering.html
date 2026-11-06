@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css">
+    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
     <script type="application/ld+json">
     {
@@ -44,7 +44,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -67,24 +66,16 @@
             <img class="app-hero__icon" src="icon.png" alt="Specula app icon">
         </div>
         <div>
-            <p class="eyebrow">Workflow · Mastering</p>
+            <p class="eyebrow">Workflow: Mastering</p>
             <h1 class="display">A master that survives delivery.</h1>
             <p class="app-hero__desc">
                 Specula judges a master against where it is going. Under Music streaming, the delivery card says what Spotify, Apple Music, YouTube and Tidal do to the file, in a sentence, beside the true peak, the mono fold-down and what Apple Music's AAC encode does to the peaks. Where a fix would change the verdict, the card offers it by name.
             </p>
-            <div class="app-hero__badges">
-                <span class="badge badge--macos">macOS</span>
-                <span class="badge">EBU R128</span>
-                <span class="badge">True peak</span>
-                <span class="badge">Codec check</span>
-                <span class="badge">Mono check</span>
-                <span class="badge">Music streaming</span>
-            </div>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="guide.html#deliver-to">Read the delivery guide</a>
                 <a class="btn btn-learn" href="index.html">All of Specula</a>
             </div>
-            <p class="app-hero__meta" style="margin-top:14px;">7-day trial · one-time purchase · macOS 14+</p>
+            <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, macOS 14 and later</p>
             <nav class="taskstrip taskstrip--page" aria-label="Tasks this workflow uses">
                 <span class="taskstrip__label">Tasks</span>
                 <a class="chip" href="guide.html#inspect">Inspect <kbd>⌘1</kbd></a>
@@ -95,7 +86,6 @@
     </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
 
@@ -110,7 +100,7 @@
     <!-- The problem -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Sounds right, fails at delivery</p>
+            <h2 class="label">Sounds right, fails at delivery</h2>
             <div style="max-width: 640px;">
                 <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
                     A finished master still has to survive Spotify, Apple Music and the rest.
@@ -132,17 +122,17 @@
     <section class="section section--bordered">
         <div class="section__grid">
             <div>
-                <p class="label">The delivery check</p>
+                <h2 class="label">The delivery check</h2>
                 <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Deliver to Music streaming, read the card, check the encode and the mono fold-down, hear it at the platform's level, fix, export.</p>
             </div>
             <div>
-                <div class="feature-row"><div class="feature-row__k">1 · Deliver to Music streaming</div><div class="feature-row__v">Open the master. <strong>Deliver to</strong>, over the delivery card, names what the file is judged against, such as Deliver to Spotify · Music streaming. Its picker (Analyze › Deliver To…, <kbd>⇧⌘D</kbd>) lists the category's targets: up to four checked, one of them primary, the target the verdict leads with. The card judges the whole file once it has loaded, and its readings hold still while the file plays; Loudness details' Live side shows what is playing.</div></div>
-                <div class="feature-row"><div class="feature-row__k">2 · Read the verdicts</div><div class="feature-row__v">The primary target's verdict is a sentence: a mix at −9 LUFS reads <strong>"Spotify turns this down by 5.0 dB."</strong> The other checked targets follow one line each: Apple Music −7.0 dB, YouTube −5.0 dB, Tidal −5.0 dB. A true peak over the primary's ceiling adds to the sentence: "True peak −0.4 dBTP is over its −1 dBTP ceiling." The readings take one set of colours from the primary target: green within 1.5 dB of its reference or where it plays the file as recorded, yellow up to 4 dB away, orange beyond that or for a true peak over the ceiling. Loudness details holds the integrated loudness, loudness range, max momentary and short-term, true peak, sample peak and the headroom, measured from the true peak.</div></div>
-                <div class="feature-row"><div class="feature-row__k">3 · Check the encode and the fold-down</div><div class="feature-row__v">Under Music streaming the card checks two more things. <strong>Check Apple Music's AAC encode</strong> (Analyze › Check the Apple Music Encode) encodes the file as Apple's afconvert does, AAC at 256 kbps, constrained VBR and quality 127 (128 kbps for mono), decodes it and measures it: "After Apple Music's AAC encode the true peak is +0.4 dBTP, with 12 samples over full scale." The <strong>mono</strong> line reads left against right over the whole file and every second of it: "Mono-compatible. Correlation +0.62 over the file.", or how long and from where the correlation stays below −0.2, with <strong>Select the longest stretch</strong> to play that part.</div></div>
-                <div class="feature-row"><div class="feature-row__k">4 · Hear it at the platform's level</div><div class="feature-row__v"><strong>Hear at Spotify's level</strong> plays the master with Spotify's gain, through a true-peak limiter at Spotify's ceiling. It reads Stop hearing at Spotify's level while it is on, and Playback › Hear at Spotify's Level does the same. The other targets offer it in their Fix menu. It appears only where the platform changes the level, and the file itself is not changed.</div></div>
-                <div class="feature-row"><div class="feature-row__k">5 · Fix</div><div class="feature-row__v"><strong>Limit peaks to −1.0 dBTP</strong> opens the Edit task (<kbd>⌘2</kbd>) with Limit True Peak set to the target's ceiling; after a codec check, the card's own Limit peaks sets the ceiling less what the encode added. <strong>Normalize to −14 LUFS</strong> opens Normalize with the target filled in: one gain for the whole file, with a true-peak limiter holding the ceiling when the gain raises the level. A fix appears only where it changes something. Both panels also work on a selection, so one hot passage can be limited on its own. Every edit joins the Edit task's History by name, up to 16 steps back, and the file is measured again in the background, so the card shows the edited master. <a href="guide.html#edit">More in the guide</a>.</div></div>
-                <div class="feature-row"><div class="feature-row__k">6 · Compare with the encode</div><div class="feature-row__v"><strong>Hear the encode in Compare</strong> (Analyze › Compare with the Apple Music Encode) puts the encode in a slot beside the master. Compare (<kbd>⌘3</kbd>) shows both in its matrix with their differences, and the encode's residual, <kbd>D</kbd>, plays what the encoder took away.</div></div>
-                <div class="feature-row"><div class="feature-row__k">7 · Export the report</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports into one folder, named after the file; <kbd>⇧⌘E</kbd> and <kbd>⌥⌘E</kbd> open the sheet with the JSON or the PDF ticked. The reports name the category and its targets, "Judged against: Spotify (primary), Apple Music, YouTube, Tidal", carry every checked target's verdict and, with the Codec check switch on, as it starts under Music streaming, the master beside its encode.</div></div>
+                <div class="feature-row"><div class="feature-row__k">1. Deliver to Music streaming</div><div class="feature-row__v">Open the master. <strong>Deliver to</strong>, over the delivery card, names what the file is judged against, such as Deliver to Spotify · Music streaming. Its picker (Analyze › Deliver To…, <kbd>⇧⌘D</kbd>) lists the category's targets: up to four checked, one of them primary, the target the verdict leads with. The card judges the whole file once it has loaded, and its readings hold still while the file plays; Loudness details' Live side shows what is playing.</div></div>
+                <div class="feature-row"><div class="feature-row__k">2. Read the verdicts</div><div class="feature-row__v">The primary target's verdict is a sentence: a mix at −9 LUFS reads <strong>"Spotify turns this down by 5.0 dB."</strong> The other checked targets follow one line each: Apple Music −7.0 dB, YouTube −5.0 dB, Tidal −5.0 dB. A true peak over the primary's ceiling adds to the sentence: "True peak −0.4 dBTP is over its −1 dBTP ceiling." The readings take one set of colours from the primary target: green within 1.5 dB of its reference or where it plays the file as recorded, yellow up to 4 dB away, orange beyond that or for a true peak over the ceiling. Loudness details holds the integrated loudness, loudness range, max momentary and short-term, true peak, sample peak and the headroom, measured from the true peak.</div></div>
+                <div class="feature-row"><div class="feature-row__k">3. Check the encode and the fold-down</div><div class="feature-row__v">Under Music streaming the card checks two more things. <strong>Check Apple Music's AAC encode</strong> (Analyze › Check the Apple Music Encode) encodes the file as Apple's afconvert does, AAC at 256 kbps, constrained VBR and quality 127 (128 kbps for mono), decodes it and measures it: "After Apple Music's AAC encode the true peak is +0.4 dBTP, with 12 samples over full scale." The <strong>mono</strong> line reads left against right over the whole file and every second of it: "Mono-compatible. Correlation +0.62 over the file.", or how long and from where the correlation stays below −0.2, with <strong>Select the longest stretch</strong> to play that part.</div></div>
+                <div class="feature-row"><div class="feature-row__k">4. Hear it at the platform's level</div><div class="feature-row__v"><strong>Hear at Spotify's level</strong> plays the master with Spotify's gain, through a true-peak limiter at Spotify's ceiling. It reads Stop hearing at Spotify's level while it is on, and Playback › Hear at Spotify's Level does the same. The other targets offer it in their Fix menu. It appears only where the platform changes the level, and the file itself is not changed.</div></div>
+                <div class="feature-row"><div class="feature-row__k">5. Fix</div><div class="feature-row__v"><strong>Limit peaks to −1.0 dBTP</strong> opens the Edit task (<kbd>⌘2</kbd>) with Limit True Peak set to the target's ceiling; after a codec check, the card's own Limit peaks sets the ceiling less what the encode added. <strong>Normalize to −14 LUFS</strong> opens Normalize with the target filled in: one gain for the whole file, with a true-peak limiter holding the ceiling when the gain raises the level. A fix appears only where it changes something. Both panels also work on a selection, so one hot passage can be limited on its own. Every edit joins the Edit task's History by name, up to 16 steps back, and the file is measured again in the background, so the card shows the edited master. <a href="guide.html#edit">More in the guide</a>.</div></div>
+                <div class="feature-row"><div class="feature-row__k">6. Compare with the encode</div><div class="feature-row__v"><strong>Hear the encode in Compare</strong> (Analyze › Compare with the Apple Music Encode) puts the encode in a slot beside the master. Compare (<kbd>⌘3</kbd>) shows both in its matrix with their differences, and the encode's residual, <kbd>D</kbd>, plays what the encoder took away.</div></div>
+                <div class="feature-row"><div class="feature-row__k">7. Export the report</div><div class="feature-row__v">File › Export… (<kbd>⌘E</kbd>) writes the PDF, HTML and JSON reports into one folder, named after the file; <kbd>⇧⌘E</kbd> and <kbd>⌥⌘E</kbd> open the sheet with the JSON or the PDF ticked. The reports name the category and its targets, "Judged against: Spotify (primary), Apple Music, YouTube, Tidal", carry every checked target's verdict and, with the Codec check switch on, as it starts under Music streaming, the master beside its encode.</div></div>
             </div>
         </div>
     </section>
@@ -150,7 +140,7 @@
     <!-- The per-platform gain truth -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Not every platform boosts</p>
+            <h2 class="label">Not every platform boosts</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Apple Music's Sound Check, YouTube and Tidal <strong>only turn loud tracks down</strong>. A master at −18 LUFS plays at −18 on Apple Music, not at its −16 reference, and the card says so: "Apple Music plays this as recorded, 2.0 dB under its −16 LUFS reference." It reads green and offers no level fix.</p>
                 <p class="prose-lead" style="margin-top: 14px;">Spotify (in its default mode), Amazon Music, Deezer and SoundCloud <strong>raise quiet tracks</strong>, so their "turns this up by" is a real gain, and Hear at their level plays it.</p>
@@ -166,9 +156,9 @@
     <!-- Music analysis -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Section by section</p>
+            <h2 class="label">Section by section</h2>
             <div style="max-width: 640px;">
-                <p class="prose-lead">On macOS 27, Apple's on-device music analysis reads a song's sections, bars and stems, and Specula measures against them with its own BS.1770-4: each section's loudness on the timeline, shaded from quieter to louder, the vocal's loudness against the bed, and the sections as chapters for a table of per-section readings. <a href="songs.html">Songs →</a></p>
+                <p class="prose-lead">On macOS 27, Apple's on-device music analysis reads a song's sections, bars and stems, and Specula measures against them with its own BS.1770-4: each section's loudness on the timeline, shaded from quieter to louder, the vocal's loudness against the bed, and the sections as chapters for a table of per-section readings. <a href="songs.html">Songs</a></p>
             </div>
         </div>
     </section>
@@ -176,7 +166,7 @@
     <!-- See it -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">On screen</p>
+            <h2 class="label">On screen</h2>
             <div class="shots shots--tight" style="padding-bottom: 0;">
                 <figure class="shot shot--narrow">
                     <picture><source srcset="specula-delivery-card.webp" type="image/webp"><img src="specula-delivery-card.png" width="476" height="704" alt="The delivery card: Spotify's verdict as a sentence, the other platforms one line each, the codec and mono checks, and the fixes as buttons." loading="lazy" decoding="async"></picture>
@@ -197,11 +187,11 @@
     <!-- CTA -->
     <section class="section section--bordered">
         <div class="section__grid">
-            <p class="label">Before the master ships</p>
+            <h2 class="label">Before the master ships</h2>
             <div style="max-width: 640px;">
                 <p class="prose-lead">Specula reads the finished master: what each platform does to its level, whether the true peak clears the ceiling before and after the AAC encode, whether the stereo image holds in mono, and the fix where one would change the verdict.</p>
                 <div class="app-hero__cta" style="margin-top: 24px;">
-                    <a href="guide.html#deliver-to" class="btn btn-primary">Read the delivery guide →</a>
+                    <a href="guide.html#deliver-to" class="btn btn-primary">Read the delivery guide</a>
                     <a href="index.html" class="btn btn-outline">Back to Specula</a>
                 </div>
             </div>
@@ -220,7 +210,6 @@
     </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 </body>
 </html>

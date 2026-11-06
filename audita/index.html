@@ -20,7 +20,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css">
+  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
 
   <script type="application/ld+json">
   {
@@ -42,7 +42,6 @@
 </head>
 <body>
 
-<div class="glow glow--center"></div>
 
 <div class="container nav-shell">
     <nav class="nav">
@@ -70,37 +69,52 @@
       <p class="app-hero__desc">
         A menu-bar SPL meter built to do two jobs at once. Pin your monitor chain to a calibrated reference and stay there. Track how much hearing the day has cost using NIOSH-aligned dose accumulation. Both run passively while you work.
       </p>
-      <div class="app-hero__badges">
-        <span class="badge badge--macos">macOS</span>
-        <span class="badge">SPL meter</span>
-        <span class="badge">Target level</span>
-        <span class="badge">Hearing health</span>
-        <span class="badge">NIOSH</span>
-      </div>
       <p class="app-hero__meta" style="margin-top:18px; max-width:540px; line-height:1.55; border-left:2px solid var(--accent); padding-left:14px;">
-        <strong style="color:var(--accent);font-weight:600;">New in 1.7:</strong> Sessions are drawn as a dial. History shows the day's dial or one dial per day for a range, the session report opens on the session's dial, and Details shows the live session. A click on a session narrows History to it, and Report makes a PDF of any selection. Runs on macOS 14 and later. <a href="releases.html" style="color:var(--accent);">What's new →</a>
+        <strong style="color:var(--accent);font-weight:600;">New in 1.7:</strong> Sessions are drawn as a dial. History shows the day's dial or one dial per day for a range, the session report opens on the session's dial, and Details shows the live session. A click on a session narrows History to it, and Report makes a PDF of any selection. Runs on macOS 14 and later. <a href="releases.html" style="color:var(--accent);">What's new</a>
       </p>
       <div class="app-hero__cta">
         <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.dmg"><span>↓</span>Download free trial</a>
         <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1">Buy - $19.99</a>
       </div>
       <p class="app-hero__meta" style="margin-top:14px; max-width:540px; line-height:1.55;">
-        $19.99 · 7-day free trial · one-time purchase · macOS 14+
+        $19.99, 7-day free trial, one-time purchase, macOS 14 and later.
       </p>
       <div class="app-hero__doclinks">
-        <a href="guide.html" class="primary">Read the user guide →</a>
-        <a href="faq.html">Have questions? Read the FAQ →</a>
+        <a href="guide.html" class="primary">User guide</a>
+        <a href="faq.html">FAQ</a>
+        <a href="releases.html">Release notes</a>
       </div>
     </div>
   </header>
 </div>
 
-<div class="waveform"><canvas></canvas></div>
 
 <div class="container">
   <!-- Screenshots -->
   <section class="shots">
-    <div class="shot"><picture><source srcset="audita-hero.webp" type="image/webp"><img src="audita-hero.png" width="1920" height="1120" alt="Audita, SPL meter and hearing dose - a four-hour session from 10:00 to 14:00 drawn as a radial dial of A-weighted readings, 73 percent on target at 79 plus or minus 3 dBA (K-14), with the two loud passes above 80 dBA lit where the NIOSH dose accrues and today's dose at 29 percent (safe) in the centre; automation through Shortcuts, Spotlight, widgets, a Focus filter and audita:// URLs" decoding="async"></picture></div>
+    <!-- The pinned window, session by session. instruments.js draws it from one
+         synthetic session with the app's own rules; the steps drive it. -->
+    <section class="scrolly" data-instrument="pin" aria-label="Audita's pinned window through one session">
+      <div class="scrolly__stage">
+        <div class="trig" role="status"><span class="trig__k"></span><span class="trig__t"></span><span class="trig__r"></span><span class="trig__app"></span></div>
+        <div class="pin" data-pin data-state="start" aria-live="polite"></div>
+        <div class="notif" role="status"><img src="icon.png" alt=""><div><p class="notif__app">Audita</p><p class="notif__t"></p><p class="notif__b"></p></div></div>
+        <p class="scrolly__hint">Scroll. Every number is computed from the session as it fills in.</p>
+      </div>
+      <div class="scrolly__steps">
+        <div class="step" data-state="start"><h3>The level at the chair</h3><p>Audita listens through a measurement microphone at the listening position and reads the A-weighted level ten times a second. The pinned window keeps that reading on screen while you work.</p></div>
+        <div class="step" data-state="session"><h3>Sessions</h3><p>A session begins when a DAW you track launches, from Start Mixing Session in Spotlight or a Shortcut, from a Focus Filter, or from <code>audita://session/start</code>. It ends the same ways, and the recap follows.</p></div>
+        <div class="step" data-state="reference"><h3>The reference</h3><p>Calibrate once against a target, 79 dBA for K-14 here, and every reading becomes a verdict: under, on or over, with a 3 dB band either side. The share of the session on target is the headline figure.</p></div>
+        <div class="step" data-state="over"><h3>Over</h3><p>A loud stretch pushes past the band. The bars turn orange, the status says by how much, and the dose rises faster.</p></div>
+        <div class="step" data-state="drift"><h3>Drift</h3><p>Audita compares the rolling 30-minute Leq with a baseline taken ten minutes into the session, and posts a notification once per session when the level has crept up 3 dB.</p></div>
+        <div class="step" data-state="under"><h3>Under</h3><p>A quiet stretch, playback paused or the monitor turned down, shows as grey. It counts against the on-target share and adds nothing to the dose.</p></div>
+        <div class="step" data-state="dose"><h3>Today's dose</h3><p>By the NIOSH method: 85 dBA for eight hours is a full day, every 3 dB louder halves the time, and nothing below 80 dBA accrues. The percentage is today's share of that budget.</p></div>
+        <div class="step" data-state="leq"><h3>Leq and Ln</h3><p>Leq over 1, 10 and 30 minutes are energy averages. L10, L50 and L90 say how loud the loudest tenth, the middle and the floor were. The session's average and peak sit under them.</p></div>
+        <div class="step" data-state="readback"><h3>Read it back</h3><p>Every number in the window is readable from outside: Get Current SPL, Get Today's Dose and Get Monitoring Stats in Shortcuts, or <code>audita://dose</code> and <code>audita://state</code> for anything that opens a URL, chained with x-callback-url.</p></div>
+        <div class="step" data-state="lyra"><h3>Send to Lyra</h3><p>After calibration, Send to Lyra writes the measured level into one of Lyra's reference slots. From then on <kbd>⌃F11</kbd> recalls the exact monitor position the microphone measured.</p></div>
+        <div class="step" data-state="end"><h3>The session, kept as a dial</h3><p>When the session ends it stays in History as this dial, one per session or one per day for a range, with the report and a PDF export.</p></div>
+      </div>
+    </section>
     <div class="shots-grid shots-grid--3">
       <div class="shot"><img src="menu_bloom_green.png" alt="Audita menu bar window - Safe dose tier (green)"></div>
       <div class="shot"><img src="menu_bloom_yellow.png" alt="Audita menu bar window - Caution dose tier (yellow)"></div>
@@ -117,19 +131,19 @@
 
   <!-- Dig deeper -->
   <section style="padding: 12px 0 56px;">
-    <div class="apps-head"><p class="label">Dig deeper</p><span style="font-size: 0.74rem; color: var(--text-4);">The full reference · 4 docs</span></div>
+    <div class="apps-head"><h2 class="label">Dig deeper</h2></div>
     <div class="tiles tiles--4">
-      <a class="tile tile--featured" href="guide.html"><div class="tile__glyph">☰</div><h4>User Guide</h4><p>Every feature, every setting, every recipe. The full reference.</p><span class="tile__arrow">→</span></a>
-      <a class="tile" href="api.html"><div class="tile__glyph">⟨ ⟩</div><h4>API reference</h4><p>Programmatic interfaces, the audita:// URL scheme, and preference keys.</p><span class="tile__arrow">→</span></a>
-      <a class="tile" href="releases.html"><div class="tile__glyph">↑</div><h4>Release notes</h4><p>Version history. What changed in each release and why.</p><span class="tile__arrow">→</span></a>
-      <a class="tile" href="faq.html"><div class="tile__glyph">?</div><h4>FAQ</h4><p>Common questions, common gotchas, the things people email about.</p><span class="tile__arrow">→</span></a>
+      <a class="tile tile--featured" href="guide.html"><div class="tile__glyph">☰</div><h4>User Guide</h4><p>Every feature, every setting, every recipe. The full reference.</p></a>
+      <a class="tile" href="api.html"><div class="tile__glyph">⟨ ⟩</div><h4>API reference</h4><p>Programmatic interfaces, the audita:// URL scheme, and preference keys.</p></a>
+      <a class="tile" href="releases.html"><div class="tile__glyph">↑</div><h4>Release notes</h4><p>Version history. What changed in each release and why.</p></a>
+      <a class="tile" href="faq.html"><div class="tile__glyph">?</div><h4>FAQ</h4><p>Common questions, common gotchas, the things people email about.</p></a>
     </div>
   </section>
 
   <!-- Why it exists -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">Why it exists</p>
+      <h2 class="label">Why it exists</h2>
       <div style="max-width: 640px;">
         <p class="display" style="font-size: 1.45rem; font-weight: 650; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">
           Where the monitor knob is actually set, and how much hearing the day has cost. Two questions almost no studio answers in numbers.
@@ -193,7 +207,7 @@
   <!-- Features -->
   <section class="section section--bordered">
     <div class="section__grid">
-      <p class="label">Features</p>
+      <h2 class="label">Features</h2>
       <div>
         <div class="feature-row"><div class="feature-row__k">Real-time SPL</div><div class="feature-row__v">Continuous A-weighted level at 10 Hz, exponentially smoothed for a stable readout. Dose, Leq, and session stats accumulate from the true energy of every sample, not the smoothed display value.</div></div>
         <div class="feature-row"><div class="feature-row__k">Live menu bar</div><div class="feature-row__v">Show a live SPL number right in the menu bar - dBA, dBC, or alongside the dose icon - for an at-a-glance reading without opening the menu bar window.</div></div>
@@ -228,7 +242,7 @@
   <!-- Pairs with Lyra -->
   <section class="section section--bordered" id="pairing">
     <div class="section__grid">
-      <p class="label">Pairs with Lyra</p>
+      <h2 class="label">Pairs with Lyra</h2>
       <div>
         <figure class="diagram">
           <svg class="diagram__wide diagram__wide--s" viewBox="0 0 560 324" role="img" aria-label="Signal flow of the Audita to Lyra pairing: a measurement mic feeds Audita's calibration wizard, which sends the measured level over a lyra:// URL into Lyra's reference slot 2, recalled with Ctrl+F11.">
@@ -289,7 +303,7 @@
   <section class="section section--bordered">
     <div class="section__grid">
       <div>
-        <p class="label">Standards</p>
+        <h2 class="label">Standards</h2>
         <p style="font-size: 0.78rem; color: var(--text-3); margin-top: 12px; line-height: 1.55;">Audita measures against the most protective mainstream occupational standards.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -304,69 +318,57 @@
   <!-- Recent for Audita -->
   <section class="section section--bordered">
     <div class="apps-head" style="margin-bottom: 22px;">
-      <p class="label">Recent for Audita</p>
-      <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases →</a>
+      <h2 class="label">Recent for Audita</h2>
+      <a href="releases.html" style="font-size: 0.78rem; color: var(--text-3);">All releases</a>
     </div>
     <div class="feed" data-feed data-feed-apps="audita" data-feed-scope="audita" data-feed-blog="/blog/" data-feed-limit="4">
       <a class="feed-row" href="releases.html#v1.7">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.7</span></div>
           <p class="feed-row__title">Audita 1.7</p>
           <p class="feed-row__summary">Sessions drawn as a dial in History, the session report and the menu bar window, one session at a time in History, and a PDF report for any selection.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">1 Nov 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">1 Nov 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.6.1">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.6.1</span></div>
           <p class="feed-row__title">Audita 1.6.1</p>
           <p class="feed-row__summary">Send to Lyra and the self-check&#39;s Lyra recall work on second-generation Universal Audio Volt interfaces, with Lyra 1.9.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">20 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">20 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.6">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.6</span></div>
           <p class="feed-row__title">Audita 1.6</p>
           <p class="feed-row__summary">The menu bar window answers two questions, today's dose and the reference, with the level once and Details folded. The pinned panel is one strip that expands in place, the History window opens on three answers and one line per session, and Settings is a sidebar window with a Calibration page: one verdict line, four pills, four cards.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">new</span><p class="feed-row__date">17 Oct 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">17 Oct 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.5.1">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.5.1</span></div>
           <p class="feed-row__title">Audita 1.5.1</p>
           <p class="feed-row__summary">Input devices running at 88.2 kHz or higher measured nothing. Measurement now follows every rate the device offers, 44.1 through 192 kHz.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">16 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">16 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.5">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.5</span></div>
           <p class="feed-row__title">Audita 1.5</p>
           <p class="feed-row__summary">New app icon, Liquid Glass on the Welcome and License windows, and a fix for input devices selected explicitly on macOS 27.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Sep</span><p class="feed-row__date">13 Sep 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">13 Sep 2026</p></div>
       </a>
       <a class="feed-row" href="releases.html#v1.4">
         <img class="feed-row__icon" src="icon.png" alt="">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="feed-row__kicker feed-row__kicker--release">Released · Audita v1.4</span></div>
           <p class="feed-row__title">Audita 1.4</p>
           <p class="feed-row__summary">Calibration-file import with absolute SPL from a UMIK-1's serial, a calibration health card, a one-click rig self-check, profile recall per microphone, and dose that accumulates from true interval energy.</p>
-          <p class="feed-row__cta">Read release notes →</p>
         </div>
-        <div class="feed-row__meta"><span class="feed-row__ago">Aug</span><p class="feed-row__date">13 Aug 2026</p></div>
+        <div class="feed-row__meta"><p class="feed-row__date">13 Aug 2026</p></div>
       </a>
     </div>
   </section>
@@ -382,7 +384,7 @@
       <form class="nl-form" method="post" target="hr_ml_target" action="https://api.headroomstudio.dev/s/audita">
         <div class="nl-row">
           <input type="email" name="email" placeholder="you@studio.com" required>
-          <button type="submit">Subscribe →</button>
+          <button type="submit">Subscribe</button>
         </div>
         <!-- Honeypot: real users never see or fill this. Bots that fill every field get silently dropped. -->
         <div class="nl-hp" aria-hidden="true">
@@ -408,10 +410,10 @@
   </footer>
 </div>
 
-<script src="../waveform.js"></script>
-<script src="../newsletter.js"></script>
-<script src="../activity-feed.js"></script>
-<script src="../lightbox.js"></script>
+<script src="../newsletter.js?v=ec214c34"></script>
+<script src="../activity-feed.js?v=3b378b70"></script>
+<script src="../instruments.js?v=980bf1ff"></script>
+<script src="../lightbox.js?v=90e23791"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
