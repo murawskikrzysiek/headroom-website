@@ -534,7 +534,8 @@
             <li><a href="#settings">20. Settings</a></li>
             <li><a href="#shortcuts">21. Keyboard reference</a></li>
             <li><a href="#coming-from-1-4">22. Coming from 1.4</a></li>
-            <li><a href="#standards">23. Standards, requirements, privacy and licence</a></li>
+            <li><a href="#feedback">23. Feedback</a></li>
+            <li><a href="#standards">24. Standards, requirements, privacy and licence</a></li>
         </ul>
     </nav>
 
@@ -2961,9 +2962,23 @@ specula report mix.wav --mode broadcast --no-curve
 
     <hr class="divider">
 
-    <!-- 23. Standards, requirements, privacy and licence -->
+    <!-- 23. Feedback -->
+    <section class="guide-section" id="feedback">
+        <h2>23. Feedback <a href="#feedback" class="anchor">#</a></h2>
+
+        <p class="prose"><strong>Help › Send Feedback…</strong>, or <strong>Send Feedback…</strong> next to the version in <strong>Settings › General</strong>, opens two questions, what you opened Specula for and whether it did that, plus a free-text field, <strong>Anything else?</strong> Every field is optional. <strong>Send</strong> sends it to Headroom Studio; without a connection it is saved and sent automatically later, for up to 14 days. If the server refuses it, <strong>Email it</strong> opens a mail to <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with the same text.</p>
+        <p class="prose">Feedback is anonymous. It carries your answers, the Specula and macOS versions, whether Specula is in its trial, licensed or expired, and the day of the trial, and nothing that identifies the Mac. An email address goes with it only when you tick <strong>You can reply to me about this feedback</strong>; it is used only to reply and deleted after 90 days.</p>
+        <h3 id="feedback-during-the-trial">During the trial</h3>
+        <p class="prose">On the third day you use Specula during the trial (days of use, not calendar days), a slim banner under the top bar asks two questions about Specula. <strong>Answer</strong> opens them; the cross dismisses the banner. Either way it does not come back. It never shows with a license.</p>
+        <h3 id="feedback-when-the-trial-ends">When the trial ends</h3>
+        <p class="prose">When the trial has ended, Specula asks <strong>Need more time?</strong> before it shows the license window, at every launch and on opening a file while it stays open, with the buy button and <strong>Enter License…</strong> above the questions. <strong>What's the extra week for?</strong> takes any that apply, plus <strong>Anything else?</strong>. <strong>Send and get one more week</strong> sends the answer and runs the trial for one more week from that moment; Settings › General › License and the license window then read "Trial: N days left (extended)", and the command-line tool runs for that week too. <strong>Not now</strong> goes on to the license window, and the question comes back the next time. The extra week is given once: when it ends, the license window shows on its own.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 24. Standards, requirements, privacy and licence -->
     <section class="guide-section" id="standards">
-        <h2>23. Standards, requirements, privacy and licence <a href="#standards" class="anchor">#</a></h2>
+        <h2>24. Standards, requirements, privacy and licence <a href="#standards" class="anchor">#</a></h2>
 
         <h3 id="standards-standards">Standards</h3>
         <table>
@@ -3010,7 +3025,7 @@ specula report mix.wav --mode broadcast --no-curve
         <li>Files above about 4 GB decoded open on macOS 15 and later, when the decoded file fits in half the Mac's memory and each channel stays under about 4 GB. On macOS 14 they are refused.</li>
         </ul>
         <h3 id="privacy">Privacy</h3>
-        <p class="prose">Specula reads the audio files you give it. It sends no audio anywhere, and needs no network connection to analyse audio: the Silero speech detection model ships inside the app, so speech-gated analysis runs offline, and Apple's music analysis runs on the Mac. Record listens to your input device only while the Record task is open, after macOS grants microphone permission, and writes recordings to your Mac and nowhere else. Specula checks for app updates (Sparkle) and validates your licence over the network; those are its only outbound connections, and neither sends any audio.</p>
+        <p class="prose">Specula reads the audio files you give it. It sends no audio anywhere, and needs no network connection to analyse audio: the Silero speech detection model ships inside the app, so speech-gated analysis runs offline, and Apple's music analysis runs on the Mac. Record listens to your input device only while the Record task is open, after macOS grants microphone permission, and writes recordings to your Mac and nowhere else. Specula checks for app updates (Sparkle), validates your licence and sends the feedback you choose to send (see <a href="#feedback">Feedback</a>) over the network; those are its only outbound connections, and none sends any audio.</p>
         <a href="#top" class="back-to-top">↑ Back to top</a>
     </section>
     </div><!-- /guide-main -->

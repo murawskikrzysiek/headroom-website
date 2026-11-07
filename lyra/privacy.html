@@ -52,12 +52,12 @@
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics and no crash reporting. The app does reach the network for license validation, auto-update checks (which are also counted, without personal data), and the URL handoff to Audita; each is described below.</p>
+    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics and no crash reporting. The app does reach the network for license validation, auto-update checks (which are also counted, without personal data), the URL handoff to Audita, and feedback you choose to send; each is described below.</p>
   </section>
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>No personal data. Settings and reference levels stay on your Mac. Update checks are counted anonymously, as described under Auto-update checks.</p>
+    <p>No personal data, unless you leave an email address with feedback (see Feedback form). Settings and reference levels stay on your Mac. Update checks are counted anonymously, as described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -97,13 +97,21 @@
 
   <section class="priv-section">
     <h2>Auto-update checks</h2>
-    <p>Lyra uses <strong>Sparkle</strong> for automatic updates. About once a day it fetches the appcast at <code>https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. The request carries the Lyra and Sparkle version numbers. No license key, email address, machine name or device identifier is sent.</p>
-    <p>These requests are counted to see how many copies of Lyra are in use, by version and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
+    <p>Lyra uses <strong>Sparkle</strong> for automatic updates. About once a day it fetches the appcast at <code>https://headroomstudio.dev/lyra/appcast.xml</code> to check for new versions. The request carries the Lyra and Sparkle version numbers and one word for the license state: <code>trial</code>, <code>licensed</code> or <code>expired</code>. No license key, email address, machine name or device identifier is sent.</p>
+    <p>These requests are counted to see how many copies of Lyra are in use, by version, license state and country. Each copy is counted through a hash of its IP address and the app's name, salted with a key that changes every month, so one Mac cannot be followed from month to month. The IP address itself is never stored.</p>
+  </section>
+
+  <section class="priv-section">
+    <h2>Feedback form</h2>
+    <p>Lyra shows a short feedback form twice during the trial: a few days in, and when the trial ends. The same form opens from the menu at any time. Nothing is sent until you press Send.</p>
+    <p>A submission carries the options you pick and the text you type, plus the Lyra version, the macOS version, which of the three prompts it came from, the license state (<code>trial</code>, <code>licensed</code> or <code>expired</code>) and, during a trial, the trial day. No license key, machine name or device identifier is sent. The IP address is used only for a rate limit on sending and is never stored. Feedback without an email address is anonymous.</p>
+    <p>The email address field is optional. The address is kept only if you also allow a reply, and is used only to reply to that message. It is deleted 90 days after the reply, or 90 days after you send the feedback if there is no reply. The rest of the submission is deleted 12 months after you send it.</p>
+    <p>Submissions go to a Cloudflare Worker run by Headroom Studio and are stored in a Cloudflare database.</p>
   </section>
 
   <section class="priv-section">
     <h2>Your data rights</h2>
-    <p>If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you've subscribed, what MailerLite holds (email address). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
+    <p>If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info), what MailerLite holds (email address) if you've subscribed, and your email address if you left one with feedback. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
   </section>
 
   <section class="priv-section">

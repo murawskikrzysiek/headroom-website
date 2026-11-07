@@ -25,6 +25,24 @@
         <description>Audita - SPL meter for monitoring discipline and hearing dose tracking</description>
         <language>en</language>
 
+        <!-- release-cut 2026-11-07: edSignature and length from sign_update on
+             Audita-1.7.1.dmg (1.7.1, build 11; 13,198,025 bytes; signature verified
+             with sign_update -verify), uploaded as Audita-1.7.1.dmg. -->
+        <item>
+            <title>Version 1.7.1 - Feedback from inside Audita</title>
+            <description>Send Feedback, in the menu bar window's More menu and in Settings, About, opens a short form: what Audita was opened for, whether it did that, and anything else; anonymous unless an email is added with the reply box ticked. During the trial, on the third day Audita is used, the questions wait at the top of the menu bar window, once. When the trial ends, Need more time? comes before the license window, and its answer adds one more week to the trial, once. Specula starts a session the way a DAW does. While Audita is not measuring, the menu bar shows the icon alone, whatever the display setting.</description>
+            <pubDate>Sat, 07 Nov 2026 22:55:03 +0100</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>1.7.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://headroomstudio.dev/audita/releases.html</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://releases.headroomstudio.dev/Audita-1.7.1.dmg"
+                sparkle:edSignature="FEGJEEmB2SRKzoUqyJucVlCFqwOommQV6CjXjIA21PyIzJ6nRcDnaQa0lsBN/UoamC0WpyY7ITS3dBec6cBqAg=="
+                length="13198025"
+                type="application/octet-stream" />
+        </item>
+
         <!-- release-cut 2026-11-01: edSignature and length from sign_update on
              Audita.dmg (1.7, build 10; 13,818,710 bytes), uploaded as Audita-1.7.dmg. -->
         <item>

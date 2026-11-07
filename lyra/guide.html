@@ -531,12 +531,13 @@
             <li><a href="#widgets">12. Widgets</a></li>
             <li><a href="#mixer-engine">13. UA Mixer Engine and UA Mixer Helper</a></li>
             <li><a href="#settings">14. Settings</a></li>
-            <li><a href="#licensing">15. Trial &amp; licensing</a></li>
-            <li><a href="#updates">16. Updates</a></li>
-            <li><a href="#launch-at-login">17. Launch at login</a></li>
-            <li><a href="#troubleshooting">18. Troubleshooting</a></li>
-            <li><a href="#out-of-scope">19. What Lyra doesn't do</a></li>
-            <li><a href="#feedback">20. Reporting bugs</a></li>
+            <li><a href="#feedback">15. Feedback</a></li>
+            <li><a href="#licensing">16. Trial &amp; licensing</a></li>
+            <li><a href="#updates">17. Updates</a></li>
+            <li><a href="#launch-at-login">18. Launch at login</a></li>
+            <li><a href="#troubleshooting">19. Troubleshooting</a></li>
+            <li><a href="#out-of-scope">20. What Lyra doesn't do</a></li>
+            <li><a href="#reporting-bugs">21. Reporting bugs</a></li>
         </ul>
     </nav>
 
@@ -599,6 +600,7 @@
             <tr><td class="wrap-ok">Centre dot with vertical bar through it</td><td class="wrap-ok"><strong>Mono</strong> active</td></tr>
             <tr><td class="wrap-ok">Horizontal <strong>and</strong> vertical bar</td><td class="wrap-ok">DIM + Mono together</td></tr>
             <tr><td class="wrap-ok">Small <strong>1</strong> or <strong>2</strong> to the right of the ring</td><td class="wrap-ok">ALT 1 or ALT 2 speakers active (see <a href="#alt-speakers">ALT speakers</a>). Nothing on the Main speakers.</td></tr>
+            <tr><td class="wrap-ok">Small dot at the top right</td><td class="wrap-ok">Two questions are waiting at the top of the menu (once, during the trial; see <a href="#feedback">Feedback</a>).</td></tr>
         </tbody></table>
 
         <p class="prose">The icon is a template image, so it follows the system's menu bar tint automatically (light, dark, accessibility inverted, etc.).</p>
@@ -614,8 +616,11 @@
 
         <img src="lyra-menu.png" alt="The Lyra menu bar popover with license status, Connected: Apollo Twin X · ALT 1, the Interface submenu, the volume slider, Mute / DIM / Mono, the Speakers section with ALT 1 checked, the Reference Levels submenu, and the Pass F-Keys to macOS and Launch at Login toggles" class="screenshot-full">
 
+        <h3>Two questions about Lyra</h3>
+        <p class="prose">Shown once during the trial, on the third day you use Lyra, together with a dot on the menu bar icon. See <a href="#feedback">Feedback</a>.</p>
+
         <h3>License status</h3>
-        <p class="prose">"Licensed ✓", "Trial - N days left", or "Trial expired". Hover for a tooltip.</p>
+        <p class="prose">"Licensed ✓", "Trial - N days left", "Trial: N days left (extended)" or "Trial expired". Hover for a tooltip.</p>
 
         <h3>Buy Lyra - $9.99</h3>
         <p class="prose">Visible until you activate a license. Click to open the Lemon Squeezy checkout.</p>
@@ -651,6 +656,12 @@
 
         <h3>Settings…</h3>
         <p class="prose">Opens Lyra's <a href="#settings">Settings window</a> (also available via <kbd>Cmd+,</kbd>). Holds the v1.6 Automation toggles plus General prefs (HUD on/off and style, volume step).</p>
+
+        <h3>User Guide…</h3>
+        <p class="prose">Opens this guide on headroomstudio.dev.</p>
+
+        <h3>Send Feedback…</h3>
+        <p class="prose">Two short questions and a note, sent from inside Lyra. See <a href="#feedback">Feedback</a>.</p>
 
         <h3>Check for Updates… / About Lyra / Quit</h3>
         <p class="prose">Sparkle update check, About window, and quit.</p>
@@ -1015,6 +1026,7 @@ open "lyra://mute/toggle"</code></pre>
 
         <h3>Starting the background apps</h3>
         <p class="prose">If the menu says the UA Mixer isn't running, click <strong>Start UA Mixer Engine</strong>. Lyra opens UA Mixer Engine without a window (UAD Console on older installs), and UA Mixer Helper when a Volt is connected. The menu then shows <strong>Connected</strong> with the interface's name.</p>
+        <p class="prose">A freshly started UA Mixer Engine can take a minute or more before it takes connections. When UA Mixer Engine has been running for a few minutes and still takes none, <strong>Start UA Mixer Engine</strong> quits it and opens it again.</p>
 
         <h3>Reconnection</h3>
         <p class="prose">If a background app stops (UAD Console quits, the Mac sleeps), Lyra retries the connection every 5 seconds and picks it up when the app returns. When an interface is unplugged, Lyra stops trying and waits; when it's back, the connection resumes. A Volt that is switched off and on is found again within a few seconds.</p>
@@ -1034,7 +1046,7 @@ open "lyra://mute/toggle"</code></pre>
     <section class="guide-section" id="settings">
         <h2>14. Settings <a href="#settings" class="anchor">#</a></h2>
 
-        <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. Three sections.</p>
+        <p class="prose">Open with <kbd>Cmd+,</kbd> or <strong>Settings…</strong> in the menu. Four sections.</p>
 
         <img src="settings-window.png" alt="Lyra's Settings window: an Interface section with the interface popup set to Apollo Twin X, an Automation section with the auto-start and auto-quit toggles for UA background apps plus their notification sub-toggles, and a General section with the volume HUD toggle, the HUD style popup set to System style, and the volume step slider" class="screenshot-full">
 
@@ -1067,20 +1079,55 @@ open "lyra://mute/toggle"</code></pre>
             <li><strong>Volume step.</strong> How much each F11/F12 press moves the monitor level. Default is about 3.1%; Shift halves it (the "fine" step). Range: ~1.6% to 12.5%.</li>
         </ul>
 
+        <h3>License</h3>
+        <ul>
+            <li>The license line from the menu: licensed, the trial days left (with "(extended)" after the trial-end answer, see <a href="#feedback">Feedback</a>), a running test session, or expired.</li>
+        </ul>
+
         <p class="prose">Settings persist across launches in the standard macOS preferences. Changing the volume step takes effect immediately - no relaunch needed.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 15. Trial & licensing ─────── -->
+    <!-- ─────── 15. Feedback ─────── -->
+    <section class="guide-section" id="feedback">
+        <h2>15. Feedback <a href="#feedback" class="anchor">#</a></h2>
+
+        <p class="prose">Lyra sends feedback to Headroom Studio from inside the app. Every form works the same way:</p>
+        <ul>
+            <li>Nothing is sent until you click <strong>Send</strong>.</li>
+            <li>Sent anonymously unless you add an email. To get a reply, type your email and tick <strong>You can reply to me about this feedback</strong>; without the tick the email is not sent. The email is used only to reply and is deleted after 90 days.</li>
+            <li>Each message carries Lyra's version, the macOS version, the license state (trial, licensed or expired) and, during the trial, the trial day. No license key, machine name or other identifier is sent. The <a href="privacy.html">privacy page</a> has the details.</li>
+            <li>Without a connection, Lyra keeps the message and sends it later on its own, for up to 14 days.</li>
+            <li>If the server refuses a message, Lyra offers to send it by email instead.</li>
+        </ul>
+
+        <h3>Send Feedback</h3>
+        <p class="prose"><strong>Send Feedback…</strong> in the menu, or the <strong>Send Feedback…</strong> button in <strong>About Lyra</strong>, for every user. Two questions, both optional: what you opened Lyra for, and whether it did that. Partly or Not yet adds a line for what's missing. <strong>Anything else?</strong> takes a longer note: a bug, a feature request, anything.</p>
+
+        <h3>Two questions during the trial</h3>
+        <p class="prose">On the third day you use Lyra during the trial (opening the menu, an F-key Lyra handles, or a <code>lyra://</code> URL), a dot appears on the menu bar icon and <strong>Two questions about Lyra</strong> at the top of the menu. One click opens the questions (with <strong>Anything else?</strong> under them) and removes the item and the dot for good, whether you answer or click <strong>No thanks</strong>. Licensed copies never show it.</p>
+
+        <h3 id="trial-end">When the trial ends: one more week for feedback</h3>
+        <p class="prose">When the trial is over, Lyra opens a window before the license window. At the top, <strong>Buy for $9.99</strong> opens the checkout without closing it, and <strong>Enter License Key…</strong> goes straight to the license window. Under them, <strong>Need more time?</strong>: share some feedback to get one more week of trial. <strong>What's the extra week for?</strong> lists a project that's coming up, trying more features, comparing Lyra with another tool, waiting for a feature, or sorting out something that didn't work, plus an optional note.</p>
+        <ul>
+            <li><strong>Send and get one more week</strong> sends the feedback and adds 7 days to the trial, counted from that moment. This works once per Mac. The menu, Settings and the license window then read "Trial: N days left (extended)".</li>
+            <li><strong>Not now</strong> goes to the license window as usual. The offer comes back on the next launch, until you take the extra week or enter a license.</li>
+        </ul>
+        <p class="prose">When the extra week runs out, Lyra goes to the license window without asking again.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 16. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>15. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>16. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Lyra is <strong>$9.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
         <h3>Trial</h3>
-        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Lyra shows a hard-lock window on launch and refuses to run until you activate a license.</p>
-        <p class="prose">The hard lock only fires at launch - if you're already running Lyra when the trial expires, nothing happens until your next restart.</p>
+        <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Lyra shows a hard-lock window and stops controlling the interface until you activate a license. Lyra checks once a minute, so a trial that runs out while Lyra is open locks without a restart.</p>
+        <p class="prose">When the trial is over, Lyra first offers one more week of trial for some feedback, on every launch until you take it or enter a license. See <a href="#trial-end">When the trial ends</a>.</p>
 
         <h3>After your trial: short test sessions</h3>
         <p class="prose">As of v1.6, if your trial has ended and you're testing a build before committing to buy (a fix you reported, a feature against your gear), the hard-lock window offers a <strong>Test for 5 minutes</strong> button. Click it and Lyra runs normally for five minutes, then locks again. You get <strong>two sessions per day</strong> - the counter resets at local midnight. The limit is intentionally narrow: it's a verification tool, not a workaround.</p>
@@ -1103,9 +1150,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 16. Updates ─────── -->
+    <!-- ─────── 17. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>16. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>17. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Lyra ships with <strong>Sparkle</strong> (the standard macOS auto-update framework). The app checks <code>headroomstudio.dev/lyra/appcast.xml</code> every 24 hours; when a higher build number is found you'll see an update prompt at the next launch (or sooner if a check is in flight).</p>
         <p class="prose">To check on demand: <strong>Menu → Check for Updates…</strong></p>
         <p class="prose">Updates are signed with EdDSA - Sparkle verifies the signature against the public key embedded in Lyra before installing. If the signature doesn't match the download is rejected.</p>
@@ -1114,18 +1161,18 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 17. Launch at login ─────── -->
+    <!-- ─────── 18. Launch at login ─────── -->
     <section class="guide-section" id="launch-at-login">
-        <h2>17. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
+        <h2>18. Launch at login <a href="#launch-at-login" class="anchor">#</a></h2>
         <p class="prose"><strong>Menu → Launch at Login</strong> registers Lyra with <code>SMAppService</code> (macOS 13+). The checkmark always reflects the actual system state - if you flip the toggle in <strong>System Settings → General → Login Items</strong>, Lyra's menu follows.</p>
         <p class="prose">On macOS 12 the menu item is hidden (SMAppService is 13+ only). Use the legacy Login Items pane in System Settings if you're on Monterey.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 18. Troubleshooting ─────── -->
+    <!-- ─────── 19. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>18. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>19. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>F-keys do nothing</h3>
         <ol>
@@ -1141,7 +1188,7 @@ open "lyra://mute/toggle"</code></pre>
         <p class="prose">Lyra looks for any output device whose name contains "Universal Audio", "Apollo", or "UA ". Open <strong>Audio MIDI Setup</strong> and check that your Apollo appears in the device list. If it does but Lyra still doesn't see it, check the device name - older driver versions use slightly different strings. Lyra logs all detected devices to the system console on launch (<code>[Lyra] === AUDIO DEVICES ===</code>) - that's the fastest way to see exactly what names CoreAudio is reporting.</p>
 
         <h3>"UA Mixer not running"</h3>
-        <p class="prose">Click <strong>Start UA Mixer Engine</strong> in the menu. This launches the headless <code>UA Mixer Engine.app</code> if it's installed, falling back to UA Console. Either should make Lyra connect within a few seconds. If neither path works, opening UA Console manually always starts the daemon as a side-effect.</p>
+        <p class="prose">Click <strong>Start UA Mixer Engine</strong> in the menu. This launches the headless <code>UA Mixer Engine.app</code> if it's installed, falling back to UA Console. Either should make Lyra connect, though a freshly started engine can take a minute or more. If UA Mixer Engine is already running but has stopped taking connections, the same menu item restarts it. If neither path works, opening UA Console manually always starts the daemon as a side-effect.</p>
 
         <h3>Volume jumps in big steps</h3>
         <p class="prose">The default step is 1/16 of full range (~6.25%). Hold <kbd>⇧</kbd> with F11/F12 for half steps. As of v1.6 the step size is configurable in <a href="#settings">Settings</a> → General → <em>Volume step</em> (range ~1.6% to 12.5%) - drag the slider to a step that suits your gain staging. Power users can still drive <code>lyra://volume/set?tapered=…</code> for any precision they want.</p>
@@ -1165,9 +1212,9 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 19. What Lyra doesn't do ─────── -->
+    <!-- ─────── 20. What Lyra doesn't do ─────── -->
     <section class="guide-section" id="out-of-scope">
-        <h2>19. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
+        <h2>20. What Lyra doesn't do <a href="#out-of-scope" class="anchor">#</a></h2>
 
         <p class="prose">Out of scope, in case any of these are dealbreakers:</p>
 
@@ -1183,10 +1230,10 @@ open "lyra://mute/toggle"</code></pre>
 
     <hr class="divider">
 
-    <!-- ─────── 20. Feedback ─────── -->
-    <section class="guide-section" id="feedback">
-        <h2>20. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
-        <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
+    <!-- ─────── 21. Reporting bugs ─────── -->
+    <section class="guide-section" id="reporting-bugs">
+        <h2>21. Reporting bugs &amp; feedback <a href="#reporting-bugs" class="anchor">#</a></h2>
+        <p class="prose"><strong>Send Feedback…</strong> in the menu is the quickest way (see <a href="#feedback">Feedback</a>). For a bug report with logs, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Lyra</code> (Lyra prefixes every log line with <code>[Lyra]</code> or <code>[AudioManager]</code> so it's easy to grab the relevant slice).</p>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
     </section>

@@ -80,8 +80,21 @@
     </div>
   </header>
 
+  <section class="release" id="v1.9.1">
+    <div class="release-header"><span class="version">Version 1.9.1</span><span class="date">November 2026</span><span class="badge-new">Latest</span></div>
+    <ul class="changes">
+      <li><span class="tag tag-new">New</span><span><strong>Send Feedback</strong> - in the menu and in About Lyra: two short questions and an optional note, sent from inside Lyra. Anonymous unless an email is added and the reply box ticked. Without a connection, Lyra keeps the message and sends it later.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>Two questions on the third day</strong> - during the trial, on the third day Lyra is used, a dot on the menu bar icon and <em>Two questions about Lyra</em> at the top of the menu ask what Lyra was opened for and whether it did that, with a field for anything else. Shown once; one click removes it for good.</span></li>
+      <li><span class="tag tag-new">New</span><span><strong>One more week of trial</strong> - when the trial ends, Lyra offers one more week for some feedback, before the license window. The offer comes back at each launch until it is taken or a license is entered, and the week is granted once. The menu, Settings and the license window show "Trial: N days left (extended)". Buy and Enter License Key stay one click away.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>License line in Settings</strong> - with the same status as the menu.</span></li>
+      <li><span class="tag tag-impr">Impr</span><span><strong>Update checks</strong> - the daily check also sends the license state as one word: trial, licensed or expired. No license key or other identifier is sent. The <a href="privacy.html">privacy page</a> lists what an update check carries.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span>Check for Updates no longer crashes Lyra after a license is activated, or a test session started, from the "Your trial has ended" window.</span></li>
+      <li><span class="tag tag-fix">Fix</span><span>Start UA Mixer Engine restarts UA Mixer Engine when it has been running for a few minutes without taking connections. Until now the menu item waited for it and nothing happened.</span></li>
+    </ul>
+  </section>
+
   <section class="release" id="v1.9">
-    <div class="release-header"><span class="version">Version 1.9</span><span class="date">October 2026</span><span class="badge-new">Latest</span></div>
+    <div class="release-header"><span class="version">Version 1.9</span><span class="date">October 2026</span></div>
     <p>Free update for every Lyra license.</p>
     <ul class="changes">
       <li><span class="tag tag-new">New</span><span><strong>Volt interfaces</strong> - Lyra controls the monitor section of second-generation Universal Audio Volt interfaces (Volt Gen 2 and the Volt Max models): volume, mute, DIM, mono and, on the Volt 4 Max, ALT speakers. Tested on the Volt 4 Max; the Volt 876 may work but hasn't been tested. UAD Console needs to be installed; its window doesn't need to be open. DIM from Lyra dims the monitors without turning on talkback. A Volt reports no dB value, so <code>lyra://volume/get</code> and <code>lyra://state</code> leave out <code>db</code> for it.</span></li>

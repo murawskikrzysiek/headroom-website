@@ -49,7 +49,7 @@
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics and no crash reporting. The app reaches the network for three things only: license validation, auto-update checks (which are also counted, without personal data), and a microphone calibration file you ask it to download. Each is described below.</p>
+    <p>Audita is a local macOS utility. It measures sound on your Mac and keeps every measurement on your device. There are no in-app analytics and no crash reporting. The app reaches the network for four things only: license validation, auto-update checks (which are also counted, without personal data), a microphone calibration file you ask it to download, and feedback you choose to send. Each is described below.</p>
   </section>
 
   <section class="priv-section">
@@ -59,7 +59,7 @@
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>No personal data. Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded. Update checks carry your copy's license state, described under Auto-update checks.</p>
+    <p>No personal data, unless you leave an email address with feedback (see Feedback form). Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded. Update checks carry your copy's license state, described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -81,7 +81,7 @@
   <section class="priv-section">
     <h2>Microphone calibration downloads</h2>
     <p>Step 1 of the calibration flow can fetch a miniDSP UMIK-1's factory calibration file from <strong>minidsp.com</strong>. The request happens only when you type a serial number and press the download button, and it carries only that serial number and the 0 or 90 degree variant you picked. Nothing about your Mac, your measurements, or your license is sent, and no account is involved. The downloaded file is stored locally with the calibration profile it creates.</p>
-    <p>Importing a calibration file you already have on disk is entirely local. Apart from license validation, auto-update checks, and this one download, Audita makes no outbound connections.</p>
+    <p>Importing a calibration file you already have on disk is entirely local. Apart from license validation, auto-update checks, feedback you send, and this one download, Audita makes no outbound connections.</p>
   </section>
 
   <section class="priv-section">
@@ -116,8 +116,16 @@
   </section>
 
   <section class="priv-section">
+    <h2>Feedback form</h2>
+    <p>Audita shows a short feedback form twice during the trial: a few days in, and when the trial ends. The same form opens from the menu at any time. Nothing is sent until you press Send.</p>
+    <p>A submission carries the options you pick and the text you type, plus the Audita version, the macOS version, which of the three prompts it came from, the license state (<code>trial</code>, <code>licensed</code> or <code>expired</code>) and, during a trial, the trial day. No license key, machine name or device identifier is sent. The IP address is used only for a rate limit on sending and is never stored. Feedback without an email address is anonymous.</p>
+    <p>The email address field is optional. The address is kept only if you also allow a reply, and is used only to reply to that message. It is deleted 90 days after the reply, or 90 days after you send the feedback if there is no reply. The rest of the submission is deleted 12 months after you send it.</p>
+    <p>Submissions go to a Cloudflare Worker run by Headroom Studio and are stored in a Cloudflare database.</p>
+  </section>
+
+  <section class="priv-section">
     <h2>Your data rights</h2>
-    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info). To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you left one with feedback, your email address. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
   </section>
 
   <section class="priv-section">
