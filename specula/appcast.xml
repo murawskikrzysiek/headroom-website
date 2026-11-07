@@ -28,29 +28,23 @@
         <description>Specula update feed</description>
         <language>en</language>
 
-        <!-- DRAFT Specula 2.0.1 (branch privacy/in-app-feedback). The item below is
-             commented out so this feed is unchanged if the branch merges before
-             the cut: Sparkle never sees an item with a missing DMG or a
-             placeholder signature.
-             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822,
-             e.g. "Thu, 12 Nov 2026 12:00:00 +0100"), RELEASE-CUT-SIGNATURE
-             (sign_update on Specula-2.0.1.dmg) and RELEASE-CUT-LENGTH (wc -c),
-             confirm the build is 12, then validate this file as XML.
+        <!-- release-cut 2026-11-07: edSignature and length from sign_update on
+             Specula-2.0.1.dmg (2.0.1, build 12; 22,062,411 bytes; signature verified
+             with sign_update -verify), uploaded as Specula-2.0.1.dmg. -->
         <item>
             <title>Version 2.0.1 - Feedback from inside Specula</title>
             <description>Help, Send Feedback asks two short questions with a free-text field, sent from inside Specula; nothing identifies the Mac, and an email goes along only when the reply box is ticked. During the trial, on the third day Specula is used, a banner under the top bar asks the questions, once. When the trial ends, Specula offers one more week of trial for a few answers, granted once; the command-line tool runs for that week too. The daily update check also sends the license state as one word: trial, licensed or expired.</description>
-            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <pubDate>Sat, 07 Nov 2026 22:55:03 +0100</pubDate>
             <sparkle:version>12</sparkle:version>
             <sparkle:shortVersionString>2.0.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/specula/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Specula-2.0.1.dmg"
-                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
-                length="RELEASE-CUT-LENGTH"
+                sparkle:edSignature="5SHbpDZ+DxonnS19tIT4rc4K9k0n1NAhiuEbcqBp5yFmS9RM2EhL4mDkqA+igWUjbpMQYR3pqQT0Sf7MFmNBAw=="
+                length="22062411"
                 type="application/octet-stream" />
         </item>
-        END DRAFT Specula 2.0.1 -->
 
         <!-- release-cut: edSignature and length are from Specula-2.0.dmg built
              2026-10-04 on main 3e1a56f (build 11, universal, notarized and stapled),

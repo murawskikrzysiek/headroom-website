@@ -19,29 +19,23 @@
         <link>https://headroomstudio.dev/lyra</link>
         <description>Lyra - keyboard monitor volume for Universal Audio interfaces</description>
         <language>en</language>
-        <!-- DRAFT Lyra 1.9.1 (branch privacy/in-app-feedback). The item below is
-             commented out so this feed is unchanged if the branch merges before
-             the cut: Sparkle never sees an item with a missing DMG or a
-             placeholder signature.
-             At release-cut: uncomment the item, fill RELEASE-CUT-PUBDATE (RFC 822,
-             e.g. "Thu, 12 Nov 2026 12:00:00 +0100"), RELEASE-CUT-SIGNATURE
-             (sign_update on Lyra-1.9.1.dmg) and RELEASE-CUT-LENGTH (wc -c),
-             confirm the build is 12, then validate this file as XML.
+        <!-- release-cut 2026-11-07: edSignature and length from sign_update on
+             Lyra-1.9.1.dmg (1.9.1, build 12; 6,923,446 bytes; signature verified
+             with sign_update -verify), uploaded as Lyra-1.9.1.dmg. -->
         <item>
             <title>Version 1.9.1 - Feedback from inside Lyra</title>
-            <description>Send Feedback, in the menu and in About Lyra, asks two short questions with an optional note, sent from inside Lyra; anonymous unless an email is added with the reply box ticked. During the trial, on the third day Lyra is used, the questions wait at the top of the menu, once. When the trial ends, Lyra offers one more week of trial for some feedback, granted once. Settings has a License line. The daily update check also sends the license state as one word: trial, licensed or expired. Fixed: Check for Updates could crash Lyra after a license was activated, or a test session started, from the trial-ended window.</description>
-            <pubDate>RELEASE-CUT-PUBDATE</pubDate>
+            <description>Send Feedback, in the menu and in About Lyra, asks two short questions with an optional note, sent from inside Lyra; anonymous unless an email is added with the reply box ticked. During the trial, on the third day Lyra is used, the questions wait at the top of the menu, once. When the trial ends, Lyra offers one more week of trial for some feedback, granted once. Settings has a License line. The daily update check also sends the license state as one word: trial, licensed or expired. Fixed: Check for Updates could crash Lyra after a license was activated, or a test session started, from the trial-ended window. Fixed: Start UA Mixer Engine restarts UA Mixer Engine when it has been running for a few minutes without taking connections.</description>
+            <pubDate>Sat, 07 Nov 2026 22:55:03 +0100</pubDate>
             <sparkle:version>12</sparkle:version>
             <sparkle:shortVersionString>1.9.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://headroomstudio.dev/lyra/releases.html</sparkle:releaseNotesLink>
             <enclosure
                 url="https://releases.headroomstudio.dev/Lyra-1.9.1.dmg"
-                sparkle:edSignature="RELEASE-CUT-SIGNATURE"
-                length="RELEASE-CUT-LENGTH"
+                sparkle:edSignature="pDM2I5Llfm41xksgIdb0VSL1ayhf3eikO7AME3t2eSZlaViZp4ywRu51MzfQ1jhdhUKXrabdd0y/BxAVKe+TCA=="
+                length="6923446"
                 type="application/octet-stream" />
         </item>
-        END DRAFT Lyra 1.9.1 -->
 
         <!-- release-cut 2026-10-20: edSignature and length from sign_update on
              Lyra.dmg (1.9, build 11; 6,969,303 bytes), uploaded as Lyra-1.9.dmg. -->
