@@ -529,11 +529,12 @@
             <li><a href="#send-to-lyra">11. Send to Lyra</a></li>
             <li><a href="#automation">12. URL scheme &amp; automation</a></li>
             <li><a href="#auris-import">13. Importing from Auris</a></li>
-            <li><a href="#licensing">14. Trial &amp; licensing</a></li>
-            <li><a href="#updates">15. Updates</a></li>
-            <li><a href="#troubleshooting">16. Troubleshooting</a></li>
-            <li><a href="#feedback">17. Reporting bugs</a></li>
-            <li><a href="#widgets">18. Widgets</a></li>
+            <li><a href="#feedback">14. Feedback</a></li>
+            <li><a href="#licensing">15. Trial &amp; licensing</a></li>
+            <li><a href="#updates">16. Updates</a></li>
+            <li><a href="#troubleshooting">17. Troubleshooting</a></li>
+            <li><a href="#reporting-bugs">18. Reporting bugs</a></li>
+            <li><a href="#widgets">19. Widgets</a></li>
         </ul>
     </nav>
 
@@ -687,10 +688,13 @@
         <img src="images/screenshots/menubar-details-dial.png" alt="The Audita menu bar window with Details open during a session: the live session dial on a face that grows with the session, the latest reading as a bright tip, then Leq, the Ln percentiles and the session's readings" class="screenshot-full">
 
         <h3>The session row and the actions</h3>
-        <p class="prose">The actions are menu rows. A running session is one row, "Logic Pro · 1h 12m · +2.4%" (the DAW, the elapsed time, the dose this session added), with <strong>End Session</strong> at its end; without a session the row reads <strong>Start Session</strong>. Manual sessions cover work outside a tracked DAW (iZotope RX, Spotify, a reference track in QuickTime); they record like an auto-detected one, labelled <code>Manual</code>. Then <strong>Pause Monitoring</strong>, which reads <strong>Resume Monitoring</strong> while paused (see <a href="#pause-resume">Pause &amp; resume</a>), and <strong>More</strong>, which holds <strong>Share Last Session…</strong> and <strong>Reset Dose…</strong>. Reset asks before it zeroes the day.</p>
+        <p class="prose">The actions are menu rows. A running session is one row, "Logic Pro · 1h 12m · +2.4%" (the DAW, the elapsed time, the dose this session added), with <strong>End Session</strong> at its end; without a session the row reads <strong>Start Session</strong>. Manual sessions cover work outside a tracked DAW (iZotope RX, Spotify, a reference track in QuickTime); they record like an auto-detected one, labelled <code>Manual</code>. Then <strong>Pause Monitoring</strong>, which reads <strong>Resume Monitoring</strong> while paused (see <a href="#pause-resume">Pause &amp; resume</a>), and <strong>More</strong>, which holds <strong>Share Last Session…</strong>, <strong>Reset Dose…</strong> and <strong>Send Feedback…</strong> (see <a href="#feedback">Feedback</a>). Reset asks before it zeroes the day.</p>
+
+        <h3>Two questions about Audita</h3>
+        <p class="prose">Shown once during the trial, on the third day you use Audita, at the top of the window, together with a small dot on the menu bar icon. See <a href="#feedback">Feedback</a>.</p>
 
         <h3>License row</h3>
-        <p class="prose">During the trial a row names the trial with the days left, or reads "Trial expired" in red, with <strong>Manage</strong> or <strong>Activate</strong> alongside. Once licensed, the row is gone.</p>
+        <p class="prose">During the trial a row names the trial with the days left, marked "(extended)" after the trial-end extension, or reads "Trial expired" in red, with <strong>Manage</strong> or <strong>Activate</strong> alongside. Once licensed, the row is gone.</p>
 
         <h3>The footer</h3>
         <p class="prose">The pin opens or closes the <a href="#floating-panel">pinned panel</a> (an outline pin when closed, a filled accent-tinted pin when open), then <strong>Settings</strong>, <strong>History</strong> (the <a href="#history">History window</a>) and <strong>Quit</strong>. Once the rig has passed its <a href="#calibration">self-check</a> on the current input and output, the footer reads <strong>Calibrated</strong> with the day. Check for Updates lives in <strong>Settings → General</strong>.</p>
@@ -704,7 +708,7 @@
         <img src="images/screenshots/menubar-window-at-rest.png" alt="The Audita menu bar window at rest: today's dose with its state, Not measuring with the day's on-target share and session count, the Details disclosure, the Start Session row, and the footer reading Calibrated with the day" class="screenshot-full">
 
         <h3>Settings…</h3>
-        <p class="prose">Opens the Settings window: a sidebar with seven pages, 820 by 600 points and resizable. <strong>General</strong> (menu bar display, launch at login, keep measuring after ⌘Q, notifications, storage, report appearance, updates, Auris import), <strong>Devices</strong> (input and channel, output, mic location, the engine's state), <strong>Calibration</strong> (the chain, <a href="#calibration">section 6</a>), <strong>Reference</strong> (target dBA, tolerance, alerts), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>DAWs</strong> (custom bundle IDs) and <strong>About</strong> (version, developer and contact details, license).</p>
+        <p class="prose">Opens the Settings window: a sidebar with seven pages, 820 by 600 points and resizable. <strong>General</strong> (menu bar display, launch at login, keep measuring after ⌘Q, notifications, storage, report appearance, updates, Auris import), <strong>Devices</strong> (input and channel, output, mic location, the engine's state), <strong>Calibration</strong> (the chain, <a href="#calibration">section 6</a>), <strong>Reference</strong> (target dBA, tolerance, alerts), <strong>Safety</strong> (conservative dose, peak monitoring), <strong>DAWs</strong> (custom bundle IDs) and <strong>About</strong> (version, developer and contact details, <strong>Send Feedback…</strong>, license).</p>
     </section>
 
     <hr class="divider">
@@ -816,7 +820,7 @@
 
         <div class="note">
             <span class="note-icon">ⓘ</span>
-            <p>The label prints the serial with a dash; type it without. This download is the only time Audita connects to minidsp.com, it sends nothing but the serial and the variant you picked, and it is the app's only outbound request besides license validation and update checks. See the <a href="privacy.html">privacy policy</a>.</p>
+            <p>The label prints the serial with a dash; type it without. This download is the only time Audita connects to minidsp.com, it sends nothing but the serial and the variant you picked, and it is the app's only outbound request besides license validation, update checks and the feedback you choose to send. See the <a href="privacy.html">privacy policy</a>.</p>
         </div>
 
         <h3>Analog mics through an interface</h3>
@@ -1242,14 +1246,49 @@
 
     <hr class="divider">
 
-    <!-- ─────── 14. Trial & licensing ─────── -->
+    <!-- ─────── 14. Feedback ─────── -->
+    <section class="guide-section" id="feedback">
+        <h2>14. Feedback <a href="#feedback" class="anchor">#</a></h2>
+
+        <p class="prose">Audita can send feedback to Headroom Studio from inside the app. Every field is optional, and nothing is sent until you click <strong>Send</strong>.</p>
+
+        <h3 id="send-feedback">Send Feedback</h3>
+        <p class="prose">Open the menu bar window, click the ⋯ button next to Pause, and choose <strong>Send Feedback…</strong>. The same button is in <strong>Settings → About</strong>, under the version. The form asks:</p>
+        <ul>
+            <li><strong>What did you open Audita for?</strong> Watching SPL while mixing, hearing dose, calibration, just exploring, or something else.</li>
+            <li><strong>Did it do that?</strong> Yes, partly, or not yet. Partly and not yet add a line for what is missing.</li>
+            <li><strong>Anything else?</strong> Free text: a bug, a feature request, a question.</li>
+        </ul>
+        <p class="prose">Send Feedback works the same for trial and licensed copies. Email still works too: <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>, also under Settings → About.</p>
+
+        <h3 id="feedback-trial">Two questions during the trial</h3>
+        <p class="prose">On the third day you use Audita during the trial (the days you open its windows or measure a session, not calendar days), a small dot appears on the Audita icon in the menu bar, and the menu bar window opens with <strong>Two questions about Audita</strong> at the top. Click it for the same form as above: the two questions and Anything else?. The close button next to it dismisses it.</p>
+        <p class="prose">It shows once. After you open or dismiss it, the dot and the item are gone for good. Audita sends no system notification for it, and licensed copies never show it.</p>
+
+        <h3 id="trial-end">When the trial ends</h3>
+        <p class="prose">When the trial ends, at launch or while Audita is running, a window opens before the license window. At the top, <strong>Buy for $19.99</strong> opens the checkout and leaves the window open, and <strong>Enter License Key…</strong> goes to the license window. Under them, <strong>Need more time?</strong>: share some feedback to get one more week of trial. Under "What's the extra week for?" pick any that apply (a project that's coming up, trying more features, comparing it with another tool, waiting for a feature, sorting out something that didn't work), add a line where it asks which one, and anything else you want to say.</p>
+        <ul>
+            <li><strong>Send and get one more week</strong> sends the answer and extends the trial by 7 days from now. The extension is given once. Settings → About and the license window show the days left, marked "(extended)". When the week runs out, the license window appears as usual, and the two 5-minute test sessions per day are there as before.</li>
+            <li><strong>Not now</strong> closes the form and the license window follows. The form comes back at the next launch, and after a test session, until you send it or enter a license.</li>
+        </ul>
+
+        <h3 id="feedback-what-is-sent">What is sent</h3>
+        <p class="prose">Each submission carries your answers and text, the Audita version, the macOS version, whether Audita is on a trial, licensed or expired, and the day of the trial. It carries no license key, machine name or hardware details.</p>
+        <p class="prose">Feedback is anonymous unless you type an email and tick <strong>You can reply to me about this feedback</strong>. The email is sent only with the box ticked, used only to reply, and deleted after 90 days.</p>
+        <p class="prose">If Audita is offline, the submission is saved on this Mac and sent automatically when the connection is back. A trial-end answer extends the trial straight away, sent or saved. If the server cannot take a submission, the form offers to open it as an email to <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> instead. The <a href="privacy.html">privacy policy</a> has the details.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ─────── 15. Trial & licensing ─────── -->
     <section class="guide-section" id="licensing">
-        <h2>14. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
+        <h2>15. Trial &amp; licensing <a href="#licensing" class="anchor">#</a></h2>
 
         <p class="prose">Audita is <strong>$19.99</strong>, one-time purchase, via Lemon Squeezy.</p>
 
         <h3>Trial</h3>
         <p class="prose">The first launch starts a <strong>7-day free trial</strong> with full functionality - every feature, no nags, no watermarks. The trial start date persists across reinstalls. After 7 days Audita shows a hard-lock window on launch and refuses to run until you activate a license.</p>
+        <p class="prose">When the trial is over, Audita first offers one more week of trial for some feedback, at every launch until you take it or enter a license. See <a href="#trial-end">When the trial ends</a>.</p>
 
         <h3>Buying</h3>
         <p class="prose">Click <strong>Buy Audita</strong> in the menu (or the Buy button on <a href="/audita/">the website</a>). Lemon Squeezy emails you the license key after checkout.</p>
@@ -1269,18 +1308,18 @@
 
     <hr class="divider">
 
-    <!-- ─────── 15. Updates ─────── -->
+    <!-- ─────── 16. Updates ─────── -->
     <section class="guide-section" id="updates">
-        <h2>15. Updates <a href="#updates" class="anchor">#</a></h2>
+        <h2>16. Updates <a href="#updates" class="anchor">#</a></h2>
         <p class="prose">Audita checks for new versions automatically. When one's available you'll see an update prompt at the next launch. To check on demand: <strong>Settings → General → Check for Updates…</strong>, with the automatic check's toggle beside it.</p>
         <p class="prose">Release notes: <a href="releases.html">headroomstudio.dev/audita/releases.html</a>.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 16. Troubleshooting ─────── -->
+    <!-- ─────── 17. Troubleshooting ─────── -->
     <section class="guide-section" id="troubleshooting">
-        <h2>16. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
+        <h2>17. Troubleshooting <a href="#troubleshooting" class="anchor">#</a></h2>
 
         <h3>No SPL reading - the menu bar shows no number</h3>
         <ol>
@@ -1332,17 +1371,17 @@
 
     <hr class="divider">
 
-    <!-- ─────── 17. Feedback ─────── -->
-    <section class="guide-section" id="feedback">
-        <h2>17. Reporting bugs &amp; feedback <a href="#feedback" class="anchor">#</a></h2>
-        <p class="prose">Email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Audita</code>.</p>
+    <!-- ─────── 18. Reporting bugs ─────── -->
+    <section class="guide-section" id="reporting-bugs">
+        <h2>18. Reporting bugs &amp; feedback <a href="#reporting-bugs" class="anchor">#</a></h2>
+        <p class="prose"><strong>Send Feedback…</strong> in the menu bar window's ⋯ menu is the quickest way (see <a href="#feedback">Feedback</a>). For a bug report with logs, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> with what happened, what you expected, and ideally what's in the <strong>Console.app</strong> logs filtered by <code>Audita</code>.</p>
     </section>
 
     <hr class="divider">
 
-    <!-- ─────── 18. Widgets ─────── -->
+    <!-- ─────── 19. Widgets ─────── -->
     <section class="guide-section" id="widgets">
-        <h2>18. Widgets (v1.3+) <a href="#widgets" class="anchor">#</a></h2>
+        <h2>19. Widgets (v1.3+) <a href="#widgets" class="anchor">#</a></h2>
 
         <p class="prose">Audita ships six desktop widgets so both sides of Audita are visible at a glance, without opening the app: how closely you are holding your monitoring level, and how much of your hearing budget the day has used. To add one, right-click the desktop (or open Notification Center and choose Edit Widgets) and find Audita. They run on macOS 14 (Sonoma) and later, and need Audita to have run at least once so it can publish its current state.</p>
 
