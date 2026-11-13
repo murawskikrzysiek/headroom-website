@@ -31,7 +31,7 @@
   // The Lemon Squeezy code must start and expire at the same instants.
   var START = Date.parse('2026-11-27T08:00:00Z');
   var END = Date.parse('2026-12-01T08:00:00Z');
-  var CODE = 'BF30';
+  var CODE = 'HEADROOMBF26';
 
   var SALE = { lyra: '$6.99', audita: '$13.99', specula: '$69.99' };
 
