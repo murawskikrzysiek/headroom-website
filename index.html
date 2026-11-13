@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="headroom.css?v=b596d917">
 
   <script type="application/ld+json">
   {
@@ -63,6 +63,19 @@
     <p class="home-hero__line">Three apps: Lyra for the monitor level, Audita for target monitoring and hearing dose, Specula for audio inspection, analysis, editing and delivery checks.</p>
   </header>
 
+  <!-- Black Friday 2026: shown by sale.js from 27 Nov to 30 Nov (Pacific). -->
+  <aside class="sale-hero" data-sale-show hidden aria-labelledby="sale-hero-h">
+    <p class="sale-hero__when">27 to 30 November</p>
+    <h2 id="sale-hero-h" class="display sale-hero__title">Black Friday: 30% off all three apps.</h2>
+    <p class="sale-hero__code">Code <code>HEADROOMBF26</code> at checkout, applied by the Buy button on each app's page. Ends at midnight Pacific time on 30 November.</p>
+    <ul class="sale-hero__apps">
+      <li><a href="lyra/"><img src="lyra/icon.png" alt=""><span class="sale-hero__name">Lyra</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$9.99</s> <span class="sr-only">Black Friday price </span>$6.99</span></a></li>
+      <li><a href="audita/"><img src="audita/icon.png" alt=""><span class="sale-hero__name">Audita</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$19.99</s> <span class="sr-only">Black Friday price </span>$13.99</span></a></li>
+      <li><a href="specula/"><img src="specula/icon.png" alt=""><span class="sale-hero__name">Specula</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$99.99</s> <span class="sr-only">Black Friday price </span>$69.99</span></a></li>
+    </ul>
+    <p class="sale-hero__omnibus">Lowest prices in the 30 days before this reduction: Lyra $9.99, Audita $19.99, Specula $99.99.</p>
+  </aside>
+
   <!-- The apps, one step each, beside a pinned stage that shows the app's
        own face: Lyra's HUD and Audita's pinned window drawn by
        instruments.js, Specula's delivery card as a screenshot. -->
@@ -75,7 +88,7 @@
       <a class="tile-app__iconlink" href="lyra/"><img class="tile-app__icon" src="lyra/icon.png" alt=""></a>
       <h2 id="tile-lyra-h"><a href="lyra/">Lyra</a> <span class="app-row__ver">1.9</span></h2>
       <p class="tile-app__line">Monitor volume for Universal Audio Apollo and Volt Gen 2 interfaces on the F-keys, with Shortcuts, Spotlight, widgets, a Focus Filter and a <code>lyra://</code> URL scheme behind them.</p>
-      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="lyra/">Details</a><span class="tile-app__price">$9.99, macOS 12 and later</span></p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="lyra/">Details</a><span class="tile-app__price"><span data-sale-price="lyra">$9.99</span>, macOS 12 and later</span></p>
     </div>
     <div class="tile-app__stage">
       <div class="hud-big">
@@ -97,7 +110,7 @@
       <a class="tile-app__iconlink" href="audita/"><img class="tile-app__icon" src="audita/icon.png" alt=""></a>
       <h2 id="tile-audita-h"><a href="audita/">Audita</a> <span class="app-row__ver">1.7</span></h2>
       <p class="tile-app__line">Target monitoring and hearing health, from the menu bar: the SPL at the listening position held against a calibrated target level, and how much of the day's safe exposure the day has used.</p>
-      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="audita/">Details</a><span class="tile-app__price">$19.99, macOS 14 and later</span></p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="audita/">Details</a><span class="tile-app__price"><span data-sale-price="audita">$19.99</span>, macOS 14 and later</span></p>
     </div>
     <div class="tile-app__stage">
       <div class="pin" data-pin data-state="rest" aria-live="polite"></div>
@@ -116,7 +129,7 @@
       <a class="tile-app__iconlink" href="specula/"><img class="tile-app__icon" src="specula/icon.png" alt=""></a>
       <h2 id="tile-specula-h"><a href="specula/">Specula</a> <span class="app-row__ver">2.0</span></h2>
       <p class="tile-app__line">Audio inspection, analysis and editing for macOS: loudness to ITU-R BS.1770-4 and speech-gated LUFS, spectral repair down to a squeak's overtones, compare, audiobook chapters, Audio Unit plugins, and the verdict against the platform the file is going to.</p>
-      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="specula/">Details</a><span class="tile-app__price">$99.99, macOS 14 and later</span></p>
+      <p class="tile-app__actions"><a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.1.dmg"><span>↓</span>Download free trial</a><a class="btn btn-learn" href="specula/">Details</a><span class="tile-app__price"><span data-sale-price="specula">$99.99</span>, macOS 14 and later</span></p>
     </div>
     <div class="tile-app__stage">
       <div class="slides slides--wide" data-slides data-loop data-every="4200" aria-label="Specula, a few captures in turn">
@@ -148,19 +161,19 @@
         <img src="lyra/icon.png" alt="">
         <h3>Lyra <span class="app-row__ver">1.9</span></h3>
         <p>Monitor volume on Universal Audio Apollo and Volt from the F-keys, Reference Levels recalled to a measured dB SPL, and the UA apps started and quit with the interface.</p>
-        <p class="apps-summary__meta"><span class="app-row__price">$9.99</span><span>macOS 12 and later</span></p>
+        <p class="apps-summary__meta"><span class="app-row__price" data-sale-price="lyra">$9.99</span><span>macOS 12 and later</span></p>
       </a>
       <a class="apps-summary__app" href="audita/">
         <img src="audita/icon.png" alt="">
         <h3>Audita <span class="app-row__ver">1.7</span></h3>
         <p>Target monitoring and hearing health: the SPL at the listening position held against a calibrated target level, and the day's hearing dose by the NIOSH method.</p>
-        <p class="apps-summary__meta"><span class="app-row__price">$19.99</span><span>macOS 14 and later</span></p>
+        <p class="apps-summary__meta"><span class="app-row__price" data-sale-price="audita">$19.99</span><span>macOS 14 and later</span></p>
       </a>
       <a class="apps-summary__app" href="specula/">
         <img src="specula/icon.png" alt="">
         <h3>Specula <span class="app-row__ver">2.0</span></h3>
         <p>Audio inspection, analysis and editing: loudness and true peak against the platform the file is going to, spectral repair, six-version compare, audiobook chapters, speech, Audio Unit plugins and recording.</p>
-        <p class="apps-summary__meta"><span class="app-row__price">$99.99</span><span>macOS 14 and later</span></p>
+        <p class="apps-summary__meta"><span class="app-row__price" data-sale-price="specula">$99.99</span><span>macOS 14 and later</span></p>
       </a>
     </div>
   </section>
@@ -384,6 +397,7 @@
 <script src="newsletter.js?v=ec214c34"></script>
 <script src="activity-feed.js?v=3b378b70"></script>
 <script src="instruments.js?v=980bf1ff"></script>
+<script src="sale.js?v=acf18750"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

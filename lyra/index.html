@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="../headroom.css?v=b596d917">
 
   <script type="application/ld+json">
   {
@@ -74,9 +74,11 @@
       </p>
       <div class="app-hero__cta">
         <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Lyra-1.9.1.dmg"><span>↓</span>Download free trial</a>
-        <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1">Buy - $9.99</a>
+        <a class="btn btn-outline" data-sale-buy href="https://headroomstudio.lemonsqueezy.com/checkout/buy/be5f88d4-22df-4db1-9cac-de91d9ca236b?embed=1">Buy - <span data-sale-price="lyra">$9.99</span></a>
         <span class="app-hero__meta">7-day trial, one-time purchase, macOS 12 and later</span>
       </div>
+      <!-- Black Friday 2026: shown by sale.js from 27 Nov to 30 Nov (Pacific). -->
+      <p class="app-hero__meta sale-note" data-sale-show hidden>Black Friday: 30% off until midnight Pacific time on 30 November, $6.99 with code HEADROOMBF26, applied by the Buy button. Lowest price in the 30 days before this reduction: $9.99.</p>
       <div class="app-hero__doclinks">
         <a href="guide.html" class="primary">User guide</a>
         <a href="faq.html">FAQ</a>
@@ -376,6 +378,7 @@
 <script src="../activity-feed.js?v=3b378b70"></script>
 <script src="../instruments.js?v=980bf1ff"></script>
 <script src="../lightbox.js?v=90e23791"></script>
+<script src="../sale.js?v=acf18750"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
