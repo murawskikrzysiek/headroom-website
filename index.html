@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="headroom.css?v=99a85384">
+  <link rel="stylesheet" href="headroom.css?v=b596d917">
 
   <script type="application/ld+json">
   {
@@ -64,9 +64,16 @@
   </header>
 
   <!-- Black Friday 2026: shown by sale.js from 27 Nov to 30 Nov (Pacific). -->
-  <aside class="callout callout--stack sale-banner" data-sale-show hidden aria-label="Black Friday sale">
-    <p><strong>Black Friday, 27 to 30 November.</strong> Lyra, Audita and Specula are 30% off: Lyra $6.99, Audita $13.99, Specula $69.99, until midnight Pacific time on 30 November. Code HEADROOMBF26 at checkout; the Buy button on each app's page applies it.</p>
-    <p>Lowest prices in the 30 days before this reduction: Lyra $9.99, Audita $19.99, Specula $99.99.</p>
+  <aside class="sale-hero" data-sale-show hidden aria-labelledby="sale-hero-h">
+    <p class="sale-hero__when">27 to 30 November</p>
+    <h2 id="sale-hero-h" class="display sale-hero__title">Black Friday: 30% off all three apps.</h2>
+    <p class="sale-hero__code">Code <code>HEADROOMBF26</code> at checkout, applied by the Buy button on each app's page. Ends at midnight Pacific time on 30 November.</p>
+    <ul class="sale-hero__apps">
+      <li><a href="lyra/"><img src="lyra/icon.png" alt=""><span class="sale-hero__name">Lyra</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$9.99</s> <span class="sr-only">Black Friday price </span>$6.99</span></a></li>
+      <li><a href="audita/"><img src="audita/icon.png" alt=""><span class="sale-hero__name">Audita</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$19.99</s> <span class="sr-only">Black Friday price </span>$13.99</span></a></li>
+      <li><a href="specula/"><img src="specula/icon.png" alt=""><span class="sale-hero__name">Specula</span><span class="sale-hero__price"><span class="sr-only">Regular price </span><s>$99.99</s> <span class="sr-only">Black Friday price </span>$69.99</span></a></li>
+    </ul>
+    <p class="sale-hero__omnibus">Lowest prices in the 30 days before this reduction: Lyra $9.99, Audita $19.99, Specula $99.99.</p>
   </aside>
 
   <!-- The apps, one step each, beside a pinned stage that shows the app's
