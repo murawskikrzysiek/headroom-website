@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+    <link rel="stylesheet" href="../headroom.css?v=99a85384">
 
     <script type="application/ld+json">
     {
@@ -69,9 +69,11 @@
             </p>
             <div class="app-hero__cta">
                 <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Specula-2.0.1.dmg"><span>↓</span>Download free trial</a>
-                <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/f8ee8e8b-ea3a-4dca-bf7c-b90c30c96ade?embed=1">Buy $99.99</a>
+                <a class="btn btn-outline" data-sale-buy href="https://headroomstudio.lemonsqueezy.com/checkout/buy/f8ee8e8b-ea3a-4dca-bf7c-b90c30c96ade?embed=1">Buy <span data-sale-price="specula">$99.99</span></a>
             </div>
             <p class="app-hero__meta" style="margin-top:14px;">7-day trial, one-time purchase, free update for every 1.x license, macOS 14 and later</p>
+            <!-- Black Friday 2026: shown by sale.js from 27 Nov to 30 Nov (Pacific). -->
+            <p class="app-hero__meta sale-note" data-sale-show hidden>Black Friday: 30% off until midnight Pacific time on 30 November, $69.99 with code BF30, applied by the Buy button. Lowest price in the 30 days before this reduction: $99.99.</p>
             <div class="app-hero__doclinks">
                 <a href="guide.html" class="primary">User guide</a>
                 <a href="faq.html">FAQ</a>
@@ -690,5 +692,6 @@
 <script src="verdict-demo-data.js?v=35373354"></script>
 <script src="verdict-demo.js?v=1520982f"></script>
 <script src="task-strip.js?v=dd3cf5a9"></script>
+<script src="../sale.js?v=9e8d4369"></script>
 </body>
 </html>

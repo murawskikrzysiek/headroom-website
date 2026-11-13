@@ -20,7 +20,7 @@
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../headroom.css?v=e67a5e09">
+  <link rel="stylesheet" href="../headroom.css?v=99a85384">
 
   <script type="application/ld+json">
   {
@@ -74,11 +74,13 @@
       </p>
       <div class="app-hero__cta">
         <a class="btn btn-primary" href="https://releases.headroomstudio.dev/Audita-1.7.1.dmg"><span>↓</span>Download free trial</a>
-        <a class="btn btn-outline" href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1">Buy - $19.99</a>
+        <a class="btn btn-outline" data-sale-buy href="https://headroomstudio.lemonsqueezy.com/checkout/buy/209e0fb0-f09e-4a46-9b44-19161d81a4df?embed=1">Buy - <span data-sale-price="audita">$19.99</span></a>
       </div>
       <p class="app-hero__meta" style="margin-top:14px; max-width:540px; line-height:1.55;">
-        $19.99, 7-day free trial, one-time purchase, macOS 14 and later.
+        <span data-sale-price="audita">$19.99</span>, 7-day free trial, one-time purchase, macOS 14 and later.
       </p>
+      <!-- Black Friday 2026: shown by sale.js from 27 Nov to 30 Nov (Pacific). -->
+      <p class="app-hero__meta sale-note" data-sale-show hidden>Black Friday: 30% off until midnight Pacific time on 30 November, $13.99 with code BF30, applied by the Buy button. Lowest price in the 30 days before this reduction: $19.99.</p>
       <div class="app-hero__doclinks">
         <a href="guide.html" class="primary">User guide</a>
         <a href="faq.html">FAQ</a>
@@ -414,6 +416,7 @@
 <script src="../activity-feed.js?v=3b378b70"></script>
 <script src="../instruments.js?v=980bf1ff"></script>
 <script src="../lightbox.js?v=90e23791"></script>
+<script src="../sale.js?v=9e8d4369"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

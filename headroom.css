@@ -639,6 +639,17 @@ figure.shot--mid    { max-width: 640px; margin-inline: auto; }
 /* A heading line over its text, where the plain callout sets an icon beside it. */
 .callout--stack { flex-direction: column; gap: 0; }
 
+/* A time-boxed sale (sale.js). The notices ship hidden and the script shows
+   them inside the sale window; the regular price is struck through beside
+   the sale price. */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+[data-sale-show][hidden] { display: none; }
+s.sale-was { text-decoration: line-through; color: var(--text-3); font-weight: 500; margin-right: 2px; }
+.sale-banner { margin: 0 0 40px; max-width: none; border-left-color: var(--accent); }
+.sale-banner p + p { margin-top: 6px; color: var(--text-3); }
+.sale-note { margin-top: 12px; max-width: 540px; line-height: 1.55; }
+
 /* Before and after slider (specula/repair.html + specula/before-after.js).
    Two captures of the same view stacked in one frame; a transparent range
    input over them sets --ba, which clips the after image and places the
