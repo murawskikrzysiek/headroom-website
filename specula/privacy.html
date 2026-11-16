@@ -88,7 +88,8 @@
 
   <section class="priv-section">
     <h2>License activation and validation</h2>
-    <p>When you activate a license, or when Specula validates it on launch, the app contacts Lemon Squeezy's licensing API at <code>api.lemonsqueezy.com</code>. The only data sent is your license key and a per-device instance ID generated for the activation. No audio, no file contents, and no personal data are transmitted. Your audio never leaves your Mac. During the trial, before any license is entered, the app makes no such calls.</p>
+    <p>When you activate a license, or when Specula validates it on launch, the app contacts Headroom's license server at <code>licenses.headroomstudio.dev</code>, a Cloudflare Worker run by Headroom Studio. An activation sends the license key, the name of this Mac and the app's name; a validation sends the license key, the activation ID made for this Mac and the app's name. No audio and no file contents are transmitted. Your audio never leaves your Mac. Specula 2.0.1 and earlier send the same data to Lemon Squeezy's licensing API at <code>api.lemonsqueezy.com</code> instead. During the trial, before any license is entered, the app makes no such calls.</p>
+    <p>For each license the server keeps the key, the app it is for, the buyer's email address and name from the purchase, and for each Mac it is activated on: the Mac's name, when it was activated and when it last checked the license. A short history of activations and changes to the license is kept with it. These records are used to check licenses, to hold the number of Macs per key, and to answer support requests such as a lost key. They are stored in a Cloudflare database and kept while the license exists. The IP address of a request is used only for a limit on requests per minute and is never stored. To see or delete your record, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
   </section>
 
   <section class="priv-section">
@@ -108,6 +109,7 @@
   <section class="priv-section">
     <h2>Purchases</h2>
     <p>When you purchase Specula, payment is processed by an external payment provider. That provider's privacy policy applies to the transaction. Headroom does not receive or store your payment details.</p>
+    <p>Headroom's license server receives the license key, email address and name from each purchase. The Buy button in Specula 2.0.2 and later opens <code>licenses.headroomstudio.dev/buy/specula</code>, which sends the browser on to the checkout page and records nothing.</p>
   </section>
 
   <section class="priv-section">

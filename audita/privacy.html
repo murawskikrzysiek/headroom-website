@@ -59,7 +59,7 @@
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>No personal data, unless you leave an email address with feedback (see Feedback form). Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded. Update checks carry your copy's license state, described under Auto-update checks.</p>
+    <p>The app collects no personal data, unless you leave an email address with feedback (see Feedback form). If you buy a license, Headroom's license server keeps the email address and name from the purchase and the names of the Macs the license is activated on (see License validation). Session history, calibrations, dose figures, and preferences are stored locally on your Mac and are never uploaded. Update checks carry your copy's license state, described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -86,12 +86,14 @@
 
   <section class="priv-section">
     <h2>License validation</h2>
-    <p>When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server, it continues to run normally.</p>
+    <p>When you activate a license key, and when the app checks it later, Audita contacts Headroom's license server at <code>licenses.headroomstudio.dev</code>, a Cloudflare Worker run by Headroom Studio. An activation sends the license key, the name of this Mac and the app's name; a later check sends the license key, the activation ID made for this Mac and the app's name. Audita 1.7.1 and earlier send the same data to the <strong>Lemon Squeezy</strong> licensing API instead. If the server cannot be reached, Audita keeps running normally.</p>
+    <p>For each license the server keeps the key, the app it is for, the buyer's email address and name from the purchase, and for each Mac it is activated on: the Mac's name, when it was activated and when it last checked the license. A short history of activations and changes to the license is kept with it. These records are used to check licenses, to hold the number of Macs per key, and to answer support requests such as a lost key. They are stored in a Cloudflare database and kept while the license exists. The IP address of a request is used only for a limit on requests per minute and is never stored.</p>
   </section>
 
   <section class="priv-section">
     <h2>Purchases</h2>
     <p>Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider, whose privacy policy applies to the transaction. Headroom does not receive or store your payment details. See <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
+    <p>Headroom's license server receives the license key, email address and name from each purchase. The Buy button in Audita 1.7.2 and later opens <code>licenses.headroomstudio.dev/buy/audita</code>, which sends the browser on to the checkout page and records nothing.</p>
   </section>
 
   <section class="priv-section">
@@ -125,7 +127,7 @@
 
   <section class="priv-section">
     <h2>Your data rights</h2>
-    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info) and, if you left one with feedback, your email address. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
+    <p>If you're an EU or UK resident, you have GDPR rights to access, rectify, port, or delete personal data we hold. In practice, Audita holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info), Headroom's license record (email address, name and the names of the Macs your license is activated on) and, if you left one with feedback, your email address. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a>.</p>
   </section>
 
   <section class="priv-section">
