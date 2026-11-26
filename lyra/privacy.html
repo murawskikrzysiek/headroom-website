@@ -52,12 +52,12 @@
 
   <section class="priv-section">
     <h2>Overview</h2>
-    <p>Lyra is a local macOS utility. The app itself does not collect, transmit, or store personal data. There are no in-app analytics and no crash reporting. The app does reach the network for license validation, auto-update checks (which are also counted, without personal data), the URL handoff to Audita, and feedback you choose to send; each is described below.</p>
+    <p>Lyra is a local macOS utility. The app itself does not collect or store personal data. There are no in-app analytics and no crash reporting. The app does reach the network for license validation, auto-update checks (which are also counted, without personal data), the URL handoff to Audita, and feedback you choose to send; each is described below.</p>
   </section>
 
   <section class="priv-section">
     <h2>Data collected</h2>
-    <p>No personal data, unless you leave an email address with feedback (see Feedback form). Settings and reference levels stay on your Mac. Update checks are counted anonymously, as described under Auto-update checks.</p>
+    <p>The app collects no personal data, unless you leave an email address with feedback (see Feedback form). If you buy a license, Headroom's license server keeps the email address and name from the purchase and the names of the Macs the license is activated on (see License validation). Settings and reference levels stay on your Mac. Update checks are counted anonymously, as described under Auto-update checks.</p>
   </section>
 
   <section class="priv-section">
@@ -72,12 +72,14 @@
 
   <section class="priv-section">
     <h2>License validation</h2>
-    <p>When you activate or validate a license key, the app contacts the <strong>Lemon Squeezy</strong> licensing API to verify your key. Only your license key and a machine name are sent. No personal data is transmitted beyond what is required for activation. If the app cannot reach the server (e.g. you're offline), it grants the benefit of the doubt and continues to run normally.</p>
+    <p>When you activate a license key, and when the app checks it later, Lyra contacts Headroom's license server at <code>licenses.headroomstudio.dev</code>, a Cloudflare Worker run by Headroom Studio. An activation sends the license key, the name of this Mac and the app's name; a later check sends the license key, the activation ID made for this Mac and the app's name. Lyra 1.9.1 and earlier send the same data to the <strong>Lemon Squeezy</strong> licensing API instead. If the server cannot be reached (for example, you're offline), Lyra keeps running normally.</p>
+    <p>For each license the server keeps the key, the app it is for, the buyer's email address and name from the purchase, and for each Mac it is activated on: the Mac's name, when it was activated and when it last checked the license. A short history of activations and changes to the license is kept with it. These records are used to check licenses, to hold the number of Macs per key, and to answer support requests such as a lost key. They are stored in a Cloudflare database and kept while the license exists. The IP address of a request is used only for a limit on requests per minute and is never stored.</p>
   </section>
 
   <section class="priv-section">
     <h2>Purchases</h2>
     <p>Payments are processed by <strong>Lemon Squeezy</strong>, an external payment provider. When you purchase the app, Lemon Squeezy's privacy policy applies to the transaction. Headroom does not receive or store your payment details. You can review Lemon Squeezy's privacy policy at <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">lemonsqueezy.com/privacy</a>.</p>
+    <p>Headroom's license server receives the license key, email address and name from each purchase. The Buy button in Lyra 1.9.2 and later opens <code>licenses.headroomstudio.dev/buy/lyra</code>, which sends the browser on to the checkout page and records nothing.</p>
   </section>
 
   <section class="priv-section">
@@ -111,7 +113,7 @@
 
   <section class="priv-section">
     <h2>Your data rights</h2>
-    <p>If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info), what MailerLite holds (email address) if you've subscribed, and your email address if you left one with feedback. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
+    <p>If you're an EU or UK resident, you have rights under GDPR to access, rectify, port, or delete personal data we hold about you. In practice, Lyra holds no personal data on its own. The only personal data linked to you anywhere is what Lemon Squeezy receives at checkout (email address, billing info), Headroom's license record (email address, name and the names of the Macs your license is activated on), what MailerLite holds (email address) if you've subscribed, and your email address if you left one with feedback. To exercise any of these rights, email <a href="mailto:hello@headroomstudio.dev">hello@headroomstudio.dev</a> and we'll route the request to the relevant sub-processor.</p>
   </section>
 
   <section class="priv-section">
